@@ -43,4 +43,5 @@
             </div>
         </div>
     </body>
+    @yield('js-scripts')
 </html>
