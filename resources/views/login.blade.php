@@ -13,7 +13,8 @@
         <button class="btn btn-primary" type="submit" style="font-size: 14px">Ingresar</button>
     </div>
 
-    <div class="separator">       
+    <div class="separator">
+        
 
         <div class="clearfix"></div>
         <br />
