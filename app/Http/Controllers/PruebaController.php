@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 class pruebaController extends Controller {
 
     public function index() {
-       return view('pruebaLayout');
+       return view('pruebaLayout')
+       ->with('variable1',1);
     }
 
 }
