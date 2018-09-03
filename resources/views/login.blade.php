@@ -1,4 +1,4 @@
-@extends('Layouts.layoutlogin')
+@extends('Layouts.layoutLogin')
 @section('pageTitle', 'Login')
 @section('content')
 <img src="img/barney.gif" border="0" alt="barney" style="position: relative;
