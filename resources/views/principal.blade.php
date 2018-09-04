@@ -26,7 +26,8 @@
             <div class="progress">
               <div class="progress-bar progress-bar-striped active" role="progressbar"
               aria-valuenow="{{number_format($curso['AVANCE']/$curso['TOTAL']*100,0,'.',',')}}" aria-valuemin="0" aria-valuemax="100" style="width:{{number_format($curso['AVANCE']/$curso['TOTAL']*100,0,'.',',')}}%">
-                {{number_format($curso['AVANCE']/$curso['TOTAL']*100,0,'.',',')}}%
+                <!--{{number_format($curso['AVANCE']/$curso['TOTAL']*100,0,'.',',')}}%-->
+                {{$curso['AVANCE']}}/{{$curso['TOTAL']}}
               </div>
             </div>
           </td>
@@ -116,8 +117,7 @@
 <br>
 <br>
 <br>
-
-
-          
 @stop
 
+@section('js-scripts')
+@stop

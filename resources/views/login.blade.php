@@ -1,10 +1,8 @@
 @extends('Layouts.layoutLogin')
 @section('pageTitle', 'Login')
 @section('content')
-<img src="img/barney.gif" border="0" alt="barney" style="position: relative;
- right: 80px;">  
 <form method="GET" action="{{route('prueba')}}" >
-    <h1>theBroCode</h1>
+    <h1>SAI PUCP</h1>
     <div class="form-group">
         <input  class="form-control" placeholder="Username" type="text" required="" >
         <input class="form-control" placeholder="Password" type="password" required="">
