@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="img/barney.jpg">
-        <title>@yield('pageTitle') - theBroCode</title>
+        <link rel="icon" href="img/pucp.png">
+        <title>@yield('pageTitle') - saiPUCP</title>
 
         <!-- CSS-->
       <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
