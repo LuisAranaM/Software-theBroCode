@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +39,8 @@ class pruebaController extends Controller {
     	//dd($cursos);
         return view('principal')
         	->with('cursos',$cursos)
-       		->with('nombreUsuario',"Luis Flores");
+       		->with('nombreUsuario',"Luis Flores")
+            ->with('nombreSistema','NINJA SYSTEM');
     }
 
 }

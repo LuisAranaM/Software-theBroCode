@@ -2,7 +2,7 @@
 @section('pageTitle', 'Login')
 @section('content')
 <form method="GET" action="{{route('prueba')}}" >
-    <h1>SAI PUCP</h1>
+    <h1>{{$nombreSistema}}</h1>
     <div class="form-group">
         <input  class="form-control" placeholder="Username" type="text" required="" >
         <input class="form-control" placeholder="Password" type="password" required="">

@@ -120,4 +120,5 @@
 @stop
 
 @section('js-scripts')
+
 @stop

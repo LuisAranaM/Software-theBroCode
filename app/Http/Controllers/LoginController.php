@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller {
 
     public function index() {
-       return view('login');
+       return view('login')
+       		->with('nombreSistema','NINJA SYSTEM');
     }
 
     function logout(Request $request){

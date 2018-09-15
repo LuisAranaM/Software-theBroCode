@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="img/pucp.png">       
 
-  <title>@yield('pageTitle') - saiPUCP</title>
+  <title>@yield('pageTitle') - {{$nombreSistema}}</title>
  
   <!-- CSS-->
   <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
@@ -40,7 +40,7 @@
       <div class="col-md-3 left_col">
                   <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="" class="site_title"><i class="fa fa-desktop"></i> <span>SAI PUCP</span></a>
+              <a href="" class="site_title"><i class="fa fa-desktop"></i> <span>{{$nombreSistema}}</span></a>
             </div>
 
             <div class="clearfix"></div>

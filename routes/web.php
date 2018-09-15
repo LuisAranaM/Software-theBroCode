@@ -16,14 +16,12 @@ Route::get('/welcome', function () {
 
 /*LOGIN*/
 Route::get('/', function () {
-    return view('login');
+    return view('login')
+    	->with('nombreSistema','NINJA SYSTEM');
 });
 
 Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 Route::get('/login', ['as' => 'login.index', 'uses' => 'LoginController@index']);
 
 Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
-
-
-
 
