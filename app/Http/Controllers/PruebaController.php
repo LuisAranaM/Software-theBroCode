@@ -10,7 +10,7 @@ class pruebaController extends Controller {
 
     public function index() {
 
-        //Prueba::getPrueba();
+        Prueba::getPrueba();
     	$cursos=[];
     	$curso1=array();
     	$curso1=[
