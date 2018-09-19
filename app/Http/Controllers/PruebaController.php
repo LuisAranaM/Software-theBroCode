@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Entity\PruebaEntity as Prueba;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -8,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 class pruebaController extends Controller {
 
     public function index() {
+
+        //Prueba::getPrueba();
     	$cursos=[];
     	$curso1=array();
     	$curso1=[
