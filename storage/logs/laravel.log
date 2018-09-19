@@ -1,4 +1,0 @@
-asdlkajsdlkas[2018-09-19 22:12:01] local.ERROR: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
- (SQL: select * from `prueba` as `PRUEBA`)  
-[2018-09-19 22:12:04] local.ERROR: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
- (SQL: select * from `prueba` as `PRUEBA`)  
