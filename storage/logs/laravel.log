@@ -1026,3 +1026,313 @@
 #54 D:\\xampp\\htdocs\\theBroCode\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #55 {main}
 "} 
+[2018-09-19 04:17:44] local.ERROR: The /var/www/html/theBroCode/bootstrap/cache directory must be present and writable. {"exception":"[object] (Exception(code: 0): The /var/www/html/theBroCode/bootstrap/cache directory must be present and writable. at /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php:167)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(127): Illuminate\\Foundation\\PackageManifest->write(Array)
+#1 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(97): Illuminate\\Foundation\\PackageManifest->build()
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(80): Illuminate\\Foundation\\PackageManifest->getManifest()
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(206): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap(Object(Illuminate\\Foundation\\Application))
+#5 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(162): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(146): Illuminate\\Foundation\\Http\\Kernel->bootstrap()
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:17:44] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Exception))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Exception))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Exception))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(326): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Exception))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(120): Illuminate\\Foundation\\Http\\Kernel->renderException(Object(Illuminate\\Http\\Request), Object(Exception))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:17:44] local.ERROR: Exception thrown without a stack frame {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 16): Exception thrown without a stack frame at Unknown:0)
+[stacktrace]
+#0 {main}
+"} 
+[2018-09-19 04:17:45] local.ERROR: The /var/www/html/theBroCode/bootstrap/cache directory must be present and writable. {"exception":"[object] (Exception(code: 0): The /var/www/html/theBroCode/bootstrap/cache directory must be present and writable. at /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php:167)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(127): Illuminate\\Foundation\\PackageManifest->write(Array)
+#1 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(97): Illuminate\\Foundation\\PackageManifest->build()
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(80): Illuminate\\Foundation\\PackageManifest->getManifest()
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(206): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap(Object(Illuminate\\Foundation\\Application))
+#5 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(162): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(146): Illuminate\\Foundation\\Http\\Kernel->bootstrap()
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:17:45] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Exception))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Exception))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Exception))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(326): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Exception))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(120): Illuminate\\Foundation\\Http\\Kernel->renderException(Object(Illuminate\\Http\\Request), Object(Exception))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:17:45] local.ERROR: Exception thrown without a stack frame {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 16): Exception thrown without a stack frame at Unknown:0)
+[stacktrace]
+#0 {main}
+"} 
+[2018-09-19 04:17:47] local.ERROR: The /var/www/html/theBroCode/bootstrap/cache directory must be present and writable. {"exception":"[object] (Exception(code: 0): The /var/www/html/theBroCode/bootstrap/cache directory must be present and writable. at /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php:167)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(127): Illuminate\\Foundation\\PackageManifest->write(Array)
+#1 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(97): Illuminate\\Foundation\\PackageManifest->build()
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(80): Illuminate\\Foundation\\PackageManifest->getManifest()
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(206): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap(Object(Illuminate\\Foundation\\Application))
+#5 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(162): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(146): Illuminate\\Foundation\\Http\\Kernel->bootstrap()
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:17:47] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Exception))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Exception))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Exception))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(326): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Exception))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(120): Illuminate\\Foundation\\Http\\Kernel->renderException(Object(Illuminate\\Http\\Request), Object(Exception))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:17:47] local.ERROR: Exception thrown without a stack frame {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 16): Exception thrown without a stack frame at Unknown:0)
+[stacktrace]
+#0 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?', expecting variable (T_VARIABLE) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?', expecting variable (T_VARIABLE) at /var/www/html/theBroCode/vendor/symfony/routing/Route.php:53)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/RouteCompiler.php(39): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Route.php(284): Illuminate\\Routing\\RouteCompiler->compile()
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Route.php(261): Illuminate\\Routing\\Route->compileRoute()
+#5 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/RouteCollection.php(197): Illuminate\\Routing\\Route->matches(Object(Illuminate\\Http\\Request), true)
+#6 [internal function]: Illuminate\\Routing\\RouteCollection->Illuminate\\Routing\\{closure}(Object(Illuminate\\Routing\\Route), 'api/user')
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Support/Arr.php(175): call_user_func(Object(Closure), Object(Illuminate\\Routing\\Route), 'api/user')
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Support/Collection.php(657): Illuminate\\Support\\Arr::first(Array, Object(Closure), NULL)
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/RouteCollection.php(198): Illuminate\\Support\\Collection->first(Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/RouteCollection.php(164): Illuminate\\Routing\\RouteCollection->matchAgainstRoutes(Object(Illuminate\\Support\\Collection), Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Router.php(619): Illuminate\\Routing\\RouteCollection->match(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Router.php(608): Illuminate\\Routing\\Router->findRoute(Object(Illuminate\\Http\\Request))
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Router.php(597): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#14 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#16 /var/www/html/theBroCode/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#23 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#33 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#34 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#35 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(83): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(34): Illuminate\\Routing\\Pipeline->handleException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#19 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#21 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#25 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#27 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(83): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(57): Illuminate\\Routing\\Pipeline->handleException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#19 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#21 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#22 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#23 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#24 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(83): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(57): Illuminate\\Routing\\Pipeline->handleException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(31): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#19 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#20 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#21 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(83): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(57): Illuminate\\Routing\\Pipeline->handleException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#16 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#18 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(83): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(57): Illuminate\\Routing\\Pipeline->handleException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(151): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#14 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#15 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(83): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(57): Illuminate\\Routing\\Pipeline->handleException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#11 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#12 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: syntax error, unexpected '?' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '?' at /var/www/html/theBroCode/vendor/symfony/http-foundation/Response.php:501)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(300): spl_autoload_call('Symfony\\\\Compone...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(280): Illuminate\\Foundation\\Exceptions\\Handler->convertExceptionToResponse(Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#5 /var/www/html/theBroCode/app/Exceptions/Handler.php(49): Illuminate\\Foundation\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(326): App\\Exceptions\\Handler->render(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(124): Illuminate\\Foundation\\Http\\Kernel->renderException(Object(Illuminate\\Http\\Request), Object(Symfony\\Component\\Debug\\Exception\\FatalThrowableError))
+#8 /var/www/html/theBroCode/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 
+[2018-09-19 04:18:17] local.ERROR: Exception thrown without a stack frame {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 16): Exception thrown without a stack frame at Unknown:0)
+[stacktrace]
+#0 {main}
+"} 
+[2018-09-19 17:02:56] local.ERROR: syntax error, unexpected '=' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '=' at /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateMakeCommand.php:87)
+[stacktrace]
+#0 /var/www/html/theBroCode/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/t...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Data...')
+#2 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Providers/ArtisanServiceProvider.php(518): spl_autoload_call('Illuminate\\\\Data...')
+#3 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Container/Container.php(764): Illuminate\\Foundation\\Providers\\ArtisanServiceProvider->Illuminate\\Foundation\\Providers\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#4 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Container/Container.php(646): Illuminate\\Container\\Container->build(Object(Closure))
+#5 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Container/Container.php(601): Illuminate\\Container\\Container->resolve('command.migrate...', Array)
+#6 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(734): Illuminate\\Container\\Container->make('command.migrate...', Array)
+#7 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Console/Application.php(241): Illuminate\\Foundation\\Application->make('command.migrate...')
+#8 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Console/Application.php(255): Illuminate\\Console\\Application->resolve('command.migrate...')
+#9 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(267): Illuminate\\Console\\Application->resolveCommands(Array)
+#10 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Console/Application.php(148): Illuminate\\Support\\ServiceProvider->Illuminate\\Support\\{closure}(Object(Illuminate\\Console\\Application))
+#11 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Console/Application.php(71): Illuminate\\Console\\Application->bootstrap()
+#12 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(317): Illuminate\\Console\\Application->__construct(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Events\\Dispatcher), '5.6.34')
+#13 /var/www/html/theBroCode/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(122): Illuminate\\Foundation\\Console\\Kernel->getArtisan()
+#14 /var/www/html/theBroCode/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 {main}
+"} 
+[2018-09-19 17:02:56] local.ERROR: Declaration of NunoMaduro\Collision\Writer::write(Whoops\Exception\Inspector $inspector): NunoMaduro\Collision\void must be compatible with NunoMaduro\Collision\Contracts\Writer::write(Whoops\Exception\Inspector $inspector): NunoMaduro\Collision\Contracts\void {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of NunoMaduro\\Collision\\Writer::write(Whoops\\Exception\\Inspector $inspector): NunoMaduro\\Collision\\void must be compatible with NunoMaduro\\Collision\\Contracts\\Writer::write(Whoops\\Exception\\Inspector $inspector): NunoMaduro\\Collision\\Contracts\\void at /var/www/html/theBroCode/vendor/nunomaduro/collision/src/Writer.php:27)
+[stacktrace]
+#0 {main}
+"} 
