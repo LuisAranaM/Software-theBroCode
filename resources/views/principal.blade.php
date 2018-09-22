@@ -7,8 +7,11 @@
     height: 200px;width: 80%;margin-left: 50px;
   }
 </style>
+
 <div class="row tile_count" style="margin-top: 100px;">
-  <table class="table table-striped jambo_table" style="width: 700px;margin-left: 220px;">
+  <div class="col-md-1 col-sm-1 col-xs-1"></div>
+  <div class="col-md-10 col-sm-10 col-xs-10">
+  <table class="table table-striped jambo_table">
     <thead>
         <tr class="headings">
             <th style="text-align: center;">Código</th>
@@ -36,6 +39,8 @@
       @endforeach             
     </tbody>
   </table>
+  </div>
+  <div class="col-md-1 col-sm-1 col-xs-1"></div>
 </div>
           <!-- /top tiles -->
 
