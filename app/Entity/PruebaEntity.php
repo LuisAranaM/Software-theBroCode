@@ -10,7 +10,7 @@ class PruebaEntity extends \App\Entity\Base\Entity {
 
     static function getPrueba() {
         $model = new mPrueba();
-        return mPrueba::getPrueba();
+        return mPrueba::getPrueba()->get();
     }
 
     

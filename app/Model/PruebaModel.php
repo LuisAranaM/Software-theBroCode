@@ -11,7 +11,7 @@ class PruebaModel extends Model {
     static function getPrueba() {
         $sql = DB::table('prueba as PRUEBA')
                 ->select();
-        dd($sql->get());
+        //dd($sql->get());
         return $sql;
     }
 

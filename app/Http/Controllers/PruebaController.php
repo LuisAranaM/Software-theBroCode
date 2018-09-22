@@ -10,7 +10,7 @@ class pruebaController extends Controller {
 
     public function index() {
 
-        //Prueba::getPrueba();
+        
     	$cursos=[];
     	$curso1=array();
     	$curso1=[
@@ -39,10 +39,11 @@ class pruebaController extends Controller {
     	$cursos[0]=$curso1;
     	$cursos[1]=$curso2;
     	$cursos[2]=$curso3;
-    	//dd($cursos);
+    	
         return view('principal')
         	->with('cursos',$cursos)
-       		->with('nombreUsuario',"Luis Flores")
+            ->with('nombreUsuario',"Luis Flores")
+       		//->with('prueba',Prueba::getPrueba())
             ->with('nombreSistema','NINJA SYSTEM');
     }
 
