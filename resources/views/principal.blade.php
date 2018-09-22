@@ -42,7 +42,7 @@
   </div>
   <div class="col-md-1 col-sm-1 col-xs-1"></div>
 </div>
-          <!-- /top tiles -->
+<!-- /top tiles -->
 
 <div class="row">
 
