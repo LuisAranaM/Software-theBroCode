@@ -43,7 +43,7 @@ class pruebaController extends Controller {
         return view('principal')
         	->with('cursos',$cursos)
             ->with('nombreUsuario',"Luis Flores")
-       		//->with('prueba',Prueba::getPrueba())
+       		->with('prueba',Prueba::getPrueba())
             ->with('nombreSistema','NINJA SYSTEM');
     }
 

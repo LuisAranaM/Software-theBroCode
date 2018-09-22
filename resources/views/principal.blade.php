@@ -119,10 +119,15 @@
   </div>
 </div>
   
+@foreach($prueba as $p)
+  {{$p->name}}<br>
+@endforeach
 <br>
 <br>
 <br>
 <br>
+
+
 @stop
 
 @section('js-scripts')
