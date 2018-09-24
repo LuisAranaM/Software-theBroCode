@@ -5,17 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <link rel="icon" href="img/pucp.png">       
+  <link rel="icon" href="{{ URL::asset('img/pucp.png') }}">       
+  <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
 
   <title>@yield('pageTitle') - {{$nombreSistema}}</title>
- 
+
   <!-- CSS-->
   <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/custom/custom.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/custom/broCode.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ URL::asset('css/custom/custom.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
   <!--JS-->
+  <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
   <script type="text/javascript"  src="{{ URL::asset('js/jquery-1.12.4.min.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>       
   <script type="text/javascript" src="{{ URL::asset('js/impl.js') }}"></script>
@@ -33,139 +36,117 @@
 
 </head>
 
-<body class="nav-md">
-  <div class="container body">
+<body class="nav-md" >
+  <div class="container body" >
     <div class="main_container">
 
-      <div class="col-md-3 left_col">
-                  <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="" class="site_title"><i class="fa fa-desktop"></i> <span>{{$nombreSistema}}</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="img/luis.png" alt="profile picture" class="img-circle profile_img" style="height: 50px;width: 50px">
-              </div>
-              <div class="profile_info">
-                <span>Bienvenido,</span>
-                <h2>{{$nombreUsuario}}</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-list-ul"></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="">Dashboard</a></li>
-                      <li><a href="">Dashboard2</a></li>
-                      <li><a href="">Dashboard3</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Cursos a Evaluar <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="">General Form</a></li>
-                      <li><a href="">Advanced Components</a></li>
-                      <li><a href="">Form Validation</a></li>
-                      <li><a href="">Form Wizard</a></li>
-                      <li><a href="">Form Upload</a></li>
-                      <li><a href="">Form Buttons</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="">General Elements</a></li>
-                      <li><a href="">Media Gallery</a></li>
-                      <li><a href="">Typography</a></li>
-                      <li><a href="">Icons</a></li>
-                      <li><a href="">Glyphicons</a></li>
-                      <li><a href="">Widgets</a></li>
-                      <li><a href="">Invoice</a></li>
-                      <li><a href="">Inbox</a></li>
-                      <li><a href="">Calendar</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="">Tables</a></li>
-                      <li><a href="">Table Dynamic</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="">Chart JS</a></li>
-                      <li><a href="">Chart JS2</a></li>
-                      <li><a href="">Moris JS</a></li>
-                      <li><a href="">ECharts</a></li>
-                      <li><a href="">Other Charts</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>         
-            </div>
-            <!-- /sidebar menu -->
-
-           
-            <!-- /menu footer buttons -->
+      <div class="col-md-3 left_col" >
+        <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white;">
+          <div class="navbar nav_title text-center" style="border: 0; background-color: white">
+            <a href="" class="site_title"><span style="color:#72777a">{{$nombreSistema}}</span></a>
           </div>
+          <div class="clearfix" ></div>
+
+
+          <hr style="border-color: 1px #D9DEE4; margin-top: 0px; margin-bottom: -10px">
+          <!-- /menu profile quick info -->
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white">
+            <div class="menu_section" >
+              <ul class="nav side-menu" >
+                <li ><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" >
+                    <li><a href="" style="color:#72777a">Dashboard</a></li>
+                    <li><a href="" style="color:#72777a">Dashboard2</a></li>
+                    <li><a href="" style="color:#72777a">Dashboard3</a></li>
+                  </ul>
+                </li>
+                <li><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
+                    <li><a href="" style="color:#72777a">Horarios y Criterios</a></li>
+                    <li><a href="" style="color:#72777a">Visualizar Progreso</a></li>
+                  </ul>
+                </li>
+                <li><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a style="color:#72777a" href="">General Elements</a></li>
+                    <li><a  style="color:#72777a" href="">Media Gallery</a></li>
+                  </ul>
+                </li>
+                <li><a style="color:#72777a"><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a style="color:#72777a" href="">Tables</a></li>
+                    <li><a style="color:#72777a" href="">Table Dynamic</a></li>
+                  </ul>
+                </li>
+                <li><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a style="color:#72777a" href="">Chart JS</a></li>
+                    <li><a style="color:#72777a" href="">Chart JS2</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>         
+          </div>
+          <!-- /sidebar menu -->
+
+
+          <!-- /menu footer buttons -->
+        </div>
 
       </div>
 
       <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
+        <div class="nav_menu" style="background-color: white; border-color: #E6E9ED">
+          <nav>
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
 
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="img/luis.png" alt="">{{$nombreUsuario}}
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="{{route('logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <img src="{{ URL::asset('img/luis.png') }}" alt="perfil">{{$nombreUsuario}}
+                  <span class=" fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                  <li><a href="javascript:;"> Profile</a></li>
+                  <li>
+                    <a href="javascript:;">
+                      <span class="badge bg-red pull-right">50%</span>
+                      <span>Settings</span>
+                    </a>
+                  </li>
+                  <li><a href="javascript:;">Help</a></li>
+                  <li><a href="{{route('logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                </ul>
+              </li>
 
-                
-              </ul>
-            </nav>
-          </div>
+
+            </ul>
+          </nav>
         </div>
-        <!-- /top navigation -->
+      </div>
+      <!-- /top navigation -->
 
       <!-- page content -->
-        <div class="right_col" role="main">
-          @yield('content')         
-        </div>
-        <!-- /page content -->
+      <div class="right_col" role="main">
+        @yield('content')         
+      </div>
+      <!-- /page content -->
 
-        <!-- footer content -->
+      <!-- footer content -->
         <!--<footer>
           <div class="pull-right">
             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
           </div>
           <div class="clearfix"></div>
         </footer>
-        -->
+      -->
 
     </div>
   </div>

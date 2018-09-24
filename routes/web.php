@@ -24,4 +24,6 @@ Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 Route::get('/login', ['as' => 'login.index', 'uses' => 'LoginController@index']);
 
 Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
+Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'PruebaController@cursosGestion']);
+
 

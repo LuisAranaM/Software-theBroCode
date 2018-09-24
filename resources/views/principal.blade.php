@@ -1,6 +1,12 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+
+@section('js-libs')
+
+   
+@stop
+
 @section('content')
+@section('pageTitle', 'Principal')
 
 <style type="text/css">
   .boxHeightWidht{
@@ -118,17 +124,14 @@
     </div>
   </div>
 </div>
-  
+
+
 <!--
   Prueba conexión
 @foreach($prueba as $p)
   {{$p->name}}<br>
 @endforeach
 -->
-<br>
-<br>
-<br>
-<br>
 
 
 @stop

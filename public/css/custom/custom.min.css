@@ -131,7 +131,8 @@
 	padding:0 0 4px
 }
 .left_col {
-	background:#2A3F54
+	background:white;
+	width: 250px;
 }
 .nav-sm .container.body .col-md-3.left_col {
 	min-height:100%;
@@ -145,7 +146,7 @@
 	height:100%
 }
 .nav-sm .container.body .col-md-3.left_col .mCSB_container,.nav-sm .container.body .col-md-3.left_col .mCustomScrollBox {
-	overflow:visible
+	overflow:visible;
 }
 .overflow_hidden,.sidebar-widget,.site_title,.tile,.weather-days .col-sm-2,.x_title h2,table.tile_info td p {
 	overflow:hidden
@@ -190,7 +191,7 @@
 .nav-sm .nav.side-menu li.active-sm ul ul,.nav-sm ul.nav.child_menu ul {
 	position:static;
 	width:200px;
-	background:0 0
+	background:0 0;
 }
 .nav-sm>.nav.side-menu>li.active-sm>a {
 	color:#1ABB9C!important
@@ -217,7 +218,8 @@
 	display:none
 }
 .nav-sm ul.nav.child_menu li {
-	padding:0 10px
+	padding:0 10px;
+	background-color: white;
 }
 .nav-sm ul.nav.child_menu li a {
 	text-align:left!important
@@ -318,7 +320,7 @@
 }
 .nav-md .container.body .col-md-3.left_col {
 	min-height:100%;
-	width:190px;
+	width:250px;
 	padding:0;
 	position:absolute;
 	display:-ms-flexbox;
@@ -334,7 +336,7 @@ body .container.body .right_col {
 }
 .nav-md .container.body .right_col {
 	padding:10px 20px 0;
-	margin-left:190px
+	margin-left:250px
 }
 .nav_title {
 	width:190px;
@@ -468,7 +470,7 @@ body {
 }
 .main_container .top_nav {
 	display:block;
-	margin-left: 190px
+	margin-left: 250px;
 }
 .no-padding {
 	padding:0!important
@@ -677,7 +679,7 @@ a {
 	padding:13px 15px 12px
 }
 .nav.side-menu>li.active,.nav.side-menu>li.current-page {
-	border-right:5px solid #1ABB9C
+	border-right:5px solid #1ABB9C;
 }
 .nav li.current-page {
 	background:rgba(255,255,255,.05)
@@ -691,8 +693,8 @@ a {
 }
 .nav.side-menu>li.active>a {
 	text-shadow:rgba(0,0,0,.25) 0 -1px 0;
-	background:linear-gradient(#334556,#2C4257),#2A3F54;
-	box-shadow:rgba(0,0,0,.25) 0 1px 0,inset rgba(255,255,255,.16) 0 1px 0
+	/*background:linear-gradient(#334556,#2C4257),#2A3F54;*/
+	/*box-shadow:rgba(0,0,0,.25) 0 1px 0,inset rgba(255,255,255,.16) 0 1px 0*/
 }
 .navbar-brand,.navbar-nav>li>a {
 	font-weight:500;

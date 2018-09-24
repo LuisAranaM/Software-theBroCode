@@ -53,17 +53,15 @@ $(document).ready(function() {
     //console.log("HOLA");
     // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
-        // reset height
+        // reset height        
+        //console.log($('footer'));
         $RIGHT_COL.css('min-height', $(window).height());
-
         var bodyHeight = $BODY.outerHeight(),
-            footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
-            leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+            leftColHeight = $LEFT_COL.height(),
             contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-
         // normalize content
-        contentHeight -= $NAV_MENU.height() + footerHeight;
-
+        //contentHeight -= $NAV_MENU.height();        
+        console.log(contentHeight);
         $RIGHT_COL.css('min-height', contentHeight);
     };
 
@@ -74,6 +72,7 @@ $(document).ready(function() {
         if ($li.is('.active')) {
             $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
+                console.log("HOLA");
                 setContentHeight();
             });
         } else {
@@ -86,13 +85,16 @@ $(document).ready(function() {
             $li.addClass('active');
 
             $('ul:first', $li).slideDown(function() {
+                console.log("HOLA2");
                 setContentHeight();
             });
         }
     });
 
     // toggle small or large menu
+    /*
     $MENU_TOGGLE.on('click', function() {
+
         if ($BODY.hasClass('nav-md')) {
             $SIDEBAR_MENU.find('li.active ul').hide();
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
@@ -102,24 +104,47 @@ $(document).ready(function() {
         }
 
         $BODY.toggleClass('nav-md nav-sm');
-
+        
         setContentHeight();
     });
+    */
+   
+   var $SIDEBAR_MENU = $('#sidebar-menu');
+
+  $("#menu_toggle").click(function(){
+  
+
+    if ($("BODY").hasClass('nav-md')) {
+      $('.left_col').css('width','70px');
+      $("SIDEBAR_MENU").find('li.active ul').hide();
+      $("SIDEBAR_MENU").find('li.active').addClass('active-sm').removeClass('active');
+    } 
+    else {
+      $('.left_col').css('width','250px');
+      $("SIDEBAR_MENU").find('li.active-sm ul').show();
+      $("SIDEBAR_MENU").find('li.active-sm').addClass('active').removeClass('active-sm');
+    }
+
+    $("BODY").toggleClass('nav-md nav-sm');
+  });  
+
 
     // check active menu
     $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
 
     $SIDEBAR_MENU.find('a').filter(function () {
         return this.href == CURRENT_URL;
-    }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+    })/*.parent('li').addClass('current-page').parents('ul').slideDown(function() {
+        console.log("HOLA4");
         setContentHeight();
-    }).parent().addClass('active');
+    })*/.parent().addClass('active');
 
     // recompute content when resizing
     $(window).smartresize(function(){  
+        console.log("HOLA5");
         setContentHeight();
     });
-
+    console.log("HOLA6");
     setContentHeight();
 
     // fixed sidebar

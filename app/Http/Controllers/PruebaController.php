@@ -47,4 +47,12 @@ class pruebaController extends Controller {
             ->with('nombreSistema','NINJA SYSTEM');
     }
 
+        public function cursosGestion() {
+
+        
+        return view('cursos.gestion')
+            ->with('nombreUsuario',"Luis Flores")
+            ->with('nombreSistema','NINJA SYSTEM');
+    }
+
 }
