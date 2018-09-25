@@ -67,11 +67,18 @@
 
   .coursesBox {
     padding-top: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
   .customButton {
     height: 35px;
     background-color: #00626e;
     border-color: #00626e;
+  }
+
+  .secondaryTitle {
+    text-align: left; 
+    margin-bottom: 0px; 
+    margin-top: 5px;
+    font-size: 18px;
   }

@@ -48,7 +48,7 @@
           <div class="clearfix" ></div>
 
 
-          <hr style="border-color: 1px #D9DEE4; margin-top: 0px; margin-bottom: -10px">
+          <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 0px; margin-bottom: -10px">
           <!-- /menu profile quick info -->
 
           <br />
@@ -67,8 +67,8 @@
                 <li><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
                   <ul class="nav child_menu">
                     <li><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
-                    <li><a href="" style="color:#72777a">Horarios y Criterios</a></li>
-                    <li><a href="" style="color:#72777a">Visualizar Progreso</a></li>
+                    <li><a href="{{route('cursos.horarios')}}" style="color:#72777a">Horarios y Criterios</a></li>
+                    <li><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
                   </ul>
                 </li>
                 <li><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>

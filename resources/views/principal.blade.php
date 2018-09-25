@@ -126,13 +126,6 @@
 </div>
 
 
-<!--
-  Prueba conexión
-@foreach($prueba as $p)
-  {{$p->name}}<br>
-@endforeach
--->
-
 
 @stop
 

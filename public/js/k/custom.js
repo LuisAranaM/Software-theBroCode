@@ -56,6 +56,7 @@ $(document).ready(function() {
         // reset height        
         //console.log($('footer'));
         $RIGHT_COL.css('min-height', $(window).height());
+        $LEFT_COL.css('min-height', $(window).height());
         var bodyHeight = $BODY.outerHeight(),
             leftColHeight = $LEFT_COL.height(),
             contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
@@ -63,6 +64,7 @@ $(document).ready(function() {
         //contentHeight -= $NAV_MENU.height();        
         console.log(contentHeight);
         $RIGHT_COL.css('min-height', contentHeight);
+        $LEFT_COL.css('min-height', $RIGHT_COL.height());
     };
 
     $SIDEBAR_MENU.find('a').on('click', function(ev) {
