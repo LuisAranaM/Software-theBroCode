@@ -77,11 +77,7 @@
                     <li><a  style="color:#72777a" href="">Media Gallery</a></li>
                   </ul>
                 </li>
-                <li><a style="color:#72777a"><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a style="color:#72777a" href="">Tables</a></li>
-                    <li><a style="color:#72777a" href="">Table Dynamic</a></li>
-                  </ul>
+                <li><a style="color:#72777a" href="{{route('cursos.reportes')}}"><i class="fa fa-table"></i> Reportes</a>
                 </li>
                 <li><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">

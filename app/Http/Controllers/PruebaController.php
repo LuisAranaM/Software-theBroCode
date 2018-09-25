@@ -71,4 +71,12 @@ public function progresoGestion() {
     ->with('nombreSistema','NINJA SYSTEM');
 }
 
+public function reportesGestion() {
+
+    
+    return view('cursos.reportes')
+    ->with('nombreUsuario',"Luis Flores")
+    ->with('nombreSistema','NINJA SYSTEM');
+}
+
 }

@@ -30,7 +30,7 @@
 
 <div class="row">
   <div class=" x_panel tile coursesBox">
-
+    <div class="row">
     <div class="col-xs-6" >
       <h1 class="secondaryTitle mainTitle" style="text-align: left">Gestionar Horarios </h1>
     </div>
@@ -38,8 +38,9 @@
     <div class="col-sm-6 col-xs-6" style="text-align: right">
       <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Cargar Alumnos  </button>
     </div>  
+  </div>
 
-    <div class="x_content bs-example-popovers">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: white; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
         </button>
@@ -47,7 +48,7 @@
       </div>
     </div>
 
-    <div class="x_content bs-example-popovers">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -55,7 +56,7 @@
       </div>
     </div>
 
-    <div class="x_content bs-example-popovers ">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -63,7 +64,7 @@
       </div>
     </div>
 
-    <div class="x_content bs-example-popovers ">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="courseButton alert alert-success alert-dismissible fade in " role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -77,7 +78,7 @@
   <div class=" x_panel tile coursesBox">
 
     <div class="col-xs-12" >
-      <h1 class="secondaryTitle mainTitle" style="text-align: left">Criterios</h1>
+      <h1 class="secondaryTitle mainTitle" style="text-align: left">Resultados del Estudiantes / Indicadores de Desempeño</h1>
     </div>
     <div class="row">
       <div class="col-xs-2" >
@@ -95,7 +96,7 @@
           <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText">B</p>
+            <p class="pText">A1</p>
           </div>
         </div>
       </div>
@@ -105,7 +106,7 @@
           <div class="courseButton alert alert-success alert-dismissible fade in " role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText"> C </p>
+            <p class="pText"> A2 </p>
           </div>
         </div>
       </div>
@@ -128,7 +129,7 @@
           <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
             <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText"> A1</p>
+            <p class="pText"> B</p>
           </div>
         </div>
       </div>
@@ -148,7 +149,7 @@
           <div class="courseButton alert alert-success alert-dismissible fade in " role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText"> C1 </p>
+            <p class="pText"> B2 </p>
           </div>
         </div>
       </div>
@@ -160,7 +161,7 @@
           <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
             <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText"> A2</p>
+            <p class="pText"> C</p>
           </div>
         </div>
       </div>
@@ -170,7 +171,7 @@
           <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText">B2 </p>
+            <p class="pText">C1 </p>
           </div>
         </div>
       </div>

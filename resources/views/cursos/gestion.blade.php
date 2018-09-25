@@ -32,17 +32,18 @@
 <div class="row">
   <div class=" x_panel tile coursesBox">
 
-    <div class="col-xs-6" >
-      <h1 class="secondaryTitle mainTitle">Cursos a Acreditar </h1>
+    <div class="row">
+      <div class="col-xs-6" >
+        <h1 class="secondaryTitle mainTitle">Cursos a Acreditar </h1>
+      </div>
+
+      <div class="col-xs-6" style="text-align: right">
+        <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Cargar Horario</button>
+        <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Cargar Alumnos  </button>
+      </div>  
     </div>
 
-
-    <div class="col-xs-6" style="text-align: right">
-      <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Cargar Horario</button>
-      <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Cargar Alumnos  </button>
-    </div>  
-
-    <div class="x_content bs-example-popovers">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: white; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
         </button>
@@ -50,7 +51,7 @@
       </div>
     </div>
 
-    <div class="x_content bs-example-popovers">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -58,7 +59,7 @@
       </div>
     </div>
 
-    <div class="x_content bs-example-popovers ">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -66,7 +67,7 @@
       </div>
     </div>
 
-    <div class="x_content bs-example-popovers ">
+    <div class="x_content bs-example-popovers courseContainer">
       <div class="courseButton alert alert-success alert-dismissible fade in " role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>

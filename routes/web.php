@@ -28,4 +28,8 @@ Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'PruebaController@
 Route::get('/cursos/horarios', ['as'=>'cursos.horarios','uses'=>'PruebaController@horariosGestion']);
 Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'PruebaController@progresoGestion']);
 
+Route::get('/cursos/reportes', ['as'=>'cursos.reportes','uses'=>'PruebaController@reportesGestion']);
+
+
+
 

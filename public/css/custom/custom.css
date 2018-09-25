@@ -68,12 +68,15 @@
   .coursesBox {
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
 
   .customButton {
     height: 35px;
     background-color: #00626e;
     border-color: #00626e;
+    margin-right: 0px;
   }
 
   .secondaryTitle {
@@ -81,4 +84,21 @@
     margin-bottom: 0px; 
     margin-top: 5px;
     font-size: 18px;
+  }
+
+  .reportsTitle {
+    text-align: center; 
+    margin-bottom: 0px; 
+    margin-top: 5px;
+    font-size: 18px;
+  }
+
+  .courseContainer {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .barText {
+    padding-bottom: 10px;
+    padding-left: 5px;
   }
