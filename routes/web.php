@@ -17,7 +17,7 @@ Route::get('/welcome', function () {
 /*LOGIN*/
 Route::get('/', function () {
     return view('login')
-    	->with('nombreSistema','NINJA SYSTEM');
+    	->with('nombreSistema','RubriK');
 });
 
 Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);

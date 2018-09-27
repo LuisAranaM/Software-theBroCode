@@ -44,7 +44,7 @@ class pruebaController extends Controller {
       ->with('cursos',$cursos)
       ->with('nombreUsuario',"Luis Flores")
        		//->with('prueba',Prueba::getPrueba())
-      ->with('nombreSistema','NINJA SYSTEM');
+      ->with('nombreSistema','RubriK');
   }
 
   public function cursosGestion() {
@@ -52,7 +52,7 @@ class pruebaController extends Controller {
 
     return view('cursos.gestion')
     ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','NINJA SYSTEM');
+    ->with('nombreSistema','RubriK');
 }
 
 public function horariosGestion() {
@@ -60,7 +60,7 @@ public function horariosGestion() {
     
     return view('cursos.horarios')
     ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','NINJA SYSTEM');
+    ->with('nombreSistema','RubriK');
 }
 
 public function progresoGestion() {
@@ -68,7 +68,7 @@ public function progresoGestion() {
     
     return view('cursos.progreso')
     ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','NINJA SYSTEM');
+    ->with('nombreSistema','RubriK');
 }
 
 public function reportesGestion() {
@@ -76,7 +76,7 @@ public function reportesGestion() {
     
     return view('cursos.reportes')
     ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','NINJA SYSTEM');
+    ->with('nombreSistema','RubriK');
 }
 
 }
