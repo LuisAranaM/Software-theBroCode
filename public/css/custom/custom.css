@@ -52,6 +52,7 @@
   .pText {
     font-family: Segoe UI;
     font-size: 14px;
+    font-weight: normal; 
   }
 
   .customBody {
@@ -102,3 +103,34 @@
     padding-bottom: 10px;
     padding-left: 5px;
   }
+
+input[type="checkbox"]{
+  position: absolute;
+  right: 9000px;
+}
+
+input[type="checkbox"] + .label-text:before{
+  content: "\f096";
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing:antialiased;
+  width: 1em;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+input[type="checkbox"]:checked + .label-text:before{
+  content: "\f14a";
+  color: #2980b9;
+  animation: effect 250ms ease-in;
+}
+
+.groupBoxOptions {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
