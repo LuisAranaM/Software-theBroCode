@@ -42,8 +42,8 @@
 
       <div class="col-md-3 left_col" >
         <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white;">
-          <div class="navbar nav_title text-center" style="border: 0; background-color: white">
-            <a href="" class="site_title"><span><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="height: 60.5px;width: 160.5px"></span></a>
+          <div class="navbar nav_title" style="border: 0; background-color: white;height: auto">
+            <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%;margin-left: 15px;"/></a>
           </div>
           <div class="clearfix" ></div>
 
