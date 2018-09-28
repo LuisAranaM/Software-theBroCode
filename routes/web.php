@@ -39,11 +39,13 @@ Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'PruebaController@cursosGestion']);
 Route::get('/cursos/horarios', ['as'=>'cursos.horarios','uses'=>'PruebaController@horariosGestion']);
 Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'PruebaController@progresoGestion']);
-Route::get('/cursos/reportes', ['as'=>'cursos.reportes','uses'=>'PruebaController@reportesGestion']);
+
+
+Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 
 
 
-/****RUTAS PARA GENERALES****/
+/****RUTAS GENERALES****/
 
 /* Rutas públicas */
 Route::get('/', ['as' => 'login.index', 'uses' => 'LoginController@index']);

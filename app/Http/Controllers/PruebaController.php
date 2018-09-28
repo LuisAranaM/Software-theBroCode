@@ -56,7 +56,7 @@ class pruebaController extends Controller {
     }
 
     public function reportesGestion() {    
-        return view('cursos.reportes');
+        return view('reportes.reportes');
     }
 
     public function administrador() {    
