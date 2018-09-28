@@ -44,7 +44,8 @@ class EloquentUserProvider implements UserProvider
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function retrieveById($identifier)
-    {
+    {   
+        
         $model = $this->createModel();
 
         return $model->newQuery()
@@ -112,7 +113,6 @@ class EloquentUserProvider implements UserProvider
         // Then we can execute the query and, if we found a user, return it in a
         // Eloquent User "model" that will be utilized by the Guard instances.
         $query = $this->createModel()->newQuery();
-
         foreach ($credentials as $key => $value) {
             if (Str::contains($key, 'password')) {
                 continue;
@@ -124,6 +124,7 @@ class EloquentUserProvider implements UserProvider
                 $query->where($key, $value);
             }
         }
+        
 
         return $query->first();
     }

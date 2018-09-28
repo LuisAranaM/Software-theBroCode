@@ -112,6 +112,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function user()
     {
+        
         if ($this->loggedOut) {
             return;
         }
@@ -128,7 +129,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         // First we will try to load the user using the identifier in the session if
         // one exists. Otherwise we will check for a "remember me" cookie in this
         // request, and if one exists, attempt to retrieve the user using that.
-        if (! is_null($id) && $this->user = $this->provider->retrieveById($id)) {
+        if (! is_null($id) && $this->user = $this->provider->retrieveById($id)) {            
             $this->fireAuthenticatedEvent($this->user);
         }
 
@@ -146,7 +147,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
                 $this->fireLoginEvent($this->user, true);
             }
         }
-
+        
         return $this->user;
     }
 
@@ -348,7 +349,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         $this->fireAttemptEvent($credentials, $remember);
 
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
-
+        
         // If an implementation of UserInterface was returned, we'll ask the provider
         // to validate the user against the given credentials, and if they are in
         // fact valid we'll log the users into the application and return true.

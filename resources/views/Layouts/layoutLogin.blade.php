@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="img/pucp.png">
-        <title>@yield('pageTitle') - {{$nombreSistema}}</title>
+        <title>@yield('pageTitle') - RubriK</title>
 
         <!-- CSS-->
       <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
@@ -37,6 +37,7 @@
                 <div class="animate form login_form">
 
                     <section class="login_content"> 
+                        @include('flash::message')
                         @yield('content')
                     </section>
                 </div>

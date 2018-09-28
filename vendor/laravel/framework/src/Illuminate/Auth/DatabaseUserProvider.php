@@ -54,7 +54,7 @@ class DatabaseUserProvider implements UserProvider
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function retrieveById($identifier)
-    {
+    {   
         $user = $this->conn->table($this->table)->find($identifier);
 
         return $this->getGenericUser($user);
@@ -99,6 +99,7 @@ class DatabaseUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
+        
         if (empty($credentials) ||
            (count($credentials) === 1 &&
             array_key_exists('password', $credentials))) {

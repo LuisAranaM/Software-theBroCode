@@ -8,7 +8,7 @@
   <link rel="icon" href="{{ URL::asset('img/pucp.png') }}">       
   <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
 
-  <title>@yield('pageTitle') - {{$nombreSistema}}</title>
+  <title>@yield('pageTitle') - RubriK</title>
 
   <!-- CSS-->
   <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
@@ -46,6 +46,7 @@
             <a href="" class="site_title"><span><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="height: 60.5px;width: 160.5px"></span></a>
           </div>
           <div class="clearfix" ></div>
+
 
 
           <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 0px; margin-bottom: -10px">
@@ -106,19 +107,19 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ URL::asset('img/luis.png') }}" alt="perfil">{{$nombreUsuario}}
+                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> {{Auth::user()->NOMBRES}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="javascript:;"> Profile</a></li>
+                  <li><a href="javascript:;"> Perfil</a></li>
                   <li>
                     <a href="javascript:;">
                       <span class="badge bg-red pull-right">50%</span>
-                      <span>Settings</span>
+                      <span>Configuración</span>
                     </a>
                   </li>
-                  <li><a href="javascript:;">Help</a></li>
-                  <li><a href="{{route('logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  <li><a href="javascript:;">Ayuda</a></li>
+                  <li><a href="{{route('logout')}}"><i class="fa fa-sign-out pull-right"></i> Cerrar sesión</a></li>
                 </ul>
               </li>
 
@@ -131,6 +132,7 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
+        @include('flash::message')
         @yield('content')         
       </div>
       <!-- /page content -->

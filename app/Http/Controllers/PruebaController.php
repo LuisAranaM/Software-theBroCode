@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Hash;
 class pruebaController extends Controller {
 
     public function index() {
-
-
     	$cursos=[];
     	$curso1=array();
     	$curso1=[
@@ -41,42 +39,40 @@ class pruebaController extends Controller {
       $cursos[2]=$curso3;
 
       return view('principal')
-      ->with('cursos',$cursos)
-      ->with('nombreUsuario',"Luis Flores")
-       		//->with('prueba',Prueba::getPrueba())
-      ->with('nombreSistema','RubriK');
+      ->with('cursos',$cursos);
+       		//->with('prueba',Prueba::getPrueba());
   }
 
-  public function cursosGestion() {
+    public function cursosGestion() {
+      return view('cursos.gestion');
+    }
 
+    public function horariosGestion() {    
+        return view('cursos.horarios');
+    }
 
-    return view('cursos.gestion')
-    ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','RubriK');
-}
+    public function progresoGestion() {    
+        return view('cursos.progreso');
+    }
 
-public function horariosGestion() {
+    public function reportesGestion() {    
+        return view('cursos.reportes');
+    }
 
-    
-    return view('cursos.horarios')
-    ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','RubriK');
-}
+    public function administrador() {    
+        return view('administrador.principal');
+    }
 
-public function progresoGestion() {
+    public function coordinador() {    
+        return view('coordinador.principal');
+    }
 
-    
-    return view('cursos.progreso')
-    ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','RubriK');
-}
+    public function asistente() {    
+        return view('asistente.principal');
+    }
 
-public function reportesGestion() {
-
-    
-    return view('cursos.reportes')
-    ->with('nombreUsuario',"Luis Flores")
-    ->with('nombreSistema','RubriK');
-}
+    public function profesor() {    
+        return view('profesor.principal');
+    }
 
 }
