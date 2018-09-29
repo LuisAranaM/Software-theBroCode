@@ -81,9 +81,6 @@ class Usuario extends \App\Entity\Base\Entity {
         return [self::ROL_COORDINADOR, self::ROL_ASISTENTE];
     }
 
-    static function getEjecutivosProductoBE() {
-        return [self::ROL_EJECUTIVO_PRODUCTO];
-    }
 
     public function changePassword($usuario,$apassword,$npassword){
 
