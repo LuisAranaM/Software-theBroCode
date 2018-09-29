@@ -1,4 +1,4 @@
-@extends('Layouts.layoutlogin')
+@extends('Layouts.layoutLogin')
 
 @section('content')
 
