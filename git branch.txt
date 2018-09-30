@@ -1,0 +1,3 @@
+git branch (ver los branches actuales)
+git checkout -b newBranch (crear nuevo branch y moverte a el)
+git checkout name_of_branch(moverte entre branches)
