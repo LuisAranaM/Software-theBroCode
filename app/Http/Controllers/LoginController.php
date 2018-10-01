@@ -37,7 +37,7 @@ class LoginController extends Controller {
     }
 
     protected function register($usuario) {
-        \App\Model\Usuario::create([
+        \App\Models\Usuario::create([
             'NOMBRES' => 'UsuarioPrueba',
             'ID_ROL' => 1,
             'USUARIO' => $usuario,
