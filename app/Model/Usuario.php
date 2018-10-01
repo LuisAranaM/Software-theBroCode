@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Jenssegers\Date\Date as Carbon;
-
 class Usuario extends Authenticatable{
 	protected $table = 'USUARIOS';
     
@@ -17,7 +16,6 @@ class Usuario extends Authenticatable{
      */
     protected $primaryKey ='ID_USUARIO';
 					        
-
         /**
      * The name of the "created at" column.
      *
@@ -34,7 +32,6 @@ class Usuario extends Authenticatable{
         'APELLIDO_PATERNO',
         'APELLIDO_MATERNO'
         ];
-
     /**
      * The attributes that are mass assignable.
      *
@@ -48,23 +45,16 @@ class Usuario extends Authenticatable{
         'APELLIDO_PATERNO',
         'APELLIDO_MATERNO'
         ];
-
-
     //protected $username = 'REGISTRO';
-
-
     public function getAuthPassword () {
         return $this->PASS;
     }
-
-
         public function getRememberToken()
     {
         if (! empty($this->TOKEN)) {
             return $this->TOKEN;
         }
     }
-
     /**
      * Set the token value for the "remember me" session.
      *
@@ -77,11 +67,9 @@ class Usuario extends Authenticatable{
             $this->TOKEN = $value;
         }
     }
-
     public function hasRole($rol){
         return in_array($rol, [$this->ID_ROL]);
     }
-
     static function getUsuario($usuario){
         $sql=DB::table('USUARIOS')
                 ->select()
@@ -89,7 +77,6 @@ class Usuario extends Authenticatable{
         //dd($sql);
         return $sql;
     }
-
     static function updateMasive(){
         $usuarios = DB::table('USUARIOS AS US')->select('US.USUARIO')
         ->where('ID_ROL','=',4)
@@ -109,7 +96,6 @@ class Usuario extends Authenticatable{
              ->where('USUARIO','=',$usuario)
             ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>$hoy]);
     }
-
     public function updateNewPassword($usuario,$password){
         return DB::table('USUARIOS')
              ->where('USUARIO','=',$usuario)

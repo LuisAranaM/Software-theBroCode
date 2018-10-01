@@ -1,4 +1,10 @@
 @extends('Layouts.layout')
+
+@section('js-libs')
+<script type="text/javascript"  src="{{ URL::asset('js/horarios/horariosjs.js') }}"></script>
+
+@stop
+
 @section('pageTitle', 'Principal')
 @section('content')
 
@@ -41,7 +47,7 @@
     </div>
 
     <div class="x_content bs-example-popovers courseContainer">
-      <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: white; color: #00626e; border-color: #c1e2fc;">
+      <div id="btnAgregarHorario" class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: white; color: #00626e; border-color: #c1e2fc;">
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
         </button>
         <p class="pText"> Agregar Nuevo Horario </p>
@@ -71,7 +77,7 @@
         <p class="pText"> H223 - Alejandro Bello </p>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
 
 <div class="row">
@@ -106,7 +112,7 @@
             </span>
           </label>
         </label>
-        <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54; width: 1px">
+        <label id="btnAgregarCriterios" class="btn btn-primary" style="background-color: #00626E; border-color: #004d54; width: 1px">
           <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
             +
@@ -152,6 +158,125 @@
 
 
 </div>
+<!-- Modal para Agregar Horarios -->
+
+<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
+id="modalHorarios" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 400px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form id="frmCursos">      
+        <div class="row rowModal">
+          <div class="col-md-10">
+            <h1 class="black-color pText">INF555 Desarrollo de Programas 2</h1>
+          </div>
+        </div>
+        <div class="row rowModal">
+          <div class="col-md-8">
+            <h6 class="black-color pText">Seleccionar Horario</h6>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnAgregar" class="btn btn-success pText customButton">Agregar</button>
+        <button id="btnEliminar" class="btn btn-success pText customButton">Eliminar</button>
+        <button id="btnCancelar" class="btn btn-success pText customButton">Cancelar</button> 
+      </div>
+    
+    </div>
+  </div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!-- Modal para Agregar Criterios-->
+
+<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
+id="modalCriterios" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 400px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="gridSystemModalLabel">Seleccionar Criterios</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form id="frmCursos">      
+        <div class="row rowModal">
+          <div class="col-md-10">
+            <h1 class="black-color pText">Seleccionar indicadores a evaluar</h1>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="btn-group btn-group-justified" data-toggle="buttons" >
+            <label class="btn btn-primary active"  style="background-color: #00626E; border-color: #004d54">
+              <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+                A
+              </span>
+            </label>
+            <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+              <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+                B
+              </span>
+            </label>
+            <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+              <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+                C
+              </span>
+            </label>
+          </label>
+        </div>
+        <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnAgregar" class="btn btn-success pText customButton">Seleccionar todo</button>
+     </div>
+        <div class=" x_panel tile modalCriteriosBox">
+          <div class="col-md-12">
+            <div class="groupBoxOptions">
+            <div class="form-check">
+              <label>
+                <input type="checkbox" checked=""> <span class="pText label-text">A1. Matemáticas: Aplica conceptos lógicos para la resolucion de problemas</span>
+              </label>
+              <label>
+                <input type="checkbox" checked=""> <span class="pText label-text">A1. Matemáticas: Aplica conceptos lógicos para la resolucion de problemas</span>
+              </label>
+              
+            </div>
+        </div>
+      </form>
+      
+      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnAgregar" class="btn btn-success pText customButton">Agregar</button>
+     </div>
+    </div>
+  </div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 @stop
 
 @section('js-scripts')
