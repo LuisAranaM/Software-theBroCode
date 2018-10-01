@@ -11,11 +11,16 @@
 <div class="customBody">
   <div class="row">
     <div class="col-md-8 col-sm-6">
-      <h1 class="mainTitle"> INF555 Desarrollo de Programas 2 </h1>
+      @if($codCurso===null)
+      <h1 class="mainTitle">Horarios y Criterios</h1>
+      @else
+      <h1 class="mainTitle">{{$codCurso}} {{$nombreCurso}}</h1>
+      @endif
+
     </div>
 
     <div class="col-md-4 col-sm-6 form-group top_search" >
-      <div class="input-group" style="text-align: right">
+      <div class="input-group">
         <input type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
           <button class="btn btn-default searchButton" type="button">Buscar</button>
@@ -23,68 +28,59 @@
       </div>
     </div>
   </div>
-<!--<div class="">
-	<label>
-		<div class="form-group">
-      <label>
-        <input type="checkbox" class="js-switch" checked /> <span class="pText"> Copiar configuración del semestre anterior </span>
-      </label>
-    </div>
-  </label>
-</div>
--->
 
 <div class="row">
+
+  @if($codCurso===null)
+  <div class=" x_panel tile coursesBox">
+        <h1 class="messageText no-padding">Debe Seleccionar un Curso</h1>
+  </div> 
+
+  @else
+
   <div class=" x_panel tile coursesBox">
     <div class="row">
       <div class="col-xs-6" >
-        <h1 class="secondaryTitle mainTitle" style="text-align: left">Gestionar Horarios </h1>
+        <h1 class="secondaryTitle mainTitle">Gestionar Horarios </h1>
       </div>
 
-      <div class="col-sm-6 col-xs-6" style="text-align: right">
-        <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Cargar Alumnos  </button>
+      <div class="col-sm-6 col-xs-6 text-right">
+        <button type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos  </button>
       </div>  
     </div>
 
     <div class="x_content bs-example-popovers courseContainer">
-      <div id="btnAgregarHorario" class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: white; color: #00626e; border-color: #c1e2fc;">
+<<<<<<< HEAD
+      <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+>>>>>>> 901700599e2470b509e6fdfc1d9076f5ca030a3b
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
         </button>
         <p class="pText"> Agregar Nuevo Horario </p>
       </div>
     </div>
 
+    @foreach($horario as $h)
     <div class="x_content bs-example-popovers courseContainer">
-      <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
+      <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
         <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <p class="pText"> H222 - Freddy Paz</p>
+        <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
       </div>
     </div>
-
-    <div class="x_content bs-example-popovers courseContainer">
-      <div class="alert alert-success alert-dismissible fade in courseButton" role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText"> H223 - Miguel Guanira </p>
-      </div>
-    </div>
-
-    <div class="x_content bs-example-popovers courseContainer">
-      <div class="courseButton alert alert-success alert-dismissible fade in " role="alert" style="background-color: #d3eafd; color: #00626e; border-color: #c1e2fc;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText"> H223 - Alejandro Bello </p>
-      </div>
-    </div>
-  </div>
+    @endforeach
+  </div>  
+  @endif
 </div>
 
+
+@if($codCurso!=null)
 <div class="row">
   <div class=" x_panel tile coursesBox">
     <div class="col-xs-12" >
-      <h1 class="secondaryTitle mainTitle" style="text-align: left">Resultados del Estudiantes / Indicadores de Desempeño</h1>
+      <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
     </div>
+
+    
 
     <!--Criterio 1-->
     <div class="row" style="margin-bottom: 30px">
@@ -153,9 +149,8 @@
 
 
 </div>
-</div>
 
-
+@endif
 
 </div>
 <!-- Modal para Agregar Horarios -->
