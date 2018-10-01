@@ -37,6 +37,7 @@ class pruebaController extends Controller {
       $cursos[0]=$curso1;
       $cursos[1]=$curso2;
       $cursos[2]=$curso3;
+      Prueba::getPrueba();
 
       return view('principal')
       ->with('cursos',$cursos);

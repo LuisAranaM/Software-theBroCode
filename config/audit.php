@@ -35,7 +35,7 @@ return [
     */
 
     'user' => [
-        'morph_prefix' => 'user',
+        'morph_prefix' => App\Models\Usuario::class,
         'guards'       => [
             'web',
             'api',

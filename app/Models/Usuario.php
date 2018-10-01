@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Jenssegers\Date\Date as Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Usuario extends Authenticatable{
-
+class Usuario extends Authenticatable implements Auditable{
+    use \OwenIt\Auditing\Auditable;
     /**
  * Class Usuario
  * 
