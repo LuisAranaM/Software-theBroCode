@@ -8,6 +8,9 @@ class cursosController extends Controller
 {
     //
     public function index(){
-    	
+
+    }
+    public function store(Request $request){
+    	Cursos::create
     }
 }
