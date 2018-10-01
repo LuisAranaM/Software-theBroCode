@@ -8,10 +8,13 @@ use Jenssegers\Date\Date as Carbon;
 
 class PruebaEntity extends \App\Entity\Base\Entity {
 
-    static function getPrueba() {
+    static function getCursos() {
         $model = new mPrueba();
-        return mPrueba::getPrueba()->get();
+        return mPrueba::getCursos()->get();
     }
-
-    
+	
+	static function getHorarios($idCurso) {
+        $model = new mPrueba();
+        return mPrueba::getHorarios($idCurso)->get();
+    }
 }
