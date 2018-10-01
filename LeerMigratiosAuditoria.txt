@@ -1,0 +1,12 @@
+para modelo:
+composer require reliese/laravel
+php artisan vendor:publish --tag=reliese-models
+php artisan config:clear
+php artisan code:models --schema=mydb
+
+
+para audit:
+composer require owen-it/laravel-auditing
+php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="config"
+php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="migrations"
+php artisan migrate

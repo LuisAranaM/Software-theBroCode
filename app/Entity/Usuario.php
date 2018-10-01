@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Model\Usuario as mUsuario;
+use App\Models\Usuario as mUsuario;
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use DB;
 

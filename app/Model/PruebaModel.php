@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Date\Date as Carbon;
 class PruebaModel extends Model {
 
+
     static function getCursos() {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
