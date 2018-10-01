@@ -212,7 +212,6 @@ input[type="checkbox"]:checked + .label-text:before{
   background-color: #00626e;
   border-color: #00626e;
   margin-right: 0px;
-  width: 80px !important;
 }
 
 .iconModalUpload {
