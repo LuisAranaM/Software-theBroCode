@@ -83,6 +83,7 @@ class Usuario extends Authenticatable{
     }
 
     static function getUsuario($usuario){
+
         $sql=DB::table('USUARIOS')
                 ->select()
                 ->where('USUARIO','=',$usuario);
@@ -104,6 +105,7 @@ class Usuario extends Authenticatable{
     }
     
     static function updatePassword($usuario,$password){
+        //dd("HOLA");
         $hoy=Carbon::now();
         return DB::table('USUARIOS')
              ->where('USUARIO','=',$usuario)
