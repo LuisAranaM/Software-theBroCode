@@ -37,7 +37,7 @@
     </div>
 
     <div class="x_content bs-example-popovers courseContainer">
-      <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+      <div id ="CargarCurso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
         </button>
         <p class="pText"> Agregar Nuevo Curso </p>
@@ -63,6 +63,82 @@
 </div>
 
 </div>
+
+<!-- Modal de Nuevo Curso -->
+
+<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
+id="modalCursos" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 400px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="gridSystemModalLabel">CREAR NUEVO CURSO A EVALUAR</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form id="frmCursos">
+        <div class=" x_panel tile coursesModalBox">
+          <div class="row rowModal">
+            <div class="col-md-8">
+              <h6 class="black-color pText">CODIGO</h6>
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control"
+              name="empresabean.codempresa" id="txtcodigo"
+              required="required"/>
+            </div>
+          </div>
+          <div class="row rowModal">
+            <div class="col-md-4">
+              <h6 class="black-color pText">NOMBRE</h6>
+            </div>
+            <div class="col-md-8">
+              <input type="text" class="form-control pText"
+              name="empresabean.descripcion" id="txtdescripcion"
+              required="required" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <button id="btnActualizar" class="btn btn-success pText customButtonModal">ACTUALIZAR</button>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="idEstado">
+          <div class="col-md-4">
+            <h6 class="black-color pText">BUSCAR CURSO</h6>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-4 form-group top_search" >
+          <div class="input-group" style="text-align: right">
+            <input type="text" class="form-control searchText" placeholder="Curso...">
+            <span class="input-group-btn">
+              <button class="btn btn-default searchButton" type="button">Buscar</button>
+            </span>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnAgregar" class="btn btn-success pText customButton">AGREGAR</button>
+        <button id="btnEliminar" class="btn btn-success pText customButton">ELIMINAR</button>
+        <button id="btnCancelar" class="btn btn-success pText customButton">CANCELAR</button> 
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 
 <!-- Modal de Nuevo Curso -->
 

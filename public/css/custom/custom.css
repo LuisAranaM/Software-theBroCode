@@ -208,11 +208,12 @@ padding-bottom: 5px;
 }
 
 .customButtonModal {
-height: 30px;
-background-color: #00626e;
-border-color: #00626e;
-margin-right: 0px;
-width: 80px !important;
+  height: 30px;
+  background-color: #00626e;
+  border-color: #00626e;
+  margin-right: 0px;
+  width: 80px !important;
+
 }
 
 .iconModalUpload {
