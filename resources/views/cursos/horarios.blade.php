@@ -186,7 +186,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         @foreach($horario as $h)
         <div class="row col-md-8">
           <label>
-            <input value="{{$h->NOMBRE_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText label-text">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
+            <input value="{{$h->NOMBRE_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
           </label>
         </div>
         @endforeach
