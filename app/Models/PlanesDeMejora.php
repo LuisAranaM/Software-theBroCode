@@ -28,36 +28,36 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class PlanesDeMejora extends Eloquent
 {
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'ID_SEMESTRE' => 'int',
-		'ID_ESPECIALIDAD' => 'int',
-		'PLAN' => 'mediumblob',
-		'USUARIO_MODIF' => 'int',
-		'ESTADO' => 'int'
-	];
+    protected $casts = [
+        'ID_SEMESTRE' => 'int',
+        'ID_ESPECIALIDAD' => 'int',
+        'PLAN' => 'mediumblob',
+        'USUARIO_MODIF' => 'int',
+        'ESTADO' => 'int'
+    ];
 
-	protected $dates = [
-		'FECHA_REGISTRO',
-		'FECHA_ACTUALIZACION'
-	];
+    protected $dates = [
+        'FECHA_REGISTRO',
+        'FECHA_ACTUALIZACION'
+    ];
 
-	protected $fillable = [
-		'PLAN',
-		'FECHA_REGISTRO',
-		'FECHA_ACTUALIZACION',
-		'USUARIO_MODIF',
-		'ESTADO'
-	];
+    protected $fillable = [
+        'PLAN',
+        'FECHA_REGISTRO',
+        'FECHA_ACTUALIZACION',
+        'USUARIO_MODIF',
+        'ESTADO'
+    ];
 
-	public function especialidade()
-	{
-		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD');
-	}
+    public function especialidade()
+    {
+        return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD');
+    }
 
-	public function semestre()
-	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE', 'id_semestre');
-	}
+    public function semestre()
+    {
+        return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE', 'id_semestre');
+    }
 }

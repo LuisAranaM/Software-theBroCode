@@ -64,16 +64,16 @@ class pruebaController extends Controller {
     }	
 
     public function progresoGestion() {    		
-		$horarios=[];
-		$cursos = Prueba::getCursos();
-		foreach ($cursos as $curso){
-			$idCurso = $curso->ID_CURSO;
-			$horarios[$idCurso] = Prueba::getHorarios($idCurso);
-		}
-        return view('cursos.progreso')
-		->with('idCurso',$idCurso)
-		->with('horarios',$horarios)
-		->with('cursos',Prueba::getCursos());
+  		$horarios=[];
+  		$cursos = Prueba::getCursos();
+  		foreach ($cursos as $curso){
+  			$idCurso = $curso->ID_CURSO;
+  			$horarios[$idCurso] = Prueba::getHorarios($idCurso);
+  		}
+          return view('cursos.progreso')
+        		->with('idCurso',$idCurso)
+        		->with('horarios',$horarios)
+        		->with('cursos',Prueba::getCursos());
     }
 
     public function reportesGestion() {    

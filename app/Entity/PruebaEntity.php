@@ -18,3 +18,4 @@ class PruebaEntity extends \App\Entity\Base\Entity {
         return mPrueba::getHorarios($idCurso)->get();
     }
 }
+
