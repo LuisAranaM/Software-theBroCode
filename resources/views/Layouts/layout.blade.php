@@ -60,7 +60,7 @@
               <ul class="nav side-menu" >
                 <li ><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" >
-                    <li><a href="" style="color:#72777a">Dashboard</a></li>
+                    <li><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>
                     <li><a href="" style="color:#72777a">Dashboard2</a></li>
                     <li><a href="" style="color:#72777a">Dashboard3</a></li>
                   </ul>

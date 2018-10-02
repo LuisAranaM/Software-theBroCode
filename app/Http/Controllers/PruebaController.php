@@ -96,4 +96,7 @@ class pruebaController extends Controller {
         return view('profesor.principal');
     }
 
+    public function rubricasGestion() {
+        return view('rubricas.gestion');
+    }
 }
