@@ -76,3 +76,6 @@ Route::group(['prefix' => 'asis', 'middleware' => ['authBase', 'authRol:3']], fu
 Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], function() {
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
+
+/****RUTAS PARA PROFESORES****/
+Route::post('/actualizar-horarios', ['as' => 'actualizar.horarios', 'uses' => 'HorarioController@actualizar']);
