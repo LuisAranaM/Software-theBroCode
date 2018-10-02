@@ -31,8 +31,9 @@
       </div>
 
       <div class="col-xs-6 text-right">
+        <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
         <button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
-        <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos  </button>
+        <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
       </div>  
     </div>
 
@@ -69,17 +70,17 @@
 
 <!-- Modal de Nuevo Curso -->
 
-<div class="modal text-center fade bs-example-modal-lg" role="dialog" tabindex="-1"
+<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="customModal modal-dialog modal-lg">
-  <div class="modal-content" style="top: 100px !important">
+<div class="modal-dialog modal-lg" style="width: 400px;">
+  <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" id="gridSystemModalLabel">CREAR NUEVO CURSO A EVALUAR</h4>
+    <h4 class="modal-title" id="gridSystemModalLabel">SELECCIONAR CURSOS A EVALUAR</h4>
   </div>
   <div class="modal-body">
     <div class="container-fluid">
@@ -107,7 +108,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
           </div>
           <div class="row">
             <div class="col-md-4">
-              <button id="btnActualizar" class="btn btn-success pText customButtonModal">ACTUALIZAR</button>
+              <button id="btnActualizar" class="btn btn-success pText customButtonModalC">SELECCIONAR</button>
             </div>
           </div>
         </div>
@@ -128,8 +129,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       </form>
 
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button id="btnAgregar" class="btn btn-success pText customButton">AGREGAR</button>
-        <button id="btnEliminar" class="btn btn-success pText customButton">ELIMINAR</button>
+        <button id="btnAgregar" class="btn btn-success pText customButton">ACTUALIZAR</button>
         <button id="btnCancelar" class="btn btn-success pText customButton">CANCELAR</button> 
       </div>
 
@@ -155,6 +155,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
+    <h4 id="CargarCursos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Cursos</h4>
     <h4 id="CargarHorarios" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Horarios</h4>
     <h4 id="CargarAlumnos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Alumnos</h4>
   </div>
@@ -167,8 +168,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       </div>
 
       <div style="padding-top: 10px; padding-bottom: 10px">
-        <button id="btnCargar" class="btn btn-success pText customButtonThin" >Cargar</button>
-        <button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button> 
+        <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
+        <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin" >Cargar</button> 
+        <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
+        <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
       </div>
 
     </div>

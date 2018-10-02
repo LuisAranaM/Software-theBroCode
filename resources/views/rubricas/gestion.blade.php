@@ -56,7 +56,7 @@
       <form class="form-horizontal form-label-left">
 
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-3">A1</label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-3" style="text-align: left; padding-right: 5px; width: 50px">A1</label>
           <div class="col-md-9 col-sm-9 col-xs-9">
             <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
           </div>
@@ -67,13 +67,13 @@
               <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
             </div>
             <div class="col-md-5  col-sx-5">
-              <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
+              <textarea name="Text1" cols="40" rows="5"></textarea>
             </div>
             <div class="col-md-1  col-sx-1">
               <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
             </div>
             <div class="col-md-5  col-sx-5">
-              <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
+              <textarea name="Text1" cols="40" rows="5"></textarea>
             </div>
             
           </div>
@@ -82,13 +82,13 @@
               <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
             </div>
             <div class="col-md-5">
-              <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
+              <textarea name="Text1" cols="40" rows="5"></textarea>
             </div>
             <div class="col-md-1">
               <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
             </div>
             <div class="col-md-5">
-              <input type="text" class="form-control pText" name="empresabean.codempresa" id="txtcodigo" required="required">
+              <textarea name="Text1" cols="40" rows="5"></textarea>
             </div>
           </div>
 
