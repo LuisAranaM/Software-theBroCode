@@ -69,11 +69,11 @@
 
 <!-- Modal de Nuevo Curso -->
 
-<div class="modal text-center fade bs-example-modal-lg" role="dialog" tabindex="-1"
+<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="customModal modal-dialog modal-lg">
-  <div class="modal-content" style="top: 100px !important">
+<div class="modal-dialog modal-lg" style="width: 400px;">
+  <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
       aria-label="Close">
@@ -107,7 +107,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
           </div>
           <div class="row">
             <div class="col-md-4">
-              <button id="btnActualizar" class="btn btn-success pText customButtonModal">ACTUALIZAR</button>
+              <button id="btnActualizar" class="btn btn-success pText customButtonModalC">ACTUALIZAR</button>
             </div>
           </div>
         </div>
