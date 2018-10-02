@@ -11,4 +11,8 @@ $( document ).ready(function() {
 		$("#modalCriterios").modal("show");
 	});
 
+	$("#btnCancelar").on("click", function(){
+		console.log("btn accionado");
+	});
+
 });

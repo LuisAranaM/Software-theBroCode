@@ -60,6 +60,7 @@
     </div>
 
     @foreach($horario as $h)
+      @if($h->ESTADO===1)
       <div class="x_content bs-example-popovers courseContainer">
         <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
           <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -67,6 +68,7 @@
           <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
         </div>
       </div>
+      @endif
     @endforeach
   </div>  
   @endif
@@ -182,15 +184,15 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         </div>
 
         @foreach($horario as $h)
-        <div class="" role="alert">
-          <input type="checkbox" checked=""/> 
-          <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+        <div class="row col-md-8">
+          <label>
+            <input type="checkbox" checked=""> <span class="pText label-text">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
+          </label>
         </div>
         @endforeach
       </form>
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button id="btnAgregar" class="btn btn-success pText customButton">Agregar</button>
-        <button id="btnEliminar" class="btn btn-success pText customButton">Eliminar</button>
+        <button id="btnAgregar" class="btn btn-success pText customButton">Actualizar</button>
         <button id="btnCancelar" class="btn btn-success pText customButton">Cancelar</button> 
       </div>
     

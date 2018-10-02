@@ -19,7 +19,7 @@ class PruebaModel extends Model {
 	static function getHorarios($idCurso) {
 		//dd($idCurso);
         $sql = DB::table('HORARIO AS H')
-				->select('H.ID_HORARIO', 'P.ID_USUARIO', 'H.NOMBRE AS NOMBRE_HORARIO', DB::Raw('CONCAT(P.NOMBRES, " " , P.APELLIDO_PATERNO) AS NOMBRE_PROFESOR'))
+				->select('H.ID_HORARIO', 'P.ID_USUARIO', 'H.NOMBRE AS NOMBRE_HORARIO', 'H.ESTADO AS ESTADO',DB::Raw('CONCAT(P.NOMBRES, " " , P.APELLIDO_PATERNO) AS NOMBRE_PROFESOR'))
                 ->leftJoin('PROFESORES_HAS_HORARIOS AS PH', function ($join) {
 					$join->on('H.ID_HORARIO', '=', 'PH.ID_HORARIO');
 				})
