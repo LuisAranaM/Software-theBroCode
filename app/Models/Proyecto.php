@@ -25,30 +25,30 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Proyecto extends Eloquent
 {
-	protected $primaryKey = 'ID_PROYECTO';
-	public $timestamps = false;
+    protected $primaryKey = 'ID_PROYECTO';
+    public $timestamps = false;
 
-	protected $casts = [
-		'PROYECTO' => 'mediumblob',
-		'USUARIO_MODIF' => 'int',
-		'ESTADO' => 'int'
-	];
+    protected $casts = [
+        'PROYECTO' => 'mediumblob',
+        'USUARIO_MODIF' => 'int',
+        'ESTADO' => 'int'
+    ];
 
-	protected $dates = [
-		'FECHA_REGISTRO',
-		'FECHA_ACTUALIZACION'
-	];
+    protected $dates = [
+        'FECHA_REGISTRO',
+        'FECHA_ACTUALIZACION'
+    ];
 
-	protected $fillable = [
-		'PROYECTO',
-		'FECHA_REGISTRO',
-		'FECHA_ACTUALIZACION',
-		'USUARIO_MODIF',
-		'ESTADO'
-	];
+    protected $fillable = [
+        'PROYECTO',
+        'FECHA_REGISTRO',
+        'FECHA_ACTUALIZACION',
+        'USUARIO_MODIF',
+        'ESTADO'
+    ];
 
-	public function alumnos_has_horarios()
-	{
-		return $this->hasMany(\App\Models\AlumnosHasHorario::class, 'ID_PROYECTO', 'id_proyecto');
-	}
+    public function alumnos_has_horarios()
+    {
+        return $this->hasMany(\App\Models\AlumnosHasHorario::class, 'ID_PROYECTO', 'id_proyecto');
+    }
 }

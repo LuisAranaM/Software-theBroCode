@@ -26,7 +26,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Eo extends Eloquent
+class Eos extends Eloquent
 {
 	public $timestamps = false;
 
