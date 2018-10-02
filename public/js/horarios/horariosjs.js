@@ -11,7 +11,17 @@ $( document ).ready(function() {
 	});
 	
 	$('#btnActualizarHorarios').click(function() {
+		
+		var checkboxes =[];
+
+		$('.get_value').each(function(){
+			if($(this).is(":checked")){
+				console.log($(this).val());
+			}
+		});
+		
 		$('#modalHorarios').modal('hide');
+
 	});
 
 	$("#btnAgregarCriterios").on("click", function(){
