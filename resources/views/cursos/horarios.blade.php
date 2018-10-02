@@ -50,23 +50,23 @@
     </div>
 
     <div class="x_content bs-example-popovers courseContainer">
-<<<<<<< HEAD
+
       <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
->>>>>>> 901700599e2470b509e6fdfc1d9076f5ca030a3b
-        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+
+        <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
         </button>
         <p class="pText"> Agregar Nuevo Horario </p>
       </div>
     </div>
 
     @foreach($horario as $h)
-    <div class="x_content bs-example-popovers courseContainer">
-      <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-        <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+      <div class="x_content bs-example-popovers courseContainer">
+        <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+          <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+        </div>
       </div>
-    </div>
     @endforeach
   </div>  
   @endif
@@ -172,7 +172,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <form id="frmCursos">      
         <div class="row rowModal">
           <div class="col-md-10">
-            <h1 class="black-color pText">INF555 Desarrollo de Programas 2</h1>
+            <h1 class="black-color pText">{{$codCurso}} {{$nombreCurso}}</h1>
           </div>
         </div>
         <div class="row rowModal">
@@ -180,6 +180,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
             <h6 class="black-color pText">Seleccionar Horario</h6>
           </div>
         </div>
+
+        @foreach($horario as $h)
+        <div class="" role="alert">
+          <input type="checkbox" checked=""/> 
+          <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+        </div>
+        @endforeach
       </form>
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
         <button id="btnAgregar" class="btn btn-success pText customButton">Agregar</button>
@@ -245,21 +252,29 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
         <button id="btnAgregar" class="btn btn-success pText customButton">Seleccionar todo</button>
      </div>
-        <div class=" x_panel tile modalCriteriosBox">
+      <div class=" x_panel tile modalCriteriosBox">
           <div class="col-md-12">
-            <div class="groupBoxOptions">
             <div class="form-check">
-              <label>
-                <input type="checkbox" checked=""> <span class="pText label-text">A1. Matemáticas: Aplica conceptos lógicos para la resolucion de problemas</span>
-              </label>
-              <label>
-                <input type="checkbox" checked=""> <span class="pText label-text">A1. Matemáticas: Aplica conceptos lógicos para la resolucion de problemas</span>
-              </label>
-              
+              <table>
+                <tr>
+                  <th>Subcriterio</th>
+                </tr>
+                <tr>
+                  <td>
+                    A1. Matemáticas: <br> Sabe sumar
+                  </td>
+                  <td>
+                  <label>
+                    <input type="checkbox" checked=""/> 
+                  </label>
+                  </td>
+                </tr>
+              </table>
             </div>
-        </div>
+          </div>
+      </div>
       </form>
-      
+  
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
         <button id="btnAgregar" class="btn btn-success pText customButton">Agregar</button>
      </div>

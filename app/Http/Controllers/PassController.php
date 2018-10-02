@@ -20,7 +20,7 @@ class PassController extends Controller {
         $usuario = strtoupper($request->get('usuario', null));
         $pass = $request->get('pass', null);
         //actualizar password
-        if (\App\Model\Usuario::updatePassword($usuario, $pass)){
+        if (\App\Models\Usuario::updatePassword($usuario, $pass)){
             flash('Pass actualizado para el registro ' . $usuario . ': ' . $pass)->success();
         }else{
             flash('Registro no encontrado/Error al actualizar')->error();

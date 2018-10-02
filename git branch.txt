@@ -10,3 +10,6 @@ git merge hykire(te mergea lo del branch hykire al master)
 https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
 https://www.youtube.com/watch?v=H5GJfcp3p4Q&index=13&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-
 https://www.atlassian.com/git/tutorials/syncing
+
+para eliminar su branch local y remotamente:
+git push origin hykire -d --delete

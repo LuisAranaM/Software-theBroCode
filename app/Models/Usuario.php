@@ -1,12 +1,38 @@
 <?php
-namespace App\Model;
+namespace App\Models;
 use DB;
 use Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Jenssegers\Date\Date as Carbon;
-class Usuario extends Authenticatable{
+use OwenIt\Auditing\Contracts\Auditable;
+
+class Usuario extends Authenticatable implements Auditable{
+    use \OwenIt\Auditing\Auditable;
+    /**
+ * Class Usuario
+ * 
+ * @property int $ID_USUARIO
+ * @property int $ID_ROL
+ * @property string $USUARIO
+ * @property string $PASS
+ * @property string $CORREO
+ * @property \Carbon\Carbon $FECHA_REGISTRO
+ * @property \Carbon\Carbon $FECHA_ACTUALIZACION
+ * @property int $USUARIO_MODIF
+ * @property int $ESTADO
+ * @property string $NOMBRES
+ * @property string $APELLIDO_PATERNO
+ * @property string $APELLIDO_MATERNO
+ * 
+ * @property \App\Models\Role $role
+ * @property \Illuminate\Database\Eloquent\Collection $especialidades_has_profesores
+ * @property \Illuminate\Database\Eloquent\Collection $profesores_has_horarios
+ *
+ * @package App\Models
+ */
+    
 	protected $table = 'USUARIOS';
     
     /**
@@ -23,11 +49,25 @@ class Usuario extends Authenticatable{
      */
      public $timestamps = false;
     
+        protected $casts = [
+        'ID_ROL' => 'int',
+        'USUARIO_MODIF' => 'int',
+        'ESTADO' => 'int'
+    ];
+
+    protected $dates = [
+        'FECHA_REGISTRO',
+        'FECHA_ACTUALIZACION'
+    ];
     
     protected $fillable = [
-        'USUARIO',
+       'USUARIO',
         'PASS',
-        'ID_ROL',
+        'CORREO',
+        'FECHA_REGISTRO',
+        'FECHA_ACTUALIZACION',
+        'USUARIO_MODIF',
+        'ESTADO',
         'NOMBRES',
         'APELLIDO_PATERNO',
         'APELLIDO_MATERNO'
@@ -46,6 +86,22 @@ class Usuario extends Authenticatable{
         'APELLIDO_MATERNO'
         ];
     //protected $username = 'REGISTRO';
+
+    public function role()
+    {
+        return $this->belongsTo(\App\Models\Role::class, 'ID_ROL');
+    }
+
+    public function especialidades_has_profesores()
+    {
+        return $this->hasMany(\App\Models\EspecialidadesHasProfesore::class, 'ID_USUARIO', 'id_usuario');
+    }
+
+    public function profesores_has_horarios()
+    {
+        return $this->hasMany(\App\Models\ProfesoresHasHorario::class, 'ID_USUARIO', 'id_usuario');
+    }
+
     public function getAuthPassword () {
         return $this->PASS;
     }
@@ -71,6 +127,7 @@ class Usuario extends Authenticatable{
         return in_array($rol, [$this->ID_ROL]);
     }
     static function getUsuario($usuario){
+
         $sql=DB::table('USUARIOS')
                 ->select()
                 ->where('USUARIO','=',$usuario);
@@ -91,6 +148,7 @@ class Usuario extends Authenticatable{
     }
     
     static function updatePassword($usuario,$password){
+        //dd("HOLA");
         $hoy=Carbon::now();
         return DB::table('USUARIOS')
              ->where('USUARIO','=',$usuario)
