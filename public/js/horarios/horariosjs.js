@@ -6,13 +6,19 @@ $( document ).ready(function() {
 
 	});
 
+	$('#btnCancelarHorarios').click(function() {
+		$('#modalHorarios').modal('hide');
+	});
+	
+	$('#btnActualizarHorarios').click(function() {
+		$('#modalHorarios').modal('hide');
+	});
+
 	$("#btnAgregarCriterios").on("click", function(){
 		console.log("btn accionado");
 		$("#modalCriterios").modal("show");
 	});
 
-	$("#btnCancelar").on("click", function(){
-		console.log("btn accionado");
-	});
+	
 
 });

@@ -186,14 +186,14 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         @foreach($horario as $h)
         <div class="row col-md-8">
           <label>
-            <input type="checkbox" checked=""> <span class="pText label-text">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
+            <input type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText label-text">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
           </label>
         </div>
         @endforeach
       </form>
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button id="btnAgregar" class="btn btn-success pText customButton">Actualizar</button>
-        <button id="btnCancelar" class="btn btn-success pText customButton">Cancelar</button> 
+        <button id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
+        <button id="btnCancelarHorarios" class="btn btn-success pText customButton">Cancelar</button> 
       </div>
     
     </div>
