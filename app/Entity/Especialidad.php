@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Especialidad;
+use App\Models\Especialidad as mEspecialidad;
 use Jenssegers\Date\Date as Carbon;
 
 class Especialidad extends \App\Entity\Base\Entity {

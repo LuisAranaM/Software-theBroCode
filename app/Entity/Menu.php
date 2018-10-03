@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Menu;
+use App\Models\Menu as mMenu;
 use Jenssegers\Date\Date as Carbon;
 
 class Menu extends \App\Entity\Base\Entity {

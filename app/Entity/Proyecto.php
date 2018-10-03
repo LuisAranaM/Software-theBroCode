@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Proyecto;
+use App\Models\Proyecto as mProyecto;
 use Jenssegers\Date\Date as Carbon;
 
 class Proyecto extends \App\Entity\Base\Entity {

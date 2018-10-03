@@ -6,7 +6,7 @@
  */
 
 namespace App\Models;
-
+use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -79,5 +79,29 @@ class Subcriterio extends Eloquent
 	{
 		return $this->belongsToMany(\App\Models\Curso::class, 'subcriterios_has_cursos', 'ID_SUBCRITERIO', 'ID_CURSO')
 					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+	}
+
+	static function getSubcriterios($idCat) {
+        $sql = DB::table('SUBCRITERIOS')
+                ->select('ID_SUBCRITERIO', 'NOMBRE', 'DESCRIPCION_1', 'DESCRIPCION_2', 'DESCRIPCION_3', 'DESCRIPCION_4')
+                ->where('ID_CRITERIO', '=', $idCat)
+                ->where('ESTADO','=', 1);
+        //dd($sql->get());
+        return $sql;
+    }
+
+	public function insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4){
+		//Falta añadir excepción
+		$id = DB::table('SUBCRITERIOS')->insertGetId(
+		    	['ID_CRITERIO' => $idCrit,
+		     	 'ID_ESPECIALIDAD' => $idEsp,
+		     	 'ID_SEMESTRE' => $idSem,
+		     	 'NOMBRE' => $nombre,
+		     	 'DESCRIPCION_1' => $desc1,
+		     	 'DESCRIPCION_2' => $desc2,
+		     	 'DESCRIPCION_3' => $desc3,
+		     	 'DESCRIPCION_4' => $desc4,
+				 'ESTADO' => 1]);
+		return $id;
 	}
 }

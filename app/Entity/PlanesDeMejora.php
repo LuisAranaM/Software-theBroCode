@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\PlanesDeMejora;
+use App\Models\PlanesDeMejora as mPlanesDeMejora;
 use Jenssegers\Date\Date as Carbon;
 
 class PlanesDeMejora extends \App\Entity\Base\Entity {

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Rol;
+use App\Models\Rol as mRol;
 use Jenssegers\Date\Date as Carbon;
 
 class Rol extends \App\Entity\Base\Entity {

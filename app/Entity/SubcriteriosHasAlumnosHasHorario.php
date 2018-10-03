@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\SubcriteriosHasAlumnosHasHorario;
+use App\Models\SubcriteriosHasAlumnosHasHorario as mSubcriteriosHasAlumnosHasHorario;
 use Jenssegers\Date\Date as Carbon;
 
 class SubcriteriosHasAlumnosHasHorario extends \App\Entity\Base\Entity {

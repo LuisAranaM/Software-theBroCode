@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Eos;
+use App\Models\Eos as mEos;
 use Jenssegers\Date\Date as Carbon;
 
 class Eos extends \App\Entity\Base\Entity {

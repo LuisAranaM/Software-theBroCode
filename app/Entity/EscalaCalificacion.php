@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\EscalaCalificacion;
+use App\Models\EscalaCalificacion as mEscalaCalificacion;
 use Jenssegers\Date\Date as Carbon;
 
 class EscalaCalificacion extends \App\Entity\Base\Entity {

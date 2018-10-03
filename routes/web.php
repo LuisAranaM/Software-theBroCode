@@ -31,7 +31,7 @@ Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
 Route::get('/cursos/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
 Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
-Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaController@rubricasGestion']);
+//Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaController@rubricasGestion']);
 
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
@@ -71,3 +71,12 @@ Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], fu
 });
 
 /****RUTAS PARA ACTUALIZAR HORARIOS****/
+
+
+
+
+/*CHAPI*/
+Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
+//rEEMPLAZAR ANTERIOR
+//
+Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);

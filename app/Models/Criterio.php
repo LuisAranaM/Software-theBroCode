@@ -6,7 +6,7 @@
  */
 
 namespace App\Models;
-
+use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -52,9 +52,24 @@ class Criterio extends Eloquent
 		'ESTADO'
 	];
 
+	static function getCriterios() {
+        $sql = DB::table('CATEGORIAS')
+                ->select('ID_CATEGORIA', 'NOMBRE', 'DESCRIPCION')
+                ->where('ESTADO','=',1);
+        //dd($sql->get());
+        return $sql;
+    }
+	public function insertCriterio($nombre, $desc){
+		$id = DB::table('CATEGORIAS')->insertGetId(
+		    	['NOMBRE' => $nombre,
+		     	'DESCRIPCION' => $desc,
+				 'ESTADO' => 1]);
+		return $id;
+	}
+
 	public function especialidade()
 	{
-		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
+		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
 	public function semestre()

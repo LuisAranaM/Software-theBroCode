@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Acta;
+use App\Models\Acta as mActa;
 use Jenssegers\Date\Date as Carbon;
 
 class Acta extends \App\Entity\Base\Entity {

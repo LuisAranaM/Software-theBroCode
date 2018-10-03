@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Semestre;
+use App\Models\Semestre as mSemestre;
 use Jenssegers\Date\Date as Carbon;
 
 class Semestre extends \App\Entity\Base\Entity {

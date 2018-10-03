@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\AlumnosHasHorario;
+use App\Models\AlumnosHasHorario as mAlumnosHasHorario;
 use Jenssegers\Date\Date as Carbon;
 
 class AlumnosHasHorario extends \App\Entity\Base\Entity {

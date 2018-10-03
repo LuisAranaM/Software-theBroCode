@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Sos;
+use App\Models\Sos as mSos;
 use Jenssegers\Date\Date as Carbon;
 
 class Sos extends \App\Entity\Base\Entity {

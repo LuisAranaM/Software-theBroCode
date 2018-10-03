@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\SosHasEos;
+use App\Models\SosHasEos as mSosHasEos;
 use Jenssegers\Date\Date as Carbon;
 
 class SosHasEos extends \App\Entity\Base\Entity {
