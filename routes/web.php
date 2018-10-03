@@ -43,6 +43,7 @@ Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaControl
 
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
+Route::post('/desactivar-horario', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
 
 
 /****RUTAS GENERALES****/

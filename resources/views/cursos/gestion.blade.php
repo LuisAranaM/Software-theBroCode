@@ -146,7 +146,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <!-- Modal de Cargar Alumnos y Horarios -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargar" data-keyboard="false" data-backdrop="static"
+id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30% !important;">

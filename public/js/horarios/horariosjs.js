@@ -1,4 +1,3 @@
-var HorariosContainer = document.getElementById("listHorarios");
 $( document ).ready(function() {
 	$("#btnAgregarHorario").on("click", function(){
 		$('#frmCursosModal')[0].reset();
@@ -8,7 +7,39 @@ $( document ).ready(function() {
 	$('#btnCancelarHorarios').click(function() {
 		$('#modalHorarios').modal('hide');
 	});
+	$('#btnCargarAlumnos').click(function() {
+		console.log("btnCargarAlumnos accionado");
+		$("#modalCargar").modal("show")
+		$("#CargarCursos").hide();
+		$("#CargarHorarios").hide();
+		$("#CargarAlumnos").show();
 
+		$("#btnCargarAlumnosModal").show();
+		$("#btnCargarCursosModal").hide();
+		$("#btnCargarHorariosModal").hide();
+		$("#btnCancelarModal").show();
+	});
+
+	function desactivarHorario(horario){
+		$.ajax({
+			type:'POST',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: '/desactivar-horario',
+			data: {
+				_idHorario: horario
+			},
+			dataType: "text",
+			success: function(resultData) {
+			}
+		});
+
+	}
+
+	$('#btnClose').click(function() {
+		desactivarHorario($(this).val());
+	});
 	function actualizarHorarios(horarios){
 		$.ajax({
 			type:'POST',
