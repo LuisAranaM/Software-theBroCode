@@ -63,11 +63,11 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|
 });
 
 /****RUTAS PARA CURSOS****/
-Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {
-	Route::get('gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
-	Route::get('horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
-	Route::get('progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
-	Route::get('buscar', ['as'=>'buscar.cursos','uses'=>'CursoController@buscarCursos']);
+Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1|2|3']], function() {
+	Route::get('/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
+	Route::get('/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
+	Route::get('/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
+	Route::get('/buscar', ['as'=>'buscar.cursos','uses'=>'CursoController@buscarCursos']);
 });
 
 /***EXCELS***/
