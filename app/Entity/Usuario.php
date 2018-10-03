@@ -49,20 +49,20 @@ class Usuario extends \App\Entity\Base\Entity {
 
     static function redirectRol($rol) {
         //dd($rol);
-        $url1 = 'administrador.principal';
-        $url2 = 'coordinador.principal';
-        $url3 = 'asistente.principal';
-        $url4 = 'profesor.principal';
+        $urlAdmin = 'administrador.principal';
+        $urlCoordinador = 'cursos.gestion';
+        $urlAsistente = 'cursos.gestion';
+        $urlProfesor = 'profesor.principal';
         
         switch ($rol) {
             case self::ROL_ADMINISTRADOR:
-                return $url1;
+                return $urlAdmin;
             case self::ROL_COORDINADOR:
-                return $url2;
+                return $urlCoordinador;
             case self::ROL_ASISTENTE:
-                return $url3;
+                return $urlAsistente;
             case self::ROL_PROFESOR:
-                return $url4;
+                return $urlProfesor;
             default:
                 return 'prueba';
         }

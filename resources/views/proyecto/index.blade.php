@@ -6,7 +6,7 @@
 @section('content')
 
 <div class="customBody">
-	<div class="col-md-8 col-sm-6">
+	<div class="col-md-12 col-sm-12">
       <h1 class="mainTitle"> Subir Archivo </h1>
     </div>
 <div class ="ui buttom attached segment"></div>

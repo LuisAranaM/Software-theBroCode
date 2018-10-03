@@ -73,6 +73,7 @@
     </div>
   </div>  
   @endif
+  <a href="{{route('cursos.gestion')}}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar</a>
 </div>
 
 
