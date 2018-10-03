@@ -1,219 +1,217 @@
 .boxTitleBody {
-     display: inline-block;
-     padding-top: 15px; 
-     padding-bottom: 15px;
-  }
 
-  .customBox{
-    border-color: transparent;
-    height: 100%; 
-    text-align: center;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding-right: 0px;
-    padding-left: 0px;
-  }
+ display: inline-block;
+ padding-top: 15px; 
+ padding-bottom: 15px;
+}
 
-  .imageBox {
-    height: 100%; 
-    width: 100%;
-  }
+.customBox{
+  border-color: transparent;
+  height: 100%; 
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-right: 0px;
+  padding-left: 0px;
+}
 
-  /*text*/
+.imageBox {
+  height: 100%; 
+  width: 100%;
+}
 
-  .boxTitle {
-    font-family: Segoe UI;
-    font-size: 25px;
-    font-weight: bold;
-  }
+/*text*/
 
-  .mainTitle {
-    font-size: 21px;
-    font-family: Segoe UI Semibold;
-    padding-bottom: 2%;
-    color: black;
-    text-align: left;
-  }
+.boxTitle {
+  font-family: Segoe UI;
+  font-size: 25px;
+  font-weight: bold;
+}
 
-  .messageText {
-    font-size: 18px;
-    font-family: Segoe UI Semibold;
-    padding-bottom: 2%;
-    color: #73879C;
-    text-align: center;
-  }
+.mainTitle {
+  font-size: 21px;
+  font-family: Segoe UI Semibold;
+  padding-bottom: 2%;
+  color: black;
+  text-align: left;
+}
 
-  .searchButton {
-    font-size: 14px;
-    font-family: Segoe UI;
-    background-color: rgb(29, 161, 242, 0.65);
-    height: 34px;
-    color: white !important;
-    border: solid 1px rgb(29, 161, 242, 0.65) !important;
-  }
+.messageText {
+  font-size: 18px;
+  font-family: Segoe UI Semibold;
+  padding-bottom: 2%;
+  color: #73879C;
+  text-align: center;
+}
 
-  .searchText {
-    font-size: 14px;
-    font-family: Segoe UI;
-    height: 35px;
-  }
+.searchButton {
+  font-size: 14px;
+  font-family: Segoe UI;
+  background-color: rgb(29, 161, 242, 0.65);
+  height: 34px;
+  color: white !important;
+  border: solid 1px rgb(29, 161, 242, 0.65) !important;
+}
 
-  .pText {
-    font-family: Segoe UI;
-    font-size: 14px;
-    font-weight: normal; 
-  }
+.searchText {
+  font-size: 14px;
+  font-family: Segoe UI;
+  height: 35px;
+}
 
-  .customBody {
-    padding: 20px; 
-    padding-top: 70px;
-  }
+.pText {
+  font-family: Segoe UI;
+  font-size: 14px;
+  font-weight: normal; 
+}
 
-  .courseButton {
-    margin-bottom: 0px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    background-color: rgb(29, 161, 242, 0.20); 
-    color: #00626e; 
-    border-color: rgb(29, 161, 242, 0.2); 
-  }
+.customBody {
+  padding: 20px; 
+  padding-top: 70px;
+}
 
-  .addCourseButton {
-    margin-bottom: 0px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    background-color: white; 
-    color: #00626e; 
-    border-color: rgb(29, 161, 242, 0.2); 
-  }
+.courseButton {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: rgb(29, 161, 242, 0.20); 
+  color: #00626e; 
+  border-color: rgb(29, 161, 242, 0.2); 
+}
+
+.addCourseButton {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: white; 
+  color: #00626e; 
+  border-color: rgb(29, 161, 242, 0.2); 
+}
 
 
-  .coursesBox {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 30px;
-    padding-left: 30px;
-  }
+.coursesBox {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
 
-  .customButton {
-    height: 35px;
-    background-color: rgb(29, 161, 242, 0.65);
-    border-color: rgb(29, 161, 242, 0.65);
-    margin-right: 0px;
-    width: 120px;
-  }
+.customButton {
+  height: 35px;
+  background-color: rgb(29, 161, 242, 0.65);
+  border-color: rgb(29, 161, 242, 0.65);
+  margin-right: 0px;
+  width: 120px;
+}
 
-  .customButtonThin {
-    height: 35px;
-    background-color: rgb(29, 161, 242, 0.65);
-    border-color: rgb(29, 161, 242, 0.65);
-    margin-right: 0px;
-    width: 100px;
-  }
+.customButtonThin {
+  height: 35px;
+  background-color: rgb(29, 161, 242, 0.65);
+  border-color: rgb(29, 161, 242, 0.65);
+  margin-right: 0px;
+  width: 100px;
+}
 
-  .secondaryTitle {
-    text-align: left; 
-    margin-bottom: 0px; 
-    margin-top: 5px;
-    font-size: 18px;
-  }
+.secondaryTitle {
+  text-align: left; 
+  margin-bottom: 0px; 
+  margin-top: 5px;
+  font-size: 18px;
+}
 
-  .reportsTitle {
-    text-align: center; 
-    margin-bottom: 0px; 
-    margin-top: 5px;
-    font-size: 18px;
-  }
+.reportsTitle {
+  text-align: center; 
+  margin-bottom: 0px; 
+  margin-top: 5px;
+  font-size: 18px;
+}
 
-  .courseContainer {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
+.courseContainer {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 
-  .barText {
-    padding-bottom: 10px;
-    padding-left: 5px;
-  }
+.barText {
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
 
 input[type="checkbox"]{
-position: absolute;
-right: 9000px;
+  position: absolute;
+  right: 9000px;
 }
 
 input[type="checkbox"] + .label-text:before{
-content: "\f096";
-font-family: "FontAwesome";
-speak: none;
-font-style: normal;
-font-weight: normal;
-font-variant: normal;
-text-transform: none;
-line-height: 1;
--webkit-font-smoothing:antialiased;
-width: 1em;
-display: inline-block;
-margin-right: 5px;
+  content: "\f096";
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing:antialiased;
+  width: 1em;
+  display: inline-block;
+  margin-right: 5px;
 }
 
 input[type="checkbox"]:checked + .label-text:before{
-content: "\f14a";
-color: #2980b9;
-animation: effect 250ms ease-in;
+  content: "\f14a";
+  color: #2980b9;
+  animation: effect 250ms ease-in;
 }
 
 .groupBoxOptions {
-padding-top: 20px;
-padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
-
-
-
 
 /*MODALS*/
 
 .coursesModalBox {
-padding-top: 10px;
-padding-bottom: 5px;
-padding-right: 10px;
-padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .modal-body {
-padding-top: 10px;
-padding-bottom: 5px;
-padding-right: 5px;
-padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .container-fluid {
-padding-right: 10px;
-padding-left: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .modal-header {
-border: none;
-padding-bottom: 5px;
+  border: none;
+  padding-bottom: 5px;
 }
 
 .rowModal {
-padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .rowFinal {
-padding-top: 10px;
-padding-bottom: 20px;
-padding-right: 15px;
-padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .buscarArchivo {
-padding-left: 5px;
-padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .footerButtons {
-padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .customButtonModal {
@@ -233,12 +231,12 @@ padding-bottom: 5px;
 }
 
 .iconModalUpload {
-font-size: 30px;
+  font-size: 30px;
 
 }
 
 .iconContainer {
-text-align: center;
+  text-align: center;
 }
 .modalCriteriosBox {
   padding-top: 5px;

@@ -58,18 +58,19 @@
         <p class="pText"> Agregar Nuevo Horario </p>
       </div>
     </div>
-
-    @foreach($horario as $h)
-      @if($h->ESTADO===1)
-      <div class="x_content bs-example-popovers courseContainer">
-        <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-          <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-          </button>
-          <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+    <div id="listHorarios">
+      @foreach($horario as $h)
+        @if($h->ESTADO===1)
+        <div class="x_content bs-example-popovers courseContainer">
+          <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+          </div>
         </div>
-      </div>
-      @endif
-    @endforeach
+        @endif
+      @endforeach
+    </div>
   </div>  
   @endif
 </div>
@@ -171,7 +172,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   </div>
   <div class="modal-body">
     <div class="container-fluid">
-      <form id="frmCursos">      
+      <form id="frmCursosModal">      
         <div class="row rowModal">
           <div class="col-md-10">
             <h1 class="black-color pText">{{$codCurso}} {{$nombreCurso}}</h1>
@@ -186,13 +187,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         @foreach($horario as $h)
         <div class="row col-md-8">
           <label>
-            <input value="{{$h->NOMBRE_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
+            <input value="{{$h->ID_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
           </label>
         </div>
         @endforeach
       </form>
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
+        <button  id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
         <button id="btnCancelarHorarios" class="btn btn-success pText customButton">Cancelar</button> 
       </div>
     
@@ -222,7 +223,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   </div>
   <div class="modal-body">
     <div class="container-fluid">
-      <form id="frmCursos">      
+      <form id="frmCursosXD">      
         <div class="row rowModal">
           <div class="col-md-10">
             <h1 class="black-color pText">Seleccionar indicadores a evaluar</h1>

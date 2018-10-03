@@ -7,7 +7,10 @@
 
 namespace App\Models;
 
+use DB;
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class Curso
@@ -77,4 +80,15 @@ class Curso extends Eloquent
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO')
 					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
+
+	 static function getCursos() {
+        $sql = DB::table('CURSOS AS CURSOS')
+                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
+        //dd($sql->get());
+        return $sql;
+    }
+
+
+
+
 }

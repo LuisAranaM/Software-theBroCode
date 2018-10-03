@@ -7,7 +7,10 @@
 
 namespace App\Models;
 
+use DB;
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class Horario
@@ -77,4 +80,21 @@ class Horario extends Eloquent
 	{
 		return $this->hasMany(\App\Models\ProfesoresHasHorario::class, 'ID_HORARIO');
 	}
+
+	static function getHorarios($idCurso) {
+		//dd($idCurso);
+        $sql = DB::table('HORARIO AS H')
+				->select('H.ID_HORARIO', 'P.ID_USUARIO', 'H.NOMBRE AS NOMBRE_HORARIO', 'H.ESTADO AS ESTADO',DB::Raw('CONCAT(P.NOMBRES, " " , P.APELLIDO_PATERNO) AS NOMBRE_PROFESOR'))
+                ->leftJoin('PROFESORES_HAS_HORARIOS AS PH', function ($join) {
+					$join->on('H.ID_HORARIO', '=', 'PH.ID_HORARIO');
+				})
+				->leftJoin('USUARIOS AS P', function ($join) {
+					$join->on('PH.ID_USUARIO', '=', 'P.ID_USUARIO');
+				})
+				->where('H.ID_CURSO', '=', $idCurso)
+				;
+
+        //dd($sql->get());
+        return $sql;
+    }
 }

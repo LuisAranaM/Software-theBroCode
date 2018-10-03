@@ -1,36 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Entity\Curso as Curso;
-use App\Entity\Horario as Horario;
+
 use Illuminate\Http\Request;
+use App\Entity\PruebaEntity as Horario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class CursoController extends Controller
+class HorarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('cursos.gestion')
-            ->with('cursos',Curso::getCursos());
-    }
-    
-    public function progresoGestion() {         
-        $horarios=[];
-        $cursos = Curso::getCursos();
-        foreach ($cursos as $curso){
-            $idCurso = $curso->ID_CURSO;
-            $horarios[$idCurso] = Horario::getHorarios($idCurso);
-        }
-          return view('cursos.progreso')
-                ->with('idCurso',$idCurso)
-                ->with('horarios',$horarios)
-                ->with('cursos',Curso::getCursos());
+        $idCurso=$request->get('id',null);
+        $nombreCurso=$request->get('nombre',null);
+        $codCurso=$request->get('codigo',null);
+        //$infoCurso=Prueba::getInformacionCurso($idCurso);
+        //$infoCurso trae la información principal del curso en un arreglo  
+        return view('cursos.horarios')
+        ->with('nombreCurso',$nombreCurso)
+        ->with('codCurso',$codCurso)
+        ->with('horario',Horario::getHorarios($idCurso));    
     }
 
     /**
@@ -98,4 +92,12 @@ class CursoController extends Controller
     {
         //
     }
+
+    function actualizarHorarios(Request $request){
+        dd($request->all());
+    }
+
+
+
+
 }

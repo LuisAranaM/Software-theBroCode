@@ -41,40 +41,7 @@ class pruebaController extends Controller {
 
       return view('principal')
       ->with('cursos',$cursos);
-       		//->with('prueba',Prueba::getPrueba());
   }
-
-    public function cursosGestion() {
-      return view('cursos.gestion')
-      ->with('cursos',Prueba::getCursos());
-    }
-	
-
-    public function horariosGestion(Request $request) {  
-		//dd($request->all());
-		$idCurso=$request->get('id',null);
-		$nombreCurso=$request->get('nombre',null);
-		$codCurso=$request->get('codigo',null);
-		//$infoCurso=Prueba::getInformacionCurso($idCurso);
-		//$infoCurso trae la información principal del curso en un arreglo	
-        return view('cursos.horarios')
-		->with('nombreCurso',$nombreCurso)
-		->with('codCurso',$codCurso)
-		->with('horario',Prueba::getHorarios($idCurso));
-    }	
-
-    public function progresoGestion() {    		
-  		$horarios=[];
-  		$cursos = Prueba::getCursos();
-  		foreach ($cursos as $curso){
-  			$idCurso = $curso->ID_CURSO;
-  			$horarios[$idCurso] = Prueba::getHorarios($idCurso);
-  		}
-          return view('cursos.progreso')
-        		->with('idCurso',$idCurso)
-        		->with('horarios',$horarios)
-        		->with('cursos',Prueba::getCursos());
-    }
 
     public function reportesGestion() {    
         return view('reportes.reportes');

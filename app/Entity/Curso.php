@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Curso;
+use App\Models\Curso as mCurso;
 use Jenssegers\Date\Date as Carbon;
 
 class Curso extends \App\Entity\Base\Entity {
@@ -22,5 +22,9 @@ class Curso extends \App\Entity\Base\Entity {
         ]);
     }
 
-    
+    static function getCursos() {
+        $model = new mCurso();
+        return mCurso::getCursos()->get();
+    }
+
 }
