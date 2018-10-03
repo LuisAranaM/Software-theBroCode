@@ -38,6 +38,8 @@ Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'Horari
 Route::post('/desactivar-horario', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
 
 
+Route::get('/subir-archivo', 'ProyectoController@index');
+Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store']);
 /****RUTAS GENERALES****/
 
 /* Rutas públicas */

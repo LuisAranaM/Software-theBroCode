@@ -222,14 +222,15 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
             <h6 class="black-color pText">Seleccionar Horario</h6>
           </div>
         </div>
-
-        @foreach($horario as $h)
-        <div class="row col-md-8">
-          <label>
-            <input value="{{$h->ID_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
-          </label>
+        <div class="form-check" style="padding-left: 10px; width: 20px">
+          @foreach($horario as $h)
+          <div class="row col-md-8">
+            <label>
+              <input type="checkbox" value="{{$h->ID_HORARIO}}" class="get_value"  @if($h->ESTADO===1) checked=checked @endif> <span class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
+            </label>
+          </div>
+          @endforeach
         </div>
-        @endforeach
       </form>
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
         <button  id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>

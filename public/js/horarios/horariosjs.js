@@ -17,6 +17,7 @@ $( document ).ready(function() {
 		$("#btnCargarAlumnosModal").show();
 		$("#btnCargarCursosModal").hide();
 		$("#btnCargarHorariosModal").hide();
+		
 		$("#btnCancelarModal").show();
 	});
 
