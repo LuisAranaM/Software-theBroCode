@@ -43,9 +43,10 @@ Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaControl
 
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 
+// run composer require "maatwebsite/excel:~2.1.0"
 Route::get('ExportClients','CursoController@ExportClients');
 Route::post('ImportClients','CursoController@ImportClients');
-//Route::get('upload',['as'=>'cursos.gestion','uses'=>'PruebaController@cursosGestion']);
+Route::get('upload','CursoController@upload');
 
 /****RUTAS GENERALES****/
 

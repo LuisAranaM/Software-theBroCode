@@ -20,6 +20,10 @@ class CursoController extends Controller
         //
     }
 
+    public function upload(){
+        return view('upload');
+    }
+
     public function ExportClients(){
         Excel::create('clients',function($excel){
             $excel->sheet('clients',function($sheet){
