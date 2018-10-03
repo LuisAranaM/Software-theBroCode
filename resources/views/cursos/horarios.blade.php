@@ -195,6 +195,7 @@
 </div>
 <!-- /.modal -->
 
+
 <!-- Modal para Agregar Horarios -->
 
 <div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
@@ -207,30 +208,43 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
+    <h4 class="reportsTitle mainTitle modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
   </div>
   <div class="modal-body">
     <div class="container-fluid">
-      <form id="frmCursosModal">      
-        <div class="row rowModal">
-          <div class="col-md-10">
-            <h1 class="black-color pText">{{$codCurso}} {{$nombreCurso}}</h1>
-          </div>
-        </div>
-        <div class="row rowModal">
-          <div class="col-md-8">
-            <h6 class="black-color pText">Seleccionar Horario</h6>
-          </div>
-        </div>
-        <div class="form-check" style="padding-left: 10px; width: 20px">
-          @foreach($horario as $h)
-          <div class="row col-md-8">
-            <label>
-              <input type="checkbox" value="{{$h->ID_HORARIO}}" class="get_value"  @if($h->ESTADO===1) checked=checked @endif> <span class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</span>
-            </label>
-          </div>
-          @endforeach
-        </div>
+      <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
+      <form id="frmCursosModal">
+        <div class="table-responsive">
+          <table class="table table-striped jambo_table bulk_action">
+            <thead >
+              <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
+                <th class="pText column-title" style="border: none"></th>
+                <th class="pText column-title" style="border: none">Horario</th>
+                <th class="pText column-title" style="border: none">Profesor</th>
+                <th class="pText bulk-actions" colspan="7">
+                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                </th>
+              </tr>
+            </thead>
+            @foreach($horario as $h)
+            <tbody class="text-left">
+              <tr class="even pointer">
+                <td class="a-center"  style="background-color: white; padding-right: 0px">
+                 <div class="form-check" style="padding-left: 10px; width: 20px">
+                  <label>
+                    <input value="{{$h->ID_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
+                  </label>
+                </div>
+              </td>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$h->NOMBRE_HORARIO}}</td>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$h->NOMBRE_PROFESOR}}</td>
+            </td>
+            @endforeach
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
       </form>
       <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
         <button  id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
