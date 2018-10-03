@@ -43,7 +43,7 @@
             <div class="widget_summary" >
               <div class="w_center w_55" style="width: 100%">
                 <div class="progress" style="margin-bottom: 0px">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%; background-color: #00626E !important; border-color: #00626E !important">
+                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%; background-color: #005b7f !important; border-color: #00626E !important">
                     <span class="sr-only">60% Complete</span>
                   </div>
                 </div>
