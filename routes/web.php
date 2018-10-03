@@ -44,7 +44,7 @@ Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaControl
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 
 Route::get('ExportClients','CursoController@ExportClients');
-Route::post('ImportClients',['as'=>'cursos.gestion','uses'=>'CursoController@ImportClients']);
+Route::post('ImportClients','CursoController@ImportClients');
 //Route::get('upload',['as'=>'cursos.gestion','uses'=>'PruebaController@cursosGestion']);
 
 /****RUTAS GENERALES****/

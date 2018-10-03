@@ -11,7 +11,8 @@
 			<td>Nombre</td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>INFTUMAMA</td>
+			<td>JAJATPEZ</td>
 		</tr>
 	</table>
 </body>

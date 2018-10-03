@@ -36,8 +36,8 @@ class CursoController extends Controller
         $results = Excel::load('files/'.$file_name, function($reader){
             $reader->all();
         })->get();
-        return view('/login');
-        //return view('clients',['clients' => $results]);
+        //return view('/login');
+        return view('clients',['clients' => $results]);
     }
 
     /**
