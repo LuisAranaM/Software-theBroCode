@@ -1,24 +1,24 @@
 @extends('Layouts.layout')
-
-@section('js-libs')
-
-   
+@section('pageTitle', 'Carga Archivos')
+@section('js-libs')   
 @stop
 
 @section('content')
-@section('pageTitle', 'Carga Archivos')
 
+<div class="customBody">
+	<div class="col-md-8 col-sm-6">
+      <h1 class="mainTitle"> Subir Archivo </h1>
+    </div>
+<div class ="ui buttom attached segment"></div>
+	<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
+		{{ csrf_field() }}
+		<input type="file" name="archivo" id = "file">
+		<br>
+		<button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar</button>
+	</form>
+</div>
+</div>
 
-			<h3 class = "ui top attached blue header block segment">
-				File Upload
-			</h3>
-			<div class ="ui buttom attached segment"></div>
-				<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
-					{{ csrf_field() }}
-					<input type="file" name="archivo" id = "file">
-					<button type = "submit" class = "ui teal button">Cargar</button>
-				</form>
-			</div>
 @stop
 
 @section('js-scripts')

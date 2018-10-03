@@ -35,7 +35,7 @@ Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaControl
 
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
-Route::get('/subir-archivo', 'ProyectoController@index');
+Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index']);
 Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store']);
 /****RUTAS GENERALES****/
 
