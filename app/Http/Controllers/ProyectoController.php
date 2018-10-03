@@ -13,6 +13,7 @@ class ProyectoController extends Controller
 
     public function store(Request $request){
     	$file = $request->file('archivo');
-    	$file->storePubliclyAs('upload', 'filename.jpg');
+    	$file->storePubliclyAs('upload', 'filename');
+    	return back();
     }
 }

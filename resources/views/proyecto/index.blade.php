@@ -1,12 +1,14 @@
-{{--@extends('welcome') --}}
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset = "UTF-8">
-		<tittle>Document</tittle>
-	</head>
-	<body>
-		
+@extends('Layouts.layout')
+
+@section('js-libs')
+
+   
+@stop
+
+@section('content')
+@section('pageTitle', 'Carga Archivos')
+
+
 			<h3 class = "ui top attached blue header block segment">
 				File Upload
 			</h3>
@@ -17,6 +19,9 @@
 					<button type = "submit" class = "ui teal button">Cargar</button>
 				</form>
 			</div>
-		
-	</body>
-</html>
+@stop
+
+@section('js-scripts')
+
+@stop
+
