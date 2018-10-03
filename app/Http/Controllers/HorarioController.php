@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Entity\PruebaEntity as Horario;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HorarioController extends Controller
 {
@@ -11,9 +14,17 @@ class HorarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $idCurso=$request->get('id',null);
+        $nombreCurso=$request->get('nombre',null);
+        $codCurso=$request->get('codigo',null);
+        //$infoCurso=Prueba::getInformacionCurso($idCurso);
+        //$infoCurso trae la información principal del curso en un arreglo  
+        return view('cursos.horarios')
+        ->with('nombreCurso',$nombreCurso)
+        ->with('codCurso',$codCurso)
+        ->with('horario',Horario::getHorarios($idCurso));    
     }
 
     /**
