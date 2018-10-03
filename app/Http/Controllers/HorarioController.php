@@ -97,6 +97,10 @@ class HorarioController extends Controller
         dd($request->all());
     }
 
+    function desactivarHorario(Request $request){
+        dd($request->all());
+    }
+
 
 
 
