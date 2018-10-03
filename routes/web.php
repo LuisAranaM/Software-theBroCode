@@ -90,3 +90,7 @@ Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioContr
 //rEEMPLAZAR ANTERIOR
 //
 Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
+
+//Búsqueda
+//
+Route::get('/cursos/buscar', ['as'=>'buscar.cursos','uses'=>'CursoController@buscarCursos']);

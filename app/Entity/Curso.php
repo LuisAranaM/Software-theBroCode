@@ -27,4 +27,9 @@ class Curso extends \App\Entity\Base\Entity {
         return mCurso::getCursos()->get();
     }
 
+    static function buscarCursos($nomCurso){
+        $model= new mCurso();
+        return $model->buscarCursos($nomCurso)->get();
+    }
+
 }

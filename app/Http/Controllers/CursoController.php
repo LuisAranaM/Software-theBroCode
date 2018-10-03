@@ -61,6 +61,10 @@ class CursoController extends Controller
         return view('clients',['clients' => $results]);
     }
 
+    public function buscarCursos(Request $request){
+        return Curso::buscarCursos($request->get('cursoBuscar',null));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -81,13 +81,21 @@ class Curso extends Eloquent
 					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
-	 static function getCursos() {
+	static function getCursos() {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
         //dd($sql->get());
         return $sql;
     }
 
+    static function buscarCursos($nomCurso) {
+        $sql = DB::table('CURSOS AS CURSOS')
+                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
+                ->where('NOMBRE','like','%'.$nomCurso.'%');
+
+        //dd($sql->get());
+        return $sql;
+    }
 
 
 

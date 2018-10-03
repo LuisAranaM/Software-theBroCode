@@ -114,7 +114,7 @@
 
                         <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
                           <div class="col-xs-3">
-                            <input type="text" id="txtIndCalif1" class="form-control pText" name="indCalif1" id="txtcodigo" required="required">
+                            <input type="text" id="txtIndCalif1" class="form-control pText" name="indCalif1" id="txtcodigo" required="required" placeholder="1">
                           </div>
                           <div class="col-xs-6 form-group" style="padding-left: 0px;">
                             <textarea id="txtIndCalifDescrip1" class="textarea form-control" name="texto1" rows="4" cols="20" placeholder="{{$ultimoSubcriterio->DESCRIPCION_1}}"></textarea>
@@ -122,7 +122,7 @@
                         </div>
                         <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
                           <div class="col-xs-3">
-                            <input type="text" id="txtIndCalif2" class="form-control pText" name="indCalif2" id="txtcodigo" required="required">
+                            <input type="text" id="txtIndCalif2" class="form-control pText" name="indCalif2" id="txtcodigo" required="required" placeholder="2">
                           </div>
                           <div class="col-xs-6 form-group" style="padding-left: 0px;">
                             <textarea id="txtIndCalifDescrip2" class="textarea form-control" name="texto2" rows="4" cols="20" placeholder="{{$ultimoSubcriterio->DESCRIPCION_2}}"></textarea>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
                           <div class="col-xs-3">
-                            <input type="text" id="txtIndCalif3" class="form-control pText" name="indCalif3" id="txtcodigo" required="required">
+                            <input type="text" id="txtIndCalif3" class="form-control pText" name="indCalif3" id="txtcodigo" required="required" placeholder="3">
                           </div>
                           <div class="col-xs-6 form-group" style="padding-left: 0px;">
                             <textarea id="txtIndCalifDescrip3" class="textarea form-control" name="texto3" rows="4" cols="20" placeholder="{{$ultimoSubcriterio->DESCRIPCION_3}}"></textarea>
@@ -138,7 +138,7 @@
                         </div>
                         <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
                           <div class="col-xs-3">
-                            <input type="text" id="txtIndCalif4" class="form-control pText" name="indCalif4" id="txtcodigo" required="required">
+                            <input type="text" id="txtIndCalif4" class="form-control pText" name="indCalif4" id="txtcodigo" required="required" placeholder="4">
                           </div>
                           <div class="col-xs-6 form-group" style="padding-left: 0px;">
                             <textarea id="txtIndCalifDescrip4" class="textarea form-control" name="texto4" rows="4" cols="20" placeholder="{{$ultimoSubcriterio->DESCRIPCION_4}}"></textarea>

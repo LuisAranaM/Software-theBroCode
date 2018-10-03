@@ -85,20 +85,24 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   <div class="modal-body">
     <div class="container-fluid">
-      <form id="frmCursos">
+      <form id="frmAgregarCursos">
         <div class="tile coursesModalBox">
           <div class="col-xs-12 form-group top_search" >
             <div class="input-group">
-              <input type="text" class="form-control searchText" placeholder="Curso...">
+              <input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">
               <span class="input-group-btn">
-                <button class="btn btn-default searchButton" type="button">Buscar</button>
+                <button class="btn btn-default searchButton" type="button" id="btnBuscarCurso">
+                  <i class="fa fa-spinner fa-spin fa-fw fa-1x margin-bottom hidden"></i>
+                  <i class="fa fa-search"></i>
+                </button>
               </span>
             </div>
           </div>
 
         </div>
 
-
+        <!--Esto se debe de volver a generar por AJAX-->
+        <!--
         <div class="table-responsive">
           <table class="table table-striped jambo_table bulk_action">
             <thead >
@@ -122,20 +126,34 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
                 </div>
               </td>
               <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">ING220</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Ética Profesional</td>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Ética Profesional</td>            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+-->
 
-    <div class="text-center" style="padding-top: 0px; padding-bottom: 10px">
-      <button id="btnAgregar" class="btn btn-success pText customButtonThin">Agregar</button>
-      <button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button> 
-    </div>
+      <ul id="listaCursos" class="list-unstyled top_profiles scroll-view hidden" style="height: auto;" >
+            <li class="media event cargando-resultados">
+              <div class="media-body">
+                <p style="text-align: center;"><i class="fa fa-spinner fa-spin fa-fw"></i></p>
+              </div>
+            </li>
+            <li class="media event sin-resultados hidden">
+              <div class="media-body">
+                <p style="text-align: center;">No se encontraron cursos</p> 
+              </div>
+            </li>
+      </ul>
+      <div id="btnsAgregarCurso" class="modal-footer hidden">
+        <div class="text-center" style="padding-top: 0px; padding-bottom: 10px">
 
+          <button id="btnAgregar" class="btn btn-success pText customButtonThin">Agregar</button>
+          <button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button> 
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>
 <!-- /.modal-content -->
 </div>
@@ -164,30 +182,30 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   <div class="modal-body">
     <div class="container-fluid text-center">
       <div class="dropzone" style="min-height: 100px; height: 180px; width: 300px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
-          <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-          <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+        <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
+        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
             <!--
             <span style="text-decoration: underline"> Carga un archivo desde documentos </span></p>
-            -->
-            <input type="file" name="Carga un archivo desde documentos" /> 
-      </div>
+          -->
+          <input type="file" name="Carga un archivo desde documentos" /> 
+        </div>
 
-      <div style="padding-top: 10px; padding-bottom: 10px">
+        <div style="padding-top: 10px; padding-bottom: 10px">
 
-        <form id="btnCargarCursosModal" action="ImportClients" method="post" enctype="multipart/form-data">
-        <input id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" type="submit" value="Cargar" />
-        <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-        </form>
+          <form id="btnCargarCursosModal" action="ImportClients" method="post" enctype="multipart/form-data">
+            <input id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" type="submit" value="Cargar" />
+            <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+          </form>
 
-        <form id="btnCargarHorariosModal" action="" method="" enctype="">
-        <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin" type="submit">Cargar</button> 
-        <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-        </form>
+          <form id="btnCargarHorariosModal" action="" method="" enctype="">
+            <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin" type="submit">Cargar</button> 
+            <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+          </form>
 
-        <form id="btnCargarAlumnosModal" action="" method="" enctype="">
-        <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
-        <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-        </form>
+          <form id="btnCargarAlumnosModal" action="" method="" enctype="">
+            <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
+            <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+          </form>
 
         <!--
         <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" > Cargar</button>
@@ -195,12 +213,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
         <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
       
-        -->
-
-      </div>
+      -->
 
     </div>
+
   </div>
+</div>
 </div>
 <!-- /.modal-content -->
 </div>
