@@ -19,6 +19,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- -->
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <!-- -->
 </head>
 <body>
     <div id="app">

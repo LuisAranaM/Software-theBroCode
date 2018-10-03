@@ -34,10 +34,19 @@ Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController
 //Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaController@rubricasGestion']);
 
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
+
 Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 Route::post('/desactivar-horario', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
 Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index']);
 Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store']);
+
+
+// EMANUEL
+Route::get('ExportClients','CursoController@ExportClients');
+Route::post('ImportClients','CursoController@ImportClients');
+Route::get('upload','CursoController@upload');
+
+
 /****RUTAS GENERALES****/
 
 /* Rutas públicas */
