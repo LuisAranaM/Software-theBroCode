@@ -87,6 +87,8 @@
                     <li><a style="color:#72777a" href="">Chart JS2</a></li>
                   </ul>
                 </li>
+                <li><a style="color:#72777a" href="{{route('subir.archivos')}}"><i class="fa fa-upload"></i> Subir Archivos</a>
+                </li>
               </ul>
             </div>         
           </div>

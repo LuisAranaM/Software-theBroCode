@@ -14,6 +14,7 @@ class ProyectoController extends Controller
     public function store(Request $request){
     	$file = $request->file('archivo');
     	$file->storePubliclyAs('upload', 'filename');
+    	flash('Se ha subido el archivo de forma correcta.')->success();
     	return back();
     }
 }
