@@ -48,7 +48,6 @@ class pruebaController extends Controller {
       return view('cursos.gestion')
       ->with('cursos',Prueba::getCursos());
     }
-	
 
     public function horariosGestion(Request $request) {  
 		//dd($request->all());

@@ -164,14 +164,38 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
     <div class="container-fluid text-center">
       <div class="dropzone" style="min-height: 100px; height: 180px; width: 300px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
           <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-          <p class="pText">Arrastra y suelta un archivo <br> o <br> <span style="text-decoration: underline"> Carga un archivo desde documentos </span></p>
+          <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+            <!--
+            <span style="text-decoration: underline"> Carga un archivo desde documentos </span></p>
+            -->
+            <input type="file" name="Carga un archivo desde documentos" /> 
       </div>
 
       <div style="padding-top: 10px; padding-bottom: 10px">
-        <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
+
+        <form id="btnCargarCursosModal" action="ImportClients" method="post" enctype="multipart/form-data">
+        <input id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" type="submit" value="Cargar" />
+        <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+        </form>
+
+        <form id="btnCargarHorariosModal" action="" method="" enctype="">
+        <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin" type="submit">Cargar</button> 
+        <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+        </form>
+
+        <form id="btnCargarAlumnosModal" action="" method="" enctype="">
+        <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
+        <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+        </form>
+
+        <!--
+        <button id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" > Cargar</button>
         <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin" >Cargar</button> 
         <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
         <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
+      
+        -->
+
       </div>
 
     </div>
