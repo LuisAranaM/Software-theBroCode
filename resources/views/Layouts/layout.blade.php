@@ -15,6 +15,7 @@
   <link href="{{ URL::asset('css/custom/custom.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/custom/broCode.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/custom/custom.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ URL::asset('css/custom/customRubr.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
   <!--JS-->

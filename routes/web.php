@@ -27,18 +27,10 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
 });
  */
 
-/*LOGIN*/
-/*Route::get('/', function () {
-    return view('login');
-});
-*/
-//Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-//Route::get('/login', ['as' => 'login.index', 'uses' => 'LoginController@index']);
-
 Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
-Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'PruebaController@cursosGestion']);
-Route::get('/cursos/horarios', ['as'=>'cursos.horarios','uses'=>'PruebaController@horariosGestion']);
-Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'PruebaController@progresoGestion']);
+Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
+Route::get('/cursos/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
+Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
 Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaController@rubricasGestion']);
 
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
