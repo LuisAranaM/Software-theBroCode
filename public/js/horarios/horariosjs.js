@@ -27,7 +27,7 @@ $( document ).ready(function() {
 			headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: '/desactivar-horario',
+			url: 'horarios/desactivar',
 			data: {
 				_idHorario: horario
 			},
@@ -47,7 +47,7 @@ $( document ).ready(function() {
 			headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: '/actualizar-horarios',
+			url: 'horarios/actualizar',
 			data: {
 				_idHorarios: horarios
 			},

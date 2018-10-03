@@ -27,24 +27,6 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
 });
  */
 
-Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
-Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
-Route::get('/cursos/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
-Route::get('/cursos/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
-//Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'PruebaController@rubricasGestion']);
-
-Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
-
-Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
-Route::post('/desactivar-horario', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
-Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index']);
-Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store']);
-
-
-// EMANUEL
-Route::get('ExportClients','CursoController@ExportClients');
-Route::post('ImportClients','CursoController@ImportClients');
-Route::get('upload','CursoController@upload');
 
 
 /****RUTAS GENERALES****/
@@ -59,6 +41,39 @@ Route::get('/pass-gen', ['as' => 'pass.gen', 'uses' => 'PassController@gen']);
 Route::post('/pass-save', ['as' => 'pass.save', 'uses' => 'PassController@save']);
 Route::get('/extra-login', ['as' => 'pass.login', 'uses' => 'PassController@login']);
 Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController@attempt']);
+
+Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
+Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
+
+
+/**HORARIOS**/
+Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3']], function() {
+	Route::post('/actualizar', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
+	Route::post('/desactivar', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
+});
+
+/*SUBIR ARCHIVOS*/
+Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index']);
+Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store']);
+
+/*RÚBRICAS*/
+Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|3']], function() {
+	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
+	Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
+});
+
+/****RUTAS PARA CURSOS****/
+Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {
+	Route::get('gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
+	Route::get('horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
+	Route::get('progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
+	Route::get('buscar', ['as'=>'buscar.cursos','uses'=>'CursoController@buscarCursos']);
+});
+
+/***EXCELS***/
+Route::get('ExportClients','CursoController@ExportClients');
+Route::post('ImportClients','CursoController@ImportClients');
+Route::get('upload','CursoController@upload');
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
@@ -80,17 +95,3 @@ Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], fu
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
 
-/****RUTAS PARA ACTUALIZAR HORARIOS****/
-
-
-
-
-/*CHAPI*/
-Route::get('/rubricas/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
-//rEEMPLAZAR ANTERIOR
-//
-Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
-
-//Búsqueda
-//
-Route::get('/cursos/buscar', ['as'=>'buscar.cursos','uses'=>'CursoController@buscarCursos']);
