@@ -51,6 +51,7 @@ class CursoController extends Controller
     }
 
     public function ImportClients(){
+        //dd("HOLA");
         $file = Input::file('file');
         $file_name = $file->getClientOriginalName();
         $file->move('files',$file_name);

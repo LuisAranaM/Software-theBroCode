@@ -27,8 +27,6 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
 });
  */
 
-
-
 /****RUTAS GENERALES****/
 
 /* Rutas públicas */
@@ -47,23 +45,23 @@ Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGest
 
 
 /**HORARIOS**/
-Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3']], function() {
+Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::post('/actualizar', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/desactivar', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
 });
 
 /*SUBIR ARCHIVOS*/
-Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index']);
-Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store']);
+Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 /*RÚBRICAS*/
-Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|3']], function() {
+Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
 	Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
 });
 
 /****RUTAS PARA CURSOS****/
-Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1|2|3']], function() {
+Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
 	Route::get('/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
 	Route::get('/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
@@ -71,9 +69,9 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1|2|3'
 });
 
 /***EXCELS***/
-Route::get('ExportClients','CursoController@ExportClients');
-Route::post('ImportClients','CursoController@ImportClients');
-Route::get('upload','CursoController@upload');
+Route::get('ExportClients',['uses'=>'CursoController@ExportClients','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@ImportClients','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {

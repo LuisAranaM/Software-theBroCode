@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>clients</title>
-</head>
-<body>
+@extends('Layouts.layout')
+@section('pageTitle', 'Carga Archivos')
+@section('js-libs')   
+@stop
+
+@section('content')
+
 	<h1>Lista de cursos</h1>
 	<table>
 		<tr>
@@ -18,5 +18,10 @@
 		</tr>
 		@endforeach
 	</table>
-</body>
-</html>
+
+@stop
+
+@section('js-scripts')
+
+@stop
+
