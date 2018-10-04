@@ -29,10 +29,10 @@
 </div>
 
 
-<!-- Modal de Cargar Alumnos y Horarios -->
+<!-- Modal de Cargar Cursos -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargar" data-keyboard="false" data-backdrop="static"
+id="modalCargarCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30%">
@@ -42,60 +42,127 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       <span aria-hidden="true">&times;</span>
     </button>
     <h4 id="CargarCursos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Cursos</h4>
+  </div>
+  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+  <div class="modal-body">
+    <div class="container-fluid text-center">
+      <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
+        <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
+        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+
+          <form id="upload_form" action = "{{url('/subir-excels/upload')}}" method = "post" enctype = "multipart/form-data">
+            {{csrf_field()}}
+            <div class = "form-group">
+              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+            </div>
+            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <input id="btnCargarCursosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+              </div>
+              <div class="col-md-4">
+                <button type="reset" id="btnCancelarModalCursos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal de Cargar Horarios -->
+
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+id="modalCargarHorarios" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+<div class="customModal modal-dialog modal-lg ">
+  <div class="modal-content" style="top: 30%">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <h4 id="CargarHorarios" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Horarios</h4>
+  </div>
+  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+  <div class="modal-body">
+    <div class="container-fluid text-center">
+      <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
+        <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
+        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+
+          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
+            {{csrf_field()}}
+            <div class = "form-group">
+              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+            </div>
+            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <input id="btnCargarHorariosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+              </div>
+              <div class="col-md-4">
+                <button type="reset" id="btnCancelarModalHorarios" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal de Cargar Alumnos  -->
+
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+<div class="customModal modal-dialog modal-lg ">
+  <div class="modal-content" style="top: 30%">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <h4 id="CargarAlumnos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Alumnos</h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   <div class="modal-body">
     <div class="container-fluid text-center">
-      <div class="dropzone" style="min-height: 100px; height: 180px; width: 300px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
+      <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
         <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
         <p class="pText">Arrastra y suelta un archivo <br> o <br> 
-            <!--
-            <span style="text-decoration: underline"> Carga un archivo desde documentos </span></p>
-          -->
-          <!--<input type="file" name="Carga un archivo desde documentos" /> -->
+
+          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
+            {{csrf_field()}}
+            <div class = "form-group">
+              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+            </div>
+            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+              </div>
+              <div class="col-md-4">
+                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              </div>
+
+            </div>
+            
+          </form>
         </div>
-
-        <div style="padding-top: 10px; padding-bottom: 10px">
-        <!--      
-          <form id="btnCargarCursosModal" action="ImportClients" method="post" enctype="multipart/form-data">
-            <input id="btnCargarCursosModal" class="btn btn-success pText customButtonThin" type="submit" value="Cargar" />
-            <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-          </form>
-
-          <form id="btnCargarHorariosModal" action="" method="" enctype="">
-            <button id="btnCargarHorariosModal" class="btn btn-success pText customButtonThin" type="submit">Cargar</button> 
-            <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-          </form>
-
-          <form id="btnCargarAlumnosModal" action="" method="" enctype="">
-            <button id="btnCargarAlumnosModal" class="btn btn-success pText customButtonThin" >Cargar</button>
-            <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-          </form>
-        -->
-        <form action = "{{url('/subir-excels/upload')}}" method = "post" enctype = "multipart/form-data">
-          {{csrf_field()}}
-          <div class = "form-group" >
-            <input type = "file" name = "upload-file" class="form-control">
-          </div>
-          <input class = "btn btn-success pText customButtonThin" type="submit" value = "Upload image" name="submit">
-        </form>
-        <form>  
-          <button id="btnCargarHorariosModal"  class="btn btn-success pText customButtonThin" >Cargar</button> 
-          <button id="btnCargarAlumnosModal"  class="btn btn-success pText customButtonThin" >Cargar</button>
-          <button type="reset" id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
-
-        </form>
-
-
-
       </div>
-
     </div>
   </div>
-</div>
-<!-- /.modal-content -->
+  <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>
