@@ -87,7 +87,7 @@
                     <li><a style="color:#72777a" href="">Chart JS2</a></li>
                   </ul>
                 </li>
-                <li><a style="color:#72777a" href="{{route('subir.archivos')}}"><i class="fa fa-upload"></i> Subir Archivos</a>
+                <li><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                 </li>
               </ul>
             </div>         
@@ -106,11 +106,11 @@
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
-
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> {{Auth::user()->NOMBRES}}
+                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">

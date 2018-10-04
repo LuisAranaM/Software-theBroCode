@@ -37,9 +37,14 @@ class CursoController extends Controller
                 ->with('cursos',Curso::getCursos());
     }
 
+    public function subirExcels(){
+        return view('subirExcels');
+    }
+
     public function upload(){
         return view('upload');
     }
+
 
     public function ExportClients(){
         Excel::create('clients',function($excel){
