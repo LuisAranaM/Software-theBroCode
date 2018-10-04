@@ -35,30 +35,20 @@ class CriterioController extends Controller
         $criterios = eCriterio::getCriterios();
         foreach ($criterios as $criterio){
             $idCrit = $criterio->ID_CATEGORIA;
-            $categoriasNoValid = eCategoria::getCategorias($idCrit);
-            if(count($categoriasNoValid)!=0){
-                $categorias[$idCrit] = $categoriasNoValid;
-                foreach($categorias[$idCrit] as $categoria){
-                    $idCat = $categoria->ID_CRITERIO;
-                    $subcriteriosNoValid =eSubcriterio::getSubCriterios($idCat);
-                    if(count($subcriteriosNoValid)!= 0){
-                        $lastIdCat = $idCat;
-                        $subcriterios[$idCat] = $subcriteriosNoValid;
-                        foreach($subcriterios[$idCat] as $subcriterio){
-                            $idSubCriterio = $subcriterio->ID_SUBCRITERIO;
-                        }  
-                    }                 
-                }  
-            }            
+            $categorias[$idCrit-1] = eCategoria::getCategorias($idCrit);
+            foreach($categorias[$idCrit-1] as $categoria){
+                $idCat = $categoria->ID_CRITERIO;
+                $subcriterios[$idCat-1] = eSubcriterio::getSubCriterios($idCat);
+            }                             
         } 
-        //dd($categorias);
+        //dd($idCrit);
         return view('rubricas.gestion')
         ->with('lastIdCrit',$idCrit)
         ->with('lastIdCat',$idCat)
         ->with('criterios',$criterios)
-        ->with('ultimoCriterio',$criterios[count($criterios)-1])
-        ->with('ultimaCategoria',$categorias[count($criterios)][count($categorias[count($criterios)])-1])
-        ->with('ultimoSubcriterio',$subcriterios[$lastIdCat][count($subcriterios[$lastIdCat])-1]);
+        ->with('ultimoCriterio',$criterios[$idCrit-1])
+        ->with('ultimaCategoria',$categorias[$idCrit-1][count($categorias[$idCrit-1])-1])
+        ->with('ultimoSubcriterio',$subcriterios[$idCat-1][count($subcriterios[$idCat-1])-1]);
     }
 
     public function actualizarCriterios(Request $request){
