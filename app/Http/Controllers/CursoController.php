@@ -101,7 +101,52 @@ class CursoController extends Controller
 
         $header = fgetcsv($file);
 
-        dd($header);
+        //dd($header);
+        //validate
+        $escapedHeader=[];
+        foreach ($header as $key => $value) {
+            $lheader=strtolower($value);
+            $escapedItem=preg_replace('/[^a-z]/', '', $lheader);
+            array_push($escapedHeader, $escapedItem);
+        }
+
+        //looping 
+        
+        while($columns = fgetcsv($file)){
+            if($columns[0]==""){
+                continue;
+            }
+            foreach ($columns as $key => &$value) {
+                $value = preg_replace('/\D/', '', $value);
+            }
+            $data = array_combine($escapedHeader, $columns);
+            //setting type
+            foreach ($data as $key => &$value) {
+                $value = ($key=="zip" || $key =="month")?(integer)$value:(string)$value;
+            }
+            //table update
+            $date = date("Y-m-d", time());
+
+            $nombre = $data['nombre'];
+            $CODIGO_CURSO = $data['codigocurso'];
+            $FECHA_REGISTRO = $date;
+            $FECHA_ACTUALIZACION = $date;
+            $ESTADO_ACREDITACION = 1;
+            $USUARIO_MODIF = 1;
+            $ESTADO = 1;
+
+            $curso = Curso::updateOrCreate(['nombre'=>$nombre]);
+            $curso->CODIGO_CURSO = $CODIGO_CURSO;
+            $curso->FECHA_REGISTRO = $date;
+            $curso->FECHA_ACTUALIZACION = $date;
+            $curso->ESTADO_ACREDITACION = 1;
+            $curso->USUARIO_MODIF = 1;
+            $curso->ESTADO = 1;
+            $curso->save();
+            
+        
+        }
+        
 
     }
 
