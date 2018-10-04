@@ -54,7 +54,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
             <!--
             <span style="text-decoration: underline"> Carga un archivo desde documentos </span></p>
           -->
-          <input type="file" name="Carga un archivo desde documentos" /> 
+          <!--<input type="file" name="Carga un archivo desde documentos" /> -->
         </div>
 
         <div style="padding-top: 10px; padding-bottom: 10px">
@@ -74,8 +74,14 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
             <button id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>
           </form>
         -->
-        <form action="ImportClients" method="post" enctype="multipart/form-data"  >
-          <button id="btnCargarCursosModal"  class="btn btn-success pText customButtonThin"> Cargar</button>
+        <form action = "{{url('/subir-excels/upload')}}" method = "post" enctype = "multipart/form-data">
+          {{csrf_field()}}
+          <div class = "form-group" >
+            <input type = "file" name = "upload-file" class="form-control">
+          </div>
+          <input class = "btn btn-success pText customButtonThin" type="submit" value = "Upload image" name="submit">
+        </form>
+        <form>  
           <button id="btnCargarHorariosModal"  class="btn btn-success pText customButtonThin" >Cargar</button> 
           <button id="btnCargarAlumnosModal"  class="btn btn-success pText customButtonThin" >Cargar</button>
           <button type="reset" id="btnCancelarModal" class="btn btn-success pText customButtonThin">Cancelar</button>

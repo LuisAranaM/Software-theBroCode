@@ -75,6 +75,10 @@ Route::get('ExportClients',['uses'=>'CursoController@ExportClients','middleware'
 Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@ImportClients','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
+//pruebas excel
+#Route::get('upload', 'CursoController@showForm');
+Route::post('/subir-excels/upload', 'CursoController@store');
+
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);

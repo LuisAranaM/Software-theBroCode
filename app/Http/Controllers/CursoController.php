@@ -80,6 +80,9 @@ class CursoController extends Controller
     {
         //
     }
+    public function showForm(){
+        return view('upload');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -90,7 +93,16 @@ class CursoController extends Controller
     
     public function store(Request $request)
     {
-        
+        //get file
+        $upload = $request->file('upload-file');
+        $filePath = $upload->getRealPath();
+        //open and read
+        $file=fopen($filePath, 'r');
+
+        $header = fgetcsv($file);
+
+        dd($header);
+
     }
 
     /**
