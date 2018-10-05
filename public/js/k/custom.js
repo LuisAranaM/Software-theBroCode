@@ -74,7 +74,7 @@ $(document).ready(function() {
         if ($li.is('.active')) {
             $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
-                console.log("HOLA");
+                //console.log("HOLA");
                 setContentHeight();
             });
         } else {
@@ -87,7 +87,7 @@ $(document).ready(function() {
             $li.addClass('active');
 
             $('ul:first', $li).slideDown(function() {
-                console.log("HOLA2");
+                //console.log("HOLA2");
                 setContentHeight();
             });
         }
@@ -143,10 +143,10 @@ $(document).ready(function() {
 
     // recompute content when resizing
     $(window).smartresize(function(){  
-        console.log("HOLA5");
+        //console.log("HOLA5");
         setContentHeight();
     });
-    console.log("HOLA6");
+    //console.log("HOLA6");
     setContentHeight();
 
     // fixed sidebar
