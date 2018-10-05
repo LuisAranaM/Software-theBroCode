@@ -51,6 +51,7 @@ Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3'
 });
 
 /*SUBIR ARCHIVOS*/
+//Pruebas de André
 Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
@@ -69,9 +70,14 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']]
 });
 
 /***EXCELS***/
+Route::get('/subir-excels', ['as'=>'subir.excels','uses'=>'CursoController@subirExcels','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('ExportClients',['uses'=>'CursoController@ExportClients','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@ImportClients','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
+//pruebas excel
+#Route::get('upload', 'CursoController@showForm');
+Route::post('/subir-excels/upload', 'CursoController@store');
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {

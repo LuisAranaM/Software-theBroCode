@@ -70,7 +70,7 @@ class Usuario extends Authenticatable implements Auditable{
         'ESTADO',
         'NOMBRES',
         'APELLIDO_PATERNO',
-        'APELLIDO_MATERNO'
+        'APELLIDO_MATERNO',
         ];
     /**
      * The attributes that are mass assignable.
@@ -127,7 +127,6 @@ class Usuario extends Authenticatable implements Auditable{
         return in_array($rol, [$this->ID_ROL]);
     }
     static function getUsuario($usuario){
-
         $sql=DB::table('USUARIOS')
                 ->select()
                 ->where('USUARIO','=',$usuario);
