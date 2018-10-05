@@ -27,7 +27,7 @@ $( document ).ready(function() {
 			headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: 'horarios/desactivar',
+			url: '/desactivar',
 			data: {
 				_idHorario: horario
 			},
@@ -41,32 +41,31 @@ $( document ).ready(function() {
 	$('#btnClose').click(function() {
 		desactivarHorario($(this).val());
 	});
-	function actualizarHorarios(horarios){
+	function updateHorarios(horarios){
 		$.ajax({
 			type:'POST',
 			headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: 'horarios/actualizar',
+			url: 'horarios/actualizar-horarios',
 			data: {
 				_idHorarios: horarios
 			},
-			dataType: "text",
+			dataType: 'json',
 			success: function(resultData) {
 			}
 		});
-
 	}
 	$('#btnActualizarHorarios').click(function() {
-		
 		var horariosSeleccionados=[];
+		console.log("holawa");	
 		$('.get_value').each(function(){
 			if($(this).is(":checked")){
 				horariosSeleccionados.push($(this).val());
 			}
 		});
-		
-		actualizarHorarios(horariosSeleccionados);	
+		updateHorarios(horariosSeleccionados);
+		console.log("he");
 		//Aquí falta el refrescar Horarios
 		$('#modalHorarios').modal('hide');
 	});

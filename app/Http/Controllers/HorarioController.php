@@ -93,15 +93,44 @@ class HorarioController extends Controller
         //
     }
 
-    function actualizarHorarios(Request $request){
+    public function desactivarHorario(Request $request){
+        dd("Holi");
         dd($request->all());
+        /*$codigoRes = $request->get('codigo', null);
+        $nombreRes = $request->get('nombre', null);
+        $idCriterio = eCriterio::insertCriterio($codigoRes,$nombreRes);
+
+        $categoria = $request->get('categoria',null);
+        $idCategoria = eCategoria::insertCategoria(1,1,$categoria,$idCriterio);
+
+        $subcriterio = $request->get('indicador',null);
+        $texto1 = $request->get('texto1',null);
+        $texto2 = $request->get('texto2',null);
+        $texto3 = $request->get('texto3',null);
+        $texto4 = $request->get('texto4',null);
+        eSubcriterio::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
+        return redirect()->route('rubricas.gestion');*/
+
     }
 
-    function desactivarHorario(Request $request){
+
+    public function actualizarHorarios(Request $request){
         dd($request->all());
+        /*$codigoRes = $request->get('codigo', null);
+        $nombreRes = $request->get('nombre', null);
+        $idCriterio = eCriterio::insertCriterio($codigoRes,$nombreRes);
+
+        $categoria = $request->get('categoria',null);
+        $idCategoria = eCategoria::insertCategoria(1,1,$categoria,$idCriterio);
+
+        $subcriterio = $request->get('indicador',null);
+        $texto1 = $request->get('texto1',null);
+        $texto2 = $request->get('texto2',null);
+        $texto3 = $request->get('texto3',null);
+        $texto4 = $request->get('texto4',null);
+        eSubcriterio::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
+        return redirect()->route('rubricas.gestion');*/
+
     }
-
-
-
 
 }

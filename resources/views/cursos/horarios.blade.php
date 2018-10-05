@@ -244,14 +244,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
           </tr>
         </tbody>
       </table>
-    </div>
-
-      </form>
-      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button  id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
+    </div> 
+    </form>
+    <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
         <button id="btnCancelarHorarios" class="btn btn-success pText customButton">Cancelar</button> 
-      </div>
-    
+    </div>
     </div>
   </div>
 </div>
