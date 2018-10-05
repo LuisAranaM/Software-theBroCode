@@ -11,8 +11,8 @@
 			<td>Nombre</td>
 		</tr>
 		<tr>
-			<td>INFTUMAMA</td>
-			<td>JAJATPEZ</td>
+			<td>INF-281</td>
+			<td>Lenguaje de Programación 1</td>
 		</tr>
 	</table>
 </body>

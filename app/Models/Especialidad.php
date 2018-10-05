@@ -6,7 +6,7 @@
  */
 
 namespace App\Models;
-
+use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -29,7 +29,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Especialidade extends Eloquent
+class Especialidad extends Eloquent
 {
 	protected $primaryKey = 'ID_ESPECIALIDAD';
 	public $timestamps = false;
@@ -52,6 +52,17 @@ class Especialidade extends Eloquent
 		'ESTADO'
 	];
 
+	public function getEspecialidadUsuario($id_usuario)
+	{	
+		$sql=DB::table('USUARIOS AS US')
+				->select('ES.ID_ESPECIALIDAD')
+				->leftJoin('ESPECIALIDADES_HAS_PROFESORES AS ES',function($join){
+					$join->on('US.ID_USUARIO','=','ES.ID_USUARIO');
+				})
+				->where('US.ID_USUARIO','=',$id_usuario);
+		return $sql->first()->ID_ESPECIALIDAD;
+	}	
+
 	public function actas()
 	{
 		return $this->hasMany(\App\Models\Acta::class, 'ID_ESPECIALIDAD', 'id_especialidad');
@@ -69,21 +80,21 @@ class Especialidade extends Eloquent
 
 	public function eos()
 	{
-		return $this->hasMany(\App\Models\Eo::class, 'ID_ESPECIALIDAD', 'id_especialidad');
+		return $this->hasMany(\App\Models\Eos::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
 	public function especialidades_has_profesores()
 	{
-		return $this->hasMany(\App\Models\EspecialidadesHasProfesore::class, 'ID_ESPECIALIDAD');
+		return $this->hasMany(\App\Models\EspecialidadesHasProfesores::class, 'ID_ESPECIALIDAD');
 	}
 
 	public function planes_de_mejoras()
 	{
-		return $this->hasMany(\App\Models\PlanesDeMejora::class, 'ID_ESPECIALIDAD');
+		return $this->hasMany(\App\Models\PlanesDeMejoras::class, 'ID_ESPECIALIDAD');
 	}
 
 	public function sos()
 	{
-		return $this->hasMany(\App\Models\So::class, 'ID_ESPECIALIDAD');
+		return $this->hasMany(\App\Models\Sos::class, 'ID_ESPECIALIDAD');
 	}
 }
