@@ -64,6 +64,7 @@ class Criterio extends Eloquent
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
 				 'ESTADO' => 1]);
+		DB::commit();
 		return $id;
 	}
 

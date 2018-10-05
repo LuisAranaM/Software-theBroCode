@@ -102,6 +102,7 @@ class Subcriterio extends Eloquent
 		     	 'DESCRIPCION_3' => $desc3,
 		     	 'DESCRIPCION_4' => $desc4,
 				 'ESTADO' => 1]);
+		DB::commit();
 		return $id;
 	}
 }

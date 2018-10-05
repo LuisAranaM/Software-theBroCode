@@ -57,6 +57,7 @@ class Categoria extends Eloquent
 		    	 'NOMBRE' => $categoria,
 		     	 'ID_CATEGORIA' => $criterio,
 				 'ESTADO' => 1]);
+		DB::commit();
 		return $id;
 	}
 	static function getCategorias($idCrit) {

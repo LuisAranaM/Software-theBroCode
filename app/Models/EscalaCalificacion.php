@@ -51,4 +51,30 @@ class EscalaCalificacion extends Eloquent
 	{
 		return $this->hasMany(\App\Models\SubcriteriosHasAlumnosHasHorario::class, 'ID_ESCALA');
 	}
+
+	static function getEscalas() {
+        $sql = DB::table('ESCALA_CALIFICACION')
+                ->select('ID_ESCALA','NOMBRE')
+                ->where('ESTADO','=', 1);
+        //dd($sql->get());
+        return $sql;
+    }
+
+	static function updateEscala($esc1,$esc2,$esc3,$esc4){
+		//Falta añadir excepción
+		DB::table('ESCALA_CALIFICACION')
+				->where('ID_ESCALA',1)
+				->update(['NOMBRE'=> $esc1]);
+		DB::table('ESCALA_CALIFICACION')
+				->where('ID_ESCALA',2)
+				->update(['NOMBRE'=> $esc2]);
+		DB::table('ESCALA_CALIFICACION')
+				->where('ID_ESCALA',3)
+				->update(['NOMBRE'=> $esc3]);
+		DB::table('ESCALA_CALIFICACION')
+				->where('ID_ESCALA',4)
+				->update(['NOMBRE'=> $esc4]);
+		DB::commit();
+		return;
+	}
 }
