@@ -1,0 +1,284 @@
+.boxTitleBody {
+
+ display: inline-block;
+ padding-top: 15px; 
+ padding-bottom: 15px;
+}
+
+.customBox{
+  border-color: transparent;
+  height: 100%; 
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.imageBox {
+  height: 100%; 
+  width: 100%;
+}
+
+/*text*/
+
+.boxTitle {
+  font-family: Segoe UI;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.mainTitle {
+  font-size: 21px;
+  font-family: Segoe UI Semibold;
+  padding-bottom: 2%;
+  color: black;
+  text-align: left;
+}
+
+.messageText {
+  font-size: 18px;
+  font-family: Segoe UI Semibold;
+  padding-bottom: 2%;
+  color: #73879C;
+  text-align: center;
+}
+
+.searchButton {
+  font-size: 14px;
+  font-family: Segoe UI;
+  background-color: #005b7f;
+  height: 34px;
+  color: white !important;
+  border: solid 1px #005b7f !important;
+}
+
+.searchButton:hover {
+  border-color: #CCCCCC !important;
+  background-color: #CCCCCC;
+}
+
+
+.searchText {
+  font-size: 14px;
+  font-family: Segoe UI;
+  height: 35px;
+}
+
+.pText {
+  font-family: Segoe UI;
+  font-size: 14px;
+  font-weight: normal; 
+}
+
+.customBody {
+  padding: 20px; 
+  padding-top: 70px;
+}
+
+.courseButton {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: rgb(29, 161, 242, 0.20); 
+  color: #72777a; 
+  border-color: rgb(29, 161, 242, 0.2); 
+}
+
+.addCourseButton {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: white; 
+  color: #72777a; 
+  border-color: rgb(29, 161, 242, 0.2); 
+}
+
+
+.coursesBox {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.customButton {
+  height: 35px;
+  background-color: #005b7f;
+  border-color: #005b7f;
+  margin-right: 0px;
+  width: 120px;
+}
+
+.customButton:hover {
+  background-color: #CCCCCC;
+  border-color: #CCCCCC;
+  color: white;
+}
+
+.customButtonThin {
+  height: 35px;
+  background-color: #005b7f;
+  border-color:#005b7f;
+  margin-right: 0px;
+  width: 100px;
+}
+
+.customButtonThin:hover {
+  background-color: #CCCCCC;
+  border-color: #CCCCCC;
+  color: white;
+}
+
+.secondaryTitle {
+  text-align: left; 
+  margin-bottom: 0px; 
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.reportsTitle {
+  text-align: center; 
+  margin-bottom: 0px; 
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.courseContainer {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.barText {
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+input[type="checkbox"]{
+  position: absolute;
+  right: 9000px;
+}
+
+input[type="checkbox"] + .label-text:before{
+  content: "\f096";
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing:antialiased;
+  width: 1em;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+input[type="checkbox"]:checked + .label-text:before{
+  content: "\f14a";
+  color: #2980b9;
+  animation: effect 250ms ease-in;
+}
+
+.groupBoxOptions {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/*MODALS*/
+
+.coursesModalBox {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.modal-body {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.container-fluid {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.modal-header {
+  border: none;
+  padding-bottom: 5px;
+}
+
+.rowModal {
+  padding-bottom: 5px;
+}
+
+.rowFinal {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.buscarArchivo {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.footerButtons {
+  padding-bottom: 5px;
+}
+
+.customButtonModal {
+  height: 30px;
+  background-color: #00626e;
+  border-color: #00626e;
+  margin-right: 0px;
+  width: 80px !important;
+}
+
+.customButtonModalC {
+  height: 30px;
+  background-color: #00626e;
+  border-color: #00626e;
+  margin-right: 0px;
+}
+
+.iconModalUpload {
+  font-size: 30px;
+
+}
+
+.iconContainer {
+  text-align: center;
+}
+.modalCriteriosBox {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+td input[type="checkbox"] {
+  float: left;
+  margin: 0 auto;
+  width: 100%;
+}
+.customModal {
+  width: 400px; 
+  display: inline-block; 
+  vertical-align: middle; 
+  height: 400px;
+}
+
+.customInput {
+  border-radius: 4px;
+}
+
+.customInput:focus {
+  box-shadow: 0 0 0 0.2rem rgba(33,150,243,.25) !important;
+  border-color: #9acffa;
+}

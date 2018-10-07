@@ -1,0 +1,15 @@
+git branch (ver los branches actuales)
+git checkout -b newBranch (crear nuevo branch y moverte a el)
+git checkout name_of_branch(moverte entre branches)
+git push origin hykire (pushea lo que tengas en tu stage al branch que creaste, en mi caso hykire)
+
+Para actualizar al master:
+git checkout master
+git merge hykire(te mergea lo del branch hykire al master)
+
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+https://www.youtube.com/watch?v=H5GJfcp3p4Q&index=13&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-
+https://www.atlassian.com/git/tutorials/syncing
+
+para eliminar su branch local y remotamente:
+git push origin hykire -d --delete
