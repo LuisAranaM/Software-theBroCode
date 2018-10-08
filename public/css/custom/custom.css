@@ -83,6 +83,7 @@
   background-color: rgb(29, 161, 242, 0.20); 
   color: #72777a; 
   border-color: rgb(29, 161, 242, 0.2); 
+  cursor: pointer;
 }
 
 .courseButton:hover{
@@ -322,4 +323,9 @@ td input[type="checkbox"] {
 }
 .inputLeft {
   padding-right: 5px !important;
+}
+
+.active{
+  background-color: #666;
+  color: white;
 }
