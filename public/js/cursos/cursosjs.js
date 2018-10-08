@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 	console.log("inicio");
 
+
 	$("#CargarCurso").on("click", function(){
 		console.log("btn accionado");
 		$("#modalCursos").modal("show");
