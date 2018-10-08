@@ -49,12 +49,11 @@
       <div class="x_content bs-example-popovers courseContainer" >
         <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
           <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
-            <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            <button type="button" class="close" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">×</span>
             </button>
             <p class="pText">{{$curso->CODIGO_CURSO}} {{$curso->NOMBRE}}</p>
           </div> 
         </a>
-
       </div>
       @endforeach
 

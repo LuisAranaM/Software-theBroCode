@@ -126,5 +126,26 @@ class Curso extends Eloquent
         //dd($sql->get());
     }
 
+    function eliminarAcreditar($idSemestre,$codigo,$usuario){
+    	//dd(Carbon::now());   	
+    	DB::beginTransaction();
+        $status = true;
+       
+        try {
+			DB::table('CURSOS AS CURSOS')
+				->where('CODIGO_CURSO','=',$codigo)
+    			->update(['ESTADO_ACREDITACION'=>0,
+	    				'FECHA_ACTUALIZACION'=>Carbon::now(),
+	    				'USUARIO_MODIF'=>$usuario]);
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
+    }
+
 
 }

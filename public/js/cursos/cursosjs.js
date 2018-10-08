@@ -49,14 +49,50 @@ $( document ).ready(function() {
         agregarCursosAcreditar();     
     });*/
 
+    $('.close').on('click', function(e) {
+        var codigoCurso=$(this).attr('codigoCurso');
+        var nombreCurso=$(this).attr('nombreCurso');
+        var resp=confirm("¿Estás seguro que deseas dejar de acreditar "+nombreCurso+"?");
+        var botonCurso=$(this).closest('div').closest('div');
+        if (resp == true) {
+            eliminarCursoAcreditar(codigoCurso,botonCurso);            
+        } 
+        e.preventDefault();        
+    });
+
     autocompleteCursos();  
 
     $('.twitter-typeahead').removeAttr('style');
+
     /*BUSCAR COMO MEJORAR EL Z-INDEX*/
     $('.tt-menu').css('z-index',3000000);
     $('.tt-menu').css('position','relative');
     $('.tt-menu').css('margin-top','35px');
 });
+
+
+function eliminarCursoAcreditar(codigoCurso,botonCurso){
+    //console.log("Necesitamos agregar cursos");
+    $.ajax({
+        url: APP_URL + 'cursos/eliminar-acreditacion',
+        type: 'POST',        
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{
+            codigoCurso:codigoCurso,
+        },
+        success: function (result) {
+                botonCurso.hide();
+        },
+            error: function (xhr, status, text) {
+                e.preventDefault();
+                alert('Hubo un error al registrar la información');
+                item.removeClass('hidden').prev().addClass('hidden');
+            }
+        });
+
+}
 
 
 function agregarCursosAcreditar(){

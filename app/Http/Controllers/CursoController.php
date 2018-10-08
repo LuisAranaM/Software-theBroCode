@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Excel;
+use Validator;
 
 class CursoController extends Controller
 {
@@ -81,6 +82,27 @@ class CursoController extends Controller
             flash('Las cursos a acreditar se registraron correctamente.')->success();
         } else {
             flash('Hubo un error al registrar los cursos a acreditar.')->error();
+        }
+        return back();
+
+    }
+
+    public function eliminarCursoAcreditacion(Request $request){        
+        
+        $validator = Validator::make($request->all(), [
+            'codigoCurso' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+
+        $curso = new Curso();          
+
+        if($curso->eliminarAcreditar($request->get('codigoCurso'),Auth::id())){
+            flash('El curso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el curso')->error();
         }
         return back();
 

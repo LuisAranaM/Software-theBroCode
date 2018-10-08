@@ -47,5 +47,18 @@ class Curso extends \App\Entity\Base\Entity {
             return false;
         }
 
+    } 
+
+    function eliminarAcreditar($codigoCurso,$usuario){
+        
+        $model= new mCurso();
+        
+        if ($model->eliminarAcreditar(self::getIdSemestre(),$codigoCurso,$usuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
     }
 }
