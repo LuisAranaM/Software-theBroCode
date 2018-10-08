@@ -25,12 +25,16 @@ $( document ).ready(function() {
 
     //Funciones y activadores de búsqueda
 	$('#btnBuscarCurso').click(function (e) {
-		//console.log("HOLI");
-		buscarCursos(cursoBuscar);
-	});
+        //console.log("HOLI CLICK");
+        
+        var cursoBuscar=$('#txtCursoBuscar').val();
+        buscarCursos(cursoBuscar);
+    });
 
-	$('#txtCursoBuscar').keypress(function (e) {
-    	//Búsqueda con Enter
+    $('#txtCursoBuscar').keypress(function (e) {
+        //Búsqueda con Enter
+        //console.log("HOLI ENTER");
+        var cursoBuscar=$('#txtCursoBuscar').val();
     	if (e.which == 13) {
     		buscarCursos(cursoBuscar);
     	}
@@ -49,7 +53,7 @@ $( document ).ready(function() {
         agregarCursosAcreditar();     
     });*/
 
-    $('.close').on('click', function(e) {
+    $('.closeCurso').on('click', function(e) {
         var codigoCurso=$(this).attr('codigoCurso');
         var nombreCurso=$(this).attr('nombreCurso');
         var resp=confirm("¿Estás seguro que deseas dejar de acreditar "+nombreCurso+"?");
