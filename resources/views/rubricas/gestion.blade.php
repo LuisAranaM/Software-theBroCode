@@ -112,7 +112,7 @@
 
 
 <!-- INDICADORES -->
-<div class="col-xs-12">
+<div class="col-xs-12 divindicadores">
   <div class="  x_panel tile coursesBox ">
     <div class="col-md-12 ">
      <h1 class="secondaryTitle mainTitle" >Nuevo Indicador</h1>
@@ -155,7 +155,7 @@
 </div>
 
 <!-- VALORIZACIÓN -->
-<div class="col-xs-12">
+<div class="col-xs-12 divvalorizaciones">
   <div class="  x_panel tile coursesBox ">
     <div class="col-md-12 ">
      <h1 class="secondaryTitle mainTitle" >Nueva Valorización</h1>

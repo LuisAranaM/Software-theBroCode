@@ -43,10 +43,20 @@ $( document ).ready(function() {
 	//categorias ahora: (boton1:SELECCIONADO) boton2 boton3
 	//indicadoress ahora: (boton1:SELECCIONADO) boton2 boton3
 
-	$(".courseContainer").click(function() {
-    $('html,body').animate({
-        scrollTop: $(".divcategorias").offset().top},
-        2000);
-});
+	$("#myDIVResultados div.courseContainer").click(function() {
+		$('html,body').animate({
+			scrollTop: $(".divcategorias").offset().top},
+			1500);
+	});
+	$("#myDIVCategorias div.courseContainer").click(function() {
+		$('html,body').animate({
+			scrollTop: $(".divindicadores").offset().top},
+			1500);
+	});
+	$("#myDIVIndicadores div.courseContainer").click(function() {
+		$('html,body').animate({
+			scrollTop: $(document).height() - $(window).height()},
+			1500);
+	});
 });
 
