@@ -67,7 +67,7 @@
 </div>
 
 <!-- CATEGORÍAS -->
-<div class="col-xs-12">
+<div class="col-xs-12 divcategorias">
   <div class="  x_panel tile coursesBox ">
     <div class="col-md-12 ">
      <h1 class="secondaryTitle mainTitle" >Nueva Categoría</h1>

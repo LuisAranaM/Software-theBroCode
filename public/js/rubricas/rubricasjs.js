@@ -42,5 +42,11 @@ $( document ).ready(function() {
 	//resultados ahora: boton1 boton2 (boton3:SELECCIONADO)
 	//categorias ahora: (boton1:SELECCIONADO) boton2 boton3
 	//indicadoress ahora: (boton1:SELECCIONADO) boton2 boton3
+
+	$(".courseContainer").click(function() {
+    $('html,body').animate({
+        scrollTop: $(".divcategorias").offset().top},
+        2000);
+});
 });
 
