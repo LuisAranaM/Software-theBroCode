@@ -325,7 +325,7 @@ td input[type="checkbox"] {
   padding-right: 5px !important;
 }
 
-.active{
+.activeButton{
   background-color: #666;
   color: white;
 }

@@ -42,7 +42,7 @@
      </div>
      <div id="myDIVResultados">
        <div class="x_content bs-example-popovers courseContainer">
-        <div id="hola" class="courseButton active alert alert-success alert-dismissible fade in" role="alert">
+        <div id="hola" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
           <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
           <p class="pText">Diseña y conduce experimentos</p>
@@ -86,7 +86,7 @@
  </div>
  <div id="myDIVCategorias" class="myDIVCategoriasclass">
    <div class="x_content bs-example-popovers courseContainer">
-    <div class="courseButton active alert alert-success alert-dismissible fade in" role="alert">
+    <div class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
       <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
       <p class="pText">Conduce e interpreta resultados</p>
@@ -131,7 +131,7 @@
  </div>
  <div id="myDIVIndicadores" class="myDIVIndicadoresclass">
    <div class="x_content bs-example-popovers courseContainer">
-    <div class="courseButton active alert alert-success alert-dismissible fade in" role="alert">
+    <div class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
       <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
       <p class="pText">Matemáticas</p>

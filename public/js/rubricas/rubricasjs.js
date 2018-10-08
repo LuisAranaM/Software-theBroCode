@@ -7,27 +7,27 @@ $( document ).ready(function() {
     //no pongo seleccion en validaciones pues esa casilla depende de indicadores 
     //y no hay más listas que desprendan de validaciones
     $('#myDIVResultados .courseButton').click(function(){
-    	$('#myDIVResultados .courseButton').removeClass('active');
-    	$(this).addClass('active');
+    	$('#myDIVResultados .courseButton').removeClass('activeButton');
+    	$(this).addClass('activeButton');
 
-    	$('#myDIVCategorias .courseButton').removeClass('active');
-    	$('.myDIVCategoriasclass div.courseButton:first').addClass('active');
+    	$('#myDIVCategorias .courseButton').removeClass('activeButton');
+    	$('.myDIVCategoriasclass div.courseButton:first').addClass('activeButton');
 
-    	$('#myDIVIndicadores .courseButton').removeClass('active');
-    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('active');
+    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
     });
 
     $('#myDIVCategorias .courseButton').click(function(){
-    	$('#myDIVCategorias .courseButton').removeClass('active');
-    	$(this).addClass('active');
+    	$('#myDIVCategorias .courseButton').removeClass('activeButton');
+    	$(this).addClass('activeButton');
 
-    	$('#myDIVIndicadores .courseButton').removeClass('active');
-    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('active');
+    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
     });
 
     $('#myDIVIndicadores .courseButton').click(function(){
-    	$('#myDIVIndicadores .courseButton').removeClass('active');
-    	$(this).addClass('active');
+    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+    	$(this).addClass('activeButton');
     });
 	//NOTA:(hacer lo sig al usar iteradores)
 	//solo cuidar que cuando se use iteradores, al hacer clic en resultados,
