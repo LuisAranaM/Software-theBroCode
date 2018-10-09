@@ -71,6 +71,13 @@
   font-weight: normal; 
 }
 
+.smallText {
+  font-family: Segoe UI;
+  font-size: 11px;
+  font-weight: normal; 
+}
+
+
 .customBody {
   padding: 20px; 
   padding-top: 70px;
@@ -125,7 +132,7 @@
   background-color: #005b7f;
   border-color: #005b7f;
   margin-right: 0px;
-  width: 120px;
+  width: 120px !important;
 }
 
 .customButtonThin {
@@ -328,4 +335,16 @@ td input[type="checkbox"] {
 .activeButton{
   background-color: #666;
   color: white;
+}
+
+li:before {
+  background-color: white !important;
+}
+
+li:after {
+  border-left: transparent !important;
+}
+
+li {
+  border-left: transparent !important; 
 }

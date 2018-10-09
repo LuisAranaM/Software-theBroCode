@@ -16,6 +16,12 @@ class ProfesorController extends Controller
         return view('profesor.calificar');
     }
 
+    public function profesorAlumnos()
+    {
+        return view('profesor.alumnos');
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
