@@ -50,10 +50,12 @@ Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3'
 	Route::post('/desactivar', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
 });
 
-/*SUBIR ARCHIVOS*/
+/*SUBIR ARCHIVOS PROYECTO*/
 //Pruebas de André
-Route::get('/subir-archivo', ['as'=>'subir.archivos','uses'=>'ProyectoController@index','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-Route::post('/subir-archivo/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/subir-proyecto', ['as'=>'subir.proyecto','uses'=>'ProyectoController@index','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/subir-proyecto/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@downfunc','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
 
 /*RÚBRICAS*/
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
@@ -98,4 +100,6 @@ Route::group(['prefix' => 'asis', 'middleware' => ['authBase', 'authRol:3']], fu
 Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], function() {
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
+
+Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar']);
 
