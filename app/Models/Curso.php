@@ -2,22 +2,19 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 Sep 2018 22:12:14 +0000.
+ * Date: Thu, 04 Oct 2018 18:18:52 +0000.
  */
 
 namespace App\Models;
 
-use DB;
-use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
-use Jenssegers\Date\Date as Carbon;
 
 /**
- * Class Curso
+ * Class CURSO
  * 
  * @property int $ID_CURSO
  * @property int $ID_ESPECIALIDAD
- * @property int $semestres_ID_SEMESTRE
+ * @property int $SEMESTRES_ID_SEMESTRE
  * @property string $NOMBRE
  * @property string $CODIGO_CURSO
  * @property \Carbon\Carbon $FECHA_REGISTRO
@@ -26,20 +23,20 @@ use Jenssegers\Date\Date as Carbon;
  * @property int $USUARIO_MODIF
  * @property int $ESTADO
  * 
- * @property \App\Models\Especialidade $especialidade
- * @property \App\Models\Semestre $semestre
- * @property \Illuminate\Database\Eloquent\Collection $horarios
- * @property \Illuminate\Database\Eloquent\Collection $subcriterios
+ * @property \App\Models\ESPECIALIDADE $e_s_p_e_c_i_a_l_i_d_a_d_e
+ * @property \App\Models\SEMESTRE $s_e_m_e_s_t_r_e
+ * @property \Illuminate\Database\Eloquent\Collection $h_o_r_a_r_i_o_s
+ * @property \Illuminate\Database\Eloquent\Collection $s_u_b_c_r_i_t_e_r_i_o_s
  *
  * @package App\Models
  */
-class Curso extends Eloquent
+class CURSO extends Eloquent
 {
 	public $timestamps = false;
 
 	protected $casts = [
 		'ID_ESPECIALIDAD' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
+		'SEMESTRES_ID_SEMESTRE' => 'int',
 		'ESTADO_ACREDITACION' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
@@ -60,43 +57,24 @@ class Curso extends Eloquent
 		'ESTADO'
 	];
 
-	public function especialidade()
+	public function e_s_p_e_c_i_a_l_i_d_a_d_e()
 	{
-		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
+		return $this->belongsTo(\App\Models\ESPECIALIDADE::class, 'ID_ESPECIALIDAD');
 	}
 
-	public function semestre()
+	public function s_e_m_e_s_t_r_e()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\SEMESTRE::class, 'SEMESTRES_ID_SEMESTRE');
 	}
 
-	public function horarios()
+	public function h_o_r_a_r_i_o_s()
 	{
-		return $this->hasMany(\App\Models\Horario::class, 'ID_CURSO');
+		return $this->hasMany(\App\Models\HORARIO::class, 'ID_CURSO');
 	}
 
-	public function subcriterios()
+	public function s_u_b_c_r_i_t_e_r_i_o_s()
 	{
-		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO')
+		return $this->belongsToMany(\App\Models\SUBCRITERIO::class, 'SUBCRITERIOS_HAS_CURSOS', 'ID_CURSO', 'ID_SUBCRITERIO')
 					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
-
-	static function getCursos() {
-        $sql = DB::table('CURSOS AS CURSOS')
-                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
-        //dd($sql->get());
-        return $sql;
-    }
-
-    static function buscarCursos($nomCurso) {
-        $sql = DB::table('CURSOS AS CURSOS')
-                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
-                ->where('NOMBRE','like','%'.$nomCurso.'%');
-
-        //dd($sql->get());
-        return $sql;
-    }
-
-
-
 }
