@@ -31,7 +31,7 @@ $( document ).ready(function() {
 			data: {
 				_idHorario: horario
 			},
-			dataType: "text",
+			dataType: "json",
 			success: function(resultData) {
 			}
 		});
@@ -41,33 +41,45 @@ $( document ).ready(function() {
 	$('#btnClose').click(function() {
 		desactivarHorario($(this).val());
 	});
-	function updateHorarios(horarios){
+	function updateHorarios(idCurso,nombreCurso,codCurso,horarios,estado){
 		$.ajax({
 			type:'POST',
 			headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: APP_URL+'horarios/actualizar-horarios',
+			url: APP_URL+'/horarios/actualizar-horarios',
 			data: {
-				_idHorarios: horarios
+				id: idCurso,
+				nombre: nombreCurso,
+				codigo: codCurso,
+				estadoAcreditacion: estado,
+				idHorarios: horarios
+				
 			},
-			dataType: 'json',
+			dataType: "json",
 			success: function(resultData) {
 			}
 		});
 	}
 	$('#btnActualizarHorarios').click(function() {
 		var horariosSeleccionados=[];
-		console.log("holawa");	
+		var estadoAcreditacion=[];
 		$('.get_value').each(function(){
-			if($(this).is(":checked")){
-				horariosSeleccionados.push($(this).val());
+			if($(this).is(":checked"))
+				estadoAcreditacion.push(1);
+			else{
+				estadoAcreditacion.push(0);
 			}
+			horariosSeleccionados.push($(this).val());
 		});
-		updateHorarios(horariosSeleccionados);
-		console.log("he");
+		var idCurso = $('#idCurso').data("field-id");
+		var nombreCurso = $('#nombreCurso').data("field-id");
+		var codCurso = $('#codCurso').data("field-id");
+		
 		//Aquí falta el refrescar Horarios
 		$('#modalHorarios').modal('hide');
+		updateHorarios(idCurso,nombreCurso,codCurso,horariosSeleccionados,estadoAcreditacion);
+		window.location.reload();
 	});
 
 	$("#btnAgregarCriterios").on("click", function(){

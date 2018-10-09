@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Entity\Horario as Horario;
+use App\Entity\Horario as eHorario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +16,7 @@ class HorarioController extends Controller
      */
     public function index(Request $request)
     {
-        $idCurso=$request->get('id',null);
+        $idCurso=$request->get('id',null); 
         $nombreCurso=$request->get('nombre',null);
         $codCurso=$request->get('codigo',null);
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
@@ -24,7 +24,8 @@ class HorarioController extends Controller
         return view('cursos.horarios')
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)
-        ->with('horario',Horario::getHorarios($idCurso));    
+        ->with('idCurso',$idCurso)
+        ->with('horario',eHorario::getHorarios($idCurso));    
     }
 
     /**
@@ -115,22 +116,19 @@ class HorarioController extends Controller
 
 
     public function actualizarHorarios(Request $request){
-        dd($request->all());
-        /*$codigoRes = $request->get('codigo', null);
-        $nombreRes = $request->get('nombre', null);
-        $idCriterio = eCriterio::insertCriterio($codigoRes,$nombreRes);
+        //dd($request->all());
+        //dd(($request->get('idHorarios', null))[0]);
+        $idHorarios = $request->get('idHorarios', null);
+        $estadoAcreditacion = $request->get('estadoAcreditacion', null);
+        eHorario::actualizarHorarios($idHorarios,$estadoAcreditacion);
 
-        $categoria = $request->get('categoria',null);
-        $idCategoria = eCategoria::insertCategoria(1,1,$categoria,$idCriterio);
-
-        $subcriterio = $request->get('indicador',null);
-        $texto1 = $request->get('texto1',null);
-        $texto2 = $request->get('texto2',null);
-        $texto3 = $request->get('texto3',null);
-        $texto4 = $request->get('texto4',null);
-        eSubcriterio::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
-        return redirect()->route('rubricas.gestion');*/
-
+        $idCurso=$request->get('id',null); 
+        $nombreCurso=$request->get('nombre',null);
+        $codCurso=$request->get('codigo',null);
+        return view('cursos.horarios')
+        ->with('nombreCurso',$nombreCurso)
+        ->with('codCurso',$codCurso)
+        ->with('idCurso',$idCurso)
+        ->with('horario',eHorario::getHorarios($idCurso)); 
     }
-
 }

@@ -1,13 +1,15 @@
 @extends('Layouts.layout')
 
 @section('js-libs')
-<script type="text/javascript"  src="{{ URL::asset('js/horarios/horariosjs.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop
 
 @section('pageTitle', 'Principal')
 @section('content')
-
+<div id="idCurso" data-field-id="{{$idCurso}}" ></div>
+<div id="nombreCurso" data-field-id="{$nombreCurso}}" ></div>
+<div id="codCurso" data-field-id="{{$codCurso}}" ></div>
 <div class="customBody">
   <div class="row">
     <div class="col-md-8 col-sm-6">
@@ -63,7 +65,7 @@
         @if($h->ESTADO===1)
         <div class="x_content bs-example-popovers courseContainer">
           <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-            <button id="btnClose" value="{{$h->ID_HORARIO}}" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
             <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
           </div>
