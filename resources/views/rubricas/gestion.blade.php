@@ -43,11 +43,13 @@
      <div id="myDIVResultados">
       <?php if (!is_null($firstR= array_shift($resultados))): ?>
         <div class="x_content bs-example-popovers courseContainer">
+        <a class="" href="{{route('rubricas.gestion')}}?resultado={{$firstR->ID_CATEGORIA}}">
         <div id="{{$firstR->ID_CATEGORIA}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
           <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
           <p class="pText">{{$firstR->NOMBRE}} {{$firstR->DESCRIPCION}}</p>
         </div>
+        </a>
         </div>
       <?php endif ?>
       <?php foreach ($resultados as $resultado): ?>

@@ -31,12 +31,23 @@ class CriterioController extends Controller
         //
     }
 
-    public function rubricasGestion() {
+    public function rubricasGestion(Request $request) {
         $categorias=[];
         $indicadores=[];
         $resultados = eCriterio::getCriterios()->toArray();
-        $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
-        $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();
+        if(is_null($request->resultado)){
+            $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
+            $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();
+        }
+        else{
+            $categorias = eCategoria::getCategoriasId($request->resultado)->toArray();
+            if(is_null($request->categoria)){
+                $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();            
+            }
+            else{
+                $indicadores = eSubcriterio::getSubCriteriosId($request->categoria)->toArray();
+            }
+        }
         $escalas = eEscala::getEscalas()->toArray();
         //$first= array_shift($resultados);
         //dd($categorias);
@@ -82,7 +93,12 @@ class CriterioController extends Controller
         $categoria = $request->get('_descCat', null);
         $idRes = $request->get('_idRes',null);
         $idCriterio = eCategoria::insertCategoria(1,1,$categoria, $idRes);
-        return redirect()->route('rubricas.gestion');
+
+        return view('rubricas.gestion')
+        ->with('resultados',$resultados)
+        ->with('categorias',$categorias)
+        ->with('indicadores', $indicadores)
+        ->with('escalas', $escalas);
     }
 
     /**
