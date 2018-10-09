@@ -59,6 +59,8 @@
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white">
             <div class="menu_section" >
               <ul class="nav side-menu" >
+                <li><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
+                </li>
                 <li ><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" >
                     <li><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>

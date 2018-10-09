@@ -101,3 +101,5 @@ Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], fu
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
 
+Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar']);
+
