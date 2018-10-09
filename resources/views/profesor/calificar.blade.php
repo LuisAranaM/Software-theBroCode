@@ -57,7 +57,7 @@
         </div>
         </div>
         <div class="col-md-2">
-          <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+          <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
         </div>
       </div>
 
@@ -81,7 +81,7 @@
         </div>
         </div>
         <div class="col-md-2">
-          <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
+          <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@
         </div>
         </div>
         <div class="col-md-2">
-          <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+          <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
         </div>
       </div>
 
@@ -143,7 +143,7 @@
         </div>
         </div>
         <div class="col-md-2">
-          <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+          <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
         </div>
       </div>
 
@@ -154,105 +154,55 @@
 
 </div>
 
+</div>
 
-
-
-<!-- Modal de Nuevo Curso -->
+<!-- Modal de Cargar Alumnos  -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
-  <div class="modal-content" style="top: 40%">
+id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+<div class="customModal modal-dialog modal-lg ">
+  <div class="modal-content" style="top: 30%">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Seleccionar Cursos a Evaluar</h4>
+    <h4 id="CargarAlumnos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Alumnos</h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   <div class="modal-body">
-    <div class="container-fluid">
-      <form id="frmAgregarCursos">
-        <div class="tile coursesModalBox">
-          <div class="col-xs-12 form-group top_search" >
-            <div class="input-group">
-              <input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">
-              <span class="input-group-btn">
-                <button class="btn btn-default searchButton" type="button" id="btnBuscarCurso">
-                  <i class="fa fa-spinner fa-spin fa-fw fa-1x margin-bottom hidden"></i>
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
+    <div class="container-fluid text-center">
+      <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
+        <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
+        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+
+          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
+            {{csrf_field()}}
+            <div class = "form-group">
+              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
             </div>
-          </div>
+            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+              </div>
+              <div class="col-md-4">
+                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              </div>
 
+            </div>
+            
+          </form>
         </div>
-
-        <!--Esto se debe de volver a generar por AJAX-->
-        <!--
-        <div class="table-responsive">
-          <table class="table table-striped jambo_table bulk_action">
-            <thead >
-              <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-                <th class="pText column-title" style="border: none"></th>
-                <th class="pText column-title" style="border: none"> Código</th>
-                <th class="pText column-title" style="border: none">Curso</th>
-                <th class="pText bulk-actions" colspan="7">
-                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                </th>
-              </tr>
-            </thead>
-
-            <tbody class="text-left">
-              <tr class="even pointer">
-                <td class="a-center"  style="background-color: white; padding-right: 0px">
-                 <div class="form-check" style="padding-left: 10px; width: 20px">
-                  <label>
-                    <input type="checkbox" checked="" > <span class="pText label-text "></span>
-                  </label>
-                </div>
-              </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">ING220</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Ética Profesional</td>            
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    -->
-
-    <ul id="listaCursos" class="list-unstyled top_profiles scroll-view hidden" style="height: auto;" >
-      <li class="media event cargando-resultados">
-        <div class="media-body">
-          <p style="text-align: center;"><i class="fa fa-spinner fa-spin fa-fw"></i></p>
-        </div>
-      </li>
-      <li class="media event sin-resultados hidden">
-        <div class="media-body">
-          <p style="text-align: center;">No se encontraron cursos</p> 
-        </div>
-      </li>
-    </ul>
-    <div id="btnsAgregarCurso" class="modal-footer hidden">
-      <div class="text-center" style="padding-top: 0px; padding-bottom: 10px">
-
-        <button id="btnAgregar" class="btn btn-success pText customButtonThin">Agregar</button>
-        <button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button> 
       </div>
     </div>
   </div>
-</div>
-</div>
-<!-- /.modal-content -->
+  <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 
-
-
-</div>
 
 
 @stop
