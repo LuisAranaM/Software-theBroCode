@@ -60,10 +60,17 @@ class Categoria extends Eloquent
 		DB::commit();
 		return $id;
 	}
-	static function getCategorias($idCrit) {
+	static function getCategoriasId($idCrit) {
         $sql = DB::table('CRITERIO')
                 ->select('ID_CRITERIO', 'NOMBRE')
                 ->where('ID_CATEGORIA', '=', $idCrit)
+                ->where('ESTADO','=', 1);
+        return $sql;
+    }
+
+    static function getCategorias() {
+        $sql = DB::table('CRITERIO')
+                ->select('ID_CRITERIO', 'NOMBRE')
                 ->where('ESTADO','=', 1);
         return $sql;
     }

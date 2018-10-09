@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Entity\Criterio as eCriterio;
 use App\Entity\Categoria as eCategoria;
 use App\Entity\Subcriterio as eSubcriterio;
+use App\Entity\EscalaCalificacion as eEscala;
+
 
 use Illuminate\Http\Request;
 
@@ -29,26 +31,20 @@ class CriterioController extends Controller
         //
     }
 
-    public function rubricasGestion() {        
+    public function rubricasGestion() {
         $categorias=[];
-        $subcriterios=[];
-        $criterios = eCriterio::getCriterios();
-        foreach ($criterios as $criterio){
-            $idCrit = $criterio->ID_CATEGORIA;
-            $categorias[$idCrit-1] = eCategoria::getCategorias($idCrit);
-            foreach($categorias[$idCrit-1] as $categoria){
-                $idCat = $categoria->ID_CRITERIO;
-                $subcriterios[$idCat-1] = eSubcriterio::getSubCriterios($idCat);
-            }                             
-        } 
-        //dd($idCrit);
+        $indicadores=[];
+        $resultados = eCriterio::getCriterios()->toArray();
+        $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
+        $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();
+        $escalas = eEscala::getEscalas()->toArray();
+        //$first= array_shift($resultados);
+        //dd($categorias);
         return view('rubricas.gestion')
-        ->with('lastIdCrit',$idCrit)
-        ->with('lastIdCat',$idCat)
-        ->with('criterios',$criterios)
-        ->with('ultimoCriterio',$criterios[$idCrit-1])
-        ->with('ultimaCategoria',$categorias[$idCrit-1][count($categorias[$idCrit-1])-1])
-        ->with('ultimoSubcriterio',$subcriterios[$idCat-1][count($subcriterios[$idCat-1])-1]);
+        ->with('resultados',$resultados)
+        ->with('categorias',$categorias)
+        ->with('indicadores', $indicadores)
+        ->with('escalas', $escalas);
     }
 
     public function actualizarCriterios(Request $request){
@@ -68,7 +64,25 @@ class CriterioController extends Controller
         $texto4 = $request->get('texto4',null);
         eSubcriterio::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
         return redirect()->route('rubricas.gestion');
+    }
+    public function actualizarResultados(Request $request){
+        //dd("HOLA");
+        //return redirect()->route('rubricas.gestion');
+        $codigoRes = $request->get('_codRes', null);
+        $nombreRes = $request->get('_descRes', null);
 
+        //dd("HOLA");
+        $idResultado = eCriterio::insertCriterio($codigoRes,$nombreRes);
+
+        //dd("HOLA");
+        return redirect()->route('rubricas.gestion');
+    }
+    public function actualizarCategorias(Request $request){
+        //dd("HOLA");
+        $categoria = $request->get('_descCat', null);
+        $idRes = $request->get('_idRes',null);
+        $idCriterio = eCategoria::insertCategoria(1,1,$categoria, $idRes);
+        return redirect()->route('rubricas.gestion');
     }
 
     /**

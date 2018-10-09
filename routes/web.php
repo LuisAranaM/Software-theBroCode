@@ -61,6 +61,10 @@ Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@d
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
 	Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
+	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'CriterioController@actualizarResultados']);
+	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'CriterioController@actualizarCategorias']);
+	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'CriterioController@actualizarIndicadores']);
+	Route::post('/actualizar-escalas', ['as' => 'actualizar.escalas', 'uses' => 'CriterioController@actualizarEscalas']);
 });
 
 /****RUTAS PARA CURSOS****/

@@ -40,5 +40,4 @@ class EscalaCalificacion extends \App\Entity\Base\Entity {
         return $status;
     }
 
-    }
 }

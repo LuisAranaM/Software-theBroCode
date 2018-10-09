@@ -8,7 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
-
+use DB;
 /**
  * Class EscalaCalificacion
  * 
