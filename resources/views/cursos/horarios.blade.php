@@ -154,7 +154,7 @@
 </div>
 
 @endif
-  <a href="{{route('cursos.gestion')}}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar</a>
+  <a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
 
 </div>
 
