@@ -193,3 +193,29 @@ body .container.body .right_col {
     justify-content: center;
     padding: 5px 0px;
 }
+
+.close-tab-style {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 0px;
+}
+
+.content-tab-style {
+    background-color: #dddddd;
+    margin-top: -5.5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.add-tab-btn-style {
+    border-radius: 5px 5px 0px 0px;
+    margin-left: 5px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
