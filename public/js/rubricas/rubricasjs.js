@@ -88,10 +88,10 @@ $( document ).ready(function() {
 			headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: 'rubricas/actualizar-categorias',
+			url: APP_URL + '/rubricas/actualizar-categorias',
 			data: {
 				_descCat: descCat,
-				_idRes: idRes,
+				resultado: idRes,
 			},
 			dataType: "text",
 			success: function(resultData) {
@@ -101,13 +101,38 @@ $( document ).ready(function() {
 
 	$('#btnAgregarCategoria').click(function() {
 		var descCat = $('#txtCategoria').val();
-		var idRes = $('#myDIVResultados .activeButton').attr('id');
+		var idRes = $('#resClick').val();
 		actualizarCategorias(descCat, idRes);
 	});
+	function actualizarIndicadores(descInd, idCat, idRes){
+		$.ajax({
+			type:'POST',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: APP_URL + '/rubricas/actualizar-indicadores',
+			data: {
+				_descCat: descInd,
+				resultado: idRes,
+				categoria: idCat,
 
-	$(document).ajaxStop(function(){
-    	window.location.reload();
+			},
+			dataType: "text",
+			success: function(resultData) {
+			}
+		});
+	}
+
+	$('#btnAgregarIndicador').click(function() {
+		var descInd = $('#txtIndicador').val();
+		var idRes = $('#resClick').val();
+		var idCat = $('#catClick').val();
+		actualizarIndicadores(descInd, idCat, idRes);
 	});
+
+	/*$(document).ajaxStop(function(){
+    	window.location.reload();
+	});*/
 
 });
 

@@ -20,6 +20,9 @@
     </div>
 
     <!-- RESULTADOS -->
+    <div id="resClick" value="{{$resClick}}"></div>
+    <div id="catClick" value="{{$catClick}}"></div>
+    <div id="indClick" value="{{$indClick}}"></div>
     <div class="col-xs-12">
       <div class="  x_panel tile coursesBox ">
         <div class="col-md-12 ">
@@ -54,11 +57,13 @@
       <?php endif ?>
       <?php foreach ($resultados as $resultado): ?>
         <div class="x_content bs-example-popovers courseContainer">
+        <a class="" href="{{route('rubricas.gestion')}}?resultado={{$resultado->ID_CATEGORIA}}">
         <div id="{{$resultado->ID_CATEGORIA}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
           <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
           <p class="pText">{{$resultado->NOMBRE}} {{$resultado->DESCRIPCION}}</p>
         </div>
+        </a>
         </div>
       <?php endforeach ?>
     </div>
@@ -74,11 +79,11 @@
    <div class="row rowFinal2">
     <div class="col-md-12 inputRight no-padding">
       <!--<input type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" > -->
-      <textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>       
+      <textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>       
     </div>
   </div>
   <div class="row rowFinal2 text-right">
-    <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar"> Agregar Categoría </button>
+    <button id="btnAgregarCategoria" type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="agregar_categoria" value="agregar"> Agregar Categoría </button>
   </div>
   <div class="col-md-8 col-sm-6">
    <h1 class="secondaryTitle mainTitle" >Lista de Categorías</h1>
@@ -86,20 +91,24 @@
  <div id="myDIVCategorias" class="myDIVCategoriasclass">
     <?php if (!is_null($firstC= array_shift($categorias))): ?>
         <div class="x_content bs-example-popovers courseContainer">
+        <a class="" href="{{route('rubricas.gestion')}}?categoria={{$firstC->ID_CRITERIO}}&resultado={{$firstC->ID_CATEGORIA}}">
         <div id="hola" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
           <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
           <p class="pText">{{$firstC->NOMBRE}}</p>
         </div>
+        </a>
         </div>
     <?php endif ?>
    <?php foreach ($categorias as $categoria): ?>
     <div class="x_content bs-example-popovers courseContainer">
+    <a class="" href="{{route('rubricas.gestion')}}?categoria={{$categoria->ID_CRITERIO}}&resultado={{$categoria->ID_CATEGORIA}}">
     <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
       <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
       <p class="pText">{{$categoria->NOMBRE}}</p>
     </div>
+    </a> 
     </div>
    <?php endforeach ?>
 </div>
@@ -116,11 +125,11 @@
    <div class="row rowFinal2">
     <div class="col-md-12 inputRight no-padding">
       <!--<input type="text" id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" >    -->
-      <textarea id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea> 
+      <textarea id="txtIndicador" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea> 
     </div>
   </div>
   <div class="row rowFinal2 text-right">
-    <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar"> Agregar Indicador </button>
+    <button id="btnAgregarIndicador" type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="agregar_indicador" value="agregar"> Agregar Indicador </button>
   </div>
   <div class="col-md-8 col-sm-6">
    <h1 class="secondaryTitle mainTitle" >Lista de Indicadores</h1>
@@ -128,20 +137,24 @@
  <div id="myDIVIndicadores" class="myDIVIndicadoresclass">
   <?php if (!is_null($firstI= array_shift($indicadores))): ?>
         <div class="x_content bs-example-popovers courseContainer">
+          <a class="" href="{{route('rubricas.gestion')}}?categoria={{$firstI->ID_CRITERIO}}&resultado={{$firstI->ID_CATEGORIA}}&indicador={{$firstI->ID_SUBCRITERIO}}">
         <div id="hola" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
           <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
           <p class="pText">{{$firstI->NOMBRE}}</p>
         </div>
+        </a>
         </div>
     <?php endif ?>
   <?php foreach ($indicadores as $indicador): ?>
     <div class="x_content bs-example-popovers courseContainer">
+    <a class="" href="{{route('rubricas.gestion')}}?categoria={{$indicador->ID_CRITERIO}}&resultado={{$indicador->ID_CATEGORIA}}&indicador={{$indicador->ID_SUBCRITERIO}}">
     <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
       <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
       <p class="pText">{{$indicador->NOMBRE}}</p>
     </div>
+    </a>
     </div>
   <?php endforeach ?>  
 </div>
@@ -173,28 +186,28 @@
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
-    <p class="pText">{{$escalas[0]->NOMBRE}} {{$firstI->DESCRIPCION_1}}</p>
+    <p class="pText">{{$escalas[0]->NOMBRE}} {{$descripciones[0]}}</p>
   </div>
   </div>
   <div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
-    <p class="pText">{{$escalas[1]->NOMBRE}} {{$firstI->DESCRIPCION_2}}</p>
+    <p class="pText">{{$escalas[1]->NOMBRE}} {{$descripciones[1]}}</p>
   </div>
   </div>
   <div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
-    <p class="pText">{{$escalas[2]->NOMBRE}} {{$firstI->DESCRIPCION_3}}</p>
+    <p class="pText">{{$escalas[2]->NOMBRE}} {{$descripciones[2]}}</p>
   </div>
   </div>
   <div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
-    <p class="pText">{{$escalas[3]->NOMBRE}} {{$firstI->DESCRIPCION_4}}</p>
+    <p class="pText">{{$escalas[3]->NOMBRE}} {{$descripciones[3]}}</p>
   </div>
   </div>
   

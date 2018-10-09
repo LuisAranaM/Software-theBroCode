@@ -83,16 +83,18 @@ class Subcriterio extends Eloquent
 
 	static function getSubcriteriosId($idCat) {
         $sql = DB::table('SUBCRITERIOS')
-                ->select('ID_SUBCRITERIO', 'NOMBRE', 'DESCRIPCION_1', 'DESCRIPCION_2', 'DESCRIPCION_3', 'DESCRIPCION_4')
-                ->where('ID_CRITERIO', '=', $idCat)
-                ->where('ESTADO','=', 1);
+                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
+                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
+                ->where('SUBCRITERIOS.ID_CRITERIO', '=', $idCat)
+                ->where('SUBCRITERIOS.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
     }
 
     static function getSubcriterios() {
         $sql = DB::table('SUBCRITERIOS')
-                ->select('ID_SUBCRITERIO', 'NOMBRE', 'DESCRIPCION_1', 'DESCRIPCION_2', 'DESCRIPCION_3', 'DESCRIPCION_4')
+                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
+                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
                 ->where('ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
