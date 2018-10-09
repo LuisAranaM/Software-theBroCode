@@ -96,5 +96,17 @@ class Horario extends Eloquent
 
         //dd($sql->get());
         return $sql;
-    }
+	}
+		
+	static public function actualizarHorarios($idHorarios,$estadoAcreditacion){
+		foreach(array_combine($idHorarios,$estadoAcreditacion) as  $idHorario => $estado ){
+			//dd($idHorario,$estado);
+			DB::table('HORARIO AS H')
+			->where('H.ID_HORARIO', (int)$idHorario)
+			->update(['H.ESTADO' => (int)$estado]);
+			//dd($idHorario,$estado);
+		}
+		return;
+	}
+
 }
