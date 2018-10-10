@@ -22,5 +22,11 @@ class SubcriteriosHasCurso extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getSubCriteriosbyIdCurso($idCurso) {
+        $model = new mSubcriteriosHasCurso();
+        return mSubcriteriosHasCurso::getSubCriteriosbyIdCurso($idCurso)->get();
+    }
+
+
     
 }

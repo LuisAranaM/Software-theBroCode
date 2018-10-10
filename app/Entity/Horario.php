@@ -27,9 +27,27 @@ class Horario extends \App\Entity\Base\Entity {
         return mHorario::getHorarios($idCurso)->get();
     }
 
-    static function actualizarHorarios($idHorarios,$estadoAcreditacion) {
+    static function actualizarHorarios($idHorarios,$estadoEv,$usuario) {
+        //dd($idHorarios,$estadoEv,$usuario);
         $model = new mHorario();
-        return mHorario::actualizarHorarios($idHorarios,$estadoAcreditacion);
+        if ($model->actualizarHorarios($idHorarios,$estadoEv,$usuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+    }
+
+    function eliminarEvaluacion($codigoHorario,$usuario){
+        
+        $model= new mHorario();
+        
+        if ($model->eliminarEvaluacion(self::getIdSemestre(),$codigoHorario,$usuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
     }
     
 }

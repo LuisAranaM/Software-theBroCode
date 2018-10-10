@@ -48,7 +48,7 @@ Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGest
 /**HORARIOS**/
 Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
-	Route::post('/desactivar', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
+	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 });
 
 /*SUBIR ARCHIVOS*/
@@ -88,6 +88,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horario','uses'=>'HorarioController@actualizarHorarios']);
+	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 });
 
 /****RUTAS PARA ASISTENTE****/
@@ -99,4 +100,3 @@ Route::group(['prefix' => 'asis', 'middleware' => ['authBase', 'authRol:3']], fu
 Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], function() {
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
-

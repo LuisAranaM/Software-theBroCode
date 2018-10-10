@@ -98,15 +98,50 @@ class Horario extends Eloquent
         return $sql;
 	}
 		
-	static public function actualizarHorarios($idHorarios,$estadoAcreditacion){
-		foreach(array_combine($idHorarios,$estadoAcreditacion) as  $idHorario => $estado ){
-			//dd($idHorario,$estado);
-			DB::table('HORARIO AS H')
-			->where('H.ID_HORARIO', (int)$idHorario)
-			->update(['H.ESTADO' => (int)$estado]);
-			//dd($idHorario,$estado);
+	function actualizarHorarios($idHorarios,$estadoEv,$usuario){
+		DB::beginTransaction();
+		//dd($idHorarios,$estadoEv,$usuario);
+        $status = true;
+		try {
+			foreach(array_combine($idHorarios,$estadoEv) as  $idHorario => $estado ){
+				DB::table('HORARIO AS H')
+				->where('H.ID_HORARIO', $idHorario)
+				->update(['H.ESTADO' => (int)$estado,
+						'H.FECHA_ACTUALIZACION'=>Carbon::now(),
+						'H.USUARIO_MODIF'=>$usuario]);
+			}
+			DB::commit(); 
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
 		}
-		return;
-	}
+		dd($idHorario,$estadoEv);
+		
+		return $status;
+    }
+
+	function eliminarEvaluacion($idSemestre,$idHorario,$usuario){
+    	 	
+    	DB::beginTransaction();
+        $status = true;
+       
+        try {
+			DB::table('HORARIO AS H')
+				->where('H.ID_HORARIO', (int)$idHorario)
+    			->update(['H.ESTADO'=> 0,
+	    				'H.FECHA_ACTUALIZACION'=>Carbon::now(),
+	    				'H.USUARIO_MODIF'=>$usuario]);
+			DB::commit();
+			dd($idSemestre,$idHorario,$usuario);  
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+		}
+		
+        return $status;
+        dd($sql->get());
+    }
 
 }
