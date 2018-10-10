@@ -9,6 +9,7 @@ namespace App\Models;
  
 use DB;
 use Log;
+use App\Entity\Horario as Horario;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
  
@@ -61,6 +62,19 @@ class Curso extends Eloquent {
 	{
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}
+
+  static function getCursosYHorarios(){
+    $cursos = DB::table('CURSOS')
+                ->select('*')
+                ->get();
+    $ans = array();
+    foreach($cursos as $c){
+      $data["curso"] = $c;
+      $data["horarios"] = Horario::getHorarios($c->ID_CURSO);
+      $ans[] = $data;
+    }
+    return $ans;
+  }
 
 	static function getCursos() {
         $sql = DB::table('CURSOS AS CURSOS')
