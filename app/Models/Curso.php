@@ -39,7 +39,7 @@ class Curso extends Eloquent
 
 	protected $casts = [
 		'ID_ESPECIALIDAD' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
+		'SEMESTRES_ID_SEMESTRE' => 'int',
 		'ESTADO_ACREDITACION' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
@@ -67,7 +67,7 @@ class Curso extends Eloquent
 
 	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'SEMESTRES_ID_SEMESTRE');
 	}
 
 	public function horarios()
@@ -133,7 +133,7 @@ class Curso extends Eloquent
   static function getCursos($idSemestre,$idEspecialidad) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
-                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1)
                 ->where('ESTADO_ACREDITACION','=',1);
@@ -144,7 +144,7 @@ class Curso extends Eloquent
     static function buscarCursos($idSemestre,$idEspecialidad,$nomCurso,$acreditacion=false) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
-                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1)      
                 ->where('NOMBRE','like','%'.$nomCurso.'%');
@@ -162,6 +162,7 @@ class Curso extends Eloquent
         try {
             DB::table('CURSOS AS CURSOS')
                 ->whereIn('CODIGO_CURSO',$codigos)
+                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->update(['ESTADO_ACREDITACION'=>1,
                         'FECHA_ACTUALIZACION'=>Carbon::now(),
                         'USUARIO_MODIF'=>$usuario]);
@@ -183,6 +184,7 @@ class Curso extends Eloquent
         try {
             DB::table('CURSOS AS CURSOS')
                 ->where('CODIGO_CURSO','=',$codigo)
+                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->update(['ESTADO_ACREDITACION'=>0,
                         'FECHA_ACTUALIZACION'=>Carbon::now(),
                         'USUARIO_MODIF'=>$usuario]);
