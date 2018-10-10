@@ -52,7 +52,7 @@ class Usuario extends \App\Entity\Base\Entity {
         $urlAdmin = 'administrador.principal';
         $urlCoordinador = 'cursos.gestion';
         $urlAsistente = 'cursos.gestion';
-        $urlProfesor = 'profesor.principal';
+        $urlProfesor = 'profesor.calificar';
         
         switch ($rol) {
             case self::ROL_ADMINISTRADOR:

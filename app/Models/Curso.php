@@ -85,17 +85,18 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
   }
 
-  static function getCursosYHorarios(){
+  static function getCursosYHorarios($idSemestre){
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
+                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->get();
     $ans = array();
     foreach($cursos as $c){
       $data["curso"] = $c;
       Curso::trace('IDCURSO');
       Curso::trace($c->ID_CURSO);
-      $horarios = Horario::getHorariosCompleto($c->ID_CURSO);
+      $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
       foreach($horarios as $h){
         Curso::trace('IDHORARIO');
         Curso::trace($h->ID_HORARIO);

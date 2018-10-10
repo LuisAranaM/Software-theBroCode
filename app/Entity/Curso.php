@@ -24,7 +24,7 @@ class Curso extends \App\Entity\Base\Entity {
 
 
     static function getCursosYHorarios(){
-        return mCurso::getCursosYHorarios();
+        return mCurso::getCursosYHorarios(self::getIdSemestre());
     }
 
     static function getCursoByIdHorario($idHorario) {
