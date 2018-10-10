@@ -348,3 +348,7 @@ li:after {
 li {
   border-left: transparent !important; 
 }
+
+.btnCriteria {
+  border-radius: 0px !important;
+}
