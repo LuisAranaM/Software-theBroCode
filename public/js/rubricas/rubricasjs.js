@@ -6,9 +6,142 @@ $( document ).ready(function() {
     });
     //no pongo seleccion en validaciones pues esa casilla depende de indicadores 
     //y no hay más listas que desprendan de validaciones
+    function refrescarCategorias(idRes){
+		$.ajax({
+			url: APP_URL + '/rubricas/refrescar-categorias',
+			type:'GET',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data: {
+				_idRes: idRes,
+			},
+			dataType: "text",
+			success: function(result) {
+				result = JSON.parse(result);
+				$('#myDIVCategorias').remove();
+                var html = '';
+                if(result.length >0){
+                	html+= '<div id="myDIVCategorias" class="myDIVCategoriasclass">'
+				
+					html+= '<div class="x_content bs-example-popovers courseContainer">'
+					html+= '<div id="'+result[0].ID_CRITERIO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
+					html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+					html+= '</button>'
+					html+= '<p class="pText">'+result[0].NOMBRE+'</p>'
+					html+= '</div>'
+					html+= '</div>'
+                }
+
+				for (i = 1; i <result.length; i++) {
+					html+= '<div class="x_content bs-example-popovers courseContainer">'
+					html+= '<div id="'+result[i].ID_CRITERIO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+					html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+					html+= '</button>'
+					html+= '<p class="pText">'+result[i].NOMBRE+'</p>'
+					html+= '</div>'
+					html+= '</div>'
+				}
+				if(result.length>0){
+					html+='</div>'
+					$('#apCat').append(html);
+					refrescarIndicadores(result[0].ID_CRITERIO);
+				}else{
+					refrescarIndicadores();
+				}
+			}
+		});
+	}
+	function refrescarIndicadores(idCat){
+		$.ajax({
+			url: APP_URL + '/rubricas/refrescar-indicadores',
+			type:'GET',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data: {
+				_idCat: idCat,
+			},
+			dataType: "text",
+			success: function(result) {
+				result = JSON.parse(result);
+				$('#myDIVIndicadores').remove();
+                var html = '';
+                if(result.length >0){
+                	html+='<div id="myDIVIndicadores" class="myDIVIndicadoresclass">'
+
+                	html+='<div class="x_content bs-example-popovers courseContainer">'
+		      		html+='<div id="'+result[0].ID_SUBCRITERIO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
+		        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+		       	 	html+='</button>'
+		        	html+='<p class="pText">'+result[0].NOMBRE+'</p>'
+		    	  	html+='</div>'
+		  			html+='</div>'
+					//refrescarEscalas(result[0].ID_SUBCRITERIO);
+                }
+                else{
+					$('#myDIVValorizaciones').remove();
+                }
+
+				for (i = 1; i <result.length; i++) {
+					html+='<div class="x_content bs-example-popovers courseContainer">'
+		      		html+='<div id="'+result[i].ID_SUBCRITERIO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+		        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+		       	 	html+='</button>'
+		        	html+='<p class="pText">'+result[i].NOMBRE+'</p>'
+		    	  	html+='</div>'
+		  			html+='</div>'
+				}
+				html+='</div>'
+				$('#apInd').append(html);
+			}
+		});
+	}
+	function refrescarEscalas(idInd){
+		$.ajax({
+			url: APP_URL + '/rubricas/refrescar-escalas',
+			type:'GET',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data: {
+				_idInd: idInd,
+			},
+			dataType: "text",
+			success: function(result) {
+				result = JSON.parse(result);
+				$('#myDIVValorizaciones').remove();
+                var html = '';
+                if(result.length >0){
+                	html+='<div id="myDIVValorizaciones" class="myDIVValorizacionesclass">'
+					html+='<div class="x_content bs-example-popovers courseContainer">'
+                	html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+					html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+					html+='</button>'
+					html+='<p class="pText">'+ result[0] +'</p>'
+					html+='</div>'
+					html+='</div>'
+                }
+
+				for(i = 1; i <result.length; i++){
+					html+='<div class="x_content bs-example-popovers courseContainer">'
+                	html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+					html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+					html+='</button>'
+					html+='<p class="pText">'+ result[i]+'</p>'
+					html+='</div>'
+					html+='</div>'
+				}
+				html+='</div>'
+				$('#apEsc').append(html);
+			}
+		});
+	}
+
     $('#myDIVResultados .courseButton').click(function(){
+    	refrescarCategorias($(this).attr('id'));
     	$('#myDIVResultados .courseButton').removeClass('activeButton');
-    	$(this).addClass('activeButton');
+    	$(this).addClass('activeButton'); //interiormente tambien refresca Categorias e Indicadores
 
     	$('#myDIVCategorias .courseButton').removeClass('activeButton');
     	$('.myDIVCategoriasclass div.courseButton:first').addClass('activeButton');
@@ -17,10 +150,11 @@ $( document ).ready(function() {
     	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
     });
 
+
     $('#myDIVCategorias .courseButton').click(function(){
+    	refrescarIndicadores($(this).attr('id'));
     	$('#myDIVCategorias .courseButton').removeClass('activeButton');
     	$(this).addClass('activeButton');
-
     	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
     	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
     });
@@ -28,6 +162,7 @@ $( document ).ready(function() {
     $('#myDIVIndicadores .courseButton').click(function(){
     	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
     	$(this).addClass('activeButton');
+    	//refrescarEscalas($(this).attr('id'));
     });
 	//NOTA:(hacer lo sig al usar iteradores)
 	//solo cuidar que cuando se use iteradores, al hacer clic en resultados,
@@ -43,17 +178,17 @@ $( document ).ready(function() {
 	//categorias ahora: (boton1:SELECCIONADO) boton2 boton3
 	//indicadoress ahora: (boton1:SELECCIONADO) boton2 boton3
 
-	$("#myDIVResultados div.courseContainer").click(function() {
+	$("#myDIVResultados .courseButton").click(function() {
 		$('html,body').animate({
 			scrollTop: $(".divcategorias").offset().top},
 			500);
 	});
-	$("#myDIVCategorias div.courseContainer").click(function() {
+	$("#myDIVCategorias .courseButton").click(function() {
 		$('html,body').animate({
 			scrollTop: $(".divindicadores").offset().top},
 			500);
 	});
-	$("#myDIVIndicadores div.courseContainer").click(function() {
+	$("#myDIVIndicadores .courseButton").click(function() {
 		$('html,body').animate({
 			scrollTop: $(document).height() - $(window).height()},
 			500);

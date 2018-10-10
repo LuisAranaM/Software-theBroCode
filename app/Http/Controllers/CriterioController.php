@@ -115,6 +115,20 @@ class CriterioController extends Controller
 
         return redirect()->route('rubricas.gestion');
     }
+    public function refrescarCategorias(Request $request){
+
+        $idRes = $request->get('_idRes',null);
+        $categorias = eCategoria::getCategoriasId($idRes)->toArray();
+
+        return $categorias;
+    }
+    public function refrescarIndicadores(Request $request){
+
+        $idCat = $request->get('_idCat',null);
+        $indicadores = eSubcriterio::getSubCriteriosId($idCat)->toArray();
+
+        return $indicadores;
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -4,8 +4,7 @@
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>
 @stop
-<form method="POST" action="{{ route('actualizar.criterios') }}" >
-  <div class="customBody">
+<div class="customBody">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" >
     
     <!-- TITULO -->
@@ -44,35 +43,31 @@
        <h1 class="secondaryTitle mainTitle" >Lista de Resultados</h1>
      </div>
      <div id="myDIVResultados">
-      <?php if (!is_null($firstR= array_shift($resultados))): ?>
-        <div class="x_content bs-example-popovers courseContainer">
-        <a class="" href="{{route('rubricas.gestion')}}?resultado={{$firstR->ID_CATEGORIA}}">
-        <div id="{{$firstR->ID_CATEGORIA}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
-          <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-          </button>
-          <p class="pText">{{$firstR->NOMBRE}} {{$firstR->DESCRIPCION}}</p>
-        </div>
-        </a>
-        </div>
-      <?php endif ?>
-      <?php foreach ($resultados as $resultado): ?>
-        <div class="x_content bs-example-popovers courseContainer">
-        <a class="" href="{{route('rubricas.gestion')}}?resultado={{$resultado->ID_CATEGORIA}}">
-        <div id="{{$resultado->ID_CATEGORIA}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-          <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-          </button>
-          <p class="pText">{{$resultado->NOMBRE}} {{$resultado->DESCRIPCION}}</p>
-        </div>
-        </a>
-        </div>
-      <?php endforeach ?>
+      @if (!is_null($firstR= array_shift($resultados)))
+      <div class="x_content bs-example-popovers courseContainer">
+          <div id="{{$firstR->ID_CATEGORIA}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
+            <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <p class="pText">{{$firstR->NOMBRE}} {{$firstR->DESCRIPCION}}</p>
+          </div>
+      </div>
+      @endif
+      @foreach ($resultados as $resultado) 
+      <div class="x_content bs-example-popovers courseContainer">
+          <div id="{{$resultado->ID_CATEGORIA}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+            <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <p class="pText">{{$resultado->NOMBRE}} {{$resultado->DESCRIPCION}}</p>
+          </div>
+      </div>
+      @endforeach
     </div>
   </div>
 </div>
 
 <!-- CATEGORÍAS -->
 <div class="col-xs-12 divcategorias">
-  <div class="  x_panel tile coursesBox ">
+  <div id="apCat" class="  x_panel tile coursesBox ">
     <div class="col-md-12 ">
      <h1 class="secondaryTitle mainTitle" >Nueva Categoría</h1>
    </div>
@@ -89,28 +84,26 @@
    <h1 class="secondaryTitle mainTitle" >Lista de Categorías</h1>
  </div>
  <div id="myDIVCategorias" class="myDIVCategoriasclass">
-    <?php if (!is_null($firstC= array_shift($categorias))): ?>
-        <div class="x_content bs-example-popovers courseContainer">
-        <a class="" href="{{route('rubricas.gestion')}}?categoria={{$firstC->ID_CRITERIO}}&resultado={{$firstC->ID_CATEGORIA}}">
-        <div id="hola" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
-          <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-          </button>
-          <p class="pText">{{$firstC->NOMBRE}}</p>
-        </div>
-        </a>
-        </div>
-    <?php endif ?>
-   <?php foreach ($categorias as $categoria): ?>
-    <div class="x_content bs-example-popovers courseContainer">
-    <a class="" href="{{route('rubricas.gestion')}}?categoria={{$categoria->ID_CRITERIO}}&resultado={{$categoria->ID_CATEGORIA}}">
-    <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-      <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-      </button>
-      <p class="pText">{{$categoria->NOMBRE}}</p>
-    </div>
+  @if (!is_null($firstC= array_shift($categorias)))
+  <div class="x_content bs-example-popovers courseContainer">
+      <div id="{{$firstC->ID_CRITERIO}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
+        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <p class="pText">{{$firstC->NOMBRE}}</p>
+      </div>
+  </div>
+  @endif
+  @foreach ($categorias as $categoria)
+  <div class="x_content bs-example-popovers courseContainer">
+      <div id="{{$categoria->ID_CRITERIO}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <p class="pText">{{$categoria->NOMBRE}}</p>
+      </div>
     </a> 
-    </div>
-   <?php endforeach ?>
+  </div>
+  @endforeach
+
 </div>
 </div>
 </div>
@@ -118,7 +111,7 @@
 
 <!-- INDICADORES -->
 <div class="col-xs-12 divindicadores">
-  <div class="  x_panel tile coursesBox ">
+  <div id= "apInd" class="  x_panel tile coursesBox ">
     <div class="col-md-12 ">
      <h1 class="secondaryTitle mainTitle" >Nuevo Indicador</h1>
    </div>
@@ -135,34 +128,30 @@
    <h1 class="secondaryTitle mainTitle" >Lista de Indicadores</h1>
  </div>
  <div id="myDIVIndicadores" class="myDIVIndicadoresclass">
-  <?php if (!is_null($firstI= array_shift($indicadores))): ?>
-        <div class="x_content bs-example-popovers courseContainer">
-          <a class="" href="{{route('rubricas.gestion')}}?categoria={{$firstI->ID_CRITERIO}}&resultado={{$firstI->ID_CATEGORIA}}&indicador={{$firstI->ID_SUBCRITERIO}}">
-        <div id="hola" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
-          <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-          </button>
-          <p class="pText">{{$firstI->NOMBRE}}</p>
-        </div>
-        </a>
-        </div>
-    <?php endif ?>
-  <?php foreach ($indicadores as $indicador): ?>
-    <div class="x_content bs-example-popovers courseContainer">
-    <a class="" href="{{route('rubricas.gestion')}}?categoria={{$indicador->ID_CRITERIO}}&resultado={{$indicador->ID_CATEGORIA}}&indicador={{$indicador->ID_SUBCRITERIO}}">
-    <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-      <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-      </button>
-      <p class="pText">{{$indicador->NOMBRE}}</p>
-    </div>
-    </a>
-    </div>
-  <?php endforeach ?>  
+  @if (!is_null($firstI= array_shift($indicadores)))
+  <div class="x_content bs-example-popovers courseContainer">
+      <div id="{{$firstI->ID_SUBCRITERIO}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
+        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <p class="pText">{{$firstI->NOMBRE}}</p>
+      </div>
+  </div>
+  @endif
+  @foreach ($indicadores as $indicador)
+  <div class="x_content bs-example-popovers courseContainer">
+      <div id="{{$indicador->ID_SUBCRITERIO}}"class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <p class="pText">{{$indicador->NOMBRE}}</p>
+      </div>
+  </div>
+  @endforeach
 </div>
 </div>
 
 <!-- VALORIZACIÓN -->
 <div class="col-xs-12 divvalorizaciones">
-  <div class="  x_panel tile coursesBox ">
+  <div id="apEsc" class="  x_panel tile coursesBox ">
     <div class="col-md-12 ">
      <h1 class="secondaryTitle mainTitle" >Nueva Valorización</h1>
    </div>
@@ -178,42 +167,43 @@
   <div class="row rowFinal2 text-right">
     <button type="button" class="customButtonLarge btn btn-success btn-lg pText customButtonRubr" name="guardar_button" value="guardar"> Agregar Valorización </button>
   </div>
-  <div class="col-md-8 col-sm-6">
+  <div id="apEsc" class="col-md-8 col-sm-6">
    <h1 class="secondaryTitle mainTitle" >Lista de Valorizaciones</h1>
  </div>
 
-  <div class="x_content bs-example-popovers courseContainer">
+ <div id="myDIVValorizaciones" class="myDIVValorizacionesclass">
+ <div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <p class="pText">{{$escalas[0]->NOMBRE}} {{$descripciones[0]}}</p>
   </div>
-  </div>
-  <div class="x_content bs-example-popovers courseContainer">
+</div>
+<div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <p class="pText">{{$escalas[1]->NOMBRE}} {{$descripciones[1]}}</p>
   </div>
-  </div>
-  <div class="x_content bs-example-popovers courseContainer">
+</div>
+<div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <p class="pText">{{$escalas[2]->NOMBRE}} {{$descripciones[2]}}</p>
   </div>
-  </div>
-  <div class="x_content bs-example-popovers courseContainer">
+</div>
+<div class="x_content bs-example-popovers courseContainer">
   <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
     <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <p class="pText">{{$escalas[3]->NOMBRE}} {{$descripciones[3]}}</p>
   </div>
-  </div>
-  
 </div>
 </div>
-</form>
+
+</div>
+</div>
 @stop
 
 @section('js-scripts')
