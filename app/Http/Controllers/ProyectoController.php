@@ -53,12 +53,12 @@ class ProyectoController extends Controller
     	return back();
     }
     public function downfunc(){
-    	$downloads = DB::table('proyectos')->get();
+    	$downloads = DB::table('PROYECTOS')->get();
     	return view('proyecto.viewfile', compact('downloads'));
     }
 
     public function descargarProyecto(Request $request){
-        dd($request->all());
+        dd("holi");
     }
 
 }
