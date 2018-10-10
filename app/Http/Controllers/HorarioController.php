@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
+
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Models\Curso as mCurso;
@@ -17,13 +17,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Validator;
 
-=======
-use Illuminate\Http\Request;
-use App\Entity\Horario as Horario;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
->>>>>>> AranaBranch
 class HorarioController extends Controller
 {
     /**
@@ -33,11 +27,9 @@ class HorarioController extends Controller
      */
     public function index(Request $request)
     {
-<<<<<<< HEAD
+
         $idCurso=$request->get('id',null); 
-=======
-        $idCurso=$request->get('id',null);
->>>>>>> AranaBranch
+
         $nombreCurso=$request->get('nombre',null);
         $codCurso=$request->get('codigo',null);
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
@@ -45,7 +37,7 @@ class HorarioController extends Controller
         return view('cursos.horarios')
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)
-<<<<<<< HEAD
+
         ->with('idCurso',$idCurso)
         ->with('horario',eHorario::getHorarios($idCurso))
         ->with('criterios',eCriterio::getCriteriosbyIdCurso($idCurso))
@@ -121,9 +113,7 @@ class HorarioController extends Controller
             \Session::flash('Error', 'No existe archivo excel para ser importado');
         }
         return Redirect::back();
-=======
-        ->with('horario',Horario::getHorarios($idCurso));    
->>>>>>> AranaBranch
+
     }
 
     /**
@@ -192,7 +182,6 @@ class HorarioController extends Controller
         //
     }
 
-<<<<<<< HEAD
 
 
     public function actualizarHorarios(Request $request){
@@ -217,17 +206,5 @@ class HorarioController extends Controller
         }
         return back();
     }
-=======
-    function actualizarHorarios(Request $request){
-        dd($request->all());
-    }
 
-    function desactivarHorario(Request $request){
-        dd($request->all());
-    }
-
-
-
-
->>>>>>> AranaBranch
 }

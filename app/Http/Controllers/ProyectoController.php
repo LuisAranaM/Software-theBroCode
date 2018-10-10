@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
+
 use App\Entity\Base\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use DB;
-=======
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
->>>>>>> AranaBranch
+
 
 class ProyectoController extends Controller
 {
@@ -20,7 +17,7 @@ class ProyectoController extends Controller
     }
 
     public function store(Request $request){
-<<<<<<< HEAD
+
         $codigo = $request->get('codAlumno', null);
         $horario = $request->get('horario', null);
     	$file = $request->file('archivo');
@@ -63,11 +60,5 @@ class ProyectoController extends Controller
     public function descargarProyecto(Request $request){
         dd($request->all());
     }
-=======
-    	$file = $request->file('archivo');
-    	$file->storePubliclyAs('upload', 'filename');
-    	flash('Se ha subido el archivo de forma correcta.')->success();
-    	return back();
-    }
->>>>>>> AranaBranch
+
 }

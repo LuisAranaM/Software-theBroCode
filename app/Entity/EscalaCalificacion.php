@@ -5,10 +5,8 @@ namespace App\Entity;
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use App\Models\EscalaCalificacion as mEscalaCalificacion;
 use Jenssegers\Date\Date as Carbon;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Log as Log;
-=======
->>>>>>> AranaBranch
+
 
 class EscalaCalificacion extends \App\Entity\Base\Entity {
 
@@ -26,7 +24,7 @@ class EscalaCalificacion extends \App\Entity\Base\Entity {
         ]);
     }
 
-<<<<<<< HEAD
+
     static function getEscalas() {
         return mEscalaCalificacion::getEscalas()->get();
     }
@@ -44,7 +42,5 @@ class EscalaCalificacion extends \App\Entity\Base\Entity {
         return $status;
     }
 
-=======
-    
->>>>>>> AranaBranch
+
 }

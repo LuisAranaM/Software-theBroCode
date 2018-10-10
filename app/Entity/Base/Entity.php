@@ -3,10 +3,8 @@
 namespace App\Entity\Base;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Especialidad as mEspecialidad;
-<<<<<<< HEAD
-=======
 use App\Models\Semestre as mSemestre;
->>>>>>> AranaBranch
+
 class Entity {
 
     protected $_message;
@@ -92,12 +90,7 @@ class Entity {
         return config('app.id_semestre');
     }
 
-<<<<<<< HEAD
-    public static function getEspecialidadUsuario(){
-        $id_usuario=Auth::user()->ID_USUARIO;
-        $model=new mEspecialidad();
-        return  $model->getEspecialidadUsuario($id_usuario);
-=======
+
    /*public static function getSemestre(){
         $model= new mSemestre();
         return $model->getCiclo(self::getIdSemestre())->get();
@@ -107,6 +100,6 @@ class Entity {
         //dd(Auth::user());
         $model=new mEspecialidad();
         return  $model->getEspecialidadUsuario(Auth::id());
->>>>>>> AranaBranch
+
     }
 }

@@ -1,6 +1,5 @@
 $( document ).ready(function() {
 	console.log("inicioR");
-<<<<<<< HEAD
 
 	$("#hola").click(function () {
         //$("#hola").hide();
@@ -373,11 +372,5 @@ $( document ).ready(function() {
     	window.location.reload();
 	});*/
 
-=======
-	$('.collapsed')
-	.css('height', 'auto')
-	.find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()
-	.find('.x_content').css('display', 'none');
->>>>>>> AranaBranch
 });
 

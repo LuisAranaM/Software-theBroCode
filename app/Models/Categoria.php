@@ -57,25 +57,18 @@ class Categoria extends Eloquent
 		    	 'NOMBRE' => $categoria,
 		     	 'ID_CATEGORIA' => $criterio,
 				 'ESTADO' => 1]);
-<<<<<<< HEAD
+
 		DB::commit();
 		return $id;
 	}
 	static function getCategoriasId($idCrit) {
         $sql = DB::table('CRITERIO')
                 ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
-=======
-		return $id;
-	}
-	static function getCategorias($idCrit) {
-        $sql = DB::table('CRITERIO')
-                ->select('ID_CRITERIO', 'NOMBRE')
->>>>>>> AranaBranch
+
                 ->where('ID_CATEGORIA', '=', $idCrit)
                 ->where('ESTADO','=', 1);
         return $sql;
     }
-<<<<<<< HEAD
 
     static function getCategorias() {
         $sql = DB::table('CRITERIO')
@@ -83,7 +76,6 @@ class Categoria extends Eloquent
                 ->where('ESTADO','=', 1);
         return $sql;
     }
-=======
->>>>>>> AranaBranch
+
 	
 }

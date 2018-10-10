@@ -27,11 +27,7 @@
 
       <div class="row">
         <div class="col-xs-6" >
-<<<<<<< HEAD
           <h1 class="secondaryTitle mainTitle">Cursos a Calificar </h1>
-=======
-          <h1 class="secondaryTitle mainTitle">Cursos a Acreditar </h1>
->>>>>>> AranaBranch
         </div>
 
         <!--<div class="col-xs-6 text-right">
@@ -53,19 +49,14 @@
       <div class="x_content bs-example-popovers courseContainer" >
         <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
           <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
-<<<<<<< HEAD
-            <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-=======
+
             <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">×</span>
->>>>>>> AranaBranch
+
             </button>
             <p class="pText">{{$curso->CODIGO_CURSO}} {{$curso->NOMBRE}}</p>
           </div> 
         </a>
-<<<<<<< HEAD
 
-=======
->>>>>>> AranaBranch
       </div>
       @endforeach
 
@@ -83,11 +74,7 @@
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
-<<<<<<< HEAD
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-=======
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
->>>>>>> AranaBranch
 <div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
   <div class="modal-content" style="top: 40%">
     <div class="modal-header">
@@ -99,18 +86,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   <div class="modal-body">
-<<<<<<< HEAD
-    <div class="container-fluid">
-      <form id="frmAgregarCursos">
-        <div class="tile coursesModalBox">
-          <div class="col-xs-12 form-group top_search" >
-=======
     <div class="container-fluid" style="">
       <form id="frmAgregarCursos" action="{{route('agregar.acreditacion')}}" method="POST">
         {{ csrf_field() }}
         <div class="tile coursesModalBox" style="padding-bottom: 20px;">
           <div class="col-xs-12 form-group top_search" style="z-index: 5000000;">
->>>>>>> AranaBranch
+
             <div class="input-group">
               <input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">
               <span class="input-group-btn">
@@ -121,65 +102,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               </span>
             </div>
           </div>
-<<<<<<< HEAD
 
-        </div>
-
-        <!--Esto se debe de volver a generar por AJAX-->
-        <!--
-        <div class="table-responsive">
-          <table class="table table-striped jambo_table bulk_action">
-            <thead >
-              <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-                <th class="pText column-title" style="border: none"></th>
-                <th class="pText column-title" style="border: none"> Código</th>
-                <th class="pText column-title" style="border: none">Curso</th>
-                <th class="pText bulk-actions" colspan="7">
-                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                </th>
-              </tr>
-            </thead>
-
-            <tbody class="text-left">
-              <tr class="even pointer">
-                <td class="a-center"  style="background-color: white; padding-right: 0px">
-                 <div class="form-check" style="padding-left: 10px; width: 20px">
-                  <label>
-                    <input type="checkbox" checked="" > <span class="pText label-text "></span>
-                  </label>
-                </div>
-              </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">ING220</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Ética Profesional</td>            
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    -->
-
-    <ul id="listaCursos" class="list-unstyled top_profiles scroll-view hidden" style="height: auto;" >
-      <li class="media event cargando-resultados">
-        <div class="media-body">
-          <p style="text-align: center;"><i class="fa fa-spinner fa-spin fa-fw"></i></p>
-        </div>
-      </li>
-      <li class="media event sin-resultados hidden">
-        <div class="media-body">
-          <p style="text-align: center;">No se encontraron cursos</p> 
-        </div>
-      </li>
-    </ul>
-    <div id="btnsAgregarCurso" class="modal-footer hidden">
-      <div class="text-center" style="padding-top: 0px; padding-bottom: 10px">
-
-        <button id="btnAgregar" class="btn btn-success pText customButtonThin">Agregar</button>
-        <button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button> 
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-=======
         </div>
 
         <!--Esto se debe de volver a generar por AJAX-->
@@ -226,7 +149,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
     </div>
   </div>
 </div>
->>>>>>> AranaBranch
+
 <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->

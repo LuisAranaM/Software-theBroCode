@@ -2,51 +2,6 @@
 
 /**
  * Created by Reliese Model.
-<<<<<<< HEAD
- * Date: Thu, 04 Oct 2018 18:18:52 +0000.
- */
-
-namespace App\Models;
- 
-use DB;
-use Log;
-use App\Entity\Horario as Horario;
-use Reliese\Database\Eloquent\Model as Eloquent;
-use Jenssegers\Date\Date as Carbon;
- 
- /**
-- * Class Curso
-  * 
-  * @property int $ID_CURSO
-  * @property int $ID_ESPECIALIDAD
-  * @property int $semestres_ID_SEMESTRE
-  * @property string $NOMBRE
-  * @property string $CODIGO_CURSO
-  * @property \Carbon\Carbon $FECHA_REGISTRO
-  * @property int $USUARIO_MODIF
-  * @property int $ESTADO
-  * 
-  * @property \App\Models\Especialidade $especialidade
-  * @property \App\Models\Semestre $semestre
-  * @property \Illuminate\Database\Eloquent\Collection $horarios
-  * @property \Illuminate\Database\Eloquent\Collection $subcriterios
-  *
-  * @package App\Models
-  */
-class Curso extends Eloquent {
- 	public $timestamps = false;
- 
- 	protected $casts = [
- 		'ID_ESPECIALIDAD' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
- 		'ESTADO_ACREDITACION' => 'int',
- 		'USUARIO_MODIF' => 'int',
- 		'ESTADO' => 'int'
- 	];
- 
-	public function especialidade()
- 	{
-=======
  * Date: Sun, 30 Sep 2018 22:12:14 +0000.
  */
 
@@ -107,7 +62,6 @@ class Curso extends Eloquent
 
 	public function especialidade()
 	{
->>>>>>> AranaBranch
 		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
@@ -123,7 +77,6 @@ class Curso extends Eloquent
 
 	public function subcriterios()
 	{
-<<<<<<< HEAD
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}
 
@@ -177,37 +130,7 @@ class Curso extends Eloquent
         return $sql;
     }
 
-  static function getCursos() {
-      $sql = DB::table('CURSOS AS CURSOS')
-              ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
-      //dd($sql->get());
-      return $sql;
-  }
-
-    static function buscarCursos($nomCurso) {
-        $sql = DB::table('CURSOS AS CURSOS')
-                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
-                ->where('NOMBRE','like','%'.$nomCurso.'%');
-
-        //dd($sql->get());
-        return $sql;
-    }
-
-
-
-
-
-}
-
-
-
-
-=======
-		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
-	}
-
-	static function getCursos($idSemestre,$idEspecialidad) {
+  static function getCursos($idSemestre,$idEspecialidad) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
                 ->where('ID_SEMESTRE','=',$idSemestre)
@@ -227,21 +150,21 @@ class Curso extends Eloquent
                 ->where('NOMBRE','like','%'.$nomCurso.'%');
 
         if($acreditacion)
-        	$sql=$sql->where('ESTADO_ACREDITACION','=',0);
+            $sql=$sql->where('ESTADO_ACREDITACION','=',0);
         return $sql;
     }
 
     function agregarAcreditar($idSemestre,$codigos,$usuario){
-    	//dd(Carbon::now());   	
-    	DB::beginTransaction();
+        //dd(Carbon::now());    
+        DB::beginTransaction();
         $status = true;
        
         try {
-			DB::table('CURSOS AS CURSOS')
-				->whereIn('CODIGO_CURSO',$codigos)
-    			->update(['ESTADO_ACREDITACION'=>1,
-	    				'FECHA_ACTUALIZACION'=>Carbon::now(),
-	    				'USUARIO_MODIF'=>$usuario]);
+            DB::table('CURSOS AS CURSOS')
+                ->whereIn('CODIGO_CURSO',$codigos)
+                ->update(['ESTADO_ACREDITACION'=>1,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$usuario]);
             DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
@@ -253,16 +176,16 @@ class Curso extends Eloquent
     }
 
     function eliminarAcreditar($idSemestre,$codigo,$usuario){
-    	//dd(Carbon::now());   	
-    	DB::beginTransaction();
+        //dd(Carbon::now());    
+        DB::beginTransaction();
         $status = true;
        
         try {
-			DB::table('CURSOS AS CURSOS')
-				->where('CODIGO_CURSO','=',$codigo)
-    			->update(['ESTADO_ACREDITACION'=>0,
-	    				'FECHA_ACTUALIZACION'=>Carbon::now(),
-	    				'USUARIO_MODIF'=>$usuario]);
+            DB::table('CURSOS AS CURSOS')
+                ->where('CODIGO_CURSO','=',$codigo)
+                ->update(['ESTADO_ACREDITACION'=>0,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$usuario]);
             DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
@@ -273,6 +196,5 @@ class Curso extends Eloquent
         //dd($sql->get());
     }
 
-
 }
->>>>>>> AranaBranch
+

@@ -22,7 +22,7 @@ class Curso extends \App\Entity\Base\Entity {
         ]);
     }
 
-<<<<<<< HEAD
+
     static function getCursosYHorarios(){
         return mCurso::getCursosYHorarios();
     }
@@ -32,25 +32,20 @@ class Curso extends \App\Entity\Base\Entity {
         return mCurso::getCursoByIdHorario($idHorario)->get();
     }
 
-    static function getCursos() {
+    /*static function getCursos() {
         $model = new mCurso();
-        return mCurso::getCursos()->get();
-=======
+        return mCurso::getCursos()->get();*/
+
     static function getCursosAcreditacion() {
         //Aquí consigo los cursos de la 
         //especialidad y que se acreditarán
         $model = new mCurso();
         return mCurso::getCursos(self::getIdSemestre(), self::getEspecialidadUsuario())->get();
->>>>>>> AranaBranch
+
     }
 
     static function buscarCursos($nomCurso){
         $model= new mCurso();
-<<<<<<< HEAD
-        return $model->buscarCursos($nomCurso)->get();
-    }
-
-=======
         return $model->buscarCursos(self::getIdSemestre(), 
                                     self::getEspecialidadUsuario(),
                                     $nomCurso,true)->get();
@@ -81,5 +76,5 @@ class Curso extends \App\Entity\Base\Entity {
         }
 
     }
->>>>>>> AranaBranch
+
 }

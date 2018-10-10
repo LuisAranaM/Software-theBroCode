@@ -5,21 +5,16 @@ git push origin hykire (pushea lo que tengas en tu stage al branch que creaste, 
 
 Para actualizar al master:
 git checkout master
-<<<<<<< HEAD
 git fetch Daniela
 git merge Daniela(te mergea lo del branch Daniela al master)
 git pull origin Daniela
 git push origin master
-=======
-git merge hykire(te mergea lo del branch hykire al master)
->>>>>>> AranaBranch
 
 https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
 https://www.youtube.com/watch?v=H5GJfcp3p4Q&index=13&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-
 https://www.atlassian.com/git/tutorials/syncing
 
 para eliminar su branch local y remotamente:
-<<<<<<< HEAD
 git push origin hykire -d --delete
 
 
@@ -55,6 +50,3 @@ git push origin hykire -d --delete
         <input type="text" id="txtCategoria" class="form-control pText customInput" name="categoria" id="txtcodigo" required="required" placeholder="Descripción">    
       </div>
     </div>
-=======
-git push origin hykire -d --delete
->>>>>>> AranaBranch

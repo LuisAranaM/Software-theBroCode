@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 use App\Entity\Criterio as eCriterio;
 use App\Entity\Categoria as eCategoria;
 use App\Entity\Subcriterio as eSubcriterio;
-<<<<<<< HEAD
 use App\Entity\EscalaCalificacion as eEscala;
 
-=======
->>>>>>> AranaBranch
 
 use Illuminate\Http\Request;
 
@@ -34,7 +31,6 @@ class CriterioController extends Controller
         //
     }
 
-<<<<<<< HEAD
     public function rubricasGestion(Request $request) {
         $categorias=[];
         $indicadores=[];
@@ -76,38 +72,6 @@ class CriterioController extends Controller
         ->with('indicadores', $indicadores)
         ->with('escalas', $escalas)
         ->with('descripciones', $descripciones);
-=======
-    public function rubricasGestion() {        
-        $categorias=[];
-        $subcriterios=[];
-        $criterios = eCriterio::getCriterios();
-        foreach ($criterios as $criterio){
-            $idCrit = $criterio->ID_CATEGORIA;
-            $categoriasNoValid = eCategoria::getCategorias($idCrit);
-            if(count($categoriasNoValid)!=0){
-                $categorias[$idCrit] = $categoriasNoValid;
-                foreach($categorias[$idCrit] as $categoria){
-                    $idCat = $categoria->ID_CRITERIO;
-                    $subcriteriosNoValid =eSubcriterio::getSubCriterios($idCat);
-                    if(count($subcriteriosNoValid)!= 0){
-                        $lastIdCat = $idCat;
-                        $subcriterios[$idCat] = $subcriteriosNoValid;
-                        foreach($subcriterios[$idCat] as $subcriterio){
-                            $idSubCriterio = $subcriterio->ID_SUBCRITERIO;
-                        }  
-                    }                 
-                }  
-            }            
-        } 
-        //dd($categorias);
-        return view('rubricas.gestion')
-        ->with('lastIdCrit',$idCrit)
-        ->with('lastIdCat',$idCat)
-        ->with('criterios',$criterios)
-        ->with('ultimoCriterio',$criterios[count($criterios)-1])
-        ->with('ultimaCategoria',$categorias[count($criterios)][count($categorias[count($criterios)])-1])
-        ->with('ultimoSubcriterio',$subcriterios[$lastIdCat][count($subcriterios[$lastIdCat])-1]);
->>>>>>> AranaBranch
     }
 
     public function actualizarCriterios(Request $request){
@@ -127,7 +91,6 @@ class CriterioController extends Controller
         $texto4 = $request->get('texto4',null);
         eSubcriterio::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
         return redirect()->route('rubricas.gestion');
-<<<<<<< HEAD
     }
     public function actualizarResultados(Request $request){
         $codigoRes = $request->get('_codRes', null);
@@ -206,11 +169,6 @@ class CriterioController extends Controller
         }
         return $descripciones;
     }
-=======
-
-    }
-
->>>>>>> AranaBranch
     /**
      * Store a newly created resource in storage.
      *

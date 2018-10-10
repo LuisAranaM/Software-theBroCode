@@ -109,11 +109,8 @@ return [
     |
     */
 
-<<<<<<< HEAD
     'key' => env('APP_KEY','base64:NyviW9lwH+B396tSNneetpa4vFElr++8MH52UlhB7hU='),
-=======
-    'key' => env('APP_KEY'),
->>>>>>> AranaBranch
+
 
     'cipher' => 'AES-256-CBC',
 

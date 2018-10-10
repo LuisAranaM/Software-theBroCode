@@ -6,11 +6,8 @@
  */
 
 namespace App\Models;
-<<<<<<< HEAD
 use DB;
-=======
 
->>>>>>> AranaBranch
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -84,7 +81,7 @@ class AlumnosHasHorario extends Eloquent
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_alumnos_has_horarios', 'ID_ALUMNO', 'ID_SUBCRITERIO')
 					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
-<<<<<<< HEAD
+
 
 	static public function geAlumnosByIdHorario($idHorario){
 		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
@@ -94,6 +91,5 @@ class AlumnosHasHorario extends Eloquent
             ->get()->toArray();
         return $ans;
 	}
-=======
->>>>>>> AranaBranch
+
 }

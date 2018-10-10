@@ -58,7 +58,7 @@ class Criterio extends Eloquent
                 ->where('ESTADO','=',1);
         //dd($sql->get());
         return $sql;
-<<<<<<< HEAD
+
 	}
 	
 	static function getCriteriosbyIdCurso($idCurso) {
@@ -71,18 +71,15 @@ class Criterio extends Eloquent
         return $sql;
 	}
 	
-=======
-    }
->>>>>>> AranaBranch
+
 	public function insertCriterio($nombre, $desc){
 		$id = DB::table('CATEGORIAS')->insertGetId(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
 				 'ESTADO' => 1]);
-<<<<<<< HEAD
+
 		DB::commit();
-=======
->>>>>>> AranaBranch
+
 		return $id;
 	}
 
