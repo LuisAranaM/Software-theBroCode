@@ -38,7 +38,7 @@ class ProfesorController extends Controller
 
     public function profesorCalificar()
     {
-
+        //dd(Curso::getCursosYHorarios());
         //return view('profesor.calificar');
         return view('profesor.calificar')
         ->with('cursos',Curso::getCursosYHorarios());
