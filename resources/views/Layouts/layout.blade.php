@@ -42,52 +42,44 @@
     <div class="main_container">
 
       <div class="col-md-3 left_col" >
-        <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white;">
-          <div class="navbar nav_title" style="border: 0; background-color: white;height: auto">
-            <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%;margin-left: 15px;"/></a>
+        <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white">
+          <div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">
+            <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
           </div>
           <div class="clearfix" ></div>
 
 
 
-          <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 0px; margin-bottom: -10px">
+          <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 2px; margin-bottom: -10px">
           <!-- /menu profile quick info -->
 
           <br />
 
           <!-- sidebar menu -->
-          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white">
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
-              <ul class="nav side-menu" >
-                <li ><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav side-menu">
+                <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
+                </li>
+                <li class="pText"><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" >
-                    <li><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>
-                    <li><a href="" style="color:#72777a">Dashboard2</a></li>
-                    <li><a href="" style="color:#72777a">Dashboard3</a></li>
+                    <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>
                   </ul>
                 </li>
-                <li><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
+                <li class="pText"><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
                   <ul class="nav child_menu">
-                    <li><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
-                    <li><a href="{{route('cursos.horarios')}}" style="color:#72777a">Horarios y Criterios</a></li>
-                    <li><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
+                    <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
+                    <li class="pText"><a href="{{route('cursos.horarios')}}" style="color:#72777a">Horarios y Criterios</a></li>
+                    <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
                   </ul>
                 </li>
-                <li><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a style="color:#72777a" href="">General Elements</a></li>
-                    <li><a  style="color:#72777a" href="">Media Gallery</a></li>
-                  </ul>
+                <li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
+                <li class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
                 </li>
-                <li><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a style="color:#72777a" href="">Chart JS</a></li>
-                    <li><a style="color:#72777a" href="">Chart JS2</a></li>
-                  </ul>
+                <li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
+                <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                 </li>
               </ul>
             </div>         

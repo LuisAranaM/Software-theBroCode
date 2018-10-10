@@ -28,9 +28,13 @@ class Categoria extends \App\Entity\Base\Entity {
         $this->setValue('_estado',$cat->ESTADO);        
     }   
 
-    static function getCategorias($idCrit) {
+    static function getCategoriasId($idCrit) {
         $model = new mCategoria();
-        return mCategoria::getCategorias($idCrit)->get();
+        return mCategoria::getCategoriasId($idCrit)->get();
+    }
+    static function getCategorias() {
+        $model = new mCategoria();
+        return mCategoria::getCategorias()->get();
     }
     static function insertCategoria($esp,$sem,$categoria, $criterio){
         $model =new mCategoria();

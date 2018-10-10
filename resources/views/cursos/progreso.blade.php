@@ -24,11 +24,11 @@
     <div class=" x_panel tile coursesBox">
       @foreach($cursos as $c)
       <div class="row">
-        <div class="col-md-11" >
+        <div class="col-xs-11" >
           <h1 class="secondaryTitle mainTitle">{{$c->CODIGO_CURSO}} {{$c->NOMBRE}}</h1>
         </div>
 
-        <div class="col-md-1" style="text-align: right; font-size: 20px"> 
+        <div class="col-xs-1 text-right" style="font-size: 20px"> 
           <i class="fa fa-caret-up"></i>
         </div>
       </div>
@@ -36,24 +36,26 @@
         @foreach($horarios[$c->ID_CURSO] as $h)
 
         <div class="row">
-          <div class="col-md-3" >
+          <div class="col-sm-2 col-xs-3" >
             <p class="pText" style="margin-bottom: 0px">{{$h->NOMBRE_HORARIO}} {{$h->NOMBRE_PROFESOR}}</p>
           </div>
-          <div class="col-md-9" style="padding-bottom: 0">
+          <div class="col-sm-10 col-xs-9" style="padding-bottom: 0">
             <div class="widget_summary" >
               <div class="w_center w_55" style="width: 100%">
                 <div class="progress" style="margin-bottom: 0px">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%; background-color: #005b7f !important; border-color: #00626E !important">
+                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%; background-color: #005b7f !important; border: none !important">
                     <span class="sr-only">60% Complete</span>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="no-padding">
+              <p class="barText pText">55% de avance - 11/30 alumnos calificados</p>
+            </div>
           </div>
+        
         </div>
-        <div class="col-md-offset-3 no-padding">
-          <p class="barText pText">55% de avance - 11/30 alumnos calificados</p>
-        </div>
+
         @endforeach
 
       @endforeach 

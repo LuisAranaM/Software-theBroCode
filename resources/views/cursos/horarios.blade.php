@@ -1,13 +1,15 @@
 @extends('Layouts.layout')
 
 @section('js-libs')
-<script type="text/javascript"  src="{{ URL::asset('js/horarios/horariosjs.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop
 
 @section('pageTitle', 'Principal')
 @section('content')
-
+<div id="idCurso" data-field-id="{{$idCurso}}" ></div>
+<div id="nombreCurso" data-field-id="{$nombreCurso}}" ></div>
+<div id="codCurso" data-field-id="{{$codCurso}}" ></div>
 <div class="customBody">
   <div class="row">
     <div class="col-md-8 col-sm-6">
@@ -63,7 +65,7 @@
         @if($h->ESTADO===1)
         <div class="x_content bs-example-popovers courseContainer">
           <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-            <button id="btnClose" value="{{$h->ID_HORARIO}}" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
             <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
           </div>
@@ -79,23 +81,25 @@
 @if($codCurso!=null)
 <div class="row">
   <div class=" x_panel tile coursesBox">
-    <div class="col-xs-12" >
-      <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
+      </div>
     </div>
-
     
+
 
     <!--Criterio 1-->
     <div class="row" style="margin-bottom: 30px">
       <div class="col-md-3 pText">
         Criterio A: Matemáticas
       </div>
-      <div class="col-md-9">
+      <div class="col-md-8">
         <div class="btn-group btn-group-justified" data-toggle="buttons" >
-          <label class="btn btn-primary active"  style="background-color: #00626E; border-color: #004d54">
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
             <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
             <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-              B
+              B1Hola
             </span>
           </label>
           <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
@@ -110,51 +114,121 @@
               B2
             </span>
           </label>
-        </label>
-        <label id="btnAgregarCriterios" class="btn btn-primary" style="background-color: #00626E; border-color: #004d54; width: 1px">
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              B2
+            </span>
+          </label>
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              B2
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <label id="btnAgregarCriterios" class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
           <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-            +
-          </span>
+              +
+           </span>
         </label>
       </div>
     </div>
-  </div>
 
-  <!--Criterio 2-->
-  <div class="row">
-    <div class="col-md-3 pText">
-      Criterio A: Matemáticas
-    </div>
-    <div class="col-md-9">
-      <div class="btn-group btn-group-justified" data-toggle="buttons">
-        <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-            B2
-          </span>
-        </label>
-        <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-            B2
-          </span>
-        </label>
-        <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-            B2
-          </span>
-        </label>
+    <!--Criterio 2-->
+    <div class="row" style="margin-bottom: 30px">
+      <div class="col-md-3 pText">
+        Criterio D: Literatura
+      </div>
+
+      <div class="col-md-8" style="margin-top: -7px" data-toggle="buttons">
+            <!-- Nav tabs -->
+            <ul id="tab-list" class="nav nav-tabs nav-tabs-justified" role="tablist">
+                <!--<li class="active"><a href="#tab1" role="tab" data-toggle="tab">Tab 1</a></li>-->
+                <button id="btn-add-tab" type="button" class="btn btn-primary add-tab-btn-style" style="font-size : 20px; color: #cccccc; background-color: #ffffff; border-color: #dddddd"><strong>+</strong></button>
+            </ul>
+
+            <!-- Tab panes -->
+            <div id="tab-content" class="tab-content">
+                <!--<div class="tab-pane fade in active" id="tab1">Tab 1 content</div>-->
+            </div>
       </div>
     </div>
-  </div>
+    <!--<div class="row" style="margin-bottom: 30px">
+      <div class="col-md-3 pText">
+        Criterio A: Matemáticas
+      </div>
+      <div class="col-md-8">
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54 style="display:none"">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Holi">
+              B1Hola
+            </span>
+            <button id="close-btn-in-nav" class="close" type="button" title="Eliminar" style="margin-top: -2px;">×</button>
+          </label>
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              B2
+            </span>
+          </label>
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              B2
+            </span>
+          </label>
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              B2
+            </span>
+          </label>
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              B2
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <label id="btnAgregarCriterios" class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              +
+           </span>
+        </label>
+      </div>
+    </div>-->
 
+    <!--Criterio 3-->
+    <div class="row" style="margin-bottom: 30px">
+      <div class="col-md-3 pText">
+        Criterio D: Literatura
+      </div>
 
+      <div class="col-md-8" style="margin-top: -7px" data-toggle="buttons">
+            <!-- Nav tabs -->
+            <ul id="tab-list" class="nav nav-tabs nav-tabs-justified" role="tablist">
+                <!--<li class="active"><a href="#tab1" role="tab" data-toggle="tab">Tab 1</a></li>-->
+                <button id="btn-add-tab" type="button" class="btn btn-primary add-tab-btn-style" style="font-size : 20px; color: #cccccc; background-color: #ffffff; border-color: #dddddd"><strong>+</strong></button>
+            </ul>
+
+            <!-- Tab panes -->
+            <div id="tab-content" class="tab-content">
+                <!--<div class="tab-pane fade in active" id="tab1">Tab 1 content</div>-->
+            </div>
+      </div>
+    </div>
 </div>
 
 @endif
-  <a href="{{route('cursos.gestion')}}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar</a>
+  <a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
 
 </div>
 
@@ -244,14 +318,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
           </tr>
         </tbody>
       </table>
-    </div>
-
-      </form>
-      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button  id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
+    </div> 
+    </form>
+    <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
         <button id="btnCancelarHorarios" class="btn btn-success pText customButton">Cancelar</button> 
-      </div>
-    
+    </div>
     </div>
   </div>
 </div>

@@ -11,10 +11,16 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function profesorCalificar()
     {
-        //
+        return view('profesor.calificar');
     }
+
+    public function profesorAlumnos()
+    {
+        return view('profesor.alumnos');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -81,4 +87,7 @@ class ProfesorController extends Controller
     {
         //
     }
+
+    
+
 }

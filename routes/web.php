@@ -42,11 +42,12 @@ Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController
 
 Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
+//Route::post('/actualizar', ['as'=>'actualizar.horario','uses'=>'HorarioController@actualizarHorarios']);
 
 
 /**HORARIOS**/
 Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3']], function() {
-	Route::post('/actualizar', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
+	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/desactivar', ['as'=>'desactivar.horario','uses'=>'HorarioController@desactivarHorario']);
 });
 
@@ -61,6 +62,10 @@ Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@d
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
 	Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
+	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'CriterioController@actualizarResultados']);
+	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'CriterioController@actualizarCategorias']);
+	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'CriterioController@actualizarIndicadores']);
+	Route::post('/actualizar-escalas', ['as' => 'actualizar.escalas', 'uses' => 'CriterioController@actualizarEscalas']);
 });
 
 /****RUTAS PARA CURSOS****/
@@ -88,7 +93,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
-	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
+	Route::post('/actualizar-horarios', ['as'=>'actualizar.horario','uses'=>'HorarioController@actualizarHorarios']);
 });
 
 /****RUTAS PARA ASISTENTE****/
@@ -100,4 +105,7 @@ Route::group(['prefix' => 'asis', 'middleware' => ['authBase', 'authRol:3']], fu
 Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], function() {
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
+
+Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar']);
+Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@profesorAlumnos']);
 

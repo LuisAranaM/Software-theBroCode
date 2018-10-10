@@ -46,17 +46,68 @@ $( document ).ready(function() {
 	$("#myDIVResultados div.courseContainer").click(function() {
 		$('html,body').animate({
 			scrollTop: $(".divcategorias").offset().top},
-			1500);
+			500);
 	});
 	$("#myDIVCategorias div.courseContainer").click(function() {
 		$('html,body').animate({
 			scrollTop: $(".divindicadores").offset().top},
-			1500);
+			500);
 	});
 	$("#myDIVIndicadores div.courseContainer").click(function() {
 		$('html,body').animate({
 			scrollTop: $(document).height() - $(window).height()},
-			1500);
+			500);
 	});
+
+	function actualizarResultados(codRes,descRes){
+		$.ajax({
+			type:'POST',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: APP_URL + '/rubricas/actualizar-resultados',
+			data: {
+				_codRes: codRes,
+				_descRes: descRes,
+			},
+			dataType: "text",
+			success: function(resultData) {
+			}
+		});
+	}
+
+	$('#btnAgregarResultado').click(function() {
+		var codRes = $('#txtCodigoResultado').val();
+		var descRes = $('#txtResultado').val();
+		
+		actualizarResultados(codRes,descRes);
+	});
+	function actualizarCategorias(descCat, idRes){
+		$.ajax({
+			type:'POST',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: 'rubricas/actualizar-categorias',
+			data: {
+				_descCat: descCat,
+				_idRes: idRes,
+			},
+			dataType: "text",
+			success: function(resultData) {
+			}
+		});
+	}
+
+	$('#btnAgregarCategoria').click(function() {
+		var descCat = $('#txtCategoria').val();
+		var idRes = $('#myDIVResultados .activeButton').attr('id');
+		actualizarCategorias(descCat, idRes);
+	});
+
+	$(document).ajaxStop(function(){
+    	window.location.reload();
+	});
+
 });
 

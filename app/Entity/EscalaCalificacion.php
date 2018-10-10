@@ -5,6 +5,7 @@ namespace App\Entity;
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use App\Models\EscalaCalificacion as mEscalaCalificacion;
 use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Log as Log;
 
 class EscalaCalificacion extends \App\Entity\Base\Entity {
 
@@ -22,5 +23,21 @@ class EscalaCalificacion extends \App\Entity\Base\Entity {
         ]);
     }
 
-    
+    static function getEscalas() {
+        return mEscalaCalificacion::getEscalas()->get();
+    }
+
+    static function updateEscala($esc1,$esc2,$esc3,$esc4){
+        //Falta añadir excepción
+        $status = true;
+        try {
+            mEscalaCalificacion::updateEscala($esc1,$esc2,$esc3,$esc4);
+        } catch (Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+    }
+
 }
