@@ -115,4 +115,21 @@ class Subcriterio extends Eloquent
 		DB::commit();
 		return $id;
 	}
+	static function getSubCriterioId($idInd){
+		$sql = DB::table('SUBCRITERIOS')
+                ->select('*')
+                ->where('ID_SUBCRITERIO', '=', $idInd);
+        //dd($sql->get());
+        return $sql;
+    }
+    static function updateSubcriterio($indicador){
+    	DB::table('SUBCRITERIOS')
+    		->where('ID_SUBCRITERIO',$indicador->ID_SUBCRITERIO)
+    		->update(['DESCRIPCION_1' => $indicador->DESCRIPCION_1,
+			     	 'DESCRIPCION_2' => $indicador->DESCRIPCION_2,
+			     	 'DESCRIPCION_3' => $indicador->DESCRIPCION_3,
+			     	 'DESCRIPCION_4' => $indicador->DESCRIPCION_4]);
+		DB::commit();
+        return;
+    }
 }

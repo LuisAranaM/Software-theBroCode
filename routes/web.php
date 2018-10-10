@@ -63,6 +63,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3'
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
 	Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
 	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'CriterioController@actualizarResultados']);
+	Route::get('/refrescar-resultados', ['as' => 'refrescar.resultados', 'uses' => 'CriterioController@refrescarResultados']);
 	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'CriterioController@actualizarCategorias']);
 	Route::get('/refrescar-categorias', ['as' => 'refrescar.categorias', 'uses' => 'CriterioController@refrescarCategorias']);
 	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'CriterioController@actualizarIndicadores']);
