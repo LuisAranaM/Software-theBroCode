@@ -38,24 +38,40 @@ class CriterioController extends Controller
         if(is_null($request->resultado)){
             $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
             $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();
+            $request->resultado = $resultados[0]->ID_CATEGORIA;
         }
         else{
             $categorias = eCategoria::getCategoriasId($request->resultado)->toArray();
             if(is_null($request->categoria)){
-                $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();            
+                $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray(); 
+                $request->categoria = $categorias[0]->ID_CRITERIO;           
             }
             else{
                 $indicadores = eSubcriterio::getSubCriteriosId($request->categoria)->toArray();
+            }
+        }
+        if(is_null($request->indicador)){
+            $descripciones= array($indicadores[0]->DESCRIPCION_1,$indicadores[0]->DESCRIPCION_2,$indicadores[0]->DESCRIPCION_3,$indicadores[0]->DESCRIPCION_4);
+            $request->indicador = $indicadores[0]->ID_SUBCRITERIO;
+        }else{
+            foreach($indicadores as $indicador){
+                if($indicador->ID_SUBCRITERIO===$request->indicador){
+                    $descripciones= array($indicador->DESCRIPCION_1,$indicador->DESCRIPCION_2,$indicador->DESCRIPCION_3,$indicador->DESCRIPCION_4);
+                }
             }
         }
         $escalas = eEscala::getEscalas()->toArray();
         //$first= array_shift($resultados);
         //dd($categorias);
         return view('rubricas.gestion')
+        ->with('resClick',$request->resultado)
+        ->with('catClick',$request->categoria)
+        ->with('indClick',$request->indicador)
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
         ->with('indicadores', $indicadores)
-        ->with('escalas', $escalas);
+        ->with('escalas', $escalas)
+        ->with('descripciones', $descripciones);
     }
 
     public function actualizarCriterios(Request $request){
@@ -77,30 +93,58 @@ class CriterioController extends Controller
         return redirect()->route('rubricas.gestion');
     }
     public function actualizarResultados(Request $request){
-        //dd("HOLA");
-        //return redirect()->route('rubricas.gestion');
         $codigoRes = $request->get('_codRes', null);
         $nombreRes = $request->get('_descRes', null);
 
-        //dd("HOLA");
         $idResultado = eCriterio::insertCriterio($codigoRes,$nombreRes);
 
-        //dd("HOLA");
         return redirect()->route('rubricas.gestion');
     }
     public function actualizarCategorias(Request $request){
-        //dd("HOLA");
         $categoria = $request->get('_descCat', null);
-        $idRes = $request->get('_idRes',null);
-        $idCriterio = eCategoria::insertCategoria(1,1,$categoria, $idRes);
+        $idRes = $request->get('resultado',null);
+        $idCat = eCategoria::insertCategoria(1,1,$categoria, $idRes);
+        $request->categoria = $idCat;
+        return redirect()->route('rubricas.gestion');
+    }
+    public function actualizarIndicadores(Request $request){
+        $indicador = $request->get('_descInd', null);
+        $idCat = $request->get('_idCat',null);
+        $idInd = eSubcriterio::insertSubCriterio($idCat,1,1,$indicador, null,null,null,null);
+        $request->indicador= $idInd;
 
-        return view('rubricas.gestion')
-        ->with('resultados',$resultados)
-        ->with('categorias',$categorias)
-        ->with('indicadores', $indicadores)
-        ->with('escalas', $escalas);
+        return redirect()->route('rubricas.gestion');
+    }
+    public function refrescarCategorias(Request $request){
+
+        $idRes = $request->get('_idRes',null);
+        $categorias = eCategoria::getCategoriasId($idRes)->toArray();
+
+        return $categorias;
+    }
+    public function refrescarIndicadores(Request $request){
+
+        $idCat = $request->get('_idCat',null);
+        $indicadores = eSubcriterio::getSubCriteriosId($idCat)->toArray();
+
+        return $indicadores;
     }
 
+    public function refrescarEscalas(Request $request){
+
+        $idInd = $request->get('_idInd',null);
+        $escalas = eEscala::getEscalas()->toArray();
+        $indicadores = eSubcriterio::getSubCriterios()->toArray();
+        $descripciones= [];
+
+        foreach($indicadores as $indicador){
+            if($indicador->ID_SUBCRITERIO==$idInd){                
+                $descripciones= array($escalas[0]->NOMBRE.' '.$indicador->DESCRIPCION_1,$escalas[1]->NOMBRE.' '.$indicador->DESCRIPCION_2,$escalas[2]->NOMBRE.' '.$indicador->DESCRIPCION_3,$escalas[3]->NOMBRE.' '.$indicador->DESCRIPCION_4);
+                break;
+            }
+        }
+        return $descripciones;
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -62,7 +62,7 @@ class Categoria extends Eloquent
 	}
 	static function getCategoriasId($idCrit) {
         $sql = DB::table('CRITERIO')
-                ->select('ID_CRITERIO', 'NOMBRE')
+                ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
                 ->where('ID_CATEGORIA', '=', $idCrit)
                 ->where('ESTADO','=', 1);
         return $sql;
@@ -70,7 +70,7 @@ class Categoria extends Eloquent
 
     static function getCategorias() {
         $sql = DB::table('CRITERIO')
-                ->select('ID_CRITERIO', 'NOMBRE')
+                ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
                 ->where('ESTADO','=', 1);
         return $sql;
     }

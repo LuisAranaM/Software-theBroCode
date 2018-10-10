@@ -26,6 +26,11 @@ class Horario extends \App\Entity\Base\Entity {
         $model = new mHorario();
         return mHorario::getHorarios($idCurso)->get();
     }
-    
+
+
+    static function actualizarHorarios($idHorarios,$estadoAcreditacion) {
+        $model = new mHorario();
+        return mHorario::actualizarHorarios($idHorarios,$estadoAcreditacion);
+    }
     
 }
