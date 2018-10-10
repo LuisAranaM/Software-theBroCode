@@ -55,7 +55,6 @@
 							<tbody class="text-left">
 								@foreach($alumnos as $alumno)
 								<tr class="even pointer" id="">
-									
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 										{{ csrf_field() }}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$alumno->CODIGO}} </td>{{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
@@ -64,10 +63,7 @@
 										<input type="text" name="horario" value="{{$horario[0]->NOMBRE}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
-											<button type = "submit" class = "DescargarProyecto btn btn-success btn-lg pText customButton" codigoAlumno="{{$alumno->CODIGO}}" nombreHorario="{{$horario[0]->NOMBRE}}">Descargar <i class="fa fa-upload" style="padding-left: 5px"></i>
-											 </button>
-										</td></form>
+										</form>
 										<td id="CargarCurso" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 

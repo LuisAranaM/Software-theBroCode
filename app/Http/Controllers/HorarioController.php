@@ -37,7 +37,6 @@ class HorarioController extends Controller
         return view('cursos.horarios')
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)
-
         ->with('idCurso',$idCurso)
         ->with('horario',eHorario::getHorarios($idCurso))
         ->with('criterios',eCriterio::getCriteriosbyIdCurso($idCurso))
