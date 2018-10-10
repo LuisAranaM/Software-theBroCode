@@ -57,12 +57,14 @@ class HorarioController extends Controller
                         $apellidos = explode(" ",$auxNombProfe[0]);
                         $aPaterno = apellidos[0];
                         $aMaterno = apellidos[1];
-                        $nombres = auxNombProfe[1];
-
-                        $lista_profesores= ['ID_ROL'=>4, 'USUARIO'=>$value->codigo, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 
-                                            'FECHA_ACTUALIZACION' => $fecha, 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'NOMBRES'= $nombres,
-                                            'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
+                        $nombres = auxNombProfe[1];                       
+                                            
                         $idProfe = DB::table('USUARIOS')->insertGetId($lista_profesores);
+                        $lista_profesores = [];
+                        $lista_profesores = ['ID_ROL'=>4, 'USUARIO'=>$value->codigo, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha,
+                                            'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'NOMBRES'=>$nombres,
+                                            'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO=>$aMaterno'];
+                       // $lista_profesores = ['ID_ROL'=>4, 'USUARIO'=>$value->codigo, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha,'FECHA_ACTUALIZACION' => $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'NOMBRES'= $nombres,'APELLIDO_PATERNO'=>$aPaterno,'APELLIDO_MATERNO'=>$aMaterno ];
 
                         $listaProfxHor[] = ['ID_USUARIO'=>$idProfe, 'ID_HORARIO'=>$idCurso, 'FECHA_REGISTRO'=>$fecha, 
                                             'FECHA_ACTUALIZACION' => $fecha, 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1]; 
@@ -73,7 +75,7 @@ class HorarioController extends Controller
                     #Curso::insert($lista_cursos);
                     DB::table('PROFESORES_HAS_HORARIOS')->insert($listaProfxHor);
                     \Session::flash('Éxito', '¡Excel importado con éxito, horarios y profesores actualizados!');
-                }
+                
                 
             }
 
