@@ -67,6 +67,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3'
 	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'CriterioController@actualizarIndicadores']);
 	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'CriterioController@refrescarIndicadores']);
 	Route::post('/actualizar-escalas', ['as' => 'actualizar.escalas', 'uses' => 'CriterioController@actualizarEscalas']);
+	Route::get('/refrescar-escalas', ['as' => 'refrescar.escalas', 'uses' => 'CriterioController@refrescarEscalas']);
 });
 
 /****RUTAS PARA CURSOS****/

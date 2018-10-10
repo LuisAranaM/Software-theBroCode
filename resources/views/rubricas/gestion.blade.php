@@ -4,7 +4,8 @@
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>
 @stop
-<div class="customBody">
+<form method="POST" action="{{ route('actualizar.criterios') }}" >
+  <div class="customBody">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" >
     
     <!-- TITULO -->
@@ -204,6 +205,7 @@
 
 </div>
 </div>
+</form>
 @stop
 
 @section('js-scripts')

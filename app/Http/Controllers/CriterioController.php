@@ -129,6 +129,22 @@ class CriterioController extends Controller
 
         return $indicadores;
     }
+
+    public function refrescarEscalas(Request $request){
+
+        $idInd = $request->get('_idInd',null);
+        $escalas = eEscala::getEscalas()->toArray();
+        $indicadores = eSubcriterio::getSubCriterios()->toArray();
+        $descripciones= [];
+
+        foreach($indicadores as $indicador){
+            if($indicador->ID_SUBCRITERIO==$idInd){                
+                $descripciones= array($escalas[0]->NOMBRE.' '.$indicador->DESCRIPCION_1,$escalas[1]->NOMBRE.' '.$indicador->DESCRIPCION_2,$escalas[2]->NOMBRE.' '.$indicador->DESCRIPCION_3,$escalas[3]->NOMBRE.' '.$indicador->DESCRIPCION_4);
+                break;
+            }
+        }
+        return $descripciones;
+    }
     /**
      * Store a newly created resource in storage.
      *

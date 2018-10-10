@@ -77,10 +77,8 @@ $( document ).ready(function() {
 		        	html+='<p class="pText">'+result[0].NOMBRE+'</p>'
 		    	  	html+='</div>'
 		  			html+='</div>'
-					//refrescarEscalas(result[0].ID_SUBCRITERIO);
                 }
                 else{
-					$('#myDIVValorizaciones').remove();
                 }
 
 				for (i = 1; i <result.length; i++) {
@@ -92,8 +90,13 @@ $( document ).ready(function() {
 		    	  	html+='</div>'
 		  			html+='</div>'
 				}
-				html+='</div>'
-				$('#apInd').append(html);
+				if(result.length>0){
+					html+='</div>'
+					$('#apInd').append(html);
+					refrescarEscalas(result[0].ID_SUBCRITERIO);
+				}else{
+					$('#myDIVValorizaciones').remove();
+				}
 			}
 		});
 	}
@@ -110,6 +113,7 @@ $( document ).ready(function() {
 			dataType: "text",
 			success: function(result) {
 				result = JSON.parse(result);
+				console.log(result);
 				$('#myDIVValorizaciones').remove();
                 var html = '';
                 if(result.length >0){
@@ -151,7 +155,7 @@ $( document ).ready(function() {
     });
 
 
-    $('#myDIVCategorias .courseButton').click(function(){
+    $('#apCat').on("click",".courseButton",function(){
     	refrescarIndicadores($(this).attr('id'));
     	$('#myDIVCategorias .courseButton').removeClass('activeButton');
     	$(this).addClass('activeButton');
@@ -159,10 +163,10 @@ $( document ).ready(function() {
     	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
     });
 
-    $('#myDIVIndicadores .courseButton').click(function(){
+    $('#apInd').on("click",".courseButton",function(){
+    	refrescarEscalas($(this).attr('id'));
     	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
     	$(this).addClass('activeButton');
-    	//refrescarEscalas($(this).attr('id'));
     });
 	//NOTA:(hacer lo sig al usar iteradores)
 	//solo cuidar que cuando se use iteradores, al hacer clic en resultados,
@@ -183,12 +187,12 @@ $( document ).ready(function() {
 			scrollTop: $(".divcategorias").offset().top},
 			500);
 	});
-	$("#myDIVCategorias .courseButton").click(function() {
+	$("#apCat").on("click",".courseButton",function() {
 		$('html,body').animate({
 			scrollTop: $(".divindicadores").offset().top},
 			500);
 	});
-	$("#myDIVIndicadores .courseButton").click(function() {
+	$("#apInd").on("click",".courseButton",function() {
 		$('html,body').animate({
 			scrollTop: $(document).height() - $(window).height()},
 			500);

@@ -95,7 +95,7 @@ class Subcriterio extends Eloquent
         $sql = DB::table('SUBCRITERIOS')
                 ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
                 ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
-                ->where('ESTADO','=', 1);
+                ->where('SUBCRITERIOS.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
     }
