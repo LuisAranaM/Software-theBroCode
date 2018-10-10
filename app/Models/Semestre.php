@@ -111,4 +111,13 @@ class Semestre extends Eloquent
 	{
 		return $this->hasMany(\App\Models\SubcriteriosHasAlumnosHasHorario::class, 'semestres_ID_SEMESTRE');
 	}
+
+	/*static function getCiclo($idSemestre){
+		$sql=DB::table('SEMESTRES')
+				->select('*',DB::Raw('ANHO'+'-'+'CICLO'))
+				->where('ID_SEMESTRE','=',$idSemestre);
+		dd($sql->get());
+		return $sql;
+	}*/
+
 }
