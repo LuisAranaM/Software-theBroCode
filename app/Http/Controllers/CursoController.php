@@ -31,7 +31,7 @@ class CursoController extends Controller
 
     {
         return view('cursos.gestion')
-            ->with('cursos',Curso::getCursos());
+            ->with('cursos',Curso::getCursosAcreditacion());
     }
     
     public function progresoGestion() {

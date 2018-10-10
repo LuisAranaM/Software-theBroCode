@@ -32,9 +32,7 @@ class Curso extends \App\Entity\Base\Entity {
         return mCurso::getCursoByIdHorario($idHorario)->get();
     }
 
-    /*static function getCursos() {
-        $model = new mCurso();
-        return mCurso::getCursos()->get();*/
+
 
     static function getCursosAcreditacion() {
         //Aquí consigo los cursos de la 

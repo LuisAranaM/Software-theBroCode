@@ -6,11 +6,9 @@
  */
 
 namespace App\Models;
-<<<<<<< HEAD
-use DB;
-=======
 
->>>>>>> AranaBranch
+use DB;
+
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -63,7 +61,7 @@ class SubcriteriosHasCurso extends Eloquent
 		return $this->belongsTo(\App\Models\Curso::class, 'ID_CURSO');
 	}
 
-<<<<<<< HEAD
+
 	static function getSubCriteriosbyIdCurso($idCurso) {
 		$sql = DB::table('SUBCRITERIOS_HAS_CURSOS')
 				->leftJoin('SUBCRITERIOS', 'SUBCRITERIOS.ID_SUBCRITERIO', '=', 'SUBCRITERIOS_HAS_CURSOS.ID_SUBCRITERIO')
@@ -74,8 +72,7 @@ class SubcriteriosHasCurso extends Eloquent
 	}
 	
 
-=======
->>>>>>> AranaBranch
+
 	public function subcriterio()
 	{
 		return $this->belongsTo(\App\Models\Subcriterio::class, 'ID_SUBCRITERIO')
