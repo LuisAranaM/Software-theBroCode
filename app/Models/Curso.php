@@ -76,12 +76,22 @@ class Curso extends Eloquent {
     return $ans;
   }
 
-	static function getCursos() {
+	static function getCursoByIdHorario($idHorario) {
         $sql = DB::table('CURSOS AS CURSOS')
-                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
+                ->join('HORARIO', 'CURSOS.ID_CURSO', '=', 'HORARIO.ID_CURSO')
+                ->select('CURSOS.ID_CURSO', 'CURSOS.NOMBRE', 'CURSOS.CODIGO_CURSO')
+                ->where('HORARIO.ID_HORARIO',(int)$idHorario)
+                ->distinct();
         //dd($sql->get());
         return $sql;
     }
+
+  static function getCursos() {
+      $sql = DB::table('CURSOS AS CURSOS')
+              ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
+      //dd($sql->get());
+      return $sql;
+  }
 
     static function buscarCursos($nomCurso) {
         $sql = DB::table('CURSOS AS CURSOS')

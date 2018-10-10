@@ -54,6 +54,7 @@
     <div id="listHorarios">
       @foreach($horario as $h)
         @if($h->ESTADO===1)
+        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}">
         <div class="x_content bs-example-popovers courseContainer">
           <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
             <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" codigoHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
@@ -61,6 +62,7 @@
             <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
           </div>
         </div>
+        </a>
         @endif
       @endforeach
     </div>

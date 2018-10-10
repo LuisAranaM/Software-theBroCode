@@ -97,7 +97,19 @@ class Horario extends Eloquent
         //dd($sql->get());
         return $sql;
 	}
+
+	static function getHorarioByIdHorario($idHorario){
+		//dd($idCurso);
+        $sql = DB::table('HORARIO AS H')
+				->select('H.*')
+				->where('H.ID_HORARIO', '=', $idHorario)
+				;
+
+        //dd($sql->get());
+        return $sql;
+	}
 		
+	
 	function actualizarHorarios($idHorarios,$estadoEv,$usuario){
 		DB::beginTransaction();
 		//dd($idHorarios,$estadoEv,$usuario);

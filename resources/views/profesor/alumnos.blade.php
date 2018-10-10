@@ -2,14 +2,14 @@
 @section('pageTitle', 'Principal')
 @section('content')
 @section('js-libs')
-<script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/cursos/alumnos.js') }}"></script>
 @stop
 
 <div class="customBody">
 
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="mainTitle">Ingeniería de Software - H0381</h1>
+			<h1 class="mainTitle">{{$curso[0]->CODIGO_CURSO}} - {{$horario[0]->NOMBRE}}</h1>
 		</div>
 
 		<div class="col-md-4 col-sm-6 form-group top_search" >
@@ -50,27 +50,33 @@
 								</tr>
 							</thead>
 							<!--CargarCurso-->
+							
 							<tbody class="text-left">
-
+								@foreach($alumnos as $alumno)
 								<tr class="even pointer" id="">
 									
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 										{{ csrf_field() }}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">20140445</td>{{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Daniela Argumanis</td>
-										<input type="text" name="codAlumno" value="20140445" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
-										<input type="text" name="horario" value="0842" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$alumno->CODIGO}} </td>{{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
+										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
+										<input type="text" name="horario" value="{{$horario[0]->NOMBRE}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td></form>
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
+											<button type = "submit" class = "DescargarProyecto btn btn-success btn-lg pText customButton" codigoAlumno="{{$alumno->CODIGO}}" nombreHorario="{{$horario[0]->NOMBRE}}">Descargar <i class="fa fa-upload" style="padding-left: 5px"></i>
+											 </button>
+										</td></form>
 										<td id="CargarCurso" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 
 									</tr>
 
 									
-
+									@endforeach
 								</tbody>
 							</table>
+							
 						</div>
 
 					</div>

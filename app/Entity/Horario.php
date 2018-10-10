@@ -26,6 +26,10 @@ class Horario extends \App\Entity\Base\Entity {
         $model = new mHorario();
         return mHorario::getHorarios($idCurso)->get();
     }
+    static function getHorarioByIdHorario($idHorario) {
+        $model = new mHorario();
+        return mHorario::getHorarioByIdHorario($idHorario)->get();
+    }
 
     static function actualizarHorarios($idHorarios,$estadoEv,$usuario) {
         //dd($idHorarios,$estadoEv,$usuario);

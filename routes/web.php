@@ -99,6 +99,7 @@ Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2']], f
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horario','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
+	Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@index']);
 });
 
 /****RUTAS PARA ASISTENTE****/
@@ -113,5 +114,7 @@ Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], fu
 
 /* RUTAS DE PROFESOR */
 Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar']);
-Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@profesorAlumnos']);
+Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@index']);
+Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProfesorController@index']);
+
 

@@ -22,5 +22,6 @@ class Alumno extends \App\Entity\Base\Entity {
         ]);
     }
 
+
     
 }

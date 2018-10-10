@@ -53,4 +53,8 @@ class ProyectoController extends Controller
     	$downloads = DB::table('proyectos')->get();
     	return view('proyecto.viewfile', compact('downloads'));
     }
+
+    public function descargarProyecto(Request $request){
+        dd($request->all());
+    }
 }
