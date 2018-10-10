@@ -53,40 +53,20 @@
 							<tbody class="text-left">
 
 								<tr class="even pointer" id="">
-									<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">20140445</td>
-									<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Daniela Argumanis</td>           
+									           
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 										{{ csrf_field() }}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">20140445</td>
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Daniela Argumanis</td>
+										<input type="text" name="codAlumno" value="20140445" hidden>
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td></form>
 										<td id="CargarCurso" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 
 									</tr>
-									
-									<tr class="even pointer">
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">20140000</td>
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Daniel Chapi</td>           
-										<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
-											{{ csrf_field() }}
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td></form>
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">1</td>  
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">1</td>   
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">1</td> 
-										</tr>
 
-										<tr class="even pointer">
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">20141342</td>
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">Karla Pedraza</td>           
-											<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
-												{{ csrf_field() }}
-												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
-												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td></form>  
-												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
-												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
-												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 
-											</tr>
+									
 
 										</tbody>
 									</table>
