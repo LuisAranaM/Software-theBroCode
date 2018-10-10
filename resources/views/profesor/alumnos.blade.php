@@ -2,7 +2,7 @@
 @section('pageTitle', 'Principal')
 @section('content')
 @section('js-libs')
-<script type="text/javascript"  src="{{ URL::asset('js/cursos/alumnos.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/alumnos/alumnos.js') }}"></script>
 @stop
 
 <div class="customBody">
