@@ -22,6 +22,10 @@ class Curso extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getCursosYHorarios(){
+        return mCurso::getCursosYHorarios();
+    }
+
     static function getCursos() {
         $model = new mCurso();
         return mCurso::getCursos()->get();
