@@ -44,6 +44,7 @@
 									<th class="pText column-title" style="border: none">Nombre</th>
 									<th class="pText column-title" style="border: none">Proyecto</th>
 									<th class="pText column-title" style="border: none"> </th>
+									<th class="pText column-title" style="border: none"> </th>
 									<th class="pText column-title" style="border: none">A</th>
 									<th class="pText column-title" style="border: none">B</th>
 									<th class="pText column-title" style="border: none">C</th>
