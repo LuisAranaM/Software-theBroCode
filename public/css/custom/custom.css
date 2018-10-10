@@ -1,5 +1,4 @@
 .boxTitleBody {
-
  display: inline-block;
  padding-top: 15px; 
  padding-bottom: 15px;
@@ -84,6 +83,24 @@
   background-color: rgb(29, 161, 242, 0.20); 
   color: #72777a; 
   border-color: rgb(29, 161, 242, 0.2); 
+  cursor: pointer;
+}
+
+.courseButton:hover{
+  background-color: #CCCCCC !important;
+  border-color: #CCCCCC !important;
+  color: white !important;
+}
+
+.courseButtonActive{
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: #CCCCCC !important;
+  border-color: #CCCCCC !important;
+  color: white !important;
+  margin-top: 200px !important;
+  
 }
 
 .addCourseButton {
@@ -111,12 +128,6 @@
   width: 120px;
 }
 
-.customButton:hover {
-  background-color: #CCCCCC;
-  border-color: #CCCCCC;
-  color: white;
-}
-
 .customButtonThin {
   height: 35px;
   background-color: #005b7f;
@@ -125,10 +136,27 @@
   width: 100px;
 }
 
-.customButtonThin:hover {
-  background-color: #CCCCCC;
-  border-color: #CCCCCC;
-  color: white;
+.customButtonLarge {
+  height: 35px;
+  background-color: #005b7f;
+  border-color:#005b7f;
+  margin-right: 0px;
+  width: 150px;
+  padding-right: 0px;
+  padding-left: 0px !important;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #CCCCCC !important;
+  border-color: #CCCCCC !important;
+  color: white !important;
+}
+
+button:focus {
+  background-color: #CCCCCC !important;
+  border-color: #CCCCCC !important;
+  color: white !important;
 }
 
 .secondaryTitle {
@@ -223,6 +251,13 @@ input[type="checkbox"]:checked + .label-text:before{
   padding-left: 15px;
 }
 
+.rowFinal2 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
 .buscarArchivo {
   padding-left: 5px;
   padding-right: 5px;
@@ -281,4 +316,16 @@ td input[type="checkbox"] {
 .customInput:focus {
   box-shadow: 0 0 0 0.2rem rgba(33,150,243,.25) !important;
   border-color: #9acffa;
+}
+
+.inputRight {
+  padding-left: 5px !important;
+}
+.inputLeft {
+  padding-right: 5px !important;
+}
+
+.activeButton{
+  background-color: #666;
+  color: white;
 }
