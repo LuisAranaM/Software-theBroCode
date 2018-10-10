@@ -26,6 +26,6 @@ class Horario extends \App\Entity\Base\Entity {
         $model = new mHorario();
         return mHorario::getHorarios($idCurso)->get();
     }
-
+    
     
 }

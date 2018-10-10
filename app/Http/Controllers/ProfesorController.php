@@ -1,8 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Entity\Base\Entity;
+use App\Entity\Curso as Curso;
+use App\Entity\Horario as Horario;
+use DB;
+use Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class ProfesorController extends Controller
 {
@@ -13,7 +21,9 @@ class ProfesorController extends Controller
      */
     public function profesorCalificar()
     {
-        return view('profesor.calificar');
+
+        //return view('profesor.calificar');
+        return view('profesor.calificar')->with('cursos',Curso::getCursosYHorarios());
     }
 
     public function profesorAlumnos()
