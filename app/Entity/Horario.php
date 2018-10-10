@@ -22,14 +22,18 @@ class Horario extends \App\Entity\Base\Entity {
         ]);
     }
 
+<<<<<<< HEAD
     static function getHorariosCompleto($idCurso){
         return mHorario::getHorariosCompleto($idCurso);
     }
 
+=======
+>>>>>>> AranaBranch
     static function getHorarios($idCurso) {
         $model = new mHorario();
         return mHorario::getHorarios($idCurso)->get();
     }
+<<<<<<< HEAD
     static function getHorarioByIdHorario($idHorario) {
         $model = new mHorario();
         return mHorario::getHorarioByIdHorario($idHorario)->get();
@@ -69,5 +73,8 @@ class Horario extends \App\Entity\Base\Entity {
     static function getCantAlumnos($idHorario){
         return mHorario::getCantAlumnos($idHorario);
     }
+=======
+
+>>>>>>> AranaBranch
     
 }

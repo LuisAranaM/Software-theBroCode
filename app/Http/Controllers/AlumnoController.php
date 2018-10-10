@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
+=======
+
+use Illuminate\Http\Request;
+>>>>>>> AranaBranch
 
 class AlumnoController extends Controller
 {
@@ -41,6 +46,7 @@ class AlumnoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     
     private function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
@@ -111,6 +117,11 @@ class AlumnoController extends Controller
             flash('No se selecciono un archivo')->error();
         }
         return Redirect::back();
+=======
+    public function store(Request $request)
+    {
+        //
+>>>>>>> AranaBranch
     }
 
     /**

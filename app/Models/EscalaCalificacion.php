@@ -8,7 +8,11 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+<<<<<<< HEAD
 use DB;
+=======
+
+>>>>>>> AranaBranch
 /**
  * Class EscalaCalificacion
  * 
@@ -51,6 +55,7 @@ class EscalaCalificacion extends Eloquent
 	{
 		return $this->hasMany(\App\Models\SubcriteriosHasAlumnosHasHorario::class, 'ID_ESCALA');
 	}
+<<<<<<< HEAD
 
 	static function getEscalas() {
         $sql = DB::table('ESCALA_CALIFICACION')
@@ -77,4 +82,6 @@ class EscalaCalificacion extends Eloquent
 		DB::commit();
 		return;
 	}
+=======
+>>>>>>> AranaBranch
 }

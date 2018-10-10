@@ -22,11 +22,14 @@ class SubcriteriosHasCurso extends \App\Entity\Base\Entity {
         ]);
     }
 
+<<<<<<< HEAD
     static function getSubCriteriosbyIdCurso($idCurso) {
         $model = new mSubcriteriosHasCurso();
         return mSubcriteriosHasCurso::getSubCriteriosbyIdCurso($idCurso)->get();
     }
 
 
+=======
+>>>>>>> AranaBranch
     
 }

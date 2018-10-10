@@ -40,6 +40,7 @@ class Subcriterio extends \App\Entity\Base\Entity {
         $model =new mSubcriterio();
         $model->insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4);
     }
+<<<<<<< HEAD
     static function getSubCriteriosId($idCat){
         $model =new mSubcriterio();
         return $model::getSubCriteriosId($idCat)->get();
@@ -56,4 +57,11 @@ class Subcriterio extends \App\Entity\Base\Entity {
         $model =new mSubcriterio();
         return $model::updateSubcriterio($indicador);
     }
+=======
+    static function getSubCriterios($idCat){
+        $model =new mSubcriterio();
+        return $model::getSubCriterios($idCat)->get();
+    }
+    
+>>>>>>> AranaBranch
 }

@@ -22,8 +22,11 @@ class AlumnosHasHorario extends \App\Entity\Base\Entity {
         ]);
     }
 
+<<<<<<< HEAD
     static function geAlumnosByIdHorario($idCurso){
         return mAlumnosHasHorario::geAlumnosByIdHorario($idCurso);
     }
+=======
+>>>>>>> AranaBranch
     
 }

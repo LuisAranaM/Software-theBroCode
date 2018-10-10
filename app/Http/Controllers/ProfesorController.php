@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+=======
+
+use Illuminate\Http\Request;
+>>>>>>> AranaBranch
 
 class ProfesorController extends Controller
 {
@@ -21,6 +26,7 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
 
     public function index(Request $request)
     {
@@ -44,6 +50,13 @@ class ProfesorController extends Controller
 
 
 
+=======
+    public function index()
+    {
+        //
+    }
+
+>>>>>>> AranaBranch
     /**
      * Show the form for creating a new resource.
      *
@@ -62,6 +75,7 @@ class ProfesorController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();
@@ -86,6 +100,9 @@ class ProfesorController extends Controller
             \Session::flash('Error', 'No existe archivo excel para ser importado');
         }
         return Redirect::back();
+=======
+        //
+>>>>>>> AranaBranch
     }
 
     /**
@@ -132,7 +149,10 @@ class ProfesorController extends Controller
     {
         //
     }
+<<<<<<< HEAD
 
     
 
+=======
+>>>>>>> AranaBranch
 }

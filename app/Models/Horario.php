@@ -9,7 +9,10 @@ namespace App\Models;
 
 use DB;
 use Log;
+<<<<<<< HEAD
 use App\Entity\Alumno as Alumno;
+=======
+>>>>>>> AranaBranch
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -82,6 +85,7 @@ class Horario extends Eloquent
 		return $this->hasMany(\App\Models\ProfesoresHasHorario::class, 'ID_HORARIO');
 	}
 
+<<<<<<< HEAD
 	static function getAvance($idHorario){
 		$tot = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
 				->select('*')
@@ -128,6 +132,8 @@ class Horario extends Eloquent
 		return $sql;
 	}
 
+=======
+>>>>>>> AranaBranch
 	static function getHorarios($idCurso) {
 		//dd($idCurso);
         $sql = DB::table('HORARIO AS H')
@@ -138,6 +144,7 @@ class Horario extends Eloquent
 				->leftJoin('USUARIOS AS P', function ($join) {
 					$join->on('PH.ID_USUARIO', '=', 'P.ID_USUARIO');
 				})
+<<<<<<< HEAD
 				->where('H.ID_CURSO', '=', $idCurso);
 
         //dd($sql->get());
@@ -149,10 +156,14 @@ class Horario extends Eloquent
         $sql = DB::table('HORARIO AS H')
 				->select('H.*')
 				->where('H.ID_HORARIO', '=', $idHorario)
+=======
+				->where('H.ID_CURSO', '=', $idCurso)
+>>>>>>> AranaBranch
 				;
 
         //dd($sql->get());
         return $sql;
+<<<<<<< HEAD
 	}
 		
 	
@@ -202,4 +213,7 @@ class Horario extends Eloquent
         dd($sql->get());
     }
 
+=======
+    }
+>>>>>>> AranaBranch
 }

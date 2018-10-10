@@ -1,7 +1,11 @@
 [Dolphin]
 SortOrder=1
 SortRole=modificationtime
+<<<<<<< HEAD
 Timestamp=2018,10,9,14,47,27
+=======
+Timestamp=2018,9,30,18,8,58
+>>>>>>> AranaBranch
 Version=4
 
 [Settings]

@@ -74,7 +74,11 @@ $(document).ready(function() {
         if ($li.is('.active')) {
             $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
+<<<<<<< HEAD
                 //console.log("HOLA");
+=======
+                console.log("HOLA");
+>>>>>>> AranaBranch
                 setContentHeight();
             });
         } else {
@@ -87,7 +91,11 @@ $(document).ready(function() {
             $li.addClass('active');
 
             $('ul:first', $li).slideDown(function() {
+<<<<<<< HEAD
                 //console.log("HOLA2");
+=======
+                console.log("HOLA2");
+>>>>>>> AranaBranch
                 setContentHeight();
             });
         }
@@ -143,10 +151,17 @@ $(document).ready(function() {
 
     // recompute content when resizing
     $(window).smartresize(function(){  
+<<<<<<< HEAD
         //console.log("HOLA5");
         setContentHeight();
     });
     //console.log("HOLA6");
+=======
+        console.log("HOLA5");
+        setContentHeight();
+    });
+    console.log("HOLA6");
+>>>>>>> AranaBranch
     setContentHeight();
 
     // fixed sidebar

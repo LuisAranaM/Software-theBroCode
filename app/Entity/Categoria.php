@@ -28,6 +28,7 @@ class Categoria extends \App\Entity\Base\Entity {
         $this->setValue('_estado',$cat->ESTADO);        
     }   
 
+<<<<<<< HEAD
     static function getCategoriasId($idCrit) {
         $model = new mCategoria();
         return mCategoria::getCategoriasId($idCrit)->get();
@@ -35,6 +36,11 @@ class Categoria extends \App\Entity\Base\Entity {
     static function getCategorias() {
         $model = new mCategoria();
         return mCategoria::getCategorias()->get();
+=======
+    static function getCategorias($idCrit) {
+        $model = new mCategoria();
+        return mCategoria::getCategorias($idCrit)->get();
+>>>>>>> AranaBranch
     }
     static function insertCategoria($esp,$sem,$categoria, $criterio){
         $model =new mCategoria();

@@ -1,16 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use DB;
 use Excel;
+=======
+use App\Entity\Usuario as Usuario;
+use App\Entity\Curso as Curso;
+use App\Entity\Horario as Horario;
+>>>>>>> AranaBranch
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Redirect;
+=======
+use Excel;
+use Validator;
+>>>>>>> AranaBranch
 
 class CursoController extends Controller
 {
@@ -22,12 +33,21 @@ class CursoController extends Controller
     
 
     public function index()
+<<<<<<< HEAD
     {
         return view('cursos.gestion')
             ->with('cursos',Curso::getCursos());
     }
     
     public function progresoGestion() {
+=======
+    {   
+        return view('cursos.gestion')
+            ->with('cursos',Curso::getCursosAcreditacion());
+    }
+    
+    public function progresoGestion() {         
+>>>>>>> AranaBranch
         $horarios=[];
         $cursos = Curso::getCursos();
         foreach ($cursos as $curso){
@@ -71,11 +91,50 @@ class CursoController extends Controller
     }
 
     public function buscarCursos(Request $request){
+<<<<<<< HEAD
         return Curso::buscarCursos($request->get('cursoBuscar',null));
     }
 
     public function getCursoByIdHorario($idHorario){
         return Curso::getCursoByIdHorario($idHorario);
+=======
+        return Curso::buscarCursos($request->get('termino',$request->get('cursoBuscar',null)));
+    }
+
+    public function agregarCursosAcreditacion(Request $request){        
+        $checks=$request->get('checkCursos',null);
+        
+        $curso = new Curso();           
+        
+        if($curso->agregarAcreditar($checks,Auth::id())){
+            flash('Las cursos a acreditar se registraron correctamente.')->success();
+        } else {
+            flash('Hubo un error al registrar los cursos a acreditar.')->error();
+        }
+        return back();
+
+    }
+
+    public function eliminarCursoAcreditacion(Request $request){        
+        
+        $validator = Validator::make($request->all(), [
+            'codigoCurso' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+
+        $curso = new Curso();          
+
+        if($curso->eliminarAcreditar($request->get('codigoCurso'),Auth::id())){
+            flash('El curso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el curso')->error();
+        }
+        return back();
+
+>>>>>>> AranaBranch
     }
 
     /**
@@ -98,6 +157,7 @@ class CursoController extends Controller
      * @return \Illuminate\Http\Response
      */
     
+<<<<<<< HEAD
     public function store(Request $request){
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
@@ -177,6 +237,19 @@ class CursoController extends Controller
         
         }*/
         
+=======
+    public function store(Request $request)
+    {
+        //get file
+        $upload = $request->file('upload-file');
+        $filePath = $upload->getRealPath();
+        //open and read
+        $file=fopen($filePath, 'r');
+
+        $header = fgetcsv($file);
+
+        dd($header);
+>>>>>>> AranaBranch
 
     }
 

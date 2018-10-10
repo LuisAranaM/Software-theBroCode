@@ -192,6 +192,7 @@ body .container.body .right_col {
     display: flex;
     justify-content: center;
     padding: 5px 0px;
+<<<<<<< HEAD
 }
 
 .close-tab-style {
@@ -218,4 +219,6 @@ body .container.body .right_col {
     padding-bottom: 8px;
     padding-left: 15px;
     padding-right: 15px;
+=======
+>>>>>>> AranaBranch
 }

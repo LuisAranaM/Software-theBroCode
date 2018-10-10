@@ -22,8 +22,11 @@ class Alumno extends \App\Entity\Base\Entity {
         ]);
     }
 
+<<<<<<< HEAD
     static function getAlumnosByHorario($idHorario){
         return mAlumno::getAlumnosByHorarioStatic($idHorario);
     }
+=======
+>>>>>>> AranaBranch
     
 }

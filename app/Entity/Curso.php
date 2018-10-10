@@ -22,6 +22,7 @@ class Curso extends \App\Entity\Base\Entity {
         ]);
     }
 
+<<<<<<< HEAD
     static function getCursosYHorarios(){
         return mCurso::getCursosYHorarios();
     }
@@ -34,11 +35,51 @@ class Curso extends \App\Entity\Base\Entity {
     static function getCursos() {
         $model = new mCurso();
         return mCurso::getCursos()->get();
+=======
+    static function getCursosAcreditacion() {
+        //Aquí consigo los cursos de la 
+        //especialidad y que se acreditarán
+        $model = new mCurso();
+        return mCurso::getCursos(self::getIdSemestre(), self::getEspecialidadUsuario())->get();
+>>>>>>> AranaBranch
     }
 
     static function buscarCursos($nomCurso){
         $model= new mCurso();
+<<<<<<< HEAD
         return $model->buscarCursos($nomCurso)->get();
     }
 
+=======
+        return $model->buscarCursos(self::getIdSemestre(), 
+                                    self::getEspecialidadUsuario(),
+                                    $nomCurso,true)->get();
+    }
+
+     function agregarAcreditar($checks,$usuario){
+        
+        $model= new mCurso();
+        
+        if ($model->agregarAcreditar(self::getIdSemestre(),$checks,$usuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
+    } 
+
+    function eliminarAcreditar($codigoCurso,$usuario){
+        
+        $model= new mCurso();
+        
+        if ($model->eliminarAcreditar(self::getIdSemestre(),$codigoCurso,$usuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
+    }
+>>>>>>> AranaBranch
 }

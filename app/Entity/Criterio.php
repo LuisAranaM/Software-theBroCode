@@ -28,12 +28,15 @@ class Criterio extends \App\Entity\Base\Entity {
         $model = new mCriterio();
         return mCriterio::getCriterios()->get();
     }
+<<<<<<< HEAD
     
     static function getCriteriosbyIdCurso($idCurso) {
         $model = new mCriterio();
         return mCriterio::getCriteriosbyIdCurso($idCurso)->get();
     }
 
+=======
+>>>>>>> AranaBranch
     static function insertCriterio($nombre, $desc){
         $model =new mCriterio();
         return $model->insertCriterio($nombre,$desc);

@@ -63,8 +63,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
                 <button type="reset" id="btnCancelarModalCursos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
               </div>
             </div>
+<<<<<<< HEAD
           </form>
 
+=======
+            
+          </form>
+>>>>>>> AranaBranch
         </div>
       </div>
     </div>
@@ -109,8 +114,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
                 <button type="reset" id="btnCancelarModalHorarios" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
               </div>
             </div>
+<<<<<<< HEAD
           </form>
 
+=======
+            
+          </form>
+>>>>>>> AranaBranch
         </div>
       </div>
     </div>
@@ -142,7 +152,11 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
         <p class="pText">Arrastra y suelta un archivo <br> o <br> 
 
+<<<<<<< HEAD
           <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnos')}}" method = "post" enctype = "multipart/form-data">
+=======
+          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
+>>>>>>> AranaBranch
             {{csrf_field()}}
             <div class = "form-group">
               <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
