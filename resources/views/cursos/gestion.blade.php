@@ -27,7 +27,7 @@
 
       <div class="row">
         <div class="col-xs-6" >
-          <h1 class="secondaryTitle mainTitle">Cursos a Acreditar </h1>
+          <h1 class="secondaryTitle mainTitle">Cursos a Calificar </h1>
         </div>
 
         <!--<div class="col-xs-6 text-right">

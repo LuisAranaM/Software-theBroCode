@@ -81,11 +81,21 @@ class Subcriterio extends Eloquent
 					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
-	static function getSubcriterios($idCat) {
+	static function getSubcriteriosId($idCat) {
         $sql = DB::table('SUBCRITERIOS')
-                ->select('ID_SUBCRITERIO', 'NOMBRE', 'DESCRIPCION_1', 'DESCRIPCION_2', 'DESCRIPCION_3', 'DESCRIPCION_4')
-                ->where('ID_CRITERIO', '=', $idCat)
-                ->where('ESTADO','=', 1);
+                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
+                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
+                ->where('SUBCRITERIOS.ID_CRITERIO', '=', $idCat)
+                ->where('SUBCRITERIOS.ESTADO','=', 1);
+        //dd($sql->get());
+        return $sql;
+    }
+
+    static function getSubcriterios() {
+        $sql = DB::table('SUBCRITERIOS')
+                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
+                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
+                ->where('SUBCRITERIOS.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
     }
@@ -102,6 +112,7 @@ class Subcriterio extends Eloquent
 		     	 'DESCRIPCION_3' => $desc3,
 		     	 'DESCRIPCION_4' => $desc4,
 				 'ESTADO' => 1]);
+		DB::commit();
 		return $id;
 	}
 }

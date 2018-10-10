@@ -27,7 +27,7 @@ class CursoController extends Controller
             ->with('cursos',Curso::getCursos());
     }
     
-    public function progresoGestion() {         
+    public function progresoGestion() {
         $horarios=[];
         $cursos = Curso::getCursos();
         foreach ($cursos as $curso){
@@ -94,8 +94,7 @@ class CursoController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();

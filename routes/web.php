@@ -62,6 +62,13 @@ Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@d
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'CriterioController@rubricasGestion']);
 	Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'CriterioController@actualizarCriterios']);
+	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'CriterioController@actualizarResultados']);
+	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'CriterioController@actualizarCategorias']);
+	Route::get('/refrescar-categorias', ['as' => 'refrescar.categorias', 'uses' => 'CriterioController@refrescarCategorias']);
+	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'CriterioController@actualizarIndicadores']);
+	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'CriterioController@refrescarIndicadores']);
+	Route::post('/actualizar-escalas', ['as' => 'actualizar.escalas', 'uses' => 'CriterioController@actualizarEscalas']);
+	Route::get('/refrescar-escalas', ['as' => 'refrescar.escalas', 'uses' => 'CriterioController@refrescarEscalas']);
 });
 
 /****RUTAS PARA CURSOS****/
@@ -81,6 +88,7 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 //pruebas excel
 #Route::get('upload', 'CursoController@showForm');
 Route::post('/subir-excels/upload', 'CursoController@store');
+Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
@@ -103,5 +111,7 @@ Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], fu
 	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
 });
 
+/* RUTAS DE PROFESOR */
 Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar']);
+Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@profesorAlumnos']);
 

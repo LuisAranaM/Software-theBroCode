@@ -1,8 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Entity\Base\Entity;
+use App\Entity\Curso as Curso;
+use App\Entity\Horario as Horario;
+use DB;
+use Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class ProfesorController extends Controller
 {
@@ -13,8 +21,16 @@ class ProfesorController extends Controller
      */
     public function profesorCalificar()
     {
-        return view('profesor.calificar');
+
+        //return view('profesor.calificar');
+        return view('profesor.calificar')->with('cursos',Curso::getCursosYHorarios());
     }
+
+    public function profesorAlumnos()
+    {
+        return view('profesor.alumnos');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +50,30 @@ class ProfesorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('upload-file')){
+            $path = $request->file('upload-file')->getRealPath();
+            $data = \Excel::load($path)->get();
+            $fecha = date("Y-m-d H:i:s");
+            $usuario = Auth::user();
+            $id_usuario = Auth::id();
+            $semestre_actual = Entity::getIdSemestre();
+            $especialidad = Entity::getEspecialidadUsuario();
+            if($data->count()){
+                foreach ($data as $key => $value) {
+                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'SEMESTRES_ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
+                                        'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
+                }
+                if(!empty($lista_cursos)){
+                    #Curso::insert($lista_cursos);
+                    DB::table('CURSOS')->insert($lista_cursos);
+                    \Session::flash('Éxito', '¡Excel importado con éxito, cursos actualizados!');
+                }
+            }
+        }
+        else{
+            \Session::flash('Error', 'No existe archivo excel para ser importado');
+        }
+        return Redirect::back();
     }
 
     /**

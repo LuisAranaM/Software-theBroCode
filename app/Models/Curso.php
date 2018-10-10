@@ -6,75 +6,98 @@
  */
 
 namespace App\Models;
-
+ 
+use DB;
+use Log;
+use App\Entity\Horario as Horario;
 use Reliese\Database\Eloquent\Model as Eloquent;
-
-/**
- * Class CURSO
- * 
- * @property int $ID_CURSO
- * @property int $ID_ESPECIALIDAD
- * @property int $SEMESTRES_ID_SEMESTRE
- * @property string $NOMBRE
- * @property string $CODIGO_CURSO
- * @property \Carbon\Carbon $FECHA_REGISTRO
- * @property \Carbon\Carbon $FECHA_ACTUALIZACION
- * @property int $ESTADO_ACREDITACION
- * @property int $USUARIO_MODIF
- * @property int $ESTADO
- * 
- * @property \App\Models\ESPECIALIDADE $e_s_p_e_c_i_a_l_i_d_a_d_e
- * @property \App\Models\SEMESTRE $s_e_m_e_s_t_r_e
- * @property \Illuminate\Database\Eloquent\Collection $h_o_r_a_r_i_o_s
- * @property \Illuminate\Database\Eloquent\Collection $s_u_b_c_r_i_t_e_r_i_o_s
- *
- * @package App\Models
- */
-class CURSO extends Eloquent
-{
-	public $timestamps = false;
-
-	protected $casts = [
-		'ID_ESPECIALIDAD' => 'int',
-		'SEMESTRES_ID_SEMESTRE' => 'int',
-		'ESTADO_ACREDITACION' => 'int',
-		'USUARIO_MODIF' => 'int',
-		'ESTADO' => 'int'
-	];
-
-	protected $dates = [
-		'FECHA_REGISTRO',
-		'FECHA_ACTUALIZACION'
-	];
-
-	protected $fillable = [
-		'NOMBRE',
-		'CODIGO_CURSO',
-		'FECHA_REGISTRO',
-		'FECHA_ACTUALIZACION',
-		'ESTADO_ACREDITACION',
-		'USUARIO_MODIF',
-		'ESTADO'
-	];
-
-	public function e_s_p_e_c_i_a_l_i_d_a_d_e()
-	{
-		return $this->belongsTo(\App\Models\ESPECIALIDADE::class, 'ID_ESPECIALIDAD');
+use Jenssegers\Date\Date as Carbon;
+ 
+ /**
+- * Class Curso
+  * 
+  * @property int $ID_CURSO
+  * @property int $ID_ESPECIALIDAD
+  * @property int $semestres_ID_SEMESTRE
+  * @property string $NOMBRE
+  * @property string $CODIGO_CURSO
+  * @property \Carbon\Carbon $FECHA_REGISTRO
+  * @property int $USUARIO_MODIF
+  * @property int $ESTADO
+  * 
+  * @property \App\Models\Especialidade $especialidade
+  * @property \App\Models\Semestre $semestre
+  * @property \Illuminate\Database\Eloquent\Collection $horarios
+  * @property \Illuminate\Database\Eloquent\Collection $subcriterios
+  *
+  * @package App\Models
+  */
+class Curso extends Eloquent {
+ 	public $timestamps = false;
+ 
+ 	protected $casts = [
+ 		'ID_ESPECIALIDAD' => 'int',
+		'semestres_ID_SEMESTRE' => 'int',
+ 		'ESTADO_ACREDITACION' => 'int',
+ 		'USUARIO_MODIF' => 'int',
+ 		'ESTADO' => 'int'
+ 	];
+ 
+	public function especialidade()
+ 	{
+		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
-	public function s_e_m_e_s_t_r_e()
+	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\SEMESTRE::class, 'SEMESTRES_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
 	}
 
-	public function h_o_r_a_r_i_o_s()
+	public function horarios()
 	{
-		return $this->hasMany(\App\Models\HORARIO::class, 'ID_CURSO');
+		return $this->hasMany(\App\Models\Horario::class, 'ID_CURSO');
 	}
 
-	public function s_u_b_c_r_i_t_e_r_i_o_s()
+	public function subcriterios()
 	{
-		return $this->belongsToMany(\App\Models\SUBCRITERIO::class, 'SUBCRITERIOS_HAS_CURSOS', 'ID_CURSO', 'ID_SUBCRITERIO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}
+
+  static function getCursosYHorarios(){
+    $cursos = DB::table('CURSOS')
+                ->select('*')
+                ->get();
+    $ans = array();
+    foreach($cursos as $c){
+      $data["curso"] = $c;
+      $data["horarios"] = Horario::getHorarios($c->ID_CURSO);
+      $ans[] = $data;
+    }
+    return $ans;
+  }
+
+	static function getCursos() {
+        $sql = DB::table('CURSOS AS CURSOS')
+                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO');
+        //dd($sql->get());
+        return $sql;
+    }
+
+    static function buscarCursos($nomCurso) {
+        $sql = DB::table('CURSOS AS CURSOS')
+                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
+                ->where('NOMBRE','like','%'.$nomCurso.'%');
+
+        //dd($sql->get());
+        return $sql;
+    }
+
+
+
+
+
 }
+
+
+
+
