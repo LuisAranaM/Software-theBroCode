@@ -56,7 +56,7 @@ class AlumnoController extends Controller
             $id_usuario = Auth::id();
             $semestre_actual = Entity::getIdSemestre();
             $idHorario = 2; // jiji
-
+            $idProyecto = 1; // jiji x2
             //$especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
                 foreach ($data as $key => $value) {
@@ -75,23 +75,26 @@ class AlumnoController extends Controller
                              'ESTADO' => 1
                             ]);
                     }
-                    
+                                       
                     $q = DB::table('ALUMNOS')
                                 ->select('ID_ALUMNO')
                                 ->where('CODIGO', '=', $value->codigo )->get()->toArray();
                     $this->trace('HOLIS2');
+                    $idAlumno = (int)($q[0]->ID_ALUMNO);
+                    $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
+                    whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND SEMESTRES_ID_SEMESTRE = ?',
+                        [$idAlumno,$idHorario,$idProyecto,$semestre_actual])->doesntExist();
 
-                    $idAlumno = $q[0]->ID_ALUMNO;
-                    $this->trace('El id es : ');
-                    $this->trace($idAlumno);
-                    $lista[] = ['ID_ALUMNO' => (int)$idAlumno,
-                                'ID_HORARIO' => $idHorario,
-                                'ID_PROYECTO' => 1,
-                                'SEMESTRES_ID_SEMESTRE' => $semestre_actual,
-                                'FECHA_REGISTRO' => $fecha,
-                                'FECHA_ACTUALIZACION' => $fecha,
-                                'USUARIO_MODIF' => $usuario['ID_USUARIO'],
-                                'ESTADO' => 1];
+                    if($cond){
+                        $lista[] = ['ID_ALUMNO' => $idAlumno,
+                                    'ID_HORARIO' => $idHorario,
+                                    'ID_PROYECTO' => $idProyecto,
+                                    'SEMESTRES_ID_SEMESTRE' => $semestre_actual,
+                                    'FECHA_REGISTRO' => $fecha,
+                                    'FECHA_ACTUALIZACION' => $fecha,
+                                    'USUARIO_MODIF' => $usuario['ID_USUARIO'],
+                                    'ESTADO' => 1];
+                    }
                 }
                 $this->trace('HOLIS3');
                 if(!empty($lista)){
@@ -99,13 +102,13 @@ class AlumnoController extends Controller
                     $this->trace('HOLIS4');
                     DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
                     $this->trace('HOLIS5');
-                    \Session::flash('Éxito', '¡Excel importado con éxito, cursos actualizados!');
-                    $this->trace('HOLIS6');
                 }
+                flash('Alumnos cargados correctamente manito')->success();
             }
+
         }
         else{
-            \Session::flash('Error', 'No existe archivo excel para ser importado');
+            flash('No se selecciono un archivo')->error();
         }
         return Redirect::back();
     }
