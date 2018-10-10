@@ -197,7 +197,7 @@
               <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
               @endif
               @if($h["alumnosTotal"] != 0)
-                <a href="{{route('profesor.alumnos')}}">
+                <a href="{{route('profesor.alumnos')}}?idHorario={{$h['horario']->ID_HORARIO}}">
                   <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
                 </a>
               @endif

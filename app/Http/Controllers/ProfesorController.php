@@ -26,9 +26,11 @@ class ProfesorController extends Controller
 
     public function index(Request $request)
     {
+        //dd($request->all());
         $idHorario=$request->get('idHorario',null); 
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
+        
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
