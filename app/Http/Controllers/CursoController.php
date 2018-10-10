@@ -37,7 +37,7 @@ class CursoController extends Controller
     public function progresoGestion() {
 
         $horarios=[];
-        $cursos = Curso::getCursos();
+        $cursos = Curso::getCursosAcreditacion();
         foreach ($cursos as $curso){
             $idCurso = $curso->ID_CURSO;
             $horarios[$idCurso] = Horario::getHorarios($idCurso);
@@ -45,7 +45,7 @@ class CursoController extends Controller
           return view('cursos.progreso')
                 ->with('idCurso',$idCurso)
                 ->with('horarios',$horarios)
-                ->with('cursos',Curso::getCursos());
+                ->with('cursos',Curso::getCursosAcreditacion());
     }
 
     public function subirExcels(){
