@@ -98,22 +98,46 @@ class CriterioController extends Controller
 
         $idResultado = eCriterio::insertCriterio($codigoRes,$nombreRes);
 
-        return redirect()->route('rubricas.gestion');
+        return $idResultado;
     }
     public function actualizarCategorias(Request $request){
         $categoria = $request->get('_descCat', null);
         $idRes = $request->get('resultado',null);
         $idCat = eCategoria::insertCategoria(1,1,$categoria, $idRes);
-        $request->categoria = $idCat;
-        return redirect()->route('rubricas.gestion');
+        return $idCat;
     }
     public function actualizarIndicadores(Request $request){
         $indicador = $request->get('_descInd', null);
         $idCat = $request->get('_idCat',null);
         $idInd = eSubcriterio::insertSubCriterio($idCat,1,1,$indicador, null,null,null,null);
-        $request->indicador= $idInd;
 
-        return redirect()->route('rubricas.gestion');
+        return $idInd;
+    }
+    public function actualizarEscalas(Request $request){
+        $escala = $request->get('_escala', null);
+        $descripcion = $request->get('_descripcion',null);
+        $idInd = $request->get('_idInd',null);
+        $indicador = eSubcriterio::getSubCriterioId($idInd)->toArray()[0];
+        if(is_null($indicador->DESCRIPCION_1)){
+            $indicador->DESCRIPCION_1=$descripcion;
+        }else if(is_null($indicador->DESCRIPCION_2)){
+            $indicador->DESCRIPCION_2=$descripcion;          
+        }else if(is_null($indicador->DESCRIPCION_3)){
+            $indicador->DESCRIPCION_3=$descripcion;          
+        }else if(is_null($indicador->DESCRIPCION_4)){
+            $indicador->DESCRIPCION_4=$descripcion;       
+        }
+        eSubcriterio::updateSubcriterio($indicador);
+        //obtener indicador y verificar si tiene las descripciones
+        //updateamos la primera descripcion que este en null
+
+        return;
+    }
+    public function refrescarResultados(Request $request){
+
+        $resultados = eCriterio::getCriterios()->toArray();
+
+        return $resultados;
     }
     public function refrescarCategorias(Request $request){
 
