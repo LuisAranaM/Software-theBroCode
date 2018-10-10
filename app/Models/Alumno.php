@@ -58,6 +58,7 @@ class Alumno extends Eloquent
 					->withPivot('ID_PROYECTO', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
+<<<<<<< HEAD
 	static function getAlumnosByHorarioStatic($idHorario){
 		$ans = DB::table('ALUMNOS')
             ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
@@ -76,4 +77,6 @@ class Alumno extends Eloquent
         return $ans;
 	}
 
+=======
+>>>>>>> KarlasBranch
 }

@@ -1,6 +1,5 @@
 $( document ).ready(function() {
 	$("#btnAgregarHorario").on("click", function(){
-		$('#frmCursosModal')[0].reset();
 		$("#modalHorarios").modal("show");
 	});
 
@@ -21,27 +20,7 @@ $( document ).ready(function() {
 		$("#btnCancelarModal").show();
 	});
 
-	function desactivarHorario(horario){
-		$.ajax({
-			type:'POST',
-			headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			url: '/desactivar',
-			data: {
-				_idHorario: horario
-			},
-			dataType: "json",
-			success: function(resultData) {
-			}
-		});
-
-	}
-
-	$('#btnClose').click(function() {
-		desactivarHorario($(this).val());
-	});
-	function updateHorarios(idCurso,nombreCurso,codCurso,horarios,estado){
+	function updateHorarios(horarios,estado){
 		$.ajax({
 			type:'POST',
 			headers: {
@@ -49,10 +28,7 @@ $( document ).ready(function() {
 			},
 			url: APP_URL+'/horarios/actualizar-horarios',
 			data: {
-				id: idCurso,
-				nombre: nombreCurso,
-				codigo: codCurso,
-				estadoAcreditacion: estado,
+				estadoEvaluacion: estado,
 				idHorarios: horarios
 				
 			},
@@ -61,6 +37,46 @@ $( document ).ready(function() {
 			}
 		});
 	}
+	
+	$('.closeHorario').on('click', function(e) {
+        var codigoHorario=$(this).attr('codigoHorario');
+        var nombreHorario=$(this).attr('nombreHorario');
+        var resp=confirm("¿Estás seguro que deseas dejar de evaluar "+nombreHorario+"?");
+        var botonHorario=$(this).closest('div').closest('div');
+        if (resp == true) {
+            eliminarHorarioEvaluar(codigoHorario,botonHorario);            
+        } 
+        e.preventDefault();        
+	});
+
+	function eliminarHorarioEvaluar(codigoHorario,botonHorario){
+		$.ajax({
+			url: APP_URL + '/horarios/eliminar-evaluacion-horario',
+			type: 'POST',        
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data:{
+				codigoHorario:codigoHorario,
+			},
+			success: function (result) {
+					botonHorario.hide();
+			},
+				error: function (xhr, status, text) {
+					e.preventDefault();
+					alert('Hubo un error al registrar la información');
+					item.removeClass('hidden').prev().addClass('hidden');
+				}
+			});
+	
+	}
+	
+	
+	$(".btnAgregarSubcriterios").on("click", function(){
+		console.log("he");
+		$("#modalAgregarSubcriterio").modal("show");
+	});
+
 	$('#btnActualizarHorarios').click(function() {
 		var horariosSeleccionados=[];
 		var estadoAcreditacion=[];
@@ -72,13 +88,10 @@ $( document ).ready(function() {
 			}
 			horariosSeleccionados.push($(this).val());
 		});
-		var idCurso = $('#idCurso').data("field-id");
-		var nombreCurso = $('#nombreCurso').data("field-id");
-		var codCurso = $('#codCurso').data("field-id");
 		
 		//Aquí falta el refrescar Horarios
 		$('#modalHorarios').modal('hide');
-		updateHorarios(idCurso,nombreCurso,codCurso,horariosSeleccionados,estadoAcreditacion);
+		updateHorarios(horariosSeleccionados,estadoAcreditacion);
 		window.location.reload();
 	});
 

@@ -74,6 +74,10 @@ class CursoController extends Controller
         return Curso::buscarCursos($request->get('cursoBuscar',null));
     }
 
+    public function getCursoByIdHorario($idHorario){
+        return Curso::getCursoByIdHorario($idHorario);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

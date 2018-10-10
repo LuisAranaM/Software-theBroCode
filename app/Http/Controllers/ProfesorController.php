@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
+use App\Entity\Alumnos as eAlumno;
+use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -19,17 +21,27 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function index(Request $request)
+    {
+        $idHorario=$request->get('idHorario',null); 
+        //$infoCurso=Prueba::getInformacionCurso($idCurso);
+        //$infoCurso trae la información principal del curso en un arreglo  
+        return view('profesor.alumnos')
+        ->with('curso',Curso::getCursoByIdHorario($idHorario))
+        ->with('horario',Horario::getHorarioByIdHorario($idHorario))
+        ->with('alumnos',eAlumnosHasHorario::geAlumnosByIdHorario($idHorario));
+            
+    }
+
     public function profesorCalificar()
     {
 
         //return view('profesor.calificar');
-        return view('profesor.calificar')->with('cursos',Curso::getCursosYHorarios());
+        return view('profesor.calificar')
+        ->with('cursos',Curso::getCursosYHorarios());
     }
 
-    public function profesorAlumnos()
-    {
-        return view('profesor.alumnos');
-    }
 
 
     /**

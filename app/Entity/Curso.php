@@ -26,6 +26,11 @@ class Curso extends \App\Entity\Base\Entity {
         return mCurso::getCursosYHorarios();
     }
 
+    static function getCursoByIdHorario($idHorario) {
+        $model = new mCurso();
+        return mCurso::getCursoByIdHorario($idHorario)->get();
+    }
+
     static function getCursos() {
         $model = new mCurso();
         return mCurso::getCursos()->get();

@@ -9,8 +9,12 @@ use DB;
 use Excel;
 use Illuminate\Http\Request;
 use App\Entity\Horario as eHorario;
+use App\Entity\Criterio as eCriterio;
+use App\Entity\SubcriteriosHasCurso as eSubcriteriosHasCurso;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+use Validator;
 
 class HorarioController extends Controller
 {
@@ -30,7 +34,27 @@ class HorarioController extends Controller
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)
         ->with('idCurso',$idCurso)
-        ->with('horario',eHorario::getHorarios($idCurso));    
+        ->with('horario',eHorario::getHorarios($idCurso))
+        ->with('criterios',eCriterio::getCriteriosbyIdCurso($idCurso))
+        ->with('subcriterios',eSubcriteriosHasCurso::getSubCriteriosbyIdCurso($idCurso));
+            
+    }
+
+    public function eliminarEvaluacionHorarios(Request $request){        
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'codigoHorario' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+        $horario = new eHorario();          
+        if($horario->eliminarEvaluacion($request->get('codigoHorario'),Auth::id())){
+            flash('El curso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el curso')->error();
+        }
+        return back();
     }
 
     public function guardarHorarios(Request $request){
@@ -152,41 +176,28 @@ class HorarioController extends Controller
         //
     }
 
-    public function desactivarHorario(Request $request){
-        dd("Holi");
-        dd($request->all());
-        /*$codigoRes = $request->get('codigo', null);
-        $nombreRes = $request->get('nombre', null);
-        $idCriterio = eCriterio::insertCriterio($codigoRes,$nombreRes);
-
-        $categoria = $request->get('categoria',null);
-        $idCategoria = eCategoria::insertCategoria(1,1,$categoria,$idCriterio);
-
-        $subcriterio = $request->get('indicador',null);
-        $texto1 = $request->get('texto1',null);
-        $texto2 = $request->get('texto2',null);
-        $texto3 = $request->get('texto3',null);
-        $texto4 = $request->get('texto4',null);
-        eSubcriterio::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
-        return redirect()->route('rubricas.gestion');*/
-
-    }
 
 
     public function actualizarHorarios(Request $request){
         //dd($request->all());
         //dd(($request->get('idHorarios', null))[0]);
         $idHorarios = $request->get('idHorarios', null);
-        $estadoAcreditacion = $request->get('estadoAcreditacion', null);
-        eHorario::actualizarHorarios($idHorarios,$estadoAcreditacion);
+        $estadoEvaluacion = $request->get('estadoEvaluacion', null);
 
-        $idCurso=$request->get('id',null); 
-        $nombreCurso=$request->get('nombre',null);
-        $codCurso=$request->get('codigo',null);
-        return view('cursos.horarios')
-        ->with('nombreCurso',$nombreCurso)
-        ->with('codCurso',$codCurso)
-        ->with('idCurso',$idCurso)
-        ->with('horario',eHorario::getHorarios($idCurso)); 
+        $validator = Validator::make($request->all(), [
+            'idHorarios' => 'required',
+            'estadoEvaluacion' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+        $horario = new eHorario();   
+        if($horario->actualizarHorarios($idHorarios,$estadoEvaluacion,Auth::id())){
+            flash('El curso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el curso')->error();
+        }
+        return back();
     }
 }
