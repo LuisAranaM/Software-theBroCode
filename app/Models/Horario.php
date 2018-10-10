@@ -9,6 +9,7 @@ namespace App\Models;
 
 use DB;
 use Log;
+use App\Entity\Alumno as Alumno;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -79,6 +80,44 @@ class Horario extends Eloquent
 	public function profesores_has_horarios()
 	{
 		return $this->hasMany(\App\Models\ProfesoresHasHorario::class, 'ID_HORARIO');
+	}
+
+	static function getAvance($idHorario){
+		$tot = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+				->count();
+		$part = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ID_ESCALA <> 0 AND ESTADO = 1',[$idHorario])
+				->count();
+		$part *= 100;
+		if($tot == 0)
+			return 100;
+		$ans = $part / $tot;
+		return $ans;
+	}
+
+	static function getAlumnosCalif($idHorario){
+		$alumnos = Alumno::getAlumnosByHorario($idHorario);
+		$ans = 0;
+		foreach($alumnos as $x){
+			$current = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+						->select('*')
+						->whereRaw('ID_HORARIO = ? AND ID_ALUMNO = ? AND ID_ESCALA <> 0', [$idHorario,$x->ID_ALUMNO])
+						->count();
+			if($current == 4) 
+				++$ans;
+		}
+		return $ans;
+	}
+
+	static function getCantAlumnos($idHorario){
+		$tot = DB::table('ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+				->count();
+		return $tot;
 	}
 
 	static function getHorarios($idCurso) {

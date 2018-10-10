@@ -63,6 +63,11 @@ class Curso extends Eloquent {
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}
 
+  static function trace($cad){
+        $output = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $output->writeln("<info>".$cad."</info>");
+  }
+
   static function getCursosYHorarios(){
     $cursos = DB::table('CURSOS')
                 ->select('*')
@@ -70,7 +75,18 @@ class Curso extends Eloquent {
     $ans = array();
     foreach($cursos as $c){
       $data["curso"] = $c;
-      $data["horarios"] = Horario::getHorarios($c->ID_CURSO);
+      $horarios = Horario::getHorarios($c->ID_CURSO);
+      foreach($horarios as $h){
+        $horario["horario"] = $h;
+        $horario["avance"] = Horario::getAvance($h->ID_HORARIO);
+        $horario["alumnosCalif"] = Horario::getAlumnosCalif($h->ID_HORARIO);
+        $horario["alumnosTotal"] = Horario::getCantAlumnos($h->ID_HORARIO);
+        Curso::trace($horario["avance"]);
+        Curso::trace($horario["alumnosCalif"]);
+        Curso::trace($horario["alumnosTotal"]);
+        $horarios[] = $horario;
+      }
+      $data["horarios"] = $horarios;
       $ans[] = $data;
     }
     return $ans;

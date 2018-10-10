@@ -42,7 +42,7 @@ class AlumnoController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function trace($cad){
+    private function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $output->writeln("<info>".$cad."</info>");
     }

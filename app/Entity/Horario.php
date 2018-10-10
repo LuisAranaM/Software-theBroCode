@@ -32,5 +32,17 @@ class Horario extends \App\Entity\Base\Entity {
         $model = new mHorario();
         return mHorario::actualizarHorarios($idHorarios,$estadoAcreditacion);
     }
+
+    static function getAvance($idHorario){
+        return mHorario::getAvance($idHorario);
+    }
+
+    static function getAlumnosCalif($idHorario){
+        return mHorario::getAlumnosCalif($idHorario);
+    }
+
+    static function getCantAlumnos($idHorario){
+        return mHorario::getCantAlumnos($idHorario);
+    }
     
 }
