@@ -93,7 +93,7 @@ class Horario extends Eloquent
 				->count();
 		$part *= 100;
 		if($tot == 0)
-			return 100;
+			return 0;
 		$ans = $part / $tot;
 		return $ans;
 	}
@@ -120,6 +120,14 @@ class Horario extends Eloquent
 		return $tot;
 	}
 
+	static function getHorariosCompleto($idCurso){
+		$sql = DB::table('HORARIO')
+				->select('*')
+				->where('ID_CURSO','=',$idCurso)
+				->get();
+		return $sql;
+	}
+
 	static function getHorarios($idCurso) {
 		//dd($idCurso);
         $sql = DB::table('HORARIO AS H')
@@ -130,8 +138,7 @@ class Horario extends Eloquent
 				->leftJoin('USUARIOS AS P', function ($join) {
 					$join->on('PH.ID_USUARIO', '=', 'P.ID_USUARIO');
 				})
-				->where('H.ID_CURSO', '=', $idCurso)
-				;
+				->where('H.ID_CURSO', '=', $idCurso);
 
         //dd($sql->get());
         return $sql;

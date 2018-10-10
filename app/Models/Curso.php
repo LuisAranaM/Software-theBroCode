@@ -71,24 +71,35 @@ class Curso extends Eloquent {
   static function getCursosYHorarios(){
     $cursos = DB::table('CURSOS')
                 ->select('*')
+                ->where('ESTADO_ACREDITACION','=',1)
                 ->get();
     $ans = array();
     foreach($cursos as $c){
       $data["curso"] = $c;
-      $horarios = Horario::getHorarios($c->ID_CURSO);
+      Curso::trace('IDCURSO');
+      Curso::trace($c->ID_CURSO);
+      $horarios = Horario::getHorariosCompleto($c->ID_CURSO);
       foreach($horarios as $h){
+        Curso::trace('IDHORARIO');
+        Curso::trace($h->ID_HORARIO);
         $horario["horario"] = $h;
         $horario["avance"] = Horario::getAvance($h->ID_HORARIO);
         $horario["alumnosCalif"] = Horario::getAlumnosCalif($h->ID_HORARIO);
         $horario["alumnosTotal"] = Horario::getCantAlumnos($h->ID_HORARIO);
-        Curso::trace($horario["avance"]);
-        Curso::trace($horario["alumnosCalif"]);
-        Curso::trace($horario["alumnosTotal"]);
-        $horarios[] = $horario;
+        $info[] = $horario;
       }
-      $data["horarios"] = $horarios;
+      $data["horarios"] = $info;
+      $info = array();
       $ans[] = $data;
     }
+
+    foreach($ans as $x){
+      Curso::trace($x["curso"]->NOMBRE);
+      foreach($x["horarios"] as $y){
+        Curso::trace($y["horario"]->NOMBRE);
+      }
+    }
+
     return $ans;
   }
 

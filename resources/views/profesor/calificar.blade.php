@@ -171,26 +171,36 @@
         <div class="row">
 
           <div class="col-sm-1 col-xs-2" >
-            <p class="pText" style="margin-bottom: 0px">H-{{$h->NOMBRE}}</p>
+            <p class="pText" style="margin-bottom: 0px">H-{{$h["horario"]->NOMBRE}}</p>
           </div>
           <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
             <div class="widget_summary" >
               <div class="w_center w_55" style="width: 100%">
                 <div class="progress" style="margin-bottom: 0px">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%; background-color: #005b7f !important; border: none !important">
+                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $h["avance"]  }}%; background-color: #005b7f !important; border: none !important">
                     <span class="sr-only">60% Complete</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="no-padding">
-              <p class="barText pText">55% de avance - 11/30 alumnos calificados</p>
+              @if ($h["alumnosTotal"] > 0)
+                <p class="barText pText">{{ $h["avance"] }}% de avance - {{ $h["alumnosCalif"] }}/{{ $h["alumnosTotal"] }} alumnos calificados</p>
+              @endif
+              @if ($h["alumnosTotal"] == 0)
+                <p class="barText pText">No hay alumnos cargados</p>
+              @endif
             </div>
           </div>
           <div class="col-sm-2 col-xs-3 text-right">
-          <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}">
-              <button type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
-            </a>
+              @if($h["alumnosTotal"] == 0)
+              <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
+              @endif
+              @if($h["alumnosTotal"] != 0)
+                <a href="{{route('profesor.alumnos')}}">
+                  <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+                </a>
+              @endif
           </div>
         </div>
         @endforeach

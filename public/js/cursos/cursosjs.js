@@ -10,6 +10,10 @@ $( document ).ready(function() {
 
 	});
 
+    $(".btnCargarAlumnos2").on("click", function(){
+        $("#modalCargarAlumnos").modal("show");
+    })
+
 	$("#btnCargarAlumnos").on("click", function(){
 		console.log("btn accionado");
 		$("#modalCargarAlumnos").modal("show");
