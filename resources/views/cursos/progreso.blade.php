@@ -25,7 +25,7 @@
       @foreach($cursos as $c)
       <div class="row">
         <div class="col-xs-11" >
-          <h1 class="secondaryTitle mainTitle">{{$c->CODIGO_CURSO}} JEJE{{$c->NOMBRE}}</h1>
+          <h1 class="secondaryTitle mainTitle">{{$c->CODIGO_CURSO}} - {{$c->NOMBRE}}</h1>
         </div>
 
         <div class="col-xs-1 text-right" style="font-size: 20px"> 
@@ -39,7 +39,7 @@
         <div class="row">
 
           <div class="col-sm-2 col-xs-3" >
-            <p class="pText" style="margin-bottom: 0px">{{$h->NOMBRE_HORARIO}}JOJO {{$h->NOMBRE_PROFESOR}}</p>
+            <p class="pText" style="margin-bottom: 0px">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
           </div>
           <div class="col-sm-10 col-xs-9" style="padding-bottom: 0">
             <div class="widget_summary" >
