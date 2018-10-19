@@ -2,6 +2,16 @@
 @section('pageTitle', 'Principal')
 @section('content')
 @section('js-libs')
+<script>
+$(document).ready(function(){
+  $("#myBusqueda").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 <script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
 @stop
 
@@ -68,15 +78,13 @@
 </div>
 
 
-
-
 <!-- Modal de Nuevo Curso -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
-  <div class="modal-content" style="top: 40%">
+<div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+  <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
       aria-label="Close">
@@ -93,7 +101,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
           <div class="col-xs-12 form-group top_search" style="z-index: 5000000;">
 
             <div class="input-group">
-              <input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">
+              <!--<input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">-->
+              <input id="myBusqueda" type="text" class="form-control searchText" placeholder="Curso...">
               <span class="input-group-btn">
                 <button class="btn btn-default searchButton" type="button" id="btnBuscarCurso">
                   <i class="fa fa-spinner fa-spin fa-fw fa-1x margin-bottom hidden"></i>
@@ -106,10 +115,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         </div>
 
         <!--Esto se debe de volver a generar por AJAX-->
-        
-        <div class="table-responsive hidden" id="tablaCursos">
+
+        <div class="table-responsive" id="tablaCursos" style="height:400px;overflow:auto;">
           <table class="table table-striped jambo_table bulk_action" style="position:relative;z-index: 20000">
-            <thead >
+            <thead>
               <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
                 <th class="pText column-title" style="border: none;text-align: center;"></th>
                 <th class="pText column-title" style="border: none;text-align: center;"> Código</th>
@@ -120,9 +129,31 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
               </tr>
             </thead>
 
-            <tbody class="text-left" id="tableBody">
-            </tbody>
+            <tbody class="text-left" id="myTable">
+          @if(count($cursosBuscar)>0)
+            @foreach($cursosBuscar as $cursoB)
+            <tr class="even pointer">
+          <td class="a-center"  style="background-color: white; padding-right: 0px">
+          <div class="form-check" style="padding-left: 10px; width: 20px">
+          <label>
+          <input type="checkbox" class="form-check-input" 
+          name="checkCursos[]" value="{{$cursoB->CODIGO_CURSO}}" >
+          <span class="pText label-text "></span>
+          </label>
+          </div></td>
+          <td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">
+          {{$cursoB->CODIGO_CURSO}}</td>
+          <td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">
+          {{$cursoB->NOMBRE}}</td>        
+          </tr> 
+            @endforeach
+          @else
+          <tr>
+              <td colspan="10">No se encontraron resultados</td>
+          </tr>
+          @endif
           </table>
+
         </div>
 
 

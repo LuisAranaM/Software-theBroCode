@@ -42,7 +42,7 @@ class Curso extends \App\Entity\Base\Entity {
 
     }
 
-    static function buscarCursos($nomCurso){
+    static function buscarCursos($nomCurso=null){
         $model= new mCurso();
         return $model->buscarCursos(self::getIdSemestre(), 
                                     self::getEspecialidadUsuario(),

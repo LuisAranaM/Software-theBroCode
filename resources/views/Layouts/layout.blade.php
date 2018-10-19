@@ -26,6 +26,7 @@
   <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>
+  
 
 
   @yield('js-libs')

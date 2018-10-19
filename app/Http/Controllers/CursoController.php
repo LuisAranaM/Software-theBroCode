@@ -29,9 +29,10 @@ class CursoController extends Controller
 
     public function index()
 
-    {
+    {//dd(Curso::buscarCursos());
         return view('cursos.gestion')
-            ->with('cursos',Curso::getCursosAcreditacion());
+            ->with('cursos',Curso::getCursosAcreditacion())
+            ->with('cursosBuscar',Curso::buscarCursos());
     }
     
     public function progresoGestion() {
