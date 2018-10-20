@@ -91,15 +91,22 @@ class Entity {
     }
 
 
-   /*public static function getSemestre(){
+   public static function getSemestre(){
         $model= new mSemestre();
-        return $model->getCiclo(self::getIdSemestre())->get();
-    }*/
+        return $model->getCiclo(self::getIdSemestre())->first()->SEMESTRE;
+    }
 
     public static function getEspecialidadUsuario(){
         //dd(Auth::user());
         $model=new mEspecialidad();
-        return  $model->getEspecialidadUsuario(Auth::id());
+        return  $model->getEspecialidadUsuario(Auth::id())->ID_ESPECIALIDAD;
+
+    }
+
+    public static function getNombreEspecialidadUsuario(){
+        //dd(Auth::user());
+        $model=new mEspecialidad();
+        return  $model->getEspecialidadUsuario(Auth::id())->NOMBRE_ESPECIALIDAD;
 
     }
 }

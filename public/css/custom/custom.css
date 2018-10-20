@@ -87,9 +87,9 @@
   margin-bottom: 0px;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: rgb(29, 161, 242, 0.20); 
+  background-color: #D5EAFA; 
   color: #72777a; 
-  border-color: rgb(29, 161, 242, 0.2); 
+  border-color: #D5EAFA; 
   cursor: pointer;
 }
 
@@ -116,7 +116,7 @@
   padding-top: 10px;
   background-color: white; 
   color: #72777a; 
-  border-color: rgb(29, 161, 242, 0.2); 
+  border-color: #D5EAFA; 
 }
 
 

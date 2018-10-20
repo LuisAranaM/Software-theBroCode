@@ -137,18 +137,21 @@ class Curso extends Eloquent
                 ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1)
-                ->where('ESTADO_ACREDITACION','=',1);
+                ->where('ESTADO_ACREDITACION','=',1)
+                ->orderBy('NOMBRE','ASC');
 
         return $sql;
     }
 
     static function buscarCursos($idSemestre,$idEspecialidad,$nomCurso=null,$acreditacion=false) {
         $sql = DB::table('CURSOS AS CURSOS')
-                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
+                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO','ESTADO_ACREDITACION')
                 ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-                ->where('ESTADO','=',1);
-
+                ->where('ESTADO','=',1)
+                ->orderBy('ESTADO_ACREDITACION','DESC')
+                ->orderBy('NOMBRE','ASC');
+        //dd($acreditacion);
         if($nomCurso)
             $sql=$sql->where('NOMBRE','like','%'.$nomCurso.'%');
 

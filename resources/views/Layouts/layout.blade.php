@@ -43,8 +43,9 @@
     $modoCoordinador=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_COORDINADOR?true:false;
     $modoAsistente=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_ASISTENTE?true:false;
     $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
-  
-  //dd($modoAdministrador,$modoAsistente,$modoCoordinador,$modoProfesor);
+
+    $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
+    $semestreActual=App\Entity\Semestre::getSemestre();
 ?>
 
 </head>
@@ -59,7 +60,6 @@
             <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
           </div>
           <div class="clearfix" ></div>
-
           <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 2px; margin-bottom: -10px">
 
           <!-- /menu profile quick info -->
@@ -70,6 +70,7 @@
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
               <ul class="nav side-menu">
+              <label style="text-align: center;">Semestre: {{$semestreActual}}</label>
                 
                 <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
@@ -118,7 +119,8 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}}
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
+                  {{$nombreEspecialidad}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">

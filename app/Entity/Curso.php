@@ -42,11 +42,11 @@ class Curso extends \App\Entity\Base\Entity {
 
     }
 
-    static function buscarCursos($nomCurso=null){
+    static function buscarCursos($nomCurso=null,$acreditacion=false){
         $model= new mCurso();
         return $model->buscarCursos(self::getIdSemestre(), 
                                     self::getEspecialidadUsuario(),
-                                    $nomCurso,true)->get();
+                                    $nomCurso,$acreditacion)->get();
     }
 
      function agregarAcreditar($checks,$usuario){

@@ -32,7 +32,7 @@ class CursoController extends Controller
     {//dd(Curso::buscarCursos());
         return view('cursos.gestion')
             ->with('cursos',Curso::getCursosAcreditacion())
-            ->with('cursosBuscar',Curso::buscarCursos());
+            ->with('cursosBuscar',Curso::buscarCursos(null,false));
     }
     
     public function progresoGestion() {
@@ -84,7 +84,8 @@ class CursoController extends Controller
         return Curso::buscarCursos($request->get('termino',$request->get('cursoBuscar',null)));
     }
 
-    public function agregarCursosAcreditacion(Request $request){        
+    public function agregarCursosAcreditacion(Request $request){      
+        //dd($request->all());  
         $checks=$request->get('checkCursos',null);
         
         $curso = new Curso();           

@@ -2,16 +2,6 @@
 @section('pageTitle', 'Principal')
 @section('content')
 @section('js-libs')
-<script>
-$(document).ready(function(){
-  $("#myBusqueda").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
 <script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
 @stop
 
@@ -24,9 +14,12 @@ $(document).ready(function(){
 
     <div class="col-md-4 col-sm-6 form-group top_search" >
       <div class="input-group">
-        <input type="text" class="form-control searchText" placeholder="Curso...">
+        <input id="busquedaGeneral" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
-          <button class="btn btn-default searchButton" type="button">Buscar</button>
+          <button class="btn btn-default searchButton" type="button" id="btnBuscarCurso">
+            <i class="fa fa-spinner fa-spin fa-fw fa-1x margin-bottom hidden"></i>
+            <i class="fa fa-search"></i>
+          </button>
         </span>
       </div>
     </div>
@@ -55,6 +48,7 @@ $(document).ready(function(){
         </div>
       </div>
 
+      <div id="listaCursos">        
       @foreach($cursos as $curso)
       <div class="x_content bs-example-popovers courseContainer" >
         <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
@@ -63,15 +57,14 @@ $(document).ready(function(){
             <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">×</span>
 
             </button>
-            <p class="pText">{{$curso->CODIGO_CURSO}} {{$curso->NOMBRE}}</p>
+            <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
+            <label class="pText">{{$curso->NOMBRE}}</label>
           </div> 
         </a>
 
       </div>
       @endforeach
-
-
-
+      </div>
     </div>
   </div>
 
@@ -98,11 +91,11 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <form id="frmAgregarCursos" action="{{route('agregar.acreditacion')}}" method="POST">
         {{ csrf_field() }}
         <div class="tile coursesModalBox" style="padding-bottom: 20px;">
-          <div class="col-xs-12 form-group top_search" style="z-index: 5000000;">
+          <div class="col-xs-12 form-group top_search">
 
             <div class="input-group">
               <!--<input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">-->
-              <input id="myBusqueda" type="text" class="form-control searchText" placeholder="Curso...">
+              <input id="txtCursoBuscar" type="text" class="form-control searchText" placeholder="Curso...">
               <span class="input-group-btn">
                 <button class="btn btn-default searchButton" type="button" id="btnBuscarCurso">
                   <i class="fa fa-spinner fa-spin fa-fw fa-1x margin-bottom hidden"></i>
@@ -116,8 +109,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
         <!--Esto se debe de volver a generar por AJAX-->
 
-        <div class="table-responsive" id="tablaCursos" style="height:400px;overflow:auto;">
-          <table class="table table-striped jambo_table bulk_action" style="position:relative;z-index: 20000">
+        <div class="table-responsive" id="tablaCursos" style="height:300px;overflow:auto;">
+          <table class="table table-striped jambo_table bulk_action">
             <thead>
               <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
                 <th class="pText column-title" style="border: none;text-align: center;"></th>
@@ -129,15 +122,15 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
               </tr>
             </thead>
 
-            <tbody class="text-left" id="myTable">
+            <tbody class="text-left" id="tablaBuscar">
           @if(count($cursosBuscar)>0)
             @foreach($cursosBuscar as $cursoB)
             <tr class="even pointer">
           <td class="a-center"  style="background-color: white; padding-right: 0px">
           <div class="form-check" style="padding-left: 10px; width: 20px">
           <label>
-          <input type="checkbox" class="form-check-input" 
-          name="checkCursos[]" value="{{$cursoB->CODIGO_CURSO}}" >
+          <input type="checkbox" class="form-check-input checkCurso" 
+          name="checkCursos[]" value="{{$cursoB->CODIGO_CURSO}}" <?php echo ($cursoB->ESTADO_ACREDITACION==1 ? 'checked' : '');?>>
           <span class="pText label-text "></span>
           </label>
           </div></td>
@@ -155,25 +148,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
           </table>
 
         </div>
-
-
-        <!--<ul id="listaCursos" class="list-unstyled top_profiles scroll-view hidden" style="height: auto;" >
-          <li class="media event cargando-resultados">
-            <div class="media-body">
-              <p style="text-align: center;"><i class="fa fa-spinner fa-spin fa-fw"></i></p>
-            </div>
-          </li>
-          <li class="media event sin-resultados hidden">
-            <div class="media-body">
-              <p style="text-align: center;">No se encontraron cursos</p> 
-            </div>
-          </li>
-        </ul>-->
-        <div id="btnsAgregarCurso" class="modal-footer hidden">
+        
+        <div id="btnsAgregarCurso" class="modal-footer">
           <div class="text-center" style="padding-top: 0px; padding-bottom: 10px">
 
-            <button id="btnAgregar" class="btn btn-success pText customButtonThin">Agregar</button>
-            <button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button> 
+            <button id="btnAgregar" class="btn btn-success pText customButtonThin" disabled>Agregar</button>
+            <!--<button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button>-->
           </div>
         </div>
       </form>
