@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+use DB;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -113,13 +114,12 @@ class Semestre extends Eloquent
 	}
 
 
-	/*static function getCiclo($idSemestre){
+	static function getCiclo($idSemestre){
 		$sql=DB::table('SEMESTRES')
-				->select('*',DB::Raw('ANHO'+'-'+'CICLO'))
+				->select('*',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
 				->where('ID_SEMESTRE','=',$idSemestre);
-		dd($sql->get());
 		return $sql;
-	}*/
+	}
 
 
 }

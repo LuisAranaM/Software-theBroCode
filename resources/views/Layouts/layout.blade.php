@@ -26,6 +26,7 @@
   <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>
+  
 
 
   @yield('js-libs')
@@ -38,12 +39,13 @@
   <?php
     // Evaluar si este blade lo esta viendo el ejecutivo o un gerente
  
-  $modoAdministrador = Auth::user()->ID_ROL==App\Entity\Usuario::ROL_ADMINISTRADOR?true:false;
-  $modoCoordinador=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_COORDINADOR?true:false;
-  $modoAsistente=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_ASISTENTE?true:false;
-  $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
-  
-  //dd($modoAdministrador,$modoAsistente,$modoCoordinador,$modoProfesor);
+    $modoAdministrador = Auth::user()->ID_ROL==App\Entity\Usuario::ROL_ADMINISTRADOR?true:false;
+    $modoCoordinador=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_COORDINADOR?true:false;
+    $modoAsistente=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_ASISTENTE?true:false;
+    $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+
+    $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
+    $semestreActual=App\Entity\Semestre::getSemestre();
 ?>
 
 </head>
@@ -58,40 +60,44 @@
             <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
           </div>
           <div class="clearfix" ></div>
-
           <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 2px; margin-bottom: -10px">
 
           <!-- /menu profile quick info -->
 
-          <br />
+          <br/>
 
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
               <ul class="nav side-menu">
-                <li class="pText {{ (Route::currentRouteName() == 'profesor.calificar')? 'active':'' }}"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
+              <label style="text-align: center;">Semestre: {{$semestreActual}}</label>
+                
+                <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
-                <li class="pText"><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" >
-                    <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>
-                  </ul>
-                </li>
-                <li class="pText"><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
-                  <ul class="nav child_menu">
-                    <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
-                    <li class="pText"><a href="{{route('cursos.horarios')}}" style="color:#72777a">Horarios y Criterios</a></li>
-                    <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
-                  </ul>
-                </li>
-                <li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
-                </li>
-                <li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
+                
+                @if($modoCoordinador or $modoAsistente)
+                  <li class="pText"><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" >
+                      <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>
+                    </ul>
+                  </li>
+                  <li class="pText"><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
+                    <ul class="nav child_menu">
+                      <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
+                      <li class="pText"><a href="{{route('cursos.horarios')}}" style="color:#72777a">Horarios y Criterios</a></li>
+                      <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
+                    </ul>
+                  </li>
+                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
+                  </li>-->
+                  <li class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
+                  </li>
+                  <li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
+                  </li>
+                @endif
 
-                </li>
               </ul>
             </div>         
           </div>
@@ -113,7 +119,8 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}}
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
+                  {{$nombreEspecialidad}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">

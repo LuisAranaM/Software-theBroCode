@@ -1,8 +1,14 @@
 $( document ).ready(function() {
 	console.log("inicio");
-
+    
 	$("#CargarCurso").on("click", function(){
-		console.log("btn accionado");
+		console.log("Cargando cursos a Acreditar");
+        if($('.checkCurso:checked').length==0){
+            $('#btnAgregar').attr('disabled',true);                
+        }
+        else{
+            $('#btnAgregar').removeAttr('disabled');        
+        }
 		$("#modalCursos").modal("show");
 
 	});
@@ -28,21 +34,20 @@ $( document ).ready(function() {
 
 
     //Funciones y activadores de búsqueda
-	$('#btnBuscarCurso').click(function (e) {
-        //console.log("HOLI CLICK");
-        
+	/*$('#btnBuscarCurso').click(function (e) {
+        //console.log("HOLI CLICK");        
         var cursoBuscar=$('#txtCursoBuscar').val();
         buscarCursos(cursoBuscar);
-    });
+    });*/
 
-    $('#txtCursoBuscar').keypress(function (e) {
+    /*$('#txtCursoBuscar').keypress(function (e) {
         //Búsqueda con Enter
         //console.log("HOLI ENTER");
         var cursoBuscar=$('#txtCursoBuscar').val();
     	if (e.which == 13) {
     		buscarCursos(cursoBuscar);
     	}
-    });
+    });*/
 
 	$('#frmAgregarCursos').on('keyup keypress', function(e) {
 		var keyCode = e.keyCode || e.which;
@@ -69,14 +74,46 @@ $( document ).ready(function() {
         e.preventDefault();        
     });
 
-    autocompleteCursos();  
+    /*autocompleteCursos();  
 
     $('.twitter-typeahead').removeAttr('style');
 
-    /*BUSCAR COMO MEJORAR EL Z-INDEX*/
+    //BUSCAR COMO MEJORAR EL Z-INDEX
     $('.tt-menu').css('z-index',3000000);
     $('.tt-menu').css('position','relative');
-    $('.tt-menu').css('margin-top','35px');
+    $('.tt-menu').css('margin-top','35px');*/
+
+
+  $("#txtCursoBuscar").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#tablaBuscar tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $('.checkCurso').change(function(){      
+        if($(this).attr('checked')!=undefined){
+            $(this).removeAttr('checked');               
+            $('#btnAgregar').removeAttr('disabled');
+            //$('#btnAgregar').removeClass('disabled');              
+
+        }else{          
+            $('#btnAgregar').removeAttr('disabled');
+            //$('#btnAgregar').removeClass('disabled');
+          } 
+
+        if($('.checkCurso:checked').length==0){
+            $('#btnAgregar').attr('disabled',true);                
+        }
+    });
+
+  $("#busquedaGeneral").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#listaCursos div").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
 });
 
 
@@ -131,7 +168,8 @@ function agregarCursosAcreditar(){
         });
 
 }
-function buscarCursos(cursoBuscar) {
+
+/*function buscarCursos(cursoBuscar) {
 	//console.log('Buscando...');
     //console.log(cursoBuscar);
 	//var cursoBuscar = $('#txtCursoBuscar').val();
@@ -172,7 +210,7 @@ function buscarCursos(cursoBuscar) {
                     		html+='<td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">'+result[i].NOMBRE+'</td>';        
                     		html+='</tr>';
                     	}
-                    	/*html+='</tbody></table></div>'*/
+                    	html+='</tbody></table></div>'
 
                     	$('#tableBody').append(html); 
 
@@ -191,9 +229,9 @@ function buscarCursos(cursoBuscar) {
                 }
             });
 
-}
+}*/
 
-function autocompleteCursos() {
+/*function autocompleteCursos() {
         var engine = new Bloodhound({
             remote: {
                 url: APP_URL + 'cursos/buscar?termino=%Q%',
@@ -217,4 +255,4 @@ function autocompleteCursos() {
                 }
             }
         })
-    }
+    }*/

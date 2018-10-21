@@ -85,17 +85,18 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
   }
 
-  static function getCursosYHorarios(){
+  static function getCursosYHorarios($idSemestre){
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
+                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->get();
     $ans = array();
     foreach($cursos as $c){
       $data["curso"] = $c;
       Curso::trace('IDCURSO');
       Curso::trace($c->ID_CURSO);
-      $horarios = Horario::getHorariosCompleto($c->ID_CURSO);
+      $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
       foreach($horarios as $h){
         Curso::trace('IDHORARIO');
         Curso::trace($h->ID_HORARIO);
@@ -136,18 +137,23 @@ class Curso extends Eloquent
                 ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1)
-                ->where('ESTADO_ACREDITACION','=',1);
+                ->where('ESTADO_ACREDITACION','=',1)
+                ->orderBy('NOMBRE','ASC');
 
         return $sql;
     }
 
-    static function buscarCursos($idSemestre,$idEspecialidad,$nomCurso,$acreditacion=false) {
+    static function buscarCursos($idSemestre,$idEspecialidad,$nomCurso=null,$acreditacion=false) {
         $sql = DB::table('CURSOS AS CURSOS')
-                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
+                ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO','ESTADO_ACREDITACION')
                 ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-                ->where('ESTADO','=',1)      
-                ->where('NOMBRE','like','%'.$nomCurso.'%');
+                ->where('ESTADO','=',1)
+                ->orderBy('ESTADO_ACREDITACION','DESC')
+                ->orderBy('NOMBRE','ASC');
+        //dd($acreditacion);
+        if($nomCurso)
+            $sql=$sql->where('NOMBRE','like','%'.$nomCurso.'%');
 
         if($acreditacion)
             $sql=$sql->where('ESTADO_ACREDITACION','=',0);

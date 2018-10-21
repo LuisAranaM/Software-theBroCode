@@ -121,10 +121,12 @@ class Horario extends Eloquent
 		return $tot;
 	}
 
-	static function getHorariosCompleto($idCurso){
+	static function getHorariosCompleto($idCurso,$idSemestre){
+		//Tiene que ser por el ID del usuario
 		$sql = DB::table('HORARIO')
 				->select('*')
 				->where('ID_CURSO','=',$idCurso)
+				->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
 				->get();
 		return $sql;
 	}

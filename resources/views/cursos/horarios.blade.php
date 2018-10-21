@@ -96,7 +96,7 @@
           <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
             <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
             <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-            {{$criterio->NOMBRE}}{{$subcriterio->ID_SUBCRITERIO}}
+            {{$criterio->NOMBRE}}
             </span>
           </label>
           @endif
@@ -105,7 +105,7 @@
         </div>
       </div>
       <div class="col-md-1">
-        <label codigoCriterio="{{$criterio->ID_CRITERIO}}" nombreCriterio="{{$criterio->NOMBRE}}" class="btnAgregarSubcriterios btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+        <label codigoCriterio="{{$criterio->ID_CRITERIO}}" nombreCriterio="{{$criterio->NOMBRE}}" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
           <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
               +
