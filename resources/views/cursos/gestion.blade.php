@@ -109,7 +109,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
         <!--Esto se debe de volver a generar por AJAX-->
 
-        <div class="table-responsive" id="tablaCursos" style="height:300px;overflow:auto;">
+        <div class="table-responsive" id="tablaCursos" style="height:300px;overflow:auto; position: relative;">
           <table class="table table-striped jambo_table bulk_action">
             <thead>
               <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">

@@ -78,6 +78,17 @@ return [
             'prefix' => '',
         ],
 
+        'mysql_SSH' => array(
+            'driver'    => 'mysql',
+            'host'      => '127.0.0.1:13306',
+            'database' => 'SOFTWARE',
+            'username' => 'root',
+            'password' => '45ytOiAI',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
+
     ],
 
     /*
