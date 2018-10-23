@@ -8,6 +8,7 @@
   <link rel="icon" href="{{ URL::asset('img/pucp.png') }}">       
   <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
 
+
   <title>@yield('pageTitle') - RubriK</title>
 
   <!-- CSS-->
@@ -26,8 +27,9 @@
   <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>
-  
 
+<!--AGREGUE PARA TREE CON CHECKBOX-->
+<script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
 
   @yield('js-libs')
 
