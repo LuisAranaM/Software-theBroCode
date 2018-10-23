@@ -354,35 +354,12 @@
 <!-- /.modal -->
 
 
-
-
-
-
-
-</div>
-
 </div>
 
 
-<!--
+@stop
 
-onclick="new PNotify({
-                                  title: 'Sticky Info',
-                                  text: 'Sticky Info... I\'m not even gonna make a joke.',
-                                  type: 'info',
-                                  hide: false,
-                                  styling: 'bootstrap3'
-                              });"
-                            -->
+@section('js-scripts')
 
 
-
-                          </div>
-
-
-                          @stop
-
-                          @section('js-scripts')
-
-
-                          @stop
+@stop

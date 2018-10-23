@@ -94,6 +94,10 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
 
+
+/***GENERAR AVISOS***/
+Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion']);
+
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);

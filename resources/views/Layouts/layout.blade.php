@@ -106,6 +106,8 @@
                   </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                   </li>
+                  <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
+                  </li>
                 @endif
 
               </ul>
