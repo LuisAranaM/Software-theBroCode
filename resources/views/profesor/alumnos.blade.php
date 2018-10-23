@@ -119,7 +119,7 @@
         <div class="row">
           <div class="col-xs-3">
             <div class="text-left">
-              <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A2. <br>
+              <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A1. <br>
 
               </div>
             </div>
