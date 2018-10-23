@@ -1,6 +1,23 @@
 $( document ).ready(function() {
 	console.log("inicioR");
 
+	$("#CargarCurso").on("click", function(){
+		console.log("Cargando cursos a Acreditar");
+        if($('.checkCurso:checked').length==0){
+            $('#btnAgregar').attr('disabled',true);                
+        }
+        else{
+            $('#btnAgregar').removeAttr('disabled');        
+        }
+		$("#modalCursos").modal("show");
+
+	});
+ 
+	$("#CargarResultado").on("click", function(){
+		console.log("Cargando Resultados");
+		$("#modalResultados").modal("show");
+	});
+
 	$("#hola").click(function () {
         //$("#hola").hide();
     });
