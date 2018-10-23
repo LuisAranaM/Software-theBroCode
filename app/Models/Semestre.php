@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+use DB;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -111,4 +112,14 @@ class Semestre extends Eloquent
 	{
 		return $this->hasMany(\App\Models\SubcriteriosHasAlumnosHasHorario::class, 'semestres_ID_SEMESTRE');
 	}
+
+
+	static function getCiclo($idSemestre){
+		$sql=DB::table('SEMESTRES')
+				->select('*',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
+				->where('ID_SEMESTRE','=',$idSemestre);
+		return $sql;
+	}
+
+
 }

@@ -40,6 +40,7 @@ class Subcriterio extends \App\Entity\Base\Entity {
         $model =new mSubcriterio();
         $model->insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4);
     }
+
     static function getSubCriteriosId($idCat){
         $model =new mSubcriterio();
         return $model::getSubCriteriosId($idCat)->get();
@@ -48,4 +49,13 @@ class Subcriterio extends \App\Entity\Base\Entity {
         $model =new mSubcriterio();
         return $model::getSubCriterios()->get();
     }
+    static function getSubCriterioId($idInd){
+        $model =new mSubcriterio();
+        return $model::getSubCriterioId($idInd)->get();
+    }
+    static function updateSubcriterio($indicador){
+        $model =new mSubcriterio();
+        return $model::updateSubcriterio($indicador);
+    }
+
 }

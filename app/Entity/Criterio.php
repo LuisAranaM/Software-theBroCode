@@ -28,6 +28,13 @@ class Criterio extends \App\Entity\Base\Entity {
         $model = new mCriterio();
         return mCriterio::getCriterios()->get();
     }
+    
+    static function getCriteriosbyIdCurso($idCurso) {
+        $model = new mCriterio();
+        return mCriterio::getCriteriosbyIdCurso($idCurso)->get();
+    }
+
+
     static function insertCriterio($nombre, $desc){
         $model =new mCriterio();
         return $model->insertCriterio($nombre,$desc);

@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use DB;
-use Excel;
+use App\Entity\Usuario as Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+
 use Illuminate\Support\Facades\Redirect;
+
+use Excel;
+use Validator;
+
 
 class CursoController extends Controller
 {
@@ -22,14 +28,17 @@ class CursoController extends Controller
     
 
     public function index()
-    {
+
+    {//dd(Curso::buscarCursos());
         return view('cursos.gestion')
-            ->with('cursos',Curso::getCursos());
+            ->with('cursos',Curso::getCursosAcreditacion())
+            ->with('cursosBuscar',Curso::buscarCursos(null,false));
     }
     
     public function progresoGestion() {
+
         $horarios=[];
-        $cursos = Curso::getCursos();
+        $cursos = Curso::getCursosAcreditacion();
         foreach ($cursos as $curso){
             $idCurso = $curso->ID_CURSO;
             $horarios[$idCurso] = Horario::getHorarios($idCurso);
@@ -37,7 +46,7 @@ class CursoController extends Controller
           return view('cursos.progreso')
                 ->with('idCurso',$idCurso)
                 ->with('horarios',$horarios)
-                ->with('cursos',Curso::getCursos());
+                ->with('cursos',Curso::getCursosAcreditacion());
     }
 
     public function subirExcels(){
@@ -71,7 +80,45 @@ class CursoController extends Controller
     }
 
     public function buscarCursos(Request $request){
-        return Curso::buscarCursos($request->get('cursoBuscar',null));
+
+        return Curso::buscarCursos($request->get('termino',$request->get('cursoBuscar',null)));
+    }
+
+    public function agregarCursosAcreditacion(Request $request){      
+        //dd($request->all());  
+        $checks=$request->get('checkCursos',null);
+        
+        $curso = new Curso();           
+        
+        if($curso->agregarAcreditar($checks,Auth::id())){
+            flash('Las cursos a acreditar se registraron correctamente.')->success();
+        } else {
+            flash('Hubo un error al registrar los cursos a acreditar.')->error();
+        }
+        return back();
+
+    }
+
+    public function eliminarCursoAcreditacion(Request $request){        
+        
+        $validator = Validator::make($request->all(), [
+            'codigoCurso' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+
+        $curso = new Curso();          
+
+        if($curso->eliminarAcreditar($request->get('codigoCurso'),Auth::id())){
+            flash('El curso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el curso')->error();
+        }
+        return back();
+
+
     }
 
     /**
@@ -94,6 +141,7 @@ class CursoController extends Controller
      * @return \Illuminate\Http\Response
      */
     
+
     public function store(Request $request){
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();

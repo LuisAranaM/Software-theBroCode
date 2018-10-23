@@ -7,6 +7,8 @@
 
 namespace App\Models;
 
+use DB;
+
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -58,13 +60,23 @@ class Alumno extends Eloquent
 					->withPivot('ID_PROYECTO', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
+	static function getAlumnosByHorarioStatic($idHorario){
+		$ans = DB::table('ALUMNOS')
+            ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
+            ->select('ALUMNOS.*')
+            ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
+            ->get();
+        return $ans;
+	}
+
 	public function getAlumnosByHorario($idHorario){
 		$ans = DB::table('ALUMNOS')
             ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
             ->select('ALUMNOS.*')
             ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
-            ->get()->toArray();
-        return ans;
+            ->get();
+        return $ans;
 	}
+
 
 }

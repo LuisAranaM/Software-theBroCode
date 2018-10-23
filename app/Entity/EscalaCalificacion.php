@@ -7,6 +7,7 @@ use App\Models\EscalaCalificacion as mEscalaCalificacion;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Log as Log;
 
+
 class EscalaCalificacion extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
@@ -22,6 +23,7 @@ class EscalaCalificacion extends \App\Entity\Base\Entity {
             'FECHA_REGISTRO' => $this->_fechaRegistro,
         ]);
     }
+
 
     static function getEscalas() {
         return mEscalaCalificacion::getEscalas()->get();
@@ -39,5 +41,6 @@ class EscalaCalificacion extends \App\Entity\Base\Entity {
         }
         return $status;
     }
+
 
 }

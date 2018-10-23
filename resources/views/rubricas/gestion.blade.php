@@ -20,11 +20,8 @@
     </div>
 
     <!-- RESULTADOS -->
-    <div id="resClick" value="{{$resClick}}"></div>
-    <div id="catClick" value="{{$catClick}}"></div>
-    <div id="indClick" value="{{$indClick}}"></div>
     <div class="col-xs-12">
-      <div class="  x_panel tile coursesBox ">
+      <div id="apRes" class="  x_panel tile coursesBox ">
         <div class="col-md-12 ">
          <h1 class="secondaryTitle mainTitle" >Nuevo Resultado</h1>
        </div>
@@ -158,17 +155,17 @@
    </div>
    <div class="row rowFinal2">
     <div class="col-md-3 inputLeft no-padding">
-      <input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" id="txtcodigo" placeholder="Nivel" >     
+      <input type="text" id="txtEscala" class="form-control pText customInput" name="codigo" placeholder="Nivel" >     
     </div>
     <div class="col-md-9 inputRight no-padding">
       <!--<input type="text" id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo" placeholder="Descripción" >  -->
-      <textarea type="text" id="txtValorizacion" class="form-control pText customInput" name="nombre" id="txtcodigo" placeholder="Descripción"  rows="3" cols="30" style="resize: none;" ></textarea>     
+      <textarea type="text" id="txtValorizacion" class="form-control pText customInput" name="nombre" placeholder="Descripción"  rows="3" cols="30" style="resize: none;" ></textarea>     
     </div>
   </div>
   <div class="row rowFinal2 text-right">
-    <button type="button" class="customButtonLarge btn btn-success btn-lg pText customButtonRubr" name="guardar_button" value="guardar"> Agregar Valorización </button>
+    <button id="btnAgregarEscala" type="button" class="customButtonLarge btn btn-success btn-lg pText customButtonRubr" name="agregar_escala" value="agregar"> Agregar Valorización </button>
   </div>
-  <div id="apEsc" class="col-md-8 col-sm-6">
+  <div class="col-md-8 col-sm-6">
    <h1 class="secondaryTitle mainTitle" >Lista de Valorizaciones</h1>
  </div>
 

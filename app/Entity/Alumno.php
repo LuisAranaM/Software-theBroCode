@@ -22,5 +22,9 @@ class Alumno extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getAlumnosByHorario($idHorario){
+        return mAlumno::getAlumnosByHorarioStatic($idHorario);
+    }
+
     
 }

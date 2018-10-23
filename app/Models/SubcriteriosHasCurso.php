@@ -7,6 +7,8 @@
 
 namespace App\Models;
 
+use DB;
+
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -58,6 +60,18 @@ class SubcriteriosHasCurso extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Curso::class, 'ID_CURSO');
 	}
+
+
+	static function getSubCriteriosbyIdCurso($idCurso) {
+		$sql = DB::table('SUBCRITERIOS_HAS_CURSOS')
+				->leftJoin('SUBCRITERIOS', 'SUBCRITERIOS.ID_SUBCRITERIO', '=', 'SUBCRITERIOS_HAS_CURSOS.ID_SUBCRITERIO')
+				->where('SUBCRITERIOS_HAS_CURSOS.ID_CURSO','=',$idCurso)
+				->distinct();
+        //dd($sql->get());
+        return $sql;
+	}
+	
+
 
 	public function subcriterio()
 	{

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
@@ -41,8 +42,9 @@ class AlumnoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     
-    public function trace($cad){
+    private function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $output->writeln("<info>".$cad."</info>");
     }
@@ -111,6 +113,7 @@ class AlumnoController extends Controller
             flash('No se selecciono un archivo')->error();
         }
         return Redirect::back();
+
     }
 
     /**

@@ -25,7 +25,63 @@
   <div class="row">
     <div class=" x_panel tile coursesBox">
 
-      <!--SOFTWARE-->
+
+      <!-- CURSOS CARGADOS DE LA BD -->
+      @foreach($cursos as $c)
+      <div class="row rowFinal">
+
+        <div class="row">
+          <div class="col-xs-11" >
+            <h1 class="secondaryTitle mainTitle">{{$c["curso"]->NOMBRE}}</h1>
+          </div>
+
+          <div class="col-xs-1 text-right" style="text-align: right; font-size: 20px"> 
+            <i class="fa fa-caret-up"></i>
+          </div>
+        </div>
+
+        @foreach($c["horarios"] as $h)
+        <div class="row">
+
+          <div class="col-sm-1 col-xs-2" >
+            <p class="pText" style="margin-bottom: 0px">H-{{$h["horario"]->NOMBRE}}</p>
+          </div>
+          <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
+            <div class="widget_summary" >
+              <div class="w_center w_55" style="width: 100%">
+                <div class="progress" style="margin-bottom: 0px">
+                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $h["avance"]  }}%; background-color: #005b7f !important; border: none !important">
+                    <span class="sr-only">60% Complete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="no-padding">
+              @if ($h["alumnosTotal"] > 0)
+                <p class="barText pText">{{ $h["avance"] }}% de avance - {{ $h["alumnosCalif"] }}/{{ $h["alumnosTotal"] }} alumnos calificados</p>
+              @endif
+              @if ($h["alumnosTotal"] == 0)
+                <p class="barText pText">No hay alumnos cargados</p>
+              @endif
+            </div>
+          </div>
+          <div class="col-sm-2 col-xs-3 text-right">
+              @if($h["alumnosTotal"] == 0)
+              <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
+              @endif
+              @if($h["alumnosTotal"] != 0)
+                <a href="{{route('profesor.alumnos')}}?idHorario={{$h['horario']->ID_HORARIO}}">
+                  <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+                </a>
+              @endif
+          </div>
+        </div>
+        @endforeach
+      </div>
+      @endforeach
+      <!-- END CURSOS CARGADOS DE LA BD-->
+
+      <!--HARDCODEO SOFTWARE-->
       <div class="row rowFinal">
 
         <div class="row">
@@ -152,71 +208,6 @@
           </div>
         </div>
     </div>
-
-      <!-- CURSOS CARGADOS DE LA BD -->
-      @foreach($cursos as $c)
-      <div class="row rowFinal">
-        <div class="row">
-          <div class="col-xs-11" >
-            <h1 class="secondaryTitle mainTitle">{{ $c["curso"]->NOMBRE }}</h1>
-          </div>
-
-          <div class="col-xs-1 text-right" style="text-align: right; font-size: 20px"> 
-            <i class="fa fa-caret-up"></i>
-          </div>
-        </div>
-        <div class="row">
-
-          <div class="col-sm-1 col-xs-2" >
-            <p class="pText" style="margin-bottom: 0px">H-0381</p>
-          </div>
-          <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
-            <div class="widget_summary" >
-              <div class="w_center w_55" style="width: 100%">
-                <div class="progress" style="margin-bottom: 0px">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%; background-color: #005b7f !important; border: none !important">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="no-padding">
-              <p class="barText pText">55% de avance - 11/30 alumnos calificados</p>
-            </div>
-          </div>
-          <div class="col-sm-2 col-xs-3 text-right">
-            <a href="{{route('profesor.alumnos')}}">
-              <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
-            </a>
-          </div>
-        </div>
-
-        <div class="row">
-
-          <div class="col-sm-1 col-xs-2" >
-            <p class="pText" style="margin-bottom: 0px">H-0381</p>
-          </div>
-          <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
-            <div class="widget_summary" >
-              <div class="w_center w_55" style="width: 100%">
-                <div class="progress" style="margin-bottom: 0px">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #005b7f !important; border: none !important">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="no-padding">
-              <p class="barText pText">No hay alumnos cargados</p>
-            </div>
-          </div>
-          <div class="col-sm-2 col-xs-3 text-right">
-            <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
-          </div>
-        </div>
-      </div>
-      @endforeach
-      <!-- END CURSOS CARGADOS DE LA BD-->
 
   </div>
 

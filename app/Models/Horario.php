@@ -9,6 +9,7 @@ namespace App\Models;
 
 use DB;
 use Log;
+use App\Entity\Alumno as Alumno;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -81,6 +82,56 @@ class Horario extends Eloquent
 		return $this->hasMany(\App\Models\ProfesoresHasHorario::class, 'ID_HORARIO');
 	}
 
+
+	static function getAvance($idHorario){
+		$tot = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+				->count();
+		$part = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ID_ESCALA <> 0 AND ESTADO = 1',[$idHorario])
+				->count();
+		$part *= 100;
+		if($tot == 0)
+			return 0;
+		$ans = $part / $tot;
+		return $ans;
+	}
+
+	static function getAlumnosCalif($idHorario){
+		$alumnos = Alumno::getAlumnosByHorario($idHorario);
+		$ans = 0;
+		foreach($alumnos as $x){
+			$current = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+						->select('*')
+						->whereRaw('ID_HORARIO = ? AND ID_ALUMNO = ? AND ID_ESCALA <> 0', [$idHorario,$x->ID_ALUMNO])
+						->count();
+			if($current == 4) 
+				++$ans;
+		}
+		return $ans;
+	}
+
+	static function getCantAlumnos($idHorario){
+		$tot = DB::table('ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+				->count();
+		return $tot;
+	}
+
+	static function getHorariosCompleto($idCurso,$idSemestre){
+		//Tiene que ser por el ID del usuario
+		$sql = DB::table('HORARIO')
+				->select('*')
+				->where('ID_CURSO','=',$idCurso)
+				->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+				->get();
+		return $sql;
+	}
+
+
 	static function getHorarios($idCurso) {
 		//dd($idCurso);
         $sql = DB::table('HORARIO AS H')
@@ -91,22 +142,72 @@ class Horario extends Eloquent
 				->leftJoin('USUARIOS AS P', function ($join) {
 					$join->on('PH.ID_USUARIO', '=', 'P.ID_USUARIO');
 				})
-				->where('H.ID_CURSO', '=', $idCurso)
-				;
+
+				->where('H.ID_CURSO', '=', $idCurso);
 
         //dd($sql->get());
         return $sql;
 	}
-		
-	static public function actualizarHorarios($idHorarios,$estadoAcreditacion){
-		foreach(array_combine($idHorarios,$estadoAcreditacion) as  $idHorario => $estado ){
-			//dd($idHorario,$estado);
-			DB::table('HORARIO AS H')
-			->where('H.ID_HORARIO', (int)$idHorario)
-			->update(['H.ESTADO' => (int)$estado]);
-			//dd($idHorario,$estado);
-		}
-		return;
+
+	static function getHorarioByIdHorario($idHorario){
+		//dd($idCurso);
+        $sql = DB::table('HORARIO AS H')
+				->select('H.*')
+				->where('H.ID_HORARIO', '=', $idHorario)
+
+				;
+
+        //dd($sql->get());
+        return $sql;
+
 	}
+		
+	
+	function actualizarHorarios($idHorarios,$estadoEv,$usuario){
+		DB::beginTransaction();
+		//dd($idHorarios,$estadoEv,$usuario);
+        $status = true;
+		try {
+			foreach(array_combine($idHorarios,$estadoEv) as  $idHorario => $estado ){
+				DB::table('HORARIO AS H')
+				->where('H.ID_HORARIO', $idHorario)
+				->update(['H.ESTADO' => (int)$estado,
+						'H.FECHA_ACTUALIZACION'=>Carbon::now(),
+						'H.USUARIO_MODIF'=>$usuario]);
+			}
+			DB::commit(); 
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+		dd($idHorario,$estadoEv);
+		
+		return $status;
+    }
+
+	function eliminarEvaluacion($idSemestre,$idHorario,$usuario){
+    	 	
+    	DB::beginTransaction();
+        $status = true;
+       
+        try {
+			DB::table('HORARIO AS H')
+				->where('H.ID_HORARIO', (int)$idHorario)
+    			->update(['H.ESTADO'=> 0,
+	    				'H.FECHA_ACTUALIZACION'=>Carbon::now(),
+	    				'H.USUARIO_MODIF'=>$usuario]);
+			DB::commit();
+			dd($idSemestre,$idHorario,$usuario);  
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+		}
+		
+        return $status;
+        dd($sql->get());
+    }
+
 
 }

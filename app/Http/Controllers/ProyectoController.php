@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Entity\Base\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use DB;
+
 
 class ProyectoController extends Controller
 {
@@ -15,6 +17,7 @@ class ProyectoController extends Controller
     }
 
     public function store(Request $request){
+
         $codigo = $request->get('codAlumno', null);
         $horario = $request->get('horario', null);
     	$file = $request->file('archivo');
@@ -50,7 +53,12 @@ class ProyectoController extends Controller
     	return back();
     }
     public function downfunc(){
-    	$downloads = DB::table('proyectos')->get();
+    	$downloads = DB::table('PROYECTOS')->get();
     	return view('proyecto.viewfile', compact('downloads'));
     }
+
+    public function descargarProyecto(Request $request){
+        dd("holi");
+    }
+
 }
