@@ -83,129 +83,125 @@
       </div>
     </div>
     
-    <!--Criterio 1-->
-    <div class="row">
-    <div class="x_content bs-example-popovers courseContainer">
+    <!-- Boton  -->
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+      <div class="x_content bs-example-popovers courseContainer">
+        <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+          <button id="btnAgregarResultado" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+          </button>
+          <p class="pText"> Elección de Resultados e indicadores</p>
+        </div>
+      </div>
+    </div>
+    <!-- Resultados e indicadores -->
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+      <!-- start accordion -->
+      <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel">
+          <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <h4 class="panel-title">Resultado A</h4>
+          </a>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador 1</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Indicador 2</a>
+                  </li>
+                  <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="true">Indicador 3</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
+                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                    synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                    booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                    booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h4 class="panel-title">Resultado B</h4>
+          </a>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador 1</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Indicador 2</a>
+                  </li>
+                  <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="true">Indicador 3</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
+                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                    synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                    booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                    booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                </div>
+              </div>
 
-      <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
-
-        <button id="btnAgregarResultado" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
-        </button>
-        <p class="pText"> Agregar Nuevo Horario </p>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h4 class="panel-title">Resultado C</h4>
+          </a>
+          <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador 1</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Indicador 2</a>
+                  </li>
+                  <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="true">Indicador 3</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
+                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                    synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                    booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                    booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    </div>
-    <!-- Holi -->
-    <div class="row">
-                    <!-- start accordion -->
-                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                      <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                          <h4 class="panel-title">Collapsible Group Items #1</h4>
-                        </a>
-                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-                              <div class="" role="tabpanel" data-example-id="togglable-tabs">
-    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-      <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Home</a>
-      </li>
-      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Profile</a>
-      </li>
-      <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="true">Profile</a>
-      </li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-          synth. Cosby sweater eu banh mi, qui irure terr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk aliquip</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
-        <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk </p>
-      </div>
-    </div>
+    <!-- Terminan los acordion -->
   </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          <h4 class="panel-title">Collapsible Group Items #2</h4>
-                        </a>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-                              <div class="" role="tabpanel" data-example-id="togglable-tabs">
-    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-      <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Home</a>
-      </li>
-      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Profile</a>
-      </li>
-      <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="true">Profile</a>
-      </li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-          synth. Cosby sweater eu banh mi, qui irure terr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk aliquip</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
-        <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk </p>
-      </div>
-    </div>
-  </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          <h4 class="panel-title">Collapsible Group Items #3</h4>
-                        </a>
-                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-  <div class="" role="tabpanel" data-example-id="togglable-tabs">
-    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-      <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Home</a>
-      </li>
-      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Profile</a>
-      </li>
-      <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="true">Profile</a>
-      </li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-          synth. Cosby sweater eu banh mi, qui irure terr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk aliquip</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
-        <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk </p>
-      </div>
-    </div>
-  </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end of accordion -->
-  
 </div>
-
 <!-- asdasd-->
 
     
