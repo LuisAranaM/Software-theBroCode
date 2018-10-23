@@ -97,7 +97,7 @@
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">Alumno a evaluar: <br>Daniela argumanis Escalante</h4>
+    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">Alumno a evaluar: <br>Daniela Argumanis Escalante</h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   
@@ -125,7 +125,7 @@
             </div>
             <div class="col-xs-9">
               <div class="text-left" >
-                <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
+                <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Aplica conceptos lógicos para la resolucion de problemas. <br>
 
                 </div>
               </div>
@@ -137,8 +137,8 @@
                 <div class="btn-group btn-group-justified" data-toggle="buttons">
 
                   <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
-                    title: 'New Thing',
-                    text: 'Just to let you know, something happened.',
+                    title: 'Condición para A1 - 1',
+                    text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples de manera deficiente.',
                     type: 'info',
                     styling: 'bootstrap3'
                   });">
@@ -148,8 +148,8 @@
                   </span>
                 </label>
                 <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-                  title: 'New Thing',
-                  text: 'Just to let you know, something happened.',
+                  title: 'Condición para A1 - 2',
+                  text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples.',
                   type: 'info',
                   styling: 'bootstrap3'
                 });">
@@ -159,8 +159,8 @@
                 </span>
               </label>
               <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-                title: 'New Thing',
-                text: 'Just to let you know, something happened.',
+                title: 'Condición para A1 - 3',
+                text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones complejas.',
                 type: 'info',
                 styling: 'bootstrap3'
               });">
@@ -170,8 +170,8 @@
               </span>
             </label>
             <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-              title: 'New Thing',
-              text: 'Just to let you know, something happened.',
+              title: 'Condición para A1 - 4',
+              text: 'Establecer soluciones integradas de manera lógica en problemas simples.',
               type: 'info',
               styling: 'bootstrap3'
             });">
@@ -210,8 +210,8 @@
             <div class="btn-group btn-group-justified" data-toggle="buttons">
 
               <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
-                title: 'New Thing',
-                text: 'Just to let you know, something happened.',
+                title: 'Condición para A2 - 1',
+                text: 'Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo.',
                 type: 'info',
                 styling: 'bootstrap3'
               });">
@@ -221,8 +221,8 @@
               </span>
             </label>
             <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-              title: 'New Thing',
-              text: 'Just to let you know, something happened.',
+              title: 'Condición para A2 - 2',
+              text: 'Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo.',
               type: 'info',
               styling: 'bootstrap3'
             });">
@@ -232,8 +232,8 @@
             </span>
           </label>
           <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-            title: 'New Thing',
-            text: 'Just to let you know, something happened.',
+            title: 'Condición para A2 - 3',
+            text: 'Tener la capacidad de modificar un algoritmo.',
             type: 'info',
             styling: 'bootstrap3'
           });">
@@ -243,8 +243,8 @@
           </span>
         </label>
         <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-          title: 'New Thing',
-          text: 'Just to let you know, something happened.',
+          title: 'Condición para A2 - 4',
+          text: 'Desarrollar el algoritmo nuevo a partir de una especificación.',
           type: 'info',
           styling: 'bootstrap3'
         });">
@@ -270,7 +270,7 @@
         </div>
         <div class="col-xs-9">
           <div class="text-left" >
-            <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
+            <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Utiliza lenguajes de programación para implementar algoritmos sean diseñados por él o por cualquier otra persona. <br>
 
             </div>
           </div>
@@ -282,8 +282,8 @@
           <div class="btn-group btn-group-justified" data-toggle="buttons">
 
             <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
-              title: 'New Thing',
-              text: 'Just to let you know, something happened.',
+              title: 'Condición para A3 - 1',
+              text: 'Conocer paradigmas de programación.',
               type: 'info',
               styling: 'bootstrap3'
             });">
@@ -293,8 +293,8 @@
             </span>
           </label>
           <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-            title: 'New Thing',
-            text: 'Just to let you know, something happened.',
+            title: 'Condición para A3 - 2',
+            text: 'Aplicar paradigmas de programación.',
             type: 'info',
             styling: 'bootstrap3'
           });">
@@ -304,8 +304,8 @@
           </span>
         </label>
         <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-          title: 'New Thing',
-          text: 'Just to let you know, something happened.',
+          title: 'Condición para A3 - 3',
+          text: 'Implementar un algoritmo.',
           type: 'info',
           styling: 'bootstrap3'
         });">
@@ -315,8 +315,8 @@
         </span>
       </label>
       <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-        title: 'New Thing',
-        text: 'Just to let you know, something happened.',
+        title: 'Condición para A3 - 4',
+        text: 'Utiliza patrones de programación.',
         type: 'info',
         styling: 'bootstrap3'
       });">
