@@ -64,7 +64,7 @@
   <div class="container body" >
     <div class="main_container">
 
-      <div class="col-md-3 left_col" >
+      <div class="col-md-3 left_col menu_fixed" >
         <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white">
           <div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">
             <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
@@ -114,6 +114,8 @@
             </div>         
           </div>
           <!-- /sidebar menu -->
+
+
 
 
           <!-- /menu footer buttons -->
