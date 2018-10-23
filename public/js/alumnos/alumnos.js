@@ -6,4 +6,5 @@ $( document ).ready(function() {
 	$('#AbrirCalificacion').click(function() {
 		$('#modalCalificacion').modal('show');
 	});
+
 });
