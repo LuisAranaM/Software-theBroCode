@@ -169,9 +169,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 
 
-</div>
-
-
 @stop
 
 @section('js-scripts')

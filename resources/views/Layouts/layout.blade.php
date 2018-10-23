@@ -83,7 +83,9 @@
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
               <ul class="nav side-menu">
-              <label style="text-align: center;">Semestre: {{$semestreActual}}</label>
+
+              <label class="sideBarText" style="padding-left: 14px" >Semestre: {{$semestreActual}}</label>
+
                 
                 <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
@@ -135,9 +137,10 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
+                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
                   {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
                   {{$nombreEspecialidad}}
+                  </span>
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
