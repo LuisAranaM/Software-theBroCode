@@ -8,6 +8,7 @@
   <link rel="icon" href="{{ URL::asset('img/pucp.png') }}">       
   <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
 
+
   <title>@yield('pageTitle') - RubriK</title>
 
   <!-- CSS-->
@@ -18,6 +19,10 @@
   <link href="{{ URL::asset('css/custom/customRubr.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
+<link href="{{ URL::asset('css/pnotify.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/pnotify.buttons.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/pnotify.nonblock.css') }}" rel="stylesheet">
+
   <!--JS-->
   <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
   <script type="text/javascript"  src="{{ URL::asset('js/jquery-1.12.4.min.js') }}"></script>
@@ -26,8 +31,13 @@
   <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>
-  
 
+<script type="text/javascript" src="{{ URL::asset('js/pnotify.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/pnotify.buttons.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/pnotify.nonblock.js') }}"></script>  
+
+<!--AGREGUE PARA TREE CON CHECKBOX-->
+<script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
 
   @yield('js-libs')
 
@@ -54,7 +64,7 @@
   <div class="container body" >
     <div class="main_container">
 
-      <div class="col-md-3 left_col" >
+      <div class="col-md-3 left_col menu_fixed" >
         <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white">
           <div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">
             <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
@@ -96,12 +106,16 @@
                   </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                   </li>
+                  <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
+                  </li>
                 @endif
 
               </ul>
             </div>         
           </div>
           <!-- /sidebar menu -->
+
+
 
 
           <!-- /menu footer buttons -->
