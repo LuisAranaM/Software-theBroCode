@@ -84,7 +84,7 @@
  <div id="myDIVCategorias" class="myDIVCategoriasclass">
   @if (!is_null($firstC= array_shift($categorias)))
   <div class="x_content bs-example-popovers courseContainer">
-      <div id="{{$firstC->ID_CRITERIO}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
+      <div id="{{$firstC->ID_RESULTADO}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
         <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
         <p class="pText">{{$firstC->NOMBRE}}</p>
@@ -93,7 +93,7 @@
   @endif
   @foreach ($categorias as $categoria)
   <div class="x_content bs-example-popovers courseContainer">
-      <div id="{{$categoria->ID_CRITERIO}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+      <div id="{{$categoria->ID_RESULTADO}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
         <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
         <p class="pText">{{$categoria->NOMBRE}}</p>

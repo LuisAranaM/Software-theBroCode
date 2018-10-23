@@ -22,7 +22,7 @@ class Subcriterio extends \App\Entity\Base\Entity {
     protected $_estado;
     
     public function setFromAuth($subCrit) {
-        $this->setValue('_idCriterio',$subCrit->ID_CRITERIO);
+        $this->setValue('_idResultado',$subCrit->ID_RESULTADO);
         $this->setValue('_idEspecialidad',$subCrit->ID_ESPECIALIDAD);
         $this->setValue('_idSemestre',$subCrit->ID_SEMESTRE);
         $this->setValue('_nombre',$subCrit->NOMBRE);

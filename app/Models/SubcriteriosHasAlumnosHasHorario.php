@@ -13,7 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class SubcriteriosHasAlumnosHasHorario
  * 
  * @property int $ID_SUBCRITERIO
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property int $ID_ALUMNO
@@ -39,7 +39,7 @@ class SubcriteriosHasAlumnosHasHorario extends Eloquent
 
 	protected $casts = [
 		'ID_SUBCRITERIO' => 'int',
-		'ID_CRITERIO' => 'int',
+		'ID_RESULTADO' => 'int',
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
 		'ID_ALUMNO' => 'int',
@@ -78,7 +78,7 @@ class SubcriteriosHasAlumnosHasHorario extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Subcriterio::class, 'ID_SUBCRITERIO')
 					->where('subcriterios.ID_SUBCRITERIO', '=', 'subcriterios_has_alumnos_has_horarios.ID_SUBCRITERIO')
-					->where('subcriterios.ID_CRITERIO', '=', 'subcriterios_has_alumnos_has_horarios.ID_CRITERIO')
+					->where('subcriterios.ID_RESULTADO', '=', 'subcriterios_has_alumnos_has_horarios.ID_RESULTADO')
 					->where('subcriterios.ID_ESPECIALIDAD', '=', 'subcriterios_has_alumnos_has_horarios.ID_ESPECIALIDAD')
 					->where('subcriterios.ID_SEMESTRE', '=', 'subcriterios_has_alumnos_has_horarios.ID_SEMESTRE');
 	}

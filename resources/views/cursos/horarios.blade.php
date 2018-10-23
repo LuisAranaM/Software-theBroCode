@@ -53,19 +53,17 @@
       </div>
     </div>
     <div id="listHorarios">
-      @foreach($horario as $h)
-        @if($h->ESTADO===1)
-        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}">
+      @foreach($horarios as $horario)
+        @if($horario->ESTADO===1)
+        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$horario->ID_HORARIO}}">
         <div class="x_content bs-example-popovers courseContainer">
           <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-            <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" codigoHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
-
+            <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" idHorario="{{$horario->ID_HORARIO}}" nombreHorario="{{$horario->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
             </button>
-            <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+            <p class="pText">{{$horario->NOMBRE_HORARIO}} - {{$horario->NOMBRE_PROFESOR}}</p>
           </div>
         </div>
-        </a>
-
+      </a>
         @endif
       @endforeach
     </div>
@@ -92,7 +90,7 @@
       <div class="col-md-8">
         <div class="btn-group btn-group-justified" data-toggle="buttons" >
         @foreach($subcriterios as $subcriterio)
-          @if($subcriterio->ID_CRITERIO===$criterio->ID_CRITERIO)
+          @if($subcriterio->ID_RESULTADO===$criterio->ID_RESULTADO)
           <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
             <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
             <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
@@ -105,7 +103,7 @@
         </div>
       </div>
       <div class="col-md-1">
-        <label codigoCriterio="{{$criterio->ID_CRITERIO}}" nombreCriterio="{{$criterio->NOMBRE}}" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+        <label codigoCriterio="{{$criterio->ID_RESULTADO}}" nombreCriterio="{{$criterio->NOMBRE}}" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
           <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
               +
@@ -192,18 +190,18 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
                 </th>
               </tr>
             </thead>
-            @foreach($horario as $h)
+            @foreach($horarios as $horario)
             <tbody class="text-left">
               <tr class="even pointer">
                 <td class="a-center"  style="background-color: white; padding-right: 0px">
                  <div class="form-check" style="padding-left: 10px; width: 20px">
                   <label>
-                    <input value="{{$h->ID_HORARIO}}" class="get_value" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
+                    <input value="{{$horario->ID_HORARIO}}" class="get_value" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
                   </label>
                 </div>
               </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$h->NOMBRE_HORARIO}}</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$h->NOMBRE_PROFESOR}}</td>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
             </td>
             @endforeach
           </tr>
@@ -260,18 +258,18 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
               </tr>
             </thead>
 
-            @foreach($horario as $h)
+            @foreach($horarios as $horario)
             <tbody class="text-left">
               <tr class="even pointer">
                 <td class="a-center"  style="background-color: white; padding-right: 0px">
                  <div class="form-check" style="padding-left: 10px; width: 20px">
                   <label>
-                    <input value="{{$h->ID_HORARIO}}" type="checkbox" @if($h->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
+                    <input value="{{$horario->ID_HORARIO}}" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
                   </label>
                 </div>
               </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$h->NOMBRE_HORARIO}}</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$h->NOMBRE_PROFESOR}}</td>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
+              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
             </td>
             @endforeach
           </tr>

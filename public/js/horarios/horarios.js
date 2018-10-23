@@ -32,41 +32,42 @@ $( document ).ready(function() {
 				idHorarios: horarios
 				
 			},
-			dataType: "json",
 			success: function(resultData) {
 			}
 		});
 	}
 	
 	$('.closeHorario').on('click', function(e) {
-        var codigoHorario=$(this).attr('codigoHorario');
+        var idHorario=$(this).attr('idHorario');
         var nombreHorario=$(this).attr('nombreHorario');
         var resp=confirm("¿Estás seguro que deseas dejar de evaluar "+nombreHorario+"?");
         var botonHorario=$(this).closest('div').closest('div');
         if (resp == true) {
-            eliminarHorarioEvaluar(codigoHorario,botonHorario);            
-        } 
-        e.preventDefault();        
+            eliminarHorarioEvaluar(idHorario,botonHorario);            
+		} 
+		window.location.reload();      
 	});
 
-	function eliminarHorarioEvaluar(codigoHorario,botonHorario){
+	function eliminarHorarioEvaluar(idHorario,botonHorario){
+		console.log(idHorario);
+		console.log(APP_URL);
 		$.ajax({
-			url: APP_URL + '/horarios/eliminar-evaluacion-horario',
-			type: 'POST',        
+			type: 'POST',  
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
+			url: APP_URL + '/horarios/eliminar-evaluacion-horario',
 			data:{
-				codigoHorario:codigoHorario,
+				idHorario:idHorario,
 			},
 			success: function (result) {
-					botonHorario.hide();
+				botonHorario.hide();
 			},
-				error: function (xhr, status, text) {
-					e.preventDefault();
-					alert('Hubo un error al registrar la información');
-					item.removeClass('hidden').prev().addClass('hidden');
-				}
+			error: function (xhr, status, text) {
+				//e.preventDefault();
+				alert('Hubo un error al registrar la información (ajax)');
+				//item.removeClass('hidden').prev().addClass('hidden');
+			}
 			});
 	
 	}
@@ -118,5 +119,5 @@ $( document ).ready(function() {
     });
 		
     var list = document.getElementById("tab-list");
-	new Sortable(list);
+	//new Sortable(list);
 });

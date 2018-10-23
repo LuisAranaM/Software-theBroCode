@@ -38,7 +38,7 @@ class HorarioController extends Controller
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)
         ->with('idCurso',$idCurso)
-        ->with('horario',eHorario::getHorarios($idCurso))
+        ->with('horarios',eHorario::getHorarios($idCurso))
         ->with('criterios',eCriterio::getCriteriosbyIdCurso($idCurso))
         ->with('subcriterios',eSubcriteriosHasCurso::getSubCriteriosbyIdCurso($idCurso));
             
@@ -46,14 +46,14 @@ class HorarioController extends Controller
 
     public function eliminarEvaluacionHorarios(Request $request){        
         //dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'codigoHorario' => 'required'
+        /*$validator = Validator::make($request->all(), [
+            'idHorario' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(array_flatten($validator->errors()->getMessages()), 404);
-        }
+        }*/
         $horario = new eHorario();          
-        if($horario->eliminarEvaluacion($request->get('codigoHorario'),Auth::id())){
+        if($horario->eliminarEvaluacion($request->get('idHorario'),Auth::id())){
             flash('El curso se eliminó con éxito')->success();
         } else {
             flash('Hubo un error al tratar de eliminar el curso')->error();
@@ -79,7 +79,7 @@ class HorarioController extends Controller
                         $lista_horarios = ['ID_CURSO'=>$auxIdCurso, 'ID_ESPECIALIDAD'=>$especialidad, 'SEMESTRES_ID_SEMESTRE'=>$semestre_actual, 
                                             'NOMBRE'=>$value->horario,'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
                                             'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
-                        $idCurso = DB::table('HORARIO')->insert($lista_horarios);
+                        $idCurso = DB::table('HORARIOS')->insert($lista_horarios);
                         //por el momento consideremos que solo hay un profesor por curso :c
                         $auxNombProfe = explode(",",$value->nombre);
                         $apellidos = explode(" ",$auxNombProfe[0]);

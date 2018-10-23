@@ -12,7 +12,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 /**
  * Class Criterio
  * 
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -26,7 +26,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Categoria extends Eloquent
 {
-	protected $table = 'CRITERIO';
+	protected $table = 'RESULTADOS';
 	public $timestamps = false;
 
 	protected $casts = [
@@ -51,7 +51,7 @@ class Categoria extends Eloquent
 	];
 
 	public function insertCategoria($esp,$sem,$categoria, $criterio){
-		$id = DB::table('CRITERIO')->insertGetId(
+		$id = DB::table('RESULTADOS')->insertGetId(
 		    	['ID_ESPECIALIDAD'=>$esp,
 		    	 'ID_SEMESTRE'=>$sem,
 		    	 'NOMBRE' => $categoria,
@@ -62,8 +62,8 @@ class Categoria extends Eloquent
 		return $id;
 	}
 	static function getCategoriasId($idCrit) {
-        $sql = DB::table('CRITERIO')
-                ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
+        $sql = DB::table('RESULTADOS')
+                ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
 
                 ->where('ID_CATEGORIA', '=', $idCrit)
                 ->where('ESTADO','=', 1);
@@ -71,8 +71,8 @@ class Categoria extends Eloquent
     }
 
     static function getCategorias() {
-        $sql = DB::table('CRITERIO')
-                ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
+        $sql = DB::table('in')
+                ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
                 ->where('ESTADO','=', 1);
         return $sql;
     }

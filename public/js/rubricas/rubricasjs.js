@@ -25,7 +25,7 @@ $( document ).ready(function() {
                 	html+= '<div id="myDIVCategorias" class="myDIVCategoriasclass">'
 				
 					html+= '<div class="x_content bs-example-popovers courseContainer">'
-					html+= '<div id="'+result[0].ID_CRITERIO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
+					html+= '<div id="'+result[0].ID_RESULTADO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
 					html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
 					html+= '</button>'
 					html+= '<p class="pText">'+result[0].NOMBRE+'</p>'
@@ -35,7 +35,7 @@ $( document ).ready(function() {
 
 				for (i = 1; i <result.length; i++) {
 					html+= '<div class="x_content bs-example-popovers courseContainer">'
-					html+= '<div id="'+result[i].ID_CRITERIO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+					html+= '<div id="'+result[i].ID_RESULTADO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
 					html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
 					html+= '</button>'
 					html+= '<p class="pText">'+result[i].NOMBRE+'</p>'
@@ -58,7 +58,7 @@ $( document ).ready(function() {
 			    		500);		 					
 				}else{
 					if(result.length>0){
-						refrescarIndicadores(result[0].ID_CRITERIO);
+						refrescarIndicadores(result[0].ID_RESULTADO);
 					}else{
 						refrescarIndicadores();
 					}

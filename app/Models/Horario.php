@@ -84,11 +84,11 @@ class Horario extends Eloquent
 
 
 	static function getAvance($idHorario){
-		$tot = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+		$tot = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
 				->select('*')
 				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
 				->count();
-		$part = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+		$part = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
 				->select('*')
 				->whereRaw('ID_HORARIO = ? AND ID_ESCALA <> 0 AND ESTADO = 1',[$idHorario])
 				->count();
@@ -103,7 +103,7 @@ class Horario extends Eloquent
 		$alumnos = Alumno::getAlumnosByHorario($idHorario);
 		$ans = 0;
 		foreach($alumnos as $x){
-			$current = DB::table('SUBCRITERIOS_HAS_ALUMNOS_HAS_HORARIOS')
+			$current = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
 						->select('*')
 						->whereRaw('ID_HORARIO = ? AND ID_ALUMNO = ? AND ID_ESCALA <> 0', [$idHorario,$x->ID_ALUMNO])
 						->count();
@@ -123,7 +123,7 @@ class Horario extends Eloquent
 
 	static function getHorariosCompleto($idCurso,$idSemestre){
 		//Tiene que ser por el ID del usuario
-		$sql = DB::table('HORARIO')
+		$sql = DB::table('HORARIOS')
 				->select('*')
 				->where('ID_CURSO','=',$idCurso)
 				->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
@@ -132,9 +132,9 @@ class Horario extends Eloquent
 	}
 
 
-	static function getHorarios($idCurso) {
+	static function getHorarios($idCurso,$idSemestre) {
 		//dd($idCurso);
-        $sql = DB::table('HORARIO AS H')
+        $sql = DB::table('HORARIOS AS H')
 				->select('H.ID_HORARIO', 'P.ID_USUARIO', 'H.NOMBRE AS NOMBRE_HORARIO', 'H.ESTADO AS ESTADO',DB::Raw('CONCAT(P.NOMBRES, " " , P.APELLIDO_PATERNO) AS NOMBRE_PROFESOR'))
                 ->leftJoin('PROFESORES_HAS_HORARIOS AS PH', function ($join) {
 					$join->on('H.ID_HORARIO', '=', 'PH.ID_HORARIO');
@@ -142,16 +142,15 @@ class Horario extends Eloquent
 				->leftJoin('USUARIOS AS P', function ($join) {
 					$join->on('PH.ID_USUARIO', '=', 'P.ID_USUARIO');
 				})
-
-				->where('H.ID_CURSO', '=', $idCurso);
-
+				->where('H.ID_CURSO', '=', $idCurso)
+				->where('H.ID_SEMESTRE','=',$idSemestre);
         //dd($sql->get());
         return $sql;
 	}
 
 	static function getHorarioByIdHorario($idHorario){
 		//dd($idCurso);
-        $sql = DB::table('HORARIO AS H')
+        $sql = DB::table('HORARIOS AS H')
 				->select('H.*')
 				->where('H.ID_HORARIO', '=', $idHorario)
 
@@ -169,7 +168,7 @@ class Horario extends Eloquent
         $status = true;
 		try {
 			foreach(array_combine($idHorarios,$estadoEv) as  $idHorario => $estado ){
-				DB::table('HORARIO AS H')
+				DB::table('HORARIOS AS H')
 				->where('H.ID_HORARIO', $idHorario)
 				->update(['H.ESTADO' => (int)$estado,
 						'H.FECHA_ACTUALIZACION'=>Carbon::now(),
@@ -186,13 +185,12 @@ class Horario extends Eloquent
 		return $status;
     }
 
-	function eliminarEvaluacion($idSemestre,$idHorario,$usuario){
-    	 	
+	function eliminarEvaluacion($idSemestre,$idHorario,$usuario){	
     	DB::beginTransaction();
         $status = true;
        
         try {
-			DB::table('HORARIO AS H')
+			DB::table('HORARIOS AS H')
 				->where('H.ID_HORARIO', (int)$idHorario)
     			->update(['H.ESTADO'=> 0,
 	    				'H.FECHA_ACTUALIZACION'=>Carbon::now(),

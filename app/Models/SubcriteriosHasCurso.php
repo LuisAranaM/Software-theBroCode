@@ -15,7 +15,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class SubcriteriosHasCurso
  * 
  * @property int $ID_SUBCRITERIO
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property int $ID_CURSO
@@ -36,7 +36,7 @@ class SubcriteriosHasCurso extends Eloquent
 
 	protected $casts = [
 		'ID_SUBCRITERIO' => 'int',
-		'ID_CRITERIO' => 'int',
+		'ID_RESULTADO' => 'int',
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
 		'ID_CURSO' => 'int',
@@ -63,9 +63,12 @@ class SubcriteriosHasCurso extends Eloquent
 
 
 	static function getSubCriteriosbyIdCurso($idCurso) {
-		$sql = DB::table('SUBCRITERIOS_HAS_CURSOS')
-				->leftJoin('SUBCRITERIOS', 'SUBCRITERIOS.ID_SUBCRITERIO', '=', 'SUBCRITERIOS_HAS_CURSOS.ID_SUBCRITERIO')
-				->where('SUBCRITERIOS_HAS_CURSOS.ID_CURSO','=',$idCurso)
+		$sql = DB::table('INDICADORES_HAS_CURSOS')
+				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
+				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
+				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
 				->distinct();
         //dd($sql->get());
         return $sql;
@@ -76,9 +79,9 @@ class SubcriteriosHasCurso extends Eloquent
 	public function subcriterio()
 	{
 		return $this->belongsTo(\App\Models\Subcriterio::class, 'ID_SUBCRITERIO')
-					->where('subcriterios.ID_SUBCRITERIO', '=', 'subcriterios_has_cursos.ID_SUBCRITERIO')
-					->where('subcriterios.ID_CRITERIO', '=', 'subcriterios_has_cursos.ID_CRITERIO')
-					->where('subcriterios.ID_ESPECIALIDAD', '=', 'subcriterios_has_cursos.ID_ESPECIALIDAD')
-					->where('subcriterios.ID_SEMESTRE', '=', 'subcriterios_has_cursos.ID_SEMESTRE');
+					->where('subcriterios.ID_SUBCRITERIO', '=', 'indicadores_has_cursos.ID_INDICADOR')
+					->where('subcriterios.ID_RESULTADO', '=', 'indicadores_has_cursos.ID_RESULTADO')
+					->where('subcriterios.ID_ESPECIALIDAD', '=', 'indicadores_has_cursos.ID_ESPECIALIDAD')
+					->where('subcriterios.ID_SEMESTRE', '=', 'indicadores_has_cursos.ID_SEMESTRE');
 	}
 }

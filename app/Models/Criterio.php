@@ -12,7 +12,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 /**
  * Class Criterio
  * 
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -62,10 +62,12 @@ class Criterio extends Eloquent
 	}
 	
 	static function getCriteriosbyIdCurso($idCurso) {
-		$sql = DB::table('SUBCRITERIOS_HAS_CURSOS')
-				->leftJoin('CRITERIO', 'SUBCRITERIOS_HAS_CURSOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
-				->select('CRITERIO.ID_CRITERIO', 'CRITERIO.NOMBRE')
-				->where('SUBCRITERIOS_HAS_CURSOS.ID_CURSO','=',$idCurso)
+		$sql = DB::table('INDICADORES_HAS_CURSOS')
+				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
+				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
+				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE')
 				->distinct();
         //dd($sql->get());
         return $sql;
@@ -95,6 +97,6 @@ class Criterio extends Eloquent
 
 	public function subcriterios()
 	{
-		return $this->hasMany(\App\Models\Subcriterio::class, 'ID_CRITERIO');
+		return $this->hasMany(\App\Models\Subcriterio::class, 'ID_RESULTADO');
 	}
 }

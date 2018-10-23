@@ -40,7 +40,7 @@ class ProyectoController extends Controller
                      ->select(DB::raw('ID_ALUMNO'))
                      ->where('CODIGO', '=', $codigo)
                      ->get();
-        $idHorario = DB::table('HORARIO')
+        $idHorario = DB::table('HORARIOS')
                      ->select(DB::raw('ID_HORARIO'))
                      ->where('NOMBRE', '=', $horario)
                      ->get();

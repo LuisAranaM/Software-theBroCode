@@ -37,14 +37,14 @@ class CriterioController extends Controller
         $resultados = eCriterio::getCriterios()->toArray();
         if(is_null($request->resultado)){
             $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
-            $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray();
+            $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_RESULTADO)->toArray();
             $request->resultado = $resultados[0]->ID_CATEGORIA;
         }
         else{
             $categorias = eCategoria::getCategoriasId($request->resultado)->toArray();
             if(is_null($request->categoria)){
-                $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CRITERIO)->toArray(); 
-                $request->categoria = $categorias[0]->ID_CRITERIO;           
+                $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_RESULTADO)->toArray(); 
+                $request->categoria = $categorias[0]->ID_RESULTADO;           
             }
             else{
                 $indicadores = eSubcriterio::getSubCriteriosId($request->categoria)->toArray();

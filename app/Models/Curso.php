@@ -77,7 +77,7 @@ class Curso extends Eloquent
 
 	public function subcriterios()
 	{
-		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
+		return $this->belongsToMany(\App\Models\Subcriterio::class, 'indicadores_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}
 
   static function trace($cad){
@@ -123,9 +123,9 @@ class Curso extends Eloquent
 
 	static function getCursoByIdHorario($idHorario) {
         $sql = DB::table('CURSOS AS CURSOS')
-                ->join('HORARIO', 'CURSOS.ID_CURSO', '=', 'HORARIO.ID_CURSO')
+                ->join('HORARIOS', 'CURSOS.ID_CURSO', '=', 'HORARIOS.ID_CURSO')
                 ->select('CURSOS.ID_CURSO', 'CURSOS.NOMBRE', 'CURSOS.CODIGO_CURSO')
-                ->where('HORARIO.ID_HORARIO',(int)$idHorario)
+                ->where('HORARIOS.ID_HORARIO',(int)$idHorario)
                 ->distinct();
         //dd($sql->get());
         return $sql;
