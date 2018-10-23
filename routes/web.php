@@ -89,6 +89,7 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 #Route::get('upload', 'CursoController@showForm');
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
+Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {

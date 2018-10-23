@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Entity\Horario as eHorario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class HorarioController extends Controller
 {
@@ -35,7 +36,7 @@ class HorarioController extends Controller
 
     public function guardarHorarios(Request $request){
 
-        if($request->hasFile('upload'))
+        if($request->hasFile('upload')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();
             $fecha = date("Y-m-d H:i:s");
@@ -75,7 +76,7 @@ class HorarioController extends Controller
                     #Curso::insert($lista_cursos);
                     DB::table('PROFESORES_HAS_HORARIOS')->insert($listaProfxHor);
                     \Session::flash('Éxito', '¡Excel importado con éxito, horarios y profesores actualizados!');
-                
+                }
                 
             }
 
