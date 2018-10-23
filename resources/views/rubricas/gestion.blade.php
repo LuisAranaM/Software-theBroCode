@@ -9,200 +9,144 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}" >
     
     <!-- TITULO -->
-    <div class="row">
-      <div class="col-md-8 col-sm-6">
-        <h1 class="mainTitle">Gestionar Rúbricas</h1>
+    <div class="row" style="padding-right: 10px; padding-bottom: 10px">
+      <div class="col-md-8 col-xs-6">
+        <h1 class="mainTitle" style="padding-left: 10px">Lista de Resultados</h1>
       </div>
-      <div class="col-md-4 col-sm-6" style="text-align: right">
+      <div class="col-md-4 col-xs-6" style="text-align: right">
         <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar"> Guardar Rúbrica </button>
         <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="descargar_button" value="descargar"> Descargar Rúbrica </button>
       </div>
     </div>
+    
 
     <!-- RESULTADOS -->
-    <div class="col-xs-12">
-      <div id="apRes" class="  x_panel tile coursesBox ">
-        <div class="col-md-12 ">
-         <h1 class="secondaryTitle mainTitle" >Nuevo Resultado</h1>
-       </div>
-       <div class="row rowFinal2">
-        <div class="col-md-3 inputLeft no-padding">
-          <input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" placeholder="Código" >     
-        </div>
-        <div class="col-md-9 inputRight no-padding">
-          <!--<input type="text" id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" >   -->
-          <textarea type="text" id="txtResultado" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+
+    <div class="col-md-3 col-xs-6 ">
+      <div class="resultContainer no-padding x_panel tile coursesBox">
+        <div class="outer">
+          <div class="middle">
+            <div id ="CargarCurso" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
+              <img src="{{ URL::asset('img/add.png') }}" style="height: 45px">
+              <p class="pText" >Agregar Nuevo Resultado</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row rowFinal2 text-right">
-        <button id="btnAgregarResultado" type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="agregar_resultado" value="agregar"> Agregar Resultado </button>
+    </div>
+
+    <div class="col-md-3 col-xs-6">
+      <div class="resultContainer no-padding x_panel tile coursesBox">
+        @if (!is_null($firstR= array_shift($resultados)))
+        <div class="bs-example-popovers">
+          <a href="{{ route('rubricas.categorias') }}">
+            <div class="outer">
+              <div class="middle">
+                <div id="{{$firstR->ID_CATEGORIA}}" class="resultButton inner text-center resultButton activeButton alert-success alert-dismissible fade in" role="alert">
+                  <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black"> {{$firstR->NOMBRE}} <br> </span> {{$firstR->DESCRIPCION}}</p>
+
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        @endif
       </div>
-      <div class="col-md-8 col-sm-6">
-       <h1 class="secondaryTitle mainTitle" >Lista de Resultados</h1>
-     </div>
-     <div id="myDIVResultados">
-      @if (!is_null($firstR= array_shift($resultados)))
-      <div class="x_content bs-example-popovers courseContainer">
-          <div id="{{$firstR->ID_CATEGORIA}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
-            <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-            </button>
-            <p class="pText">{{$firstR->NOMBRE}} {{$firstR->DESCRIPCION}}</p>
+    </div>
+    @foreach ($resultados as $resultado) 
+    <div class="col-md-3 col-xs-6">
+      <div class="resultContainer no-padding x_panel tile coursesBox">
+        <div class="bs-example-popovers">
+          <div class="outer">
+            <div class="middle">
+              <div id="{{$resultado->ID_CATEGORIA}}" class="inner text-center resultButton alert-success alert-dismissible fade in" role="alert">
+                <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black">  {{$resultado->NOMBRE}} <br> </span>{{$resultado->DESCRIPCION}}</p>
+              </div>
+            </div>
           </div>
+        </div>
+        
       </div>
-      @endif
-      @foreach ($resultados as $resultado) 
-      <div class="x_content bs-example-popovers courseContainer">
-          <div id="{{$resultado->ID_CATEGORIA}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-            <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-            </button>
-            <p class="pText">{{$resultado->NOMBRE}} {{$resultado->DESCRIPCION}}</p>
+    </div>
+    @endforeach
+
+
+
+    <!--MODAL-->
+    <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+    id="modalCursos" data-keyboard="false" data-backdrop="static"
+    aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+    <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Nuevo Resultado</h4>
+      </div>
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+      <div class="modal-body"> 
+        <div class="container-fluid" style="">
+          <form id="frmAgregarCursos" action="{{route('agregar.acreditacion')}}" method="POST">
+            {{ csrf_field() }}
+            <div class="tile coursesModalBox" style="padding-bottom: 20px;">
+
+             <div class="row rowFinal2">
+              <div class="col-xs-12">
+                <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Resultado</p>
+              </div>
+              <div class="col-xs-12" style="padding-bottom: 6px">
+                <input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" placeholder="Código" >     
+              </div>
+              <div class="col-xs-12">
+                <textarea type="text" id="txtResultado" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+              </div>
+              <div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
+                <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>
+              </div>
+              <div class="col-xs-11">
+
+                <textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
+              </div>
+              <div class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
+                <i class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
+              </div>
+
+            </div>
           </div>
+
+          <div id="btnsAgregarCurso" class="modal-footer">
+            <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButton upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+              </div>
+              <div class="col-md-4">
+                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              </div>
+
+            </div>
+
+          </div>
+        </form>
       </div>
-      @endforeach
     </div>
   </div>
-</div>
 
-<!-- CATEGORÍAS -->
-<div class="col-xs-12 divcategorias">
-  <div id="apCat" class="  x_panel tile coursesBox ">
-    <div class="col-md-12 ">
-     <h1 class="secondaryTitle mainTitle" >Nueva Categoría</h1>
-   </div>
-   <div class="row rowFinal2">
-    <div class="col-md-12 inputRight no-padding">
-      <!--<input type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" > -->
-      <textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>       
-    </div>
-  </div>
-  <div class="row rowFinal2 text-right">
-    <button id="btnAgregarCategoria" type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="agregar_categoria" value="agregar"> Agregar Categoría </button>
-  </div>
-  <div class="col-md-8 col-sm-6">
-   <h1 class="secondaryTitle mainTitle" >Lista de Categorías</h1>
- </div>
- <div id="myDIVCategorias" class="myDIVCategoriasclass">
-  @if (!is_null($firstC= array_shift($categorias)))
-  <div class="x_content bs-example-popovers courseContainer">
-      <div id="{{$firstC->ID_CRITERIO}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
-        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText">{{$firstC->NOMBRE}}</p>
-      </div>
-  </div>
-  @endif
-  @foreach ($categorias as $categoria)
-  <div class="x_content bs-example-popovers courseContainer">
-      <div id="{{$categoria->ID_CRITERIO}}" class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText">{{$categoria->NOMBRE}}</p>
-      </div>
-    </a> 
-  </div>
-  @endforeach
-
+  <!-- /.modal-content -->
 </div>
+<!-- /.modal-dialog -->
 </div>
-</div>
+<!-- /.modal -->
 
 
-<!-- INDICADORES -->
-<div class="col-xs-12 divindicadores">
-  <div id= "apInd" class="  x_panel tile coursesBox ">
-    <div class="col-md-12 ">
-     <h1 class="secondaryTitle mainTitle" >Nuevo Indicador</h1>
-   </div>
-   <div class="row rowFinal2">
-    <div class="col-md-12 inputRight no-padding">
-      <!--<input type="text" id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo"  placeholder="Descripción" >    -->
-      <textarea id="txtIndicador" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea> 
-    </div>
-  </div>
-  <div class="row rowFinal2 text-right">
-    <button id="btnAgregarIndicador" type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="agregar_indicador" value="agregar"> Agregar Indicador </button>
-  </div>
-  <div class="col-md-8 col-sm-6">
-   <h1 class="secondaryTitle mainTitle" >Lista de Indicadores</h1>
- </div>
- <div id="myDIVIndicadores" class="myDIVIndicadoresclass">
-  @if (!is_null($firstI= array_shift($indicadores)))
-  <div class="x_content bs-example-popovers courseContainer">
-      <div id="{{$firstI->ID_SUBCRITERIO}}" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">
-        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText">{{$firstI->NOMBRE}}</p>
-      </div>
-  </div>
-  @endif
-  @foreach ($indicadores as $indicador)
-  <div class="x_content bs-example-popovers courseContainer">
-      <div id="{{$indicador->ID_SUBCRITERIO}}"class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-        <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <p class="pText">{{$indicador->NOMBRE}}</p>
-      </div>
-  </div>
-  @endforeach
-</div>
-</div>
 
-<!-- VALORIZACIÓN -->
-<div class="col-xs-12 divvalorizaciones">
-  <div id="apEsc" class="  x_panel tile coursesBox ">
-    <div class="col-md-12 ">
-     <h1 class="secondaryTitle mainTitle" >Nueva Valorización</h1>
-   </div>
-   <div class="row rowFinal2">
-    <div class="col-md-3 inputLeft no-padding">
-      <input type="text" id="txtEscala" class="form-control pText customInput" name="codigo" placeholder="Nivel" >     
-    </div>
-    <div class="col-md-9 inputRight no-padding">
-      <!--<input type="text" id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo" placeholder="Descripción" >  -->
-      <textarea type="text" id="txtValorizacion" class="form-control pText customInput" name="nombre" placeholder="Descripción"  rows="3" cols="30" style="resize: none;" ></textarea>     
-    </div>
-  </div>
-  <div class="row rowFinal2 text-right">
-    <button id="btnAgregarEscala" type="button" class="customButtonLarge btn btn-success btn-lg pText customButtonRubr" name="agregar_escala" value="agregar"> Agregar Valorización </button>
-  </div>
-  <div class="col-md-8 col-sm-6">
-   <h1 class="secondaryTitle mainTitle" >Lista de Valorizaciones</h1>
- </div>
 
- <div id="myDIVValorizaciones" class="myDIVValorizacionesclass">
- <div class="x_content bs-example-popovers courseContainer">
-  <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-    <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <p class="pText">{{$escalas[0]->NOMBRE}} {{$descripciones[0]}}</p>
-  </div>
-</div>
-<div class="x_content bs-example-popovers courseContainer">
-  <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-    <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <p class="pText">{{$escalas[1]->NOMBRE}} {{$descripciones[1]}}</p>
-  </div>
-</div>
-<div class="x_content bs-example-popovers courseContainer">
-  <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-    <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <p class="pText">{{$escalas[2]->NOMBRE}} {{$descripciones[2]}}</p>
-  </div>
-</div>
-<div class="x_content bs-example-popovers courseContainer">
-  <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-    <button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <p class="pText">{{$escalas[3]->NOMBRE}} {{$descripciones[3]}}</p>
-  </div>
-</div>
-</div>
-
-</div>
 </div>
 </form>
+
+
+
 @stop
 
 @section('js-scripts')
