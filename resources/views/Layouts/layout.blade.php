@@ -23,6 +23,8 @@
 <link href="{{ URL::asset('css/pnotify.buttons.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/pnotify.nonblock.css') }}" rel="stylesheet">
 
+<link href="{{ URL::asset('css/daterangepicker.css') }}" rel="stylesheet">
+
   <!--JS-->
   <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
   <script type="text/javascript"  src="{{ URL::asset('js/jquery-1.12.4.min.js') }}"></script>
