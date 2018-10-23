@@ -3,6 +3,10 @@ $( document ).ready(function() {
 		$("#modalHorarios").modal("show");
 	});
 
+	$("#btnAgregarResultado").on("click", function(){
+		$("#modalResultados").modal("show");
+	});
+
 	$('#btnCancelarHorarios').click(function() {
 		$('#modalHorarios').modal('hide');
 	});

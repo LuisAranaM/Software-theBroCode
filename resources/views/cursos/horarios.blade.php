@@ -82,38 +82,325 @@
         <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
       </div>
     </div>
-    @foreach($criterios as $criterio)
+    
     <!--Criterio 1-->
-    <div class="row" style="margin-bottom: 30px">
-      <div class="col-md-3 pText">
-        Criterio {{$criterio->NOMBRE}}
+    <div class="x_content bs-example-popovers courseContainer">
+
+      <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+
+        <button id="btnAgregarResultado" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+        </button>
+        <p class="pText"> Agregar Nuevo Horario </p>
+      </div>
+    </div>
+    
+    <div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btnCriteria btn btn-primary active">
+						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+							A1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">x</span>
+            </button>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+							1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+							2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							4
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							<i class="fa fa-caret-up"></i>
+						</span>
+					</label>
+				</div>
+				<div class="text-left" style="border: solid 1px #ccc">
+					<p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
+
+						1: Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo <br>
+						2: Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo <br>
+						3: Tener la capacidad de modificar un algoritmo <br>
+					4: Desarrollar el algoritmo nuevo a partir de una especificación</p>
+				</div>
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btnCriteria btn btn-primary active">
+						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+							A2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+							1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+							2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							4
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							<i class="fa fa-caret-down"></i>
+						</span>
+					</label>
+				</div>
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btnCriteria btn btn-primary active">
+						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+							A3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+							1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+							2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							4
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							<i class="fa fa-caret-down"></i>
+						</span>
+					</label>
+
+
+				</div>
+    
+    <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+		id="modalResultados" data-keyboard="false" data-backdrop="static"
+		aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+		<div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
+			<div class="modal-content" style="top: 40%">
+				<div class="modal-header" style="padding-left: 0px; padding-right: 0px">
+					<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close" style="padding-right: 10px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+				<h1 class="reportsTitle mainTitle">Alumno a Calificar: Daniela Argumanis</h1>
+				<p class="pText" style="text-align: center">Criterio A: Matemáticas </p>
+			</div>
+			<div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btnCriteria btn btn-primary active">
+						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+							A1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+							1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+							2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							4
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							<i class="fa fa-caret-up"></i>
+						</span>
+					</label>
+				</div>
+				<div class="text-left" style="border: solid 1px #ccc">
+					<p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
+
+						1: Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo <br>
+						2: Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo <br>
+						3: Tener la capacidad de modificar un algoritmo <br>
+					4: Desarrollar el algoritmo nuevo a partir de una especificación</p>
+				</div>
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btnCriteria btn btn-primary active">
+						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+							A2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+							1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+							2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							4
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							<i class="fa fa-caret-down"></i>
+						</span>
+					</label>
+				</div>
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btnCriteria btn btn-primary active">
+						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+							A3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+							1
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+							2
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							3
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							4
+						</span>
+					</label>
+					<label class="btnCriteria btn btn-primary">
+						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+							<i class="fa fa-caret-down"></i>
+						</span>
+					</label>
+
+
+				</div>
+				<div class="row" style="padding-top: 10px">
+					<div class="col-xs-6 text-left">
+						<i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Criterio C</span></i> 
+					</div>
+					<div class="col-xs-6 text-right">
+						<span class="pText">Criterio B</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
+
+    <!--<div class="row" style="margin-bottom: 30px">-->
+      <!--<div class="col-md-3 pText">
+        Holi
       </div>
       
       <div class="col-md-8">
         <div class="btn-group btn-group-justified" data-toggle="buttons" >
-        @foreach($subcriterios as $subcriterio)
-          @if($subcriterio->ID_CRITERIO===$criterio->ID_CRITERIO)
           <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
             <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
             <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-            {{$criterio->NOMBRE}}
+
             </span>
           </label>
-          @endif
-        @endforeach
+
           </label>
         </div>
       </div>
       <div class="col-md-1">
-        <label codigoCriterio="{{$criterio->ID_CRITERIO}}" nombreCriterio="{{$criterio->NOMBRE}}" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+        <label codigoCriterio="asdasdasd" nombreCriterio="dsdasd" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
           <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
               +
            </span>
         </label>
-      </div>
-    </div>
-    @endforeach
+      </div> -->
+
+    <!--</div>-->
+
     </div>
 </div>
 
