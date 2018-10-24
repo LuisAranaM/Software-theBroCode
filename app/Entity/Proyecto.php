@@ -21,6 +21,8 @@ class Proyecto extends \App\Entity\Base\Entity {
             'FECHA_REGISTRO' => $this->_fechaRegistro,
         ]);
     }
-
+    static function getRutaProyectos($idHorario){
+        return mProyecto::getRutaProyectos($idHorario);
+    }
     
 }
