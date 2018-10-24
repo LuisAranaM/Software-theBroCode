@@ -58,13 +58,28 @@ class Criterio extends Eloquent
                 ->where('ESTADO','=',1);
         //dd($sql->get());
         return $sql;
-    }
+
+	}
+	
+	static function getCriteriosbyIdCurso($idCurso) {
+		$sql = DB::table('SUBCRITERIOS_HAS_CURSOS')
+				->leftJoin('CRITERIO', 'SUBCRITERIOS_HAS_CURSOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
+				->select('CRITERIO.ID_CRITERIO', 'CRITERIO.NOMBRE')
+				->where('SUBCRITERIOS_HAS_CURSOS.ID_CURSO','=',$idCurso)
+				->distinct();
+        //dd($sql->get());
+        return $sql;
+	}
+	
+
 	public function insertCriterio($nombre, $desc){
 		$id = DB::table('CATEGORIAS')->insertGetId(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
 				 'ESTADO' => 1]);
+
 		DB::commit();
+
 		return $id;
 	}
 

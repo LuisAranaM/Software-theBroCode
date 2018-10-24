@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
@@ -41,6 +42,7 @@ class AlumnoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     
     private function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
@@ -55,8 +57,8 @@ class AlumnoController extends Controller
             $usuario = Auth::user();
             $id_usuario = Auth::id();
             $semestre_actual = Entity::getIdSemestre();
-            $idHorario = 2; // jiji
-            $idProyecto = 1; // jiji x2
+            $idHorario = $request->input('codigoHorario'); 
+            $idProyecto = 1; 
             //$especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
                 foreach ($data as $key => $value) {
@@ -111,6 +113,7 @@ class AlumnoController extends Controller
             flash('No se selecciono un archivo')->error();
         }
         return Redirect::back();
+
     }
 
     /**

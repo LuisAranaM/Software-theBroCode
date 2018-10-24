@@ -57,12 +57,14 @@ class Categoria extends Eloquent
 		    	 'NOMBRE' => $categoria,
 		     	 'ID_CATEGORIA' => $criterio,
 				 'ESTADO' => 1]);
+
 		DB::commit();
 		return $id;
 	}
 	static function getCategoriasId($idCrit) {
         $sql = DB::table('CRITERIO')
                 ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
+
                 ->where('ID_CATEGORIA', '=', $idCrit)
                 ->where('ESTADO','=', 1);
         return $sql;
@@ -74,5 +76,6 @@ class Categoria extends Eloquent
                 ->where('ESTADO','=', 1);
         return $sql;
     }
+
 	
 }

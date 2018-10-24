@@ -55,12 +55,15 @@ class Especialidad extends Eloquent
 	public function getEspecialidadUsuario($id_usuario)
 	{	
 		$sql=DB::table('USUARIOS AS US')
-				->select('ES.ID_ESPECIALIDAD')
+				->select('ES.ID_ESPECIALIDAD','ESPE.NOMBRE AS NOMBRE_ESPECIALIDAD')
 				->leftJoin('ESPECIALIDADES_HAS_PROFESORES AS ES',function($join){
 					$join->on('US.ID_USUARIO','=','ES.ID_USUARIO');
 				})
+				->leftJoin('ESPECIALIDADES AS ESPE',function($join){
+					$join->on('ES.ID_ESPECIALIDAD','=','ESPE.ID_ESPECIALIDAD');
+				})
 				->where('US.ID_USUARIO','=',$id_usuario);
-		return $sql->first()->ID_ESPECIALIDAD;
+		return $sql->first();
 	}	
 
 	public function actas()

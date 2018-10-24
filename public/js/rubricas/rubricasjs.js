@@ -6,7 +6,7 @@ $( document ).ready(function() {
     });
     //no pongo seleccion en validaciones pues esa casilla depende de indicadores 
     //y no hay más listas que desprendan de validaciones
-    function refrescarCategorias(idRes){
+    function refrescarCategorias(idRes,sel,idSel){
 		$.ajax({
 			url: APP_URL + '/rubricas/refrescar-categorias',
 			type:'GET',
@@ -45,14 +45,28 @@ $( document ).ready(function() {
 				if(result.length>0){
 					html+='</div>'
 					$('#apCat').append(html);
-					refrescarIndicadores(result[0].ID_CRITERIO);
+				}
+				if(sel==1){
+			    	$('#myDIVCategorias .courseButton').removeClass('activeButton');
+			    	$('#myDIVCategorias div.courseButton:last').addClass('activeButton');
+
+			    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+			    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
+					refrescarIndicadores(idSel);
+			    	$('html,body').animate({ 
+			    		scrollTop: $(".divindicadores").offset().top},
+			    		500);		 					
 				}else{
-					refrescarIndicadores();
+					if(result.length>0){
+						refrescarIndicadores(result[0].ID_CRITERIO);
+					}else{
+						refrescarIndicadores();
+					}
 				}
 			}
 		});
 	}
-	function refrescarIndicadores(idCat){
+	function refrescarIndicadores(idCat,sel,idSel){
 		$.ajax({
 			url: APP_URL + '/rubricas/refrescar-indicadores',
 			type:'GET',
@@ -78,8 +92,6 @@ $( document ).ready(function() {
 		    	  	html+='</div>'
 		  			html+='</div>'
                 }
-                else{
-                }
 
 				for (i = 1; i <result.length; i++) {
 					html+='<div class="x_content bs-example-popovers courseContainer">'
@@ -93,9 +105,21 @@ $( document ).ready(function() {
 				if(result.length>0){
 					html+='</div>'
 					$('#apInd').append(html);
-					refrescarEscalas(result[0].ID_SUBCRITERIO);
+				}
+				if(sel==1){
+			    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+			    	$('#myDIVIndicadores div.courseButton:last').addClass('activeButton');
+
+					refrescarEscalas(idSel);
+			    	$('html,body').animate({
+					scrollTop: $(document).height() - $(window).height()},
+					500);					
 				}else{
-					$('#myDIVValorizaciones').remove();
+					if(result.length>0){
+						refrescarEscalas(result[0].ID_SUBCRITERIO);
+					}else{
+						$('#myDIVValorizaciones').remove();
+					}
 				}
 			}
 		});
@@ -142,7 +166,7 @@ $( document ).ready(function() {
 		});
 	}
 
-    $('#myDIVResultados .courseButton').click(function(){
+    $('#apRes').on("click",".courseButton",function(){
     	refrescarCategorias($(this).attr('id'));
     	$('#myDIVResultados .courseButton').removeClass('activeButton');
     	$(this).addClass('activeButton'); //interiormente tambien refresca Categorias e Indicadores
@@ -182,7 +206,7 @@ $( document ).ready(function() {
 	//categorias ahora: (boton1:SELECCIONADO) boton2 boton3
 	//indicadoress ahora: (boton1:SELECCIONADO) boton2 boton3
 
-	$("#myDIVResultados .courseButton").click(function() {
+	$("#apRes").on("click",".courseButton",function() {
 		$('html,body').animate({
 			scrollTop: $(".divcategorias").offset().top},
 			500);
@@ -197,6 +221,54 @@ $( document ).ready(function() {
 			scrollTop: $(document).height() - $(window).height()},
 			500);
 	});
+	function refrescarResultados(idRes){
+		$.ajax({
+			type:'GET',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: APP_URL + '/rubricas/refrescar-resultados',
+			data: {
+			},
+			dataType: "text",
+			success: function(result){
+				result = JSON.parse(result);
+				$('#myDIVResultados').remove();
+                var html = '';
+                	html+='<div id="myDIVResultados" class="myDIVResultadosclass">'
+				if(result.length >0){
+                	html+='<div class="x_content bs-example-popovers courseContainer">'
+		      		html+='<div id="'+result[0].ID_CATEGORIA+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
+		        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+		       	 	html+='</button>'
+		        	html+='<p class="pText">'+result[0].NOMBRE+' '+result[0].DESCRIPCION+'</p>'
+		    	  	html+='</div>'
+		  			html+='</div>'
+                }
+
+				for (i = 1; i <result.length; i++) {
+					html+='<div class="x_content bs-example-popovers courseContainer">'
+		      		html+='<div id="'+result[i].ID_CATEGORIA+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+		        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+		       	 	html+='</button>'
+		        	html+='<p class="pText">'+result[i].NOMBRE+' '+result[i].DESCRIPCION+'</p>'
+		    	  	html+='</div>'
+		  			html+='</div>'
+				}
+				html+='</div>'
+				$('#apRes').append(html);
+
+				refrescarCategorias(idRes);
+		    	$('#myDIVResultados .courseButton').removeClass('activeButton');
+		    	$('#myDIVResultados div.courseButton:last').addClass('activeButton');
+
+		    	$('html,body').animate({ 
+		    		scrollTop: $(".divcategorias").offset().top},
+		    		500);
+			} 
+		})
+
+	}
 
 	function actualizarResultados(codRes,descRes){
 		$.ajax({
@@ -210,9 +282,10 @@ $( document ).ready(function() {
 				_descRes: descRes,
 			},
 			dataType: "text",
-			success: function(resultData) {
+			success: function(result) {
+				refrescarResultados(result);					
 			}
-		});
+		})
 	}
 
 	$('#btnAgregarResultado').click(function() {
@@ -233,17 +306,18 @@ $( document ).ready(function() {
 				resultado: idRes,
 			},
 			dataType: "text",
-			success: function(resultData) {
+			success: function(result) {
+				refrescarCategorias(idRes,1,result);   	
 			}
 		});
 	}
 
 	$('#btnAgregarCategoria').click(function() {
 		var descCat = $('#txtCategoria').val();
-		var idRes = $('#resClick').val();
+		var idRes = $('#myDIVResultados div.activeButton:first').attr('id');
 		actualizarCategorias(descCat, idRes);
 	});
-	function actualizarIndicadores(descInd, idCat, idRes){
+	function actualizarIndicadores(descInd, idCat){
 		$.ajax({
 			type:'POST',
 			headers: {
@@ -251,22 +325,47 @@ $( document ).ready(function() {
 			},
 			url: APP_URL + '/rubricas/actualizar-indicadores',
 			data: {
-				_descCat: descInd,
-				resultado: idRes,
-				categoria: idCat,
+				_descInd: descInd,
+				_idCat: idCat,
 
 			},
 			dataType: "text",
-			success: function(resultData) {
+			success: function(result) {
+				refrescarIndicadores(idCat,1,result);
 			}
 		});
 	}
 
 	$('#btnAgregarIndicador').click(function() {
 		var descInd = $('#txtIndicador').val();
-		var idRes = $('#resClick').val();
-		var idCat = $('#catClick').val();
-		actualizarIndicadores(descInd, idCat, idRes);
+		var idCat = $('#myDIVCategorias div.activeButton:first').attr('id');
+		actualizarIndicadores(descInd, idCat);
+	});
+	function actualizarEscalas(escala, descripcion, idInd){
+		$.ajax({
+			type:'POST',
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: APP_URL + '/rubricas/actualizar-escalas',
+			data: {
+				_escala: escala,
+				_descripcion: descripcion,
+				_idInd: idInd,
+
+			},
+			dataType: "text",
+			success: function(result) {
+				refrescarEscalas(idInd);
+			}
+		});
+	}
+
+	$('#btnAgregarEscala').click(function() {
+		var escala = $('#txtEscala').val();
+		var descripcion = $('#txtValorizacion').val();
+		var idInd = $('#myDIVIndicadores div.activeButton:first').attr('id');
+		actualizarEscalas(escala, descripcion, idInd);
 	});
 
 	/*$(document).ajaxStop(function(){

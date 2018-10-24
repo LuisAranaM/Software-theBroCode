@@ -3,6 +3,8 @@
 namespace App\Entity\Base;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Especialidad as mEspecialidad;
+use App\Models\Semestre as mSemestre;
+
 class Entity {
 
     protected $_message;
@@ -88,9 +90,23 @@ class Entity {
         return config('app.id_semestre');
     }
 
+
+   public static function getSemestre(){
+        $model= new mSemestre();
+        return $model->getCiclo(self::getIdSemestre())->first()->SEMESTRE;
+    }
+
     public static function getEspecialidadUsuario(){
-        $id_usuario=Auth::user()->ID_USUARIO;
+        //dd(Auth::user());
         $model=new mEspecialidad();
-        return  $model->getEspecialidadUsuario($id_usuario);
+        return  $model->getEspecialidadUsuario(Auth::id())->ID_ESPECIALIDAD;
+
+    }
+
+    public static function getNombreEspecialidadUsuario(){
+        //dd(Auth::user());
+        $model=new mEspecialidad();
+        return  $model->getEspecialidadUsuario(Auth::id())->NOMBRE_ESPECIALIDAD;
+
     }
 }

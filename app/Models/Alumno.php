@@ -6,7 +6,9 @@
  */
 
 namespace App\Models;
+
 use DB;
+
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -75,5 +77,6 @@ class Alumno extends Eloquent
             ->get();
         return $ans;
 	}
+
 
 }
