@@ -102,4 +102,9 @@ class Usuario extends \App\Entity\Base\Entity {
         $model->updateMasive();
     }
 
+    public function getIdUsuario($codUsuario){
+        $model = new mUsuario();
+        return $model->getIdUsuario($codUsuario);
+    }
+
 }

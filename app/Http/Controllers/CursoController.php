@@ -152,15 +152,65 @@ class CursoController extends Controller
             $semestre_actual = Entity::getIdSemestre();
             $especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
-                foreach ($data as $key => $value) {
-                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
+                foreach ($data as $key => $value) {                    
+                    if(($value->clave)!=""){
+                        //primero ingresamos curso
+                        $datos_cursos=[];
+                        $datos_cursos= ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
                                         'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
+                        $id_curso = DB::table('CURSOS')->insertGetId($datos_cursos);
+                        print "holis";
+                        //luego ingresamos sus horarios
+                        $codigos_horarios = explode(',',($value->horario));
+                        $lista_horarios = [];
+                        foreach ($codigos_horarios as $val) {
+                            $datos_horario=[];
+                            $datos_horario=['ID_CURSO'=>$id_curso, 'ID_SEMESTRE'=>$semestre_actual, 'ID_ESPECIALIDAD'=>$especialidad,
+                                            'NOMBRE'=>$val,'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
+                                            'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
+                            $id_horario = DB::table('HORARIOS')->insertGetId($datos_horario);                
+                            array_push($lista_horarios,$id_horario);
+                        }
+                        //ahora ingresaremos los profesores como usuarios
+                        $codProf = $value->codigo;
+                        $model = new Usuario();
+                        $idProf = $model->getIdUsuario($codProf);
+                        //si no existe, si existe ya tenemos el id
+                        if(!$idProf){
+                            $auxNombProfe = explode(",",$value->profesor);
+                            $auxApellidos = $auxNombProfe[0];
+                            $apellidos = explode(" ",$auxApellidos);
+                            $aPaterno = $apellidos[0];
+                            $aMaterno = $apellidos[1];
+                            $nombres = $auxNombProfe[1]; 
+                            $datos_prof=[];                            
+                            $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha,
+                                            'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'NOMBRES'=>$nombres,
+                                            'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
+                            $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);
+                        }
+                        //llenar usuario_has_especialidad
+                        $u_espec = [];
+                        $u_espec = ['ID_USUARIO'=>$idProf, 'ID_ESPECIALIDAD'=>$especialidad, 'FECHA_REGISTRO'=> $fecha,
+                                    'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
+                        DB::table('USUARIOS_HAS_ESPECIALIDADES')->insert($u_espec);
+                        //en este punto solo queda hacer la tabla horarios x prof
+                        foreach ($lista_horarios as $val) {
+                            $prof_hor = [];
+                            $prof_hor = ['ID_USUARIO'=>$idProf, 'ID_HORARIO'=>$val, 'FECHA_REGISTRO'=> $fecha,
+                                    'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
+                        DB::table('PROFESORES_HAS_HORARIOS')->insert($prof_hor);                            
+                        }
+                        
+
+                    //
+                    }                    
                 }
-                if(!empty($lista_cursos)){
+                /*if(!empty($lista_cursos)){
                     #Curso::insert($lista_cursos);
                     DB::table('CURSOS')->insert($lista_cursos);
                     \Session::flash('Éxito', '¡Excel importado con éxito, cursos actualizados!');
-                }
+                }*/
             }
         }
         else{
