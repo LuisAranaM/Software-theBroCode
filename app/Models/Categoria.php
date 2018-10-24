@@ -26,13 +26,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Categoria extends Eloquent
 {
-	protected $table = 'RESULTADOS';
+	protected $table = 'CATEGORIAS';
 	public $timestamps = false;
 
 	protected $casts = [
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
-		'ID_CATEGORIA' => 'int',
+		'ID_RESULTADO' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -50,28 +50,26 @@ class Categoria extends Eloquent
 		'ESTADO'
 	];
 
-	public function insertCategoria($esp,$sem,$categoria, $criterio){
-		$id = DB::table('RESULTADOS')->insertGetId(
-		    	['ID_ESPECIALIDAD'=>$esp,
-		    	 'ID_SEMESTRE'=>$sem,
-		    	 'NOMBRE' => $categoria,
-		     	 'ID_CATEGORIA' => $criterio,
+	public function insertCategoria($categoria, $resultado){
+		$id = DB::table('CATEGORIA')->insertGetId(
+		    	['NOMBRE' => $categoria,
+		     	 'ID_RESULTADO' => $resultado,
 				 'ESTADO' => 1]);
 
 		DB::commit();
 		return $id;
 	}
-	static function getCategoriasId($idCrit) {
-        $sql = DB::table('RESULTADOS')
+	static function getCategoriasId($idResultado) {
+        $sql = DB::table('CATEGORIAS')
                 ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
 
-                ->where('ID_CATEGORIA', '=', $idCrit)
+                ->where('ID_RESULTADO', '=', $idResultado)
                 ->where('ESTADO','=', 1);
         return $sql;
     }
 
     static function getCategorias() {
-        $sql = DB::table('in')
+        $sql = DB::table('CATEGORIAS')
                 ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
                 ->where('ESTADO','=', 1);
         return $sql;

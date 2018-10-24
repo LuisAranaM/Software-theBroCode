@@ -10,7 +10,7 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class EspecialidadesHasProfesore
+ * Class UsuariosHasEspecialidades
  * 
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_USUARIO
@@ -24,7 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class EspecialidadesHasProfesores extends Eloquent
+class UsuariosHasEspecialidades extends Eloquent
 {
 	public $incrementing = false;
 	public $timestamps = false;
@@ -53,7 +53,7 @@ class EspecialidadesHasProfesores extends Eloquent
 		return $this->belongsTo(\App\Models\Usuario::class, 'ID_USUARIO', 'id_usuario');
 	}
 
-	public function especialidade()
+	public function especialidad()
 	{
 		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD');
 	}

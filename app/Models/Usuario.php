@@ -87,14 +87,14 @@ class Usuario extends Authenticatable implements Auditable{
         ];
     //protected $username = 'REGISTRO';
 
-    public function role()
+    public function rol()
     {
-        return $this->belongsTo(\App\Models\Role::class, 'ID_ROL');
+        return $this->belongsTo(\App\Models\Rol::class, 'ID_ROL');
     }
 
-    public function especialidades_has_profesores()
+    public function usuarios_has_especialidades()
     {
-        return $this->hasMany(\App\Models\EspecialidadesHasProfesore::class, 'ID_USUARIO', 'id_usuario');
+        return $this->hasMany(\App\Models\UsuariosHasEspecialidades::class, 'ID_USUARIO', 'id_usuario');
     }
 
     public function profesores_has_horarios()
@@ -123,7 +123,7 @@ class Usuario extends Authenticatable implements Auditable{
             $this->TOKEN = $value;
         }
     }
-    public function hasRole($rol){
+    public function hasRol($rol){
         return in_array($rol, [$this->ID_ROL]);
     }
     static function getUsuario($usuario){

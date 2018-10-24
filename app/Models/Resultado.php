@@ -27,9 +27,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Criterio extends Eloquent
+class Resultado extends Eloquent
 {
-	protected $table = 'criterio';
+	protected $table = 'resultados';
 	public $timestamps = false;
 
 	protected $casts = [
@@ -52,16 +52,16 @@ class Criterio extends Eloquent
 		'ESTADO'
 	];
 
-	static function getCriterios() {
-        $sql = DB::table('CATEGORIAS')
-                ->select('ID_CATEGORIA', 'NOMBRE', 'DESCRIPCION')
+	static function getResultados() {
+        $sql = DB::table('RESULTADOS')
+                ->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
                 ->where('ESTADO','=',1);
         //dd($sql->get());
         return $sql;
 
 	}
 	
-	static function getCriteriosbyIdCurso($idCurso) {
+	static function getResultadosbyIdCurso($idCurso) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
@@ -74,8 +74,8 @@ class Criterio extends Eloquent
 	}
 	
 
-	public function insertCriterio($nombre, $desc){
-		$id = DB::table('CATEGORIAS')->insertGetId(
+	public function insertResultado($nombre, $desc){
+		$id = DB::table('RESULTADOS')->insertGetId(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
 				 'ESTADO' => 1]);
@@ -85,7 +85,7 @@ class Criterio extends Eloquent
 		return $id;
 	}
 
-	public function especialidade()
+	public function especialidad()
 	{
 		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}

@@ -19,7 +19,7 @@ use Jenssegers\Date\Date as Carbon;
  * @property int $ID_HORARIO
  * @property int $ID_CURSO
  * @property int $ID_ESPECIALIDAD
- * @property int $semestres_ID_SEMESTRE
+ * @property int $ID_SEMESTRE
  * @property string $NOMBRE
  * @property \Carbon\Carbon $FECHA_REGISTRO
  * @property \Carbon\Carbon $FECHA_ACTUALIZACION
@@ -35,13 +35,13 @@ use Jenssegers\Date\Date as Carbon;
  */
 class Horario extends Eloquent
 {
-	protected $table = 'horario';
+	protected $table = 'HORARIOS';
 	public $timestamps = false;
 
 	protected $casts = [
 		'ID_CURSO' => 'int',
 		'ID_ESPECIALIDAD' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
+		'ID_SEMESTRE' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -68,13 +68,13 @@ class Horario extends Eloquent
 
 	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE');
 	}
 
 	public function alumnos()
 	{
 		return $this->belongsToMany(\App\Models\Alumno::class, 'alumnos_has_horarios', 'ID_HORARIO', 'ID_ALUMNO')
-					->withPivot('ID_PROYECTO', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+					->withPivot('ID_PROYECTO', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 	public function profesores_has_horarios()
@@ -126,7 +126,7 @@ class Horario extends Eloquent
 		$sql = DB::table('HORARIOS')
 				->select('*')
 				->where('ID_CURSO','=',$idCurso)
-				->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+				->where('ID_SEMESTRE','=',$idSemestre)
 				->get();
 		return $sql;
 	}

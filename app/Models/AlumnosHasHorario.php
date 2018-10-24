@@ -16,7 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $ID_ALUMNO
  * @property int $ID_HORARIO
  * @property int $ID_PROYECTO
- * @property int $semestres_ID_SEMESTRE
+ * @property int $ID_SEMESTRE
  * @property \Carbon\Carbon $FECHA_REGISTRO
  * @property \Carbon\Carbon $FECHA_ACTUALIZACION
  * @property int $USUARIO_MODIF
@@ -39,7 +39,8 @@ class AlumnosHasHorario extends Eloquent
 		'ID_ALUMNO' => 'int',
 		'ID_HORARIO' => 'int',
 		'ID_PROYECTO' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
+		'ID_SEMESTRE' => 'int',
+		'ID_ESPECIALIDAD' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -73,14 +74,14 @@ class AlumnosHasHorario extends Eloquent
 
 	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE');
 	}
 
-	public function subcriterios()
+	/*public function subcriterios()
 	{
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_alumnos_has_horarios', 'ID_ALUMNO', 'ID_SUBCRITERIO')
-					->withPivot('ID_RESULTADO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
-	}
+					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+	}*/
 
 
 	static public function geAlumnosByIdHorario($idHorario){

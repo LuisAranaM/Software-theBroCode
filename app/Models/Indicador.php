@@ -32,12 +32,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Subcriterio extends Eloquent
+class Indicador extends Eloquent
 {
 	public $timestamps = false;
 
 	protected $casts = [
-		'ID_RESULTADO' => 'int',
+		'ID_CATEGORIA' => 'int',
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
 		'USUARIO_MODIF' => 'int',
@@ -72,7 +72,7 @@ class Subcriterio extends Eloquent
 	public function alumnos_has_horarios()
 	{
 		return $this->belongsToMany(\App\Models\AlumnosHasHorario::class, 'subcriterios_has_alumnos_has_horarios', 'ID_SUBCRITERIO', 'ID_ALUMNO')
-					->withPivot('ID_RESULTADO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 	public function cursos()
@@ -82,7 +82,7 @@ class Subcriterio extends Eloquent
 	}
 
 
-	static function getSubcriteriosId($idCat) {
+	static function getIndicadoresId($idCat) {
         $sql = DB::table('INDICADORES')
                 ->join('RESULTADOS', 'INDICADORES.ID_RESULTADO', '=', 'RESULTADOS.ID_RESULTADO')
                 ->select('INDICADORES.*','RESULTADOS.ID_CATEGORIA')
@@ -92,7 +92,7 @@ class Subcriterio extends Eloquent
         return $sql;
     }
 
-    static function getSubcriterios() {
+    static function getIndicador() {
         $sql = DB::table('INDICADORES')
                 ->join('RESULTADOS', 'INDICADORES.ID_RESULTADO', '=', 'RESULTADOS.ID_RESULTADO')
                 ->select('INDICADORES.*','RESULTADOS.ID_CATEGORIA')
@@ -118,16 +118,16 @@ class Subcriterio extends Eloquent
 		DB::commit();
 		return $id;
 	}
-	static function getSubCriterioId($idInd){
+	static function getIndicadorId($idInd){
 		$sql = DB::table('INDICADORES')
                 ->select('*')
-                ->where('ID_SUBCRITERIO', '=', $idInd);
+                ->where('ID_INDICADOR', '=', $idInd);
         //dd($sql->get());
         return $sql;
     }
-    static function updateSubcriterio($indicador){
+    static function updateIndicador($indicador){
     	DB::table('INDICADORES')
-    		->where('ID_SUBCRITERIO',$indicador->ID_SUBCRITERIO)
+    		->where('ID_INDICADOR',$indicador->ID_INDICADOR)
     		->update(['DESCRIPCION_1' => $indicador->DESCRIPCION_1,
 			     	 'DESCRIPCION_2' => $indicador->DESCRIPCION_2,
 			     	 'DESCRIPCION_3' => $indicador->DESCRIPCION_3,
