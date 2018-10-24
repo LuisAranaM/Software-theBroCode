@@ -13,7 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Subcriterio
  * 
  * @property int $ID_SUBCRITERIO
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -63,8 +63,8 @@ class Indicador extends Eloquent
 
 	public function criterio()
 	{
-		return $this->belongsTo(\App\Models\Criterio::class, 'ID_CRITERIO')
-					->where('criterio.ID_CRITERIO', '=', 'subcriterios.ID_CRITERIO')
+		return $this->belongsTo(\App\Models\Criterio::class, 'ID_RESULTADO')
+					->where('criterio.ID_RESULTADO', '=', 'subcriterios.ID_RESULTADO')
 					->where('criterio.ID_ESPECIALIDAD', '=', 'subcriterios.ID_ESPECIALIDAD')
 					->where('criterio.ID_SEMESTRE', '=', 'subcriterios.ID_SEMESTRE');
 	}
@@ -77,51 +77,55 @@ class Indicador extends Eloquent
 
 	public function cursos()
 	{
-		return $this->belongsToMany(\App\Models\Curso::class, 'subcriterios_has_cursos', 'ID_SUBCRITERIO', 'ID_CURSO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+		return $this->belongsToMany(\App\Models\Curso::class, 'indicadores_has_cursos', 'ID_SUBCRITERIO', 'ID_CURSO')
+					->withPivot('ID_RESULTADO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 
-	static function getSubcriteriosId($idCat) {
-        $sql = DB::table('SUBCRITERIOS')
-                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
-                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
-                ->where('SUBCRITERIOS.ID_CRITERIO', '=', $idCat)
-                ->where('SUBCRITERIOS.ESTADO','=', 1);
+	static function getIndicadoresId($idCat) {
+        $sql = DB::table('INDICADORES')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*','CATEGORIAS.ID_CATEGORIA')
+                ->where('INDICADORES.ID_CATEGORIA', '=', $idCat)
+                ->where('INDICADORES.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
     }
 
-    static function getSubcriterios() {
-        $sql = DB::table('SUBCRITERIOS')
-                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
-                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
-                ->where('SUBCRITERIOS.ESTADO','=', 1);
+    static function getIndicador() {
+        $sql = DB::table('INDICADORES')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*','CATEGORIAS.ID_CATEGORIA')
+                ->where('INDICADORES.ESTADO','=', 1);
 
         //dd($sql->get());
         return $sql;
     }
 
-	public function insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4){
-		//Falta añadir excepción
-		$id = DB::table('SUBCRITERIOS')->insertGetId(
-		    	['ID_CRITERIO' => $idCrit,
-		     	 'ID_ESPECIALIDAD' => $idEsp,
-		     	 'ID_SEMESTRE' => $idSem,
+	public function insertSubCriterio($idCat,$nombre){
+
+		DB::beginTransaction();
+        $id=-1;
+        try {
+        	$id = DB::table('INDICADORES')->insertGetId(
+		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
-		     	 'DESCRIPCION_1' => $desc1,
-		     	 'DESCRIPCION_2' => $desc2,
-		     	 'DESCRIPCION_3' => $desc3,
-		     	 'DESCRIPCION_4' => $desc4,
+		     	 'FECHA_REGISTRO' => Carbon::now(),
+		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	 'USUARIO_MODIF' => Auth::id(), 
 				 'ESTADO' => 1]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
 
-		DB::commit();
 		return $id;
 	}
-	static function getSubCriterioId($idInd){
-		$sql = DB::table('SUBCRITERIOS')
+	static function getIndicadorId($idInd){
+		$sql = DB::table('INDICADORES')
                 ->select('*')
-                ->where('ID_SUBCRITERIO', '=', $idInd);
+                ->where('ID_INDICADOR', '=', $idInd);
         //dd($sql->get());
         return $sql;
     }

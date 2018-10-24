@@ -12,7 +12,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 /**
  * Class Criterio
  * 
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -51,19 +51,29 @@ class Categoria extends Eloquent
 	];
 
 	public function insertCategoria($categoria, $resultado){
-		$id = DB::table('CATEGORIA')->insertGetId(
+		DB::beginTransaction();
+        $id=-1;
+        try {
+        	$id = DB::table('CATEGORIAS')->insertGetId(
 		    	['NOMBRE' => $categoria,
 		     	 'ID_RESULTADO' => $resultado,
+		     	 'FECHA_REGISTRO' => Carbon::now(),
+		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	 'USUARIO_MODIF' => Auth::id(),   
 				 'ESTADO' => 1]);
 
-		DB::commit();
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+
 		return $id;
 	}
-	static function getCategoriasId($idResultado) {
+	static function getCategoriasId($idRes) {
         $sql = DB::table('CATEGORIAS')
                 ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
-
-                ->where('ID_RESULTADO', '=', $idResultado)
+                ->where('ID_RESULTADO', '=', $idRes)
                 ->where('ESTADO','=', 1);
         return $sql;
     }

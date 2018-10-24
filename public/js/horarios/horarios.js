@@ -44,32 +44,33 @@ $( document ).ready(function() {
 				idHorarios: horarios
 
 			},
-			dataType: "json",
 			success: function(resultData) {
 			}
 		});
 	}
 
 	$('.closeHorario').on('click', function(e) {
-		var codigoHorario=$(this).attr('codigoHorario');
-		var nombreHorario=$(this).attr('nombreHorario');
-		var resp=confirm("¿Estás seguro que deseas dejar de evaluar "+nombreHorario+"?");
-		var botonHorario=$(this).closest('div').closest('div');
-		if (resp == true) {
-			eliminarHorarioEvaluar(codigoHorario,botonHorario);            
+        var idHorario=$(this).attr('idHorario');
+        var nombreHorario=$(this).attr('nombreHorario');
+        var resp=confirm("¿Estás seguro que deseas dejar de evaluar "+nombreHorario+"?");
+        var botonHorario=$(this).closest('div').closest('div');
+        if (resp == true) {
+            eliminarHorarioEvaluar(idHorario,botonHorario);            
 		} 
-		e.preventDefault();        
+		window.location.reload();      
 	});
 
-	function eliminarHorarioEvaluar(codigoHorario,botonHorario){
+	function eliminarHorarioEvaluar(idHorario,botonHorario){
+		console.log(idHorario);
+		console.log(APP_URL);
 		$.ajax({
-			url: APP_URL + '/horarios/eliminar-evaluacion-horario',
-			type: 'POST',        
+			type: 'POST',  
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
+			url: APP_URL + '/horarios/eliminar-evaluacion-horario',
 			data:{
-				codigoHorario:codigoHorario,
+				idHorario:idHorario,
 			},
 			success: function (result) {
 				botonHorario.hide();
