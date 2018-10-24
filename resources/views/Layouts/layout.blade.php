@@ -36,6 +36,9 @@
 <script type="text/javascript" src="{{ URL::asset('js/pnotify.buttons.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/pnotify.nonblock.js') }}"></script>  
 
+<script type="text/javascript" src="{{ URL::asset('js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/daterangepicker.js') }}"></script>  
+
 <!--AGREGUE PARA TREE CON CHECKBOX-->
 <script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
 
