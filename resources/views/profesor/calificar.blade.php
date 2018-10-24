@@ -67,7 +67,12 @@
           </div>
           <div class="col-sm-2 col-xs-3 text-right">
               @if($h["alumnosTotal"] == 0)
+              <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
+                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2" data-id="{{$h["horario"]->ID_HORARIO}}" > Cargar Alumnos</button>
+              </a>
+              <!--
               <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
+              -->
               @endif
               @if($h["alumnosTotal"] != 0)
                 <a href="{{route('profesor.alumnos')}}?idHorario={{$h['horario']->ID_HORARIO}}">
@@ -235,15 +240,17 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
         <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
         <p class="pText">Arrastra y suelta un archivo <br> o <br> 
-
-          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
+          <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnos')}}"
+          method = "post" enctype = "multipart/form-data">
             {{csrf_field()}}
             <div class = "form-group">
               <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
             </div>
             <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                <input id="bookId" name="codigoHorario" type="hidden">
+                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
+                style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
               </div>
               <div class="col-md-4">
                 <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>

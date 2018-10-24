@@ -57,8 +57,8 @@ class AlumnoController extends Controller
             $usuario = Auth::user();
             $id_usuario = Auth::id();
             $semestre_actual = Entity::getIdSemestre();
-            $idHorario = 2; // jiji
-            $idProyecto = 1; // jiji x2
+            $idHorario = $request->input('codigoHorario'); 
+            $idProyecto = 1; 
             //$especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
                 foreach ($data as $key => $value) {

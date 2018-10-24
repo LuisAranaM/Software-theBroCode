@@ -13,7 +13,16 @@ $( document ).ready(function() {
 
 	});
 
+    $("#modalCargarAlumnos").on('show',function(e){
+        var link = e.relatedTarget();
+        var modal = $(this);
+        var codigoHorario = link.data("codigoHorario");
+        modal.find("#codigoHorario").val(codigoHorario);
+    });
+
     $(".btnCargarAlumnos2").on("click", function(){
+        var cod = $(this).data('id');
+        $(".modal-body #bookId").val( cod );
         $("#modalCargarAlumnos").modal("show");
     })
 
