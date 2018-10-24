@@ -36,9 +36,9 @@ class Subcriterio extends \App\Entity\Base\Entity {
         $this->setValue('_estado',$subCrit->ESTADO);        
     }   
 
-    static function insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4){
+    static function insertSubCriterio($idCat, $nombre){
         $model =new mSubcriterio();
-        $model->insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4);
+        $model->insertSubCriterio($idCat,$nombre);
     }
 
     static function getSubCriteriosId($idCat){

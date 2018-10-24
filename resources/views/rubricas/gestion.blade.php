@@ -42,7 +42,7 @@
           <a href="{{ route('rubricas.categorias') }}">
             <div class="outer">
               <div class="middle">
-                <div id="{{$firstR->ID_CATEGORIA}}" class="resultButton inner text-center resultButton activeButton alert-success alert-dismissible fade in" role="alert">
+                <div id="{{$firstR->ID_RESULTADO}}" class="resultButton inner text-center resultButton activeButton alert-success alert-dismissible fade in" role="alert">
                   <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black"> {{$firstR->NOMBRE}} <br> </span> {{$firstR->DESCRIPCION}}</p>
 
                 </div>
@@ -59,7 +59,7 @@
         <div class="bs-example-popovers">
           <div class="outer">
             <div class="middle">
-              <div id="{{$resultado->ID_CATEGORIA}}" class="inner text-center resultButton alert-success alert-dismissible fade in" role="alert">
+              <div id="{{$resultado->ID_RESULTADO}}" class="inner text-center resultButton alert-success alert-dismissible fade in" role="alert">
                 <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black">  {{$resultado->NOMBRE}} <br> </span>{{$resultado->DESCRIPCION}}</p>
               </div>
             </div>

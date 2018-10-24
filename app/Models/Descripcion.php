@@ -8,6 +8,7 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class Criterio
@@ -24,15 +25,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Categoria extends Eloquent
+class Descripcion extends Eloquent
 {
-	protected $table = 'CATEGORIAS';
+	protected $table = 'DESCRIPCIONES';
 	public $timestamps = false;
 
 	protected $casts = [
-		'ID_ESPECIALIDAD' => 'int',
-		'ID_SEMESTRE' => 'int',
-		'ID_RESULTADO' => 'int',
+		'ID_INDICADOR' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -50,15 +49,13 @@ class Categoria extends Eloquent
 		'ESTADO'
 	];
 
-	public function insertCategoria($categoria, $resultado){
-		
-
+	public function insertDescripcion($descripcion, $indicador){
 		DB::beginTransaction();
         $id=-1;
         try {
-        	$id = DB::table('CATEGORIAS')->insertGetId(
-		    	['NOMBRE' => $categoria,
-		     	 'ID_RESULTADO' => $resultado,
+        	$id = DB::table('DESCRIPCIONES')->insertGetId(
+		    	['NOMBRE' => $descripcion,
+		     	 'ID_INDICADOR' => $indicador,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	 'USUARIO_MODIF' => Auth::id(),   
@@ -72,20 +69,12 @@ class Categoria extends Eloquent
 
 		return $id;
 	}
-	static function getCategoriasId($idRes) {
-        $sql = DB::table('CATEGORIAS')
-                ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
-                ->where('ID_RESULTADO', '=', $idRes)
+	static function getDescripcionesId($idInd) {
+        $sql = DB::table('DESCRIPCIONES')
+                ->select('ID_DESCRIPCION','ID_INDICADOR', 'NOMBRE')
+                ->where('ID_INDICADOR', '=', $idInd)
                 ->where('ESTADO','=', 1);
         return $sql;
     }
-
-    static function getCategorias() {
-        $sql = DB::table('CATEGORIAS')
-                ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
-                ->where('ESTADO','=', 1);
-        return $sql;
-    }
-
 	
 }
