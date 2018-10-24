@@ -397,5 +397,6 @@ li {
 }
 
 .pnotify-center {
-   right: calc(50% - 150px) !important;
+   top: 15px;
+   left: 580px;
 }

@@ -2,7 +2,7 @@ $( document ).ready(function() {
 	(new PNotify({
         title: 'No Sticky Button Notice',
         text: 'Check me out! I\'m a sticky notice with no unsticky button. You\'ll have to close me yourself.',
-        hide: false,
+        hide: true,
         sticker: false,
         nonblock: {
           nonblock: true
