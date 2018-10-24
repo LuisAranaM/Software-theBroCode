@@ -79,6 +79,7 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 #Route::get('upload', 'CursoController@showForm');
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
+Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
 
 /***GENERAR AVISOS***/
