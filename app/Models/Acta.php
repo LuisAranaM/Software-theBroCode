@@ -51,9 +51,9 @@ class Acta extends Eloquent
 		'ESTADO'
 	];
 
-	public function especialidade()
+	public function especialidad()
 	{
-		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
+		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
 	public function semestre()

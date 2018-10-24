@@ -32,12 +32,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Subcriterio extends Eloquent
+class Indicador extends Eloquent
 {
 	public $timestamps = false;
 
 	protected $casts = [
-		'ID_CRITERIO' => 'int',
+		'ID_CATEGORIA' => 'int',
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
 		'USUARIO_MODIF' => 'int',
@@ -72,7 +72,7 @@ class Subcriterio extends Eloquent
 	public function alumnos_has_horarios()
 	{
 		return $this->belongsToMany(\App\Models\AlumnosHasHorario::class, 'subcriterios_has_alumnos_has_horarios', 'ID_SUBCRITERIO', 'ID_ALUMNO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 	public function cursos()
@@ -125,9 +125,9 @@ class Subcriterio extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-    static function updateSubcriterio($indicador){
-    	DB::table('SUBCRITERIOS')
-    		->where('ID_SUBCRITERIO',$indicador->ID_SUBCRITERIO)
+    static function updateIndicador($indicador){
+    	DB::table('INDICADORES')
+    		->where('ID_INDICADOR',$indicador->ID_INDICADOR)
     		->update(['DESCRIPCION_1' => $indicador->DESCRIPCION_1,
 			     	 'DESCRIPCION_2' => $indicador->DESCRIPCION_2,
 			     	 'DESCRIPCION_3' => $indicador->DESCRIPCION_3,

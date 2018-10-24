@@ -81,7 +81,7 @@ return [
         'mysql_SSH' => array(
             'driver'    => 'mysql',
             'host'      => '127.0.0.1:13306',
-            'database' => 'SOFTWARE',
+            'database' => 'PRE_DESARROLLO',
             'username' => 'theBroCode',
             'password' => 'informatiquitos',
             'charset'   => 'utf8',

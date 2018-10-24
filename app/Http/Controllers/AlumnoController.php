@@ -84,14 +84,14 @@ class AlumnoController extends Controller
                     $this->trace('HOLIS2');
                     $idAlumno = (int)($q[0]->ID_ALUMNO);
                     $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
-                    whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND SEMESTRES_ID_SEMESTRE = ?',
+                    whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ?',
                         [$idAlumno,$idHorario,$idProyecto,$semestre_actual])->doesntExist();
 
                     if($cond){
                         $lista[] = ['ID_ALUMNO' => $idAlumno,
                                     'ID_HORARIO' => $idHorario,
                                     'ID_PROYECTO' => $idProyecto,
-                                    'SEMESTRES_ID_SEMESTRE' => $semestre_actual,
+                                    'ID_SEMESTRE' => $semestre_actual,
                                     'FECHA_REGISTRO' => $fecha,
                                     'FECHA_ACTUALIZACION' => $fecha,
                                     'USUARIO_MODIF' => $usuario['ID_USUARIO'],
