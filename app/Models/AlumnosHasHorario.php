@@ -84,7 +84,7 @@ class AlumnosHasHorario extends Eloquent
 	}*/
 
 
-	static public function geAlumnosByIdHorario($idHorario){
+	static public function getAlumnosByIdHorario($idHorario){
 		/*
 		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
             ->join('ALUMNOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
@@ -98,7 +98,7 @@ class AlumnosHasHorario extends Eloquent
 			WHERE a1.ID_HORARIO = $idHorario
 			group by a1.ID_ALUMNO
 			order by a1.ID_PROYECTO desc;");
-			
+		//dd($ans);
         return $ans;
 	}
 	static public function getAlumnoXHorario($idHorario){

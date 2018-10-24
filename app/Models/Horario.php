@@ -90,7 +90,8 @@ class Horario extends Eloquent
 				->count();
 		$part = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
 				->select('*')
-				->whereRaw('ID_HORARIO = ? AND ID_ESCALA <> 0 AND ESTADO = 1',[$idHorario])
+				// AND ID_ESCALA <> 0
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
 				->count();
 		$part *= 100;
 		if($tot == 0)
@@ -105,7 +106,8 @@ class Horario extends Eloquent
 		foreach($alumnos as $x){
 			$current = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
 						->select('*')
-						->whereRaw('ID_HORARIO = ? AND ID_ALUMNO = ? AND ID_ESCALA <> 0', [$idHorario,$x->ID_ALUMNO])
+						//AND ID_ESCALA <>0
+						->whereRaw('ID_HORARIO = ? AND ID_ALUMNO = ?', [$idHorario,$x->ID_ALUMNO])
 						->count();
 			if($current == 4) 
 				++$ans;
@@ -152,9 +154,7 @@ class Horario extends Eloquent
 		//dd($idCurso);
         $sql = DB::table('HORARIOS AS H')
 				->select('H.*')
-				->where('H.ID_HORARIO', '=', $idHorario)
-
-				;
+				->where('H.ID_HORARIO', '=', $idHorario);
 
         //dd($sql->get());
         return $sql;

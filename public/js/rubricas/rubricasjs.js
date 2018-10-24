@@ -287,7 +287,7 @@ $( document ).ready(function() {
 
 	}
 
-	function actualizarResultados(codRes,descRes){
+	function actualizarResultados(codRes,descRes,cat){
 		$.ajax({
 			type:'POST',
 			headers: {
@@ -300,7 +300,11 @@ $( document ).ready(function() {
 			},
 			dataType: "text",
 			success: function(result) {
-				refrescarResultados(result);					
+				//refrescarResultados(result);
+				var idRes= result;	
+				for(i=0; i<cat.length;i++){
+					actualizarCategorias(cat, idRes);
+				}				
 			}
 		})
 	}
@@ -308,9 +312,13 @@ $( document ).ready(function() {
 	$('#btnAgregarResultado').click(function() {
 		var codRes = $('#txtCodigoResultado').val();
 		var descRes = $('#txtResultado').val();
-		
+		var cat = []
+		cat[0] =$('#txtCategoria').val();
+
 		actualizarResultados(codRes,descRes);
+		
 	});
+
 	function actualizarCategorias(descCat, idRes){
 		$.ajax({
 			type:'POST',
@@ -324,7 +332,7 @@ $( document ).ready(function() {
 			},
 			dataType: "text",
 			success: function(result) {
-				refrescarCategorias(idRes,1,result);   	
+				//refrescarCategorias(idRes,1,result);   	
 			}
 		});
 	}
