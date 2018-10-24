@@ -89,7 +89,6 @@
 				<div class="row" style="text-align: center; padding-top: 10px;">
 					<div class="col-md-12">
 						<button id="btnAgregar" class="btn btn-success pText customButtonThin" >Agregar</button>
-						<button id="btnCancelar" class="btn btn-success pText customButtonThin" >Cancelar</button>
 					</div>
 				</div>
 
