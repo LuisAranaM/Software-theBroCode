@@ -88,10 +88,8 @@
                 </li>
                 
                 @if($modoCoordinador or $modoAsistente)
-                  <li class="pText"><a style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" >
-                      <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a">Gestionar Rúbricas</a></li>
-                    </ul>
+                  <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas</a>
+                    
                   </li>
                   <li class="pText"><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
                     <ul class="nav child_menu">
