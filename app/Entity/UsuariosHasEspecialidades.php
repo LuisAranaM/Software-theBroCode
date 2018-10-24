@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\SubcriteriosHasAlumnosHasHorario as mSubcriteriosHasAlumnosHasHorario;
+use App\Models\UsuariosHasEspecialidades as mUsuariosHasEspecialidades;
 use Jenssegers\Date\Date as Carbon;
 
-class SubcriteriosHasAlumnosHasHorario extends \App\Entity\Base\Entity {
+class UsuariosHasEspecialidades extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
     

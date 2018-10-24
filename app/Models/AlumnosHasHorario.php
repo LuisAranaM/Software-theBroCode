@@ -16,7 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $ID_ALUMNO
  * @property int $ID_HORARIO
  * @property int $ID_PROYECTO
- * @property int $semestres_ID_SEMESTRE
+ * @property int $ID_SEMESTRE
  * @property \Carbon\Carbon $FECHA_REGISTRO
  * @property \Carbon\Carbon $FECHA_ACTUALIZACION
  * @property int $USUARIO_MODIF
@@ -39,7 +39,8 @@ class AlumnosHasHorario extends Eloquent
 		'ID_ALUMNO' => 'int',
 		'ID_HORARIO' => 'int',
 		'ID_PROYECTO' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
+		'ID_SEMESTRE' => 'int',
+		'ID_ESPECIALIDAD' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -73,23 +74,39 @@ class AlumnosHasHorario extends Eloquent
 
 	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE');
 	}
 
-	public function subcriterios()
+	/*public function subcriterios()
 	{
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_alumnos_has_horarios', 'ID_ALUMNO', 'ID_SUBCRITERIO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
-	}
+					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+	}*/
 
 
-	static public function geAlumnosByIdHorario($idHorario){
+	static public function getAlumnosByIdHorario($idHorario){
+		/*
 		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
             ->join('ALUMNOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
             ->select('ALUMNOS.*')
             ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
             ->get()->toArray();
+          */  
+            
+        $ans = DB::select("SELECT *, MAX(a1.ID_PROYECTO) as ID_PROYECTO2 from ALUMNOS_HAS_HORARIOS a1
+			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )
+			WHERE a1.ID_HORARIO = $idHorario
+			group by a1.ID_ALUMNO
+			order by a1.ID_PROYECTO desc;");
+		//dd($ans);
         return $ans;
 	}
-
+	static public function getAlumnoXHorario($idHorario){
+		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
+            ->select('ALUMNOS_HAS_HORARIOS.*')
+            ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
+            ->orderBy('FECHA_ACTUALIZACION', 'desc')
+            ->get()->toArray();
+        return $ans;
+	}
 }

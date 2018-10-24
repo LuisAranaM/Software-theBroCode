@@ -49,9 +49,9 @@ class Eos extends Eloquent
 		'ESTADO'
 	];
 
-	public function especialidade()
+	public function especialidad()
 	{
-		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
+		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
 	public function semestre()
@@ -61,7 +61,7 @@ class Eos extends Eloquent
 
 	public function sos()
 	{
-		return $this->belongsToMany(\App\Models\So::class, 'sos_has_eos', 'ID_EOS', 'ID_SOS')
+		return $this->belongsToMany(\App\Models\Sos::class, 'sos_has_eos', 'ID_EOS', 'ID_SOS')
 					->withPivot('ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 }

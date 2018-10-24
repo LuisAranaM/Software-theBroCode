@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\EspecialidadesHasProfesores as mEspecialidadesHasProfesores;
+use App\Models\IndicadoresHasCurso as mIndicadoresHasCurso;
 use Jenssegers\Date\Date as Carbon;
 
-class EspecialidadesHasProfesores extends \App\Entity\Base\Entity {
+class IndicadoresHasCurso extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
     
@@ -21,6 +21,12 @@ class EspecialidadesHasProfesores extends \App\Entity\Base\Entity {
             'FECHA_REGISTRO' => $this->_fechaRegistro,
         ]);
     }
+
+    static function getIndicadoresbyIdCurso($idCurso) {
+        $model = new mIndicadoresHasCurso();
+        return mIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso)->get();
+    }
+
 
     
 }

@@ -12,7 +12,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 /**
  * Class Criterio
  * 
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -26,13 +26,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Categoria extends Eloquent
 {
-	protected $table = 'CRITERIO';
+	protected $table = 'CATEGORIAS';
 	public $timestamps = false;
 
 	protected $casts = [
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
-		'ID_CATEGORIA' => 'int',
+		'ID_RESULTADO' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -50,29 +50,37 @@ class Categoria extends Eloquent
 		'ESTADO'
 	];
 
-	public function insertCategoria($esp,$sem,$categoria, $criterio){
-		$id = DB::table('CRITERIO')->insertGetId(
-		    	['ID_ESPECIALIDAD'=>$esp,
-		    	 'ID_SEMESTRE'=>$sem,
-		    	 'NOMBRE' => $categoria,
-		     	 'ID_CATEGORIA' => $criterio,
+	public function insertCategoria($categoria, $resultado){
+		DB::beginTransaction();
+        $id=-1;
+        try {
+        	$id = DB::table('CATEGORIAS')->insertGetId(
+		    	['NOMBRE' => $categoria,
+		     	 'ID_RESULTADO' => $resultado,
+		     	 'FECHA_REGISTRO' => Carbon::now(),
+		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	 'USUARIO_MODIF' => Auth::id(),   
 				 'ESTADO' => 1]);
 
-		DB::commit();
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+
 		return $id;
 	}
-	static function getCategoriasId($idCrit) {
-        $sql = DB::table('CRITERIO')
-                ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
-
-                ->where('ID_CATEGORIA', '=', $idCrit)
+	static function getCategoriasId($idRes) {
+        $sql = DB::table('CATEGORIAS')
+                ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
+                ->where('ID_RESULTADO', '=', $idRes)
                 ->where('ESTADO','=', 1);
         return $sql;
     }
 
     static function getCategorias() {
-        $sql = DB::table('CRITERIO')
-                ->select('ID_CATEGORIA','ID_CRITERIO', 'NOMBRE')
+        $sql = DB::table('CATEGORIAS')
+                ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
                 ->where('ESTADO','=', 1);
         return $sql;
     }

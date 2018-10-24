@@ -21,7 +21,7 @@ class Categoria extends \App\Entity\Base\Entity {
         $this->setValue('_idEspecialidad',$cat->ID_ESPECIALIDAD);
         $this->setValue('_idSemestre',$cat->ID_SEMESTRE);
         $this->setValue('_nombre',$cat->NOMBRE);
-        $this->setValue('_idCriterio',$cat->ID_CATEGORIA);
+        $this->setValue('_idResultado',$cat->ID_RESULTADO);
         $this->setValue('_fechaRegistro',$cat->FECHA_REGISTRO);
         $this->setValue('_fechaActualizacion',$cat->FECHA_ACTUALIZACION);
         $this->setValue('_usuarioModif',$cat->USUARIO_MODIF);
@@ -38,8 +38,8 @@ class Categoria extends \App\Entity\Base\Entity {
 
 
     }
-    static function insertCategoria($esp,$sem,$categoria, $criterio){
+    static function insertCategoria($categoria, $criterio){
         $model =new mCategoria();
-        return $model->insertCategoria($esp,$sem,$categoria, $criterio);
+        return $model->insertCategoria($categoria, $criterio);
     }
 }

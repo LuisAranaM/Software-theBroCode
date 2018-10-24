@@ -22,9 +22,12 @@ class AlumnosHasHorario extends \App\Entity\Base\Entity {
         ]);
     }
 
-    static function geAlumnosByIdHorario($idCurso){
-        return mAlumnosHasHorario::geAlumnosByIdHorario($idCurso);
+    static function getAlumnosByIdHorario($idCurso){
+        //dd( mAlumnosHasHorario::getAlumnosByIdHorario($idCurso));
+        return mAlumnosHasHorario::getAlumnosByIdHorario($idCurso);
     }
-
+    static function getAlumnoXHorario($idHorario){
+        return mAlumnosHasHorario::getAlumnoXHorario($idHorario);
+    }
     
 }

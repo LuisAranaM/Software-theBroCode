@@ -66,4 +66,8 @@ class pruebaController extends Controller {
     public function rubricasGestion() {
         return view('rubricas.gestion');
     }
+
+    public function avisosGestion() {    
+        return view('avisos.avisos');
+    }
 }
