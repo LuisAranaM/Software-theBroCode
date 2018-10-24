@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\AlumnosHasHorario as mAlumnosHasHorario;
+use App\Models\IndicadoresHasCurso as mIndicadoresHasCurso;
 use Jenssegers\Date\Date as Carbon;
 
-class AlumnosHasHorario extends \App\Entity\Base\Entity {
+class IndicadoresHasCurso extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
     
@@ -22,11 +22,11 @@ class AlumnosHasHorario extends \App\Entity\Base\Entity {
         ]);
     }
 
-    static function geAlumnosByIdHorario($idCurso){
-        return mAlumnosHasHorario::geAlumnosByIdHorario($idCurso);
+    static function getIndicadoresbyIdCurso($idCurso) {
+        $model = new mIndicadoresHasCurso();
+        return mIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso)->get();
     }
-    static function getAlumnoXHorario($idHorario){
-        return mAlumnosHasHorario::getAlumnoXHorario($idHorario);
-    }
+
+
     
 }
