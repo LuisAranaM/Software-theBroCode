@@ -6,7 +6,7 @@ use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Jenssegers\Date\Date as Carbon;
 use App\Models\Descripcion as mDescripcion;
 
-class Categoria extends \App\Entity\Base\Entity {
+class Descripcion extends \App\Entity\Base\Entity {
 
     protected $_idEspecialidad;
     protected $_idSemestre;

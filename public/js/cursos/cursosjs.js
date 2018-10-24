@@ -1,36 +1,48 @@
 $( document ).ready(function() {
-	console.log("inicio");
-    
-	$("#CargarCurso").on("click", function(){
-		console.log("Cargando cursos a Acreditar");
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
-		$("#modalCursos").modal("show");
+	(new PNotify({
+        title: 'No Sticky Button Notice',
+        text: 'Check me out! I\'m a sticky notice with no unsticky button. You\'ll have to close me yourself.',
+        hide: true,
+        sticker: false,
+        nonblock: {
+          nonblock: true
+      },
+      styling: 'bootstrap3',
+      addclass: 'pnotify-center' //dark
+  }));
 
-	});
+    console.log("inicio");
+    
+    $("#CargarCurso").on("click", function(){
+      console.log("Cargando cursos a Acreditar");
+      if($('.checkCurso:checked').length==0){
+        $('#btnAgregar').attr('disabled',true);                
+    }
+    else{
+        $('#btnAgregar').removeAttr('disabled');        
+    }
+    $("#modalCursos").modal("show");
+
+});
 
     $(".btnCargarAlumnos2").on("click", function(){
         $("#modalCargarAlumnos").modal("show");
     })
 
-	$("#btnCargarAlumnos").on("click", function(){
-		console.log("btn accionado");
-		$("#modalCargarAlumnos").modal("show");
-	});
-	
-	$("#btnCargarHorario").on("click", function(){
-		console.log("btn accionado");
-		$("#modalCargarHorarios").modal("show");
-	});
+    $("#btnCargarAlumnos").on("click", function(){
+      console.log("btn accionado");
+      $("#modalCargarAlumnos").modal("show");
+  });
 
-	$("#btnCargarCursos").on("click", function(){
-		console.log("btn accionado");
-		$("#modalCargarCursos").modal("show");
-	});
+    $("#btnCargarHorario").on("click", function(){
+      console.log("btn accionado");
+      $("#modalCargarHorarios").modal("show");
+  });
+
+    $("#btnCargarCursos").on("click", function(){
+      console.log("btn accionado");
+      $("#modalCargarCursos").modal("show");
+  });
 
 
     //Funciones y activadores de búsqueda
@@ -49,13 +61,13 @@ $( document ).ready(function() {
     	}
     });*/
 
-	$('#frmAgregarCursos').on('keyup keypress', function(e) {
-		var keyCode = e.keyCode || e.which;
-		if (keyCode === 13) { 
-			e.preventDefault();
-			return false;
-		}
-	});
+    $('#frmAgregarCursos').on('keyup keypress', function(e) {
+      var keyCode = e.keyCode || e.which;
+      if (keyCode === 13) { 
+       e.preventDefault();
+       return false;
+   }
+});
 
 
     /*('#frmAgregarCursos').on('submit', function(e) {
@@ -84,14 +96,14 @@ $( document ).ready(function() {
     $('.tt-menu').css('margin-top','35px');*/
 
 
-  $("#txtCursoBuscar").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#tablaBuscar tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $("#txtCursoBuscar").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#tablaBuscar tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
-  });
 
-  $('.checkCurso').change(function(){      
+    $('.checkCurso').change(function(){      
         if($(this).attr('checked')!=undefined){
             $(this).removeAttr('checked');               
             $('#btnAgregar').removeAttr('disabled');
@@ -100,19 +112,19 @@ $( document ).ready(function() {
         }else{          
             $('#btnAgregar').removeAttr('disabled');
             //$('#btnAgregar').removeClass('disabled');
-          } 
+        } 
 
         if($('.checkCurso:checked').length==0){
             $('#btnAgregar').attr('disabled',true);                
         }
     });
 
-  $("#busquedaGeneral").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#listaCursos div").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $("#busquedaGeneral").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#listaCursos div").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
-  });
 
 });
 
@@ -129,14 +141,14 @@ function eliminarCursoAcreditar(codigoCurso,botonCurso){
             codigoCurso:codigoCurso,
         },
         success: function (result) {
-                botonCurso.hide();
+            botonCurso.hide();
         },
-            error: function (xhr, status, text) {
-                e.preventDefault();
-                alert('Hubo un error al registrar la información');
-                item.removeClass('hidden').prev().addClass('hidden');
-            }
-        });
+        error: function (xhr, status, text) {
+            e.preventDefault();
+            alert('Hubo un error al registrar la información');
+            item.removeClass('hidden').prev().addClass('hidden');
+        }
+    });
 
 }
 
@@ -229,7 +241,7 @@ function agregarCursosAcreditar(){
                 }
             });
 
-}*/
+        }*/
 
 /*function autocompleteCursos() {
         var engine = new Bloodhound({
