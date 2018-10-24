@@ -77,7 +77,7 @@ class HorarioController extends Controller
                     $auxCurso = $value->clave;
                     $auxIdCurso = (eCurso::buscarCursos($auxCurso))->ID_CURSO;
                     if($auxIdCurso){
-                        $lista_horarios = ['ID_CURSO'=>$auxIdCurso, 'ID_ESPECIALIDAD'=>$especialidad, 'SEMESTRES_ID_SEMESTRE'=>$semestre_actual, 
+                        $lista_horarios = ['ID_CURSO'=>$auxIdCurso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 
                                             'NOMBRE'=>$value->horario,'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
                                             'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
                         $idCurso = DB::table('HORARIO')->insert($lista_horarios);

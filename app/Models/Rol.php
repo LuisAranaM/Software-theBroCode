@@ -24,7 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Role extends Eloquent
+class Rol extends Eloquent
 {
 	protected $primaryKey = 'ID_ROL';
 	public $timestamps = false;

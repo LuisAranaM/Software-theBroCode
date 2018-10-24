@@ -16,7 +16,7 @@ class CreateCursosTable extends Migration {
 		{
 			$table->increments('ID_CURSO');
 			$table->integer('ID_ESPECIALIDAD')->unsigned()->index('FK_CURSOS_ESPECIALIDADES1');
-			$table->integer('SEMESTRES_ID_SEMESTRE')->unsigned()->index('FK_CURSOS_SEMESTRES1_IDX');
+			$table->integer('ID_SEMESTRE')->unsigned()->index('FK_CURSOS_SEMESTRES1_IDX');
 			$table->string('NOMBRE', 45)->nullable();
 			$table->string('CODIGO_CURSO', 45)->nullable();
 			$table->dateTime('FECHA_REGISTRO')->nullable();
@@ -24,7 +24,7 @@ class CreateCursosTable extends Migration {
 			$table->integer('ESTADO_ACREDITACION')->nullable();
 			$table->integer('USUARIO_MODIF')->nullable();
 			$table->integer('ESTADO')->nullable();
-			$table->primary(['ID_CURSO','ID_ESPECIALIDAD','SEMESTRES_ID_SEMESTRE']);
+			$table->primary(['ID_CURSO','ID_ESPECIALIDAD','ID_SEMESTRE']);
 		});
 	}
 

@@ -50,7 +50,7 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
         ],
 
@@ -81,7 +81,7 @@ return [
         'mysql_SSH' => array(
             'driver'    => 'mysql',
             'host'      => '127.0.0.1:13306',
-            'database' => 'SOFTWARE',
+            'database' => 'PRE_DESARROLLO',
             'username' => 'theBroCode',
             'password' => 'informatiquitos',
             'charset'   => 'utf8',

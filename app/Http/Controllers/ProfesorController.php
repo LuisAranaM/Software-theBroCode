@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use App\Entity\Proyecto as Proyecto;
 
 class ProfesorController extends Controller
 {
@@ -30,11 +31,13 @@ class ProfesorController extends Controller
         $idHorario=$request->get('idHorario',null); 
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
-        
+        //dd($idHorario);
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
-        ->with('alumnos',eAlumnosHasHorario::geAlumnosByIdHorario($idHorario));
+        ->with('alumnos',eAlumnosHasHorario::geAlumnosByIdHorario($idHorario))
+        ->with('projects',Proyecto::getRutaProyectos($idHorario))
+        ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario));
             
     }
 
@@ -78,7 +81,7 @@ class ProfesorController extends Controller
             $especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
                 foreach ($data as $key => $value) {
-                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'SEMESTRES_ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
+                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
                                         'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
                 }
                 if(!empty($lista_cursos)){
