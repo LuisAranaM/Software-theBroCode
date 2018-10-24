@@ -19,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $ID_ALUMNO
  * @property int $ID_HORARIO
  * @property int $ID_ESCALA
- * @property int $semestres_ID_SEMESTRE
+ * @property int $ID_SEMESTRE
  * @property \Carbon\Carbon $FECHA_REGISTRO
  * @property \Carbon\Carbon $FECHA_ACTUALIZACION
  * @property int $USUARIO_MODIF
@@ -45,7 +45,7 @@ class SubcriteriosHasAlumnosHasHorario extends Eloquent
 		'ID_ALUMNO' => 'int',
 		'ID_HORARIO' => 'int',
 		'ID_ESCALA' => 'int',
-		'semestres_ID_SEMESTRE' => 'int',
+		'ID_SEMESTRE' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
 	];
@@ -85,6 +85,6 @@ class SubcriteriosHasAlumnosHasHorario extends Eloquent
 
 	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'semestres_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE');
 	}
 }

@@ -17,7 +17,7 @@ use Jenssegers\Date\Date as Carbon;
  * 
  * @property int $ID_CURSO
  * @property int $ID_ESPECIALIDAD
- * @property int $semestres_ID_SEMESTRE
+ * @property int $ID_SEMESTRE
  * @property string $NOMBRE
  * @property string $CODIGO_CURSO
  * @property \Carbon\Carbon $FECHA_REGISTRO
@@ -39,7 +39,7 @@ class Curso extends Eloquent
 
 	protected $casts = [
 		'ID_ESPECIALIDAD' => 'int',
-		'SEMESTRES_ID_SEMESTRE' => 'int',
+		'ID_SEMESTRE' => 'int',
 		'ESTADO_ACREDITACION' => 'int',
 		'USUARIO_MODIF' => 'int',
 		'ESTADO' => 'int'
@@ -60,14 +60,14 @@ class Curso extends Eloquent
 		'ESTADO'
 	];
 
-	public function especialidade()
+	public function especialidad()
 	{
-		return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD', 'id_especialidad');
+		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
 	public function semestre()
 	{
-		return $this->belongsTo(\App\Models\Semestre::class, 'SEMESTRES_ID_SEMESTRE');
+		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE');
 	}
 
 	public function horarios()
@@ -75,10 +75,10 @@ class Curso extends Eloquent
 		return $this->hasMany(\App\Models\Horario::class, 'ID_CURSO');
 	}
 
-	public function subcriterios()
+	/*public function subcriterios()
 	{
-		return $this->belongsToMany(\App\Models\Subcriterio::class, 'indicadores_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
-	}
+		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
+	}*/
 
   static function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
@@ -89,7 +89,7 @@ class Curso extends Eloquent
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
-                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_SEMESTRE','=',$idSemestre)
                 ->get();
     $ans = array();
     foreach($cursos as $c){
@@ -134,7 +134,7 @@ class Curso extends Eloquent
   static function getCursos($idSemestre,$idEspecialidad) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO')
-                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1)
                 ->where('ESTADO_ACREDITACION','=',1)
@@ -146,7 +146,7 @@ class Curso extends Eloquent
     static function buscarCursos($idSemestre,$idEspecialidad,$nomCurso=null,$acreditacion=false) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->select('ID_CURSO', 'NOMBRE', 'CODIGO_CURSO','ESTADO_ACREDITACION')
-                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_SEMESTRE','=',$idSemestre)
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1)
                 ->orderBy('ESTADO_ACREDITACION','DESC')
@@ -168,7 +168,7 @@ class Curso extends Eloquent
         try {
             DB::table('CURSOS AS CURSOS')
                 ->whereIn('CODIGO_CURSO',$codigos)
-                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_SEMESTRE','=',$idSemestre)
                 ->update(['ESTADO_ACREDITACION'=>1,
                         'FECHA_ACTUALIZACION'=>Carbon::now(),
                         'USUARIO_MODIF'=>$usuario]);
@@ -190,7 +190,7 @@ class Curso extends Eloquent
         try {
             DB::table('CURSOS AS CURSOS')
                 ->where('CODIGO_CURSO','=',$codigo)
-                ->where('SEMESTRES_ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_SEMESTRE','=',$idSemestre)
                 ->update(['ESTADO_ACREDITACION'=>0,
                         'FECHA_ACTUALIZACION'=>Carbon::now(),
                         'USUARIO_MODIF'=>$usuario]);

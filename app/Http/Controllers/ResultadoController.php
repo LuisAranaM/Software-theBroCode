@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Entity\Criterio as eCriterio;
+use App\Entity\Resultado as eResultado;
 use App\Entity\Categoria as eCategoria;
-use App\Entity\Subcriterio as eSubcriterio;
+use App\Entity\Indicador as eIndicador;
 use App\Entity\EscalaCalificacion as eEscala;
 
 
 use Illuminate\Http\Request;
 
-class CriterioController extends Controller
+class ResultadoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,12 +34,33 @@ class CriterioController extends Controller
     public function rubricasGestion(Request $request) {
         $categorias=[];
         $indicadores=[];
-        $resultados = eCriterio::getCriterios()->toArray();
-
-        $categorias = eCategoria::getCategoriasId($resultados[0]->ID_RESULTADO)->toArray();
-        $indicadores = eSubcriterio::getSubCriteriosId($categorias[0]->ID_CATEGORIA)->toArray();
-        
-        //$descripciones= 
+        $resultados = eResultado::getResultados()->toArray();
+        if(is_null($request->resultado)){
+            $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
+            $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_RESULTADO)->toArray();
+            $request->resultado = $resultados[0]->ID_CATEGORIA;
+        }
+        else{
+            $categorias = eCategoria::getCategoriasId($request->resultado)->toArray();
+            if(is_null($request->categoria)){
+                $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_RESULTADO)->toArray(); 
+                $request->categoria = $categorias[0]->ID_RESULTADO;           
+            }
+            else{
+                $indicadores = eIndicador::getIndicadoresId($request->categoria)->toArray();
+            }
+        }
+        if(is_null($request->indicador)){
+            $descripciones= array($indicadores[0]->DESCRIPCION_1,$indicadores[0]->DESCRIPCION_2,$indicadores[0]->DESCRIPCION_3,$indicadores[0]->DESCRIPCION_4);
+            $request->indicador = $indicadores[0]->ID_SUBCRITERIO;
+        }else{
+            foreach($indicadores as $indicador){
+                if($indicador->ID_INDICADOR===$request->indicador){
+                    //$descripciones= array($indicador->DESCRIPCION_1,$indicador->DESCRIPCION_2,$indicador->DESCRIPCION_3,$indicador->DESCRIPCION_4);
+                }
+            }
+        }
+        $escalas = eEscala::getEscalas()->toArray();
         //$first= array_shift($resultados);
         //dd($categorias);
         return view('rubricas.gestion')
@@ -54,7 +75,7 @@ class CriterioController extends Controller
         $codigoRes = $request->get('_codRes', null);
         $nombreRes = $request->get('_descRes', null);
 
-        $idResultado = eCriterio::insertCriterio($codigoRes,$nombreRes);
+        $idResultado = eResultado::insertCriterio($codigoRes,$nombreRes);
 
         return $idResultado;
     }
@@ -67,8 +88,7 @@ class CriterioController extends Controller
     public function actualizarIndicadores(Request $request){
         $indicador = $request->get('_descInd', null);
         $idCat = $request->get('_idCat',null);
-        $idInd = eSubcriterio::insertSubCriterio($idCat,$indicador);
-
+        $idInd = eIndicador::insertIndicador($idCat,1,1,$indicador, null,null,null,null);
         return $idInd;
     }
     public function actualizarDescripciones(Request $request){
@@ -82,7 +102,7 @@ class CriterioController extends Controller
         $escala = $request->get('_escala', null);
         $descripcion = $request->get('_descripcion',null);
         $idInd = $request->get('_idInd',null);
-        $indicador = eSubcriterio::getSubCriterioId($idInd)->toArray()[0];
+        $indicador = eIndicador::getSubCriterioId($idInd)->toArray()[0];
         if(is_null($indicador->DESCRIPCION_1)){
             $indicador->DESCRIPCION_1=$descripcion;
         }else if(is_null($indicador->DESCRIPCION_2)){
@@ -92,7 +112,7 @@ class CriterioController extends Controller
         }else if(is_null($indicador->DESCRIPCION_4)){
             $indicador->DESCRIPCION_4=$descripcion;       
         }
-        eSubcriterio::updateSubcriterio($indicador);
+        eIndicador::updateSubcriterio($indicador);
         //obtener indicador y verificar si tiene las descripciones
         //updateamos la primera descripcion que este en null
 
@@ -100,7 +120,7 @@ class CriterioController extends Controller
     }
     public function refrescarResultados(Request $request){
 
-        $resultados = eCriterio::getCriterios()->toArray();
+        $resultados = eResultado::getCriterios()->toArray();
 
         return $resultados;
     }
@@ -114,7 +134,7 @@ class CriterioController extends Controller
     public function refrescarIndicadores(Request $request){
 
         $idCat = $request->get('_idCat',null);
-        $indicadores = eSubcriterio::getSubCriteriosId($idCat)->toArray();
+        $indicadores = eIndicador::getSubCriteriosId($idCat)->toArray();
 
         return $indicadores;
     }
@@ -130,7 +150,7 @@ class CriterioController extends Controller
 
         $idInd = $request->get('_idInd',null);
         $escalas = eEscala::getEscalas()->toArray();
-        $indicadores = eSubcriterio::getSubCriterios()->toArray();
+        $indicadores = eIndicador::getSubCriterios()->toArray();
         $descripciones= [];
 
         foreach($indicadores as $indicador){

@@ -51,8 +51,6 @@ class Categoria extends Eloquent
 	];
 
 	public function insertCategoria($categoria, $resultado){
-		
-
 		DB::beginTransaction();
         $id=-1;
         try {

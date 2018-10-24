@@ -51,9 +51,9 @@ class PlanesDeMejora extends Eloquent
         'ESTADO'
     ];
 
-    public function especialidade()
+    public function especialidad()
     {
-        return $this->belongsTo(\App\Models\Especialidade::class, 'ID_ESPECIALIDAD');
+        return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD');
     }
 
     public function semestre()
