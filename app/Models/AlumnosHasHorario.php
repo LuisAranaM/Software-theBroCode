@@ -84,12 +84,28 @@ class AlumnosHasHorario extends Eloquent
 
 
 	static public function geAlumnosByIdHorario($idHorario){
+		/*
 		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
             ->join('ALUMNOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
             ->select('ALUMNOS.*')
             ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
             ->get()->toArray();
+          */  
+            
+        $ans = DB::select("SELECT *, MAX(a1.ID_PROYECTO) as ID_PROYECTO2 from ALUMNOS_HAS_HORARIOS a1
+			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )
+			WHERE a1.ID_HORARIO = $idHorario
+			group by a1.ID_ALUMNO
+			order by a1.ID_PROYECTO desc;");
+			
         return $ans;
 	}
-
+	static public function getAlumnoXHorario($idHorario){
+		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
+            ->select('ALUMNOS_HAS_HORARIOS.*')
+            ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
+            ->orderBy('FECHA_ACTUALIZACION', 'desc')
+            ->get()->toArray();
+        return $ans;
+	}
 }

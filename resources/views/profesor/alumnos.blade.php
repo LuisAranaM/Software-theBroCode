@@ -60,9 +60,35 @@
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$alumno->CODIGO}} </td>{{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
 										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
-										<input type="text" name="horario" value="{{$horario[0]->NOMBRE}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
+										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
+                    {{$alumno->CODIGO}}
+                    @foreach($alumnosxhorario as $alumnoxhorario)
+                    {{$alumnoxhorario->ID_ALUMNO}} 
+                    @if($alumnoxhorario->ID_ALUMNO == $alumno->ID_ALUMNO)
+                    id_igual{{$alumnoxhorario->ID_ALUMNO}} 
+                    @foreach($projects as $project)
+                    PID({{$project->ID_PROYECTO}})
+                    AID({{$alumnoxhorario->ID_PROYECTO}})
+                    vuelta
+                    @if($project->ID_PROYECTO == $alumnoxhorario->ID_PROYECTO)
+                    MIRA ACA SIMIO ESTUPIDO{{$project->NOMBRE}}
+                    <td>
+                      <a href="upload/{{$project->NOMBRE}}" download="{{$project->NOMBRE}}">
+                        <button type="button" class="btn btn-primary">
+                          <i class="glyphicon glyphicon-download">
+                            Download
+                          </i>
+                        </button>
+                      </a>
+
+                    </td>
+                    @break
+                    @endif
+                    @endforeach
+                    @endif  
+                    @endforeach
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
                   </form>
                   <td id="AbrirCalificacion" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
                   <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   

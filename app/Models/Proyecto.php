@@ -6,7 +6,7 @@
  */
 
 namespace App\Models;
-
+use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -50,5 +50,14 @@ class Proyecto extends Eloquent
     public function alumnos_has_horarios()
     {
         return $this->hasMany(\App\Models\AlumnosHasHorario::class, 'ID_PROYECTO', 'id_proyecto');
+    }
+    static public function getRutaProyectos($idHorario){
+        $ans = DB::table('PROYECTOS')
+            ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS_HAS_HORARIOS.ID_PROYECTO', '=', 'PROYECTOS.ID_PROYECTO')
+            ->select('PROYECTOS.*')
+            ->orderBy('FECHA_ACTUALIZACION', 'desc')
+            #->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
+            ->get()->toArray();
+        return $ans;
     }
 }
