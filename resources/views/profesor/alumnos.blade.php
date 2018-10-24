@@ -43,7 +43,7 @@
 									<th class="pText column-title" style="border: none"> Código</th>
 									<th class="pText column-title" style="border: none">Nombre</th>
 									<th class="pText column-title" style="border: none">Proyecto</th>
-									<th class="pText column-title" style="border: none"> </th>
+									
 									<th class="pText column-title" style="border: none"> </th>
 									<th class="pText column-title" style="border: none">A</th>
 									<th class="pText column-title" style="border: none">B</th>
@@ -63,191 +63,295 @@
 										<input type="text" name="horario" value="{{$horario[0]->NOMBRE}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
-										</form>
-										<td id="CargarCurso" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 
-									</tr>
-
-									
-									@endforeach
-								</tbody>
-							</table>
-							
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<a href="{{route('profesor.calificar')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la vista de cursos</a>
-		</div>
-
-		<!-- Modal de Nuevo Curso -->
-
-		<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-		id="modalCursos" data-keyboard="false" data-backdrop="static"
-		aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-		<div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
-			<div class="modal-content" style="top: 40%">
-				<div class="modal-header" style="padding-left: 0px; padding-right: 0px">
-					<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" style="padding-right: 10px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-
-				<h1 class="reportsTitle mainTitle">Alumno a Calificar: Daniela Argumanis</h1>
-				<p class="pText" style="text-align: center">Criterio A: Matemáticas </p>
-			</div>
-			<div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btnCriteria btn btn-primary active">
-						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
-							A1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-							1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-							2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							4
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							<i class="fa fa-caret-up"></i>
-						</span>
-					</label>
-				</div>
-				<div class="text-left" style="border: solid 1px #ccc">
-					<p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
-
-						1: Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo <br>
-						2: Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo <br>
-						3: Tener la capacidad de modificar un algoritmo <br>
-					4: Desarrollar el algoritmo nuevo a partir de una especificación</p>
-				</div>
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btnCriteria btn btn-primary active">
-						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
-							A2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-							1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-							2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							4
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							<i class="fa fa-caret-down"></i>
-						</span>
-					</label>
-				</div>
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btnCriteria btn btn-primary active">
-						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
-							A3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-							1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-							2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							4
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							<i class="fa fa-caret-down"></i>
-						</span>
-					</label>
+                  </form>
+                  <td id="AbrirCalificacion" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 
+                </tr>
 
 
-				</div>
-				<div class="row" style="padding-top: 10px">
-					<div class="col-xs-6 text-left">
-						<i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Criterio C</span></i> 
-					</div>
-					<div class="col-xs-6 text-right">
-						<span class="pText">Criterio B</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+                @endforeach
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+   <a href="{{route('profesor.calificar')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la vista de cursos</a>
+ </div>
 
 
+ <!-- Modal de Nuevo Curso -->
+
+ <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+ id="modalCalificacion" data-keyboard="false" data-backdrop="static"
+ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+ <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">Alumno a evaluar: <br>Daniela Argumanis Escalante</h4>
+  </div>
+  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+  
+  <div class="row" style="padding-top: 20px;margin: 10px;">
+
+   <div class="col-xs-6 text-left">
+    <i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Resultado A</span></i> 
+  </div>
+
+  <div class="col-xs-6 text-right">
+    <span class="pText">Resultado B</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel">
+      <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <div class="row">
+          <div class="col-xs-3">
+            <div class="text-left">
+              <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A1. <br>
+
+              </div>
+            </div>
+            <div class="col-xs-9">
+              <div class="text-left" >
+                <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Aplica conceptos lógicos para la resolucion de problemas. <br>
+
+                </div>
+              </div>
+            </div>
+          </a>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+
+                  <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
+                    title: 'Condición para A1 - 1',
+                    text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples de manera deficiente.',
+                    type: 'info',
+                    styling: 'bootstrap3'
+                  });">
+                  <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+                  <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+                    1
+                  </span>
+                </label>
+                <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+                  title: 'Condición para A1 - 2',
+                  text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples.',
+                  type: 'info',
+                  styling: 'bootstrap3'
+                });">
+                <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+                <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+                  2
+                </span>
+              </label>
+              <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+                title: 'Condición para A1 - 3',
+                text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones complejas.',
+                type: 'info',
+                styling: 'bootstrap3'
+              });">
+              <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+                3
+              </span>
+            </label>
+            <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+              title: 'Condición para A1 - 4',
+              text: 'Establecer soluciones integradas de manera lógica en problemas simples.',
+              type: 'info',
+              styling: 'bootstrap3'
+            });">
+            <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+              4
+            </span>
+          </label>
+        </div>
+      </div>   
+
+    </div>
+  </div>
+</div>
+<div class="panel">
+  <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+    <div class="row">
+      <div class="col-xs-3">
+        <div class="text-left" >
+          <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A2. <br>
+
+          </div>
+        </div>
+        <div class="col-xs-9">
+          <div class="text-left" >
+            <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
+
+            </div>
+          </div>
+        </div>
+      </a>
+      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+        <div class="panel-body">
+
+          <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="btn-group btn-group-justified" data-toggle="buttons">
+
+              <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
+                title: 'Condición para A2 - 1',
+                text: 'Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo.',
+                type: 'info',
+                styling: 'bootstrap3'
+              });">
+              <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+                1
+              </span>
+            </label>
+            <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+              title: 'Condición para A2 - 2',
+              text: 'Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo.',
+              type: 'info',
+              styling: 'bootstrap3'
+            });">
+            <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+              2
+            </span>
+          </label>
+          <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+            title: 'Condición para A2 - 3',
+            text: 'Tener la capacidad de modificar un algoritmo.',
+            type: 'info',
+            styling: 'bootstrap3'
+          });">
+          <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+            3
+          </span>
+        </label>
+        <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+          title: 'Condición para A2 - 4',
+          text: 'Desarrollar el algoritmo nuevo a partir de una especificación.',
+          type: 'info',
+          styling: 'bootstrap3'
+        });">
+        <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+        <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+          4
+        </span>
+      </label>
+    </div>
+  </div>  
+
+</div>
+</div>
+</div>
+<div class="panel">
+  <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+    <div class="row">
+      <div class="col-xs-3">
+        <div class="text-left" >
+          <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A3. <br>
+
+          </div>
+        </div>
+        <div class="col-xs-9">
+          <div class="text-left" >
+            <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Utiliza lenguajes de programación para implementar algoritmos sean diseñados por él o por cualquier otra persona. <br>
+
+            </div>
+          </div>
+        </div>
+      </a>
+      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+        <div class="panel-body">
+         <div class="row" style="padding-top: 10px; padding-bottom: 0px;">
+          <div class="btn-group btn-group-justified" data-toggle="buttons">
+
+            <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
+              title: 'Condición para A3 - 1',
+              text: 'Conocer paradigmas de programación.',
+              type: 'info',
+              styling: 'bootstrap3'
+            });">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              1
+            </span>
+          </label>
+          <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+            title: 'Condición para A3 - 2',
+            text: 'Aplicar paradigmas de programación.',
+            type: 'info',
+            styling: 'bootstrap3'
+          });">
+          <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+            2
+          </span>
+        </label>
+        <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+          title: 'Condición para A3 - 3',
+          text: 'Implementar un algoritmo.',
+          type: 'info',
+          styling: 'bootstrap3'
+        });">
+        <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+        <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+          3
+        </span>
+      </label>
+      <label class="btnCriteria btn btn-primary" onclick="new PNotify({
+        title: 'Condición para A3 - 4',
+        text: 'Utiliza patrones de programación.',
+        type: 'info',
+        styling: 'bootstrap3'
+      });">
+      <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+      <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+        4
+      </span>
+    </label>
+  </div>
 </div>
 
 </div>
+</div>
+</div>
+</div>
 
+<div class="row" style="padding-top: 20px;margin: 10px;">
 
+ <div class="col-xs-6 text-left">
+  <i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Anterior Alumno</span></i> 
+</div>
 
+<div class="col-xs-6 text-right">
+  <span class="pText">Siguiente Alumno</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
+</div>
+</div>
 
+</div>
+</div>
+
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 </div>

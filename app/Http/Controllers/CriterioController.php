@@ -224,4 +224,7 @@ class CriterioController extends Controller
     {
         //
     }
+    public function categorias() {
+        return view('rubricas.categorias');
+    }
 }
