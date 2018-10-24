@@ -15,19 +15,27 @@
 
 	<div class="row">
 		<div class=" x_panel tile coursesBox">
-			<div class="x_content bs-example-popovers courseContainer">
-				<div id ="CargarAviso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
-					<button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+			<div class="row">
+				<div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
+					<div id ="CargarAviso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+						<button type="button" class="close" aria-label="Close" ><span aria-hidden="true">+</span>
+						</button>
+						<p class="pText"> Agregar Nuevo Aviso </p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+					<button type="button" class="closeaviso close" data-dismiss="alert" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" textoaviso="Se acrca la fecha de cierre de notas, por favor concluir con las calificaciones."><span aria-hidden="true">×</span>
+
 					</button>
-					<p class="pText"> Agregar Nuevo Aviso </p>
+					<p class="pText">01/15/2018 a 01/25/2018 : Se acrca la fecha de cierre de notas, por favor concluir con las calificaciones.</p>
 				</div>
 			</div>
 
-
-
 		</div>
 	</div>
-
+	
 
 	<!-- Modal de Nuevo Aviso -->
 
@@ -51,30 +59,49 @@
 					<label class="pText">Seleccionar la fecha de inicio:</label>	
 				</div>
 				<div class="col-xs-6">
-                        <form class="form-horizontal">
-                          <fieldset>
-                            <div class="control-group">
-                              <div class="controls">
-                                <div class="input-prepend input-group">
-                                  <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                  <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2016 - 01/25/2016">
-                                </div>
-                              </div>
-                            </div>
-                          </fieldset>
-                        </form>
-                      </div>
-                     
+					<form class="form-horizontal">
+						<fieldset>
+							<div class="control-group">
+								<div class="controls">
+									<div class="input-prepend input-group">
+										<span class="add-on input-group-addon" ><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+										<input type="text" style="width: 200px; cursor:pointer;" name="daterange" id="daterange" class="form-control" value="01/01/2018 - 01/25/2018">
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
 				</div>
-				
+
 			</div>
-			
+			<div class="row">
+				<div class="col-xs-6" >
+					<label class="pText">Texto a mostrar:</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" >
+					<textarea name="texto" rows="3" cols="30" style="margin: 0px; height: 87px; width: 350px; resize: none;"></textarea>
+				</div>
+			</div>
 
+			<div id="btnsAgregarCurso" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
+				<div class="row" style="text-align: center; padding-top: 10px;">
+					<div class="col-md-12">
+						<button id="btnAgregar" class="btn btn-success pText customButtonThin" >Agregar</button>
+					</div>
+				</div>
+
+			</div>
 		</div>
+
+
+
 	</div>
+</div>
 
 
-	<!-- /.modal-content -->
+<!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>

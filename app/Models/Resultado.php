@@ -8,11 +8,13 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Criterio
  * 
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -52,10 +54,13 @@ class Resultado extends Eloquent
 		'ESTADO'
 	];
 
-	static function getResultados() {
+	static function getResultados($idSem,$idEsp) {
+		//dd($idSem);
         $sql = DB::table('RESULTADOS')
                 ->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
-                ->where('ESTADO','=',1);
+                ->where('ESTADO','=',1)
+                ->where('ID_SEMESTRE','=',$idSem)
+             	->where('ID_ESPECIALIDAD','=',$idEsp);
         //dd($sql->get());
         return $sql;
 
@@ -63,22 +68,36 @@ class Resultado extends Eloquent
 	
 	static function getResultadosbyIdCurso($idCurso) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
-				->leftJoin('RESULTADOS', 'INDICADORES_HAS_CURSOS.ID_CRITERIO', '=', 'RESULTADO.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
+				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
+				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE')
 				->distinct();
         //dd($sql->get());
         return $sql;
 	}
 	
 
-	public function insertResultado($nombre, $desc){
-		$id = DB::table('RESULTADOS')->insertGetId(
+
+	public function insertResultado($nombre, $desc,$idSem,$idEsp){
+		DB::beginTransaction();
+        $id=-1;
+        try {
+            $id = DB::table('RESULTADOS')->insertGetId(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
+		     	'ID_SEMESTRE' => $idSem,
+		     	'ID_ESPECIALIDAD' => $idEsp,
+		     	'FECHA_REGISTRO' => Carbon::now(),
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id(),     	
 				 'ESTADO' => 1]);
-
-		DB::commit();
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
 
 		return $id;
 	}
@@ -95,6 +114,6 @@ class Resultado extends Eloquent
 
 	public function subcriterios()
 	{
-		return $this->hasMany(\App\Models\Subcriterio::class, 'ID_CRITERIO');
+		return $this->hasMany(\App\Models\Subcriterio::class, 'ID_RESULTADO');
 	}
 }

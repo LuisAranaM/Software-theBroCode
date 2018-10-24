@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\SubcriteriosHasAlumnosHasHorario as mSubcriteriosHasAlumnosHasHorario;
+use App\Models\IndicadoresHasCurso as mIndicadoresHasCurso;
 use Jenssegers\Date\Date as Carbon;
 
-class SubcriteriosHasAlumnosHasHorario extends \App\Entity\Base\Entity {
+class IndicadoresHasCurso extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
     
@@ -21,6 +21,12 @@ class SubcriteriosHasAlumnosHasHorario extends \App\Entity\Base\Entity {
             'FECHA_REGISTRO' => $this->_fechaRegistro,
         ]);
     }
+
+    static function getIndicadoresbyIdCurso($idCurso) {
+        $model = new mIndicadoresHasCurso();
+        return mIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso)->get();
+    }
+
 
     
 }
