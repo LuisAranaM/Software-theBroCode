@@ -56,7 +56,7 @@ class Especialidad extends Eloquent
 	{	
 		$sql=DB::table('USUARIOS AS US')
 				->select('ES.ID_ESPECIALIDAD','ESPE.NOMBRE AS NOMBRE_ESPECIALIDAD')
-				->leftJoin('ESPECIALIDADES_HAS_PROFESORES AS ES',function($join){
+				->leftJoin('USUARIOS_HAS_ESPECIALIDADES AS ES',function($join){
 					$join->on('US.ID_USUARIO','=','ES.ID_USUARIO');
 				})
 				->leftJoin('ESPECIALIDADES AS ESPE',function($join){
@@ -86,9 +86,9 @@ class Especialidad extends Eloquent
 		return $this->hasMany(\App\Models\Eos::class, 'ID_ESPECIALIDAD', 'id_especialidad');
 	}
 
-	public function especialidades_has_profesores()
+	public function usuarios_has_especialidades()
 	{
-		return $this->hasMany(\App\Models\EspecialidadesHasProfesores::class, 'ID_ESPECIALIDAD');
+		return $this->hasMany(\App\Models\UsuariosHasEspecialidades::class, 'ID_ESPECIALIDAD');
 	}
 
 	public function planes_de_mejoras()

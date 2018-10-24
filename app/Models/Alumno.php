@@ -57,7 +57,7 @@ class Alumno extends Eloquent
 	public function horarios()
 	{
 		return $this->belongsToMany(\App\Models\Horario::class, 'alumnos_has_horarios', 'ID_ALUMNO', 'ID_HORARIO')
-					->withPivot('ID_PROYECTO', 'semestres_ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+					->withPivot('ID_PROYECTO', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 	static function getAlumnosByHorarioStatic($idHorario){
