@@ -98,26 +98,36 @@
     <div class="row" style="margin-left: 0px; margin-right: 0px">
       <!-- start accordion -->
       <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+        @php ($nres = 0)
         @foreach($resultados as $resultado)
+        @php ($nres = $nres + 1 )
         <div class="panel">
-          <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          <a class="panel-heading collapsed" role="tab" id="heading{{$nres}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$nres}}" aria-expanded="false" aria-controls="collapse{{$nres}}">
             <h4 class="panel-title">Resultado {{$resultado->NOMBRE}}</h4>
           </a>
-          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+          <div id="collapse{{$nres}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$nres}}" aria-expanded="false" style="height: 0px;">
             <div class="panel-body">
               <div class="" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  @php ($countId = 0)
+                  @php ($count = 0)
                   @foreach($indicadores as $indicador)
-                  @if($resultado->ID_RESULTADO===$indicador->ID_RESULTADO)
-                <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->ID_RESULTADO}}</a>
+                  @php ($countId = $countId + 1 )
+                  @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                  @php ($count = $count + 1 )
+                <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
                   </li>
                   @endif
                   @endforeach
                 </ul>
                 <div id="myTabContent" class="tab-content">
+                    @php ($count = 0)
+                    @php ($countId = 0)
                     @foreach($indicadores as $indicador)
-                    @if($resultado->ID_RESULTADO===$indicador->ID_RESULTADO)
-                    <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
+                    @php ($countId = $countId + 1 )
+                    @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                    @php ($count = $count + 1 )
+                    <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
                       <p>{{$indicador->NOMBRE}}</p>
                     </div>
                     @endif
