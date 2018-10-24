@@ -72,7 +72,7 @@
                     AID({{$alumnoxhorario->ID_PROYECTO}})
                     vuelta
                     @if($project->ID_PROYECTO == $alumnoxhorario->ID_PROYECTO)
-                    MIRA ACA SIMIO ESTUPIDO{{$project->NOMBRE}}
+                    MIRA ACA{{$project->NOMBRE}}
                     <td>
                       <a href="upload/{{$project->NOMBRE}}" download="{{$project->NOMBRE}}">
                         <button type="button" class="btn btn-primary">
