@@ -75,17 +75,17 @@ class Semestre extends Eloquent
 
 	public function alumnos_has_horarios()
 	{
-		return $this->hasMany(\App\Models\AlumnosHasHorario::class, 'semestres_ID_SEMESTRE');
+		return $this->hasMany(\App\Models\AlumnosHasHorario::class, 'ID_SEMESTRE');
 	}
 
-	public function criterios()
+	/*public function criterios()
 	{
 		return $this->hasMany(\App\Models\Criterio::class, 'ID_SEMESTRE', 'id_semestre');
-	}
+	}*/
 
 	public function cursos()
 	{
-		return $this->hasMany(\App\Models\Curso::class, 'semestres_ID_SEMESTRE');
+		return $this->hasMany(\App\Models\Curso::class, 'ID_SEMESTRE');
 	}
 
 	public function eos()
@@ -95,7 +95,7 @@ class Semestre extends Eloquent
 
 	public function horarios()
 	{
-		return $this->hasMany(\App\Models\Horario::class, 'semestres_ID_SEMESTRE');
+		return $this->hasMany(\App\Models\Horario::class, 'ID_SEMESTRE');
 	}
 
 	public function planes_de_mejoras()
@@ -110,7 +110,7 @@ class Semestre extends Eloquent
 
 	public function subcriterios_has_alumnos_has_horarios()
 	{
-		return $this->hasMany(\App\Models\SubcriteriosHasAlumnosHasHorario::class, 'semestres_ID_SEMESTRE');
+		return $this->hasMany(\App\Models\SubcriteriosHasAlumnosHasHorario::class, 'ID_SEMESTRE');
 	}
 
 

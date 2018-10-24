@@ -81,7 +81,7 @@ class ProfesorController extends Controller
             $especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
                 foreach ($data as $key => $value) {
-                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'SEMESTRES_ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
+                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
                                         'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
                 }
                 if(!empty($lista_cursos)){

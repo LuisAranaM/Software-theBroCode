@@ -46,6 +46,7 @@ class ProyectoController extends Controller
                      ->where('NOMBRE', '=', $horario)
                      ->get();
         #ahora insertaré en alumnos_has_horarios los atributos correspondientes para anexar el file subido al alumno en el horario respectivo
+
         $dataAlumnoxHorario = array('ID_ALUMNO'=>$idAlumno[0]->ID_ALUMNO, 'ID_HORARIO'=>$horario, 'ID_PROYECTO'=>$idProyecto, 'SEMESTRES_ID_SEMESTRE'=>$semestre_actual,'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario,'ESTADO'=>1);
         $idAlumnoHasHorarios = DB::table('ALUMNOS_HAS_HORARIOS')->insertGetId(
             $dataAlumnoxHorario

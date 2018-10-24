@@ -29,6 +29,8 @@ class Proyecto extends Eloquent
     public $timestamps = false;
 
     protected $casts = [
+        'ID_SEMESTRE'=>'int',
+        'ID_ESPECIALIDAD'=>'int',
         'PROYECTO' => 'mediumblob',
         'USUARIO_MODIF' => 'int',
         'ESTADO' => 'int'

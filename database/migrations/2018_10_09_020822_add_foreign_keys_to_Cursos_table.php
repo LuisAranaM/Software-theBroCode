@@ -15,7 +15,7 @@ class AddForeignKeysToCursosTable extends Migration {
 		Schema::table('Cursos', function(Blueprint $table)
 		{
 			$table->foreign('ID_ESPECIALIDAD', 'FK_CURSOS_ESPECIALIDADES1')->references('ID_ESPECIALIDAD')->on('especialidades')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('SEMESTRES_ID_SEMESTRE', 'FK_CURSOS_SEMESTRES1')->references('ID_SEMESTRE')->on('semestres')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('ID_SEMESTRE', 'FK_CURSOS_SEMESTRES1')->references('ID_SEMESTRE')->on('semestres')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
