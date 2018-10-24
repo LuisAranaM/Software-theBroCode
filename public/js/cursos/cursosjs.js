@@ -8,7 +8,7 @@ $( document ).ready(function() {
           nonblock: true
       },
       styling: 'bootstrap3',
-      addclass: 'dark pnotify-center'
+      addclass: 'pnotify-center' //dark
   }));
 
     console.log("inicio");
