@@ -4,7 +4,7 @@
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>
 @stop
-<form method="POST" action="{{ route('actualizar.criterios') }}" >
+<form>
   <div class="customBody">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" >
     
@@ -107,7 +107,7 @@
               </div>
               <div class="col-xs-11">
 
-                <textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
+                <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
               </div>
               <div class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
                 <i class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
@@ -116,10 +116,10 @@
             </div>
           </div>
 
-          <div id="btnsAgregarCurso" class="modal-footer">
+          <div id="btnsResultado" class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButton upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                <input id="btnAgregarResultado" class = "btn btn-success pText customButton upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
               </div>
               <div class="col-md-4">
                 <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>

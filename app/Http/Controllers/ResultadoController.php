@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Entity\Resultado as eResultado;
 use App\Entity\Categoria as eCategoria;
 use App\Entity\Indicador as eIndicador;
+use App\Entity\Descripcion as eDescripcion;
 use App\Entity\EscalaCalificacion as eEscala;
 
 
@@ -34,49 +35,28 @@ class ResultadoController extends Controller
     public function rubricasGestion(Request $request) {
         $categorias=[];
         $indicadores=[];
+
         $resultados = eResultado::getResultados()->toArray();
-        if(is_null($request->resultado)){
-            $categorias = eCategoria::getCategoriasId($resultados[0]->ID_CATEGORIA)->toArray();
-            $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_RESULTADO)->toArray();
-            $request->resultado = $resultados[0]->ID_CATEGORIA;
-        }
-        else{
-            $categorias = eCategoria::getCategoriasId($request->resultado)->toArray();
-            if(is_null($request->categoria)){
-                $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_RESULTADO)->toArray(); 
-                $request->categoria = $categorias[0]->ID_RESULTADO;           
-            }
-            else{
-                $indicadores = eIndicador::getIndicadoresId($request->categoria)->toArray();
-            }
-        }
-        if(is_null($request->indicador)){
-            $descripciones= array($indicadores[0]->DESCRIPCION_1,$indicadores[0]->DESCRIPCION_2,$indicadores[0]->DESCRIPCION_3,$indicadores[0]->DESCRIPCION_4);
-            $request->indicador = $indicadores[0]->ID_SUBCRITERIO;
-        }else{
-            foreach($indicadores as $indicador){
-                if($indicador->ID_INDICADOR===$request->indicador){
-                    //$descripciones= array($indicador->DESCRIPCION_1,$indicador->DESCRIPCION_2,$indicador->DESCRIPCION_3,$indicador->DESCRIPCION_4);
-                }
-            }
-        }
-        $escalas = eEscala::getEscalas()->toArray();
+        $categorias = eCategoria::getCategoriasId($resultados[0]->ID_RESULTADO)->toArray();
+        $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_CATEGORIA)->toArray();
+        $descripciones = eDescripcion::getDescripcionesId($indicadores[0]->ID_INDICADOR)->toArray();
+        //$escalas = eEscala::getEscalas()->toArray();
         //$first= array_shift($resultados);
         //dd($categorias);
         return view('rubricas.gestion')
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
-        ->with('indicadores', $indicadores);
+        ->with('indicadores', $indicadores)
         //->with('escalas', $escalas)
-        //->with('descripciones', $descripciones);
+        ->with('descripciones', $descripciones);
     }
 
     public function actualizarResultados(Request $request){
         $codigoRes = $request->get('_codRes', null);
         $nombreRes = $request->get('_descRes', null);
 
-        $idResultado = eResultado::insertCriterio($codigoRes,$nombreRes);
-
+        $idResultado = eResultado::insertResultado($codigoRes,$nombreRes);
+        console.log($idResultado);
         return $idResultado;
     }
     public function actualizarCategorias(Request $request){

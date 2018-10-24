@@ -9,6 +9,7 @@ namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Criterio
@@ -53,12 +54,13 @@ class Resultado extends Eloquent
 		'ESTADO'
 	];
 
-	static function getResultados() {
+	static function getResultados($idSem,$idEsp) {
+		//dd($idSem);
         $sql = DB::table('RESULTADOS')
                 ->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
                 ->where('ESTADO','=',1)
-                ->where('ID_SEMESTRE','=',self::getIdSemestre())
-             	->where('ID_ESPECIALIDAD','=',self::getEspecialidadUsuario());
+                ->where('ID_SEMESTRE','=',$idSem)
+             	->where('ID_ESPECIALIDAD','=',$idEsp);
         //dd($sql->get());
         return $sql;
 
@@ -78,15 +80,15 @@ class Resultado extends Eloquent
 	
 
 
-	public function insertResultado($nombre, $desc){
+	public function insertResultado($nombre, $desc,$idSem,$idEsp){
 		DB::beginTransaction();
         $id=-1;
         try {
             $id = DB::table('RESULTADOS')->insertGetId(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
-		     	'ID_SEMESTRE' => self::getIdSemestre(),
-		     	'ID_ESPECIALIDAD' => self::getEspecialidadUsuario(),
+		     	'ID_SEMESTRE' => $idSem,
+		     	'ID_ESPECIALIDAD' => $idEsp,
 		     	'FECHA_REGISTRO' => Carbon::now(),
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	'USUARIO_MODIF' => Auth::id(),     	

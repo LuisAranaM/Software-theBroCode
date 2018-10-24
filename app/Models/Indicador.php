@@ -108,7 +108,7 @@ class Indicador extends Eloquent
         $id=-1;
         try {
         	$id = DB::table('INDICADORES')->insertGetId(
-		    	['ID_CATEGORIA' => $idCat
+		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		

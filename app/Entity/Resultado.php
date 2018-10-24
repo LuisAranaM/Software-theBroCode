@@ -28,7 +28,7 @@ class Resultado extends \App\Entity\Base\Entity {
 
     static function getResultados() {
         $model = new mResultado();
-        return mResultado::getResultados()->get();
+        return mResultado::getResultados(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
     
     static function getResultadosbyIdCurso($idCurso) {
@@ -39,6 +39,6 @@ class Resultado extends \App\Entity\Base\Entity {
 
     static function insertResultado($nombre, $desc){
         $model =new mResultado();
-        return $model->insertResultado($nombre,$desc);
+        return $model->insertResultado($nombre,$desc,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
 }
