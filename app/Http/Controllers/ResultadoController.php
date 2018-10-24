@@ -64,34 +64,13 @@ class ResultadoController extends Controller
         //$first= array_shift($resultados);
         //dd($categorias);
         return view('rubricas.gestion')
-        ->with('resClick',$request->resultado)
-        ->with('catClick',$request->categoria)
-        ->with('indClick',$request->indicador)
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
-        ->with('indicadores', $indicadores)
-        ->with('escalas', $escalas)
-        ->with('descripciones', $descripciones);
+        ->with('indicadores', $indicadores);
+        //->with('escalas', $escalas)
+        //->with('descripciones', $descripciones);
     }
 
-    public function actualizarCriterios(Request $request){
-        //dd("HOLA");
-        //return redirect()->route('rubricas.gestion');
-        $codigoRes = $request->get('codigo', null);
-        $nombreRes = $request->get('nombre', null);
-        $idCriterio = eResultado::insertCriterio($codigoRes,$nombreRes);
-
-        $categoria = $request->get('categoria',null);
-        $idCategoria = eCategoria::insertCategoria(1,1,$categoria,$idCriterio);
-
-        $subcriterio = $request->get('indicador',null);
-        $texto1 = $request->get('texto1',null);
-        $texto2 = $request->get('texto2',null);
-        $texto3 = $request->get('texto3',null);
-        $texto4 = $request->get('texto4',null);
-        eIndicador::insertSubCriterio($idCategoria,1,1,$subcriterio, $texto1,$texto2,$texto3,$texto4);
-        return redirect()->route('rubricas.gestion');
-    }
     public function actualizarResultados(Request $request){
         $codigoRes = $request->get('_codRes', null);
         $nombreRes = $request->get('_descRes', null);
@@ -103,15 +82,21 @@ class ResultadoController extends Controller
     public function actualizarCategorias(Request $request){
         $categoria = $request->get('_descCat', null);
         $idRes = $request->get('resultado',null);
-        $idCat = eCategoria::insertCategoria(1,1,$categoria, $idRes);
+        $idCat = eCategoria::insertCategoria($categoria, $idRes);
         return $idCat;
     }
     public function actualizarIndicadores(Request $request){
         $indicador = $request->get('_descInd', null);
         $idCat = $request->get('_idCat',null);
-        $idInd = eIndicador::insertSubCriterio($idCat,1,1,$indicador, null,null,null,null);
-
+        $idInd = eIndicador::insertIndicador($idCat,1,1,$indicador, null,null,null,null);
         return $idInd;
+    }
+    public function actualizarDescripciones(Request $request){
+        $descripcion = $request->get('_descDesc', null);
+        $idInd = $request->get('_idInd',null);
+        $idDesc = eDescripcion::insertDescripcion($idInd,$descripcion);
+
+        return $idDesc;
     }
     public function actualizarEscalas(Request $request){
         $escala = $request->get('_escala', null);
@@ -154,6 +139,13 @@ class ResultadoController extends Controller
         return $indicadores;
     }
 
+    public function refrescarDescripciones(Request $request){
+
+        $idInd= $request->get('_idInd',null);
+        $descripciones = eDescripcion::getDescripcionesId($idInd)->toArray();
+
+        return $descripciones;
+    }
     public function refrescarEscalas(Request $request){
 
         $idInd = $request->get('_idInd',null);

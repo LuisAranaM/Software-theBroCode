@@ -84,9 +84,9 @@ class Indicador extends Eloquent
 
 	static function getIndicadoresId($idCat) {
         $sql = DB::table('INDICADORES')
-                ->join('RESULTADOS', 'INDICADORES.ID_RESULTADO', '=', 'RESULTADOS.ID_RESULTADO')
-                ->select('INDICADORES.*','RESULTADOS.ID_CATEGORIA')
-                ->where('INDICADORES.ID_RESULTADO', '=', $idCat)
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*','CATEGORIAS.ID_CATEGORIA')
+                ->where('INDICADORES.ID_CATEGORIA', '=', $idCat)
                 ->where('INDICADORES.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
@@ -94,28 +94,32 @@ class Indicador extends Eloquent
 
     static function getIndicador() {
         $sql = DB::table('INDICADORES')
-                ->join('RESULTADOS', 'INDICADORES.ID_RESULTADO', '=', 'RESULTADOS.ID_RESULTADO')
-                ->select('INDICADORES.*','RESULTADOS.ID_CATEGORIA')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*','CATEGORIAS.ID_CATEGORIA')
                 ->where('INDICADORES.ESTADO','=', 1);
 
         //dd($sql->get());
         return $sql;
     }
 
-	public function insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4){
-		//Falta añadir excepción
-		$id = DB::table('INDICADORES')->insertGetId(
-		    	['ID_RESULTADO' => $idCrit,
-		     	 'ID_ESPECIALIDAD' => $idEsp,
-		     	 'ID_SEMESTRE' => $idSem,
-		     	 'NOMBRE' => $nombre,
-		     	 'DESCRIPCION_1' => $desc1,
-		     	 'DESCRIPCION_2' => $desc2,
-		     	 'DESCRIPCION_3' => $desc3,
-		     	 'DESCRIPCION_4' => $desc4,
-				 'ESTADO' => 1]);
+	public function insertSubCriterio($idCat,$nombre){
 
-		DB::commit();
+		DB::beginTransaction();
+        $id=-1;
+        try {
+        	$id = DB::table('INDICADORES')->insertGetId(
+		    	['ID_CATEGORIA' => $idCat
+		     	 'NOMBRE' => $nombre,
+		     	 'FECHA_REGISTRO' => Carbon::now(),
+		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	 'USUARIO_MODIF' => Auth::id(), 
+				 'ESTADO' => 1]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+
 		return $id;
 	}
 	static function getIndicadorId($idInd){

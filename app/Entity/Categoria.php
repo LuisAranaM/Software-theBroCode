@@ -38,8 +38,8 @@ class Categoria extends \App\Entity\Base\Entity {
 
 
     }
-    static function insertCategoria($esp,$sem,$categoria, $criterio){
+    static function insertCategoria($categoria, $criterio){
         $model =new mCategoria();
-        return $model->insertCategoria($esp,$sem,$categoria, $criterio);
+        return $model->insertCategoria($categoria, $criterio);
     }
 }

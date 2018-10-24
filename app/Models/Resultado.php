@@ -8,6 +8,7 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class Criterio
@@ -55,7 +56,9 @@ class Resultado extends Eloquent
 	static function getResultados() {
         $sql = DB::table('RESULTADOS')
                 ->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
-                ->where('ESTADO','=',1);
+                ->where('ESTADO','=',1)
+                ->where('ID_SEMESTRE','=',self::getIdSemestre())
+             	->where('ID_ESPECIALIDAD','=',self::getEspecialidadUsuario());
         //dd($sql->get());
         return $sql;
 
@@ -74,13 +77,25 @@ class Resultado extends Eloquent
 	}
 	
 
+
 	public function insertResultado($nombre, $desc){
-		$id = DB::table('RESULTADOS')->insertGetId(
+		DB::beginTransaction();
+        $id=-1;
+        try {
+            $id = DB::table('RESULTADOS')->insertGetId(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
+		     	'ID_SEMESTRE' => self::getIdSemestre(),
+		     	'ID_ESPECIALIDAD' => self::getEspecialidadUsuario(),
+		     	'FECHA_REGISTRO' => Carbon::now(),
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id(),     	
 				 'ESTADO' => 1]);
-
-		DB::commit();
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
 
 		return $id;
 	}
