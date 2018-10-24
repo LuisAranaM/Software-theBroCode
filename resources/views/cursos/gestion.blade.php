@@ -40,7 +40,7 @@
         </div>  -->
       </div>
 
-      <div class="x_content bs-example-popovers courseContainer">
+      <div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
         <div id ="CargarCurso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
           <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
           </button>
