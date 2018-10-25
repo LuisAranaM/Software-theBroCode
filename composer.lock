@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-
-    "content-hash": "77b52d5fdfbd5240d4ce1b1b8672eca3",
+    "content-hash": "d134a39732ecf5af17d26ef5bce59c4d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1260,7 +1259,6 @@
         },
         {
             "name": "maatwebsite/excel",
-<<<<<<< HEAD
             "version": "2.1.30",
             "source": {
                 "type": "git",
@@ -1271,18 +1269,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/f5540c4ba3ac50cebd98b09ca42e61f926ef299f",
                 "reference": "f5540c4ba3ac50cebd98b09ca42e61f926ef299f",
-=======
-            "version": "3.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "a80179c3f33d06fc0d7f22891d6aae4bb083f8c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/a80179c3f33d06fc0d7f22891d6aae4bb083f8c3",
-                "reference": "a80179c3f33d06fc0d7f22891d6aae4bb083f8c3",
->>>>>>> ec130611d6fe88242dc4c89e3be26296994b2c5f
                 "shasum": ""
             },
             "require": {
@@ -1347,11 +1333,7 @@
                 "import",
                 "laravel"
             ],
-<<<<<<< HEAD
             "time": "2018-09-04T19:00:09+00:00"
-=======
-            "time": "2018-10-11T09:21:58+00:00"
->>>>>>> ec130611d6fe88242dc4c89e3be26296994b2c5f
         },
         {
             "name": "markbaker/complex",

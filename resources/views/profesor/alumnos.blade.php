@@ -14,7 +14,7 @@
 
 		<div class="col-md-4 col-sm-6 form-group top_search" >
 			<div class="input-group">
-				<input type="text" class="form-control searchText" placeholder="Curso...">
+				<input id="buscarAlumno" type="text" class="form-control searchText" placeholder="Alumno...">
 				<span class="input-group-btn">
 					<button class="btn btn-default searchButton" type="button">Buscar</button>
 				</span>
@@ -53,7 +53,7 @@
 							</thead>
 							<!--CargarCurso-->
 							
-							<tbody class="text-left">
+							<tbody class="text-left" id="listaAlumnos">
 								@foreach($alumnos as $alumno)
 								<tr class="even pointer" id="">
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">

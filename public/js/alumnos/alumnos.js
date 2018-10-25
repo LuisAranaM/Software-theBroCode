@@ -7,4 +7,12 @@ $( document ).ready(function() {
 		$('#modalCalificacion').modal('show');
 	});
 
+	$("#buscarAlumno").on("keyup", function() {
+		console.log("HOLI");
+        var value = $(this).val().toLowerCase();
+        $("#listaAlumnos tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
 });
