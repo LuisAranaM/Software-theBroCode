@@ -56,8 +56,8 @@ $( document ).ready(function() {
         var botonHorario=$(this).closest('div').closest('div');
         if (resp == true) {
             eliminarHorarioEvaluar(idHorario,botonHorario);            
-		} 
-		window.location.reload();      
+		}
+		window.location.reload();   
 	});
 
 	function eliminarHorarioEvaluar(idHorario,botonHorario){

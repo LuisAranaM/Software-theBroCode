@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 	(new PNotify({
-        title: 'No Sticky Button Notice',
-        text: 'Check me out! I\'m a sticky notice with no unsticky button. You\'ll have to close me yourself.',
+        title: 'Aviso',
+        text: 'Se acerca la fecha de cierre de notas, por favor concluir con las calificaciones.',
         hide: true,
         sticker: false,
         nonblock: {
