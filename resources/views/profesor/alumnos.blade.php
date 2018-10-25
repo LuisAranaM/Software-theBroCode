@@ -66,7 +66,9 @@
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
 
                         
-                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
+                      <!--<button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>-->
+                    </td>
                         @foreach($projects as $project)                        
 
                           @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
