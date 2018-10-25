@@ -9,7 +9,7 @@
 
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="topTitle" ><a href="{{route('rubricas.gestion')}}">Lista de Resultados</a> > <a>Categorías del Resultado A</a></h1>
+			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}">Lista de Resultados</a> > <a>Categorías del Resultado A</a></h1>
 		</div>
 
 		<div class="col-md-4 col-sm-6 form-group top_search" >
