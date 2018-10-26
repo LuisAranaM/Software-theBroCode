@@ -43,6 +43,7 @@
 
 <!--AGREGUE PARA TREE CON CHECKBOX-->
 <script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap-treeview.js') }}"></script>
 
   @yield('js-libs')
 
