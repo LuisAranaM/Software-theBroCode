@@ -8,7 +8,43 @@ $( document ).ready(function() {
 	});
 
 
-	
+
+var tree = [
+  {
+    text: "Parent 1",
+    nodes: [
+      {
+        text: "Child 1",
+        nodes: [
+          {
+            text: "Grandchild 1"
+          },
+          {
+            text: "Grandchild 2"
+          }
+        ]
+      },
+      {
+        text: "Child 2"
+      }
+    ]
+  },
+  {
+    text: "Parent 2"
+  },
+  {
+    text: "Parent 3"
+  },
+  {
+    text: "Parent 4"
+  },
+  {
+    text: "Parent 5"
+  }
+];
+
+$('#tree').treeview({data: tree});
+
 
 
 	$('#btnCancelarHorarios').click(function() {
@@ -108,4 +144,25 @@ $( document ).ready(function() {
 		console.log("btn accionado");
 		$("#modalCriterios").modal("show");
 	});
+
+	//var tabID = new Array();
+	//tabID[0] = 0; tabID[1] = 0;
+	var tabID = 0;
+	$('#btn-add-tab').click(function () {
+		tabID++;
+		$('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab">Tab ' + tabID + '<button class="close close-tab-style" type="button" title="Remove this page">×</button></a></li>'));
+		$('#tab-content').append($('<div class="tab-pane fade content-tab-style" id="tab' + tabID + '" style="margin-right">  Tab '+ tabID +' content</div>'));
+	});
+	$('#tab-list').on('click','.close',function(){
+		var tabID = $(this).parents('a').attr('href');
+		$(this).parents('li').remove();
+		$(tabID).remove();
+        //display first tab
+        //var tabFirst = $('#tab-list a:first');
+        //tabFirst.tab('show');
+    });
+
+	var list = document.getElementById("tab-list");
+	new Sortable(list);
 });
+

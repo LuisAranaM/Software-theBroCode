@@ -45,7 +45,7 @@
 
       <div class="x_content bs-example-popovers courseContainer">
 
-        <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+        <div id="btnAgregarHorario" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert"  style="cursor:pointer">
 
           <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
           </button>
@@ -86,9 +86,9 @@
     
     <!-- Boton  -->
     <div class="row" style="margin-left: 0px; margin-right: 0px">
-      <div class="x_content bs-example-popovers courseContainer">
+      <div id="btnAgregarResultado"  class="x_content bs-example-popovers courseContainer"  style="cursor:pointer">
         <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
-          <button id="btnAgregarResultado" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+          <button type="button" id="btnAgregarResultado" class="close" aria-label="Close"><span aria-hidden="true">+</span>
           </button>
           <p class="pText"> Elección de Resultados e indicadores</p>
         </div>
@@ -115,186 +115,120 @@
                   @php ($countId = $countId + 1 )
                   @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
                   @php ($count = $count + 1 )
-                <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
+                  <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
                   </li>
                   @endif
                   @endforeach
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    @php ($count = 0)
-                    @php ($countId = 0)
-                    @foreach($indicadores as $indicador)
-                    @php ($countId = $countId + 1 )
-                    @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
-                    @php ($count = $count + 1 )
-                    <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
-                      <p>{{$indicador->NOMBRE}}</p>
-                    </div>
-                    @endif
-                   @endforeach
+                  @php ($count = 0)
+                  @php ($countId = 0)
+                  @foreach($indicadores as $indicador)
+                  @php ($countId = $countId + 1 )
+                  @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                  @php ($count = $count + 1 )
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
+                    <p>{{$indicador->NOMBRE}}</p>
+                  </div>
+                  @endif
+                  @endforeach
                 </div>
               </div>
             </div>
           </div>
         </div>
         @endforeach
-    <!-- Terminan los acordion -->
+        <!-- Terminan los acordion -->
+      </div>
     </div>
-  </div>
-</div>
-<!-- asdasd-->
+    <!-- asdasd-->
 
     
     <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-		id="modalResultados" data-keyboard="false" data-backdrop="static"
-		aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-		<div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
-			<div class="modal-content" style="top: 40%">
-				<div class="modal-header" style="padding-left: 0px; padding-right: 0px">
-					<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close" style="padding-right: 10px">
-					<span aria-hidden="true">&times;</span>
-				</button>
+    id="modalResultados" data-keyboard="false" data-backdrop="static"
+    aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+    <div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
+     <div class="modal-content" style="top: 40%">
+      <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
+       <button type="button" class="close" data-dismiss="modal"
+       aria-label="Close" style="padding-right: 10px">
+       <span aria-hidden="true">&times;</span>
+     </button>
 
-				<h1 class="reportsTitle mainTitle">Alumno a Calificar: Daniela Argumanis</h1>
-				<p class="pText" style="text-align: center">Criterio A: Matemáticas </p>
-			</div>
-			<div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btnCriteria btn btn-primary active">
-						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
-							A1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-							1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-							2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							4
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							<i class="fa fa-caret-up"></i>
-						</span>
-					</label>
-				</div>
-				<div class="text-left" style="border: solid 1px #ccc">
-					<p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
+     <h1 class="reportsTitle mainTitle">Lista de Resultados e Indicadores</h1>
+   </div>
+   <div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
 
-						1: Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo <br>
-						2: Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo <br>
-						3: Tener la capacidad de modificar un algoritmo <br>
-					4: Desarrollar el algoritmo nuevo a partir de una especificación</p>
-				</div>
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btnCriteria btn btn-primary active">
-						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
-							A2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-							1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-							2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							4
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							<i class="fa fa-caret-down"></i>
-						</span>
-					</label>
-				</div>
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btnCriteria btn btn-primary active">
-						<input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
-							A3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-							1
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-							2
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							3
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							4
-						</span>
-					</label>
-					<label class="btnCriteria btn btn-primary">
-						<input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-						<span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-							<i class="fa fa-caret-down"></i>
-						</span>
-					</label>
+    <div id="tree"></div>
 
+    <!--
+    CON CHECKBOX
 
-				</div>
-				<div class="row" style="padding-top: 10px">
-					<div class="col-xs-6 text-left">
-						<i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Criterio C</span></i> 
-					</div>
-					<div class="col-xs-6 text-right">
-						<span class="pText">Criterio B</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
-					</div>
-				</div>
-			</div>
-		</div>
+     <div id="treeview-checkable" class="treeview">
+        <ul class="list-group">
+          <li class="list-group-item node-treeview-checkable search-result" data-nodeid="0" style="color:#D9534F;background-color:undefined;">
+            <span class="icon expand-icon glyphicon glyphicon-minus"></span>
+            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 1</li>
+          
+          <li class="list-group-item node-treeview-checkable node-checked" data-nodeid="1" style="color:undefined;background-color:undefined;"><span class="indent"></span>
+              <span class="icon expand-icon glyphicon glyphicon-plus"></span>
+              <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Child 1</li>
 
+          <li class="list-group-item node-treeview-checkable node-checked" data-nodeid="4" style="color:undefined;background-color:undefined;"><span class="indent"></span>
+             <span class="icon glyphicon"></span>
+             <span class="icon check-icon glyphicon glyphicon-checuncheckedk"></span>Child 2</li>
+
+          <li class="list-group-item node-treeview-checkable" data-nodeid="5" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
+            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 2</li>
+
+          <li class="list-group-item node-treeview-checkable" data-nodeid="6" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
+             <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 3</li>
+
+          <li class="list-group-item node-treeview-checkable" data-nodeid="7" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
+            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 4</li>
+
+          <li class="list-group-item node-treeview-checkable" data-nodeid="8" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
+            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 5</li>
+          </ul>
+  
+                  </div>
+
+    -->
+
+  </div>
+</div>
+</div>
+<!-- /.modal-content -->
+<!-- /.modal-dialog -->
+
+<!--<div class="row" style="margin-bottom: 30px">-->
+
+      <!--<div class="col-md-3 pText">
+        Holi
+      </div>
+      
+      <div class="col-md-8">
+        <div class="btn-group btn-group-justified" data-toggle="buttons" >
+          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+
+            </span>
+          </label>
+
+          </label>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <label codigoCriterio="asdasdasd" nombreCriterio="dsdasd" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
+          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              +
+           </span>
+        </label>
+      </div> -->
+
+      <!--</div>-->
 
     </div>
   </div>
