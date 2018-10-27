@@ -82,7 +82,7 @@
           <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
         </div>
       </div>
-    </div>
+    
     
     <!-- Boton  -->
     <div class="row" style="margin-left: 0px; margin-right: 0px">
@@ -141,6 +141,7 @@
     <!-- Terminan los acordion -->
     </div>
   </div>
+</div>
 <!-- asdasd-->
 
     
@@ -293,37 +294,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.modal-content -->
-		<!-- /.modal-dialog -->
 
-    <!--<div class="row" style="margin-bottom: 30px">-->
-
-      <!--<div class="col-md-3 pText">
-        Holi
-      </div>
-      
-      <div class="col-md-8">
-        <div class="btn-group btn-group-justified" data-toggle="buttons" >
-          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-
-            </span>
-          </label>
-
-          </label>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <label codigoCriterio="asdasdasd" nombreCriterio="dsdasd" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-              +
-           </span>
-        </label>
-      </div> -->
-
-      <!--</div>-->
 
     </div>
   </div>

@@ -28,10 +28,6 @@ $( document ).ready(function() {
 		$("#btnCancelarModal").show();
 	});
 
-	$(function(){
-		$("ul.checktree").checktree();
-	});
-
 	function updateHorarios(horarios,estado){
 		$.ajax({
 			type:'POST',
@@ -112,24 +108,4 @@ $( document ).ready(function() {
 		console.log("btn accionado");
 		$("#modalCriterios").modal("show");
 	});
-
-	//var tabID = new Array();
-	//tabID[0] = 0; tabID[1] = 0;
-	var tabID = 0;
-	$('#btn-add-tab').click(function () {
-		tabID++;
-		$('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab">Tab ' + tabID + '<button class="close close-tab-style" type="button" title="Remove this page">×</button></a></li>'));
-		$('#tab-content').append($('<div class="tab-pane fade content-tab-style" id="tab' + tabID + '" style="margin-right">  Tab '+ tabID +' content</div>'));
-	});
-	$('#tab-list').on('click','.close',function(){
-		var tabID = $(this).parents('a').attr('href');
-		$(this).parents('li').remove();
-		$(tabID).remove();
-        //display first tab
-        //var tabFirst = $('#tab-list a:first');
-        //tabFirst.tab('show');
-    });
-
-	var list = document.getElementById("tab-list");
-	new Sortable(list);
 });
