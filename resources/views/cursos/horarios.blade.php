@@ -19,7 +19,6 @@
       @else
       <h1 class="mainTitle">{{$codCurso}} {{$nombreCurso}}</h1>
       @endif
-
     </div>
   </div>
 
@@ -143,58 +142,81 @@
     </div>
     <!-- asdasd-->
 
-    
-    <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+     <!-- MODAL PARA AGREGAR INDICADORES-->
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
     id="modalResultados" data-keyboard="false" data-backdrop="static"
     aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-    <div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
+    <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
      <div class="modal-content" style="top: 40%">
       <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
-       <button type="button" class="close" data-dismiss="modal"
-       aria-label="Close" style="padding-right: 10px">
-       <span aria-hidden="true">&times;</span>
-     </button>
-
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
+          <span aria-hidden="true">&times;</span>
+        </button>
      <h1 class="reportsTitle mainTitle">Lista de Resultados e Indicadores</h1>
    </div>
    <div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
-
-    <div id="tree"></div>
-
-    <!--
-    CON CHECKBOX
-
-     <div id="treeview-checkable" class="treeview">
-        <ul class="list-group">
-          <li class="list-group-item node-treeview-checkable search-result" data-nodeid="0" style="color:#D9534F;background-color:undefined;">
-            <span class="icon expand-icon glyphicon glyphicon-minus"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 1</li>
-          
-          <li class="list-group-item node-treeview-checkable node-checked" data-nodeid="1" style="color:undefined;background-color:undefined;"><span class="indent"></span>
-              <span class="icon expand-icon glyphicon glyphicon-plus"></span>
-              <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Child 1</li>
-
-          <li class="list-group-item node-treeview-checkable node-checked" data-nodeid="4" style="color:undefined;background-color:undefined;"><span class="indent"></span>
-             <span class="icon glyphicon"></span>
-             <span class="icon check-icon glyphicon glyphicon-checuncheckedk"></span>Child 2</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="5" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 2</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="6" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-             <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 3</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="7" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 4</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="8" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 5</li>
+    
+    <div class="accordion" id="accordionM" role="tablist" aria-multiselectable="true">
+      <div class="panel">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+          <ul id="myTabM" class="nav nav-tabs bar_tabs" role="tablist">
+              @php ($nres = 0)
+              @foreach($todoResultados as $resultado)
+              @php ($nres = $nres + 1 )
+            <li role="presentation" class=""><a href="#tab_contentM{{$nres}}" id="home-tabM" role="tab" data-toggle="tab" aria-expanded="false">{{$resultado->NOMBRE}}</a>
+            </li>
+            @endforeach
           </ul>
-  
-                  </div>
-
-    -->
-
+          <div id="myTabContent" class="tab-content">
+              @php ($nres = 0)
+              @foreach($todoResultados as $resultado)
+              @php ($nres = $nres + 1 )
+            <div role="tabpanel" class="tab-pane fade" id="tab_contentM{{$nres}}" aria-labelledby="home-tabM">
+              <table class="table table-striped jambo_table bulk_action">
+                  
+                  <tbody class="text-left">
+                      <tr class="even pointer">
+                          <td class="a-center"  style="background-color: white; padding-right: 0px">
+                           <div class="form-check" style="padding-left: 10px; width: 20px">
+                            <label>
+                              <input type="checkbox"> <span class="pText label-text "></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">Seleccionar todos</td>
+                      </td>
+                    </tr>
+                      @php ($count = 0)
+                      @php ($countId = 0)
+                      @foreach($todoIndicadores as $indicador)
+                      @php ($countId = $countId + 1 )
+                      @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                      @php ($count = $count + 1 )
+                    <tr class="even pointer">
+                      <td class="a-center"  style="background-color: white; padding-right: 0px">
+                       <div class="form-check" style="padding-left: 10px; width: 20px">
+                        <label>
+                          <input type="checkbox"> <span class="pText label-text "></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$indicador->NOMBRE}}</td>
+                  </td>
+                </tr>
+                @endif
+              @endforeach
+              </tbody>
+              
+            </table>
+            </div>
+            @endforeach
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+      <!-- Terminan los acordion -->
   </div>
 </div>
 </div>

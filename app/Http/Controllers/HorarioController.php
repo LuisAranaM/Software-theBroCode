@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Entity\Horario as eHorario;
 use App\Entity\Resultado as eResultado;
 use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
+use App\Entity\Indicador as eIndicador;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -42,7 +43,9 @@ class HorarioController extends Controller
         ->with('idCurso',$idCurso)
         ->with('horarios',eHorario::getHorarios($idCurso))
         ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
-        ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso));
+        ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
+        ->with('todoResultados',eResultado::getResultados())
+        ->with('todoIndicadores',eIndicador::getIndicadores());
             
     }
 

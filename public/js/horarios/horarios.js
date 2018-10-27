@@ -11,39 +11,37 @@ $( document ).ready(function() {
 
 var tree = [
   {
-    text: "Parent 1",
+    text: "Resultado A",
     nodes: [
       {
-        text: "Child 1",
-        nodes: [
-          {
-            text: "Grandchild 1"
-          },
-          {
-            text: "Grandchild 2"
-          }
-        ]
-      },
-      {
-        text: "Child 2"
-      }
+				text: "Indicador A.1"
+			},
+			{
+				text: "Indicador A.2"
+			},
+			{
+				text: "Indicador A.3"
+			},
+			{
+				text: "Indicador A.4"
+			}
     ]
   },
   {
-    text: "Parent 2"
+    text: "Resultado B"
   },
   {
-    text: "Parent 3"
+    text: "Resultado C"
   },
   {
-    text: "Parent 4"
+    text: "Resultado D"
   },
   {
-    text: "Parent 5"
+    text: "Resultado E"
   }
 ];
 
-$('#tree').treeview({data: tree});
+	$('#tree').treeview({data: tree});
 
 
 
