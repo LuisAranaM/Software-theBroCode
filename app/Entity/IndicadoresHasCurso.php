@@ -24,9 +24,12 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
 
     static function getIndicadoresbyIdCurso($idCurso) {
         $model = new mIndicadoresHasCurso();
-        return mIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso)->get();
+        return mIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
 
-
+    static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $id){
+        $model = new mIndicadoresHasCurso();
+        return mIndicadoresHasCurso::actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $id,self::getIdSemestre())->get();
+    }
     
 }

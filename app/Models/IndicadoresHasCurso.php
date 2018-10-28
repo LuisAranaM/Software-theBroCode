@@ -62,19 +62,63 @@ class IndicadoresHasCurso extends Eloquent
 	}
 
 
-	static function getIndicadoresbyIdCurso($idCurso) {
+	static function getIndicadoresbyIdCurso($idCurso,$idSem,$idEsp) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
 				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
 				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
 				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
+				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
+				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
 				->distinct();
         //dd($sql->get());
         return $sql;
 	}
 	
+	static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$sem){
+		DB::beginTransaction();
+        $status = true;
+		try {
+			foreach(array_combine($idIndicadores,$estadoIndicadores) as  $idIndicador => $estado ){
+				$sql = DB::table('INDICADORES_HAS_CURSOS')
+						->where('H.ID_CURSO', $idCurso)
+						->where('H.ID_INDICADOR', $idIndicador)
+						->where('H.ID_SEMESTRE', $sem)
+						->select('*');
 
+				if($sql){
+				DB::table('INDICADORES_HAS_CURSOS')
+				->where('H.ID_CURSO', $idCurso)
+				->where('H.ID_INDICADOR', $idIndicador)
+				->where('H.ID_SEMESTRE', $sem)
+				->update(['H.ESTADO' => (int)$estado,
+						'H.FECHA_ACTUALIZACION'=>Carbon::now(),
+						'H.USUARIO_MODIF'=>$usuario]);
+				}
+				else{
+				$sql = DB::table('INDICADORES_HAS_CURSOS')->insert(
+					['ID_CURSO' => $idCat,
+					'ID_INDICADOR' => $nombre,
+					'ID_SEMESTRE' => $sem,
+					'ID_ESPECIALIDAD' => 1,
+					'FECHA_REGISTRO' => Carbon::now(),
+					'FECHA_ACTUALIZACION' => Carbon::now(),		
+					'USUARIO_MODIF' => Auth::id(), 
+					'ESTADO' => 1]);
+				}
+			}
+			DB::commit(); 
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+		dd($idHorario,$estadoEv);
+		
+		return $status;
+
+	}
 
 	public function indicador()
 	{

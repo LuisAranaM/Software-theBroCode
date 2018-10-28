@@ -13,7 +13,7 @@
 @section('pageTitle', 'Principal')
 @section('content')
 <div id="idCurso" data-field-id="{{$idCurso}}" ></div>
-<div id="nombreCurso" data-field-id="{$nombreCurso}}" ></div>
+<div id="nombreCurso" data-field-id="{{$nombreCurso}}" ></div>
 <div id="codCurso" data-field-id="{{$codCurso}}" ></div>
 
 <div class="customBody">
@@ -24,7 +24,6 @@
       @else
       <h1 class="mainTitle">{{$codCurso}} {{$nombreCurso}}</h1>
       @endif
-
     </div>
   </div>
 
@@ -63,7 +62,7 @@
         <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}">
           <div class="x_content bs-example-popovers courseContainer">
             <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-              <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" codigoHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
+              <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
 
               </button>
               <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
@@ -87,7 +86,7 @@
           <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
         </div>
       </div>
-    </div>
+    
     
     <!-- Boton  -->
     <div class="row" style="margin-left: 0px; margin-right: 0px">
@@ -147,94 +146,103 @@
       </div>
     </div>
     <!-- asdasd-->
-
+    @php ($idInd = array())
+    @php ($i = 0)
+    @foreach($indicadores as $indicador)
+    @php ($idInd[$i] = $indicador->ID_INDICADOR)
+    @php ($i = $i + 1)
     
-    <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+    @endforeach
+
+<!-- MODAL PARA AGREGAR INDICADORES-->
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
     id="modalResultados" data-keyboard="false" data-backdrop="static"
     aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-    <div class="customModal modal-dialog modal-lg" style="width: 400px; height: 300px" >
+    <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
      <div class="modal-content" style="top: 40%">
       <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
-       <button type="button" class="close" data-dismiss="modal"
-       aria-label="Close" style="padding-right: 10px">
-       <span aria-hidden="true">&times;</span>
-     </button>
-
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
+          <span aria-hidden="true">&times;</span>
+        </button>
      <h1 class="reportsTitle mainTitle">Lista de Resultados e Indicadores</h1>
    </div>
    <div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
-
-    <!--<div id="tree">
-
-    </div>-->
-
     
-
-     <div id="treeview-checkable" class="treeview">
-        <ul class="list-group">
-          <li class="list-group-item node-treeview-checkable search-result" data-nodeid="0" style="color:#D9534F;background-color:undefined;">
-            <span class="icon expand-icon glyphicon glyphicon-minus"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 1</li>
-          
-          <li class="list-group-item node-treeview-checkable node-checked" data-nodeid="1" style="color:undefined;background-color:undefined;"><span class="indent"></span>
-              <span class="icon expand-icon glyphicon glyphicon-plus"></span>
-              <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Child 1</li>
-
-          <li class="list-group-item node-treeview-checkable node-checked" data-nodeid="4" style="color:undefined;background-color:undefined;"><span class="indent"></span>
-             <span class="icon glyphicon"></span>
-             <span class="icon check-icon glyphicon glyphicon-checuncheckedk"></span>Child 2</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="5" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 2</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="6" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-             <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 3</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="7" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 4</li>
-
-          <li class="list-group-item node-treeview-checkable" data-nodeid="8" style="color:undefined;background-color:undefined;"><span class="icon glyphicon"></span>
-            <span class="icon check-icon glyphicon glyphicon-unchecked"></span>Parent 5</li>
+    <div class="accordion" id="accordionM" role="tablist" aria-multiselectable="true">
+      <div class="panel">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+          <!-- tab de los resultados-->
+          <ul id="myTabM" class="nav nav-tabs bar_tabs" role="tablist">
+              @php ($nres = 0)
+              @foreach($todoResultados as $resultado)
+              @php ($nres = $nres + 1 )
+            <li role="presentation" class=""><a href="#tab_contentM{{$nres}}" id="home-tabM" role="tab" data-toggle="tab" aria-expanded="false">{{$resultado->NOMBRE}}</a>
+            </li>
+            @endforeach
           </ul>
-  
-                  </div>
-
-    
-
+          <!-- contenido de cada tab de resultados (indicadores)-->
+          <div id="myTabContent" class="tab-content">
+              @php ($nres = 0)
+              @foreach($todoResultados as $resultado)
+              @php ($nres = $nres + 1 )
+            <div role="tabpanel" class="tab-pane fade" id="tab_contentM{{$nres}}" aria-labelledby="home-tabM">
+              <table class="table table-striped jambo_table bulk_action">
+                  <!-- checkbox para seleccionar todos-->
+                  <tbody class="text-left">
+                      <tr class="even pointer">
+                          <td class="a-center"  style="background-color: white; padding-right: 0px">
+                           <div class="form-check" style="padding-left: 10px; width: 20px">
+                            <label>
+                              <input class="selectAll" idResultado="{{$resultado->ID_RESULTADO}}" type="checkbox"> <span class="pText label-text "></span>
+                            </label>
+                          </div>
+                        </td>
+                      <td style="background-color: white; padding-top: 12px; color: #72777a;">Seleccionar todos</td>
+                      </td>
+                    </tr>
+                    <!-- checkbox de cada indicador-->
+                      @php ($count = 0)
+                      @foreach($todoIndicadores as $indicador)
+                      @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                      @php ($count = $count + 1 )
+                    <tr class="even pointer">
+                      <td class="a-center"  style="background-color: white; padding-right: 0px">
+                       <div class="form-check" style="padding-left: 10px; width: 20px">
+                        <label>
+                        <input type="checkbox" class="get_valor checkbox_class{{$resultado->ID_RESULTADO}}" value="{{$indicador->ID_INDICADOR}}"  @if(in_array($indicador->ID_INDICADOR, $idInd)) checked=checked @endif> <span class="pText label-text "></span>
+                        </label>
+                      </div>
+                    </td>
+                      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$resultado->NOMBRE}}{{$count}}: {{$indicador->NOMBRE}}</td>
+                    </td>
+                    </tr>
+                    @endif
+                    @endforeach
+                    <!-- fin checkbox de cada indicador-->
+              </tbody>
+              
+            </table>
+            </div>
+            @endforeach
+            
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+      <!-- Terminan los acordion -->
+       <!-- botones de actualizar y cancelar -->
+      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+        <button id="btnActualizarIndicadores" class="btn btn-success pText customButton" idCurso="{{$idCurso}}">Actualizar</button>
+        <button id="btnCancelarIndicadores" class="btn btn-success pText customButton">Cancelar</button> 
+      </div>
+       <!-- fin de botones de actualizar y cancelar  -->
   </div>
 </div>
 </div>
 <!-- /.modal-content -->
 <!-- /.modal-dialog -->
-
-<!--<div class="row" style="margin-bottom: 30px">-->
-
-      <!--<div class="col-md-3 pText">
-        Holi
-      </div>
-      
-      <div class="col-md-8">
-        <div class="btn-group btn-group-justified" data-toggle="buttons" >
-          <label class="btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-
-            </span>
-          </label>
-
-          </label>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <label codigoCriterio="asdasdasd" nombreCriterio="dsdasd" class=" btn btn-primary" style="background-color: #00626E; border-color: #004d54">
-          <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-              +
-           </span>
-        </label>
-      </div> -->
-
-      <!--</div>-->
 
     </div>
   </div>
@@ -347,76 +355,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-
-
-<!-- Modal para Agregar SUbcriterios-->
-<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
-id="modalAgregarSubcriterio" data-keyboard="false" data-backdrop="static"
-
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 400px;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-
-    <h4 class="reportsTitle mainTitle modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
-  </div>
-  <div class="modal-body">
-    <div class="container-fluid">
-      <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
-      <form id="frmCursosModal">
-        <div class="table-responsive">
-          <table class="table table-striped jambo_table bulk_action">
-            <thead >
-              <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-                <th class="pText column-title" style="border: none"></th>
-                <th class="pText column-title" style="border: none">Horario</th>
-                <th class="pText column-title" style="border: none">Profesor</th>
-                <th class="pText bulk-actions" colspan="7">
-                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                </th>
-              </tr>
-            </thead>
-
-            @foreach($horarios as $horario)
-            <tbody class="text-left">
-              <tr class="even pointer">
-                <td class="a-center"  style="background-color: white; padding-right: 0px">
-                 <div class="form-check" style="padding-left: 10px; width: 20px">
-                  <label>
-                    <input value="{{$horario->ID_HORARIO}}" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
-                  </label>
-                </div>
-              </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
-            </td>
-            @endforeach
-          </tr>
-        </tbody>
-      </table>
-    </div> 
-  </form>
-  <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-    <button id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
-    <button id="btnCancelarHorarios" class="btn btn-success pText customButton">Cancelar</button> 
-  </div>
-
-</div>
-</div>
-</div>
-<!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-
-
 
 
 
