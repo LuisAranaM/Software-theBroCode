@@ -50,20 +50,19 @@ class HorarioController extends Controller
     }
 
     public function eliminarEvaluacionHorarios(Request $request){        
-        //dd($request->all());
-        /*$validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'idHorario' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(array_flatten($validator->errors()->getMessages()), 404);
-        }*/
+        }
         $horario = new eHorario();          
         if($horario->eliminarEvaluacion($request->get('idHorario'),Auth::id())){
             flash('El curso se eliminó con éxito')->success();
         } else {
             flash('Hubo un error al tratar de eliminar el curso')->error();
         }
-        return back();
+        return Redirect::back();
     }
 
     public function guardarHorarios(Request $request){
@@ -208,7 +207,31 @@ class HorarioController extends Controller
         } else {
             flash('Hubo un error al tratar de eliminar el curso')->error();
         }
-        return back();
+        return Redirect::back();
+    }
+
+    public function actualizarIndicadoresCurso(Request $request){
+        dd($request->all());
+        $idIndicadores = $request->get('idIndicadores', null);
+        $estadoIndicadores= $request->get('estadoIndicadores', null);
+        $idCurso= $request->get('idCurso', null);
+
+        $validator = Validator::make($request->all(), [
+            'idIndicadores' => 'required',
+            'estadoIndicadores' => 'required',
+            'idCurso' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+        $indicadoresHasCurso = new eIndicadoresHasCurso();   
+        if($indicadoresHasCurso->actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso,Auth::id())){
+            flash('El curso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el curso')->error();
+        }
+        return Redirect::back();
     }
 
 }

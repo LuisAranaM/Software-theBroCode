@@ -76,7 +76,49 @@ class IndicadoresHasCurso extends Eloquent
         return $sql;
 	}
 	
+	static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$sem){
+		DB::beginTransaction();
+        $status = true;
+		try {
+			foreach(array_combine($idIndicadores,$estadoIndicadores) as  $idIndicador => $estado ){
+				$sql = DB::table('INDICADORES_HAS_CURSOS')
+						->where('H.ID_CURSO', $idCurso)
+						->where('H.ID_INDICADOR', $idIndicador)
+						->where('H.ID_SEMESTRE', $sem)
+						->select('*');
 
+				if($sql){
+				DB::table('INDICADORES_HAS_CURSOS')
+				->where('H.ID_CURSO', $idCurso)
+				->where('H.ID_INDICADOR', $idIndicador)
+				->where('H.ID_SEMESTRE', $sem)
+				->update(['H.ESTADO' => (int)$estado,
+						'H.FECHA_ACTUALIZACION'=>Carbon::now(),
+						'H.USUARIO_MODIF'=>$usuario]);
+				}
+				else{
+				$sql = DB::table('INDICADORES_HAS_CURSOS')->insert(
+					['ID_CURSO' => $idCat,
+					'ID_INDICADOR' => $nombre,
+					'ID_SEMESTRE' => $sem,
+					'ID_ESPECIALIDAD' => 1,
+					'FECHA_REGISTRO' => Carbon::now(),
+					'FECHA_ACTUALIZACION' => Carbon::now(),		
+					'USUARIO_MODIF' => Auth::id(), 
+					'ESTADO' => 1]);
+				}
+			}
+			DB::commit(); 
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+		dd($idHorario,$estadoEv);
+		
+		return $status;
+
+	}
 
 	public function indicador()
 	{
