@@ -1,6 +1,11 @@
+<!-- Required Stylesheets -->
+<!--<link href="public/css/bootstrap.css" rel="stylesheet">-->
 @extends('Layouts.layout')
 
 @section('js-libs')
+<!-- Required Javascript -->
+<script type="text/javascript" src="{{ URL::asset('js/jquery-3.2.1.min') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/bootstrap-treeview.min') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop
@@ -159,10 +164,11 @@
    </div>
    <div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
 
-    <div id="tree"></div>
+    <!--<div id="tree">
 
-    <!--
-    CON CHECKBOX
+    </div>-->
+
+    
 
      <div id="treeview-checkable" class="treeview">
         <ul class="list-group">
@@ -193,7 +199,7 @@
   
                   </div>
 
-    -->
+    
 
   </div>
 </div>
