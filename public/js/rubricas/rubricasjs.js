@@ -41,19 +41,6 @@ $( document ).ready(function() {
     	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
     	$(this).addClass('activeButton');
     });
-	//NOTA:(hacer lo sig al usar iteradores)
-	//solo cuidar que cuando se use iteradores, al hacer clic en resultados,
-	// la seleccion en categorias e indicadores sea en su primer boton
-	//(en caso esté en uun boton distinto al primero)
-	//ej:
-	//resultados : boton1 (boton2:SELECCIONADO) boton3
-	//categorias : boton1 boton2 (boton3:SELECCIONADO)
-	//indicadoress : boton1 (boton2:SELECCIONADO) boton3
-	//
-	//si cambio la seleccion en resultados del boton 2 al 3:
-	//resultados ahora: boton1 boton2 (boton3:SELECCIONADO)
-	//categorias ahora: (boton1:SELECCIONADO) boton2 boton3
-	//indicadoress ahora: (boton1:SELECCIONADO) boton2 boton3
 
 	$("#apRes").on("click",".courseButton",function() {
 		$('html,body').animate({
@@ -75,10 +62,14 @@ $( document ).ready(function() {
 		var codRes = $('#txtCodigoResultado').val();
 		var descRes = $('#txtResultado').val();
 		var cat = []
-		cat[0] =$('#txtCategoria').val();
+
+		$('#filasCat .cat').each(function() {
+        	cat.push( $(this).val());
+    	});
+		//console.log(cat[1]);
 		console.log("si llega aca");
 		actualizarResultados(codRes,descRes,cat);
-		e.preventDefault();
+		//e.preventDefault();
 		
 	});
 
@@ -102,10 +93,23 @@ $( document ).ready(function() {
 		actualizarEscalas(escala, descripcion, idInd);
 	});
 
+	$('#filasCat').on('click','.fa-plus-circle' ,function() {
+		$('#agregarFilaIcono').remove();
+		html=''
+		html+='<div class="col-xs-11" style="padding-bottom: 6px">'
+		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+        html+='</div>'
+        html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+        html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+        html+='</div>'
+		$('#filasCat').append(html);
+
+		//e.preventDefault();
+	});
+
 	
 
 });
-
 function refrescarCategorias(idRes,sel,idSel){
 	$.ajax({
 		url: APP_URL + '/rubricas/refrescar-categorias',
@@ -333,7 +337,8 @@ function actualizarResultados(codRes,descRes,cat){
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
 				actualizarCategorias(cat[i], idRes);
-			}			
+			}
+			window.location = APP_URL + "/rubricas/gestion";			
 		},
 		error: function (xhr, status, text) {
         	e.preventDefault();
