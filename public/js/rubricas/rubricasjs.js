@@ -1,20 +1,9 @@
 $( document ).ready(function() {
 	console.log("inicioR");
 
-	$("#CargarCurso").on("click", function(){
-		console.log("Cargando cursos a Acreditar");
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
-		$("#modalCursos").modal("show");
-
-	});
  
 	$("#CargarResultado").on("click", function(){
-		console.log("Cargando Resultados");
+		//console.log("Cargando Resultados");
 		$("#modalResultados").modal("show");
 	});
 
@@ -88,7 +77,7 @@ $( document ).ready(function() {
 		var cat = []
 		cat[0] =$('#txtCategoria').val();
 		console.log("si llega aca");
-		actualizarResultados(codRes,descRes);
+		actualizarResultados(codRes,descRes,cat);
 		e.preventDefault();
 		
 	});
@@ -341,10 +330,10 @@ function actualizarResultados(codRes,descRes,cat){
 			result = JSON.parse(result);
 			//refrescarResultados(result);
 			var idRes= result;	
-			console.log(idRes);
-			/*for(i=0; i<cat.length;i++){
+			for(i=0; i<cat.length;i++){
+				console.log(cat[i]);
 				actualizarCategorias(cat[i], idRes);
-			}	*/			
+			}			
 		},
 		error: function (xhr, status, text) {
         	e.preventDefault();

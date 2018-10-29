@@ -34,29 +34,11 @@
         </div>
       </div>
     </div>
-
-    <div class="col-md-3 col-xs-6">
-      <div class="resultContainer no-padding x_panel tile coursesBox">
-        @if (!is_null($firstR= array_shift($resultados)))
-        <div class="bs-example-popovers">
-          <a href="{{ route('rubricas.categorias') }}">
-            <div class="outer">
-              <div class="middle">
-                <div id="{{$firstR->ID_RESULTADO}}" class="resultButton inner text-center resultButton activeButton alert-success alert-dismissible fade in" role="alert">
-                  <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black"> {{$firstR->NOMBRE}} <br> </span> {{$firstR->DESCRIPCION}}</p>
-
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        @endif
-      </div>
-    </div>
     @foreach ($resultados as $resultado) 
     <div class="col-md-3 col-xs-6">
       <div class="resultContainer no-padding x_panel tile coursesBox">
         <div class="bs-example-popovers">
+          <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
           <div class="outer">
             <div class="middle">
               <div id="{{$resultado->ID_RESULTADO}}" class="inner text-center resultButton alert-success alert-dismissible fade in" role="alert">
@@ -64,8 +46,8 @@
               </div>
             </div>
           </div>
-        </div>
-        
+        </a>
+        </div>        
       </div>
     </div>
     @endforeach

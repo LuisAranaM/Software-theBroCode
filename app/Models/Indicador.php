@@ -8,6 +8,8 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Subcriterio

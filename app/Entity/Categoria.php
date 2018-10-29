@@ -40,6 +40,6 @@ class Categoria extends \App\Entity\Base\Entity {
     }
     static function insertCategoria($categoria, $criterio){
         $model =new mCategoria();
-        return $model->insertCategoria($categoria, $criterio);
+        return $model->insertCategoria($categoria, $criterio, self::getIdSemestre(), self::getEspecialidadUsuario());
     }
 }
