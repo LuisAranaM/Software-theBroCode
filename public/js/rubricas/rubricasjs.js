@@ -18,6 +18,8 @@ $( document ).ready(function() {
 		$("#modalResultados").modal("show");
 	});
 
+
+
 	$("#hola").click(function () {
         //$("#hola").hide();
     });
@@ -304,20 +306,25 @@ $( document ).ready(function() {
 				//refrescarResultados(result);
 				var idRes= result;	
 				console.log(idRes);
-				for(i=0; i<cat.length;i++){
+				/*for(i=0; i<cat.length;i++){
 					actualizarCategorias(cat[i], idRes);
-				}				
-			}
-		})
+				}	*/			
+			},
+			error: function (xhr, status, text) {
+            	e.preventDefault();
+            	alert('Hubo un error al registrar la información');
+        	}
+		});
 	}
 
-	$('#btnAgregarResultado').click(function() {
+	$('#btnAgregarResultado').on('click',function(e) {
 		var codRes = $('#txtCodigoResultado').val();
 		var descRes = $('#txtResultado').val();
 		var cat = []
 		cat[0] =$('#txtCategoria').val();
 		console.log("si llega aca");
 		actualizarResultados(codRes,descRes);
+		e.preventDefault();
 		
 	});
 

@@ -56,7 +56,8 @@ class ResultadoController extends Controller
         $nombreRes = $request->get('_descRes', null);
 
         $idResultado = eResultado::insertResultado($codigoRes,$nombreRes);
-        console.log($idResultado);
+        //dd("HOLI");
+        //console.log($idResultado);
         return $idResultado;
     }
     public function actualizarCategorias(Request $request){
