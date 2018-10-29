@@ -104,6 +104,16 @@ class Indicador extends Eloquent
         return $sql;
     }
 
+	static function getIndicadores($idSem,$idEsp) {
+		$sql = DB::table('INDICADORES')
+				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
+				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
+				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
+				->distinct();
+        return $sql;
+    }
 	public function insertSubCriterio($idCat,$nombre){
 
 		DB::beginTransaction();

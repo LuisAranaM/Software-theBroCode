@@ -55,10 +55,11 @@ class AlumnoController extends Controller
             $data = \Excel::load($path)->get();
             $fecha = date("Y-m-d H:i:s");
             $usuario = Auth::user();
+            $especialidad = Entity::getEspecialidadUsuario();
             $id_usuario = Auth::id();
             $semestre_actual = Entity::getIdSemestre();
-            $idHorario = 2; // jiji
-            $idProyecto = 1; // jiji x2
+            $idHorario = $request->input('codigoHorario'); 
+            $idProyecto = 1; 
             //$especialidad = Entity::getEspecialidadUsuario();
             if($data->count()){
                 foreach ($data as $key => $value) {
@@ -73,6 +74,8 @@ class AlumnoController extends Controller
                              'CODIGO' => $value->codigo,
                              'FECHA_REGISTRO' => $fecha,
                              'FECHA_ACTUALIZACION' => $fecha,
+                             'ID_SEMESTRE'=>$semestre_actual,
+                             'ID_ESPECIALIDAD'=>$especialidad,
                              'USUARIO_MODIF' => $usuario['ID_USUARIO'],
                              'ESTADO' => 1
                             ]);
@@ -93,6 +96,8 @@ class AlumnoController extends Controller
                                     'ID_PROYECTO' => $idProyecto,
                                     'ID_SEMESTRE' => $semestre_actual,
                                     'FECHA_REGISTRO' => $fecha,
+                                    'ID_SEMESTRE'=>$semestre_actual,
+                                    'ID_ESPECIALIDAD'=>$especialidad,
                                     'FECHA_ACTUALIZACION' => $fecha,
                                     'USUARIO_MODIF' => $usuario['ID_USUARIO'],
                                     'ESTADO' => 1];

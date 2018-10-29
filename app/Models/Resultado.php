@@ -66,13 +66,16 @@ class Resultado extends Eloquent
 
 	}
 	
-	static function getResultadosbyIdCurso($idCurso) {
+	static function getResultadosbyIdCurso($idCurso,$idSem,$idEsp) {
+		//dd($idCurso,$idSem,$idEsp);
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
 				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
 				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
 				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE')
+				->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
+				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
 				->distinct();
         //dd($sql->get());
         return $sql;

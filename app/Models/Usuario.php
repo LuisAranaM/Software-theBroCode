@@ -168,4 +168,12 @@ class Usuario extends Authenticatable implements Auditable{
         //La función Hash::check() se encarga de confirmar si dos cadenas encriptadas son iguales
         return Hash::check($apassword, $usuario->PASS);
     }
+
+    public function getIdUsuario($codUsuario){
+        $sql = DB::table('USUARIOS')
+                ->select('ID_USUARIO')
+                ->where('USUARIO','=',$codUsuario)
+                ->where('ESTADO','=',1);
+
+    }
 }

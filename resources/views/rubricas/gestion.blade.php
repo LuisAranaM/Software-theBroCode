@@ -11,7 +11,7 @@
     <!-- TITULO -->
     <div class="row" style="padding-right: 10px; padding-bottom: 10px">
       <div class="col-md-8 col-xs-6">
-        <h1 class="mainTitle" style="padding-left: 10px"><a>Rúbricas</a></h1>
+        <h1 class="mainTitle" style="padding-left: 10px"><a>Lista de Resultados</a></h1>
       </div>
       <div class="col-md-4 col-xs-6" style="text-align: right">
         <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar"> Guardar Rúbrica </button>

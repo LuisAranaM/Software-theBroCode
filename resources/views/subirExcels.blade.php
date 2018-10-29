@@ -19,8 +19,8 @@
       <div class="row">
         <div class="col-xs12">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
-          <button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
-          <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
+          <!--<button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
+          <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>-->
         </div>  
       </div>
     </div>
@@ -97,7 +97,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
         <p class="pText">Arrastra y suelta un archivo <br> o <br> 
 
-          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
+          <form id="upload_form" action = "{{url('/subir-excels/uploadHorarios')}}" method = "post" enctype = "multipart/form-data">
             {{csrf_field()}}
             <div class = "form-group">
               <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">

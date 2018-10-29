@@ -9,7 +9,7 @@
 
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="topTitle" ><a href="{{route('rubricas.gestion')}}"> Categorias del Resultado {{$resultado}}</a></h1>
+			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}"> Categorias del Resultado {{$resultado}}</a></h1>
 		</div>
 	</div>
 	<div class="row">

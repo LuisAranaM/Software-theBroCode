@@ -43,6 +43,7 @@
 
 <!--AGREGUE PARA TREE CON CHECKBOX-->
 <script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap-treeview.js') }}"></script>
 
   @yield('js-libs')
 
@@ -107,8 +108,8 @@
                   </li>-->
                   <li class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
                   </li>
-                  <li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                  </li>
+                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
+                  </li>-->
                   <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                   </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>

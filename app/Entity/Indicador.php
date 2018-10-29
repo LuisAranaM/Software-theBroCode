@@ -43,7 +43,7 @@ class Indicador extends \App\Entity\Base\Entity {
     }
     static function getIndicadores(){
         $model =new mIndicador();
-        return $model::getIndicadores()->get();
+        return $model::getIndicadores(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
     static function getIndicadorId($idInd){
         $model =new mIndicador();

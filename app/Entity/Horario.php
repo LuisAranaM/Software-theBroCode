@@ -22,7 +22,6 @@ class Horario extends \App\Entity\Base\Entity {
         ]);
     }
 
-
     static function getHorariosCompleto($idCurso){
         return mHorario::getHorariosCompleto($idCurso,self::getIdSemestre());
     }
@@ -49,10 +48,9 @@ class Horario extends \App\Entity\Base\Entity {
     }
 
     function eliminarEvaluacion($idHorario,$usuario){
-        
         $model= new mHorario();
         
-        if ($model->eliminarEvaluacion(self::getIdSemestre(),$idHorario,$usuario)){
+        if ($model->eliminarEvaluacion($idHorario,$usuario)){
             return true;
         }else{
             $this->setMessage('Hubo un error en el servidor de base de datos');

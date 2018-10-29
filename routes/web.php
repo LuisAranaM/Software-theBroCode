@@ -36,7 +36,7 @@ Route::get('/extra-login', ['as' => 'pass.login', 'uses' => 'PassController@logi
 Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController@attempt']);
 Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
-//Route::post('/actualizar', ['as'=>'actualizar.horario','uses'=>'HorarioController@actualizarHorarios']);
+
 /**HORARIOS**/
 Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
@@ -55,7 +55,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3'
 	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'ResultadoController@actualizarResultados']);
 	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'ResultadoController@actualizarCategorias']);
 	Route::get('/refrescar-categorias', ['as' => 'refrescar.categorias', 'uses' => 'ResultadoController@refrescarCategorias']);
-	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'ResultadoController@actualizarIndicadores']);
+	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'ResultadoController@actualizarIndicadoresCurso']);
 	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'ResultadoController@refrescarIndicadores']);
 	Route::post('/actualizar-escalas', ['as' => 'actualizar.escalas', 'uses' => 'ResultadoController@actualizarEscalas']);
 	Route::get('/refrescar-escalas', ['as' => 'refrescar.escalas', 'uses' => 'ResultadoController@refrescarEscalas']);
@@ -79,6 +79,7 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 #Route::get('upload', 'CursoController@showForm');
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
+Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
 
 /***GENERAR AVISOS***/
@@ -91,7 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
-	Route::post('/actualizar-horarios', ['as'=>'actualizar.horario','uses'=>'HorarioController@actualizarHorarios']);
+	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 	Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@index']);
 	Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoController@descargarProyecto']);
@@ -108,3 +109,5 @@ Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], fu
 Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar']);
 Route::get('/rubricas/categorias', ['as'=>'rubricas.categorias','uses'=>'ResultadoController@categorias']);
 
+Route::post('/actualizar-indicadores-curso', ['as'=>'actualizar.indicadorescurso','uses'=>'HorarioController@actualizarIndicadoresCurso']);
+	
