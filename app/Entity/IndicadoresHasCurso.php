@@ -28,8 +28,14 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
     }
 
     static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $id){
+        //dd($idIndicadores,$estadoIndicadores,$idCurso, $id);
         $model = new mIndicadoresHasCurso();
-        return mIndicadoresHasCurso::actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $id,self::getIdSemestre())->get();
+        if ($model->actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $id,self::getEspecialidadUsuario(),self::getIdSemestre())){
+            return true;
+        }else{
+            //$this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
     }
     
 }

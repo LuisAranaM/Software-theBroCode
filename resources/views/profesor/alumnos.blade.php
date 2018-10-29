@@ -5,6 +5,13 @@
 <script type="text/javascript"  src="{{ URL::asset('js/alumnos/alumnos.js') }}"></script>
 @stop
 
+@php ($idInd = array())
+@php ($i = 0)
+@foreach($indicadores as $indicador)
+@php ($idInd[$i] = $indicador->ID_INDICADOR)
+@php ($i = $i + 1)
+@endforeach
+<!--La variable $indicadores contiene 'ID_RESULTADO', 'NOMBRE','ID_INDICADOR' -->
 <div class="customBody">
 
 	<div class="row">
@@ -45,10 +52,11 @@
 									<th class="pText column-title" style="border: none">Proyecto</th>
 									
                   <th class="pText column-title" style="border: none"> </th>
-									<th class="pText column-title" style="border: none"> </th>
-									<th class="pText column-title" style="border: none">A</th>
-									<th class="pText column-title" style="border: none">B</th>
-									<th class="pText column-title" style="border: none">C</th>
+                  <th class="pText column-title" style="border: none"> </th>
+                  <!--para cada resultado-->
+                  @foreach($resultados as $resultado)
+                      <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
+                  @endforeach 
 								</tr>
 							</thead>
 							<!--CargarCurso-->
@@ -80,9 +88,9 @@
 
                          @endforeach
                   </form>
-                  <td id="AbrirCalificacion" class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">4</td>  
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">4</td>   
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">4</td> 
+                  @foreach($resultados as $resultado)
+                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="AbrirCalificacion pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$resultado->NOMBRE}}</td>  
+                  @endforeach
                 </tr>
 
 

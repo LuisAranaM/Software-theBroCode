@@ -71,7 +71,12 @@
     </div>  
     @endif
   </div>
-
+  @php ($idInd = array())
+  @php ($i = 0)
+  @foreach($indicadores as $indicador)
+  @php ($idInd[$i] = $indicador->ID_INDICADOR)
+  @php ($i = $i + 1)
+  @endforeach
 
   @if($codCurso!=null)
   <div class="row">
@@ -98,6 +103,7 @@
       <!-- start accordion -->
       <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
         @php ($nres = 0)
+        @php($count = 0)
         @foreach($resultados as $resultado)
         @php ($nres = $nres + 1 )
         <div class="panel">
@@ -109,23 +115,23 @@
               <div class="" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                   @php ($countId = 0)
-                  @php ($count = 0)
-                  @foreach($indicadores as $indicador)
-                  @php ($countId = $countId + 1 )
+                  @php($count = 0)
+                  @foreach($todoIndicadores as $indicador)
+                  @php ($countId = $countId + 1)
                   @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
                   @php ($count = $count + 1 )
+                  @endif
+                  @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
                   <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
                   </li>
                   @endif
                   @endforeach
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                  @php ($count = 0)
                   @php ($countId = 0)
-                  @foreach($indicadores as $indicador)
+                  @foreach($todoIndicadores as $indicador)
                   @php ($countId = $countId + 1 )
-                  @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
-                  @php ($count = $count + 1 )
+                  @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
                   <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
                     <p>{{$indicador->NOMBRE}}</p>
                   </div>
@@ -141,13 +147,7 @@
       </div>
     </div>
     <!-- asdasd-->
-    @php ($idInd = array())
-    @php ($i = 0)
-    @foreach($indicadores as $indicador)
-    @php ($idInd[$i] = $indicador->ID_INDICADOR)
-    @php ($i = $i + 1)
     
-    @endforeach
 
 <!-- MODAL PARA AGREGAR INDICADORES-->
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"

@@ -22,7 +22,6 @@ class Horario extends \App\Entity\Base\Entity {
         ]);
     }
 
-
     static function getHorariosCompleto($idCurso){
         return mHorario::getHorariosCompleto($idCurso,self::getIdSemestre());
     }

@@ -58,7 +58,7 @@ class HorarioController extends Controller
         }
         $horario = new eHorario();          
         if($horario->eliminarEvaluacion($request->get('idHorario'),Auth::id())){
-            flash('El curso se eliminó con éxito')->success();
+            flash('El horario se eliminó con éxito')->success();
         } else {
             flash('Hubo un error al tratar de eliminar el curso')->error();
         }
@@ -203,15 +203,15 @@ class HorarioController extends Controller
         }
         $horario = new eHorario();   
         if($horario->actualizarHorarios($idHorarios,$estadoEvaluacion,Auth::id())){
-            flash('El curso se eliminó con éxito')->success();
+            flash('Los horarios se han actualizado con éxito')->success();
         } else {
-            flash('Hubo un error al tratar de eliminar el curso')->error();
+            flash('Hubo un error al tratar de actualizar el curso')->error();
         }
         return Redirect::back();
     }
 
     public function actualizarIndicadoresCurso(Request $request){
-        dd($request->all());
+        //dd($request->all());
         $idIndicadores = $request->get('idIndicadores', null);
         $estadoIndicadores= $request->get('estadoIndicadores', null);
         $idCurso= $request->get('idCurso', null);
@@ -227,9 +227,9 @@ class HorarioController extends Controller
         }
         $indicadoresHasCurso = new eIndicadoresHasCurso();   
         if($indicadoresHasCurso->actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso,Auth::id())){
-            flash('El curso se eliminó con éxito')->success();
+            flash('El curso se eliminó de la evaluación con éxito')->success();
         } else {
-            flash('Hubo un error al tratar de eliminar el curso')->error();
+            flash('Hubo un error al tratar de eliminar el horario')->error();
         }
         return Redirect::back();
     }

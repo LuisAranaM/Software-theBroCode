@@ -117,6 +117,10 @@ $( document ).ready(function() {
 			}
 		});
 	}
+	$('#btnCancelarIndicadores').click(function() {
+		$('#modalResultados').modal('hide');
+		window.location.reload();
+	});
 
 	$('#btnActualizarIndicadores').click(function() {
 		var idIndicadores=[];
@@ -133,8 +137,8 @@ $( document ).ready(function() {
 		console.log(estadoIndicadores);
 		
 		$('#modalResultados').modal('hide');
-		updateIndicadores(idIndicadores,idIndicadores,$(this).attr('idCurso'));
-		//window.location.reload();
+		updateIndicadores(idIndicadores,estadoIndicadores,$(this).attr('idCurso'));
+		window.location.reload();
 	});
 
 });

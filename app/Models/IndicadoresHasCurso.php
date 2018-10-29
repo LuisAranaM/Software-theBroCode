@@ -8,8 +8,9 @@
 namespace App\Models;
 
 use DB;
-
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class SubcriteriosHasCurso
@@ -68,53 +69,52 @@ class IndicadoresHasCurso extends Eloquent
 				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
 				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
 				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
+				->select('RESULTADOS.ID_RESULTADO','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
 				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
 				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
+				->where('INDICADORES_HAS_CURSOS.ESTADO', '=', 1)
 				->distinct();
         //dd($sql->get());
         return $sql;
 	}
 	
-	static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$sem){
+	static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$esp,$sem){
 		DB::beginTransaction();
-        $status = true;
+		$status = true;
 		try {
 			foreach(array_combine($idIndicadores,$estadoIndicadores) as  $idIndicador => $estado ){
-				$sql = DB::table('INDICADORES_HAS_CURSOS')
-						->where('H.ID_CURSO', $idCurso)
-						->where('H.ID_INDICADOR', $idIndicador)
-						->where('H.ID_SEMESTRE', $sem)
-						->select('*');
-
-				if($sql){
-				DB::table('INDICADORES_HAS_CURSOS')
-				->where('H.ID_CURSO', $idCurso)
-				->where('H.ID_INDICADOR', $idIndicador)
-				->where('H.ID_SEMESTRE', $sem)
-				->update(['H.ESTADO' => (int)$estado,
-						'H.FECHA_ACTUALIZACION'=>Carbon::now(),
-						'H.USUARIO_MODIF'=>$usuario]);
+				//Si no existe el registro
+				//dd($idIndicador,$estado,$idCurso, $usuario,$esp,$sem);
+				if(DB::table('INDICADORES_HAS_CURSOS')->where('ID_CURSO', (int)$idCurso)->where('ID_INDICADOR', (int)$idIndicador)->where('ID_SEMESTRE', (int)$sem)->doesntExist()){
+					//Se inserta
+					DB::table('INDICADORES_HAS_CURSOS')->insert(
+						['ID_CURSO' => (int)$idCurso,
+						'ID_INDICADOR' => (int)$idIndicador,
+						'ID_SEMESTRE' => (int)$sem,
+						'ID_ESPECIALIDAD' => (int)$esp,
+						'FECHA_REGISTRO' => Carbon::now(),
+						'FECHA_ACTUALIZACION' => Carbon::now(),		
+						'USUARIO_MODIF' => (int)$usuario, 
+						'ESTADO' => (int)$estado]);
 				}
 				else{
-				$sql = DB::table('INDICADORES_HAS_CURSOS')->insert(
-					['ID_CURSO' => $idCat,
-					'ID_INDICADOR' => $nombre,
-					'ID_SEMESTRE' => $sem,
-					'ID_ESPECIALIDAD' => 1,
-					'FECHA_REGISTRO' => Carbon::now(),
-					'FECHA_ACTUALIZACION' => Carbon::now(),		
-					'USUARIO_MODIF' => Auth::id(), 
-					'ESTADO' => 1]);
+					//Si no, se actualiza
+					DB::table('INDICADORES_HAS_CURSOS')
+					->where('ID_CURSO', (int)$idCurso)
+					->where('ID_INDICADOR', (int)$idIndicador)
+					->where('ID_SEMESTRE', (int)$sem)
+					->update(['ESTADO' => (int)$estado,
+							'FECHA_ACTUALIZACION'=>Carbon::now(),
+							'USUARIO_MODIF'=> (int)$usuario]);
 				}
 			}
-			DB::commit(); 
+			DB::commit();
+			dd("bien");
 		} catch (\Exception $e) {
-			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());		
 			$status = false;
 			DB::rollback();
 		}
-		dd($idHorario,$estadoEv);
 		
 		return $status;
 
