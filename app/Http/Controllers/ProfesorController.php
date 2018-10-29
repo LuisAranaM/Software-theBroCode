@@ -32,12 +32,15 @@ class ProfesorController extends Controller
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
         //dd($idHorario);
+        //dd(Proyecto::getRutaProyectos($idHorario));
+        //d
+        //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
-        ->with('alumnos',eAlumnosHasHorario::geAlumnosByIdHorario($idHorario))
-        ->with('projects',Proyecto::getRutaProyectos($idHorario))
-        ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario));
+        ->with('alumnos',eAlumnosHasHorario::getAlumnosByIdHorario($idHorario))
+       // ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario)); //revisar
+        ->with('projects',Proyecto::getRutaProyectos($idHorario));
             
     }
 
