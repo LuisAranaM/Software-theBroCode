@@ -1,16 +1,56 @@
 $( document ).ready(function() {
 	console.log("inicioR");
 
-	$("#CargarCurso").on("click", function(){
-		console.log("Cargando cursos a Acreditar");
+	$(".btnCargarAlumnos2").on("click", function(){
+        var cod = $(this).data('id');
+        $(".modal-body #bookId").val( cod );
+        $("#modalCargarAlumnos").modal("show");
+    })
+
+	$(".fa-trash").on("click", function(){
+
+		//var codigoCurso=$(this).attr('codigoCurso');
+        //var nombreCurso=$(this).attr('nombreCurso');
+        var resp=confirm("¿Estás seguro de que deseas eliminar este indicador?");
+        //var botonCurso=$(this).closest('div').closest('div');
+        if (resp == true) {
+            //eliminarCursoAcreditar(codigoCurso,botonCurso);  
+            $(this).parent().parent().remove();          
+        } 
+        e.preventDefault();
+	});
+
+	$("#AgregarIndicador").on("click", function(){
         if($('.checkCurso:checked').length==0){
             $('#btnAgregar').attr('disabled',true);                
         }
         else{
             $('#btnAgregar').removeAttr('disabled');        
         }
+        var cod = $(this).data('id');
+        $("#ModalTitle").text( cod );
 		$("#modalCursos").modal("show");
+	});
 
+	$("#AgregarResultado").on("click", function(){
+        if($('.checkCurso:checked').length==0){
+            $('#btnAgregar').attr('disabled',true);                
+        }
+        else{
+            $('#btnAgregar').removeAttr('disabled');        
+        }
+		$("#modalAgregarResultado").modal("show");
+	});
+
+	$(".edit").on("click", function(){
+        if($('.checkCurso:checked').length==0){
+            $('#btnAgregar').attr('disabled',true);                
+        }
+        else{
+            $('#btnAgregar').removeAttr('disabled');        
+        }
+        $("#ModalTitle").text("Editar Indicador" );
+		$("#modalCursos").modal("show");
 	});
  
 	$("#CargarResultado").on("click", function(){

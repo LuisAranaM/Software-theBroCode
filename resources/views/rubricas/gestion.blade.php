@@ -26,7 +26,7 @@
       <div class="resultContainer no-padding x_panel tile coursesBox">
         <div class="outer">
           <div class="middle">
-            <div id ="CargarCurso" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
+            <div id ="AgregarResultado" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
               <img src="{{ URL::asset('img/add.png') }}" style="height: 45px">
               <p class="pText" >Agregar Nuevo Resultado</p>
             </div>
@@ -74,7 +74,7 @@
 
     <!--MODAL-->
     <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-    id="modalCursos" data-keyboard="false" data-backdrop="static"
+    id="modalAgregarResultado" data-keyboard="false" data-backdrop="static"
     aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
       <div class="modal-content">
