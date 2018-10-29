@@ -300,10 +300,12 @@ $( document ).ready(function() {
 			},
 			dataType: "text",
 			success: function(result) {
+				result = JSON.parse(result);
 				//refrescarResultados(result);
 				var idRes= result;	
+				console.log(idRes);
 				for(i=0; i<cat.length;i++){
-					actualizarCategorias(cat, idRes);
+					actualizarCategorias(cat[i], idRes);
 				}				
 			}
 		})
@@ -314,7 +316,7 @@ $( document ).ready(function() {
 		var descRes = $('#txtResultado').val();
 		var cat = []
 		cat[0] =$('#txtCategoria').val();
-
+		console.log("si llega aca");
 		actualizarResultados(codRes,descRes);
 		
 	});
@@ -393,9 +395,9 @@ $( document ).ready(function() {
 		actualizarEscalas(escala, descripcion, idInd);
 	});
 
-	/*$(document).ajaxStop(function(){
+	$(document).ajaxStop(function(){
     	window.location.reload();
-	});*/
+	});
 
 });
 

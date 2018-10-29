@@ -26,7 +26,7 @@
       <div class="resultContainer no-padding x_panel tile coursesBox">
         <div class="outer">
           <div class="middle">
-            <div id ="CargarCurso" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
+            <div id ="CargarResultado" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
               <img src="{{ URL::asset('img/add.png') }}" style="height: 45px">
               <p class="pText" >Agregar Nuevo Resultado</p>
             </div>
@@ -74,7 +74,7 @@
 
     <!--MODAL-->
     <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-    id="modalCursos" data-keyboard="false" data-backdrop="static"
+    id="modalResultados" data-keyboard="false" data-backdrop="static"
     aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
       <div class="modal-content">
@@ -119,7 +119,7 @@
           <div id="btnsResultado" class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <input id="btnAgregarResultado" class = "btn btn-success pText customButton upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                <input id="btnAgregarResultado" class = "btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;" type="button" value = "Cargar" name="cargar">
               </div>
               <div class="col-md-4">
                 <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
