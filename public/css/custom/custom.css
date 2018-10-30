@@ -32,7 +32,7 @@
   font-size: 21px;
   font-family: Segoe UI Semibold;
   padding-bottom: 2%;
-  color: black;
+  color: black !important;
   text-align: left;
 }
 

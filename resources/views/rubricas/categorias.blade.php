@@ -119,7 +119,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 							<button id="btnCargarAlumnosModal" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" name="submit">Cargar</button>
 						</div>
 						<div class="col-md-4">
-							<button type="reset" id="btnCancelarModalAlumnos" class="customButton btn btn-success pText" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+							<button type="reset" class="btn btn-success pText customButton" data-dismiss="modal"
+							aria-label="Close">Cancelar</button>
 						</div>
 
 					</div>
