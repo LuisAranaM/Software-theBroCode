@@ -43,14 +43,19 @@ $( document ).ready(function() {
 	});
 
 	$(".edit").on("click", function(){
+		var codigo= $(this).parent().parent().find('p').text();
+		var descripcion=$(this).parent().parent().next('div').find('p').text();
         if($('.checkCurso:checked').length==0){
             $('#btnAgregar').attr('disabled',true);                
         }
         else{
             $('#btnAgregar').removeAttr('disabled');        
         }
-        $("#ModalTitle").text("Editar Indicador" );
-		$("#modalCursos").modal("show");
+        $("#ModalTitle").text("Editar Indicador");
+        $("#modalEditar input[type=text][name=codigo]").val(codigo);
+        $("#modalEditar textarea[type=text][name=nombreVal]").val(descripcion);
+		$("#modalEditar").modal("show");
+
 	});
  
 	$("#CargarResultado").on("click", function(){

@@ -26,12 +26,14 @@
 					
 					<div class="row">
 						<hr>
-						<div class="col-xs-9">
-							<p class="pText" style="font-weight: bold; color: black">A.1.</p>
-						</div>
-						<div class="col-xs-3" style="text-align: right">
-							<i id ="EditarIndicador" class="edit fa fa-pencil fa-lg" style="color: #005b7f" ></i>
-							<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
+						<div class="grupoCodigo">
+							<div class="col-xs-9">
+								<p class="pText" style="font-weight: bold; color: black">A.1.</p>
+							</div>
+							<div class="col-xs-3" style="text-align: right">
+								<i id ="EditarIndicador" class="edit fa fa-pencil fa-lg" style="color: #005b7f" ></i>
+								<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
+							</div>
 						</div>
 						<div class="col-xs-12">
 							<p class="pText">(*) Aplica conceptos lógicos para la resolucion de problemas</p>
@@ -126,7 +128,7 @@
 <!-- Modal de Nuevo Curso -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+id="modalEditar" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
 	<div class="modal-content">
@@ -159,12 +161,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 						</div>
 						<div class="col-xs-12" style="padding-bottom: 6px">
 
-							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
+							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="codigoVal" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
 
 						</div>
 
 						<div class="col-xs-12">
-							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
+							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombreVal" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
 						</div>
 							<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
 								<p class="pText">Agregar nueva valorización</p>
