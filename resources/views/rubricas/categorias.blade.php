@@ -19,7 +19,7 @@
 				<!-- CATEGORIAS CARGADOS DE LA BD -->
 				<div class="row rowFinal" style="padding-bottom: 0px">
 					<div class="row">
-<<<<<<< HEAD
+<!--Aquí-->
 						<h1 class="secondaryTitle mainTitle">Matemáticas</h1>
 					</div>
 
@@ -69,12 +69,14 @@
 						</div>
 
 					</div>
-=======
+
+<!--Aquí-->
 						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
 					</div>					
 					<?php $count = 1; ?>
 					@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
->>>>>>> 41416d96f98db3cfac5628e8a7cbcda59c04e865
+<!--Aquí-->
+
 					<hr>
 					<div class="row">
 						<hr>
