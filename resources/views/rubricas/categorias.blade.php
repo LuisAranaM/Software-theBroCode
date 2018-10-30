@@ -9,7 +9,7 @@
 
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}"> Categorias del Resultado {{$resultado}}</a></h1>
+			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}"> Lista de resultados </a> > <a href=""> Categorias del Resultado {{$resultado}}</a></h1>
 		</div>
 	</div>
 	<div class="row">
@@ -83,11 +83,15 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 					<div class="row rowFinal2">
 						<div class="col-xs-12">
-							<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Nombre de Indicador</p>
+							<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Indicador</p>
 						</div>
 						<div class="col-xs-12" style="padding-bottom: 6px">
-							<input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" placeholder="Nombre" >     
+							<input type="text" id="txtCodigoResultado" class="nombreIndicador form-control pText customInput" name="codigoIndicador" placeholder="Nombre" value="">     
 						</div>
+						<div class="col-xs-12" style="padding-bottom: 6px">
+							<textarea type="text" id="txtCategoria" class="descripcionIndicador form-control pText customInput" name="descripcionIndicador" placeholder="Descripción" rows="3" cols="30" style="resize: none" ></textarea>       
+						</div>
+
 						<div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
 							<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Valorizaciones</p>
 						</div>
@@ -112,10 +116,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 				<div id="btnsAgregarCurso" class="modal-footer">
 					<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
 						<div class="col-md-4">
-							<input id="btnCargarAlumnosModal" class = "btn btn-success pText customButton upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+							<button id="btnCargarAlumnosModal" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" name="submit">Cargar</button>
 						</div>
 						<div class="col-md-4">
-							<button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+							<button type="reset" id="btnCancelarModalAlumnos" class="customButton btn btn-success pText" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
 						</div>
 
 					</div>

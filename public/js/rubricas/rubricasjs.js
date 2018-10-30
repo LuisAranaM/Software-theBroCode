@@ -43,6 +43,8 @@ $( document ).ready(function() {
 	});
 
 	$(".edit").on("click", function(){
+		var codigo= $(this).parent().prev('div').find('p').text();
+		var descripcion=$(this).parent().next('div').find('p').text();
         if($('.checkCurso:checked').length==0){
             $('#btnAgregar').attr('disabled',true);                
         }
@@ -50,9 +52,14 @@ $( document ).ready(function() {
             $('#btnAgregar').removeAttr('disabled');        
         }
         $("#ModalTitle").text("Editar Indicador" );
+        $(".nombreIndicador").val(codigo);
+       	console.log(codigo);
+        $(".descripcionIndicador").val(descripcion);
+        console.log(descripcion);
 		$("#modalCursos").modal("show");
 	});
- 
+
+
 	$("#CargarResultado").on("click", function(){
 		//console.log("Cargando Resultados");
 		$("#modalResultados").modal("show");
