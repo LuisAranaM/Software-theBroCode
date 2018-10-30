@@ -13,78 +13,27 @@
 		</div>
 	</div>
 	<div class="row">
-    	@foreach ($categorias as $categoria) 
+		@foreach ($categorias as $categoria) 
 		<div class="col-md-4 col-xs-6">
 			<div class="x_panel tile coursesBox">
 				<!-- CATEGORIAS CARGADOS DE LA BD -->
 				<div class="row rowFinal" style="padding-bottom: 0px">
 					<div class="row">
-<!--Aquí-->
-						<h1 class="secondaryTitle mainTitle">Matemáticas</h1>
-					</div>
 
-					
-					<div class="row">
-						<hr>
-						<div class="grupoCodigo">
-							<div class="col-xs-9">
-								<p class="pText" style="font-weight: bold; color: black">A.1.</p>
-							</div>
-							<div class="col-xs-3" style="text-align: right">
-								<i id ="EditarIndicador" class="edit fa fa-pencil fa-lg" style="color: #005b7f" ></i>
-								<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
-							</div>
-						</div>
-						<div class="col-xs-12">
-							<p class="pText">(*) Aplica conceptos lógicos para la resolucion de problemas</p>
-						</div>
-					</div>
-					
-					<div class="row">
-						<hr>
-						<div class="col-xs-9">
-							<p class="pText" style="font-weight: bold; color: black">A.2.</p>
-
-						</div>
-						<div class="col-xs-3" style="text-align: right">
-							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f" id ="EditarIndicador"></i>
-							<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
-						</div>
-						<div class="col-xs-12">
-							<p class="pText">Diseña algoritmos para la resolución de un problema identificado</p>
-						</div>
-					</div>
-					
-					<div class="row">
-						<hr>
-						<div class="col-xs-9">
-							<p class="pText" style="font-weight: bold; color: black">A.3.</p>
-						</div>
-						<div class="col-xs-3" style="text-align: right">
-							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f" id ="EditarIndicador"></i>
-							<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
-						</div>
-						<div class="col-xs-12">
-							<p class="pText">Utiliza lenguajes de programación para implementar algoritmos sean diseñados por él o por cualquier otra persona</p>
-						</div>
-
-					</div>
-
-<!--Aquí-->
 						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
 					</div>					
 					<?php $count = 1; ?>
 					@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
-<!--Aquí-->
 
-					<hr>
+					
+
 					<div class="row">
 						<hr>
 						<div class="col-xs-9">
 							<p class="pText" style="font-weight: bold; color: black">{{$resultado}}.{{$count}}</p>
 						</div>
 						<div class="col-xs-3" style="text-align: right">
-							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f" id ="EditarIndicador"></i>
+							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
 							<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
 						</div>
 						<div class="col-xs-12">
@@ -95,7 +44,7 @@
 					@endforeach					
 					<hr>
 					<div class="row text-center">
-						<p class="pText"  id ="CargarCurso" style="color: #005b7f">Agregar nuevo indicador</p>
+						<p class="pText agregarIndicador" style="color: #005b7f; cursor: pointer">Agregar nuevo indicador</p>
 					</div>
 				</div>
 			</div>
@@ -111,7 +60,7 @@
 <!-- Modal de Nuevo Curso -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalEditar" data-keyboard="false" data-backdrop="static"
+id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
 	<div class="modal-content">
@@ -144,19 +93,19 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 						</div>
 						<div class="col-xs-12" style="padding-bottom: 6px">
 
-							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="codigoVal" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
+							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
 
 						</div>
 
 						<div class="col-xs-12">
-							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombreVal" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
+							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
 						</div>
-							<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
-								<p class="pText">Agregar nueva valorización</p>
-							</div>
-							<div class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
-								<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
-							</div>				
+						<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
+							<p class="pText">Agregar nueva valorización</p>
+						</div>
+						<div class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
+							<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
+						</div>				
 					</div>
 				</div>
 

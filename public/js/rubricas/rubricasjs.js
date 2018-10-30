@@ -21,15 +21,14 @@ $( document ).ready(function() {
         e.preventDefault();
 	});
 
-	$("#AgregarIndicador").on("click", function(){
+	$(".agregarIndicador").on("click", function(){
         if($('.checkCurso:checked').length==0){
             $('#btnAgregar').attr('disabled',true);                
         }
         else{
             $('#btnAgregar').removeAttr('disabled');        
         }
-        var cod = $(this).data('id');
-        $("#ModalTitle").text( cod );
+        $("#ModalTitle").text( "Agregar Nuevo Indicador" );
 		$("#modalCursos").modal("show");
 	});
 
