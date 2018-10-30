@@ -8,6 +8,8 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Criterio
@@ -50,13 +52,16 @@ class Categoria extends Eloquent
 		'ESTADO'
 	];
 
-	public function insertCategoria($categoria, $resultado){
+	public function insertCategoria($categoria, $resultado,$idSem,$idEsp){
 		DB::beginTransaction();
         $id=-1;
+        //dd(Carbon::now());
         try {
         	$id = DB::table('CATEGORIAS')->insertGetId(
 		    	['NOMBRE' => $categoria,
 		     	 'ID_RESULTADO' => $resultado,
+		     	 'ID_SEMESTRE' => $idSem,
+		     	 'ID_ESPECIALIDAD' => $idEsp,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	 'USUARIO_MODIF' => Auth::id(),   

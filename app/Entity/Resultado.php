@@ -40,6 +40,6 @@ class Resultado extends \App\Entity\Base\Entity {
 
     static function insertResultado($nombre, $desc){
         $model =new mResultado();
-        return $model->insertResultado($nombre,$desc,self::getSemestre(),self::getEspecialidadUsuario());
+        return $model->insertResultado($nombre,$desc,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
 }

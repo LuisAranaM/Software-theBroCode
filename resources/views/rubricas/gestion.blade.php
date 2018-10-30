@@ -5,7 +5,7 @@
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>
 @stop
 <form>
-  <div class="customBody">
+  <div id="apRes" class="customBody">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" >
     
     <!-- TITULO -->
@@ -26,6 +26,8 @@
       <div class="resultContainer no-padding x_panel tile coursesBox">
         <div class="outer">
           <div class="middle">
+
+
             <div id ="AgregarResultado" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
               <img src="{{ URL::asset('img/add.png') }}" style="height: 45px">
               <p class="pText" >Agregar Nuevo Resultado</p>
@@ -34,29 +36,12 @@
         </div>
       </div>
     </div>
-
-    <div class="col-md-3 col-xs-6">
-      <div class="resultContainer no-padding x_panel tile coursesBox">
-        @if (!is_null($firstR= array_shift($resultados)))
-        <div class="bs-example-popovers">
-          <a href="{{ route('rubricas.categorias') }}">
-            <div class="outer">
-              <div class="middle">
-                <div id="{{$firstR->ID_RESULTADO}}" class="resultButton inner text-center resultButton activeButton alert-success alert-dismissible fade in" role="alert">
-                  <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black"> {{$firstR->NOMBRE}} <br> </span> {{$firstR->DESCRIPCION}}</p>
-
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        @endif
-      </div>
-    </div>
+    <div id="resultados">
     @foreach ($resultados as $resultado) 
     <div class="col-md-3 col-xs-6">
       <div class="resultContainer no-padding x_panel tile coursesBox">
         <div class="bs-example-popovers">
+          <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
           <div class="outer">
             <div class="middle">
               <div id="{{$resultado->ID_RESULTADO}}" class="inner text-center resultButton alert-success alert-dismissible fade in" role="alert">
@@ -64,18 +49,17 @@
               </div>
             </div>
           </div>
-        </div>
-        
+        </a>
+        </div>        
       </div>
     </div>
     @endforeach
+  </div>
 
 
 
     <!--MODAL-->
-    <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-    id="modalAgregarResultado" data-keyboard="false" data-backdrop="static"
-    aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+    <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarResultado" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
       <div class="modal-content">
         <div class="modal-header">
@@ -92,7 +76,7 @@
             {{ csrf_field() }}
             <div class="tile coursesModalBox" style="padding-bottom: 20px;">
 
-             <div class="row rowFinal2">
+             <div id="filasCat"class="row rowFinal2">
               <div class="col-xs-12">
                 <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Resultado</p>
               </div>
@@ -105,13 +89,14 @@
               <div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
                 <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>
               </div>
-              <div class="col-xs-11">
+              <div class="col-xs-11" style="padding-bottom: 6px">
 
                 <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
               </div>
-              <div class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
-                <i class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
+              <div id="agregarFilaIcono"class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
+                <i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
               </div>
+              
 
             </div>
           </div>
@@ -119,7 +104,7 @@
           <div id="btnsResultado" class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <input id="btnAgregarResultado" class = "btn btn-success pText customButton upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                <input id="btnAgregarResultado" class = "btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;" type="button" value = "Cargar" name="cargar">
               </div>
               <div class="col-md-4">
                 <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>

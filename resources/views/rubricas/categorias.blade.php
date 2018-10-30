@@ -9,17 +9,17 @@
 
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}">Lista de Resultados</a> > <a>Categorías del Resultado A</a></h1>
+			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}"> Categorias del Resultado {{$resultado}}</a></h1>
 		</div>
-
 	</div>
-
 	<div class="row">
+    	@foreach ($categorias as $categoria) 
 		<div class="col-md-4 col-xs-6">
 			<div class="x_panel tile coursesBox">
-				<!-- CURSOS CARGADOS DE LA BD -->
+				<!-- CATEGORIAS CARGADOS DE LA BD -->
 				<div class="row rowFinal" style="padding-bottom: 0px">
 					<div class="row">
+<<<<<<< HEAD
 						<h1 class="secondaryTitle mainTitle">Matemáticas</h1>
 					</div>
 
@@ -69,49 +69,28 @@
 						</div>
 
 					</div>
+=======
+						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
+					</div>					
+					<?php $count = 1; ?>
+					@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
+>>>>>>> 41416d96f98db3cfac5628e8a7cbcda59c04e865
 					<hr>
-					<div class="row text-center">
-						<p class="pText"  id ="AgregarIndicador" style="color: #005b7f" data-id="Agregar Nuevo Indicador">Agregar nuevo indicador</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-4 col-xs-6">
-			<div class="x_panel tile coursesBox">
-				<!-- CURSOS CARGADOS DE LA BD -->
-				<div class="row rowFinal" style="padding-bottom: 0px">
-					<div class="row">
-						<h1 class="secondaryTitle mainTitle">Ingeniería Informática</h1>
-					</div>
-
 					<div class="row">
 						<hr>
 						<div class="col-xs-9">
-							<p class="pText" style="font-weight: bold; color: black">A.1.</p>
+							<p class="pText" style="font-weight: bold; color: black">{{$resultado}}.{{$count}}</p>
 						</div>
 						<div class="col-xs-3" style="text-align: right">
-							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f"></i>
+							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f" id ="EditarIndicador"></i>
 							<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
 						</div>
 						<div class="col-xs-12">
-							<p class="pText">(*) Aplica conceptos lógicos para la resolucion de problemas</p>
+							<p class="pText">{{$indicador->NOMBRE}}</p>
 						</div>
 					</div>
-					
-					<div class="row">
-						<hr>
-						<div class="col-xs-9">
-							<p class="pText" style="font-weight: bold; color: black">A.2.</p>
-
-						</div>
-						<div class="col-xs-3" style="text-align: right">
-							<i id ="EditarIndicador" class="edit fa fa-pencil fa-lg" style="color: #005b7f"></i>
-							<i class="fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
-						</div>
-						<div class="col-xs-12">
-							<p class="pText">Diseña algoritmos para la resolución de un problema identificado</p>
-						</div>
-					</div>
+					<?php $count = $count +1; ?>
+					@endforeach					
 					<hr>
 					<div class="row text-center">
 						<p class="pText"  id ="CargarCurso" style="color: #005b7f">Agregar nuevo indicador</p>
@@ -119,6 +98,8 @@
 				</div>
 			</div>
 		</div>
+		@endforeach
+		
 	</div>
 	<!-- END CURSOS CARGADOS DE LA BD-->     
 
