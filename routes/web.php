@@ -51,14 +51,9 @@ Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoC
 /*RÚBRICAS*/
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'ResultadoController@rubricasGestion']);
-	//Route::post('/actualizar-criterios', ['as' => 'actualizar.criterios', 'uses' => 'ResultadoController@actualizarCriterios']);
-	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'ResultadoController@actualizarResultados']);
-	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'ResultadoController@actualizarCategorias']);
-	Route::get('/refrescar-categorias', ['as' => 'refrescar.categorias', 'uses' => 'ResultadoController@refrescarCategorias']);
-	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'ResultadoController@actualizarIndicadoresCurso']);
-	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'ResultadoController@refrescarIndicadores']);
-	Route::post('/actualizar-escalas', ['as' => 'actualizar.escalas', 'uses' => 'ResultadoController@actualizarEscalas']);
-	Route::get('/refrescar-escalas', ['as' => 'refrescar.escalas', 'uses' => 'ResultadoController@refrescarEscalas']);
+	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
+	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
+	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'ResultadoController@insertarIndicador']);
 });
 /****RUTAS PARA CURSOS****/
 Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {

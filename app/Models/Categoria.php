@@ -90,5 +90,32 @@ class Categoria extends Eloquent
         return $sql;
     }
 
+    static function updateCategoria($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('CATEGORIAS')->where('id',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteCategoria($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('CATEGORIAS')->where('id',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+
 	
 }

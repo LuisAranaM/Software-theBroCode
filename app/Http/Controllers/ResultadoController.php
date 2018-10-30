@@ -51,7 +51,7 @@ class ResultadoController extends Controller
         ->with('descripciones', $descripciones);
     }
 
-    public function actualizarResultados(Request $request){
+    public function insertarResultado(Request $request){
         $codigoRes = $request->get('_codRes', null);
         $nombreRes = $request->get('_descRes', null);
 
@@ -60,45 +60,26 @@ class ResultadoController extends Controller
         //console.log($idResultado);
         return $idResultado;
     }
-    public function actualizarCategorias(Request $request){
+    public function insertarCategoria(Request $request){
         $categoria = $request->get('_descCat', null);
         $idRes = $request->get('resultado',null);
         $idCat = eCategoria::insertCategoria($categoria, $idRes);
         return $idCat;
     }
-    public function actualizarIndicadores(Request $request){
+    public function insertarIndicador(Request $request){
         $indicador = $request->get('_descInd', null);
         $idCat = $request->get('_idCat',null);
         $idInd = eIndicador::insertIndicador($idCat,1,1,$indicador, null,null,null,null);
         return $idInd;
     }
-    public function actualizarDescripciones(Request $request){
+    public function insertarDescripcion(Request $request){
         $descripcion = $request->get('_descDesc', null);
         $idInd = $request->get('_idInd',null);
         $idDesc = eDescripcion::insertDescripcion($idInd,$descripcion);
 
         return $idDesc;
     }
-    public function actualizarEscalas(Request $request){
-        $escala = $request->get('_escala', null);
-        $descripcion = $request->get('_descripcion',null);
-        $idInd = $request->get('_idInd',null);
-        $indicador = eIndicador::getSubCriterioId($idInd)->toArray()[0];
-        if(is_null($indicador->DESCRIPCION_1)){
-            $indicador->DESCRIPCION_1=$descripcion;
-        }else if(is_null($indicador->DESCRIPCION_2)){
-            $indicador->DESCRIPCION_2=$descripcion;          
-        }else if(is_null($indicador->DESCRIPCION_3)){
-            $indicador->DESCRIPCION_3=$descripcion;          
-        }else if(is_null($indicador->DESCRIPCION_4)){
-            $indicador->DESCRIPCION_4=$descripcion;       
-        }
-        eIndicador::updateSubcriterio($indicador);
-        //obtener indicador y verificar si tiene las descripciones
-        //updateamos la primera descripcion que este en null
-
-        return;
-    }
+    
     public function refrescarResultados(Request $request){
 
         $resultados = eResultado::getCriterios()->toArray();
@@ -127,21 +108,7 @@ class ResultadoController extends Controller
 
         return $descripciones;
     }
-    public function refrescarEscalas(Request $request){
-
-        $idInd = $request->get('_idInd',null);
-        $escalas = eEscala::getEscalas()->toArray();
-        $indicadores = eIndicador::getSubCriterios()->toArray();
-        $descripciones= [];
-
-        foreach($indicadores as $indicador){
-            if($indicador->ID_SUBCRITERIO==$idInd){                
-                $descripciones= array($escalas[0]->NOMBRE.' '.$indicador->DESCRIPCION_1,$escalas[1]->NOMBRE.' '.$indicador->DESCRIPCION_2,$escalas[2]->NOMBRE.' '.$indicador->DESCRIPCION_3,$escalas[3]->NOMBRE.' '.$indicador->DESCRIPCION_4);
-                break;
-            }
-        }
-        return $descripciones;
-    }
+   
     /**
      * Store a newly created resource in storage.
      *
