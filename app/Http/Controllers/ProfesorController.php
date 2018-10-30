@@ -55,6 +55,7 @@ class ProfesorController extends Controller
     {
         //dd(Curso::getCursosYHorarios());
         //return view('profesor.calificar');
+        //dd(Curso::getCursosYHorarios());
         return view('profesor.calificar')
         ->with('cursos',Curso::getCursosYHorarios());
     }
