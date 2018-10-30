@@ -1,6 +1,11 @@
+<!-- Required Stylesheets -->
+<!--<link href="public/css/bootstrap.css" rel="stylesheet">-->
 @extends('Layouts.layout')
 
 @section('js-libs')
+<!-- Required Javascript -->
+<script type="text/javascript" src="{{ URL::asset('js/jquery-3.2.1.min') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/bootstrap-treeview.min') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop

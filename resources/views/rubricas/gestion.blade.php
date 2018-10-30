@@ -107,7 +107,7 @@
                 <button id="btnAgregarResultado" class = "btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;" type="button" value = "Cargar" name="cargar">Cargar</button>
               </div>
               <div class="col-md-4">
-                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButton" style="padding-right: 5px; padding-left: 5px">Cancelar</button>
               </div>
 
             </div>
