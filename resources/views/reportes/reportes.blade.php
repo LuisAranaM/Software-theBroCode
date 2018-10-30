@@ -132,7 +132,7 @@
   </div>
 </div>
 
-<-->
+<--Modal-->
 
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
@@ -150,18 +150,32 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
   <div class="row" style="padding-top: 10px; padding-bottom: 0px">
     <div class="col-xs-offset-8 col-xs-3">
-    <select id="heard" class="form-control" required>
-      <option value="">2018-2</option>
-      <option value="press">Press</option>
-      <option value="net">Internet</option>
-      <option value="mouth">Word of mouth</option>
-    </select>
+      <select id="heard" class="form-control" required>
+        <option value="">2018-2</option>
+        <option value="press">2018-1</option>
+        <option value="net">2017-2</option>
+        <option value="mouth">2017-1</option>
+      </select>
     </div>
   </div>
 
-  <div class="modal-body" style="padding-top: 0px">
-    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">
+  <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+      <div class="col-md-4 text-right">
+        <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+      </div>
+      <div class="col-md-4 text-left">
+        <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </div>
+
+    </div>
+
+
   </div>
+
+  
 </div>
 </div>
 </div>
