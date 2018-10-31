@@ -7,8 +7,17 @@ use App\Entity\Indicador as Indicador;
 class ReportesController extends Controller
 {
     //
-	function mostrarReporte(Request $request){
+	function exportarReporteCursosResultado(Request $request){
 		$filtros=[];
-		$reporte=Indicador::getReportes($filtros);
+		$reporte=Indicador::getReporteCursosResultado($filtros);
+		flash('Las cursos a acreditar se registraron correctamente.')->success();
+		return back();
+	}
+
+	function exportarReporteConsolidado(Request $request){
+		$filtros=[];
+		$reporte=Indicador::getReporteConsolidado($filtros);
+		flash('Las cursos a acreditar se registraron correctamente.')->success();
+		return back();
 	}
 }
