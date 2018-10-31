@@ -10,6 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as Log;
 
 /**
  * Class Criterio
@@ -107,7 +108,7 @@ class Resultado extends Eloquent
 	static function updateResultado($id, $nombre, $desc){
 		DB::beginTransaction();
         try {
-            DB::table('RESULTADOS')->where('id',$id)
+            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
             	->update(
 		    	['NOMBRE' => $nombre,
 		     	'DESCRIPCION' => $desc,
@@ -122,7 +123,8 @@ class Resultado extends Eloquent
     static function deleteResultado($id){
     	DB::beginTransaction();
         try {
-            DB::table('RESULTADOS')->where('id',$id)
+        	//dd($id);
+            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
             	->update(
 		    	['ESTADO' => 0]);
 			DB::commit();

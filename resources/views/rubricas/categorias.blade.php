@@ -16,8 +16,8 @@
 		@foreach ($categorias as $categoria) 
 		<div class="col-md-4 col-xs-6">
 			<div class="x_panel tile coursesBox">
-				<!-- CATEGORIAS CARGADOS DE LA BD -->
-				<div class="row rowFinal" style="padding-bottom: 0px">
+				<!-- INDICADORES CARGADOS DE LA BD -->
+				<div id="filasInd" value= "$categoria->ID_CATEGORIA "class="row rowFinal" style="padding-bottom: 0px">
 					<div class="row">
 
 						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
@@ -44,7 +44,7 @@
 					@endforeach					
 					<hr>
 					<div class="row text-center">
-						<p class="pText agregarIndicador" style="color: #005b7f; cursor: pointer">Agregar nuevo indicador</p>
+						<p id="{{$categoria->ID_CATEGORIA}}" class="pText agregarIndicador" style="color: #005b7f; cursor: pointer">Agregar nuevo indicador</p>
 					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 <!-- Modal de Nuevo Curso -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+id="modalIndicador" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
 	<div class="modal-content">
@@ -77,57 +77,53 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 	<div class="modal-body"> 
 		<div class="container-fluid" style="">
-			<form id="frmAgregarCursos" action="{{route('agregar.acreditacion')}}" method="POST">
-				{{ csrf_field() }}
-				<div class="tile coursesModalBox" style="padding-bottom: 20px;">
+			<div class="tile coursesModalBox" style="padding-bottom: 20px;">
 
-					<div class="row rowFinal2">
-						<div class="col-xs-12">
-							<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Indicador</p>
-						</div>
-						<div class="col-xs-12" style="padding-bottom: 6px">
-							<input type="text" id="txtCodigoResultado" class="nombreIndicador form-control pText customInput" name="codigoIndicador" placeholder="Nombre" value="">     
-						</div>
-						<div class="col-xs-12" style="padding-bottom: 6px">
-							<textarea type="text" id="txtCategoria" class="descripcionIndicador form-control pText customInput" name="descripcionIndicador" placeholder="Descripción" rows="3" cols="30" style="resize: none" ></textarea>       
-						</div>
-
-						<div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
-							<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Valorizaciones</p>
-						</div>
-						<div class="col-xs-12" style="padding-bottom: 6px">
-
-							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
-
-						</div>
-
-						<div class="col-xs-12">
-							<textarea type="text" id="txtCategoria" class="form-control pText customInput" name="nombre" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
-						</div>
-						<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
-							<p class="pText">Agregar nueva valorización</p>
-						</div>
-						<div class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
-							<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
-						</div>				
+				<div id="filasDesc" class="row rowFinal2">
+					<div class="col-xs-12">
+						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Indicador</p>
 					</div>
+					<div class="col-xs-12" style="padding-bottom: 6px">
+						<input type="text" id="txt" class="nombreIndicador form-control pText customInput" name="codigoIndicador" placeholder="Nombre" value="">     
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 6px">
+						<textarea type="text" id="txtIndicador" class="descripcionIndicador form-control pText customInput" name="descripcionIndicador" placeholder="Descripción" rows="3" cols="30" style="resize: none" ></textarea>       
+					</div>
+
+					<div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
+						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Valorizaciones</p>
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 6px">
+
+						<textarea type="text" id="txt" class="form-control pText customInput" name="nombre" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
+
+					</div>
+
+					<div class="col-xs-12">
+						<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
+					</div>
+					<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
+						<p class="pText">Agregar nueva valorización</p>
+					</div>
+					<div class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
+						<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
+					</div>				
 				</div>
+			</div>
 
-				<div id="btnsAgregarCurso" class="modal-footer">
-					<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
-						<div class="col-md-4">
-							<button id="btnCargarAlumnosModal" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" name="submit">Cargar</button>
-						</div>
-						<div class="col-md-4">
-							<button type="reset" class="btn btn-success pText customButton" data-dismiss="modal"
-							aria-label="Close">Cancelar</button>
-						</div>
-
+			<div id="btnsAgregarCurso" class="modal-footer">
+				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+					<div class="col-md-4">
+						<button id="btnAgregarIndicador" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" name="submit">Cargar</button>
+					</div>
+					<div class="col-md-4">
+						<button type="reset" class="btn btn-success pText customButton" data-dismiss="modal"
+						aria-label="Close">Cancelar</button>
 					</div>
 
 				</div>
 
-			</form>
+			</div>
 		</div>
 	</div>
 </div>

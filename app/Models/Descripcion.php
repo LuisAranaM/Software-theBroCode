@@ -9,7 +9,8 @@ namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Criterio
  * 
@@ -80,7 +81,7 @@ class Descripcion extends Eloquent
     static function updateDescripcion($id, $nombre){
 		DB::beginTransaction();
         try {
-            DB::table('DESCRIPCIONES')->where('id',$id)
+            DB::table('DESCRIPCIONES')->where('ID_DESCRIPCION',$id)
             	->update(
 		    	['NOMBRE' => $nombre,
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
@@ -94,7 +95,7 @@ class Descripcion extends Eloquent
     static function deleteDescripcion($id){
     	DB::beginTransaction();
         try {
-            DB::table('DESCRIPCIONES')->where('id',$id)
+            DB::table('DESCRIPCIONES')->where('ID_DESCRIPCION',$id)
             	->update(
 		    	['ESTADO' => 0]);
 			DB::commit();

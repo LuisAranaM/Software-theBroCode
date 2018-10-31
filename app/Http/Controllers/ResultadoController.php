@@ -67,13 +67,13 @@ class ResultadoController extends Controller
         return $idCat;
     }
     public function insertarIndicador(Request $request){
-        $indicador = $request->get('_descInd', null);
+        $indicador = $request->get('_ind', null);
         $idCat = $request->get('_idCat',null);
-        $idInd = eIndicador::insertIndicador($idCat,1,1,$indicador, null,null,null,null);
+        $idInd = eIndicador::insertIndicador($idCat, $indicador);
         return $idInd;
     }
     public function insertarDescripcion(Request $request){
-        $descripcion = $request->get('_descDesc', null);
+        $descripcion = $request->get('_desc', null);
         $idInd = $request->get('_idInd',null);
         $idDesc = eDescripcion::insertDescripcion($idInd,$descripcion);
 
@@ -105,13 +105,13 @@ class ResultadoController extends Controller
     public function borrarResultado(Request $request){
         $id = $request->get('_id',null);
         eResultado::deleteResultado($id);
-        $categorias = obtenerCategorias($id);
+        $categorias = eCategoria::getCategoriasId($id)->toArray();
         foreach($categorias as $categoria){
             eCategoria::deleteCategoria($categoria->ID_CATEGORIA);
-            $indicadores = obtenerIndicadores($categoria->ID_CATEGORIA);
+            $indicadores = eIndicador::getIndicadoresId($categoria->ID_CATEGORIA)->toArray();
             foreach($indicadores as $indicador){
                 eIndicador::deleteIndicador($indicador->ID_INDICADOR);
-                $descripciones = obtenerDescripciones($indicador->ID_INDICADOR); 
+                $descripciones = eDescripcion::getDescripcionesId($indicador->ID_INDICADOR)->toArray();
                 foreach($descripciones as $descripcion){
                     eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
                 }                   
@@ -146,7 +146,7 @@ class ResultadoController extends Controller
 
     public function obtenerResultados(Request $request){
 
-        $resultados = eResultado::getCriterios()->toArray();
+        $resultados = eResultado::getResultados()->toArray();
 
         return $resultados;
     }
@@ -160,7 +160,7 @@ class ResultadoController extends Controller
     public function obtenerIndicadores(Request $request){
 
         $idCat = $request->get('_idCat',null);
-        $indicadores = eIndicador::getSubCriteriosId($idCat)->toArray();
+        $indicadores = eIndicador::getIndicadoresId($idCat)->toArray();
 
         return $indicadores;
     }

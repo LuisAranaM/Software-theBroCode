@@ -51,9 +51,18 @@ Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoC
 /*RÚBRICAS*/
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'ResultadoController@rubricasGestion']);
-	Route::post('/actualizar-resultados', ['as' => 'actualizar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
-	Route::post('/actualizar-categorias', ['as' => 'actualizar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
-	Route::post('/actualizar-indicadores', ['as' => 'actualizar.indicadores', 'uses' => 'ResultadoController@insertarIndicador']);
+	Route::post('/insertar-resultados', ['as' => 'insertar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
+	Route::post('/insertar-categorias', ['as' => 'insertar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
+	Route::post('/insertar-indicadores', ['as' => 'insertar.indicadores', 'uses' => 'ResultadoController@insertarIndicador']);
+	Route::post('/insertar-descripciones', ['as' => 'insertar.descripciones', 'uses' => 'ResultadoController@insertarDescripcion']);
+	Route::post('/actualizar-resultado', ['as' => 'actualizar.resultado', 'uses' => 'ResultadoController@actualizarResultado']);
+	Route::post('/actualizar-categoria', ['as' => 'actualizar.categoria', 'uses' => 'ResultadoController@actualizarCategoria']);
+	Route::post('/actualizar-indicador', ['as' => 'actualizar.indicador', 'uses' => 'ResultadoController@actualizarIndicador']);
+	Route::post('/actualizar-descripcion', ['as' => 'actualizar.descripcion', 'uses' => 'ResultadoController@actualizarDescripcion']);
+	Route::post('/borrar-resultado', ['as' => 'borrar.resultado', 'uses' => 'ResultadoController@borrarResultado']);
+	Route::post('/borrar-categoria', ['as' => 'borrar.categoria', 'uses' => 'ResultadoController@borrarCategoria']);
+	Route::post('/borrar-indicador', ['as' => 'borrar.indicador', 'uses' => 'ResultadoController@borrarIndicador']);
+	Route::post('/borrar-descripcion', ['as' => 'borrar.descripcion', 'uses' => 'ResultadoController@borrarDescripcion']);
 });
 /****RUTAS PARA CURSOS****/
 Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {

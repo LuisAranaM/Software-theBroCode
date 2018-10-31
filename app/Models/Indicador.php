@@ -10,7 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Subcriterio
  * 
@@ -114,7 +114,7 @@ class Indicador extends Eloquent
 				->distinct();
         return $sql;
     }
-	public function insertSubCriterio($idCat,$nombre){
+	public function insertIndicador($idCat,$nombre,$idSem,$idEsp){
 
 		DB::beginTransaction();
         $id=-1;
@@ -122,6 +122,8 @@ class Indicador extends Eloquent
         	$id = DB::table('INDICADORES')->insertGetId(
 		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
+		     	 'ID_SEMESTRE'=> $idSem,
+		     	 'ID_ESPECIALIDAD'=>$idEsp,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	 'USUARIO_MODIF' => Auth::id(), 
@@ -144,7 +146,7 @@ class Indicador extends Eloquent
     static function updateIndicador($id, $nombre){
 		DB::beginTransaction();
         try {
-            DB::table('INDICADORES')->where('id',$id)
+            DB::table('INDICADORES')->where('ID_INDICADOR',$id)
             	->update(
 		    	['NOMBRE' => $nombre,
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
@@ -158,7 +160,7 @@ class Indicador extends Eloquent
     static function deleteIndicador($id){
     	DB::beginTransaction();
         try {
-            DB::table('INDICADORES')->where('id',$id)
+            DB::table('INDICADORES')->where('ID_INDICADOR',$id)
             	->update(
 		    	['ESTADO' => 0]);
 			DB::commit();

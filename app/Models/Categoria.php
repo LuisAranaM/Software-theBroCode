@@ -10,7 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Criterio
  * 
@@ -93,7 +93,7 @@ class Categoria extends Eloquent
     static function updateCategoria($id, $nombre){
 		DB::beginTransaction();
         try {
-            DB::table('CATEGORIAS')->where('id',$id)
+            DB::table('CATEGORIAS')->where('ID_CATEGORIA',$id)
             	->update(
 		    	['NOMBRE' => $nombre,
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
@@ -107,7 +107,7 @@ class Categoria extends Eloquent
     static function deleteCategoria($id){
     	DB::beginTransaction();
         try {
-            DB::table('CATEGORIAS')->where('id',$id)
+            DB::table('CATEGORIAS')->where('ID_CATEGORIA',$id)
             	->update(
 		    	['ESTADO' => 0]);
 			DB::commit();
