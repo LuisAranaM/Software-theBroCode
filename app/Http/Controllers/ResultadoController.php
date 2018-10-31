@@ -79,23 +79,85 @@ class ResultadoController extends Controller
 
         return $idDesc;
     }
+    public function actualizarResultado(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        $desc = $request->get('_desc',null);
+        eResultado::updateResultado($id, $nombre, $desc);
+    }
+    public function actualizarCategoria(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        eCategoria::updateCategoria($id, $nombre);
+    }
+    public function actualizarIndicador(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        eIndicador::updateIndicador($id, $nombre);
+    }
+    public function actualizarDescripcion(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        eDescripcion::updateDescripcion($id, $nombre);
+    }
 
-    
-    
-    public function refrescarResultados(Request $request){
+
+    public function borrarResultado(Request $request){
+        $id = $request->get('_id',null);
+        eResultado::deleteResultado($id);
+        $categorias = obtenerCategorias($id);
+        foreach($categorias as $categoria){
+            eCategoria::deleteCategoria($categoria->ID_CATEGORIA);
+            $indicadores = obtenerIndicadores($categoria->ID_CATEGORIA);
+            foreach($indicadores as $indicador){
+                eIndicador::deleteIndicador($indicador->ID_INDICADOR);
+                $descripciones = obtenerDescripciones($indicador->ID_INDICADOR); 
+                foreach($descripciones as $descripcion){
+                    eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
+                }                   
+            }
+        }
+
+    }
+    public function borrarCategoria(Request $request){
+        $id = $request->get('_id',null);
+        eCategoria::deleteCategoria($id);
+        $indicadores = obtenerIndicadores($id);
+        foreach($indicadores as $indicador){
+            eIndicador::deleteIndicador($indicador->ID_INDICADOR);
+            $descripciones = obtenerDescripciones($indicador->ID_INDICADOR); 
+            foreach($descripciones as $descripcion){
+                eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
+            }                   
+        }
+    }
+    public function borrarIndicador(Request $request){
+        $id = $request->get('_id',null);
+        eIndicador::deleteIndicador($id);
+        $descripciones = obtenerDescripciones($id); 
+        foreach($descripciones as $descripcion){
+            eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
+        }  
+    }
+    public function borrarDescripcion(Request $request){
+        $id = $request->get('_id',null);
+        eDescripcion::deleteDescripcion($id);
+    }
+
+    public function obtenerResultados(Request $request){
 
         $resultados = eResultado::getCriterios()->toArray();
 
         return $resultados;
     }
-    public function refrescarCategorias(Request $request){
+    public function obtenerCategorias(Request $request){
 
         $idRes = $request->get('_idRes',null);
         $categorias = eCategoria::getCategoriasId($idRes)->toArray();
 
         return $categorias;
     }
-    public function refrescarIndicadores(Request $request){
+    public function obtenerIndicadores(Request $request){
 
         $idCat = $request->get('_idCat',null);
         $indicadores = eIndicador::getSubCriteriosId($idCat)->toArray();
@@ -103,7 +165,7 @@ class ResultadoController extends Controller
         return $indicadores;
     }
 
-    public function refrescarDescripciones(Request $request){
+    public function obtenerDescripciones(Request $request){
 
         $idInd= $request->get('_idInd',null);
         $descripciones = eDescripcion::getDescripcionesId($idInd)->toArray();

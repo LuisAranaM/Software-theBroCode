@@ -76,5 +76,32 @@ class Descripcion extends Eloquent
                 ->where('ESTADO','=', 1);
         return $sql;
     }
+
+    static function updateDescripcion($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('DESCRIPCIONES')->where('id',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteDescripcion($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('DESCRIPCIONES')->where('id',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
 	
 }

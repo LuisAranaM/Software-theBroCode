@@ -26,4 +26,12 @@ class Descripcion extends \App\Entity\Base\Entity {
         $model =new mDescripcion();
         return $model->insertDescripcion($descripcion, $indicador);
     }
+    static function updateDescripcion($id, $nombre){
+        $model =new mDescripcion();
+        $model->updateDescripcion($id, $nombre);
+    }
+    static function deleteDescripcion($id){
+        $model =new mDescripcion();
+        $model->deleteDescripcion($id);
+    }
 }
