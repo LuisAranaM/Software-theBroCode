@@ -20,9 +20,9 @@
   <div class="row">
     <div class="col-md-8 col-sm-6">
       @if($codCurso===null)
-      <h1 class="mainTitle">Horarios y Criterios</h1>
+      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > Horarios y Criterios</h1>
       @else
-      <h1 class="mainTitle">{{$codCurso}} {{$nombreCurso}}</h1>
+      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href=""> {{$codCurso}} {{$nombreCurso}}</a></h1>
       @endif
     </div>
   </div>
@@ -91,105 +91,105 @@
           <h1 class="secondaryTitle mainTitle">Resultados del Estudiantes / Indicadores de Desempeño</h1>
         </div>
       </div>
-    
-    
-    <!-- Boton  -->
-    <div class="row" style="margin-left: 0px; margin-right: 0px">
-      <div id="btnAgregarResultado"  class="x_content bs-example-popovers courseContainer"  style="cursor:pointer">
-        <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
-          <button type="button" id="btnAgregarResultado" class="close" aria-label="Close"><span aria-hidden="true">+</span>
-          </button>
-          <p class="pText"> Elección de Resultados e indicadores</p>
+
+
+      <!-- Boton  -->
+      <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <div id="btnAgregarResultado"  class="x_content bs-example-popovers courseContainer"  style="cursor:pointer">
+          <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" id="btnAgregarResultado" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+            </button>
+            <p class="pText"> Elección de Resultados e indicadores</p>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Resultados e indicadores -->
-    <div class="row" style="margin-left: 0px; margin-right: 0px">
-      <!-- start accordion -->
-      <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-        @php ($nres = 0)
-        @php($count = 0)
-        @foreach($resultados as $resultado)
-        @php ($nres = $nres + 1 )
-        <div class="panel">
-          <a class="panel-heading collapsed" role="tab" id="heading{{$nres}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$nres}}" aria-expanded="false" aria-controls="collapse{{$nres}}">
-            <h4 class="panel-title">Resultado {{$resultado->NOMBRE}}</h4>
-          </a>
-          <div id="collapse{{$nres}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$nres}}" aria-expanded="false" style="height: 0px;">
-            <div class="panel-body">
-              <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                  @php ($countId = 0)
-                  @php($count = 0)
-                  @foreach($todoIndicadores as $indicador)
-                  @php ($countId = $countId + 1)
-                  @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
-                  @php ($count = $count + 1 )
-                  @endif
-                  @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
-                  <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
-                  </li>
-                  @endif
-                  @endforeach
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                  @php ($countId = 0)
-                  @foreach($todoIndicadores as $indicador)
-                  @php ($countId = $countId + 1 )
-                  @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
-                  <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
-                    <p>{{$indicador->NOMBRE}}</p>
+      <!-- Resultados e indicadores -->
+      <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <!-- start accordion -->
+        <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+          @php ($nres = 0)
+          @php($count = 0)
+          @foreach($resultados as $resultado)
+          @php ($nres = $nres + 1 )
+          <div class="panel">
+            <a class="panel-heading collapsed" role="tab" id="heading{{$nres}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$nres}}" aria-expanded="false" aria-controls="collapse{{$nres}}">
+              <h4 class="panel-title">Resultado {{$resultado->NOMBRE}}</h4>
+            </a>
+            <div id="collapse{{$nres}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$nres}}" aria-expanded="false" style="height: 0px;">
+              <div class="panel-body">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                  <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                    @php ($countId = 0)
+                    @php($count = 0)
+                    @foreach($todoIndicadores as $indicador)
+                    @php ($countId = $countId + 1)
+                    @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                    @php ($count = $count + 1 )
+                    @endif
+                    @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
+                    <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
+                    </li>
+                    @endif
+                    @endforeach
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    @php ($countId = 0)
+                    @foreach($todoIndicadores as $indicador)
+                    @php ($countId = $countId + 1 )
+                    @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
+                    <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
+                      <p>{{$indicador->NOMBRE}}</p>
+                    </div>
+                    @endif
+                    @endforeach
                   </div>
-                  @endif
-                  @endforeach
                 </div>
               </div>
             </div>
           </div>
+          @endforeach
+          <!-- Terminan los acordion -->
         </div>
-        @endforeach
-        <!-- Terminan los acordion -->
       </div>
-    </div>
-    <!-- asdasd-->
-    
+      <!-- asdasd-->
 
-<!-- MODAL PARA AGREGAR INDICADORES-->
-<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-    id="modalResultados" data-keyboard="false" data-backdrop="static"
-    aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-    <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
-     <div class="modal-content" style="top: 40%">
-      <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
-          <span aria-hidden="true">&times;</span>
-        </button>
-     <h1 class="reportsTitle mainTitle">Lista de Resultados e Indicadores</h1>
-   </div>
-   <div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
-    
-    <div class="accordion" id="accordionM" role="tablist" aria-multiselectable="true">
-      <div class="panel">
-        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-          <!-- tab de los resultados-->
-          <ul id="myTabM" class="nav nav-tabs bar_tabs" role="tablist">
-              @php ($nres = 0)
-              @foreach($todoResultados as $resultado)
-              @php ($nres = $nres + 1 )
-            <li role="presentation" class=""><a href="#tab_contentM{{$nres}}" id="home-tabM" role="tab" data-toggle="tab" aria-expanded="false">{{$resultado->NOMBRE}}</a>
-            </li>
-            @endforeach
-          </ul>
-          <!-- contenido de cada tab de resultados (indicadores)-->
-          <div id="myTabContent" class="tab-content">
-              @php ($nres = 0)
-              @foreach($todoResultados as $resultado)
-              @php ($nres = $nres + 1 )
-            <div role="tabpanel" class="tab-pane fade" id="tab_contentM{{$nres}}" aria-labelledby="home-tabM">
-              <table class="table table-striped jambo_table bulk_action">
-                  <!-- checkbox para seleccionar todos-->
-                  <tbody class="text-left">
-                      <tr class="even pointer">
+
+      <!-- MODAL PARA AGREGAR INDICADORES-->
+      <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+      id="modalResultados" data-keyboard="false" data-backdrop="static"
+      aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+      <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+       <div class="modal-content" style="top: 40%">
+        <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h1 class="reportsTitle mainTitle">Lista de Resultados e Indicadores</h1>
+        </div>
+        <div class="modal-body" style="padding-top: 0px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
+
+          <div class="accordion" id="accordionM" role="tablist" aria-multiselectable="true">
+            <div class="panel">
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <!-- tab de los resultados-->
+                <ul id="myTabM" class="nav nav-tabs bar_tabs" role="tablist">
+                  @php ($nres = 0)
+                  @foreach($todoResultados as $resultado)
+                  @php ($nres = $nres + 1 )
+                  <li role="presentation" class=""><a href="#tab_contentM{{$nres}}" id="home-tabM" role="tab" data-toggle="tab" aria-expanded="false">{{$resultado->NOMBRE}}</a>
+                  </li>
+                  @endforeach
+                </ul>
+                <!-- contenido de cada tab de resultados (indicadores)-->
+                <div id="myTabContent" class="tab-content">
+                  @php ($nres = 0)
+                  @foreach($todoResultados as $resultado)
+                  @php ($nres = $nres + 1 )
+                  <div role="tabpanel" class="tab-pane fade" id="tab_contentM{{$nres}}" aria-labelledby="home-tabM">
+                    <table class="table table-striped jambo_table bulk_action">
+                      <!-- checkbox para seleccionar todos-->
+                      <tbody class="text-left">
+                        <tr class="even pointer">
                           <td class="a-center"  style="background-color: white; padding-right: 0px">
                            <div class="form-check" style="padding-left: 10px; width: 20px">
                             <label>
@@ -197,58 +197,58 @@
                             </label>
                           </div>
                         </td>
-                      <td style="background-color: white; padding-top: 12px; color: #72777a;">Seleccionar todos</td>
+                        <td style="background-color: white; padding-top: 12px; color: #72777a;">Seleccionar todos</td>
                       </td>
                     </tr>
                     <!-- checkbox de cada indicador-->
-                      @php ($count = 0)
-                      @foreach($todoIndicadores as $indicador)
-                      @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
-                      @php ($count = $count + 1 )
+                    @php ($count = 0)
+                    @foreach($todoIndicadores as $indicador)
+                    @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
+                    @php ($count = $count + 1 )
                     <tr class="even pointer">
                       <td class="a-center"  style="background-color: white; padding-right: 0px">
                        <div class="form-check" style="padding-left: 10px; width: 20px">
                         <label>
-                        <input type="checkbox" class="get_valor checkbox_class{{$resultado->ID_RESULTADO}}" value="{{$indicador->ID_INDICADOR}}"  @if(in_array($indicador->ID_INDICADOR, $idInd)) checked=checked @endif> <span class="pText label-text "></span>
+                          <input type="checkbox" class="get_valor checkbox_class{{$resultado->ID_RESULTADO}}" value="{{$indicador->ID_INDICADOR}}"  @if(in_array($indicador->ID_INDICADOR, $idInd)) checked=checked @endif> <span class="pText label-text "></span>
                         </label>
                       </div>
                     </td>
-                      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$resultado->NOMBRE}}{{$count}}: {{$indicador->NOMBRE}}</td>
-                    </td>
-                    </tr>
-                    @endif
-                    @endforeach
-                    <!-- fin checkbox de cada indicador-->
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$resultado->NOMBRE}}{{$count}}: {{$indicador->NOMBRE}}</td>
+                  </td>
+                </tr>
+                @endif
+                @endforeach
+                <!-- fin checkbox de cada indicador-->
               </tbody>
               
             </table>
-            </div>
-            @endforeach
-            
           </div>
-          
+          @endforeach
+
         </div>
+
       </div>
-      
     </div>
-      <!-- Terminan los acordion -->
-       <!-- botones de actualizar y cancelar -->
-      <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-        <button id="btnActualizarIndicadores" class="btn btn-success pText customButton" idCurso="{{$idCurso}}">Actualizar</button>
-        <button id="btnCancelarIndicadores" class="btn btn-success pText customButton">Cancelar</button> 
-      </div>
-       <!-- fin de botones de actualizar y cancelar  -->
+
   </div>
+  <!-- Terminan los acordion -->
+  <!-- botones de actualizar y cancelar -->
+  <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
+    <button id="btnActualizarIndicadores" class="btn btn-success pText customButton" idCurso="{{$idCurso}}">Actualizar</button>
+    <button id="btnCancelarIndicadores" class="btn btn-success pText customButton">Cancelar</button> 
+  </div>
+  <!-- fin de botones de actualizar y cancelar  -->
+</div>
 </div>
 </div>
 <!-- /.modal-content -->
 <!-- /.modal-dialog -->
 
-    </div>
-  </div>
+</div>
+</div>
 
-  @endif
-  <a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
+@endif
+<a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
 
 
 </div>
@@ -310,8 +310,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <div class="container-fluid">
       <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
       <form id="frmCursosModal">
-        <div class="table-responsive">
-          <table class="table table-striped jambo_table bulk_action">
+        <div class="table-responsive" >
+          <table class="table table-striped jambo_table bulk_action" style="margin-bottom: 0px">
             <thead >
               <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
                 <th class="pText column-title" style="border: none"></th>
@@ -342,10 +342,17 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
     </div> 
   </form>
-  <div class="modal-footer footerButtons" style="padding-right: 0px; padding-left: 5px;">
-    <button id="btnActualizarHorarios" class="btn btn-success pText customButton">Actualizar</button>
-    <button id="btnCancelarHorarios" class="btn btn-success pText customButton">Cancelar</button> 
+  <div class="text-center modal-footer" style="padding-right: 0px; padding-left: 0px; border-color: transparent">
+    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+      <div class="col-md-4">
+        <button id="btnActualizarHorarios" class="btn btn-success pText customButtonThin">Actualizar</button>
+      </div>
+      <div class="col-md-4">
+        <button id="btnCancelarHorarios" class="btn btn-success pText customButtonThin">Cancelar</button> 
+      </div>
+    </div>    
   </div>
+
 
 </div>
 </div>
