@@ -141,15 +141,31 @@ class Indicador extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-    static function updateIndicador($indicador){
-    	DB::table('INDICADORES')
-    		->where('ID_INDICADOR',$indicador->ID_INDICADOR)
-    		->update(['DESCRIPCION_1' => $indicador->DESCRIPCION_1,
-			     	 'DESCRIPCION_2' => $indicador->DESCRIPCION_2,
-			     	 'DESCRIPCION_3' => $indicador->DESCRIPCION_3,
-			     	 'DESCRIPCION_4' => $indicador->DESCRIPCION_4]);
-		DB::commit();
-        return;
+    static function updateIndicador($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('INDICADORES')->where('id',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteIndicador($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('INDICADORES')->where('id',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
     }
 
 }

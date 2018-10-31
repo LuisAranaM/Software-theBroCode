@@ -49,9 +49,13 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model::getIndicadorId($idInd)->get();
     }
-    static function updateIndicador($indicador){
+    static function updateIndicador($id, $nombre){
         $model =new mIndicador();
-        return $model::updateIndicador($indicador);
+        return $model::updateIndicador($id, $nombre);
+    }
+    static function deleteIndicador($id){
+        $model =new mIndicador();
+        return $model->deleteIndicador($id);
     }
 
 }

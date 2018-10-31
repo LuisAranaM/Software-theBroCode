@@ -79,6 +79,8 @@ class ResultadoController extends Controller
 
         return $idDesc;
     }
+
+    
     
     public function refrescarResultados(Request $request){
 
