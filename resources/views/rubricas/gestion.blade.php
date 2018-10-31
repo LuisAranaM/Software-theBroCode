@@ -22,41 +22,47 @@
 
     <!-- RESULTADOS -->
 
-    <div class="col-md-3 col-xs-6 ">
+    <div class="col-md-4 col-xs-6 ">
       <div class="resultContainer no-padding x_panel tile coursesBox">
         <div class="outer">
           <div class="middle">
 
 
-            <div id ="AgregarResultado" class="inner text-center resultButton alert alert-success alert-dismissible fade in" role="alert">
-              <img src="{{ URL::asset('img/add.png') }}" style="height: 45px">
-              <p class="pText" >Agregar Nuevo Resultado</p>
+            <div id ="AgregarResultado" class="text-center inner resultButton alert alert-success alert-dismissible fade in" role="alert" style="padding-right: 15px">
+              <img src="{{ URL::asset('img/add.png') }}" style="height: 50px">
+              
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div id="resultados">
       @foreach ($resultados as $resultado) 
-      <div class="col-md-3 col-xs-6">
-        <div class="resultContainer no-padding x_panel tile coursesBox">
+      <div class="col-md-4 col-xs-6">
+        <div class="resultContainer x_panel tile coursesBox">
           <div class="bs-example-popovers">
-            <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
-              <div class="outer">
-                <div class="middle">
-                  <div id="{{$resultado->ID_RESULTADO}}" class="inner text-center resultButton alert-success alert-dismissible fade in" role="alert">
-                    <p class="pText"> <span style="font-weight: bold; font-size: 30px; text-align: center; color: black">  {{$resultado->NOMBRE}} <br> </span>{{$resultado->DESCRIPCION}}</p>
-                  </div>
+            
+              <div class="row">
+                <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
+                  <p class="pText" style="font-weight: bold; font-size: 30px; color: black">  {{$resultado->NOMBRE}}</p>
                 </div>
+                <div class="col-md-9" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
+                  <i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
+                  <i class="resultTrash fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
+                </div>
+                <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
+                <div id="{{$resultado->ID_RESULTADO}}" class="col-xs-12 resultButton alert-success alert-dismissible fade in" role="alert" style="padding-right: 25px">
+                  <p class="pText">{{$resultado->DESCRIPCION}}</p>
+                </div>
+                </a>
               </div>
-            </a>
+            
           </div>        
         </div>
       </div>
       @endforeach
     </div>
-
-
 
     <!--MODAL-->
     <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarResultado" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
