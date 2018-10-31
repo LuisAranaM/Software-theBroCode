@@ -76,7 +76,7 @@ class Categoria extends Eloquent
                 ->where('ID_RESULTADO', '=', $idRes)
                 ->where('ESTADO','=', 1);
         return $sql;
-    }
+	}
 
     static function getCategorias() {
         $sql = DB::table('CATEGORIAS')

@@ -164,10 +164,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
     <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
       <div class="col-md-4 text-right">
-        <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
       </div>
       <div class="col-md-4 text-left">
-        <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      <a href="{{route('exportar.resporte1')}}">
+        <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </a>
       </div>
 
     </div>

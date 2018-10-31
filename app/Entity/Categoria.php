@@ -32,6 +32,7 @@ class Categoria extends \App\Entity\Base\Entity {
         $model = new mCategoria();
         return mCategoria::getCategoriasId($idCrit)->get();
     }
+
     static function getCategorias() {
         $model = new mCategoria();
         return mCategoria::getCategorias()->get();
