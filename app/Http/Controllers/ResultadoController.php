@@ -56,7 +56,8 @@ class ResultadoController extends Controller
         $nombreRes = $request->get('_descRes', null);
 
         $idResultado = eResultado::insertResultado($codigoRes,$nombreRes);
-        console.log($idResultado);
+        //dd("HOLI");
+        //console.log($idResultado);
         return $idResultado;
     }
     public function actualizarCategorias(Request $request){
@@ -196,7 +197,21 @@ class ResultadoController extends Controller
     {
         //
     }
-    public function categorias() {
-        return view('rubricas.categorias');
+    public function categorias(Request $request) {
+        $resultado = $request->get('resultado',null);
+        $idRes = $request->get('idRes',null);
+        $categorias = eCategoria::getCategoriasId($idRes)->toArray();
+
+        $indicadoresTodos= [];
+        $i=0;
+        foreach($categorias as $categoria){
+            $indicadores = eIndicador::getIndicadoresId($categoria->ID_CATEGORIA)->toArray();
+            $indicadoresTodos[$categoria->ID_CATEGORIA]=$indicadores;
+        }
+
+        return view('rubricas.categorias')
+        ->with('categorias',$categorias)
+        ->with('resultado',$resultado)
+        ->with('indicadoresTodos',$indicadoresTodos);
     }
 }
