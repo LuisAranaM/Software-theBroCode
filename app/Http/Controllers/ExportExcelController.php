@@ -102,10 +102,12 @@ class ExportExcelController extends Controller
                     }
                     
                 }
-                $porcentajeResultado/= $nIndicadores;
-                $promedioPuntajeResultado/= $nCursosIndicador;
-                $sheet->row($i, array('','','',$promedioPuntajeResultado,$porcentajeResultado.'%'));
-                $i += 1;
+                if($nIndicadores>0 && $nCursosIndicador>0){
+                    $porcentajeResultado/= $nIndicadores;
+                    $promedioPuntajeResultado/= $nCursosIndicador;
+                    $sheet->row($i, array('','','',$promedioPuntajeResultado,$porcentajeResultado.'%'));
+                    $i += 1;
+                }
                 
             }
         });
