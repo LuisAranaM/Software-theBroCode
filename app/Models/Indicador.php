@@ -86,10 +86,8 @@ class Indicador extends Eloquent
 
 	static function getIndicadoresId($idCat) {
         $sql = DB::table('INDICADORES')
-                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
-                ->select('INDICADORES.*','CATEGORIAS.ID_CATEGORIA')
-                ->where('INDICADORES.ID_CATEGORIA', '=', $idCat)
-                ->where('INDICADORES.ESTADO','=', 1);
+                ->where('ID_CATEGORIA', '=', $idCat)
+                ->where('.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
     }
