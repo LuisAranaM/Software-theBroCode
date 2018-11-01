@@ -60,7 +60,7 @@ chart = new CanvasJS.Chart("chartContainer1", {
 
 $.getJSON("https://canvasjs.com/data/gallery/javascript/daily-sales.json?callback=?", callback);    
 
-
+/*
 
 chart = new CanvasJS.Chart("chartContainer2", {
     animationEnabled: true,
@@ -124,7 +124,7 @@ chart = new CanvasJS.Chart("chartContainer4", {
 
 
 $.getJSON("https://canvasjs.com/data/gallery/javascript/daily-sales.json?callback=?", callback);    
-
+*/
 }
 
 function callback(data) {   

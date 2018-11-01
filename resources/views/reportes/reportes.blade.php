@@ -46,7 +46,8 @@
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-              <div id="chartContainer2" style="height: 250px; max-width: 920px; margin: 0px auto;"></div>
+                        <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+              <!--<div id="chartContainer2" style="height: 250px; max-width: 920px; margin: 0px auto;"></div>-->
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
@@ -71,7 +72,8 @@
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <div id="chartContainer3" style="height: 250px; max-width: 920px; margin: 0px auto;"></div>
+                        <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+            <!--<div id="chartContainer3" style="height: 250px; max-width: 920px; margin: 0px auto;"></div>-->
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Indicadores x Resultado </h1>
@@ -87,7 +89,8 @@
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <div id="chartContainer4" style="height: 250px; max-width: 920px; margin: 0px auto;"></div>
+                        <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+            <!--<div id="chartContainer4" style="height: 250px; max-width: 920px; margin: 0px auto;"></div>-->
          </div>
          <div class="col-xs-6 text-center">
           <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
