@@ -149,7 +149,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
                 </div>
 
-              </form>
             </div>
             <div id="btnsResultado" class="modal-footer">
               <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
@@ -162,6 +161,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
                 </div>
               </div>
             </div>
+              </form>
           </div>
         </div>
 
