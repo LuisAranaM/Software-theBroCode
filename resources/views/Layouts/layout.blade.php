@@ -32,7 +32,7 @@
   <script type="text/javascript" src="{{ URL::asset('js/impl.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
-  <script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>
+  <!--<script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>-->
 
 <script type="text/javascript" src="{{ URL::asset('js/pnotify.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/pnotify.buttons.js') }}"></script>
