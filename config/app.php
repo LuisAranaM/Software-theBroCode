@@ -169,7 +169,6 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
-
     ],
 
     /*

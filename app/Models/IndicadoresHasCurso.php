@@ -62,7 +62,7 @@ class IndicadoresHasCurso extends Eloquent
 		return $this->belongsTo(\App\Models\Curso::class, 'ID_CURSO');
 	}
 
-
+	
 	static function getIndicadoresbyIdCurso($idCurso,$idSem,$idEsp) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
@@ -75,6 +75,18 @@ class IndicadoresHasCurso extends Eloquent
 				->where('INDICADORES_HAS_CURSOS.ESTADO', '=', 1)
 				->distinct();
         //dd($sql->get());
+        return $sql;
+	}
+
+	static function getCursosByIdIndicador($idInd,$idSem,$idEsp) {
+		$sql = DB::table('INDICADORES_HAS_CURSOS')
+				->where('INDICADORES_HAS_CURSOS.ID_INDICADOR','=',$idInd)
+				->leftJoin('CURSOS', 'INDICADORES_HAS_CURSOS.ID_CURSO', '=', 'CURSOS.ID_CURSO')
+				->select('CURSOS.ID_CURSO','CURSOS.NOMBRE','CURSOS.CODIGO_CURSO')
+				->where('INDICADORES_HAS_CURSOS.ID_SEMESTRE', '=', $idSem)
+				->where('INDICADORES_HAS_CURSOS.ID_ESPECIALIDAD', '=', $idEsp)
+				->where('INDICADORES_HAS_CURSOS.ESTADO', '=', 1)
+				->distinct();
         return $sql;
 	}
 	

@@ -58,7 +58,7 @@
                   </label>
                 </div>
               </div>
-              <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+              <button id="btnGraficoResultadosCurso" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
          <div class="col-xs-6 text-center">
           <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
           <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-            <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            <button id="btnGraficoConsolidado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@
 </div>
 
 <--Modal-->
-
+<!--Ciclos Resultado-->
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
@@ -164,10 +164,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
     <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
       <div class="col-md-4 text-right">
-        <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
       </div>
       <div class="col-md-4 text-left">
-        <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      <a href="{{route('exportar.resporte1')}}">
+        <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </a>
       </div>
 
     </div>
@@ -181,6 +183,101 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 </div>
 
 
+<!--Cursos Resultado-->
+<div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 600px">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Resultados por Curso</h4>
+  </div>
+  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+  <div class="row" style="padding-top: 10px; padding-bottom: 0px">
+    <div class="col-xs-offset-8 col-xs-3">
+      <select id="heard" class="form-control" required>
+        <option value="">2018-2</option>
+        <option value="press">2018-1</option>
+        <option value="net">2017-2</option>
+        <option value="mouth">2017-1</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+      <div class="col-md-4 text-right">
+        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+      </div>
+      <div class="col-md-4 text-left">
+      <a href="{{route('exportar.reporte2')}}">
+        <button id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </a>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  
+</div>
+</div>
+</div>
+
+<!--Cursos Resultado-->
+<div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 600px">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Consolidado Histórico</h4>
+  </div>
+  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+  <div class="row" style="padding-top: 10px; padding-bottom: 0px">
+    <div class="col-xs-offset-8 col-xs-3">
+      <select id="heard" class="form-control" required>
+        <option value="">2018-2</option>
+        <option value="press">2018-1</option>
+        <option value="net">2017-2</option>
+        <option value="mouth">2017-1</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+      <div class="col-md-4 text-right">
+        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+      </div>
+      <div class="col-md-4 text-left">
+      <a href="{{route('exportar.reporte4')}}">
+        <button id="btnDescargarReportes4" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </a>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  
+</div>
+</div>
+</div>
 @stop
 
 @section('js-scripts')
