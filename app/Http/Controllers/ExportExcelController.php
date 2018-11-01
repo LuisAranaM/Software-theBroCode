@@ -40,13 +40,33 @@ class ExportExcelController extends Controller
         $excel->setTitle('Reporte Resultados del Semestre');
         $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($customer_array){
             
-            $sheet->row(0, array('MEDICIÓN - INGENIERÍA INFORMÁTICA  2016 - 2'));
-            $i = 1;
+            $sheet->row(1, array('MEDICIÓN - INGENIERÍA INFORMÁTICA  2016 - 2'));
+            $i = 2;
 
+            $sheet->setWidth(array(
+                'A'     =>  30,
+                'B'     =>  30,
+                'C'     =>  15,
+            ));
+            $sheet->mergeCells('A1:C1');
+            $sheet->cells('A1:C1', function($cells) {    // manipulate the cell
+                $cells->setBackground('#1FD7C1');
+                $cells->setFontSize(10);
+                $cells->setFontWeight('bold');
+                $cells->setAlignment('center');
+                $cells->setValignment('center');
+
+             });
+            
+             $sheet->cells('A2:C1000', function($cells) {   
+                $cells->setAlignment('center');
+                $cells->setValignment('center');
+
+            });
             $resultados = eResultado::getResultados();
             foreach($resultados as $resultado){
                 $sheet->row($i, array($resultado->NOMBRE.' ('.$resultado->DESCRIPCION.')'));
-                $sheet->row($i+1, array('Aspecto','Criterio','Cursos Evaluados','Promedio Puntaje','Promedio %','TOTAL'));
+                $sheet->row($i+1, array('Aspecto','Criterio','Promedio %'));
                 
                 $promedioPuntajeResultado = 0;
                 $porcentajeResultado = 0;
@@ -58,7 +78,6 @@ class ExportExcelController extends Controller
                 foreach($categorias as $categoria){
                     $indicadores = eIndicador::getIndicadoresId($categoria->ID_CATEGORIA);
                     foreach($indicadores as $indicador){
-                        
                         $nIndicadores += 1;
                         $cursos = eIndicadoresHasCurso::getCursosByIdIndicador($indicador->ID_INDICADOR);
 
@@ -89,8 +108,8 @@ class ExportExcelController extends Controller
                                 $porcentajeIndicador += $porcentajeCursoIndicador*$totalAlumnosCursoIndicador;
                                 $totalAlumnosIndicador += $totalAlumnosCursoIndicador;
                                 //Actualizo valor de porcentajeIndicador y mergeo celda
-                                $sheet->row($i, array($categoria->NOMBRE,$indicador->NOMBRE,$curso->NOMBRE,$promedioPuntaje,$porcentajeCursoIndicador.'%'));
-                                $i += 1;
+                                //$sheet->row($i, array($categoria->NOMBRE,$indicador->NOMBRE,$curso->NOMBRE,$promedioPuntaje,$porcentajeCursoIndicador.'%'));
+                                //$i += 1;
                             }
                             
                         }
@@ -99,16 +118,18 @@ class ExportExcelController extends Controller
                             //Actualizo valor de porcentajeIndicador
                             $porcentajeResultado += $porcentajeIndicador;
                         }
+                        $sheet->row($i, array($categoria->NOMBRE,$indicador->NOMBRE,round($porcentajeIndicador,2).'%'));
+                        $i += 1;
                     }
+
                     
                 }
                 if($nIndicadores>0 && $nCursosIndicador>0){
                     $porcentajeResultado/= $nIndicadores;
                     $promedioPuntajeResultado/= $nCursosIndicador;
-                    $sheet->row($i, array('','','',$promedioPuntajeResultado,$porcentajeResultado.'%'));
+                    $sheet->row($i, array('','',round($porcentajeResultado,2).'%'));
                     $i += 1;
                 }
-                
             }
         });
         })->download('xlsx');
