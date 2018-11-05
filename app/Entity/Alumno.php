@@ -26,5 +26,9 @@ class Alumno extends \App\Entity\Base\Entity {
         return mAlumno::getAlumnosByHorarioStatic($idHorario);
     }
 
+    public function insertarIndicadoresxAlumno($datosAlumno){
+        mAlumno::insertarIndicadoresxAlumno($datosAlumno);
+    }
+
     
 }

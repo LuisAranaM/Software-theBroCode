@@ -1,7 +1,7 @@
-git branch (ver los branches actuales)
+﻿git branch (ver los branches actuales)
 git checkout -b newBranch (crear nuevo branch y moverte a el)
 git checkout name_of_branch(moverte entre branches)
-git push origin hykire (pushea lo que tengas en tu stage al branch que creaste, en mi caso hykire)
+git push origin hykire (pushea lo que tengas en tu cp al branch que creaste, en mi caso hykire)
 
 Para actualizar al master:
 git checkout master
