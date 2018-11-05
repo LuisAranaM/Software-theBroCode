@@ -12,8 +12,6 @@
 @section('pageTitle', 'Principal')
 
 @section('content')
-
-
 <div class="customBody">
 
   <div class="col-md-8 col-sm-6">

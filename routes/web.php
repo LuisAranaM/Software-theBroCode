@@ -122,3 +122,5 @@ Route::get('/exportarExcelResporte1', ['as'=>'exportar.reporte1','uses'=>'Report
 Route::get('/exportarExcelResporte2', ['as'=>'exportar.reporte2','uses'=>'ReportesController@exportarReporteCursosResultado']);
 //Reporte consolidado
 Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'ReportesController@exportarReporteConsolidado']);
+
+Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesController@graficoReporteResultadosCiclo']);
