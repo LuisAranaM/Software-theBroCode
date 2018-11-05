@@ -90,6 +90,9 @@ Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios')
 /***GENERAR AVISOS***/
 Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion']);
 
+/***GESTIONAR MANEJO DE ACTAS Y PLANES***/
+Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunionesGestion']);
+
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
