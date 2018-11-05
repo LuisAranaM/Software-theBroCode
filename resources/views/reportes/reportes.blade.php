@@ -20,6 +20,7 @@
     <h1 class="mainTitle"> Reportes </h1>
   </div>
 
+  <!-- Inicio de Reportes -->
   <div class="row">
     <!-- Seccion 1: Resultados x Ciclo -->
     <div class="col-md-6">
