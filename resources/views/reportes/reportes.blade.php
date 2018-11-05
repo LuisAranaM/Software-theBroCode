@@ -180,9 +180,9 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
       </div>
       <div class="col-md-4 text-left">
-        <a href="{{route('exportar.resporte1')}}">
-          <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-        </a>
+      <a href="{{route('exportar.reporte1')}}">
+        <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </a>
       </div>
     </div>
 
