@@ -3,6 +3,8 @@
 @section('js-libs')
 <!-- Required Javascript -->
 <script src="canvas/canvasjs.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
 @stop
@@ -140,18 +142,18 @@
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px">
+<div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Resultados en el Ciclo</h4>
+    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 
-  <div class="row" style="padding-top: 10px; padding-bottom: 0px">
+  <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
     <div class="col-xs-offset-8 col-xs-3">
       <select id="heard" class="form-control" required>
         <option value="">2018-2</option>
@@ -163,27 +165,31 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   </div>
 
   <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
-    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
+    <div class="row">
+
+      <div class="x_content">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+     
+    </div>
+
+    <!--<img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">-->
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
     <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
       <div class="col-md-4 text-right">
         <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
       </div>
       <div class="col-md-4 text-left">
-      <a href="{{route('exportar.resporte1')}}">
-        <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-      </a>
+        <a href="{{route('exportar.resporte1')}}">
+          <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+        </a>
       </div>
-
     </div>
 
-
   </div>
-
-  
 </div>
-</div>
-</div>
+<!--</div>
+</div>-->
 
 
 <!--Cursos Resultado-->
