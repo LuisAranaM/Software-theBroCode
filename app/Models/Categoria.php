@@ -10,7 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Criterio
  * 
@@ -88,6 +88,33 @@ class Categoria extends Eloquent
                 ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
                 ->where('ESTADO','=', 1);
         return $sql;
+    }
+
+    static function updateCategoria($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('CATEGORIAS')->where('ID_CATEGORIA',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteCategoria($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('CATEGORIAS')->where('ID_CATEGORIA',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
     }
 
 	

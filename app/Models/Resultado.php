@@ -10,6 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as Log;
 
 /**
  * Class Criterio
@@ -103,6 +104,34 @@ class Resultado extends Eloquent
 
 		return $id;
 	}
+	static function updateResultado($id, $nombre, $desc){
+		DB::beginTransaction();
+        try {
+            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'DESCRIPCION' => $desc,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteResultado($id){
+    	DB::beginTransaction();
+        try {
+        	//dd($id);
+            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
 
 	public function especialidad()
 	{

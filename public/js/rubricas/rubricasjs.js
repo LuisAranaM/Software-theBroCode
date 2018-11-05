@@ -1,14 +1,13 @@
 $( document ).ready(function() {
 	console.log("inicioR");
 
-
 	$(".btnCargarAlumnos2").on("click", function(){
         var cod = $(this).data('id');
         $(".modal-body #bookId").val( cod );
         $("#modalCargarAlumnos").modal("show");
     })
 
-	$(".indicadorTrash").on("click", function(){
+	$(".indicadorTrash").on("click", function(e){
 
 		//var codigoCurso=$(this).attr('codigoCurso');
         //var nombreCurso=$(this).attr('nombreCurso');
@@ -21,18 +20,20 @@ $( document ).ready(function() {
         e.preventDefault();
 	});
 
-	$(".resultTrash").on("click", function(){
+	$(".resultTrash").on("click", function(e){
 		//var codigoCurso=$(this).attr('codigoCurso');
         //var nombreCurso=$(this).attr('nombreCurso');
         var resp=confirm("¿Estás seguro de que deseas eliminar este indicador?");
         //var botonCurso=$(this).closest('div').closest('div');
         if (resp == true) {
             //eliminarCursoAcreditar(codigoCurso,botonCurso);  
-            $(this).parent().parent().parent().parent().parent().remove();          
+            var id= $(this).attr('id');
+            console.log(id);
+            borrarResultado(id);          
+            $(this).parent().parent().parent().parent().parent().remove();
         } 
         e.preventDefault();
 	});
-
 
 
 
@@ -44,7 +45,10 @@ $( document ).ready(function() {
             $('#btnAgregar').removeAttr('disabled');        
         }
         $("#ModalTitle").text( "Agregar Nuevo Indicador" );
-		$("#modalCursos").modal("show");
+        $(".nombreIndicador").val("");
+        $(".descripcionIndicador").val("");
+		$("#modalIndicador").modal("show");
+		$("#modalIndicador").val($(this).attr('id'));
 	});
 
 	$("#AgregarResultado").on("click", function(){
@@ -60,18 +64,13 @@ $( document ).ready(function() {
 	$(".edit").on("click", function(){
 		var codigo= $(this).parent().prev('div').find('p').text();
 		var descripcion=$(this).parent().next('div').find('p').text();
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
+        
         $("#ModalTitle").text("Editar Indicador" );
         $(".nombreIndicador").val(codigo);
        	console.log(codigo);
         $(".descripcionIndicador").val(descripcion);
         console.log(descripcion);
-		$("#modalCursos").modal("show");
+		$("#modalIndicador").modal("show");
 	});
 
 
@@ -88,49 +87,6 @@ $( document ).ready(function() {
     //no pongo seleccion en validaciones pues esa casilla depende de indicadores 
     //y no hay más listas que desprendan de validaciones
 
-    $('#apRes').on("click",".courseButton",function(){
-    	refrescarCategorias($(this).attr('id'));
-    	$('#myDIVResultados .courseButton').removeClass('activeButton');
-    	$(this).addClass('activeButton'); //interiormente tambien refresca Categorias e Indicadores
-
-    	$('#myDIVCategorias .courseButton').removeClass('activeButton');
-    	$('.myDIVCategoriasclass div.courseButton:first').addClass('activeButton');
-
-    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
-    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
-    });
-
-
-    $('#apCat').on("click",".courseButton",function(){
-    	refrescarIndicadores($(this).attr('id'));
-    	$('#myDIVCategorias .courseButton').removeClass('activeButton');
-    	$(this).addClass('activeButton');
-    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
-    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
-    });
-
-    $('#apInd').on("click",".courseButton",function(){
-    	refrescarEscalas($(this).attr('id'));
-    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
-    	$(this).addClass('activeButton');
-    });
-
-	$("#apRes").on("click",".courseButton",function() {
-		$('html,body').animate({
-			scrollTop: $(".divcategorias").offset().top},
-			500);
-	});
-	$("#apCat").on("click",".courseButton",function() {
-		$('html,body').animate({
-			scrollTop: $(".divindicadores").offset().top},
-			500);
-	});
-	$("#apInd").on("click",".courseButton",function() {
-		$('html,body').animate({
-			scrollTop: $(document).height() - $(window).height()},
-			500);
-	});
-
 	$('#btnAgregarResultado').on('click',function(e) {
 		var codRes = $('#txtCodigoResultado').val();
 		var descRes = $('#txtResultado').val();
@@ -141,32 +97,28 @@ $( document ).ready(function() {
     	});
 		//console.log(cat[1]);
 		console.log("si llega aca");
-		actualizarResultados(codRes,descRes,cat);
-		//e.preventDefault();
+		insertarResultados(codRes,descRes,cat);
+		e.preventDefault();
 		
 	});
 
 
-	$('#btnAgregarCategoria').click(function() {
-		var descCat = $('#txtCategoria').val();
-		var idRes = $('#myDIVResultados div.activeButton:first').attr('id');
-		actualizarCategorias(descCat, idRes);
+	$('#btnAgregarIndicador').click(function(e) {
+
+		var ind = $('#txtIndicador').val();
+		var idCat= $('#modalIndicador').val();
+		var descs = []
+
+		$('#filasDesc .desc').each(function() {
+        	descs.push( $(this).val());
+    	});
+		//console.log(cat[1]);
+		console.log("si llega aca");
+		insertarIndicadores(idCat,ind,descs);
+		e.preventDefault();
 	});
 
-	$('#btnAgregarIndicador').click(function() {
-		var descInd = $('#txtIndicador').val();
-		var idCat = $('#myDIVCategorias div.activeButton:first').attr('id');
-		actualizarIndicadores(descInd, idCat);
-	});
-
-	$('#btnAgregarEscala').click(function() {
-		var escala = $('#txtEscala').val();
-		var descripcion = $('#txtValorizacion').val();
-		var idInd = $('#myDIVIndicadores div.activeButton:first').attr('id');
-		actualizarEscalas(escala, descripcion, idInd);
-	});
-
-	$('#filasCat').on('click','.fa-plus-circle' ,function() {
+	$('#filasCat').on('click','.fa-plus-circle' ,function(e) {
 		$('#agregarFilaIcono').remove();
 		html=''
 		html+='<div class="col-xs-11" style="padding-bottom: 6px">'
@@ -177,7 +129,7 @@ $( document ).ready(function() {
         html+='</div>'
 		$('#filasCat').append(html);
 
-		//e.preventDefault();
+		e.preventDefault();
 	});
 
 	
@@ -391,13 +343,34 @@ function refrescarResultados(idRes){
 
 }
 
-function actualizarResultados(codRes,descRes,cat){
+function borrarResultado(id){
 	$.ajax({
 		type:'POST',
 		headers: {
 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: APP_URL + '/rubricas/actualizar-resultados',
+		url: APP_URL + '/rubricas/borrar-resultado',
+		data: {
+			_id: id
+		},
+		dataType: "text",
+		success: function(result) {
+			window.location = APP_URL + "/rubricas/gestion";
+
+		},
+		error: function (xhr, status, text,e) {
+        	e.preventDefault();
+        	alert('Hubo un error al eliminar la información');
+    	}
+	});
+}
+function insertarResultados(codRes,descRes,cat){
+	$.ajax({
+		type:'POST',
+		headers: {
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/insertar-resultados',
 		data: {
 			_codRes: codRes,
 			_descRes: descRes,
@@ -405,71 +378,88 @@ function actualizarResultados(codRes,descRes,cat){
 		dataType: "text",
 		success: function(result) {
 			result = JSON.parse(result);
-			//refrescarResultados(result);
 			var idRes= result;	
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
-				actualizarCategorias(cat[i], idRes);
+				insertarCategorias(cat[i], idRes);
 			}
 			window.location = APP_URL + "/rubricas/gestion";			
 		},
-		error: function (xhr, status, text) {
+		error: function (xhr, status, text,e) {
         	e.preventDefault();
         	alert('Hubo un error al registrar la información');
     	}
 	});
 }
-function actualizarCategorias(descCat, idRes){
+function insertarCategorias(descCat, idRes){
 	$.ajax({
 		type:'POST',
 		headers: {
 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: APP_URL + '/rubricas/actualizar-categorias',
+		url: APP_URL + '/rubricas/insertar-categorias',
 		data: {
 			_descCat: descCat,
 			resultado: idRes,
 		},
 		dataType: "text",
 		success: function(result) {
-			//refrescarCategorias(idRes,1,result);   	
 		}
 	});
 }
-function actualizarIndicadores(descInd, idCat){
+function insertarIndicadores(idCat, ind, descs){
 	$.ajax({
 		type:'POST',
 		headers: {
 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: APP_URL + '/rubricas/actualizar-indicadores',
+		url: APP_URL + '/rubricas/insertar-indicadores',
 		data: {
-			_descInd: descInd,
 			_idCat: idCat,
-
+			_ind: ind,
 		},
 		dataType: "text",
 		success: function(result) {
-			refrescarIndicadores(idCat,1,result);
-		}
+			//result = JSON.parse(result);
+			var idInd= result;	
+			for(i=0; i<descs.length;i++){
+				console.log(descs[i]);
+				insertarDescripciones(descs[i], idInd);
+			}
+		$('#filasInd').remove();
+		html=''
+		html+='<div class="col-xs-11" style="padding-bottom: 6px">'
+		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+        html+='</div>'
+        html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+        html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+        html+='</div>'
+		$('#filasCat').append(html);
+
+		e.preventDefault();
+	
+			//window.location = APP_URL + "/rubricas/categorias?idRes=" + idRes +"&resultado="+res;			
+		},
+		error: function (xhr, status, text) {
+        	
+        	alert('Hubo un error al registrar la información');
+    	}
 	});
+function insertarDescripciones(desc, idInd){
+$.ajax({
+	type:'POST',
+	headers: {
+	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	},
+	url: APP_URL + '/rubricas/insertar-descripciones',
+	data: {
+		_desc: desc,
+		_idInd: idInd,
+	},
+	dataType: "text",
+	success: function(result) {
+
+	}
+});
 }
-function actualizarEscalas(escala, descripcion, idInd){
-	$.ajax({
-		type:'POST',
-		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url: APP_URL + '/rubricas/actualizar-escalas',
-		data: {
-			_escala: escala,
-			_descripcion: descripcion,
-			_idInd: idInd,
-
-		},
-		dataType: "text",
-		success: function(result) {
-			refrescarEscalas(idInd);
-		}
-	});
 }

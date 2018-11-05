@@ -36,11 +36,17 @@ class Categoria extends \App\Entity\Base\Entity {
     static function getCategorias() {
         $model = new mCategoria();
         return mCategoria::getCategorias()->get();
-
-
     }
     static function insertCategoria($categoria, $criterio){
         $model =new mCategoria();
         return $model->insertCategoria($categoria, $criterio, self::getIdSemestre(), self::getEspecialidadUsuario());
+    }
+    static function updateCategoria($id, $nombre){
+        $model=new mCategoria();
+        return $model->updateCategoria($id, $nombre);
+    }
+    static function deleteCategoria($id){
+        $model =new mCategoria();
+        return $model->deleteCategoria($id);
     }
 }

@@ -10,7 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Subcriterio
  * 
@@ -112,7 +112,7 @@ class Indicador extends Eloquent
 				->distinct();
         return $sql;
     }
-	public function insertSubCriterio($idCat,$nombre){
+	public function insertIndicador($idCat,$nombre,$idSem,$idEsp){
 
 		DB::beginTransaction();
         $id=-1;
@@ -120,6 +120,8 @@ class Indicador extends Eloquent
         	$id = DB::table('INDICADORES')->insertGetId(
 		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
+		     	 'ID_SEMESTRE'=> $idSem,
+		     	 'ID_ESPECIALIDAD'=>$idEsp,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	 'USUARIO_MODIF' => Auth::id(), 
@@ -139,15 +141,69 @@ class Indicador extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-    static function updateIndicador($indicador){
-    	DB::table('INDICADORES')
-    		->where('ID_INDICADOR',$indicador->ID_INDICADOR)
-    		->update(['DESCRIPCION_1' => $indicador->DESCRIPCION_1,
-			     	 'DESCRIPCION_2' => $indicador->DESCRIPCION_2,
-			     	 'DESCRIPCION_3' => $indicador->DESCRIPCION_3,
-			     	 'DESCRIPCION_4' => $indicador->DESCRIPCION_4]);
-		DB::commit();
-        return;
+    static function updateIndicador($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('INDICADORES')->where('ID_INDICADOR',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteIndicador($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('INDICADORES')->where('ID_INDICADOR',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+	}
+	
+	static function exportarReporteResultadosCiclo($filtros,$idSemestre,$idEspecialidad){
+    	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
+    	->select('RES.ID_RESULTADO','RES.NOMBRE AS COD_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO','CAT.ID_CATEGORIA',
+    			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.NOMBRE AS NOMBRE_INDICADOR','IHAH.ID_INDICADOR',
+				DB::Raw('IFNULL(SUM(CASE WHEN ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE_PONDERADO'))		
+		->leftJoin('RESULTADOS AS RES',function($join){
+			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
+		})
+		->leftJoin('INDICADORES AS IND',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHC.ID_INDICADOR');
+		})
+		->leftJoin('CATEGORIAS AS CAT',function($join){
+			$join->on('CAT.ID_CATEGORIA','=','IHC.ID_CATEGORIA');
+		})
+		->leftJoin('CURSOS AS CUR',function($join){
+			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
+		})
+		->leftJoin('HORARIOS AS HOR',function($join){
+			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
+			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
+		})
+		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
+		})
+		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
+		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
+		->where('CUR.ESTADO_ACREDITACION','=',1)  
+		->where('IHC.ESTADO','=',1)  
+		->where('RES.ESTADO','=',1)  
+		->where('IND.ESTADO','=',1)  
+		->where('CAT.ESTADO','=',1)  
+		->where('HOR.ESTADO','=',1)
+		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
+		'IND.ID_INDICADOR','IND.NOMBRE','IHAH.ID_INDICADOR');
+
+		return $sql;
     }
 
     static function getReporteCursosResultado($filtros,$idSemestre,$idEspecialidad){

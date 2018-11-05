@@ -2,6 +2,9 @@
 
 @section('js-libs')
 <!-- Required Javascript -->
+<script src="canvas/canvasjs.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
 @stop
@@ -11,7 +14,6 @@
 @section('content')
 
 
-
 <div class="customBody">
 
   <div class="col-md-8 col-sm-6">
@@ -19,11 +21,12 @@
   </div>
 
   <div class="row">
+    <!-- Seccion 1: Resultados x Ciclo -->
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <img class= "imageBox" src="{{ URL::asset('img/report1.PNG') }}" >
+            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Resultados x Ciclo </h1>
@@ -35,18 +38,19 @@
                   </label>
                 </div>
               </div>
-              <button id="btnGraficoCxR" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+              <button id="btnGraficoRxC" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Seccion 2: Cursos x Resultado -->
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <img class= "imageBox" src="{{ URL::asset('img/report1.PNG') }}">
+            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
@@ -67,6 +71,7 @@
   </div>
 
   <div class="row">
+    <!-- Seccion 3: Indicadores x Resultado -->
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
         <div class="row">
@@ -83,11 +88,12 @@
       </div>
     </div>
 
+    <!-- Seccion 4: Consolidado historico -->
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-           <img class= "imageBox" src="{{ URL::asset('img/report1.PNG') }}" >
+            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
          </div>
          <div class="col-xs-6 text-center">
           <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
@@ -101,183 +107,256 @@
 </div>
 </div>
 
-<!-- Modal para ver reporte de Resultados por Ciclo 
-<div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
-  data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-  <div class="modal-dialog modal-lg">
+<!-- Modales -->
+
+<!-- ******* 1. Modal Resultados x Ciclo ******* -->
+<div id = "modalRxC" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+  id="modalCursos" data-keyboard="false" data-backdrop="static"
+  aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+  <div class="modal-dialog modal-lg" style="width: 600px;">
+  
+    <!-- Contenido del modal -->
     <div class="modal-content">
+      <!-- Cabeza del modal -->
       <div class="modal-header">
-        <div  style="padding-top: 10px; padding-left: 20px">
-          <a href="" class="pText">
-          <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-          Regresar
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+      </div>
+      <!-- Fin Cabeza del modal -->
+    
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+      
+      <!-- Combo box -->
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <div class="col-xs-offset-8 col-xs-3">
+          <select id="heard" class="form-control" required>
+            <option value="">2018-2</option>
+            <option value="press">2018-1</option>
+            <option value="net">2017-2</option>
+            <option value="mouth">2017-1</option>
+          </select>
+        </div>
+      </div>
+      <!-- Fin Combo box -->
+
+      <!-- Cuerpo del modal -->
+      <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
+        <div class="row">
+          <div class="x_content">
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </div> 
+        </div>
+      </div>
+      <!-- Fin Cuerpo del modal -->
+
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+      <!-- Botones inferiores del modal -->
+      <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+        <div class="col-md-4 text-right">
+          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+        </div>
+        <div class="col-md-4 text-left">
+          <a href="{{route('exportar.reporte1')}}">
+            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
-          <button id="cerrarModalCxR" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <h4 class="modal-title text-center" id="myModalLabel">Gráfico de criterios por ciclo</h4>
-      </div>
-
-      <div class="modal-body text-center">
-        <div class="x_content">
-          <!--<div id="myfirstchart" style="height: 250px;"></div>-->
-          <!-->
-          <div class="row">
-            <div id="myfirstchart" style="height: 350px; -webkit-tap-highlight-color: transparent; user-select: none;position: relative; background-color: transparent;" _echarts_instance_="ec_1540778072451"><div style="position: relative; overflow: hidden; width: 780px; height: 350px; cursor: default;"><canvas width="975" height="437" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 780px; height: 350px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px Arial, Verdana, sans-serif; padding: 5px; left: 592px; top: 96.6px;">10?<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#26B99A"></span>sales : 20<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#34495E"></span>purchases : 18.8</div></div>
-          </div>
-        
         </div>
       </div>
+      <!-- Fin Botones inferiores del modal -->
     </div>
+    <!-- Fin Contenido del modal -->
   </div>
 </div>
+<!-- Fin Modal Resultados x Ciclo-->
 
-<--Modal-->
-<!--Ciclos Resultado-->
+<!-- ******* 2. Modal Curso x Resultado ******* -->
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Resultados en el Ciclo</h4>
-  </div>
-  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-
-  <div class="row" style="padding-top: 10px; padding-bottom: 0px">
-    <div class="col-xs-offset-8 col-xs-3">
-      <select id="heard" class="form-control" required>
-        <option value="">2018-2</option>
-        <option value="press">2018-1</option>
-        <option value="net">2017-2</option>
-        <option value="mouth">2017-1</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
-    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
-    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
-        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
-      </div>
-      <div class="col-md-4 text-left">
-      <a href="{{route('exportar.resporte1')}}">
-        <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-      </a>
-      </div>
-
-    </div>
-
-
-  </div>
-
+  id="modalCursos" data-keyboard="false" data-backdrop="static"
+  aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+  <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
   
-</div>
-</div>
-</div>
-
-
-<!--Cursos Resultado-->
-<div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Resultados por Curso</h4>
-  </div>
-  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-
-  <div class="row" style="padding-top: 10px; padding-bottom: 0px">
-    <div class="col-xs-offset-8 col-xs-3">
-      <select id="heard" class="form-control" required>
-        <option value="">2018-2</option>
-        <option value="press">2018-1</option>
-        <option value="net">2017-2</option>
-        <option value="mouth">2017-1</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
-    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
-    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
-        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+      <!-- Cabeza del modal -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
       </div>
-      <div class="col-md-4 text-left">
-      <a href="{{route('exportar.reporte2')}}">
-        <button id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-      </a>
+      <!-- Fin Cabeza del modal -->
+    
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+      
+      <!-- Combo box -->
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <div class="col-xs-offset-8 col-xs-3">
+          <select id="heard" class="form-control" required>
+            <option value="">2018-2</option>
+            <option value="press">2018-1</option>
+            <option value="net">2017-2</option>
+            <option value="mouth">2017-1</option>
+          </select>
+        </div>
       </div>
+      <!-- Fin Combo box -->
 
+      <!-- Cuerpo del modal -->
+      <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+        <div class="row">
+          <div class="x_content">
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </div> 
+        </div>
+      </div>
+      <!-- Fin Cuerpo del modal -->
+
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+      <!-- Botones inferiores del modal -->
+      <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+        <div class="col-md-4 text-right">
+          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+        </div>
+        <div class="col-md-4 text-left">
+          <a href="{{route('exportar.reporte1')}}">
+            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          </a>
+        </div>
+      </div>
+      <!-- Fin Botones inferiores del modal -->
     </div>
-
-
+    <!-- Fin Contenido del modal -->
   </div>
+</div>
+<!-- Fin Modal Curso x Resultado -->
 
+<!-- ******* 3. Modal Indicadores x Resultado ******* -->
+<div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+  id="modalCursos" data-keyboard="false" data-backdrop="static"
+  aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+  <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
   
-</div>
-</div>
-</div>
-
-<!--Cursos Resultado-->
-<div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Consolidado Histórico</h4>
-  </div>
-  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-
-  <div class="row" style="padding-top: 10px; padding-bottom: 0px">
-    <div class="col-xs-offset-8 col-xs-3">
-      <select id="heard" class="form-control" required>
-        <option value="">2018-2</option>
-        <option value="press">2018-1</option>
-        <option value="net">2017-2</option>
-        <option value="mouth">2017-1</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
-    <img  src="{{ URL::asset('img/report1.PNG') }}" style="width: 500px">  
-    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
-        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+      <!-- Cabeza del modal -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
       </div>
-      <div class="col-md-4 text-left">
-      <a href="{{route('exportar.reporte4')}}">
-        <button id="btnDescargarReportes4" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-      </a>
+      <!-- Fin Cabeza del modal -->
+    
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+      
+      <!-- Combo box -->
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <div class="col-xs-offset-8 col-xs-3">
+          <select id="heard" class="form-control" required>
+            <option value="">2018-2</option>
+            <option value="press">2018-1</option>
+            <option value="net">2017-2</option>
+            <option value="mouth">2017-1</option>
+          </select>
+        </div>
       </div>
+      <!-- Fin Combo box -->
 
+      <!-- Cuerpo del modal -->
+      <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+        <div class="row">
+          <div class="x_content">
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </div> 
+        </div>
+      </div>
+      <!-- Fin Cuerpo del modal -->
+
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+      <!-- Botones inferiores del modal -->
+      <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+        <div class="col-md-4 text-right">
+          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+        </div>
+        <div class="col-md-4 text-left">
+          <a href="{{route('exportar.reporte1')}}">
+            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          </a>
+        </div>
+      </div>
+      <!-- Fin Botones inferiores del modal -->
     </div>
-
-
+    <!-- Fin Contenido del modal -->
   </div>
+</div>
+<!-- Fin Modal Indicadores x Resultado -->
 
+<!-- ******* 4. Modal Consolidado Historico ******* -->
+<div id = "modalCH" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+  id="modalCursos" data-keyboard="false" data-backdrop="static"
+  aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+  <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
   
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+      <!-- Cabeza del modal -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+      </div>
+      <!-- Fin Cabeza del modal -->
+    
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+      
+      <!-- Combo box -->
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <div class="col-xs-offset-8 col-xs-3">
+          <select id="heard" class="form-control" required>
+            <option value="">2018-2</option>
+            <option value="press">2018-1</option>
+            <option value="net">2017-2</option>
+            <option value="mouth">2017-1</option>
+          </select>
+        </div>
+      </div>
+      <!-- Fin Combo box -->
+
+      <!-- Cuerpo del modal -->
+      <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+        <div class="row">
+          <div class="x_content">
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </div> 
+        </div>
+      </div>
+      <!-- Fin Cuerpo del modal -->
+
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+      <!-- Botones inferiores del modal -->
+      <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+        <div class="col-md-4 text-right">
+          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+        </div>
+        <div class="col-md-4 text-left">
+          <a href="{{route('exportar.reporte1')}}">
+            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          </a>
+        </div>
+      </div>
+      <!-- Fin Botones inferiores del modal -->
+    </div>
+    <!-- Fin Contenido del modal -->
+  </div>
 </div>
-</div>
-</div>
+<!-- Fin Modal Consolidado Historico -->
+
 @stop
 
 @section('js-scripts')

@@ -33,13 +33,20 @@ class ResultadoController extends Controller
     }
 
     public function rubricasGestion(Request $request) {
+        $resultados=[];
         $categorias=[];
         $indicadores=[];
+        $descripciones=[];
 
         $resultados = eResultado::getResultados()->toArray();
-        $categorias = eCategoria::getCategoriasId($resultados[0]->ID_RESULTADO)->toArray();
-        $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_CATEGORIA)->toArray();
-        $descripciones = eDescripcion::getDescripcionesId($indicadores[0]->ID_INDICADOR)->toArray();
+        if($resultados!=NULL){
+            $categorias = eCategoria::getCategoriasId($resultados[0]->ID_RESULTADO)->toArray();
+            if($categorias!=NULL){
+                $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_CATEGORIA)->toArray();
+                if($indicadores!=NULL)
+                    $descripciones = eDescripcion::getDescripcionesId($indicadores[0]->ID_INDICADOR)->toArray();
+            }
+        }
         //$escalas = eEscala::getEscalas()->toArray();
         //$first= array_shift($resultados);
         //dd($categorias);
@@ -51,7 +58,7 @@ class ResultadoController extends Controller
         ->with('descripciones', $descripciones);
     }
 
-    public function actualizarResultados(Request $request){
+    public function insertarResultado(Request $request){
         $codigoRes = $request->get('_codRes', null);
         $nombreRes = $request->get('_descRes', null);
 
@@ -60,88 +67,119 @@ class ResultadoController extends Controller
         //console.log($idResultado);
         return $idResultado;
     }
-    public function actualizarCategorias(Request $request){
+    public function insertarCategoria(Request $request){
         $categoria = $request->get('_descCat', null);
         $idRes = $request->get('resultado',null);
         $idCat = eCategoria::insertCategoria($categoria, $idRes);
         return $idCat;
     }
-    public function actualizarIndicadores(Request $request){
-        $indicador = $request->get('_descInd', null);
+    public function insertarIndicador(Request $request){
+        $indicador = $request->get('_ind', null);
         $idCat = $request->get('_idCat',null);
-        $idInd = eIndicador::insertIndicador($idCat,1,1,$indicador, null,null,null,null);
+        $idInd = eIndicador::insertIndicador($idCat, $indicador);
         return $idInd;
     }
-    public function actualizarDescripciones(Request $request){
-        $descripcion = $request->get('_descDesc', null);
+    public function insertarDescripcion(Request $request){
+        $descripcion = $request->get('_desc', null);
         $idInd = $request->get('_idInd',null);
         $idDesc = eDescripcion::insertDescripcion($idInd,$descripcion);
 
         return $idDesc;
     }
-    public function actualizarEscalas(Request $request){
-        $escala = $request->get('_escala', null);
-        $descripcion = $request->get('_descripcion',null);
-        $idInd = $request->get('_idInd',null);
-        $indicador = eIndicador::getSubCriterioId($idInd)->toArray()[0];
-        if(is_null($indicador->DESCRIPCION_1)){
-            $indicador->DESCRIPCION_1=$descripcion;
-        }else if(is_null($indicador->DESCRIPCION_2)){
-            $indicador->DESCRIPCION_2=$descripcion;          
-        }else if(is_null($indicador->DESCRIPCION_3)){
-            $indicador->DESCRIPCION_3=$descripcion;          
-        }else if(is_null($indicador->DESCRIPCION_4)){
-            $indicador->DESCRIPCION_4=$descripcion;       
-        }
-        eIndicador::updateSubcriterio($indicador);
-        //obtener indicador y verificar si tiene las descripciones
-        //updateamos la primera descripcion que este en null
-
-        return;
+    public function actualizarResultado(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        $desc = $request->get('_desc',null);
+        eResultado::updateResultado($id, $nombre, $desc);
     }
-    public function refrescarResultados(Request $request){
+    public function actualizarCategoria(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        eCategoria::updateCategoria($id, $nombre);
+    }
+    public function actualizarIndicador(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        eIndicador::updateIndicador($id, $nombre);
+    }
+    public function actualizarDescripcion(Request $request){
+        $id = $request->get('_id',null);
+        $nombre = $request->get('_nombre',null);
+        eDescripcion::updateDescripcion($id, $nombre);
+    }
 
-        $resultados = eResultado::getCriterios()->toArray();
+
+    public function borrarResultado(Request $request){
+        $id = $request->get('_id',null);
+        eResultado::deleteResultado($id);
+        $categorias = eCategoria::getCategoriasId($id)->toArray();
+        foreach($categorias as $categoria){
+            eCategoria::deleteCategoria($categoria->ID_CATEGORIA);
+            $indicadores = eIndicador::getIndicadoresId($categoria->ID_CATEGORIA)->toArray();
+            foreach($indicadores as $indicador){
+                eIndicador::deleteIndicador($indicador->ID_INDICADOR);
+                $descripciones = eDescripcion::getDescripcionesId($indicador->ID_INDICADOR)->toArray();
+                foreach($descripciones as $descripcion){
+                    eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
+                }                   
+            }
+        }
+
+    }
+    public function borrarCategoria(Request $request){
+        $id = $request->get('_id',null);
+        eCategoria::deleteCategoria($id);
+        $indicadores = obtenerIndicadores($id);
+        foreach($indicadores as $indicador){
+            eIndicador::deleteIndicador($indicador->ID_INDICADOR);
+            $descripciones = obtenerDescripciones($indicador->ID_INDICADOR); 
+            foreach($descripciones as $descripcion){
+                eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
+            }                   
+        }
+    }
+    public function borrarIndicador(Request $request){
+        $id = $request->get('_id',null);
+        eIndicador::deleteIndicador($id);
+        $descripciones = obtenerDescripciones($id); 
+        foreach($descripciones as $descripcion){
+            eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
+        }  
+    }
+    public function borrarDescripcion(Request $request){
+        $id = $request->get('_id',null);
+        eDescripcion::deleteDescripcion($id);
+    }
+
+    public function obtenerResultados(Request $request){
+
+        $resultados = eResultado::getResultados()->toArray();
 
         return $resultados;
     }
-    public function refrescarCategorias(Request $request){
+    public function obtenerCategorias(Request $request){
 
         $idRes = $request->get('_idRes',null);
         $categorias = eCategoria::getCategoriasId($idRes)->toArray();
 
         return $categorias;
     }
-    public function refrescarIndicadores(Request $request){
+    public function obtenerIndicadores(Request $request){
 
         $idCat = $request->get('_idCat',null);
-        $indicadores = eIndicador::getSubCriteriosId($idCat)->toArray();
+        $indicadores = eIndicador::getIndicadoresId($idCat)->toArray();
 
         return $indicadores;
     }
 
-    public function refrescarDescripciones(Request $request){
+    public function obtenerDescripciones(Request $request){
 
         $idInd= $request->get('_idInd',null);
         $descripciones = eDescripcion::getDescripcionesId($idInd)->toArray();
 
         return $descripciones;
     }
-    public function refrescarEscalas(Request $request){
-
-        $idInd = $request->get('_idInd',null);
-        $escalas = eEscala::getEscalas()->toArray();
-        $indicadores = eIndicador::getSubCriterios()->toArray();
-        $descripciones= [];
-
-        foreach($indicadores as $indicador){
-            if($indicador->ID_SUBCRITERIO==$idInd){                
-                $descripciones= array($escalas[0]->NOMBRE.' '.$indicador->DESCRIPCION_1,$escalas[1]->NOMBRE.' '.$indicador->DESCRIPCION_2,$escalas[2]->NOMBRE.' '.$indicador->DESCRIPCION_3,$escalas[3]->NOMBRE.' '.$indicador->DESCRIPCION_4);
-                break;
-            }
-        }
-        return $descripciones;
-    }
+   
     /**
      * Store a newly created resource in storage.
      *

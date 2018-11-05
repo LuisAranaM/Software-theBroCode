@@ -43,13 +43,13 @@
         <div class="resultContainer x_panel tile coursesBox">
           <div class="bs-example-popovers">
             
-              <div class="row">
+              <div class="row" value="{{$resultado->ID_RESULTADO}}">
                 <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
                   <p class="pText" style="font-weight: bold; font-size: 30px; color: black">  {{$resultado->NOMBRE}}</p>
                 </div>
-                <div class="col-md-9" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
+                <div class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
                   <i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
-                  <i class="resultTrash fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
+                  <i class="resultTrash fa fa-trash fa-lg" id="{{$resultado->ID_RESULTADO}}"  style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
                 </div>
                 <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
                 <div id="{{$resultado->ID_RESULTADO}}" class="col-xs-12 resultButton alert-success alert-dismissible fade in" role="alert" style="padding-right: 25px">

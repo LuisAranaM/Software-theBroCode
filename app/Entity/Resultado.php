@@ -42,4 +42,13 @@ class Resultado extends \App\Entity\Base\Entity {
         $model =new mResultado();
         return $model->insertResultado($nombre,$desc,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
+
+    static function updateResultado($id, $nombre, $desc){
+        $model = new mResultado();
+        $model->updateResultado($id,$nombre,$desc);
+    }
+    static function deleteResultado($id){
+        $model = new mResultado();
+        $model->deleteResultado($id);
+    }
 }
