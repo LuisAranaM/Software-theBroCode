@@ -1,17 +1,16 @@
 $( document ).ready(function() {
-    $('#btnGraficoCxR').click(function() {
-        console.log("btnGraficoCxR accionado");
+    $('#btnGraficoRxC').click(function() {
+        console.log("btnGraficoRxC accionado");
         init_charts();
-        $("#modalCxR").modal("show")
+        $("#modalRxC").modal("show")
     });
-
 
     $('#btnDescargarReportes').click(function() {
-        $('#modalCxR').modal('hide');
+        $('#modalRxC').modal('hide');
     });
 
-    $('#cerrarModalCxR').click(function() {
-        $('#modalCxR').modal('hide');
+    $('#cerrarModalRxC').click(function() {
+        $('#modalRxC').modal('hide');
     });
 
     $('#btnGraficoResultadosCurso').click(function() {
