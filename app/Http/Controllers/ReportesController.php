@@ -6,7 +6,14 @@ use Illuminate\Http\Request;
 use App\Entity\Indicador as Indicador;
 class ReportesController extends Controller
 {
-    //
+	//
+	function exportarReporteResultadosCiclo(Request $request){
+		$filtros=[];
+		$reporte=Indicador::getReporteResultadosCiclo($filtros);
+		flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
+		return back();
+	}
+
 	function exportarReporteCursosResultado(Request $request){
 		$filtros=[];
 		$reporte=Indicador::getReporteCursosResultado($filtros);

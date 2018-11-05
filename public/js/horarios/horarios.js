@@ -1,10 +1,14 @@
 $( document ).ready(function() {
+	$('#home-tabM1').tab('show');
+	$('.primero1').tab('show');
+
 	$("#btnAgregarHorario").on("click", function(){
 		$("#modalHorarios").modal("show");
 	});
 
 	$("#btnAgregarResultado").on("click", function(){
 		$("#modalResultados").modal("show");
+		
 	});
 
 	//Selecciona todos los checkbox de los indicadores de un resultado
@@ -133,9 +137,6 @@ $( document ).ready(function() {
 			}
 			idIndicadores.push($(this).val());
 		});
-		console.log(idIndicadores);
-		console.log(estadoIndicadores);
-		
 		$('#modalResultados').modal('hide');
 		updateIndicadores(idIndicadores,estadoIndicadores,$(this).attr('idCurso'));
 		window.location.reload();

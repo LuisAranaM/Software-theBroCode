@@ -33,13 +33,20 @@ class ResultadoController extends Controller
     }
 
     public function rubricasGestion(Request $request) {
+        $resultados=[];
         $categorias=[];
         $indicadores=[];
+        $descripciones=[];
 
         $resultados = eResultado::getResultados()->toArray();
-        $categorias = eCategoria::getCategoriasId($resultados[0]->ID_RESULTADO)->toArray();
-        $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_CATEGORIA)->toArray();
-        $descripciones = eDescripcion::getDescripcionesId($indicadores[0]->ID_INDICADOR)->toArray();
+        if($resultados!=NULL){
+            $categorias = eCategoria::getCategoriasId($resultados[0]->ID_RESULTADO)->toArray();
+            if($categorias!=NULL){
+                $indicadores = eIndicador::getIndicadoresId($categorias[0]->ID_CATEGORIA)->toArray();
+                if($indicadores!=NULL)
+                    $descripciones = eDescripcion::getDescripcionesId($indicadores[0]->ID_INDICADOR)->toArray();
+            }
+        }
         //$escalas = eEscala::getEscalas()->toArray();
         //$first= array_shift($resultados);
         //dd($categorias);
