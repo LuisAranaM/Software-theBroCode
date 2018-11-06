@@ -89,7 +89,8 @@
                          @endforeach
                   </form>
                   @foreach($resultados as $resultado)
-                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="AbrirCalificacion pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$resultado->NOMBRE}}</td>  
+                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+                      <i class="AbrirCalificacion fa fa-check-square-o"></i>
                   @endforeach
                 </tr>
 
@@ -109,7 +110,7 @@
  </div>
 
 
- <!-- Modal de Nuevo Curso -->
+ <!-- Modal Alumno a Evaluar-->
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
  id="modalCalificacion" data-keyboard="false" data-backdrop="static"
@@ -228,7 +229,7 @@
         </div>
       </a>
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-        <div class="panel-body">
+        <div class="panel-body">  
 
           <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
             <div class="btn-group btn-group-justified" data-toggle="buttons">
