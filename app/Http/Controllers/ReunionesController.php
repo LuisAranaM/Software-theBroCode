@@ -17,7 +17,8 @@ class ReunionesController extends Controller
     //
 
     public function reunionesGestion() {    
-        return view('reuniones.reuniones');
+        return view('reuniones.reuniones')
+        ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     public function store(Request $request){
         $tipoDoc = $request->get('tipoDoc', null); //ver si es acta o plan el value
@@ -37,27 +38,14 @@ class ReunionesController extends Controller
         $path = base_path() . '\public\upload' . '\\' . $nameOfFile.'.'.$extensionOfFile ;
         $fecha = date("Y-m-d H:i:s");
 
-        dd($semestre);
+        //dd($semestre);
     	#creationg array for data
-    	$data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'anoDoc'=>$ano, 'semestreDoc'=>$semestre);
-        $idProyecto = DB::table('PROYECTOS')->insertGetId(
+    	$data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$ano, 'DOCUMENTO_SEMESTRE'=>$semestre,'TIPO_DOCUMENTO'=>$tipoDoc);
+        $idProyecto = DB::table('DOCUMENTOS_REUNIONES')->insertGetId(
             $data
         );
-        //dd($data);
-        $idAlumno = DB::table('ALUMNOS')
-                     ->select('ID_ALUMNO')
-                     ->where('CODIGO', '=', $codigo)
-                     ->get();
-        $idHorario = DB::table('HORARIOS')
-                     ->select('ID_HORARIO')
-                     ->where('NOMBRE', '=', $horario)
-                     ->get();
-        #ahora insertaré en alumnos_has_horarios los atributos correspondientes para anexar el file subido al alumno en el horario respectivo
-
-        $dataAlumnoxHorario = array('ID_ALUMNO'=>$idAlumno[0]->ID_ALUMNO, 'ID_HORARIO'=>$horario, 'ID_PROYECTO'=>$idProyecto, 'ID_SEMESTRE'=>$semestreActual,'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1,'ID_ESPECIALIDAD'=>$especialidad);
-        $idAlumnoHasHorarios = DB::table('ALUMNOS_HAS_HORARIOS')->insertGetId(
-            $dataAlumnoxHorario
-        );
+        
+        
     	flash('Se ha subido el archivo de forma correcta.')->success();
     	return back();
     }

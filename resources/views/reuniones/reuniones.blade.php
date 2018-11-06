@@ -66,18 +66,36 @@
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
 									<th class="pText column-title" style="border: none">Semestre</th>
 									<th class="pText column-title" style="border: none">Tipo</th>
+									<th class="pText column-title" style="border: none">Nombre</th>
 									<th class="pText column-title" style="border: none">Seleccionar</th>
 								</tr>
 							</thead>
 							<!--CargarCurso-->
 
 							<tbody class="text-left" id="listaDocumentos">
+								@foreach($documentos as $documento)
+									<tr class="even pointer" id="">
+										<form>
 
+											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$documento->DOCUMENTO_ANHO}}-{{$documento->DOCUMENTO_SEMESTRE}}</td>
+											@if($documento->TIPO_DOCUMENTO == "acta")
+												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Acta de Reunión</td>
+											@else
+												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Plan de Mejora</td>
+											@endif
+
+											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$documento->NOMBRE}} </td>
+											<td><input type="checkbox" name="select"></td>
+										</form>
+									</tr>
+								@endforeach
+								<!---
 								<tr class="even pointer" id="">
 									<form>
 
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">2017-1</td>
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Acta de Reunón</td>
+										
 										<td><input type="checkbox" name="select"></td>
 									</form>
 
@@ -100,6 +118,7 @@
 									</form>
 
 								</tr>
+							-->
 
 							</tbody>
 						</table>
