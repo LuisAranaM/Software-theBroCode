@@ -92,6 +92,7 @@ Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion'])
 
 /***GESTIONAR MANEJO DE ACTAS Y PLANES***/
 Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunionesGestion']);
+Route::post('/reuniones/guardar', ['as'=>'reuniones.store','uses'=>'ReunionesController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {

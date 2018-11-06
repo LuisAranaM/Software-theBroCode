@@ -52,7 +52,7 @@
 				</div>
 
 				<div class="col-md-2">
-					<button id="btnBuscat" class="btn btn-success pText customButtonThin">Agregar</button>
+					<button id="btnBuscarDocs" class="btn btn-success pText customButtonThin">Buscar</button>
 				</div>
 
 			</div>
@@ -144,53 +144,57 @@
 		</div>
 		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 		<div class="modal-body">
+			<form id="upload_form" action = "{{ route('reuniones.store') }}" method = "post" enctype = "multipart/form-data">
+				{{csrf_field()}}
+				<div class="row" style="padding: 10px;">
 
-			<div class="row" style="padding: 10px;">
-
-				<label class="pText">Seleccionar tipo de documento a subir:</label>
-				<select name="semIni">
-					<option value="acta">Acta de Reunión</option>
-					<option value="plan">Plan de Mejora</option>
-				</select>
-			</div>
-			<div class="row" style="padding: 10px;">
-				<div class="col-md-8">
-					<label class="pText">Seleccionar semestre de creación:</label>
-				</div>
-				<div class="col-md-2">
-					<input type="text" id="txt" class="form-control pText customInputDocsReunionesModal"  style="width: 70px;" 
-					name="semestre" placeholder="" value=""> 
-				</div>	
-
-				<div class="col-md-2">
-					<select name="semCreacion">
-						<option value="1">1</option>
-						<option value="2">2</option>
+					<label class="pText">Seleccionar tipo de documento a subir:</label>
+					<select name="tipoDoc">
+						<option value="acta">Acta de Reunión</option>
+						<option value="plan">Plan de Mejora</option>
 					</select>
-				</div>	 
-
-			</div>
-
-			<div class="container-fluid text-center">
-				<div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
-					<i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-					<p class="pText">Arrastra y suelta un archivo <br> o <br> 
-
-						<form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
-							{{csrf_field()}}
-							<div class = "form-group">
-								<input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
-							</div>
-							<div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
-								<div class="col-md-4">
-									<input id="btnCargarHorariosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
-								</div>
-							</div>
-
-						</form>
-
-					</div>
 				</div>
+				<div class="row" style="padding: 10px;">
+					<div class="col-md-8">
+						<label class="pText">Seleccionar semestre de creación:</label>
+					</div>
+					<div class="col-md-2">
+						<input type="text" id="txt" class="form-control pText customInputDocsReunionesModal"  style="width: 70px;" 
+						name="ano" placeholder="" value=""> 
+					</div>	
+
+					<div class="col-md-2">
+						<select name="semestre">
+							<option value="1">1</option>
+							<option value="2">2</option>
+						</select>
+					</div>	 
+
+				</div>
+				<div class="row" style="padding-bottom: 30px;">
+					<div class="container-fluid text-center">
+						<div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
+							<i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
+							<p class="pText">Arrastra y suelta un archivo <br> o <br> 
+								
+								<div class = "form-group">
+									<input type="file" name="archivo" id = "file" class="form-control image" style="border-color: white">
+								</div>
+								<div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+									<div class="col-md-4">
+										<input id="btnCargarHorariosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+									</div>
+								</div>
+
+
+
+
+
+
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 		<!-- /.modal-content -->
