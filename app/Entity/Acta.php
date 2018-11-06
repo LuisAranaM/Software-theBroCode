@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Alumno as mAlumno;
+use App\Models\Acta as mActa;
 use Jenssegers\Date\Date as Carbon;
 
-class Alumno extends \App\Entity\Base\Entity {
+class Acta extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
     
@@ -20,10 +20,6 @@ class Alumno extends \App\Entity\Base\Entity {
         return $this->cleanArray([
             'FECHA_REGISTRO' => $this->_fechaRegistro,
         ]);
-    }
-
-    static function getAlumnosByHorario($idHorario){
-        return mAlumno::getAlumnosByHorarioStatic($idHorario);
     }
 
     
