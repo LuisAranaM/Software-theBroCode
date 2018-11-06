@@ -206,7 +206,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <img class="imageBox" src="http://localhost/theBroCode/public/img/report1.PNG" style="width: 450px">
+            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -268,7 +268,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <img class="imageBox" src="http://localhost/theBroCode/public/img/report1.PNG" style="width: 450px">
+            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -330,7 +330,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <img class="imageBox" src="http://localhost/theBroCode/public/img/report1.PNG" style="width: 450px">
+            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
           </div> 
         </div>
       </div>
