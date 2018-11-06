@@ -72,10 +72,11 @@
 
       <div class="col-md-3 left_col menu_fixed" >
         <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white">
-          <div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">
-            <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
-          </div>
-          <div class="clearfix" ></div>
+          <a href="#" class="site_title text-center" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 65%"/></a>
+          <!--<div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">-->
+            <!--<a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>-->
+          <!--</div>-->
+          <div class="clearfix" style="padding-bottom: 1px"></div>
           <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 2px; margin-bottom: -10px">
 
           <!-- /menu profile quick info -->
