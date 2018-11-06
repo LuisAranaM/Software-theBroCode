@@ -59,17 +59,20 @@ $( document ).ready(function() {
             $('#btnAgregar').removeAttr('disabled');        
         }
         $("#ModalTitle").text("Agregar Nuevo Resultado" );
+        $(".nombreResultado").val("");
+        $(".descripcionResultado").val("");
 		$("#modalAgregarResultado").modal("show");
 	});
 
 	$(".resultadoEdit").on("click", function(){
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
+        var codigo= $(this).parent().prev('div').find('p').text();
+		var descripcion=$(this).parent().next('a').find('p').text();
+
         $("#ModalTitle").text("Editar Resultado" );
+        $(".nombreResultado").val(codigo);
+       	console.log(codigo);
+        $(".descripcionResultado").val(descripcion);
+        console.log(descripcion);
 		$("#modalAgregarResultado").modal("show");
 	});
 
