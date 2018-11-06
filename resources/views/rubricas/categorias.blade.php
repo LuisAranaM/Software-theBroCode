@@ -33,7 +33,7 @@
 							<p class="pText" style="font-weight: bold; color: black">{{$resultado}}.{{$count}}</p>
 						</div>
 						<div class="col-xs-3" style="text-align: right">
-							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
+							<i class="indicadorEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
 							<i class="indicadorTrash fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
 						</div>
 						<div class="col-xs-12">
