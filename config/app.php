@@ -166,10 +166,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         'Barryvdh\Debugbar\ServiceProvider',
+        Barryvdh\Cors\ServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-
     ],
 
     /*
@@ -219,7 +218,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         
     ],
 

@@ -120,12 +120,11 @@ class Curso extends Eloquent
 
     return $ans;
   }
-
 	static function getCursoByIdHorario($idHorario) {
         $sql = DB::table('CURSOS AS CURSOS')
-                ->join('HORARIO', 'CURSOS.ID_CURSO', '=', 'HORARIO.ID_CURSO')
+                ->join('HORARIOS', 'CURSOS.ID_CURSO', '=', 'HORARIOS.ID_CURSO')
                 ->select('CURSOS.ID_CURSO', 'CURSOS.NOMBRE', 'CURSOS.CODIGO_CURSO')
-                ->where('HORARIO.ID_HORARIO',(int)$idHorario)
+                ->where('HORARIOS.ID_HORARIO',(int)$idHorario)
                 ->distinct();
         //dd($sql->get());
         return $sql;

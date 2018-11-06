@@ -7,114 +7,132 @@
 
 <div class="customBody">
 
-  <div class="row">
-    <div class="col-md-8 col-sm-6">
-      <h1 class="mainTitle">Categorías del Resultado A</h1>
-    </div>
+	<div class="row">
+		<div class="col-md-8 col-sm-6">
+			<h1 class="mainTitle" ><a href="{{route('rubricas.gestion')}}"> Lista de resultados </a> > <a href=""> Categorias del Resultado {{$resultado}}</a></h1>
+		</div>
+	</div>
+	<div class="row">
+		@foreach ($categorias as $categoria) 
+		<div class="col-md-4 col-xs-6">
+			<div class="x_panel tile coursesBox">
+				<!-- INDICADORES CARGADOS DE LA BD -->
+				<div id="filasInd" value= "$categoria->ID_CATEGORIA "class="row rowFinal" style="padding-bottom: 0px">
+					<div class="row">
 
-    <div class="col-md-4 col-sm-6 form-group top_search" >
-      <div class="input-group">
-        <input type="text" class="form-control searchText" placeholder="Curso...">
-        <span class="input-group-btn">
-          <button class="btn btn-default searchButton" type="button">Buscar</button>
-        </span>
-      </div>
-    </div>
-  </div>
+						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
+					</div>					
+					<?php $count = 1; ?>
+					@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
 
-  <div class="row">
-    <div class=" x_panel tile coursesBox">
+					
 
-
-      <!-- CURSOS CARGADOS DE LA BD -->
-      <div class="row rowFinal">
-
-        <div class="row">
-          <div class="col-xs-11" >
-            <h1 class="secondaryTitle mainTitle">Matemáticas</h1>
-          </div>
-
-          <div class="col-xs-1 text-right" style="text-align: right; font-size: 20px"> 
-            <i class="fa fa-caret-up"></i>
-          </div>
-        </div>
-
-
-        <div class="row">
-
-          <div class="col-sm-1 col-xs-2" >
-            <p class="pText" style="margin-bottom: 0px">a</p>
-          </div>
-          <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
-            <div class="widget_summary" >
-              <div class="w_center w_55" style="width: 100%">
-
-              </div>
-            </div>
-
-          </div>
-          <div class="col-sm-2 col-xs-3 text-right">
-              
-          </div>
-        </div>
-    
-      </div>
-
-      <!-- END CURSOS CARGADOS DE LA BD-->     
-
-</div>
-	
-	<a href="{{route('rubricas.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de rúbricas</a>
+					<div class="row">
+						<hr>
+						<div class="col-xs-9">
+							<p class="pText" style="font-weight: bold; color: black">{{$resultado}}.{{$count}}</p>
+						</div>
+						<div class="col-xs-3" style="text-align: right">
+							<i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
+							<i class="indicadorTrash fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
+						</div>
+						<div class="col-xs-12">
+							<p class="pText">{{$indicador->NOMBRE}}</p>
+						</div>
+					</div>
+					<?php $count = $count +1; ?>
+					@endforeach					
+					<hr>
+					<div class="row text-center">
+						<p id="{{$categoria->ID_CATEGORIA}}" class="pText agregarIndicador" style="color: #005b7f; cursor: pointer">Agregar nuevo indicador</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		@endforeach
+		
+	</div>
+	<!-- END CURSOS CARGADOS DE LA BD-->     
 
 </div>
 
-<!-- Modal de Cargar Alumnos  -->
+
+<!-- Modal de Nuevo Curso -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
-<div class="customModal modal-dialog modal-lg ">
-  <div class="modal-content" style="top: 30%">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 id="CargarAlumnos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Alumnos</h4>
-  </div>
-  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-  <div class="modal-body">
-    <div class="container-fluid text-center">
-      <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
-        <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+id="modalIndicador" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
 
-          <form id="upload_form" action = "" method = "post" enctype = "multipart/form-data">
-            {{csrf_field()}}
-            <div class = "form-group">
-              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
-            </div>
-            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
-              <div class="col-md-4">
-                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
-              </div>
-              <div class="col-md-4">
-                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
-              </div>
+		<label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>
+		
+	</div>
+	<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 
-            </div>
-            
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /.modal-content -->
+	<div class="modal-body"> 
+		<div class="container-fluid" style="">
+			<div class="tile coursesModalBox" style="padding-bottom: 20px;">
+
+				<div id="filasDesc" class="row rowFinal2">
+					<div class="col-xs-12">
+						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Indicador</p>
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 6px">
+						<input type="text" id="txt" class="nombreIndicador form-control pText customInput" name="codigoIndicador" placeholder="Nombre" value="">     
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 6px">
+						<textarea type="text" id="txtIndicador" class="descripcionIndicador form-control pText customInput" name="descripcionIndicador" placeholder="Descripción" rows="3" cols="30" style="resize: none" ></textarea>       
+					</div>
+
+					<div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
+						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Valorizaciones</p>
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 6px">
+
+						<textarea type="text" id="txt" class="form-control pText customInput" name="nombre" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
+
+					</div>
+
+					<div class="col-xs-12">
+						<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
+					</div>
+					<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
+						<p class="pText">Agregar nueva valorización</p>
+					</div>
+					<div class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
+						<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
+					</div>				
+				</div>
+			</div>
+
+			<div id="btnsAgregarCurso" class="modal-footer">
+				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+					<div class="col-md-4">
+						<button id="btnAgregarIndicador" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" name="submit">Cargar</button>
+					</div>
+					<div class="col-md-4">
+						<button type="reset" class="btn btn-success pText customButton" data-dismiss="modal"
+						aria-label="Close">Cancelar</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
 
 
 @stop

@@ -22,14 +22,13 @@ class Horario extends \App\Entity\Base\Entity {
         ]);
     }
 
-
     static function getHorariosCompleto($idCurso){
         return mHorario::getHorariosCompleto($idCurso,self::getIdSemestre());
     }
-
+    //Retorna datos los horarios de un curso, y de los profesores a cargo.
     static function getHorarios($idCurso) {
         $model = new mHorario();
-        return mHorario::getHorarios($idCurso)->get();
+        return mHorario::getHorarios($idCurso,self::getIdSemestre())->get();
     }
 
     static function getHorarioByIdHorario($idHorario) {
@@ -48,11 +47,10 @@ class Horario extends \App\Entity\Base\Entity {
         }
     }
 
-    function eliminarEvaluacion($codigoHorario,$usuario){
-        
+    function eliminarEvaluacion($idHorario,$usuario){
         $model= new mHorario();
         
-        if ($model->eliminarEvaluacion(self::getIdSemestre(),$codigoHorario,$usuario)){
+        if ($model->eliminarEvaluacion($idHorario,$usuario)){
             return true;
         }else{
             $this->setMessage('Hubo un error en el servidor de base de datos');

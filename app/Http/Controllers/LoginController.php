@@ -19,7 +19,7 @@ class LoginController extends Controller {
 
     public function index() {
         if(\Auth::check()){
-            return redirect()->route(Usuario::redirectRol(Auth::user()->ROL)); 
+            return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL)); 
         }
         return view('login');
     }

@@ -8,12 +8,14 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
-
+use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Subcriterio
  * 
  * @property int $ID_SUBCRITERIO
- * @property int $ID_CRITERIO
+ * @property int $ID_RESULTADO
  * @property int $ID_ESPECIALIDAD
  * @property int $ID_SEMESTRE
  * @property string $NOMBRE
@@ -63,8 +65,8 @@ class Indicador extends Eloquent
 
 	public function criterio()
 	{
-		return $this->belongsTo(\App\Models\Criterio::class, 'ID_CRITERIO')
-					->where('criterio.ID_CRITERIO', '=', 'subcriterios.ID_CRITERIO')
+		return $this->belongsTo(\App\Models\Criterio::class, 'ID_RESULTADO')
+					->where('criterio.ID_RESULTADO', '=', 'subcriterios.ID_RESULTADO')
 					->where('criterio.ID_ESPECIALIDAD', '=', 'subcriterios.ID_ESPECIALIDAD')
 					->where('criterio.ID_SEMESTRE', '=', 'subcriterios.ID_SEMESTRE');
 	}
@@ -77,63 +79,133 @@ class Indicador extends Eloquent
 
 	public function cursos()
 	{
-		return $this->belongsToMany(\App\Models\Curso::class, 'subcriterios_has_cursos', 'ID_SUBCRITERIO', 'ID_CURSO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+		return $this->belongsToMany(\App\Models\Curso::class, 'indicadores_has_cursos', 'ID_SUBCRITERIO', 'ID_CURSO')
+					->withPivot('ID_RESULTADO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 
-	static function getSubcriteriosId($idCat) {
-        $sql = DB::table('SUBCRITERIOS')
-                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
-                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
-                ->where('SUBCRITERIOS.ID_CRITERIO', '=', $idCat)
-                ->where('SUBCRITERIOS.ESTADO','=', 1);
+	static function getIndicadoresId($idCat) {
+        $sql = DB::table('INDICADORES')
+                ->where('ID_CATEGORIA', '=', $idCat)
+                ->where('.ESTADO','=', 1);
         //dd($sql->get());
         return $sql;
     }
 
-    static function getSubcriterios() {
-        $sql = DB::table('SUBCRITERIOS')
-                ->join('CRITERIO', 'SUBCRITERIOS.ID_CRITERIO', '=', 'CRITERIO.ID_CRITERIO')
-                ->select('SUBCRITERIOS.*','CRITERIO.ID_CATEGORIA')
-                ->where('SUBCRITERIOS.ESTADO','=', 1);
+    static function getIndicador() {
+        $sql = DB::table('INDICADORES')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*','CATEGORIAS.ID_CATEGORIA')
+                ->where('INDICADORES.ESTADO','=', 1);
 
         //dd($sql->get());
         return $sql;
     }
 
-	public function insertSubCriterio($idCrit,$idEsp,$idSem,$nombre, $desc1,$desc2,$desc3,$desc4){
-		//Falta añadir excepción
-		$id = DB::table('SUBCRITERIOS')->insertGetId(
-		    	['ID_CRITERIO' => $idCrit,
-		     	 'ID_ESPECIALIDAD' => $idEsp,
-		     	 'ID_SEMESTRE' => $idSem,
+	static function getIndicadores($idSem,$idEsp) {
+		$sql = DB::table('INDICADORES')
+				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
+				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
+				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
+				->distinct();
+        return $sql;
+    }
+	public function insertIndicador($idCat,$nombre,$idSem,$idEsp){
+
+		DB::beginTransaction();
+        $id=-1;
+        try {
+        	$id = DB::table('INDICADORES')->insertGetId(
+		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
-		     	 'DESCRIPCION_1' => $desc1,
-		     	 'DESCRIPCION_2' => $desc2,
-		     	 'DESCRIPCION_3' => $desc3,
-		     	 'DESCRIPCION_4' => $desc4,
+		     	 'ID_SEMESTRE'=> $idSem,
+		     	 'ID_ESPECIALIDAD'=>$idEsp,
+		     	 'FECHA_REGISTRO' => Carbon::now(),
+		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	 'USUARIO_MODIF' => Auth::id(), 
 				 'ESTADO' => 1]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
 
-		DB::commit();
 		return $id;
 	}
-	static function getSubCriterioId($idInd){
-		$sql = DB::table('SUBCRITERIOS')
+	static function getIndicadorId($idInd){
+		$sql = DB::table('INDICADORES')
                 ->select('*')
-                ->where('ID_SUBCRITERIO', '=', $idInd);
+                ->where('ID_INDICADOR', '=', $idInd);
         //dd($sql->get());
         return $sql;
     }
-    static function updateIndicador($indicador){
-    	DB::table('INDICADORES')
-    		->where('ID_INDICADOR',$indicador->ID_INDICADOR)
-    		->update(['DESCRIPCION_1' => $indicador->DESCRIPCION_1,
-			     	 'DESCRIPCION_2' => $indicador->DESCRIPCION_2,
-			     	 'DESCRIPCION_3' => $indicador->DESCRIPCION_3,
-			     	 'DESCRIPCION_4' => $indicador->DESCRIPCION_4]);
-		DB::commit();
-        return;
+    static function updateIndicador($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('INDICADORES')->where('ID_INDICADOR',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteIndicador($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('INDICADORES')->where('ID_INDICADOR',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+
+    static function getReporteCursosResultado($filtros,$idSemestre,$idEspecialidad){
+    	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
+    	->select('RES.ID_RESULTADO','RES.NOMBRE AS COD_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO','CAT.ID_CATEGORIA',
+    			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.NOMBRE AS NOMBRE_INDICADOR','CUR.ID_CURSO',
+    			'CUR.CODIGO_CURSO','CUR.NOMBRE AS NOMBRE_CURSO','IHAH.ID_INDICADOR',DB::Raw('IFNULL(AVG(IHAH.ESCALA_CALIFICACION),0) AS PROMEDIO_CALIF'),
+				DB::Raw('IFNULL(SUM(CASE WHEN ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE_APROBADOS'))		
+		->leftJoin('RESULTADOS AS RES',function($join){
+			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
+		})
+		->leftJoin('INDICADORES AS IND',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHC.ID_INDICADOR');
+		})
+		->leftJoin('CATEGORIAS AS CAT',function($join){
+			$join->on('CAT.ID_CATEGORIA','=','IHC.ID_CATEGORIA');
+		})
+		->leftJoin('CURSOS AS CUR',function($join){
+			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
+		})
+		->leftJoin('HORARIOS AS HOR',function($join){
+			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
+			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
+		})
+		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
+			$join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
+			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
+		})
+		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
+		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
+		->where('CUR.ESTADO_ACREDITACION','=',1)  
+		->where('IHC.ESTADO','=',1)  
+		->where('RES.ESTADO','=',1)  
+		->where('IND.ESTADO','=',1)  
+		->where('CAT.ESTADO','=',1)  
+		->where('HOR.ESTADO','=',1)
+		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
+		'IND.ID_INDICADOR','IND.NOMBRE','CUR.ID_CURSO','CUR.CODIGO_CURSO','CUR.NOMBRE','IHAH.ID_INDICADOR');
+
+		return $sql;
     }
 
 }

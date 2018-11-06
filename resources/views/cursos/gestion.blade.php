@@ -49,21 +49,21 @@
       </div>
 
       <div id="listaCursos">        
-      @foreach($cursos as $curso)
-      <div class="x_content bs-example-popovers courseContainer" >
-        <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
-          <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
+        @foreach($cursos as $curso)
+        <div class="x_content bs-example-popovers courseContainer" >
+          <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
+            <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
 
-            <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">×</span>
+              <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">×</span>
 
-            </button>
-            <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
-            <label class="pText">{{$curso->NOMBRE}}</label>
-          </div> 
-        </a>
+              </button>
+              <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
+              <label class="pText">{{$curso->NOMBRE}}</label>
+            </div> 
+          </a>
 
-      </div>
-      @endforeach
+        </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -76,7 +76,7 @@
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+<div class="customModal modal-dialog modal-lg" >
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
@@ -123,55 +123,59 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
             </thead>
 
             <tbody class="text-left" id="tablaBuscar">
-          @if(count($cursosBuscar)>0)
-            @foreach($cursosBuscar as $cursoB)
-            <tr class="even pointer">
-          <td class="a-center"  style="background-color: white; padding-right: 0px">
-          <div class="form-check" style="padding-left: 10px; width: 20px">
-          <label>
-          <input type="checkbox" class="form-check-input checkCurso" 
-          name="checkCursos[]" value="{{$cursoB->CODIGO_CURSO}}" <?php echo ($cursoB->ESTADO_ACREDITACION==1 ? 'checked' : '');?>>
-          <span class="pText label-text "></span>
-          </label>
-          </div></td>
-          <td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">
-          {{$cursoB->CODIGO_CURSO}}</td>
-          <td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">
-          {{$cursoB->NOMBRE}}</td>        
-          </tr> 
-            @endforeach
-          @else
-          <tr>
-              <td colspan="10">No se encontraron resultados</td>
-          </tr>
-          @endif
-          </table>
+              @if(count($cursosBuscar)>0)
+              @foreach($cursosBuscar as $cursoB)
+              <tr class="even pointer">
+                <td class="a-center"  style="background-color: white; padding-right: 0px">
+                  <div class="form-check" style="padding-left: 10px; width: 20px">
+                    <label>
+                      <input type="checkbox" class="form-check-input checkCurso" 
+                      name="checkCursos[]" value="{{$cursoB->CODIGO_CURSO}}" <?php echo ($cursoB->ESTADO_ACREDITACION==1 ? 'checked' : '');?>>
+                      <span class="pText label-text "></span>
+                    </label>
+                  </div></td>
+                  <td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">
+                    {{$cursoB->CODIGO_CURSO}}</td>
+                    <td class="pText" style="background-color: white;text-align:center;vertical-align: middle;">
+                      {{$cursoB->NOMBRE}}</td>        
+                    </tr> 
+                    @endforeach
+                    @else
+                    <tr>
+                      <td colspan="10">No se encontraron resultados</td>
+                    </tr>
+                    @endif
+                  </table>
 
-        </div>
-        
-        <div id="btnsAgregarCurso" class="modal-footer">
-          <div class="text-center" style="padding-top: 0px; padding-bottom: 10px">
+                </div>
 
-            <button id="btnAgregar" class="btn btn-success pText customButtonThin" disabled>Agregar</button>
-            <!--<button id="btnCancelar" class="btn btn-success pText customButtonThin">Cancelar</button>-->
+            </div>
+            <div id="btnsResultado" class="modal-footer">
+              <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+                <div class="col-md-4">
+                  <button id="btnAgregar" class="btn btn-success pText customButtonThin" disabled>Agregar</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="reset" class="btn btn-success pText customButtonThin" data-dismiss="modal"
+                  aria-label="Close">Cancelar</button>
+                </div>
+              </div>
+            </div>
+              </form>
           </div>
         </div>
-      </form>
+
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
     </div>
-  </div>
-</div>
-
-<!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+    <!-- /.modal -->
 
 
 
-@stop
+    @stop
 
-@section('js-scripts')
+    @section('js-scripts')
 
 
-@stop
+    @stop

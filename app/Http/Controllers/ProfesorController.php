@@ -7,6 +7,9 @@ use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use App\Entity\Alumnos as eAlumno;
 use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
+use App\Entity\Resultado as eResultado;
+use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
+use App\Entity\Indicador as eIndicador;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -29,22 +32,30 @@ class ProfesorController extends Controller
     {
         //dd($request->all());
         $idHorario=$request->get('idHorario',null); 
+        $idCurso=$request->get('idCurso',null); 
+        
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
         //dd($idHorario);
+        //dd(Proyecto::getRutaProyectos($idHorario));
+        //d
+        //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
-        ->with('alumnos',eAlumnosHasHorario::geAlumnosByIdHorario($idHorario))
+        ->with('alumnos',eAlumnosHasHorario::getAlumnosByIdHorario($idHorario))
+       // ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario)); //revisar
         ->with('projects',Proyecto::getRutaProyectos($idHorario))
-        ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario));
-            
+        ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
+        ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
+        ->with('todoIndicadores',eIndicador::getIndicadores());  
     }
 
     public function profesorCalificar()
     {
         //dd(Curso::getCursosYHorarios());
         //return view('profesor.calificar');
+        //dd(Curso::getCursosYHorarios());
         return view('profesor.calificar')
         ->with('cursos',Curso::getCursosYHorarios());
     }

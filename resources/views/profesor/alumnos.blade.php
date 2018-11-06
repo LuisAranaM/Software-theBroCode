@@ -5,6 +5,13 @@
 <script type="text/javascript"  src="{{ URL::asset('js/alumnos/alumnos.js') }}"></script>
 @stop
 
+@php ($idInd = array())
+@php ($i = 0)
+@foreach($indicadores as $indicador)
+@php ($idInd[$i] = $indicador->ID_INDICADOR)
+@php ($i = $i + 1)
+@endforeach
+<!--La variable $indicadores contiene 'ID_RESULTADO', 'NOMBRE','ID_INDICADOR' -->
 <div class="customBody">
 
 	<div class="row">
@@ -14,7 +21,7 @@
 
 		<div class="col-md-4 col-sm-6 form-group top_search" >
 			<div class="input-group">
-				<input type="text" class="form-control searchText" placeholder="Curso...">
+				<input id="buscarAlumno" type="text" class="form-control searchText" placeholder="Alumno...">
 				<span class="input-group-btn">
 					<button class="btn btn-default searchButton" type="button">Buscar</button>
 				</span>
@@ -44,55 +51,46 @@
 									<th class="pText column-title" style="border: none">Nombre</th>
 									<th class="pText column-title" style="border: none">Proyecto</th>
 									
-									<th class="pText column-title" style="border: none"> </th>
-									<th class="pText column-title" style="border: none">A</th>
-									<th class="pText column-title" style="border: none">B</th>
-									<th class="pText column-title" style="border: none">C</th>
+                  <th class="pText column-title" style="border: none"> </th>
+                  <th class="pText column-title" style="border: none"> </th>
+                  <!--para cada resultado-->
+                  @foreach($resultados as $resultado)
+                      <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
+                  @endforeach 
 								</tr>
 							</thead>
 							<!--CargarCurso-->
 							
-							<tbody class="text-left">
+							<tbody class="text-left" id="listaAlumnos">
 								@foreach($alumnos as $alumno)
 								<tr class="even pointer" id="">
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 										{{ csrf_field() }}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$alumno->CODIGO}} </td>{{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
+                    {{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
 										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
 										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><input type="file" name="archivo" id = "file"></td>  
-                    {{$alumno->CODIGO}}
-                    @foreach($alumnosxhorario as $alumnoxhorario)
-                    {{$alumnoxhorario->ID_ALUMNO}} 
-                    @if($alumnoxhorario->ID_ALUMNO == $alumno->ID_ALUMNO)
-                    id_igual{{$alumnoxhorario->ID_ALUMNO}} 
-                    @foreach($projects as $project)
-                    PID({{$project->ID_PROYECTO}})
-                    AID({{$alumnoxhorario->ID_PROYECTO}})
-                    vuelta
-                    @if($project->ID_PROYECTO == $alumnoxhorario->ID_PROYECTO)
-                    MIRA ACA{{$project->NOMBRE}}
-                    <td>
-                      <a href="upload/{{$project->NOMBRE}}" download="{{$project->NOMBRE}}">
-                        <button type="button" class="btn btn-primary">
-                          <i class="glyphicon glyphicon-download">
-                            Download
-                          </i>
-                        </button>
-                      </a>
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
 
+                        
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
+                      <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
                     </td>
-                    @break
-                    @endif
-                    @endforeach
-                    @endif  
-                    @endforeach
-                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a"><button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button></td>
+                        @foreach($projects as $project)                        
+
+                          @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
+                            
+                            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">{{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
+                            @break
+
+                          @endif
+
+                         @endforeach
                   </form>
-                  <td id="AbrirCalificacion" class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>  
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td>   
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">4</td> 
+                  @foreach($resultados as $resultado)
+                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="AbrirCalificacion pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$resultado->NOMBRE}}</td>  
+                  @endforeach
                 </tr>
 
 

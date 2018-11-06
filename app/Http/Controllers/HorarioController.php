@@ -10,10 +10,12 @@ use DB;
 use Excel;
 use Illuminate\Http\Request;
 use App\Entity\Horario as eHorario;
-use App\Entity\Criterio as eCriterio;
-use App\Entity\SubcriteriosHasCurso as eSubcriteriosHasCurso;
+use App\Entity\Resultado as eResultado;
+use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
+use App\Entity\Indicador as eIndicador;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 use Validator;
 
@@ -34,36 +36,38 @@ class HorarioController extends Controller
         $codCurso=$request->get('codigo',null);
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
+        //dd(eResultado::getResultadosbyIdCurso($idCurso),eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso));
         return view('cursos.horarios')
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)
         ->with('idCurso',$idCurso)
-        ->with('horario',eHorario::getHorarios($idCurso))
-        ->with('criterios',eCriterio::getCriteriosbyIdCurso($idCurso))
-        ->with('subcriterios',eSubcriteriosHasCurso::getSubCriteriosbyIdCurso($idCurso));
+        ->with('horarios',eHorario::getHorarios($idCurso))
+        ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
+        ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
+        ->with('todoResultados',eResultado::getResultados())
+        ->with('todoIndicadores',eIndicador::getIndicadores());
             
     }
 
     public function eliminarEvaluacionHorarios(Request $request){        
-        //dd($request->all());
         $validator = Validator::make($request->all(), [
-            'codigoHorario' => 'required'
+            'idHorario' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(array_flatten($validator->errors()->getMessages()), 404);
         }
         $horario = new eHorario();          
-        if($horario->eliminarEvaluacion($request->get('codigoHorario'),Auth::id())){
-            flash('El curso se eliminó con éxito')->success();
+        if($horario->eliminarEvaluacion($request->get('idHorario'),Auth::id())){
+            flash('El horario se eliminó con éxito')->success();
         } else {
             flash('Hubo un error al tratar de eliminar el curso')->error();
         }
-        return back();
+        return Redirect::back();
     }
 
     public function guardarHorarios(Request $request){
 
-        if($request->hasFile('upload'))
+        if($request->hasFile('upload')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();
             $fecha = date("Y-m-d H:i:s");
@@ -79,7 +83,7 @@ class HorarioController extends Controller
                         $lista_horarios = ['ID_CURSO'=>$auxIdCurso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 
                                             'NOMBRE'=>$value->horario,'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
                                             'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
-                        $idCurso = DB::table('HORARIO')->insert($lista_horarios);
+                        $idCurso = DB::table('HORARIOS')->insert($lista_horarios);
                         //por el momento consideremos que solo hay un profesor por curso :c
                         $auxNombProfe = explode(",",$value->nombre);
                         $apellidos = explode(" ",$auxNombProfe[0]);
@@ -103,7 +107,7 @@ class HorarioController extends Controller
                     #Curso::insert($lista_cursos);
                     DB::table('PROFESORES_HAS_HORARIOS')->insert($listaProfxHor);
                     \Session::flash('Éxito', '¡Excel importado con éxito, horarios y profesores actualizados!');
-                
+                }
                 
             }
 
@@ -199,11 +203,35 @@ class HorarioController extends Controller
         }
         $horario = new eHorario();   
         if($horario->actualizarHorarios($idHorarios,$estadoEvaluacion,Auth::id())){
-            flash('El curso se eliminó con éxito')->success();
+            flash('Los horarios se han actualizado con éxito')->success();
         } else {
-            flash('Hubo un error al tratar de eliminar el curso')->error();
+            flash('Hubo un error al tratar de actualizar el curso')->error();
         }
-        return back();
+        return Redirect::back();
+    }
+
+    public function actualizarIndicadoresCurso(Request $request){
+        //dd($request->all());
+        $idIndicadores = $request->get('idIndicadores', null);
+        $estadoIndicadores= $request->get('estadoIndicadores', null);
+        $idCurso= $request->get('idCurso', null);
+
+        $validator = Validator::make($request->all(), [
+            'idIndicadores' => 'required',
+            'estadoIndicadores' => 'required',
+            'idCurso' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array_flatten($validator->errors()->getMessages()), 404);
+        }
+        $indicadoresHasCurso = new eIndicadoresHasCurso();   
+        if($indicadoresHasCurso->actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso,Auth::id())){
+            flash('El curso se eliminó de la evaluación con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el horario')->error();
+        }
+        return Redirect::back();
     }
 
 }

@@ -29,7 +29,7 @@
 					<button type="button" class="closeaviso close" data-dismiss="alert" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" textoaviso="Se acrca la fecha de cierre de notas, por favor concluir con las calificaciones."><span aria-hidden="true">×</span>
 
 					</button>
-					<p class="pText">01/15/2018 a 01/25/2018 : Se acrca la fecha de cierre de notas, por favor concluir con las calificaciones.</p>
+					<p class="pText">01/15/2018 a 01/25/2018 : Se acerca la fecha de cierre de notas, por favor concluir con las calificaciones.</p>
 				</div>
 			</div>
 

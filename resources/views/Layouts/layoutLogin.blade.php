@@ -27,10 +27,10 @@
             var APP_PUBLIC_URL = "<?php echo config('app.url'); ?>";
         </script>
 
-    </head>
+    </head>                 
 
-    <body class="login">
-
+    <body class="login" >
+      
         <div>
             <div class="login_wrapper">
 
