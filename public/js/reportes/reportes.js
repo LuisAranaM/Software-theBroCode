@@ -1,7 +1,6 @@
 $( document ).ready(function() {
     //init_charts();
     $('#btnGraficoRxC').click(function() {
-        console.log("btnGraficoRxC accionado");
         init_charts();
         $("#modalRxC").modal("show")
     });
@@ -15,7 +14,7 @@ $( document ).ready(function() {
     });
 
     $('#btnGraficoResultadosCurso').click(function() {
-        //init_echarts();
+        //init_charts();
         $("#modalResultadosCurso").modal("show")
     });
 
@@ -24,7 +23,7 @@ $( document ).ready(function() {
     });
 
      $('#btnGraficoConsolidado').click(function() {
-        init_echarts();
+        //init_echarts();
         $("#modalConsolidado").modal("show")
     });
 
@@ -34,30 +33,7 @@ $( document ).ready(function() {
 
 });
 
-var chart = null;
-var dataPoints = [];
 
-window.onload = function() {
-
-chart = new CanvasJS.Chart("chartContainer1", {
-    animationEnabled: true,
-    theme: "light2",
-    title: {
-        text: "Resultados por Ciclo"
-    },
-    axisY: {
-        title: "Aprobados",
-        titleFontSize: 24
-    },
-    data: [{
-        type: "column",
-        yValueFormatString: "#,### Units",
-        dataPoints: dataPoints
-    }]
-});
-
-
-$.getJSON("https://canvasjs.com/data/gallery/javascript/daily-sales.json?callback=?", callback);    
 
 /*
 
@@ -124,7 +100,7 @@ chart = new CanvasJS.Chart("chartContainer4", {
 
 $.getJSON("https://canvasjs.com/data/gallery/javascript/daily-sales.json?callback=?", callback);    
 */
-}
+
 
 function callback(data) {   
     for (var i = 0; i < data.dps.length; i++) {
