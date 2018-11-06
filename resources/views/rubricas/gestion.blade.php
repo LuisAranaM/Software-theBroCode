@@ -48,7 +48,7 @@
                   <p class="pText" style="font-weight: bold; font-size: 30px; color: black">  {{$resultado->NOMBRE}}</p>
                 </div>
                 <div class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
-                  <i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
+                  <i class="resultadoEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
                   <i class="resultTrash fa fa-trash fa-lg" id="{{$resultado->ID_RESULTADO}}"  style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
                 </div>
                 <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
@@ -73,7 +73,7 @@
             aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Nuevo Resultado</h4>
+          <label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>
         </div>
         <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
         <div class="modal-body"> 

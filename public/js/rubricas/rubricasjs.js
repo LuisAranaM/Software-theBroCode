@@ -58,13 +58,25 @@ $( document ).ready(function() {
         else{
             $('#btnAgregar').removeAttr('disabled');        
         }
+        $("#ModalTitle").text("Agregar Nuevo Resultado" );
 		$("#modalAgregarResultado").modal("show");
 	});
 
-	$(".edit").on("click", function(){
+	$(".resultadoEdit").on("click", function(){
+        if($('.checkCurso:checked').length==0){
+            $('#btnAgregar').attr('disabled',true);                
+        }
+        else{
+            $('#btnAgregar').removeAttr('disabled');        
+        }
+        $("#ModalTitle").text("Editar Resultado" );
+		$("#modalAgregarResultado").modal("show");
+	});
+
+	$(".indicadorEdit").on("click", function(){
 		var codigo= $(this).parent().prev('div').find('p').text();
 		var descripcion=$(this).parent().next('div').find('p').text();
-        
+
         $("#ModalTitle").text("Editar Indicador" );
         $(".nombreIndicador").val(codigo);
        	console.log(codigo);
