@@ -140,7 +140,7 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - Coordinador de
                   {{$nombreEspecialidad}}
                   </span>
                   <span class=" fa fa-angle-down"></span>
