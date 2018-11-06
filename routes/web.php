@@ -118,8 +118,9 @@ Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorC
 Route::get('/rubricas/categorias', ['as'=>'rubricas.categorias','uses'=>'ResultadoController@categorias']);
 
 Route::post('/actualizar-indicadores-curso', ['as'=>'actualizar.indicadorescurso','uses'=>'HorarioController@actualizarIndicadoresCurso']);
-Route::get('/exportarExcelResporte1', ['as'=>'exportar.resporte1','uses'=>'ExportExcelController@generarReporteResultadosPorSemestreEspecialidad']);
 
+//Reporte de cursos
+Route::get('/exportarExcelResporte1', ['as'=>'exportar.reporte1','uses'=>'ReportesController@exportarReporteResultadosCiclo']);
 //Reporte de cursos
 Route::get('/exportarExcelResporte2', ['as'=>'exportar.reporte2','uses'=>'ReportesController@exportarReporteCursosResultado']);
 //Reporte consolidado

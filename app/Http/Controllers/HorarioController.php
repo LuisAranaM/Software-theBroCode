@@ -225,11 +225,11 @@ class HorarioController extends Controller
         if ($validator->fails()) {
             return response()->json(array_flatten($validator->errors()->getMessages()), 404);
         }
-        $indicadoresHasCurso = new eIndicadoresHasCurso();   
+        $indicadoresHasCurso = new eIndicadoresHasCurso();  
         if($indicadoresHasCurso->actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso,Auth::id())){
             flash('El curso se eliminó de la evaluación con éxito')->success();
         } else {
-            flash('Hubo un error al tratar de eliminar el horario')->error();
+            flash('Hubo un error al tratar de actualizar el indicador')->error();
         }
         return Redirect::back();
     }

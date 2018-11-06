@@ -4,8 +4,6 @@
 
 @section('js-libs')
 <!-- Required Javascript -->
-<script type="text/javascript" src="{{ URL::asset('js/jquery-3.2.1.min') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/bootstrap-treeview.min') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop
@@ -110,6 +108,7 @@
           @php ($nres = 0)
           @php($count = 0)
           @foreach($resultados as $resultado)
+          @php ($flagfirst = 1)
           @php ($nres = $nres + 1 )
           <div class="panel">
             <a class="panel-heading collapsed" role="tab" id="heading{{$nres}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$nres}}" aria-expanded="false" aria-controls="collapse{{$nres}}">
@@ -127,8 +126,9 @@
                     @php ($count = $count + 1 )
                     @endif
                     @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
-                    <li role="presentation" class=""><a href="#tab_content{{$countId}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
+                    <li role="presentation" class=""><a href="#tab_content{{$countId}}" class="primero{{$flagfirst}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
                     </li>
+                    @php ($flagfirst = 0 )
                     @endif
                     @endforeach
                   </ul>
@@ -176,7 +176,7 @@
                   @php ($nres = 0)
                   @foreach($todoResultados as $resultado)
                   @php ($nres = $nres + 1 )
-                  <li role="presentation" class=""><a href="#tab_contentM{{$nres}}" id="home-tabM" role="tab" data-toggle="tab" aria-expanded="false">{{$resultado->NOMBRE}}</a>
+                  <li role="presentation" class=""><a href="#tab_contentM{{$nres}}" id="home-tabM{{$nres}}" role="tab" data-toggle="tab" aria-expanded="false">{{$resultado->NOMBRE}}</a>
                   </li>
                   @endforeach
                 </ul>
@@ -185,7 +185,7 @@
                   @php ($nres = 0)
                   @foreach($todoResultados as $resultado)
                   @php ($nres = $nres + 1 )
-                  <div role="tabpanel" class="tab-pane fade" id="tab_contentM{{$nres}}" aria-labelledby="home-tabM">
+                  <div role="tabpanel" class="tab-pane fade" id="tab_contentM{{$nres}}" aria-labelledby="home-tabM{{$nres}}">
                     <table class="table table-striped jambo_table bulk_action">
                       <!-- checkbox para seleccionar todos-->
                       <tbody class="text-left">

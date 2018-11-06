@@ -1,15 +1,4 @@
 $( document ).ready(function() {
-	(new PNotify({
-        title: 'Aviso',
-        text: 'Se acerca la fecha de cierre de notas, por favor concluir con las calificaciones.',
-        hide: true,
-        sticker: false,
-        nonblock: {
-          nonblock: true
-      },
-      styling: 'bootstrap3',
-      addclass: 'pnotify-center' //dark
-  }));
 
     console.log("inicio");
     
