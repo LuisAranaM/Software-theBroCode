@@ -7,6 +7,12 @@ use App\Entity\Indicador as Indicador;
 class ReportesController extends Controller
 {
 	//
+	function graficoReporteResultadosCiclo(Request $request){
+		$filtros=[];
+		//flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
+		return Indicador::graficoReporteResultadosCiclo($filtros);
+	}
+
 	function exportarReporteResultadosCiclo(Request $request){
 		$filtros=[];
 		$reporte=Indicador::getReporteResultadosCiclo($filtros);
