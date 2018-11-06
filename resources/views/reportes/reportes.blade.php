@@ -2,7 +2,7 @@
 
 @section('js-libs')
 <!-- Required Javascript -->
-<script src="canvas/canvasjs.min.js"></script>
+
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
@@ -171,7 +171,7 @@
 <!-- Fin Modal Resultados x Ciclo-->
 
 <!-- ******* 2. Modal Curso x Resultado ******* -->
-<div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+<div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
   id="modalCursos" data-keyboard="false" data-backdrop="static"
   aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
@@ -206,7 +206,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <img class="imageBox" src="http://localhost/theBroCode/public/img/report1.PNG" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -220,8 +220,8 @@
           <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          <a href="{{route('exportar.reporte2')}}">
+            <button id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
         </div>
       </div>
@@ -268,7 +268,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <img class="imageBox" src="http://localhost/theBroCode/public/img/report1.PNG" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -283,7 +283,7 @@
         </div>
         <div class="col-md-4 text-left">
           <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+            <button id="btnDescargarReportes3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
         </div>
       </div>
@@ -295,7 +295,7 @@
 <!-- Fin Modal Indicadores x Resultado -->
 
 <!-- ******* 4. Modal Consolidado Historico ******* -->
-<div id = "modalCH" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+<div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
   id="modalCursos" data-keyboard="false" data-backdrop="static"
   aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
@@ -330,7 +330,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <img class="imageBox" src="http://localhost/theBroCode/public/img/report1.PNG" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -344,8 +344,8 @@
           <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          <a href="{{route('exportar.reporte4')}}">
+            <button id="btnDescargarReportes4" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
         </div>
       </div>
