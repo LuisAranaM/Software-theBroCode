@@ -129,6 +129,7 @@ class Horario extends Eloquent
 				->select('*')
 				->where('ID_CURSO','=',$idCurso)
 				->where('ID_SEMESTRE','=',$idSemestre)
+				->where('ESTADO','=',1)
 				->get();
 		return $sql;
 	}

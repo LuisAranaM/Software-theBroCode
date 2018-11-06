@@ -40,6 +40,8 @@ class ProfesorController extends Controller
         //dd(Proyecto::getRutaProyectos($idHorario));
         //d
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
+        
+        
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
