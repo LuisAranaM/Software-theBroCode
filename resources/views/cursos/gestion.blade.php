@@ -29,7 +29,7 @@
     <div class=" x_panel tile coursesBox">
 
       <div class="row">
-        <div class="col-xs12">
+        <div class="col-xs12"> En mantenimiento...
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
           <!--<button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
           <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>-->
