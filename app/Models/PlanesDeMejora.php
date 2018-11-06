@@ -8,7 +8,8 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
-
+use DB;
+use Log;
 /**
  * Class PlanesDeMejora
  * 
@@ -59,5 +60,14 @@ class PlanesDeMejora extends Eloquent
     public function semestre()
     {
         return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE', 'id_semestre');
+    }
+    static function buscarDocumentos() {
+        $sql = DB::table('DOCUMENTOS_REUNIONES')
+                ->orderBy('DOCUMENTO_ANHO','DESC')
+                ->orderBy('DOCUMENTO_SEMESTRE','DESC')
+                ->get()->toArray();
+        //dd($acreditacion);
+        //dd($sql);
+        return $sql;
     }
 }
