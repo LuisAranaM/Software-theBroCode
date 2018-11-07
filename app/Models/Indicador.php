@@ -167,6 +167,45 @@ class Indicador extends Eloquent
             DB::rollback();
         }	
 	}
+
+	static function getDataGraficoResultadosxCurso($idSemestre,$idCurso,$idEspecialidad){
+		$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
+    	->select('RES.ID_RESULTADO','RES.NOMBRE',
+				DB::Raw('IFNULL(SUM(CASE WHEN ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE'))		
+		->leftJoin('RESULTADOS AS RES',function($join){
+			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
+		})
+		->leftJoin('INDICADORES AS IND',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHC.ID_INDICADOR');
+		})
+		->leftJoin('CATEGORIAS AS CAT',function($join){
+			$join->on('CAT.ID_CATEGORIA','=','IHC.ID_CATEGORIA');
+		})
+		->leftJoin('CURSOS AS CUR',function($join){
+			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
+		})
+		->leftJoin('HORARIOS AS HOR',function($join){
+			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
+			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
+		})
+		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
+		})
+		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
+		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
+		->where('CUR.ESTADO_ACREDITACION','=',1)  
+		->where('IHC.ESTADO','=',1)  
+		->where('RES.ESTADO','=',1)  
+		->where('IND.ESTADO','=',1)  
+		->where('CAT.ESTADO','=',1)  
+		->where('HOR.ESTADO','=',1)
+		->where('CUR.ID_CURSO','=',$idCurso)
+		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION')
+		->havingRaw('count(ESCALA_CALIFICACION) > ?', [0]);
+
+		return $sql;
+	}
+	
 	static function getDataGraficoReporteResultadosCiclo($idSemestre,$idEspecialidad){
 		$indicadores=(DB::table('INDICADORES_HAS_CURSOS AS IHC')
     	->select('IHC.ID_RESULTADO','IHC.ID_INDICADOR',

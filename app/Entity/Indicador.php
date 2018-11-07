@@ -59,10 +59,14 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model->deleteIndicador($id);
     }
-    static function graficoReporteResultadosCiclo(){
+    static function graficoReporteResultadosCiclo($idSemestre){
         $model =new mIndicador();
-        return $model->getDataGraficoReporteResultadosCiclo(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
-        
+        return $model->getDataGraficoReporteResultadosCiclo($idSemestre,self::getEspecialidadUsuario())->get();   
+    }
+
+    static function graficoReporteResultadosCurso($idSemestre,$idCurso){
+        $model =new mIndicador();
+        return $model->getDataGraficoResultadosxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario())->get();
     }
 
     static function getReporteResultadosCiclo($filtros){
