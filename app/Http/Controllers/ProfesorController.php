@@ -43,6 +43,8 @@ class ProfesorController extends Controller
         //dd(eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso),eIndicador::getIndicadores());
         //dd(eResultado::getResultadosbyIdCurso($idCurso));
         //dd(eResultado::getResultadosbyIdCurso($idCurso));
+        //
+        //dd(eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
@@ -157,7 +159,7 @@ class ProfesorController extends Controller
         //
     }
 
-    public function fetch(Request $request){
+    public function fetchResultados(Request $request){
         $idCurso=$request->get('idCurso',null);
         $idResultado=$request->get('idResultado',null);
         //dd($resultado);
@@ -176,21 +178,28 @@ class ProfesorController extends Controller
               $if_previous_disable = '';
               $if_next_disable = '';
               $idPrevious = '';
+              $nombrePrevious = 'Anterior';
               $idNext = '';
+              $nombreNext = 'Siguiente';
               if($previous==NULL)              
                 $if_previous_disable = 'disabled';
-              else
+              else{
                 $idPrevious = $previous->ID_RESULTADO;
+                $nombrePrevious='Resultado '.$previous->NOMBRE;
+
+            }
 
             if($next == NULL)            
                $if_next_disable = 'disabled';
-            else
+            else{
                $idNext = $next->ID_RESULTADO;
+               $nombreNext='Resultado '.$next->NOMBRE;
+            }
     $output .= '
     <br /><br />
     <div align="center">
-    <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" id="'.$idPrevious.'" '.$if_previous_disable.'>Previous</button>
-    <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" id="'.$idNext.'" '.$if_next_disable.'>Next</button>
+    <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
+    <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
     </div>
     <br /><br />
     ';

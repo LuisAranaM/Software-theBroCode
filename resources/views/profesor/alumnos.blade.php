@@ -136,11 +136,6 @@
 
 
 
-
-
-
-
-
  <!-- Modal Alumno a Evaluar-->
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
@@ -170,20 +165,6 @@
 </div>
 
 <div class="modal-body">
-<!--<div id="example-basic">
-    <h3>Keyboard</h3>
-    <section>
-        <p>Try the keyboard navigation by clicking arrow left or right!</p>
-    </section>
-    <h3>Effects</h3>
-    <section>
-        <p>Wonderful transition effects.</p>
-    </section>
-    <h3>Pager</h3>
-    <section>
-        <p>The next and previous buttons help you to navigate through your content.</p>
-    </section>
-</div>-->
 
 <div class="row" style="padding-top: 20px;margin: 10px;">
 

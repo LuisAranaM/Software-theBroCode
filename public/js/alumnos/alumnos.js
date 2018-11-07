@@ -19,14 +19,14 @@ $( document ).ready(function() {
 	});	
 
 
-	function fetch_post_data(idResultado,idCurso)
+	function fetchResultados(idResultado,idCurso)
 	{
 		$.ajax({
 			type:'POST',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url:APP_URL+'/modal-alumnos-fetch',
+			url:APP_URL+'/modal-calificar-fetch-resultados',
 			data:{
 				idResultado:idResultado,
 				idCurso:idCurso,
@@ -44,20 +44,20 @@ $( document ).ready(function() {
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
 		//console.log(idResultado);
-		fetch_post_data(idResultado,idCurso);
+		fetchResultados(idResultado,idCurso);
 	});
 
 	$(document).on('click', '.previous', function(){
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
-		fetch_post_data(idResultado,idCurso);
+		fetchResultados(idResultado,idCurso);
 	});
 
 	$(document).on('click', '.next', function(){
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
 		//console.log("HOLI");
-		fetch_post_data(idResultado,idCurso);
+		fetchResultados(idResultado,idCurso);
 	});
 
 

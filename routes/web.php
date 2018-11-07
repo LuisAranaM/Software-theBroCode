@@ -129,4 +129,6 @@ Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'Reporte
 
 Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesController@graficoReporteResultadosCiclo']);
 
-Route::post('/modal-alumnos-fetch',['as'=>'fetch.alumno','uses'=>'ProfesorController@fetch']);
+Route::post('/modal-calificar-fetch-resultados',['as'=>'fetch.resultados','uses'=>'ProfesorController@fetchResultados']);
+
+Route::post('/modal-calificar-fetch-alumnos',['as'=>'fetch.alumnos','uses'=>'ProfesorController@fetchAlumnos']);
