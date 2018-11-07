@@ -195,15 +195,14 @@ class ProfesorController extends Controller
                         $checked='checked';
                         $active='active focus';
                     }
-                    $html.='<label class="btnCriteria btn btn-primary '.$active.'">';
-            /* onclick="new PNotify({
-                              title: 'Condición para A1 - 1',
-                              text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples de manera deficiente.',
-                              type: 'info',
-                              styling: 'bootstrap3'
-                          });">';*/
+                    $html.='<label class="btnCriteria btn btn-primary '.$active.'" ';
+                    $html.=' onclick="new PNotify({
+                              title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
+                              text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
+                              type: '."'".'info'."'".',
+                              styling: '."'".'bootstrap3'."'".'});"';
 
-                          $html.='<input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
+                          $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
                           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">'.$descripcion['VALORIZACION'].'</span></label>';
 
                       }

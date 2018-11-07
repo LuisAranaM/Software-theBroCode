@@ -115,11 +115,6 @@
 
 
 
-
-
-
-
-
  <!-- Modal Alumno a Evaluar-->
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
@@ -150,7 +145,7 @@
 
 <div class="modal-body" id="detalleModal">
 
-<!--
+<!--SE REFRESCA CON AJAX
 <div class="row" style="padding-top: 20px;margin: 10px;">
 
  <div class="col-xs-6 text-left">
