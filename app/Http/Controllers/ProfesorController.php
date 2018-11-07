@@ -32,7 +32,7 @@ class ProfesorController extends Controller
     public function getRubricaDeCurso($idCurso){
         $rubricaDeCurso = [];
         $rubricaDeCurso = json_decode(json_encode(eResultado::getResultadosbyIdCurso($idCurso),true));
-        $cantResultados = 0;
+        $cantResultados = 0;/*
         foreach ($rubricaDeCurso as $resultado){            
             $cantResultados++;
             $idResultado = $resultado->ID_RESULTADO;
@@ -40,7 +40,7 @@ class ProfesorController extends Controller
             $indicadoresxResultado = eCategoria::getCategoriaDeResultado($idResultado);
             $rubricaDeCurso[$cantResultados][]=$indicadoresxResultado;
         }
-        return $rubricaDeCurso;
+        return $rubricaDeCurso;*/
 
     }
 
