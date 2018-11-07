@@ -49,4 +49,9 @@ class Categoria extends \App\Entity\Base\Entity {
         $model =new mCategoria();
         return $model->deleteCategoria($id);
     }
+
+    static function getCategoriaDeResultado($idResultado){
+        $model = new mCategoria();
+        return $model->getCategoriaDeResultado($idResultado, self::getIdSemestre(), self::getIdEspecialidadUsuario()->get());
+    }
 }

@@ -10,6 +10,7 @@ use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
 use App\Entity\Resultado as eResultado;
 use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
 use App\Entity\Indicador as eIndicador;
+use App\Entity\Categoria as eCategoria;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -26,6 +27,22 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
+    public function getRubricaDeCurso($idCurso){
+        $rubricaDeCurso = [];
+        $rubricaDeCurso = eResultado::getResultadosbyIdCurso($idCurso);
+
+        foreach ($rubricaDeCurso as $resultado) {
+            /*
+            $idResultado = $resultado->ID_RESULTADO;
+            $indicadoresxResultado = [];
+            $indicadoresxResultado = eCategoria::getCategoriaDeResultado($idResultado);
+            array_push($rubricaDeCurso,$indicadoresxResultado);*/
+        }
+        return $rubricaDeCurso;
+
+    }
 
 
     public function index(Request $request)
@@ -41,7 +58,8 @@ class ProfesorController extends Controller
         //d
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         
-        dd(eResultado::getResultadosbyIdCurso($idCurso));
+        //dd(eResultado::getResultadosbyIdCurso($idCurso));
+        //dd($this->getRubricaDeCurso($idCurso));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
@@ -50,7 +68,8 @@ class ProfesorController extends Controller
         ->with('projects',Proyecto::getRutaProyectos($idHorario))
         ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
         ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
-        ->with('todoIndicadores',eIndicador::getIndicadores());  
+        ->with('todoIndicadores',eIndicador::getIndicadores())
+        ->with('rubricaDeCurso',$this->getRubricaDeCurso($idCurso));  
     }
 
     public function profesorCalificar()
@@ -63,6 +82,7 @@ class ProfesorController extends Controller
     }
 
 
+    
 
 
     /**

@@ -77,7 +77,7 @@ class Resultado extends Eloquent
 				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
 				->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
 				->distinct();
-        //dd($sql->get());
+        //sdd($sql->get());
         return $sql;
 	}
 	
