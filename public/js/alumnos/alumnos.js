@@ -35,8 +35,8 @@ $( document ).ready(function() {
 			success:function(data)
 			{
 				console.log("Holas");
-				$('#post_modal').modal('show');
-				$('#post_detail').html(data);
+				$('#modalCalificacion').modal('show');
+				$('#detalleModal').html(data);
 			}
 		});
 	}
@@ -45,6 +45,8 @@ $( document ).ready(function() {
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
 		var idAlumno = $(this).attr("idAlumno");
+		var nombAlumno = $(this).attr('nombreAlumno');
+		$('#alumnoACalificar').text(nombAlumno);
 		//console.log(idResultado);
 		fetchResultados(idResultado,idCurso,idAlumno);
 	});
@@ -53,6 +55,8 @@ $( document ).ready(function() {
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
 		var idAlumno = $(this).attr("idAlumno");
+		var nombAlumno = $(this).attr('nombreAlumno');
+		$('#alumnoACalificar').text(nombAlumno);
 		fetchResultados(idResultado,idCurso,idAlumno);
 	});
 
@@ -60,7 +64,8 @@ $( document ).ready(function() {
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
 		var idAlumno = $(this).attr("idAlumno");
-		//console.log("HOLI");
+		var nombAlumno = $(this).attr('nombreAlumno');
+		$('#alumnoACalificar').text(nombAlumno);
 		fetchResultados(idResultado,idCurso,idAlumno);
 	});
 

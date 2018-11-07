@@ -92,8 +92,8 @@
                          @endforeach
                   </form>
                   @foreach($resultados as $resultado)
-                    <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
-                      <i class=" fa fa-check-square-o"></i>
+                    <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
+                      <i class="fa fa-edit"></i>
 
                   @endforeach
                 </tr>
@@ -114,22 +114,6 @@
  </div>
 
 
-<div id="post_modal" class="modal fade">
- <div class="modal-dialog">
-  <div class="modal-content"> 
-   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h4 class="modal-title">Post Details</h4>
-   </div>
-   <div class="modal-body" id="post_detail">
-
-   </div>
-   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   </div>
-  </div>
- </div>
-</div>
 
 
 
@@ -153,7 +137,7 @@
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   
-  <div class="row" style="padding-top: 20px;margin: 10px;">
+  <!--<div class="row" style="padding-top: 20px;margin: 10px;">
 
    <div class="col-xs-6 text-left">
     <i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Resultado A</span></i> 
@@ -162,10 +146,11 @@
   <div class="col-xs-6 text-right">
     <span class="pText">Resultado B</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
   </div>
-</div>
+</div>-->
 
-<div class="modal-body">
+<div class="modal-body" id="detalleModal">
 
+<!--
 <div class="row" style="padding-top: 20px;margin: 10px;">
 
  <div class="col-xs-6 text-left">
@@ -176,7 +161,7 @@
   <span class="pText">Siguiente Alumno</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
 </div>
 </div>
-
+-->
 </div>
 </div>
 
