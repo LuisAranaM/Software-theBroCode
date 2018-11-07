@@ -342,4 +342,45 @@ class Indicador extends \App\Entity\Base\Entity {
         //flash('El reporte se generó correctamente')->success();
         //return back();
     }
+
+    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario){
+        $model =new mIndicador();
+        $reporte=$model->getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        //dd($reporte);
+        //Debemos armar un arreglo de indicadores y dentro de cada indicador colocar sus descripciones
+        $i=0;
+        $idIndicador=null;
+        $nombreIndicador=null;
+        $indicadores=[];
+
+        foreach ($reporte as $fila) {
+            if($i==0){
+                //Primera fila
+                $idIndicador=$fila->ID_INDICADOR;
+                $nombreIndicador=$fila->NOMBRE_INDICADOR;
+                $descripcionesAlumno=[];                
+            }
+            else{
+                if($idIndicador!=$fila->ID_INDICADOR){
+                    array_push($indicadores,['ID_INDICADOR'=>$idIndicador,
+                                'NOMBRE_INDICADOR'=>$nombreIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
+                    $idIndicador=$fila->ID_INDICADOR;
+                    $nombreIndicador=$fila->NOMBRE_INDICADOR;
+                    $descripcionesAlumno=[];
+                }
+
+            }
+            array_push($descripcionesAlumno,['ID_DESCRIPCION'=>$fila->ID_DESCRIPCION,'NOMBRE_DESCRIPCION'=>$fila->NOMBRE_DESCRIPCION,
+                    'VALORIZACION'=>$fila->VALORIZACION,'NOMBRE_VALORIZACION'=>$fila->NOMBRE_VALORIZACION,
+                    'ESCALA_CALIFICACION'=>$fila->ESCALA_CALIFICACION,'ID_CATEGORIA'=>$fila->ID_CATEGORIA
+                ]);
+            $i++;
+        }
+        //Último elemento
+         array_push($indicadores,['ID_INDICADOR'=>$idIndicador,
+                                'NOMBRE_INDICADOR'=>$nombreIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
+        return $indicadores;
+    }
+
+    
 }
