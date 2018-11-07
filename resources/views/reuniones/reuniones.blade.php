@@ -88,7 +88,7 @@
 										<td>
 											<label>
 												<input type="checkbox" class="form-check-input checkDoc" 
-												name="checkDocs[]" value="" style="text-align: center;" >
+												name="checkDocs[]" value="{{$documento->ID_DOCUMENTO}}" style="text-align: center;" >
 												<span class="pText label-text "></span>
 											</label>
 										</td>
@@ -144,7 +144,7 @@
 				<button id="btnDescargarDoc" class="btn btn-success pText customButtonReuniones">Descargar Documento</button>
 			</div>
 			<div class="col-sm-3">
-				<button id="btnEliminarDoc" class="btn btn-success pText customButtonReuniones">Eliminar Documento</button>
+				<button id="btnEliminarDoc" class="btn btn-success pText customButtonReuniones" >Eliminar Documento</button>
 			</div>
 		</div>
 
