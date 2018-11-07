@@ -38,7 +38,10 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model->insertIndicador($idCat,$nombre,$orden,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
-
+    static function getIndicadoresByRes($idRes){
+        $model =new mIndicador();
+        return $model::getIndicadoresByRes($idRes)->get();
+    }
     static function getIndicadoresId($idCat){
         $model =new mIndicador();
         return $model::getIndicadoresId($idCat)->get();
@@ -51,9 +54,9 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model::getIndicadorId($idInd)->get();
     }
-    static function updateIndicador($id, $nombre){
+    static function updateIndicador($id, $nombre, $orden){
         $model =new mIndicador();
-        return $model::updateIndicador($id, $nombre);
+        return $model::updateIndicador($id, $nombre, $orden);
     }
     static function deleteIndicador($id){
         $model =new mIndicador();

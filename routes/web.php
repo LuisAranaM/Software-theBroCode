@@ -67,6 +67,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3'
 
 	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'ResultadoController@refrescarIndicadores']);
 	Route::get('/obtener-categorias', ['as' => 'obtener.categorias', 'uses' => 'ResultadoController@obtenerCategorias']);
+	Route::get('/obtener-descripciones', ['as' => 'obtener.descripciones', 'uses' => 'ResultadoController@obtenerDescripciones']);
 });
 /****RUTAS PARA CURSOS****/
 Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {

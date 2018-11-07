@@ -91,7 +91,14 @@ class Indicador extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-
+	static function getIndicadoresByRes($idRes){
+		$sql = DB::table('INDICADORES')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*')
+                ->where('INDICADORES.ESTADO','=', 1)
+                ->where('CATEGORIAS.ID_RESULTADO','=', $idRes);
+        return $sql;
+	}
     static function getIndicador() {
         $sql = DB::table('INDICADORES')
                 ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
@@ -142,19 +149,23 @@ class Indicador extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-    static function updateIndicador($id, $nombre){
+    static function updateIndicador($id, $nombre, $orden){
 		DB::beginTransaction();
+		$response= -1;
         try {
             DB::table('INDICADORES')->where('ID_INDICADOR',$id)
             	->update(
 		    	['NOMBRE' => $nombre,
+		    	 'VALORIZACION'=> $orden,
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	'USUARIO_MODIF' => Auth::id()]);
 			DB::commit();
+			$response=1;
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
             DB::rollback();
-        }	
+        }
+        return $response;
     }
     static function deleteIndicador($id){
     	DB::beginTransaction();
