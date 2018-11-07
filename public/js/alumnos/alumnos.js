@@ -19,7 +19,7 @@ $( document ).ready(function() {
 	});	
 
 
-	function fetchResultados(idResultado,idCurso)
+	function fetchResultados(idResultado,idCurso,idAlumno)
 	{
 		$.ajax({
 			type:'POST',
@@ -30,6 +30,7 @@ $( document ).ready(function() {
 			data:{
 				idResultado:idResultado,
 				idCurso:idCurso,
+				idAlumno:idAlumno,
 			},
 			success:function(data)
 			{
@@ -43,21 +44,24 @@ $( document ).ready(function() {
 	$(document).on('click', '.view', function(){
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
+		var idAlumno = $(this).attr("idAlumno");
 		//console.log(idResultado);
-		fetchResultados(idResultado,idCurso);
+		fetchResultados(idResultado,idCurso,idAlumno);
 	});
 
 	$(document).on('click', '.previous', function(){
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
-		fetchResultados(idResultado,idCurso);
+		var idAlumno = $(this).attr("idAlumno");
+		fetchResultados(idResultado,idCurso,idAlumno);
 	});
 
 	$(document).on('click', '.next', function(){
 		var idResultado = $(this).attr("id");
 		var idCurso = $(this).attr("idCurso");
+		var idAlumno = $(this).attr("idAlumno");
 		//console.log("HOLI");
-		fetchResultados(idResultado,idCurso);
+		fetchResultados(idResultado,idCurso,idAlumno);
 	});
 
 

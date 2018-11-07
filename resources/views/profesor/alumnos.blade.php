@@ -92,7 +92,7 @@
                          @endforeach
                   </form>
                   @foreach($resultados as $resultado)
-                    <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idResultado="{{$resultado->ID_RESULTADO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+                    <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
                       <i class=" fa fa-check-square-o"></i>
 
                   @endforeach

@@ -160,15 +160,19 @@ class ProfesorController extends Controller
     }
 
     public function fetchResultados(Request $request){
+        //Debemos de traer el ID_Alumno o el ID_Horario a futuro
         $idCurso=$request->get('idCurso',null);
         $idResultado=$request->get('idResultado',null);
+        $idAlumno=$request->get('idAlumno',null);
         //dd($resultado);
         if($idResultado!=NULL){
            $output = '';
            $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
            $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
            $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
-
+           $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno);
+           dd($infoResultado);
+            //Falta armar el esquema con el de Yoluana
               $output .= '
               <h2>'.$resultado->NOMBRE.'</h2>
               <p><label>Author By - '.$resultado->NOMBRE.'</label></p>
