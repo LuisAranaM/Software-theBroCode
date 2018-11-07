@@ -367,7 +367,7 @@ function borrarResultado(id){
 		},
 		dataType: "text",
 		success: function(result) {
-			window.location = APP_URL + "/rubricas/gestion";
+			//window.location = APP_URL + "/rubricas/gestion";
 
 		},
 		error: function (xhr, status, text,e) {
