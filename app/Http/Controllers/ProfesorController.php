@@ -253,7 +253,7 @@ class ProfesorController extends Controller
      }
      public function calificarAlumnos(Request $request){
         $alumno=new eAlumno();
-
+        
         if($alumno->calificarAlumnos($request->all(),Auth::id())){
             flash('Se registró la nota correctamente')->success();
         } else {

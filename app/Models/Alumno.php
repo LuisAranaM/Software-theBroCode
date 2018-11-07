@@ -84,7 +84,7 @@ class Alumno extends Eloquent
 	}
 
 	function calificarAlumnos($registro){
-        //dd(Carbon::now());    
+        //dd($registro);    
         DB::beginTransaction();
         $status = true;
        
@@ -98,10 +98,11 @@ class Alumno extends Eloquent
 				//->where('ID_DESCRIPCION','=',$registro['ID_DESCRIPCION'])
 				->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
 				->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
-				->where('ESTADO','=',1)
-                ->update(['ESTADO'=>0,
+				//->where('ESTADO','=',1)
+				->delete();
+                /*->update(['ESTADO'=>0,
                         'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION'],
-                        'USUARIO_MODIF'=>$registro['USUARIO_MODIF']]);
+                        'USUARIO_MODIF'=>$registro['USUARIO_MODIF']]);*/
 
             DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')->insert($registro);   
 
@@ -111,6 +112,7 @@ class Alumno extends Eloquent
             $status = false;
             DB::rollback();
         }
+        //dd($status);
         return $status;
         //dd($sql->get());
     }

@@ -45,6 +45,7 @@ class Alumno extends \App\Entity\Base\Entity {
             'FECHA_ACTUALIZACION'=>Carbon::now(),
             'USUARIO_MODIF'=>$usuario,
             'ESTADO'=>1];
+        //dd($registro);
         //Armamos lo que vamos a insertar
         $model= new mAlumno();
 
