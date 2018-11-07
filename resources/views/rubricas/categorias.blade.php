@@ -83,7 +83,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 					<div class="col-xs-12">
 						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Indicador</p>
 					</div>
-					<div class="col-xs-12" style="padding-bottom: 6px">
+					<div class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px">
+						<input type="text" id="txt" class="form-control pText customInput" name="codigoIndicador" placeholder="Orden" value="">     
+					</div>
+					<div class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px">
 						<input type="text" id="txt" class="nombreIndicador form-control pText customInput" name="codigoIndicador" placeholder="Nombre" value="">     
 					</div>
 					<div class="col-xs-12" style="padding-bottom: 6px">
@@ -93,14 +96,19 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 					<div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
 						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Valorizaciones</p>
 					</div>
-					<div class="col-xs-12" style="padding-bottom: 6px">
+					<div class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px">
 
-						<textarea type="text" id="txt" class="form-control pText customInput" name="nombre" placeholder="Código de valorización" rows="1" cols="30" style="resize: none;" ></textarea>       
+						<textarea type="text" id="txt" class="form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>       
+
+					</div>
+					<div class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px">
+
+						<textarea type="text" id="txt" class="form-control pText customInput" name="nombre" placeholder="Nombre" rows="1" cols="30" style="resize: none;" ></textarea>       
 
 					</div>
 
 					<div class="col-xs-12">
-						<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción de la valorización" rows="3" cols="30" style="resize: none;" ></textarea>       
+						<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>       
 					</div>
 					<div class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
 						<p class="pText">Agregar nueva valorización</p>
