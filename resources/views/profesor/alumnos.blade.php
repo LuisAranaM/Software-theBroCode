@@ -89,8 +89,8 @@
                          @endforeach
                   </form>
                   @foreach($resultados as $resultado)
-                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
-                      <i class="AbrirCalificacion fa fa-check-square-o"></i>
+                    <td idResultado="{{$resultado->ID_RESULTADO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+                      <i class=" fa fa-check-square-o"></i>
                   @endforeach
                 </tr>
 
@@ -122,7 +122,8 @@
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">Alumno a evaluar: <br>Daniela Argumanis Escalante</h4>
+    <h4 class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">  Alumno a Evaluar: </h4>
+    <h4 id="alumnoACalificar" class="reportsTitle mainTitle modal-title" style="text-align: center;" id="gridSystemModalLabel"></h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   

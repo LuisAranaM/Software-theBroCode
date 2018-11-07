@@ -2,6 +2,11 @@ $( document ).ready(function() {
 	console.log("inicio");
 
 	$('.AbrirCalificacion').click(function() {
+		console.log($(this).attr('nombreAlumno'));
+		var nombAlumno = $(this).attr('nombreAlumno');
+		var codAlumno = $(this).attr('codAlumno');
+		console.log(codAlumno);
+		$('#alumnoACalificar').text(nombAlumno);
 		$('#modalCalificacion').modal('show')
 	});
 
@@ -14,3 +19,4 @@ $( document ).ready(function() {
     });
 
 });
+
