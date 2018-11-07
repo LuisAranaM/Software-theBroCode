@@ -60,18 +60,19 @@ $( document ).ready(function() {
 		var descripcion=$(this).parent().next('a').find('p').text();
 
 		$("#ModalTitle").text("Editar Resultado" );
+		console.log($("#ModalTitle").text());
 		$(".nombreResultado").val(codigo);
 		console.log(codigo);
 		$(".descripcionResultado").val(descripcion);
 		console.log(descripcion);
-		$("#modalAgregarResultado").modal("show");
+		obtenerCategorias($(this).parent().attr("value"));
 	});
 
 	$(".indicadorEdit").on("click", function(){
 		var codigo= $(this).parent().prev('div').find('p').text();
 		var descripcion=$(this).parent().next('div').find('p').text();
 
-		$("#ModalTitle").text("Editar Indicador" );
+		$("#ModalTitle").text("Editar Indicador");
 		$(".nombreIndicador").val(codigo);
 		console.log(codigo);
 		$(".descripcionIndicador").val(descripcion);
@@ -96,20 +97,26 @@ $( document ).ready(function() {
     $('#btnAgregarResultado').on('click',function(e) {
     	var codRes = $('#txtCodigoResultado').val();
     	var descRes = $('#txtResultado').val();
-    	var cat = []
-
-    	$('#filasCat .cat').each(function() {
+    	var cat = [];
+    	var catIds= [];
+    	$('#filasCats .cat').each(function() {
     		cat.push( $(this).val());
+    		catIds.push($(this).parent().attr("id"));
     	});
-		//console.log(cat[1]);
-		console.log("si llega aca");
-		if(codRes!="" && descRes!="" && cat[0]!=""){
-			insertarResultados(codRes,descRes,cat);
-			e.preventDefault();			
-		} else {
-			alert("Ingrese todos los campos del Resultado");
-		}
-		
+    	if ($("#ModalTitle").text()=="Editar Resultado"){
+    		var idRes= $("#modalAgregarResultado").val();
+    		actualizarResultado(idRes,codRes,descRes,cat,catIds);
+    		e.preventDefault();	
+    	}else{    		
+			//console.log(cat[1]);
+			console.log("si llega aca");
+			if(codRes!="" && descRes!="" && cat[0]!=""){
+				//insertarResultados(codRes,descRes,cat);
+				e.preventDefault();			
+			} else {
+				alert("Ingrese todos los campos del Resultado");
+			}
+    	}	
 	});
 
 
@@ -146,16 +153,16 @@ $( document ).ready(function() {
 		}
 	});
 
-    $('#filasCat').on('click','.fa-plus-circle' ,function(e) {
+    $('#filasCats').on('click','.fa-plus-circle' ,function(e) {
     	$('#agregarFilaIcono').remove();
     	html=''
-    	html+='<div class="col-xs-11" style="padding-bottom: 6px">'
+    	html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
     	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
     	html+='</div>'
     	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
     	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
     	html+='</div>'
-    	$('#filasCat').append(html);
+    	$('#filasCats').append(html);
 
     	e.preventDefault();
     });
@@ -185,9 +192,9 @@ $( document ).ready(function() {
 
 
 });
-function refrescarCategorias(idRes,sel,idSel){
+function obtenerCategorias(idRes){
 	$.ajax({
-		url: APP_URL + '/rubricas/refrescar-categorias',
+		url: APP_URL + '/rubricas/obtener-categorias',
 		type:'GET',
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -198,50 +205,26 @@ function refrescarCategorias(idRes,sel,idSel){
 		dataType: "text",
 		success: function(result) {
 			result = JSON.parse(result);
-			$('#myDIVCategorias').remove();
-			var html = '';
-			if(result.length >0){
-				html+= '<div id="myDIVCategorias" class="myDIVCategoriasclass">'
+			var categorias = result;
+			$('#agregarFilaIcono').remove();
+	    	$('#filasCats').remove();
+			var html = '<div id="filasCats">';
 
-				html+= '<div class="x_content bs-example-popovers courseContainer">'
-				html+= '<div id="'+result[0].ID_RESULTADO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
-				html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-				html+= '</button>'
-				html+= '<p class="pText">'+result[0].NOMBRE+'</p>'
-				html+= '</div>'
-				html+= '</div>'
+			for (i = 0; i <categorias.length-1; i++) {
+		    	html+='<div id="'+categorias[i].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
+		    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[i].NOMBRE+'</textarea>'
+		    	html+='</div>'
 			}
-
-			for (i = 1; i <result.length; i++) {
-				html+= '<div class="x_content bs-example-popovers courseContainer">'
-				html+= '<div id="'+result[i].ID_RESULTADO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
-				html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-				html+= '</button>'
-				html+= '<p class="pText">'+result[i].NOMBRE+'</p>'
-				html+= '</div>'
-				html+= '</div>'
-			}
-			if(result.length>0){
-				html+='</div>'
-				$('#apCat').append(html);
-			}
-			if(sel==1){
-				$('#myDIVCategorias .courseButton').removeClass('activeButton');
-				$('#myDIVCategorias div.courseButton:last').addClass('activeButton');
-
-				$('#myDIVIndicadores .courseButton').removeClass('activeButton');
-				$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
-				refrescarIndicadores(idSel);
-				$('html,body').animate({ 
-					scrollTop: $(".divindicadores").offset().top},
-					500);		 					
-			}else{
-				if(result.length>0){
-					refrescarIndicadores(result[0].ID_RESULTADO);
-				}else{
-					refrescarIndicadores();
-				}
-			}
+			html+='<div id="'+categorias[categorias.length-1].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
+	    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[categorias.length-1].NOMBRE+'</textarea>'
+	    	html+='</div>'
+	    	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+	    	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+	    	html+='</div>'
+	    	html+='</div>'
+	    	$('#filasCat').append(html);
+			$("#modalAgregarResultado").modal("show");
+			$("#modalAgregarResultado").val(idRes);
 		}
 	});
 }
@@ -260,9 +243,9 @@ function refrescarIndicadores(idCat,resultado){
 			result = JSON.parse(result);
 			var indicadores = result;
 			console.log("llega justo antes");
-			$('#'+idCat).remove();
+			$('#'+idCat+'rem').remove();
 			console.log("llega justo despues");
-			var html = '';
+			var html = '<div id="'+idCat+'rem">';
 			for(i=0;i<indicadores.length; i++){
 				html+='<div class="row">'
 				html+='<hr>'
@@ -329,53 +312,55 @@ function refrescarEscalas(idInd){
 		}
 	});
 }
-function refrescarResultados(idRes){
+function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 	$.ajax({
-		type:'GET',
+		type:'POST',
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: APP_URL + '/rubricas/refrescar-resultados',
+		url: APP_URL + '/rubricas/actualizar-resultado',
 		data: {
+			_idRes: idRes,
+			_codRes: codRes,
+			_descRes: descRes,			
 		},
 		dataType: "text",
 		success: function(result){
-			result = JSON.parse(result);
-			$('#myDIVResultados').remove();
-			var html = '';
-			html+='<div id="myDIVResultados" class="myDIVResultadosclass">'
-			if(result.length >0){
-				html+='<div class="x_content bs-example-popovers courseContainer">'
-				html+='<div id="'+result[0].ID_CATEGORIA+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
-				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-				html+='</button>'
-				html+='<p class="pText">'+result[0].NOMBRE+' '+result[0].DESCRIPCION+'</p>'
-				html+='</div>'
-				html+='</div>'
+			for(i=0; i<cat.length;i++){
+				console.log(cat[i]);
+				if(catIds[i]=="") continue;
+				if(cat[i]=="") borrarCategoria(catIds[i]);
+				else{
+					actualizarCategoria(catIds[i],cat[i]);
+				}
 			}
-
-			for (i = 1; i <result.length; i++) {
-				html+='<div class="x_content bs-example-popovers courseContainer">'
-				html+='<div id="'+result[i].ID_CATEGORIA+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
-				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-				html+='</button>'
-				html+='<p class="pText">'+result[i].NOMBRE+' '+result[i].DESCRIPCION+'</p>'
-				html+='</div>'
-				html+='</div>'
-			}
-			html+='</div>'
-			$('#apRes').append(html);
-
-			refrescarCategorias(idRes);
-			$('#myDIVResultados .courseButton').removeClass('activeButton');
-			$('#myDIVResultados div.courseButton:last').addClass('activeButton');
-
-			$('html,body').animate({ 
-				scrollTop: $(".divcategorias").offset().top},
-				500);
+			$("#modalAgregarResultado").modal("hide");
+			window.location = APP_URL + "/rubricas/gestion";	
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al actualizar el resultado');
+		}
+	})
+}
+function actualizarCategoria(idCat,cat){
+	$.ajax({
+		type:'POST',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/actualizar-categoria',
+		data: {
+			_idCat: idCat,
+			_cat: cat,		
+		},
+		dataType: "text",
+		success: function(result){
+			
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al actualizar las categorias');
 		} 
 	})
-
 }
 
 function borrarResultado(id){
@@ -393,9 +378,28 @@ function borrarResultado(id){
 			//window.location = APP_URL + "/rubricas/gestion";
 
 		},
-		error: function (xhr, status, text,e) {
-			e.preventDefault();
-			alert('Hubo un error al eliminar la información');
+		error: function (xhr, status, text) {
+			alert('Hubo un error al eliminar el Resultado');
+		}
+	});
+}
+function borrarCategoria(id){
+	$.ajax({
+		type:'POST',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/borrar-categoria',
+		data: {
+			_id: id
+		},
+		dataType: "text",
+		success: function(result) {
+			//window.location = APP_URL + "/rubricas/gestion";
+
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al eliminar una categoria');
 		}
 	});
 }

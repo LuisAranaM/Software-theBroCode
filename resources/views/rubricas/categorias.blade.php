@@ -25,7 +25,7 @@
 						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
 					</div>
 
-					<div id="{{$categoria->ID_CATEGORIA}}">				
+					<div id="{{$categoria->ID_CATEGORIA}}rem">				
 					@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
 					<div class="row">
 						<hr>

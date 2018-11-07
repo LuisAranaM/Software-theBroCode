@@ -99,14 +99,14 @@ class ResultadoController extends Controller
         return $idDesc;
     }
     public function actualizarResultado(Request $request){
-        $id = $request->get('_id',null);
-        $nombre = $request->get('_nombre',null);
-        $desc = $request->get('_desc',null);
+        $id = $request->get('_idRes',null);
+        $nombre = $request->get('_codRes',null);
+        $desc = $request->get('_descRes',null);
         eResultado::updateResultado($id, $nombre, $desc);
     }
     public function actualizarCategoria(Request $request){
-        $id = $request->get('_id',null);
-        $nombre = $request->get('_nombre',null);
+        $id = $request->get('_idCat',null);
+        $nombre = $request->get('_cat',null);
         eCategoria::updateCategoria($id, $nombre);
     }
     public function actualizarIndicador(Request $request){

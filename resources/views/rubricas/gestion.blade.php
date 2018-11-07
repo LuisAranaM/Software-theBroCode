@@ -45,7 +45,7 @@
             
               <div class="row" value="{{$resultado->ID_RESULTADO}}">
                 <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
-                  <p class="pText" style="font-weight: bold; font-size: 30px; color: black">  {{$resultado->NOMBRE}}</p>
+                  <p class="pText" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
                 </div>
                 <div class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
                   <i class="resultadoEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
@@ -95,7 +95,7 @@
                 <div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>
                 </div>
-                <div id="filaCat">
+                <div id="filasCats">
                 <div class="col-xs-11" style="padding-bottom: 6px">
 
                   <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
