@@ -22,9 +22,9 @@ class Descripcion extends \App\Entity\Base\Entity {
         return mDescripcion::getDescripcionesId($idInd)->get();
     }
 
-    static function insertDescripcion($descripcion, $indicador){
+    static function insertDescripcion($indicador,$descripcion,$nombre,$orden){
         $model =new mDescripcion();
-        return $model->insertDescripcion($descripcion, $indicador);
+        return $model->insertDescripcion($indicador,$descripcion,$nombre,$orden);
     }
     static function updateDescripcion($id, $nombre){
         $model =new mDescripcion();

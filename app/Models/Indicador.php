@@ -112,7 +112,7 @@ class Indicador extends Eloquent
 				->distinct();
         return $sql;
     }
-	public function insertIndicador($idCat,$nombre,$idSem,$idEsp){
+	public function insertIndicador($idCat,$nombre,$orden, $idSem,$idEsp){
 
 		DB::beginTransaction();
         $id=-1;
@@ -120,6 +120,7 @@ class Indicador extends Eloquent
         	$id = DB::table('INDICADORES')->insertGetId(
 		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
+		     	 'VALORIZACION'=> $orden,
 		     	 'ID_SEMESTRE'=> $idSem,
 		     	 'ID_ESPECIALIDAD'=>$idEsp,
 		     	 'FECHA_REGISTRO' => Carbon::now(),

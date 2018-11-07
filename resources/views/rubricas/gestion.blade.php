@@ -95,6 +95,7 @@
                 <div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>
                 </div>
+                <div id="filaCat">
                 <div class="col-xs-11" style="padding-bottom: 6px">
 
                   <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
@@ -102,7 +103,7 @@
                 <div id="agregarFilaIcono"class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
                   <i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
                 </div>
-                
+                </div>
 
               </div>
             </div>
