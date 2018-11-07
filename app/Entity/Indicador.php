@@ -351,6 +351,9 @@ class Indicador extends \App\Entity\Base\Entity {
         $i=0;
         $idIndicador=null;
         $nombreIndicador=null;
+
+        $valIndicador=null;
+
         $indicadores=[];
 
         foreach ($reporte as $fila) {
@@ -358,14 +361,20 @@ class Indicador extends \App\Entity\Base\Entity {
                 //Primera fila
                 $idIndicador=$fila->ID_INDICADOR;
                 $nombreIndicador=$fila->NOMBRE_INDICADOR;
+
+                $valIndicador=$fila->VALORIZACION_INDICADOR;
+
                 $descripcionesAlumno=[];                
             }
             else{
                 if($idIndicador!=$fila->ID_INDICADOR){
                     array_push($indicadores,['ID_INDICADOR'=>$idIndicador,
-                                'NOMBRE_INDICADOR'=>$nombreIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
+
+                                'NOMBRE_INDICADOR'=>$nombreIndicador,'VALORIZACION_INDICADOR'=>$valIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
                     $idIndicador=$fila->ID_INDICADOR;
                     $nombreIndicador=$fila->NOMBRE_INDICADOR;
+                    $valIndicador=$fila->VALORIZACION_INDICADOR;
+
                     $descripcionesAlumno=[];
                 }
 
@@ -378,7 +387,10 @@ class Indicador extends \App\Entity\Base\Entity {
         }
         //Último elemento
          array_push($indicadores,['ID_INDICADOR'=>$idIndicador,
-                                'NOMBRE_INDICADOR'=>$nombreIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
+
+                                'NOMBRE_INDICADOR'=>$nombreIndicador,'VALORIZACION_INDICADOR'=>$valIndicador,
+                                'DESCRIPCIONES'=>$descripcionesAlumno]);
+
         return $indicadores;
     }
 

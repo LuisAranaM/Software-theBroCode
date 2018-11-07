@@ -96,6 +96,7 @@ Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion'])
 /***GESTIONAR MANEJO DE ACTAS Y PLANES***/
 Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunionesGestion']);
 Route::post('/reuniones/guardar', ['as'=>'reuniones.store','uses'=>'ReunionesController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/reuniones-descargarDocumentos', ['as'=>'descDocs','uses'=>'ReunionesController@descargarDocumentosReuniones']);
 
 //Rutas para objetivos educacionales
 Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion']);
@@ -140,3 +141,5 @@ Route::post('/modal-calificar-fetch-resultados',['as'=>'fetch.resultados','uses'
 
 Route::post('/modal-calificar-fetch-alumnos',['as'=>'fetch.alumnos','uses'=>'ProfesorController@fetchAlumnos']);
 Route::post('/agregar-calificacion-alumno',['as'=>'agregar.calificacion.alumnos','uses'=>'ProfesorController@calificarAlumnos']);
+
+Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>'ProfesorController@eliminarAlumnoHorario']);

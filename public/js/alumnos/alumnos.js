@@ -79,14 +79,46 @@ $( document ).ready(function() {
 		var idDescripcion = $(this).attr('idDescripcion');
 		var escalaCalif = $(this).attr('escalaCalif');
 		calificarAlumno(idAlumno,idHorario,idIndicador,idCategoria,idResultado,idDescripcion,escalaCalif);
-		/*console.log(idAlumno);
-		console.log(idHorario);
-		console.log(idIndicador);
-		console.log(idCategoria);
-		console.log(idResultado);
-		console.log(idDescripcion);
-		console.log(escalaCalif);*/
+
+		
 	});
+
+	$(document).on('click', '.elimAlumno', function(){
+		//console.log('HOLA');
+		var idAlumno=$(this).attr('idAlumno');
+		var nombreAlumno=$(this).attr('nombreAlumno');
+		var idHorario=$(this).attr('idHorario');
+		var filaAlumno=$(this).parent().parent().parent();
+		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreAlumno+"?");
+        var botonCurso=$(this).closest('div').closest('div');
+        if (resp == true) {
+            eliminarAlumno(idAlumno,idHorario,filaAlumno);          
+			//.css('display','none');
+        } 
+        e.preventDefault();    
+		
+	});
+
+	function eliminarAlumno(idAlumno,idHorario,filaAlumno)	{
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url:APP_URL+'/eliminar-alumno-horario',
+			data:{
+				idAlumno:idAlumno,				
+				idHorario:idHorario,				
+			},
+			success:function(result)
+			{
+				filaAlumno.css('display','none');
+			},error: function (xhr, status, text) {
+            e.preventDefault();
+            alert('Hubo un error al registrar la información');           
+        }
+		});
+	}
 
 
 	function calificarAlumno(idAlumno,idHorario,idIndicador,idCategoria,idResultado,idDescripcion,escalaCalif)	{
