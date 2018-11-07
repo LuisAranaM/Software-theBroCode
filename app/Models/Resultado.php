@@ -67,7 +67,7 @@ class Resultado extends Eloquent
 
 	}
 	
-	static function getResultadosbyIdCurso($idCurso,$idSem,$idEsp) {
+	static function getResultadosbyIdCurso($idCurso,$idSem,$idEsp,$idResultado=null,$orden=null) {
 		//dd($idCurso,$idSem,$idEsp);
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
@@ -76,8 +76,26 @@ class Resultado extends Eloquent
 				->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
 				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
 				->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
+				
 				->distinct();
-        //sdd($sql->get());
+
+		//Arana		
+		if($idResultado!=NULL){
+			if($orden!=NULL){
+				if($orden=='desc')
+					$sql=$sql->where('RESULTADOS.ID_RESULTADO','<',$idResultado);								
+				else
+					$sql=$sql->where('RESULTADOS.ID_RESULTADO','>',$idResultado);
+				$sql=$sql->orderBy('RESULTADOS.ID_RESULTADO',$orden)->limit(1)->first();
+			}	
+			else{
+				$sql=$sql->where('RESULTADOS.ID_RESULTADO','=',$idResultado)->first();
+			}
+		}
+		else{
+			$sql=$sql->get();
+		}
+        //dd($sql->get());
         return $sql;
 	}
 	

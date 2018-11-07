@@ -50,12 +50,14 @@ class Descripcion extends Eloquent
 		'ESTADO'
 	];
 
-	public function insertDescripcion($descripcion, $indicador){
+	public function insertDescripcion($indicador,$descripcion, $nombre,$orden){
 		DB::beginTransaction();
         $id=-1;
         try {
         	$id = DB::table('DESCRIPCIONES')->insertGetId(
 		    	['NOMBRE' => $descripcion,
+		    	 'NOMBRE_VALORIZACION' => $nombre,
+		    	 'VALORIZACION'=> $orden,
 		     	 'ID_INDICADOR' => $indicador,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		

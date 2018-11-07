@@ -64,6 +64,9 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3'
 	Route::post('/borrar-categoria', ['as' => 'borrar.categoria', 'uses' => 'ResultadoController@borrarCategoria']);
 	Route::post('/borrar-indicador', ['as' => 'borrar.indicador', 'uses' => 'ResultadoController@borrarIndicador']);
 	Route::post('/borrar-descripcion', ['as' => 'borrar.descripcion', 'uses' => 'ResultadoController@borrarDescripcion']);
+
+	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'ResultadoController@refrescarIndicadores']);
+	Route::get('/obtener-categorias', ['as' => 'obtener.categorias', 'uses' => 'ResultadoController@obtenerCategorias']);
 });
 /****RUTAS PARA CURSOS****/
 Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {
@@ -128,3 +131,8 @@ Route::get('/exportarExcelResporte2', ['as'=>'exportar.reporte2','uses'=>'Report
 Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'ReportesController@exportarReporteConsolidado']);
 
 Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesController@graficoReporteResultadosCiclo']);
+
+Route::post('/modal-calificar-fetch-resultados',['as'=>'fetch.resultados','uses'=>'ProfesorController@fetchResultados']);
+
+Route::post('/modal-calificar-fetch-alumnos',['as'=>'fetch.alumnos','uses'=>'ProfesorController@fetchAlumnos']);
+Route::post('/agregar-calificacion-alumno',['as'=>'agregar.calificacion.alumnos','uses'=>'ProfesorController@calificarAlumnos']);
