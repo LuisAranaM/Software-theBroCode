@@ -52,6 +52,6 @@ class Categoria extends \App\Entity\Base\Entity {
 
     static function getCategoriaDeResultado($idResultado){
         $model = new mCategoria();
-        return $model->getCategoriaDeResultado($idResultado, self::getIdSemestre(), self::getIdEspecialidadUsuario()->get());
+        return $model->getCategoriaDeResultado($idResultado, self::getIdSemestre(), self::getEspecialidadUsuario())->get();
     }
 }

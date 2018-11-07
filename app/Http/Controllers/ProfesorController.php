@@ -31,14 +31,14 @@ class ProfesorController extends Controller
 
     public function getRubricaDeCurso($idCurso){
         $rubricaDeCurso = [];
-        $rubricaDeCurso = eResultado::getResultadosbyIdCurso($idCurso);
-
-        foreach ($rubricaDeCurso as $resultado) {
-            /*
+        $rubricaDeCurso = json_decode(json_encode(eResultado::getResultadosbyIdCurso($idCurso),true));
+        $cantResultados = 0;
+        foreach ($rubricaDeCurso as $resultado){            
+            $cantResultados++;
             $idResultado = $resultado->ID_RESULTADO;
             $indicadoresxResultado = [];
             $indicadoresxResultado = eCategoria::getCategoriaDeResultado($idResultado);
-            array_push($rubricaDeCurso,$indicadoresxResultado);*/
+            $rubricaDeCurso[$cantResultados][]=$indicadoresxResultado;
         }
         return $rubricaDeCurso;
 
@@ -59,7 +59,7 @@ class ProfesorController extends Controller
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         
         //dd(eResultado::getResultadosbyIdCurso($idCurso));
-        //dd($this->getRubricaDeCurso($idCurso));
+        dd($this->getRubricaDeCurso($idCurso));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))

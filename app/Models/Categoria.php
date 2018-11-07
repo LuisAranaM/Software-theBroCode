@@ -118,7 +118,7 @@ class Categoria extends Eloquent
     }
 
     static function getCategoriaDeResultado($idResultado,$idSemestre,$idEspecialidad){
-    	$$sql = DB::table('CATEGORIAS')
+    	$sql = DB::table('CATEGORIAS')
                 ->select('ID_CATEGORIA', 'NOMBRE')
                 ->where('ID_RESULTADO', '=', $idResultado)
                 ->where('ID_SEMESTRE','=',$idSemestre)
