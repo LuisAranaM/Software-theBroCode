@@ -39,15 +39,15 @@ class ReunionesController extends Controller
         $fecha = date("Y-m-d H:i:s");
 
         //dd($semestre);
-    	#creationg array for data
-    	$data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$ano, 'DOCUMENTO_SEMESTRE'=>$semestre,'TIPO_DOCUMENTO'=>$tipoDoc);
+        #creationg array for data
+        $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$ano, 'DOCUMENTO_SEMESTRE'=>$semestre,'TIPO_DOCUMENTO'=>$tipoDoc);
         $idProyecto = DB::table('DOCUMENTOS_REUNIONES')->insertGetId(
             $data
         );
         
         
-    	flash('Se ha subido el archivo de forma correcta.')->success();
-    	return back();
+        flash('Se ha subido el archivo de forma correcta.')->success();
+        return back();
     }
 
     public function descargarDocumentosReuniones(Request $request){      
@@ -72,8 +72,8 @@ class ReunionesController extends Controller
                 } 
                 //dd($files);
                 //$files = glob(public_path('js/*'));
-                \Zipper::make(public_path('/upload/planes_y_actas.zip'))->add($files)->close();
-                return response()->download(public_path('/upload/planes_y_actas.zip'));
+                \Zipper::make(public_path('/upload/test.zip'))->add($files)->close();
+                return response()->download(public_path('/upload/test.zip'));
             }
         }
         else{
