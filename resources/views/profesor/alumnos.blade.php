@@ -59,40 +59,42 @@
                   @foreach($resultados as $resultado)
                   <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
                   @endforeach 
-                </tr>
-              </thead>
-              <!--CargarCurso-->
 
-              <tbody class="text-left" id="listaAlumnos">
-                @foreach($alumnos as $alumno)
-                <tr class="even pointer" id="">
-                 <form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
-                  {{ csrf_field() }}
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
-                  {{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
-                  <input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
-                  <input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
+								</tr>
+							</thead>
+							<!--CargarCurso-->
+							
+							<tbody class="text-left" id="listaAlumnos">
+								@foreach($alumnos as $alumno)
+								<tr class="even pointer" id="">
+									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
+										{{ csrf_field() }}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
+                    {{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
+										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
+										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
+										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
 
+                        
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
+                      <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+                    </td>
+                        @foreach($projects as $project)                        
 
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
-                    <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
-                  </td>
-                  @foreach($projects as $project)                        
+                          @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
+                            
+                            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">{{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
+                            @break
 
-                  @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
+                          @endif
 
-                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">{{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
-                  @break
+                         @endforeach
+                  </form>
+                  @foreach($resultados as $resultado)
+                    <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idResultado="{{$resultado->ID_RESULTADO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+                      <i class=" fa fa-check-square-o"></i>
 
-                  @endif
-
-                  @endforeach
-                </form>
-                @foreach($resultados as $resultado)
-                <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
-                  <i class="AbrirCalificacion fa fa-check-square-o"></i>
                   @endforeach
                 </tr>
 
@@ -112,6 +114,33 @@
  </div>
 
 
+<div id="post_modal" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content"> 
+   <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Post Details</h4>
+   </div>
+   <div class="modal-body" id="post_detail">
+
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
  <!-- Modal Alumno a Evaluar-->
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
@@ -124,7 +153,8 @@
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">Alumno a evaluar: <br>Daniela Argumanis Escalante</h4>
+    <h4 class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">  Alumno a Evaluar: </h4>
+    <h4 id="alumnoACalificar" class="reportsTitle mainTitle modal-title" style="text-align: center;" id="gridSystemModalLabel"></h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   

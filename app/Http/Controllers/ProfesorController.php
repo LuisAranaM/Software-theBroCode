@@ -42,6 +42,7 @@ class ProfesorController extends Controller
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         //dd(eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso),eIndicador::getIndicadores());
         //dd(eResultado::getResultadosbyIdCurso($idCurso));
+        //dd(eResultado::getResultadosbyIdCurso($idCurso));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
@@ -95,7 +96,7 @@ class ProfesorController extends Controller
             if($data->count()){
                 foreach ($data as $key => $value) {
                     $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
-                                        'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
+                    'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
                 }
                 if(!empty($lista_cursos)){
                     #Curso::insert($lista_cursos);
@@ -155,5 +156,47 @@ class ProfesorController extends Controller
     {
         //
     }
+
+    public function fetch(Request $request){
+        $idCurso=$request->get('idCurso',null);
+        $idResultado=$request->get('idResultado',null);
+        //dd($resultado);
+        if($idResultado!=NULL){
+           $output = '';
+           $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
+           $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
+           $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
+
+              $output .= '
+              <h2>'.$resultado->NOMBRE.'</h2>
+              <p><label>Author By - '.$resultado->NOMBRE.'</label></p>
+              <p>'.$resultado->DESCRIPCION.'</p>
+              ';
+
+              $if_previous_disable = '';
+              $if_next_disable = '';
+              $idPrevious = '';
+              $idNext = '';
+              if($previous==NULL)              
+                $if_previous_disable = 'disabled';
+              else
+                $idPrevious = $previous->ID_RESULTADO;
+
+            if($next == NULL)            
+               $if_next_disable = 'disabled';
+            else
+               $idNext = $next->ID_RESULTADO;
+    $output .= '
+    <br /><br />
+    <div align="center">
+    <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" id="'.$idPrevious.'" '.$if_previous_disable.'>Previous</button>
+    <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" id="'.$idNext.'" '.$if_next_disable.'>Next</button>
+    </div>
+    <br /><br />
+    ';
+}
+return $output;
+
+}
 
 }
