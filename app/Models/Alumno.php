@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use DB;
+use Log;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -81,6 +82,65 @@ class Alumno extends Eloquent
 	public function insertarIndicadoresxAlumno($datosAlumno){
 		DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')->insertarIndicadoresxAlumno($datosAlumno);
 	}
+
+	function calificarAlumnos($registro){
+        //dd($registro);    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+            DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
+                ->where('ID_ALUMNO','=',$registro['ID_ALUMNO'])
+				->where('ID_HORARIO','=',$registro['ID_HORARIO'])
+				->where('ID_INDICADOR','=',$registro['ID_INDICADOR'])
+				->where('ID_CATEGORIA','=',$registro['ID_CATEGORIA'])
+				//->where('ID_RESULTADO','=',$registro['ID_RESULTADO'])
+				//->where('ID_DESCRIPCION','=',$registro['ID_DESCRIPCION'])
+				->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+				->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+				//->where('ESTADO','=',1)
+				->delete();
+                /*->update(['ESTADO'=>0,
+                        'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION'],
+                        'USUARIO_MODIF'=>$registro['USUARIO_MODIF']]);*/
+
+            DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')->insert($registro);   
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        //dd($status);
+        return $status;
+        //dd($sql->get());
+    }
+
+
+    function eliminarAlumnoHorario($registro){
+        //dd($registro);    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+           DB::table('ALUMNOS_HAS_HORARIOS')
+            ->where('ID_ALUMNO','=',$registro['ID_ALUMNO'])
+            ->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+            ->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+            ->where('ID_HORARIO','=',$registro['ID_HORARIO'])
+            ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        //dd($status);
+        return $status;
+        //dd($sql->get());
+    }
 
 
 }

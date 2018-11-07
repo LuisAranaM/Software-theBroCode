@@ -31,12 +31,11 @@ class Resultado extends \App\Entity\Base\Entity {
         return mResultado::getResultados(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
     
-    static function getResultadosbyIdCurso($idCurso) {
+    static function getResultadosbyIdCurso($idCurso,$idResultado=null,$orden=null) {
         $model = new mResultado();
         //dd(self::getIdSemestre(),self::getEspecialidadUsuario());
-        return mResultado::getResultadosbyIdCurso($idCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        return mResultado::getResultadosbyIdCurso($idCurso,self::getIdSemestre(),self::getEspecialidadUsuario(),$idResultado,$orden);
     }
-
 
     static function insertResultado($nombre, $desc){
         $model =new mResultado();
