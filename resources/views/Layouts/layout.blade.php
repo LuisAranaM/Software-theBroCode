@@ -113,6 +113,8 @@
                   </li>-->
                   <li class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
+                  <li class="pText"><a style="color:#72777a" href="{{route('objetivos')}}"><i class="fa fa-mortar-board"></i> Objetivos Educacionales</a>
+                  </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>
                 @endif
