@@ -34,9 +34,9 @@ class Indicador extends \App\Entity\Base\Entity {
         $this->setValue('_estado',$indicador->ESTADO);        
     }   
 
-    static function insertIndicador($idCat,$nombre){
+    static function insertIndicador($idCat,$nombre,$orden){
         $model =new mIndicador();
-        $model->insertIndicador($idCat,$nombre,self::getIdSemestre(),self::getEspecialidadUsuario());
+        return $model->insertIndicador($idCat,$nombre,$orden,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
 
     static function getIndicadoresId($idCat){
