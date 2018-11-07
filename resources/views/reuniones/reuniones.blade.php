@@ -78,7 +78,12 @@
 
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">2017-1</td>
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Acta de Reunón</td>
-										<td><input type="checkbox" name="select"></td>
+										<td><div class="form-check" style="padding-left: 10px; width: 20px">
+						                    <label>
+						                      <input type="checkbox" class="form-check-input" name="checkSeleccionar" checked="">
+						                      <span class="pText label-text "></span>
+						                    </label>
+						                  </div></td>
 									</form>
 
 								</tr>
@@ -87,7 +92,12 @@
 
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">2017-1</td>
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Plan de Mejora</td>
-										<td><input type="checkbox" name="select"></td>
+										<td><div class="form-check" style="padding-left: 10px; width: 20px">
+						                    <label>
+						                      <input type="checkbox" class="form-check-input" name="checkSeleccionar" checked="">
+						                      <span class="pText label-text "></span>
+						                    </label>
+						                  </div></td>
 									</form>
 
 								</tr>
@@ -96,7 +106,15 @@
 
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">2018-1</td>
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Plan de Mejora</td>
-										<td><input type="checkbox" name="select"></td>
+										<td>
+
+											<div class="form-check" style="padding-left: 10px; width: 20px">
+						                    <label>
+						                      <input type="checkbox" class="form-check-input" name="checkSeleccionar" checked="">
+						                      <span class="pText label-text "></span>
+						                    </label>
+						                  </div>
+										</td>
 									</form>
 
 								</tr>
