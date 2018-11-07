@@ -23,6 +23,7 @@
   </div>
 
   <div class="row">
+
     @foreach($cursos as $c)
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
@@ -36,6 +37,7 @@
     </div>
     <div class="x_content" style="display: block;">
   @foreach($c["horarios"] as $h)
+
         <div class="row">
 
           <div class="col-sm-1 col-xs-2" >
@@ -80,12 +82,13 @@
 
 
 
+
     </div>
   </div>
 </div>
 @endforeach
   
-      
+
 
      
 

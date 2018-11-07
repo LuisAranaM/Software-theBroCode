@@ -79,6 +79,7 @@ $( document ).ready(function() {
 		var idDescripcion = $(this).attr('idDescripcion');
 		var escalaCalif = $(this).attr('escalaCalif');
 		calificarAlumno(idAlumno,idHorario,idIndicador,idCategoria,idResultado,idDescripcion,escalaCalif);
+
 		
 	});
 
@@ -118,6 +119,7 @@ $( document ).ready(function() {
         }
 		});
 	}
+
 
 	function calificarAlumno(idAlumno,idHorario,idIndicador,idCategoria,idResultado,idDescripcion,escalaCalif)	{
 		$.ajax({

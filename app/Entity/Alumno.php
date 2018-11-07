@@ -57,6 +57,7 @@ class Alumno extends \App\Entity\Base\Entity {
         }
     }
 
+
     public function eliminarAlumnoHorario($data,$usuario){
         //dd($data['idAlumno']);
         $registro=['ID_ALUMNO'=>$data['idAlumno'],
@@ -79,5 +80,6 @@ class Alumno extends \App\Entity\Base\Entity {
             return false;
         }
     }
+
     
 }

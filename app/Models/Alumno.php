@@ -117,6 +117,7 @@ class Alumno extends Eloquent
         //dd($sql->get());
     }
 
+
     function eliminarAlumnoHorario($registro){
         //dd($registro);    
         DB::beginTransaction();

@@ -187,7 +187,9 @@ class ProfesorController extends Controller
               $html.='<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">';
               foreach ($infoResultado as $indicador) {
                 $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
+
                 <div class="row"><div class="col-xs-3"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.' '.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
+
 
                 $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body"><div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
                 foreach($indicador['DESCRIPCIONES'] as $descripcion){
@@ -212,7 +214,9 @@ class ProfesorController extends Controller
                               styling: '."'".'bootstrap3'."'".'});"';
 
                           $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
+
                           <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">'.$descripcion['NOMBRE_VALORIZACION'].'</span></label>';
+
 
                       }
                       $html.='</div></div></div></div></div>';
@@ -261,6 +265,7 @@ class ProfesorController extends Controller
         }
         return back();
      }
+
 
      public function eliminarAlumnoHorario(Request $request){
         $alumno=new eAlumno();

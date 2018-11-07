@@ -17,6 +17,7 @@
   }
 
   </style>
+
 @stop
 
 @php ($idInd = array())
@@ -78,6 +79,7 @@
 							
 							<tbody class="text-left" id="listaAlumnos">
 								@foreach($alumnos as $alumno)
+
 								<tr class="even pointer" id="columnaX">
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 										{{ csrf_field() }}
@@ -87,6 +89,7 @@
     </td>
 										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>
 										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>
+
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
 
                         

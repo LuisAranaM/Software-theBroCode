@@ -159,12 +159,15 @@ class Curso extends Eloquent
         return $sql;
     }
 
+
     function agregarAcreditar($idSemestre,$idEspecialidad,$codigos,$usuario){
+
         //dd(Carbon::now());    
         DB::beginTransaction();
         $status = true;
        
         try {
+
 
             DB::table('CURSOS AS CURSOS')                
                 ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
