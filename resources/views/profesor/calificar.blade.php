@@ -24,23 +24,20 @@
 
   <div class="row">
 
+    @foreach($cursos as $c)
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{$c["curso"]->NOMBRE}}</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+                            </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content" style="display: block;">
+  @foreach($c["horarios"] as $h)
 
-      <!-- CURSOS CARGADOS DE LA BD -->
-      @foreach($cursos as $c)
-    <div class=" x_panel tile coursesBox">
-      <div class="row rowFinal">
-
-        <div class="row">
-          <div class="col-xs-11" >
-            <h1 class="secondaryTitle mainTitle">{{$c["curso"]->NOMBRE}}</h1>
-          </div>
-
-          <div class="col-xs-1 text-right" style="text-align: right; font-size: 20px"> 
-            <i class="fa fa-caret-up"></i>
-          </div>
-        </div>
-
-        @foreach($c["horarios"] as $h)
         <div class="row">
 
           <div class="col-sm-1 col-xs-2" >
@@ -82,10 +79,16 @@
           </div>
         </div>
         @endforeach
-      </div>
+
+
+
+
+    </div>
   </div>
-      @endforeach
-      <!-- END CURSOS CARGADOS DE LA BD-->
+</div>
+@endforeach
+  
+
 
      
 

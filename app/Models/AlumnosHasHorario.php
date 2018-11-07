@@ -95,7 +95,9 @@ class AlumnosHasHorario extends Eloquent
             
         $ans = DB::select("SELECT *, MAX(a1.ID_PROYECTO) as ID_PROYECTO2 from ALUMNOS_HAS_HORARIOS a1
 			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )
-			WHERE a1.ID_HORARIO = $idHorario
+
+			WHERE a1.ID_HORARIO = $idHorario  and a1.ESTADO=1
+
 			group by a1.ID_ALUMNO
 			order by CODIGO asc;");
 		//dd($ans);

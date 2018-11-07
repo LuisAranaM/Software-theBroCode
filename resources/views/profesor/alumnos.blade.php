@@ -5,6 +5,19 @@
 <script type="text/javascript"  src="{{ URL::asset('js/alumnos/alumnos.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/steps/jquery.steps.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/steps/jquery.steps.min.js') }}"></script>
+
+<style>
+  .ocultarTachito {
+    display:none;
+    
+  }
+
+  #ocultarTachito:hover .ocultarTachito {
+    display:block;
+  }
+
+  </style>
+
 @stop
 
 @php ($idInd = array())
@@ -66,14 +79,17 @@
 							
 							<tbody class="text-left" id="listaAlumnos">
 								@foreach($alumnos as $alumno)
-								<tr class="even pointer" id="">
+
+								<tr class="even pointer" id="columnaX">
 									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 										{{ csrf_field() }}
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
-                    {{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
-										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
-										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
+										<td class="pText" id="ocultarTachito" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
+      <div class="ocultarTachito"><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fa fa-trash fa-lg" id="1" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i></div>
+    </td>
+										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>
+										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>
+
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
 
                         
