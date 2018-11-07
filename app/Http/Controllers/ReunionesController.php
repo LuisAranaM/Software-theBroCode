@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\Entity\Base\Entity;
 use DB;
-
+use response;
 
 
 
@@ -48,5 +48,47 @@ class ReunionesController extends Controller
         
     	flash('Se ha subido el archivo de forma correcta.')->success();
     	return back();
+    }
+
+    public function descargarDocumentosReuniones(Request $request){      
+        //dd($request->all(),$request->get('botonSubmit',null));  
+
+
+
+        $tipo=$request->get('botonSubmit',null);
+        $checks=$request->get('checkDocs',null);
+
+        if($checks!=NULL){
+            //Funciones
+            if($tipo=="Elim"){
+                dd('Elim');
+            }else{
+                //dd('Desc');
+                $files = array();
+                foreach ($checks as $key => $value) {
+                    $file= public_path(). "/upload/".$value;
+                    //dd($file);
+                    array_push($files, $file);
+                } 
+                //dd($files);
+                //$files = glob(public_path('js/*'));
+                \Zipper::make(public_path('/upload/planes_y_actas.zip'))->add($files)->close();
+                return response()->download(public_path('/upload/planes_y_actas.zip'));
+            }
+        }
+        else{
+            return back();
+        }
+        /*$checks=$request->get('checkDocumentos',null);
+        
+        $doc = new PlanesDeMejora();           
+        
+        if($doc->agregarAcreditar($checks,Auth::id())){
+            flash('Las cursos a acreditar se registraron correctamente.')->success();
+        } else {
+            flash('Hubo un error al registrar los cursos a acreditar.')->error();
+        }
+        return back();
+*/
     }
 }

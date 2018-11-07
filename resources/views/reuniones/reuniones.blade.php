@@ -16,66 +16,68 @@
 
 
 	<div class="row">
-		<div class=" x_panel tile coursesBox">
-			
-			<div class="row x_panel" style="text-align: center;" >
-				<div class="col-md-2">
-					<label class="pText">Semestre inicio:</label>
+		<form id="frmAgregarDocs" action="{{route('descDocs')}}" method="POST">
+			{{ csrf_field() }}
+			<div class=" x_panel tile coursesBox">
+
+				<div class="row x_panel" style="text-align: center;" >
+					<div class="col-md-2">
+						<label class="pText">Semestre inicio:</label>
+					</div>
+
+					<div class="col-md-2">
+						<input type="text" id="txt" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
+						name="semestreInicio" placeholder="" value="">  
+					</div>
+
+					<div class="col-md-1">
+						<select name="semIni">
+							<option value="1">1</option>
+							<option value="2">2</option>
+						</select>
+					</div>
+
+					<div class="col-md-2">
+						<label class="pText">Semestre fin:</label>
+					</div>
+
+					<div class="col-md-2">
+						<input type="text" id="txt" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
+						name="semestreFin" placeholder="" value="">  
+					</div>
+
+					<div class="col-md-1">
+						<select name="semIni">
+							<option value="1">1</option>
+							<option value="2">2</option>
+						</select>
+					</div>
+
+					<div class="col-md-2">
+						<button id="btnBuscarDocs" class="btn btn-success pText customButtonThin">Buscar</button>
+					</div>
+
 				</div>
 
-				<div class="col-md-2">
-					<input type="text" id="txt" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
-					name="semestreInicio" placeholder="" value="">  
-				</div>
-				
-				<div class="col-md-1">
-					<select name="semIni">
-						<option value="1">1</option>
-						<option value="2">2</option>
-					</select>
-				</div>
+				<div class="row">
+					<h2 class="">Documentos</h2>
+					<div class="col-md-8">
+						<div class="table-responsive">
+							<table class="table table-striped jambo_table bulk_action">
+								<thead >
+									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
+										<th class="pText column-title" style="border: none">Semestre</th>
+										<th class="pText column-title" style="border: none">Tipo</th>
+										<th class="pText column-title" style="border: none">Nombre</th>
+										<th class="pText column-title" style="border: none">Seleccionar</th>
+									</tr>
+								</thead>
+								<!--CargarCurso-->
 
-				<div class="col-md-2">
-					<label class="pText">Semestre fin:</label>
-				</div>
+								<tbody class="text-left" id="listaDocumentos">
+									@foreach($documentos as $documento)
+									<tr class="even pointer" id="">
 
-				<div class="col-md-2">
-					<input type="text" id="txt" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
-					name="semestreFin" placeholder="" value="">  
-				</div>
-
-				<div class="col-md-1">
-					<select name="semIni">
-						<option value="1">1</option>
-						<option value="2">2</option>
-					</select>
-				</div>
-
-				<div class="col-md-2">
-					<button id="btnBuscarDocs" class="btn btn-success pText customButtonThin">Buscar</button>
-				</div>
-
-			</div>
-
-			<div class="row">
-				<h2 class="">Documentos</h2>
-				<div class="col-md-8">
-					<div class="table-responsive">
-						<table class="table table-striped jambo_table bulk_action">
-							<thead >
-								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-									<th class="pText column-title" style="border: none">Semestre</th>
-									<th class="pText column-title" style="border: none">Tipo</th>
-									<th class="pText column-title" style="border: none">Nombre</th>
-									<th class="pText column-title" style="border: none">Seleccionar</th>
-								</tr>
-							</thead>
-							<!--CargarCurso-->
-
-							<tbody class="text-left" id="listaDocumentos">
-								@foreach($documentos as $documento)
-								<tr class="even pointer" id="">
-									<form>
 
 										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$documento->DOCUMENTO_ANHO}}-{{$documento->DOCUMENTO_SEMESTRE}}</td>
 										@if($documento->TIPO_DOCUMENTO == "acta")
@@ -88,13 +90,13 @@
 										<td>
 											<label>
 												<input type="checkbox" class="form-check-input checkDoc" 
-												name="checkDocs[]" value="{{$documento->ID_DOCUMENTO}}" style="text-align: center;" >
+												name="checkDocs[]" value="{{$documento->NOMBRE}}" style="text-align: center;" >
 												<span class="pText label-text "></span>
 											</label>
 										</td>
-									</form>
-								</tr>
-								@endforeach
+
+									</tr>
+									@endforeach
 								<!---
 									
 								<tr class="even pointer" id="">
@@ -141,14 +143,15 @@
 
 		<div class="row">
 			<div class="col-sm-3">
-				<button id="btnDescargarDoc" class="btn btn-success pText customButtonReuniones">Descargar Documento</button>
+				<button id="btnDescargarDoc" class="btn btn-success pText customButtonReuniones" name="botonSubmit" value="Desc">Descargar Documento</button>
 			</div>
 			<div class="col-sm-3">
-				<button id="btnEliminarDoc" class="btn btn-success pText customButtonReuniones" >Eliminar Documento</button>
+				<button id="btnEliminarDoc" class="btn btn-success pText customButtonReuniones" name="botonSubmit" value="Elim">Eliminar Documento</button>
 			</div>
 		</div>
 
 	</div>
+</form>
 </div>
 
 
