@@ -11,6 +11,12 @@ $( document ).ready(function() {
         $("#listaAlumnos tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
-    });
+    });	
 
+	/*$("#example-basic").steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    transitionEffect: "slideLeft",
+    autoFocus: true
+});*/
 });

@@ -3,6 +3,8 @@
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/alumnos/alumnos.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/steps/jquery.steps.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/steps/jquery.steps.min.js') }}"></script>
 @stop
 
 @php ($idInd = array())
@@ -55,42 +57,42 @@
                   <th class="pText column-title" style="border: none"> </th>
                   <!--para cada resultado-->
                   @foreach($resultados as $resultado)
-                      <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
+                  <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
                   @endforeach 
-								</tr>
-							</thead>
-							<!--CargarCurso-->
-							
-							<tbody class="text-left" id="listaAlumnos">
-								@foreach($alumnos as $alumno)
-								<tr class="even pointer" id="">
-									<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
-										{{ csrf_field() }}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
-                    {{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
-										<input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
-										<input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
+                </tr>
+              </thead>
+              <!--CargarCurso-->
 
-                        
-                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
-                      <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
-                    </td>
-                        @foreach($projects as $project)                        
+              <tbody class="text-left" id="listaAlumnos">
+                @foreach($alumnos as $alumno)
+                <tr class="even pointer" id="">
+                 <form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
+                  {{ csrf_field() }}
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
+                  {{-- Karla, aca encierra el form en el foreach y en vez del codigo hardcodeado pon la variable que representa al codigo del alumno en la línea de abajo de INPUT, igual con horario--}}
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}</td>
+                  <input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>{{-- aca cambias el value="20140445" por la  variable codigo, NO EL NAME POR FAVOR--}}
+                  <input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>{{-- aca cambias el value="0842" por la  variable horario, NO EL NAME POR FAVOR--}}
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
 
-                          @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
-                            
-                            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">{{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
-                            @break
 
-                          @endif
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
+                    <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+                  </td>
+                  @foreach($projects as $project)                        
 
-                         @endforeach
-                  </form>
-                  @foreach($resultados as $resultado)
-                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
-                      <i class="AbrirCalificacion fa fa-check-square-o"></i>
+                  @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
+
+                  <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">{{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
+                  @break
+
+                  @endif
+
+                  @endforeach
+                </form>
+                @foreach($resultados as $resultado)
+                <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+                  <i class="AbrirCalificacion fa fa-check-square-o"></i>
                   @endforeach
                 </tr>
 
@@ -138,225 +140,20 @@
 </div>
 
 <div class="modal-body">
-  <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel">
-      <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        <div class="row">
-          <div class="col-xs-3">
-            <div class="text-left">
-              <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A1. <br>
-
-              </div>
-            </div>
-            <div class="col-xs-9">
-              <div class="text-left" >
-                <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Aplica conceptos lógicos para la resolucion de problemas. <br>
-
-                </div>
-              </div>
-            </div>
-          </a>
-          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
-            <div class="panel-body">
-              <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-                <div class="btn-group btn-group-justified" data-toggle="buttons">
-
-                  <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
-                    title: 'Condición para A1 - 1',
-                    text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples de manera deficiente.',
-                    type: 'info',
-                    styling: 'bootstrap3'
-                  });">
-                  <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-                    1
-                  </span>
-                </label>
-                <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-                  title: 'Condición para A1 - 2',
-                  text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones simples.',
-                  type: 'info',
-                  styling: 'bootstrap3'
-                });">
-                <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-                <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-                  2
-                </span>
-              </label>
-              <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-                title: 'Condición para A1 - 3',
-                text: 'Aplicar operaciones lógicas (causa-efecto) en situaciones complejas.',
-                type: 'info',
-                styling: 'bootstrap3'
-              });">
-              <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-                3
-              </span>
-            </label>
-            <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-              title: 'Condición para A1 - 4',
-              text: 'Establecer soluciones integradas de manera lógica en problemas simples.',
-              type: 'info',
-              styling: 'bootstrap3'
-            });">
-            <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-              4
-            </span>
-          </label>
-        </div>
-      </div>   
-
-    </div>
-  </div>
-</div>
-<div class="panel">
-  <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-    <div class="row">
-      <div class="col-xs-3">
-        <div class="text-left" >
-          <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A2. <br>
-
-          </div>
-        </div>
-        <div class="col-xs-9">
-          <div class="text-left" >
-            <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Diseña algoritmos para la resolución de un problema identificado. <br>
-
-            </div>
-          </div>
-        </div>
-      </a>
-      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-        <div class="panel-body">  
-
-          <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-            <div class="btn-group btn-group-justified" data-toggle="buttons">
-
-              <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
-                title: 'Condición para A2 - 1',
-                text: 'Ser capaz de leer código fuente en lenguaje de alto nivel y entender parcialmente el algoritmo.',
-                type: 'info',
-                styling: 'bootstrap3'
-              });">
-              <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-              <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-                1
-              </span>
-            </label>
-            <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-              title: 'Condición para A2 - 2',
-              text: 'Ser capaz de leer código fuente en lenguaje de alto nivel y entender el algoritmo.',
-              type: 'info',
-              styling: 'bootstrap3'
-            });">
-            <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-              2
-            </span>
-          </label>
-          <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-            title: 'Condición para A2 - 3',
-            text: 'Tener la capacidad de modificar un algoritmo.',
-            type: 'info',
-            styling: 'bootstrap3'
-          });">
-          <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-            3
-          </span>
-        </label>
-        <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-          title: 'Condición para A2 - 4',
-          text: 'Desarrollar el algoritmo nuevo a partir de una especificación.',
-          type: 'info',
-          styling: 'bootstrap3'
-        });">
-        <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-        <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-          4
-        </span>
-      </label>
-    </div>
-  </div>  
-
-</div>
-</div>
-</div>
-<div class="panel">
-  <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-    <div class="row">
-      <div class="col-xs-3">
-        <div class="text-left" >
-          <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">A3. <br>
-
-          </div>
-        </div>
-        <div class="col-xs-9">
-          <div class="text-left" >
-            <p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">Utiliza lenguajes de programación para implementar algoritmos sean diseñados por él o por cualquier otra persona. <br>
-
-            </div>
-          </div>
-        </div>
-      </a>
-      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-        <div class="panel-body">
-         <div class="row" style="padding-top: 10px; padding-bottom: 0px;">
-          <div class="btn-group btn-group-justified" data-toggle="buttons">
-
-            <label class="btnCriteria btn btn-primary active" onclick="new PNotify({
-              title: 'Condición para A3 - 1',
-              text: 'Conocer paradigmas de programación.',
-              type: 'info',
-              styling: 'bootstrap3'
-            });">
-            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
-              1
-            </span>
-          </label>
-          <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-            title: 'Condición para A3 - 2',
-            text: 'Aplicar paradigmas de programación.',
-            type: 'info',
-            styling: 'bootstrap3'
-          });">
-          <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
-            2
-          </span>
-        </label>
-        <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-          title: 'Condición para A3 - 3',
-          text: 'Implementar un algoritmo.',
-          type: 'info',
-          styling: 'bootstrap3'
-        });">
-        <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-        <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-          3
-        </span>
-      </label>
-      <label class="btnCriteria btn btn-primary" onclick="new PNotify({
-        title: 'Condición para A3 - 4',
-        text: 'Utiliza patrones de programación.',
-        type: 'info',
-        styling: 'bootstrap3'
-      });">
-      <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-      <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
-        4
-      </span>
-    </label>
-  </div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
+<!--<div id="example-basic">
+    <h3>Keyboard</h3>
+    <section>
+        <p>Try the keyboard navigation by clicking arrow left or right!</p>
+    </section>
+    <h3>Effects</h3>
+    <section>
+        <p>Wonderful transition effects.</p>
+    </section>
+    <h3>Pager</h3>
+    <section>
+        <p>The next and previous buttons help you to navigate through your content.</p>
+    </section>
+</div>-->
 
 <div class="row" style="padding-top: 20px;margin: 10px;">
 
@@ -385,6 +182,5 @@
 @stop
 
 @section('js-scripts')
-
 
 @stop

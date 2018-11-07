@@ -97,7 +97,7 @@ class AlumnosHasHorario extends Eloquent
 			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )
 			WHERE a1.ID_HORARIO = $idHorario
 			group by a1.ID_ALUMNO
-			order by a1.ID_PROYECTO desc;");
+			order by CODIGO asc;");
 		//dd($ans);
         return $ans;
 	}
