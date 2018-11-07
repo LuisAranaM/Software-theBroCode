@@ -130,11 +130,11 @@
       <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
-          <select id="heard" class="form-control" required>
-            <option value="">2018-2</option>
-            <option value="press">2018-1</option>
-            <option value="net">2017-2</option>
-            <option value="mouth">2017-1</option>
+          <select id="ciclosRxC" class="form-control" onchange="gestionarCboxRxC()">
+            <option value="2018-2">2018-2</option>
+            <option value="2018-1">2018-1</option>
+            <option value="2017-2">2017-2</option>
+            <option value="2017-1">2017-1</option>
           </select>
         </div>
       </div>
