@@ -87,10 +87,10 @@
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Resultado</p>
                 </div>
                 <div class="col-xs-12" style="padding-bottom: 6px">
-                  <input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" placeholder="Código" >     
+                  <input type="text" id="txtCodigoResultado" class="nombreResultado form-control pText customInput" name="codigo" placeholder="Código" >     
                 </div>
                 <div class="col-xs-12">
-                  <textarea type="text" id="txtResultado" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+                  <textarea type="text" id="txtResultado" class="descripcionResultado form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
                 </div>
                 <div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>

@@ -1,11 +1,12 @@
 $( document ).ready(function() {
+	$(".resultTrash").hide();
 	console.log("inicioR");
 
 	$(".btnCargarAlumnos2").on("click", function(){
-        var cod = $(this).data('id');
-        $(".modal-body #bookId").val( cod );
-        $("#modalCargarAlumnos").modal("show");
-    })
+		var cod = $(this).data('id');
+		$(".modal-body #bookId").val( cod );
+		$("#modalCargarAlumnos").modal("show");
+	})
 
 	$(".indicadorTrash").on("click", function(e){
 
@@ -18,7 +19,7 @@ $( document ).ready(function() {
             $(this).parent().parent().remove();          
         } 
         e.preventDefault();
-	});
+    });
 
 	$(".resultTrash").on("click", function(e){
 		//var codigoCurso=$(this).attr('codigoCurso');
@@ -33,43 +34,55 @@ $( document ).ready(function() {
             $(this).parent().parent().parent().parent().parent().remove();
         } 
         e.preventDefault();
-	});
+    });
+
+	('.resultTrash').hover(
+		function () {
+			$(this).show();
+		}, 
+		function () {
+			$(this).hide();
+		}
+		);
 
 
 
 	$(".agregarIndicador").on("click", function(){
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
-        $("#ModalTitle").text( "Agregar Nuevo Indicador" );
-        $(".nombreIndicador").val("");
-        $(".descripcionIndicador").val("");
+		if($('.checkCurso:checked').length==0){
+			$('#btnAgregar').attr('disabled',true);                
+		}
+		else{
+			$('#btnAgregar').removeAttr('disabled');        
+		}
+		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
+		$(".nombreIndicador").val("");
+		$(".descripcionIndicador").val("");
 		$("#modalIndicador").modal("show");
 		$("#modalIndicador").val($(this).attr('id'));
 	});
 
 	$("#AgregarResultado").on("click", function(){
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
-        $("#ModalTitle").text("Agregar Nuevo Resultado" );
+		if($('.checkCurso:checked').length==0){
+			$('#btnAgregar').attr('disabled',true);                
+		}
+		else{
+			$('#btnAgregar').removeAttr('disabled');        
+		}
+		$("#ModalTitle").text("Agregar Nuevo Resultado" );
+		$(".nombreResultado").val("");
+		$(".descripcionResultado").val("");
 		$("#modalAgregarResultado").modal("show");
 	});
 
 	$(".resultadoEdit").on("click", function(){
-        if($('.checkCurso:checked').length==0){
-            $('#btnAgregar').attr('disabled',true);                
-        }
-        else{
-            $('#btnAgregar').removeAttr('disabled');        
-        }
-        $("#ModalTitle").text("Editar Resultado" );
+		var codigo= $(this).parent().prev('div').find('p').text();
+		var descripcion=$(this).parent().next('a').find('p').text();
+
+		$("#ModalTitle").text("Editar Resultado" );
+		$(".nombreResultado").val(codigo);
+		console.log(codigo);
+		$(".descripcionResultado").val(descripcion);
+		console.log(descripcion);
 		$("#modalAgregarResultado").modal("show");
 	});
 
@@ -77,11 +90,11 @@ $( document ).ready(function() {
 		var codigo= $(this).parent().prev('div').find('p').text();
 		var descripcion=$(this).parent().next('div').find('p').text();
 
-        $("#ModalTitle").text("Editar Indicador" );
-        $(".nombreIndicador").val(codigo);
-       	console.log(codigo);
-        $(".descripcionIndicador").val(descripcion);
-        console.log(descripcion);
+		$("#ModalTitle").text("Editar Indicador" );
+		$(".nombreIndicador").val(codigo);
+		console.log(codigo);
+		$(".descripcionIndicador").val(descripcion);
+		console.log(descripcion);
 		$("#modalIndicador").modal("show");
 	});
 
@@ -99,13 +112,13 @@ $( document ).ready(function() {
     //no pongo seleccion en validaciones pues esa casilla depende de indicadores 
     //y no hay más listas que desprendan de validaciones
 
-	$('#btnAgregarResultado').on('click',function(e) {
-		var codRes = $('#txtCodigoResultado').val();
-		var descRes = $('#txtResultado').val();
-		var cat = []
+    $('#btnAgregarResultado').on('click',function(e) {
+    	var codRes = $('#txtCodigoResultado').val();
+    	var descRes = $('#txtResultado').val();
+    	var cat = []
 
-		$('#filasCat .cat').each(function() {
-        	cat.push( $(this).val());
+    	$('#filasCat .cat').each(function() {
+    		cat.push( $(this).val());
     	});
 		//console.log(cat[1]);
 		console.log("si llega aca");
@@ -115,14 +128,14 @@ $( document ).ready(function() {
 	});
 
 
-	$('#btnAgregarIndicador').click(function(e) {
+    $('#btnAgregarIndicador').click(function(e) {
 
-		var ind = $('#txtIndicador').val();
-		var idCat= $('#modalIndicador').val();
-		var descs = []
+    	var ind = $('#txtIndicador').val();
+    	var idCat= $('#modalIndicador').val();
+    	var descs = []
 
-		$('#filasDesc .desc').each(function() {
-        	descs.push( $(this).val());
+    	$('#filasDesc .desc').each(function() {
+    		descs.push( $(this).val());
     	});
 		//console.log(cat[1]);
 		console.log("si llega aca");
@@ -130,21 +143,21 @@ $( document ).ready(function() {
 		e.preventDefault();
 	});
 
-	$('#filasCat').on('click','.fa-plus-circle' ,function(e) {
-		$('#agregarFilaIcono').remove();
-		html=''
-		html+='<div class="col-xs-11" style="padding-bottom: 6px">'
-		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
-        html+='</div>'
-        html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
-        html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
-        html+='</div>'
-		$('#filasCat').append(html);
+    $('#filasCat').on('click','.fa-plus-circle' ,function(e) {
+    	$('#agregarFilaIcono').remove();
+    	html=''
+    	html+='<div class="col-xs-11" style="padding-bottom: 6px">'
+    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+    	html+='</div>'
+    	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+    	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+    	html+='</div>'
+    	$('#filasCat').append(html);
 
-		e.preventDefault();
-	});
+    	e.preventDefault();
+    });
 
-	
+
 
 });
 function refrescarCategorias(idRes,sel,idSel){
@@ -152,7 +165,7 @@ function refrescarCategorias(idRes,sel,idSel){
 		url: APP_URL + '/rubricas/refrescar-categorias',
 		type:'GET',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		data: {
 			_idRes: idRes,
@@ -161,10 +174,10 @@ function refrescarCategorias(idRes,sel,idSel){
 		success: function(result) {
 			result = JSON.parse(result);
 			$('#myDIVCategorias').remove();
-            var html = '';
-            if(result.length >0){
-            	html+= '<div id="myDIVCategorias" class="myDIVCategoriasclass">'
-			
+			var html = '';
+			if(result.length >0){
+				html+= '<div id="myDIVCategorias" class="myDIVCategoriasclass">'
+
 				html+= '<div class="x_content bs-example-popovers courseContainer">'
 				html+= '<div id="'+result[0].ID_RESULTADO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
 				html+= '<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
@@ -172,7 +185,7 @@ function refrescarCategorias(idRes,sel,idSel){
 				html+= '<p class="pText">'+result[0].NOMBRE+'</p>'
 				html+= '</div>'
 				html+= '</div>'
-            }
+			}
 
 			for (i = 1; i <result.length; i++) {
 				html+= '<div class="x_content bs-example-popovers courseContainer">'
@@ -188,15 +201,15 @@ function refrescarCategorias(idRes,sel,idSel){
 				$('#apCat').append(html);
 			}
 			if(sel==1){
-		    	$('#myDIVCategorias .courseButton').removeClass('activeButton');
-		    	$('#myDIVCategorias div.courseButton:last').addClass('activeButton');
+				$('#myDIVCategorias .courseButton').removeClass('activeButton');
+				$('#myDIVCategorias div.courseButton:last').addClass('activeButton');
 
-		    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
-		    	$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
+				$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+				$('.myDIVIndicadoresclass div.courseButton:first').addClass('activeButton');
 				refrescarIndicadores(idSel);
-		    	$('html,body').animate({ 
-		    		scrollTop: $(".divindicadores").offset().top},
-		    		500);		 					
+				$('html,body').animate({ 
+					scrollTop: $(".divindicadores").offset().top},
+					500);		 					
 			}else{
 				if(result.length>0){
 					refrescarIndicadores(result[0].ID_RESULTADO);
@@ -212,7 +225,7 @@ function refrescarIndicadores(idCat,sel,idSel){
 		url: APP_URL + '/rubricas/refrescar-indicadores',
 		type:'GET',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		data: {
 			_idCat: idCat,
@@ -221,40 +234,40 @@ function refrescarIndicadores(idCat,sel,idSel){
 		success: function(result) {
 			result = JSON.parse(result);
 			$('#myDIVIndicadores').remove();
-            var html = '';
-            if(result.length >0){
-            	html+='<div id="myDIVIndicadores" class="myDIVIndicadoresclass">'
+			var html = '';
+			if(result.length >0){
+				html+='<div id="myDIVIndicadores" class="myDIVIndicadoresclass">'
 
-            	html+='<div class="x_content bs-example-popovers courseContainer">'
-	      		html+='<div id="'+result[0].ID_SUBCRITERIO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
-	        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-	       	 	html+='</button>'
-	        	html+='<p class="pText">'+result[0].NOMBRE+'</p>'
-	    	  	html+='</div>'
-	  			html+='</div>'
-            }
+				html+='<div class="x_content bs-example-popovers courseContainer">'
+				html+='<div id="'+result[0].ID_SUBCRITERIO+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
+				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+				html+='</button>'
+				html+='<p class="pText">'+result[0].NOMBRE+'</p>'
+				html+='</div>'
+				html+='</div>'
+			}
 
 			for (i = 1; i <result.length; i++) {
 				html+='<div class="x_content bs-example-popovers courseContainer">'
-	      		html+='<div id="'+result[i].ID_SUBCRITERIO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
-	        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-	       	 	html+='</button>'
-	        	html+='<p class="pText">'+result[i].NOMBRE+'</p>'
-	    	  	html+='</div>'
-	  			html+='</div>'
+				html+='<div id="'+result[i].ID_SUBCRITERIO+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+				html+='</button>'
+				html+='<p class="pText">'+result[i].NOMBRE+'</p>'
+				html+='</div>'
+				html+='</div>'
 			}
 			if(result.length>0){
 				html+='</div>'
 				$('#apInd').append(html);
 			}
 			if(sel==1){
-		    	$('#myDIVIndicadores .courseButton').removeClass('activeButton');
-		    	$('#myDIVIndicadores div.courseButton:last').addClass('activeButton');
+				$('#myDIVIndicadores .courseButton').removeClass('activeButton');
+				$('#myDIVIndicadores div.courseButton:last').addClass('activeButton');
 
 				refrescarEscalas(idSel);
-		    	$('html,body').animate({
-				scrollTop: $(document).height() - $(window).height()},
-				500);					
+				$('html,body').animate({
+					scrollTop: $(document).height() - $(window).height()},
+					500);					
 			}else{
 				if(result.length>0){
 					refrescarEscalas(result[0].ID_SUBCRITERIO);
@@ -270,7 +283,7 @@ function refrescarEscalas(idInd){
 		url: APP_URL + '/rubricas/refrescar-escalas',
 		type:'GET',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		data: {
 			_idInd: idInd,
@@ -280,21 +293,21 @@ function refrescarEscalas(idInd){
 			result = JSON.parse(result);
 			console.log(result);
 			$('#myDIVValorizaciones').remove();
-            var html = '';
-            if(result.length >0){
-            	html+='<div id="myDIVValorizaciones" class="myDIVValorizacionesclass">'
+			var html = '';
+			if(result.length >0){
+				html+='<div id="myDIVValorizaciones" class="myDIVValorizacionesclass">'
 				html+='<div class="x_content bs-example-popovers courseContainer">'
-            	html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+				html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
 				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
 				html+='</button>'
 				html+='<p class="pText">'+ result[0] +'</p>'
 				html+='</div>'
 				html+='</div>'
-            }
+			}
 
 			for(i = 1; i <result.length; i++){
 				html+='<div class="x_content bs-example-popovers courseContainer">'
-            	html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+				html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
 				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
 				html+='</button>'
 				html+='<p class="pText">'+ result[i]+'</p>'
@@ -310,7 +323,7 @@ function refrescarResultados(idRes){
 	$.ajax({
 		type:'GET',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		url: APP_URL + '/rubricas/refrescar-resultados',
 		data: {
@@ -319,37 +332,37 @@ function refrescarResultados(idRes){
 		success: function(result){
 			result = JSON.parse(result);
 			$('#myDIVResultados').remove();
-            var html = '';
-            	html+='<div id="myDIVResultados" class="myDIVResultadosclass">'
+			var html = '';
+			html+='<div id="myDIVResultados" class="myDIVResultadosclass">'
 			if(result.length >0){
-            	html+='<div class="x_content bs-example-popovers courseContainer">'
-	      		html+='<div id="'+result[0].ID_CATEGORIA+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
-	        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-	       	 	html+='</button>'
-	        	html+='<p class="pText">'+result[0].NOMBRE+' '+result[0].DESCRIPCION+'</p>'
-	    	  	html+='</div>'
-	  			html+='</div>'
-            }
+				html+='<div class="x_content bs-example-popovers courseContainer">'
+				html+='<div id="'+result[0].ID_CATEGORIA+'" class="courseButton activeButton alert alert-success alert-dismissible fade in" role="alert">'
+				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+				html+='</button>'
+				html+='<p class="pText">'+result[0].NOMBRE+' '+result[0].DESCRIPCION+'</p>'
+				html+='</div>'
+				html+='</div>'
+			}
 
 			for (i = 1; i <result.length; i++) {
 				html+='<div class="x_content bs-example-popovers courseContainer">'
-	      		html+='<div id="'+result[i].ID_CATEGORIA+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
-	        	html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
-	       	 	html+='</button>'
-	        	html+='<p class="pText">'+result[i].NOMBRE+' '+result[i].DESCRIPCION+'</p>'
-	    	  	html+='</div>'
-	  			html+='</div>'
+				html+='<div id="'+result[i].ID_CATEGORIA+'" class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
+				html+='<button id="btnClose" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>'
+				html+='</button>'
+				html+='<p class="pText">'+result[i].NOMBRE+' '+result[i].DESCRIPCION+'</p>'
+				html+='</div>'
+				html+='</div>'
 			}
 			html+='</div>'
 			$('#apRes').append(html);
 
 			refrescarCategorias(idRes);
-	    	$('#myDIVResultados .courseButton').removeClass('activeButton');
-	    	$('#myDIVResultados div.courseButton:last').addClass('activeButton');
+			$('#myDIVResultados .courseButton').removeClass('activeButton');
+			$('#myDIVResultados div.courseButton:last').addClass('activeButton');
 
-	    	$('html,body').animate({ 
-	    		scrollTop: $(".divcategorias").offset().top},
-	    		500);
+			$('html,body').animate({ 
+				scrollTop: $(".divcategorias").offset().top},
+				500);
 		} 
 	})
 
@@ -359,7 +372,7 @@ function borrarResultado(id){
 	$.ajax({
 		type:'POST',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		url: APP_URL + '/rubricas/borrar-resultado',
 		data: {
@@ -371,16 +384,16 @@ function borrarResultado(id){
 
 		},
 		error: function (xhr, status, text,e) {
-        	e.preventDefault();
-        	alert('Hubo un error al eliminar la información');
-    	}
+			e.preventDefault();
+			alert('Hubo un error al eliminar la información');
+		}
 	});
 }
 function insertarResultados(codRes,descRes,cat){
 	$.ajax({
 		type:'POST',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		url: APP_URL + '/rubricas/insertar-resultados',
 		data: {
@@ -398,16 +411,16 @@ function insertarResultados(codRes,descRes,cat){
 			window.location = APP_URL + "/rubricas/gestion";			
 		},
 		error: function (xhr, status, text,e) {
-        	e.preventDefault();
-        	alert('Hubo un error al registrar la información');
-    	}
+			e.preventDefault();
+			alert('Hubo un error al registrar la información');
+		}
 	});
 }
 function insertarCategorias(descCat, idRes){
 	$.ajax({
 		type:'POST',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		url: APP_URL + '/rubricas/insertar-categorias',
 		data: {
@@ -423,7 +436,7 @@ function insertarIndicadores(idCat, ind, descs){
 	$.ajax({
 		type:'POST',
 		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		url: APP_URL + '/rubricas/insertar-indicadores',
 		data: {
@@ -438,40 +451,40 @@ function insertarIndicadores(idCat, ind, descs){
 				console.log(descs[i]);
 				insertarDescripciones(descs[i], idInd);
 			}
-		$('#filasInd').remove();
-		html=''
-		html+='<div class="col-xs-11" style="padding-bottom: 6px">'
-		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
-        html+='</div>'
-        html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
-        html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
-        html+='</div>'
-		$('#filasCat').append(html);
+			$('#filasInd').remove();
+			html=''
+			html+='<div class="col-xs-11" style="padding-bottom: 6px">'
+			html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+			html+='</div>'
+			html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+			html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+			html+='</div>'
+			$('#filasCat').append(html);
 
-		e.preventDefault();
-	
+			e.preventDefault();
+
 			//window.location = APP_URL + "/rubricas/categorias?idRes=" + idRes +"&resultado="+res;			
 		},
 		error: function (xhr, status, text) {
-        	
-        	alert('Hubo un error al registrar la información');
-    	}
-	});
-function insertarDescripciones(desc, idInd){
-$.ajax({
-	type:'POST',
-	headers: {
-	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	},
-	url: APP_URL + '/rubricas/insertar-descripciones',
-	data: {
-		_desc: desc,
-		_idInd: idInd,
-	},
-	dataType: "text",
-	success: function(result) {
 
+			alert('Hubo un error al registrar la información');
+		}
+	});
+	function insertarDescripciones(desc, idInd){
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: APP_URL + '/rubricas/insertar-descripciones',
+			data: {
+				_desc: desc,
+				_idInd: idInd,
+			},
+			dataType: "text",
+			success: function(result) {
+
+			}
+		});
 	}
-});
-}
 }
