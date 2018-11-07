@@ -7,4 +7,15 @@ $( document ).ready(function() {
 	});
 
 
+	$("#btnDescargarDoc").on("click", function(){
+		console.log("Descargando documentos");
+		array = []
+		$("input:checkbox[name=checkDocs]:checked").each(function(){
+			array.push($(this).val());
+		});
+		console.log(array);
+
+		
+	});
+
 });
