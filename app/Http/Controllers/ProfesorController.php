@@ -41,7 +41,7 @@ class ProfesorController extends Controller
         //d
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
         
-        
+        dd(eResultado::getResultadosbyIdCurso($idCurso));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))

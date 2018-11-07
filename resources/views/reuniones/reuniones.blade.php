@@ -83,13 +83,14 @@
 											@else
 												<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Plan de Mejora</td>
 											@endif
-
-											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$documento->NOMBRE}} </td>
+											<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$documento->NOMBRE)}}" download="{{$documento->NOMBRE}}" style="text-decoration: underline;">{{$documento->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
+											
 											<td><input type="checkbox" name="select"></td>
 										</form>
 									</tr>
 								@endforeach
 								<!---
+									
 								<tr class="even pointer" id="">
 									<form>
 

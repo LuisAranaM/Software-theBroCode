@@ -78,5 +78,9 @@ class Alumno extends Eloquent
         return $ans;
 	}
 
+	public function insertarIndicadoresxAlumno($datosAlumno){
+		DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')->insertarIndicadoresxAlumno($datosAlumno);
+	}
+
 
 }

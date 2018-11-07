@@ -89,7 +89,8 @@
                          @endforeach
                   </form>
                   @foreach($resultados as $resultado)
-                    <td idResultado="{{$resultado->ID_RESULTADO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="AbrirCalificacion pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$resultado->NOMBRE}}</td>  
+                    <td idResultado="{{$resultado->ID_RESULTADO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+                      <i class=" fa fa-check-square-o"></i>
                   @endforeach
                 </tr>
 
@@ -109,7 +110,7 @@
  </div>
 
 
- <!-- Modal de Nuevo Curso -->
+ <!-- Modal Alumno a Evaluar-->
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
  id="modalCalificacion" data-keyboard="false" data-backdrop="static"
@@ -121,7 +122,8 @@
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">Alumno a evaluar: <br>Daniela Argumanis Escalante</h4>
+    <h4 class="reportsTitle mainTitle modal-title" style="padding-top: 10px; text-align: center;" id="gridSystemModalLabel">  Alumno a Evaluar: </h4>
+    <h4 id="alumnoACalificar" class="reportsTitle mainTitle modal-title" style="text-align: center;" id="gridSystemModalLabel"></h4>
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   
@@ -228,7 +230,7 @@
         </div>
       </a>
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-        <div class="panel-body">
+        <div class="panel-body">  
 
           <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
             <div class="btn-group btn-group-justified" data-toggle="buttons">

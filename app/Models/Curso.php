@@ -203,5 +203,12 @@ class Curso extends Eloquent
         //dd($sql->get());
     }
 
+    public function getIdCurso($codCurso){
+        $sql = DB::table('CURSOS')
+                ->select('ID_CURSO')
+                ->where('CODIGO_CURSO','=',$codCurso)
+                ->where('ESTADO','=',1);
+    }
+
 }
 
