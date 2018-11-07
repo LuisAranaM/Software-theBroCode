@@ -1,0 +1,52 @@
+﻿git branch (ver los branches actuales)
+git checkout -b newBranch (crear nuevo branch y moverte a el)
+git checkout name_of_branch(moverte entre branches)
+git push origin hykire (pushea lo que tengas en tu cp al branch que creaste, en mi caso hykire)
+
+Para actualizar al master:
+git checkout master
+git fetch Daniela
+git merge Daniela(te mergea lo del branch Daniela al master)
+git pull origin Daniela
+git push origin master
+
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+https://www.youtube.com/watch?v=H5GJfcp3p4Q&index=13&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-
+https://www.atlassian.com/git/tutorials/syncing
+
+para eliminar su branch local y remotamente:
+git push origin hykire -d --delete
+
+
+<div class="row rowFinal" style="padding-top: 0px">
+      <div class="col-md-3 no-padding">
+        <input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" id="txtcodigo" required="required" placeholder="Código">     
+      </div>
+      <div class="col-md-9 no-padding">
+        <input type="text" id="txtResultado" class="form-control pText customInput" name="nombre" id="txtcodigo" required="required" placeholder="Descripción">     
+      </div>
+    </div>
+    <div class="row rowFinal">
+      <p class="pText">Indicador 1:</p>
+      <div class="col-md-12 no-padding">
+        <input type="text" id="txtCategoria" class="form-control pText customInput" name="categoria" id="txtcodigo" required="required" placeholder="Descripción">    
+      </div>
+    </div>
+    <div class="row rowFinal">
+      <p class="pText">Indicador 2:</p>
+      <div class="col-md-12 no-padding">
+        <input type="text" id="txtCategoria" class="form-control pText customInput" name="categoria" id="txtcodigo" required="required" placeholder="Descripción">    
+      </div>
+    </div >
+    <div class="row rowFinal">
+      <p class="pText">Indicador 3:</p>
+      <div class="col-md-12 no-padding">
+        <input type="text" id="txtCategoria" class="form-control pText customInput" name="categoria" id="txtcodigo" required="required" placeholder="Descripción">    
+      </div>
+    </div>
+    <div class="row rowFinal">
+      <p class="pText">Indicador 4:</p>
+      <div class="col-md-12 no-padding">
+        <input type="text" id="txtCategoria" class="form-control pText customInput" name="categoria" id="txtcodigo" required="required" placeholder="Descripción">    
+      </div>
+    </div>
