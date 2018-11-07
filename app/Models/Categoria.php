@@ -8,7 +8,9 @@
 namespace App\Models;
 use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
-
+use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as Log;
 /**
  * Class Criterio
  * 
@@ -50,13 +52,16 @@ class Categoria extends Eloquent
 		'ESTADO'
 	];
 
-	public function insertCategoria($categoria, $resultado){
+	public function insertCategoria($categoria, $resultado,$idSem,$idEsp){
 		DB::beginTransaction();
         $id=-1;
+        //dd(Carbon::now());
         try {
         	$id = DB::table('CATEGORIAS')->insertGetId(
 		    	['NOMBRE' => $categoria,
 		     	 'ID_RESULTADO' => $resultado,
+		     	 'ID_SEMESTRE' => $idSem,
+		     	 'ID_ESPECIALIDAD' => $idEsp,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
 		     	 'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	 'USUARIO_MODIF' => Auth::id(),   
@@ -76,11 +81,48 @@ class Categoria extends Eloquent
                 ->where('ID_RESULTADO', '=', $idRes)
                 ->where('ESTADO','=', 1);
         return $sql;
-    }
+	}
 
     static function getCategorias() {
         $sql = DB::table('CATEGORIAS')
                 ->select('ID_CATEGORIA','ID_RESULTADO', 'NOMBRE')
+                ->where('ESTADO','=', 1);
+        return $sql;
+    }
+
+    static function updateCategoria($id, $nombre){
+		DB::beginTransaction();
+        try {
+            DB::table('CATEGORIAS')->where('ID_CATEGORIA',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteCategoria($id){
+    	DB::beginTransaction();
+        try {
+            DB::table('CATEGORIAS')->where('ID_CATEGORIA',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+
+    static function getCategoriaDeResultado($idResultado,$idSemestre,$idEspecialidad){
+    	$$sql = DB::table('CATEGORIAS')
+                ->select('ID_CATEGORIA', 'NOMBRE')
+                ->where('ID_RESULTADO', '=', $idResultado)
+                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=', 1);
         return $sql;
     }

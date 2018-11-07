@@ -32,7 +32,7 @@
   font-size: 21px;
   font-family: Segoe UI Semibold;
   padding-bottom: 2%;
-  color: black;
+  color: black !important;
   text-align: left;
 }
 
@@ -365,15 +365,23 @@ li {
 }
 
 .resultContainer {
-  height: 200px;
+  height: 150px;
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .resultContainer {
+    height: 180px;
+  }
 }
 
 .resultButton {
   background-color: white; 
   color: #72777a; 
   border-color: white; 
-  padding: 20px;
-  width: 100%;
   margin-bottom: 0px !important;
 
 }
@@ -400,4 +408,22 @@ li {
    top: 15px;
    left: 580px;
 
+}
+
+.customButtonReuniones {
+  height: 35px;
+  background-color: #005b7f;
+  border-color:#005b7f;
+  margin-right: 0px;
+  width: 200px;
+}
+
+.customInputDocsReunionesModal {
+  border-radius: 4px;
+  height: 20px;
+}
+
+.customInputDocsReuniones {
+  border-radius: 4px;
+  height: 25px;
 }

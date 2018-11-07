@@ -32,7 +32,7 @@
   <script type="text/javascript" src="{{ URL::asset('js/impl.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
-  <script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>
+  <!--<script type="text/javascript" src="{{ URL::asset('canvas/canvasjs.min.js') }}"></script>-->
 
 <script type="text/javascript" src="{{ URL::asset('js/pnotify.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/pnotify.buttons.js') }}"></script>
@@ -43,6 +43,7 @@
 
 <!--AGREGUE PARA TREE CON CHECKBOX-->
 <script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap-treeview.js') }}"></script>
 
   @yield('js-libs')
 
@@ -99,7 +100,6 @@
                   <li class="pText"><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
                     <ul class="nav child_menu">
                       <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
-                      <li class="pText"><a href="{{route('cursos.horarios')}}" style="color:#72777a">Horarios y Criterios</a></li>
                       <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
                     </ul>
                   </li>
@@ -107,9 +107,11 @@
                   </li>-->
                   <li class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
                   </li>
-                  <li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
+                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
+                  </li>-->
+                  <!--<li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
+                  </li>-->
+                  <li class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>
@@ -138,7 +140,7 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - Coordinador de
                   {{$nombreEspecialidad}}
                   </span>
                   <span class=" fa fa-angle-down"></span>

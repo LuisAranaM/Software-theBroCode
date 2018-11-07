@@ -29,6 +29,7 @@ class ProyectoController extends Controller
         $name_of_file = pathinfo(Input::file('archivo')->getClientOriginalName(), PATHINFO_FILENAME);
         $extension_of_file = pathinfo(Input::file('archivo')->getClientOriginalName(), PATHINFO_EXTENSION);  //Get extension of file
         $file->storePubliclyAs('upload', $name_of_file.'.'.$extension_of_file, 'public');
+        //dd("HOLA");
         $path = base_path() . '\public\upload' . '\\' . $name_of_file.'.'.$extension_of_file ;
         $fecha = date("Y-m-d H:i:s");
 

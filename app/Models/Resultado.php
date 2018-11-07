@@ -10,6 +10,7 @@ use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as Log;
 
 /**
  * Class Criterio
@@ -66,15 +67,17 @@ class Resultado extends Eloquent
 
 	}
 	
-	static function getResultadosbyIdCurso($idCurso) {
+	static function getResultadosbyIdCurso($idCurso,$idSem,$idEsp) {
+		//dd($idCurso,$idSem,$idEsp);
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
-				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
-				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
-				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE')
+				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'INDICADORES_HAS_CURSOS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE', 'RESULTADOS.DESCRIPCION')
+				->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
+				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
+				->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
 				->distinct();
-        //dd($sql->get());
+        //sdd($sql->get());
         return $sql;
 	}
 	
@@ -101,6 +104,34 @@ class Resultado extends Eloquent
 
 		return $id;
 	}
+	static function updateResultado($id, $nombre, $desc){
+		DB::beginTransaction();
+        try {
+            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+            	->update(
+		    	['NOMBRE' => $nombre,
+		     	'DESCRIPCION' => $desc,
+		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
+		     	'USUARIO_MODIF' => Auth::id()]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
+    static function deleteResultado($id){
+    	DB::beginTransaction();
+        try {
+        	//dd($id);
+            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+            	->update(
+		    	['ESTADO' => 0]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }	
+    }
 
 	public function especialidad()
 	{

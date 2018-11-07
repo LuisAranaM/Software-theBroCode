@@ -33,12 +33,22 @@ class Resultado extends \App\Entity\Base\Entity {
     
     static function getResultadosbyIdCurso($idCurso) {
         $model = new mResultado();
-        return mResultado::getResultadosbyIdCurso($idCurso)->get();
+        //dd(self::getIdSemestre(),self::getEspecialidadUsuario());
+        return mResultado::getResultadosbyIdCurso($idCurso,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
 
 
     static function insertResultado($nombre, $desc){
         $model =new mResultado();
         return $model->insertResultado($nombre,$desc,self::getIdSemestre(),self::getEspecialidadUsuario());
+    }
+
+    static function updateResultado($id, $nombre, $desc){
+        $model = new mResultado();
+        $model->updateResultado($id,$nombre,$desc);
+    }
+    static function deleteResultado($id){
+        $model = new mResultado();
+        $model->deleteResultado($id);
     }
 }

@@ -1,15 +1,4 @@
 $( document ).ready(function() {
-	(new PNotify({
-        title: 'No Sticky Button Notice',
-        text: 'Check me out! I\'m a sticky notice with no unsticky button. You\'ll have to close me yourself.',
-        hide: true,
-        sticker: false,
-        nonblock: {
-          nonblock: true
-      },
-      styling: 'bootstrap3',
-      addclass: 'pnotify-center' //dark
-  }));
 
     console.log("inicio");
     
@@ -25,7 +14,16 @@ $( document ).ready(function() {
 
 });
 
+    $("#modalCargarAlumnos").on('show',function(e){
+        var link = e.relatedTarget();
+        var modal = $(this);
+        var codigoHorario = link.data("codigoHorario");
+        modal.find("#codigoHorario").val(codigoHorario);
+    });
+
     $(".btnCargarAlumnos2").on("click", function(){
+        var cod = $(this).data('id');
+        $(".modal-body #bookId").val( cod );
         $("#modalCargarAlumnos").modal("show");
     })
 

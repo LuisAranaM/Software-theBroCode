@@ -21,6 +21,8 @@ class PlanesDeMejora extends \App\Entity\Base\Entity {
             'FECHA_REGISTRO' => $this->_fechaRegistro,
         ]);
     }
-
+    static function buscarDocumentos(){
+        return mPlanesDeMejora::buscarDocumentos();
+    }
     
 }

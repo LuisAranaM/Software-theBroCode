@@ -27,13 +27,15 @@ class Curso extends \App\Entity\Base\Entity {
         return mCurso::getCursosYHorarios(self::getIdSemestre());
     }
 
-    static function getCursoByIdHorario($idHorario) {
+    static function getCursosByIdIndicador($idIndicador) {
         $model = new mCurso();
-        return mCurso::getCursoByIdHorario($idHorario)->get();
+        return mCurso::getCursosByIdIndicador($idIndicador)->get();
     }
 
-
-
+ static function getCursoByIdHorario($idHorario) {
+         $model = new mCurso();
+         return mCurso::getCursoByIdHorario($idHorario)->get();
+}
     static function getCursosAcreditacion() {
         //Aquí consigo los cursos de la 
         //especialidad y que se acreditarán
@@ -73,6 +75,11 @@ class Curso extends \App\Entity\Base\Entity {
             return false;
         }
 
+    }
+
+    public function getIdCurso($codCurso){
+        $model = new mCurso();
+        return $model->getIdCurso($codCurso);
     }
 
 }

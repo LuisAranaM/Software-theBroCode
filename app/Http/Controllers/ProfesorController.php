@@ -7,6 +7,10 @@ use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use App\Entity\Alumnos as eAlumno;
 use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
+use App\Entity\Resultado as eResultado;
+use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
+use App\Entity\Indicador as eIndicador;
+use App\Entity\Categoria as eCategoria;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -23,36 +27,62 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
+    public function getRubricaDeCurso($idCurso){
+        $rubricaDeCurso = [];
+        $rubricaDeCurso = eResultado::getResultadosbyIdCurso($idCurso);
+
+        foreach ($rubricaDeCurso as $resultado) {
+            /*
+            $idResultado = $resultado->ID_RESULTADO;
+            $indicadoresxResultado = [];
+            $indicadoresxResultado = eCategoria::getCategoriaDeResultado($idResultado);
+            array_push($rubricaDeCurso,$indicadoresxResultado);*/
+        }
+        return $rubricaDeCurso;
+
+    }
 
 
     public function index(Request $request)
     {
         //dd($request->all());
         $idHorario=$request->get('idHorario',null); 
+        $idCurso=$request->get('idCurso',null); 
+        
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
         //dd($idHorario);
         //dd(Proyecto::getRutaProyectos($idHorario));
         //d
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
+        
+        //dd(eResultado::getResultadosbyIdCurso($idCurso));
+        //dd($this->getRubricaDeCurso($idCurso));
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
         ->with('alumnos',eAlumnosHasHorario::getAlumnosByIdHorario($idHorario))
        // ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario)); //revisar
-        ->with('projects',Proyecto::getRutaProyectos($idHorario));
-            
+        ->with('projects',Proyecto::getRutaProyectos($idHorario))
+        ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
+        ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
+        ->with('todoIndicadores',eIndicador::getIndicadores())
+        ->with('rubricaDeCurso',$this->getRubricaDeCurso($idCurso));  
     }
 
     public function profesorCalificar()
     {
         //dd(Curso::getCursosYHorarios());
         //return view('profesor.calificar');
+        //dd(Curso::getCursosYHorarios());
         return view('profesor.calificar')
         ->with('cursos',Curso::getCursosYHorarios());
     }
 
 
+    
 
 
     /**

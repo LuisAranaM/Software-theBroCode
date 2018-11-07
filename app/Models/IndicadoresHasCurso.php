@@ -8,8 +8,9 @@
 namespace App\Models;
 
 use DB;
-
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class SubcriteriosHasCurso
@@ -61,20 +62,87 @@ class IndicadoresHasCurso extends Eloquent
 		return $this->belongsTo(\App\Models\Curso::class, 'ID_CURSO');
 	}
 
-
-	static function getIndicadoresbyIdCurso($idCurso) {
+	
+	static function getIndicadoresbyIdCurso($idCurso,$idSem,$idEsp) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
-				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
-				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
+				->leftJoin('CATEGORIAS', 'INDICADORES_HAS_CURSOS.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+				->leftJoin('RESULTADOS', 'INDICADORES_HAS_CURSOS.ID_RESULTADO', '=', 'RESULTADOS.ID_RESULTADO')
+				->select('RESULTADOS.ID_RESULTADO','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
+				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
+				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
+				->where('INDICADORES_HAS_CURSOS.ESTADO', '=', 1)
+				->where('INDICADORES.ESTADO', '=', 1)
+				->where('CATEGORIAS.ESTADO', '=', 1)
+				->where('RESULTADOS.ESTADO', '=', 1)
 				->distinct();
         //dd($sql->get());
         return $sql;
 	}
-	
 
+	static function getCursosByIdIndicador($idInd,$idSem,$idEsp) {
+		$sql = DB::table('INDICADORES_HAS_CURSOS')
+				->where('INDICADORES_HAS_CURSOS.ID_INDICADOR','=',$idInd)
+				->leftJoin('CURSOS', 'INDICADORES_HAS_CURSOS.ID_CURSO', '=', 'CURSOS.ID_CURSO')
+				->select('CURSOS.ID_CURSO','CURSOS.NOMBRE','CURSOS.CODIGO_CURSO')
+				->where('INDICADORES_HAS_CURSOS.ID_SEMESTRE', '=', $idSem)
+				->where('INDICADORES_HAS_CURSOS.ID_ESPECIALIDAD', '=', $idEsp)
+				->where('INDICADORES_HAS_CURSOS.ESTADO', '=', 1)
+				->distinct();
+        return $sql;
+	}
+	
+	static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$esp,$sem){
+		DB::beginTransaction();
+		$status = true;
+		//dd($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$esp,$sem);
+		try {
+			foreach(array_combine($idIndicadores,$estadoIndicadores) as  $idIndicador => $estado ){
+				//Si no existe el registro
+				//dd($idIndicador,$estado,$idCurso, $usuario,$esp,$sem);
+				if(DB::table('INDICADORES_HAS_CURSOS')->where('ID_CURSO', (int)$idCurso)->where('ID_INDICADOR', (int)$idIndicador)->where('ID_SEMESTRE', (int)$sem)->doesntExist()){
+					//Se inserta
+					$idCategoria = DB::table('INDICADORES')
+									->where('ID_INDICADOR','=',$idIndicador)
+									->select('ID_CATEGORIA')->get()[0]->ID_CATEGORIA;
+					$idResultado = DB::table('CATEGORIAS')
+									->where('ID_CATEGORIA','=',$idCategoria)
+									->select('ID_RESULTADO')->get()[0]->ID_RESULTADO;
+					DB::table('INDICADORES_HAS_CURSOS')->insert(
+						['ID_CURSO' => (int)$idCurso,
+						'ID_INDICADOR' => (int)$idIndicador,
+						'ID_CATEGORIA' => (int)$idCategoria,
+						'ID_RESULTADO' => (int)$idResultado,
+						'ID_SEMESTRE' => (int)$sem,
+						'ID_ESPECIALIDAD' => (int)$esp,
+						'FECHA_REGISTRO' => Carbon::now(),
+						'FECHA_ACTUALIZACION' => Carbon::now(),		
+						'USUARIO_MODIF' => (int)$usuario, 
+						'ESTADO' => (int)$estado]);
+				}
+				else{
+					//Si no, se actualiza
+					DB::table('INDICADORES_HAS_CURSOS')
+					->where('ID_CURSO', (int)$idCurso)
+					->where('ID_INDICADOR', (int)$idIndicador)
+					->where('ID_SEMESTRE', (int)$sem)
+					->update(['ESTADO' => (int)$estado,
+							'FECHA_ACTUALIZACION'=>Carbon::now(),
+							'USUARIO_MODIF'=> (int)$usuario]);
+				}
+			}
+			DB::commit();
+			dd("bien");
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());		
+			$status = false;
+			DB::rollback();
+		}
+		
+		return $status;
+
+	}
 
 	public function indicador()
 	{

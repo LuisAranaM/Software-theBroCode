@@ -1,15 +1,27 @@
 $( document ).ready(function() {
+	$('#home-tabM1').tab('show');
+	$('.primero1').tab('show');
+
 	$("#btnAgregarHorario").on("click", function(){
 		$("#modalHorarios").modal("show");
 	});
 
 	$("#btnAgregarResultado").on("click", function(){
 		$("#modalResultados").modal("show");
+		
 	});
 
-
-	
-
+	//Selecciona todos los checkbox de los indicadores de un resultado
+	$('.selectAll').click(function() {
+		
+		var idResultado=$(this).attr('idResultado');
+		console.log("seleccionar todo "+idResultado);
+        if ($(this).prop('checked')) {
+            $('.checkbox_class'+idResultado).prop('checked', true);
+        } else {
+            $('.checkbox_class'+idResultado).prop('checked', false);
+        }
+    });
 
 	$('#btnCancelarHorarios').click(function() {
 		$('#modalHorarios').modal('hide');
@@ -26,10 +38,6 @@ $( document ).ready(function() {
 		$("#btnCargarHorariosModal").hide();
 
 		$("#btnCancelarModal").show();
-	});
-
-	$(function(){
-		$("ul.checktree").checktree();
 	});
 
 	function updateHorarios(horarios,estado){
@@ -51,18 +59,16 @@ $( document ).ready(function() {
 
 	$('.closeHorario').on('click', function(e) {
         var idHorario=$(this).attr('idHorario');
-        var nombreHorario=$(this).attr('nombreHorario');
+		var nombreHorario=$(this).attr('nombreHorario');
         var resp=confirm("¿Estás seguro que deseas dejar de evaluar "+nombreHorario+"?");
         var botonHorario=$(this).closest('div').closest('div');
         if (resp == true) {
             eliminarHorarioEvaluar(idHorario,botonHorario);            
-		} 
-		window.location.reload();      
+		}
+		//window.location.reload();   
 	});
 
 	function eliminarHorarioEvaluar(idHorario,botonHorario){
-		console.log(idHorario);
-		console.log(APP_URL);
 		$.ajax({
 			type: 'POST',  
 			headers: {
@@ -81,14 +87,7 @@ $( document ).ready(function() {
 				item.removeClass('hidden').prev().addClass('hidden');
 			}
 		});
-		
 	}
-
-
-	$(".btnAgregarSubcriterios").on("click", function(){
-		console.log("he");
-		$("#modalAgregarSubcriterio").modal("show");
-	});
 
 	$('#btnActualizarHorarios').click(function() {
 		var horariosSeleccionados=[];
@@ -108,28 +107,40 @@ $( document ).ready(function() {
 		window.location.reload();
 	});
 
-	$("#btnAgregarCriterios").on("click", function(){
-		console.log("btn accionado");
-		$("#modalCriterios").modal("show");
+	function updateIndicadores(indicadores,estado,idCurso){
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: APP_URL + '/actualizar-indicadores-curso',
+			data: {
+				estadoIndicadores: estado,
+				idIndicadores: indicadores,
+				idCurso: idCurso
+			}
+		});
+	}
+	$('#btnCancelarIndicadores').click(function() {
+		$('#modalResultados').modal('hide');
+		window.location.reload();
 	});
 
-	//var tabID = new Array();
-	//tabID[0] = 0; tabID[1] = 0;
-	var tabID = 0;
-	$('#btn-add-tab').click(function () {
-		tabID++;
-		$('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab">Tab ' + tabID + '<button class="close close-tab-style" type="button" title="Remove this page">×</button></a></li>'));
-		$('#tab-content').append($('<div class="tab-pane fade content-tab-style" id="tab' + tabID + '" style="margin-right">  Tab '+ tabID +' content</div>'));
+	$('#btnActualizarIndicadores').click(function() {
+		var idIndicadores=[];
+		var estadoIndicadores=[];
+		$('.get_valor').each(function(){
+			if($(this).is(":checked"))
+				estadoIndicadores.push(1);
+			else{
+				estadoIndicadores.push(0);
+			}
+			idIndicadores.push($(this).val());
+		});
+		$('#modalResultados').modal('hide');
+		updateIndicadores(idIndicadores,estadoIndicadores,$(this).attr('idCurso'));
+		window.location.reload();
 	});
-	$('#tab-list').on('click','.close',function(){
-		var tabID = $(this).parents('a').attr('href');
-		$(this).parents('li').remove();
-		$(tabID).remove();
-        //display first tab
-        //var tabFirst = $('#tab-list a:first');
-        //tabFirst.tab('show');
-    });
 
-	var list = document.getElementById("tab-list");
-	new Sortable(list);
 });
+
