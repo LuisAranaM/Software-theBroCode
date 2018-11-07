@@ -343,9 +343,9 @@ class Indicador extends \App\Entity\Base\Entity {
         //return back();
     }
 
-    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno){
+    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario){
         $model =new mIndicador();
-        $reporte=$model->getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        $reporte=$model->getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
         //dd($reporte);
         //Debemos armar un arreglo de indicadores y dentro de cada indicador colocar sus descripciones
         $i=0;
@@ -381,4 +381,6 @@ class Indicador extends \App\Entity\Base\Entity {
                                 'NOMBRE_INDICADOR'=>$nombreIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
         return $indicadores;
     }
+
+    
 }

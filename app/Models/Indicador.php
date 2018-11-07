@@ -275,7 +275,7 @@ class Indicador extends Eloquent
 		return $sql;
     }
 
-    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idSemestre,$idEspecialidad){
+    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario,$idSemestre,$idEspecialidad){
 
     	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
     	->select(/*'RES.ID_RESULTADO','RES.NOMBRE AS COD_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO',*/
@@ -305,9 +305,11 @@ class Indicador extends Eloquent
 			$join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
 			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
 			$join->on('IHAH.ID_ALUMNO','=',DB::Raw($idAlumno));
+			$join->on('IHAH.ESTADO','=',DB::Raw(1));
 			$join->on('IHAH.ESCALA_CALIFICACION','=','DES.VALORIZACION');
 		})
 		->where('IHC.ID_RESULTADO','=',$idResultado)
+		->where('HOR.ID_HORARIO','=',$idHorario)
 		->where('IHC.ID_CURSO','=',$idCurso)
 		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
 		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  

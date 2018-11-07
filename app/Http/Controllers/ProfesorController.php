@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
-use App\Entity\Alumnos as eAlumno;
+use App\Entity\Alumno as eAlumno;
 use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
 use App\Entity\Resultado as eResultado;
 use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
@@ -162,6 +162,7 @@ class ProfesorController extends Controller
     public function fetchResultados(Request $request){
         //Debemos de traer el ID_Alumno o el ID_Horario a futuro
         $idCurso=$request->get('idCurso',null);
+        $idHorario=$request->get('idHorario',null);
         $idResultado=$request->get('idResultado',null);
         $idAlumno=$request->get('idAlumno',null);
         //dd($resultado);
@@ -170,7 +171,7 @@ class ProfesorController extends Controller
          $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
          $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
          $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
-         $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno);
+         $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario);
 
            //dd($infoResultado);
             //Falta armar el esquema con el de Yoluana
@@ -179,13 +180,14 @@ class ProfesorController extends Controller
               <p><label>Author By - '.$resultado->NOMBRE.'</label></p>
               <p>'.$resultado->DESCRIPCION.'</p>
               ';*/
-
               $html='';
+              $html.='<label> Resultado:'.$resultado->NOMBRE.'</label><br>';
+              $html.='<label>'.$resultado->DESCRIPCION.'</label>';
 
               $html.='<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">';
               foreach ($infoResultado as $indicador) {
                 $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
-                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['ID_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
+                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.' '.$indicador['ID_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
 
                 $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body"><div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
                 foreach($indicador['DESCRIPCIONES'] as $descripcion){
@@ -196,7 +198,14 @@ class ProfesorController extends Controller
                         $active='active focus';
                     }
                     $html.='<label class="btnCriteria btn btn-primary '.$active.'" ';
-                    $html.=' onclick="new PNotify({
+                    $html.=' idAlumno="'.$idAlumno.'" ';
+                    $html.=' idHorario="'.$idHorario.'" ';
+                    $html.=' idIndicador="'.$indicador['ID_INDICADOR'].'" ';
+                    $html.=' idCategoria="'.$descripcion['ID_CATEGORIA'].'" ';
+                    $html.=' idResultado="'.$idResultado.'" ';
+                    $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
+                    $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
+                   $html.=' onclick="new PNotify({
                               title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
                               text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
                               type: '."'".'info'."'".',
@@ -233,14 +242,24 @@ class ProfesorController extends Controller
              $html .= '
              <br /><br />
              <div align="center">
-             <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
-             <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
+             <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
+             <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
              </div>
              <br /><br />
              ';
          }
          return $html;
 
+     }
+     public function calificarAlumnos(Request $request){
+        $alumno=new eAlumno();
+
+        if($alumno->calificarAlumnos($request->all(),Auth::id())){
+            flash('Se registró la nota correctamente')->success();
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
      }
 
  }
