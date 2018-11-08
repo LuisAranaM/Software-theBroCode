@@ -181,8 +181,8 @@ class Indicador extends \App\Entity\Base\Entity {
                 $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                 $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                 $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
-                if($porcentajetotal<70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                else if($porcentajetotal<85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
+                if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
+                else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
                 else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');}); 
                 $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');   
                 //dd('A'.$filaInicial.':A'.($filaFinal-1));
