@@ -38,7 +38,10 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model->insertIndicador($idCat,$nombre,$orden,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
-
+    static function getIndicadoresByRes($idRes){
+        $model =new mIndicador();
+        return $model::getIndicadoresByRes($idRes)->get();
+    }
     static function getIndicadoresId($idCat){
         $model =new mIndicador();
         return $model::getIndicadoresId($idCat)->get();
@@ -51,18 +54,22 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model::getIndicadorId($idInd)->get();
     }
-    static function updateIndicador($id, $nombre){
+    static function updateIndicador($id, $nombre, $orden){
         $model =new mIndicador();
-        return $model::updateIndicador($id, $nombre);
+        return $model::updateIndicador($id, $nombre, $orden);
     }
     static function deleteIndicador($id){
         $model =new mIndicador();
         return $model->deleteIndicador($id);
     }
-    static function graficoReporteResultadosCiclo(){
+    static function graficoReporteResultadosCiclo($idSemestre){
         $model =new mIndicador();
-        return $model->getDataGraficoReporteResultadosCiclo(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
-        
+        return $model->getDataGraficoReporteResultadosCiclo($idSemestre,self::getEspecialidadUsuario())->get();   
+    }
+
+    static function graficoReporteResultadosCurso($idSemestre,$idCurso){
+        $model =new mIndicador();
+        return $model->getDataGraficoResultadosxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario())->get();
     }
 
     static function getReporteResultadosCiclo($filtros){

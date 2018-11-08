@@ -74,25 +74,30 @@ class Descripcion extends Eloquent
 	}
 	static function getDescripcionesId($idInd) {
         $sql = DB::table('DESCRIPCIONES')
-                ->select('ID_DESCRIPCION','ID_INDICADOR', 'NOMBRE')
+                ->select('*')
                 ->where('ID_INDICADOR', '=', $idInd)
                 ->where('ESTADO','=', 1);
         return $sql;
     }
 
-    static function updateDescripcion($id, $nombre){
+    static function updateDescripcion($id, $desc,$nombre,$orden){
 		DB::beginTransaction();
+		$resp=-1;
         try {
             DB::table('DESCRIPCIONES')->where('ID_DESCRIPCION',$id)
             	->update(
-		    	['NOMBRE' => $nombre,
+		    	['NOMBRE' => $desc,
+		    	 'VALORIZACION' => $orden,
+		    	 'NOMBRE_VALORIZACION' => $nombre,
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	'USUARIO_MODIF' => Auth::id()]);
 			DB::commit();
+			$resp=1;
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
             DB::rollback();
-        }	
+        }
+        return 	$resp;
     }
     static function deleteDescripcion($id){
     	DB::beginTransaction();
