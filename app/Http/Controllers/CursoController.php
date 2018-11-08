@@ -140,7 +140,10 @@ class CursoController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-
+    
+    public function getCursosbyIdSemestre(Request $request){
+        return Curso::getCursosbyIdSemestre($request->get('idSemestre',null));
+    }
     public function store(Request $request){
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
