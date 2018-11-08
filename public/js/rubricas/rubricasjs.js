@@ -38,7 +38,7 @@ $( document ).ready(function() {
         e.preventDefault();
     });
 
-	$(".agregarIndicador").on("click", function(){
+	$(document).on("click",".agregarIndicador", function(){
 		
 		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
 		$(".nombreIndicador").val("");
