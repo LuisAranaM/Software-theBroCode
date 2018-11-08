@@ -34,11 +34,14 @@ class Indicador extends \App\Entity\Base\Entity {
         $this->setValue('_estado',$indicador->ESTADO);        
     }   
 
-    static function insertIndicador($idCat,$nombre){
+    static function insertIndicador($idCat,$nombre,$orden){
         $model =new mIndicador();
-        $model->insertIndicador($idCat,$nombre,self::getIdSemestre(),self::getEspecialidadUsuario());
+        return $model->insertIndicador($idCat,$nombre,$orden,self::getIdSemestre(),self::getEspecialidadUsuario());
     }
-
+    static function getIndicadoresByRes($idRes){
+        $model =new mIndicador();
+        return $model::getIndicadoresByRes($idRes)->get();
+    }
     static function getIndicadoresId($idCat){
         $model =new mIndicador();
         return $model::getIndicadoresId($idCat)->get();
@@ -51,9 +54,9 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model::getIndicadorId($idInd)->get();
     }
-    static function updateIndicador($id, $nombre){
+    static function updateIndicador($id, $nombre, $orden){
         $model =new mIndicador();
-        return $model::updateIndicador($id, $nombre);
+        return $model::updateIndicador($id, $nombre, $orden);
     }
     static function deleteIndicador($id){
         $model =new mIndicador();
@@ -346,4 +349,57 @@ class Indicador extends \App\Entity\Base\Entity {
         //flash('El reporte se generó correctamente')->success();
         //return back();
     }
+
+    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario){
+        $model =new mIndicador();
+        $reporte=$model->getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        //dd($reporte);
+        //Debemos armar un arreglo de indicadores y dentro de cada indicador colocar sus descripciones
+        $i=0;
+        $idIndicador=null;
+        $nombreIndicador=null;
+
+        $valIndicador=null;
+
+        $indicadores=[];
+
+        foreach ($reporte as $fila) {
+            if($i==0){
+                //Primera fila
+                $idIndicador=$fila->ID_INDICADOR;
+                $nombreIndicador=$fila->NOMBRE_INDICADOR;
+
+                $valIndicador=$fila->VALORIZACION_INDICADOR;
+
+                $descripcionesAlumno=[];                
+            }
+            else{
+                if($idIndicador!=$fila->ID_INDICADOR){
+                    array_push($indicadores,['ID_INDICADOR'=>$idIndicador,
+
+                                'NOMBRE_INDICADOR'=>$nombreIndicador,'VALORIZACION_INDICADOR'=>$valIndicador,'DESCRIPCIONES'=>$descripcionesAlumno]);
+                    $idIndicador=$fila->ID_INDICADOR;
+                    $nombreIndicador=$fila->NOMBRE_INDICADOR;
+                    $valIndicador=$fila->VALORIZACION_INDICADOR;
+
+                    $descripcionesAlumno=[];
+                }
+
+            }
+            array_push($descripcionesAlumno,['ID_DESCRIPCION'=>$fila->ID_DESCRIPCION,'NOMBRE_DESCRIPCION'=>$fila->NOMBRE_DESCRIPCION,
+                    'VALORIZACION'=>$fila->VALORIZACION,'NOMBRE_VALORIZACION'=>$fila->NOMBRE_VALORIZACION,
+                    'ESCALA_CALIFICACION'=>$fila->ESCALA_CALIFICACION,'ID_CATEGORIA'=>$fila->ID_CATEGORIA
+                ]);
+            $i++;
+        }
+        //Último elemento
+         array_push($indicadores,['ID_INDICADOR'=>$idIndicador,
+
+                                'NOMBRE_INDICADOR'=>$nombreIndicador,'VALORIZACION_INDICADOR'=>$valIndicador,
+                                'DESCRIPCIONES'=>$descripcionesAlumno]);
+
+        return $indicadores;
+    }
+
+    
 }

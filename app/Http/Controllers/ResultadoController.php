@@ -76,38 +76,90 @@ class ResultadoController extends Controller
     public function insertarIndicador(Request $request){
         $indicador = $request->get('_ind', null);
         $idCat = $request->get('_idCat',null);
-        $idInd = eIndicador::insertIndicador($idCat, $indicador);
+        $orden = $request->get('_orden',null);
+        $idRes = $request->get('_idRes',null);
+        $ordenRepetido =0;
+        $indicadores = eIndicador::getIndicadoresByRes($idRes)->toArray();
+        foreach($indicadores as $indicador2){
+            if($indicador2->VALORIZACION == $orden){
+                $ordenRepetido=1;
+            }
+        }
+        if($ordenRepetido==1) return -2;
+        $idInd = eIndicador::insertIndicador($idCat, $indicador, $orden);
         return $idInd;
     }
     public function insertarDescripcion(Request $request){
         $descripcion = $request->get('_desc', null);
+        $nombre = $request->get('_descNom',null);
+        $orden = $request->get('_descOrd',null);
         $idInd = $request->get('_idInd',null);
-        $idDesc = eDescripcion::insertDescripcion($idInd,$descripcion);
+
+        $ordenRepetido=0;
+        $descripciones = eDescripcion::getDescripcionesId($idInd)->toArray();
+        foreach($descripciones as $descripcion2){
+            if($descripcion2->VALORIZACION == $orden){
+                $ordenRepetido=1;
+            }
+        }
+        if($ordenRepetido==1) return -2;
+        $idDesc = eDescripcion::insertDescripcion($idInd,$descripcion,$nombre,$orden);
 
         return $idDesc;
     }
     public function actualizarResultado(Request $request){
-        $id = $request->get('_id',null);
-        $nombre = $request->get('_nombre',null);
-        $desc = $request->get('_desc',null);
+        $id = $request->get('_idRes',null);
+        $nombre = $request->get('_codRes',null);
+        $desc = $request->get('_descRes',null);
         eResultado::updateResultado($id, $nombre, $desc);
     }
     public function actualizarCategoria(Request $request){
-        $id = $request->get('_id',null);
-        $nombre = $request->get('_nombre',null);
+        $id = $request->get('_idCat',null);
+        $nombre = $request->get('_cat',null);
         eCategoria::updateCategoria($id, $nombre);
     }
     public function actualizarIndicador(Request $request){
-        $id = $request->get('_id',null);
-        $nombre = $request->get('_nombre',null);
-        eIndicador::updateIndicador($id, $nombre);
+        $id = $request->get('_idInd',null);
+        $orden = $request->get('_codInd',null);
+        $nombre = $request->get('_descInd',null);
+        //compruebo si existe este nuevo orden
+        $idRes = $request->get('_idRes',null);
+        $ordenRepetido =0;
+        $indicadores = eIndicador::getIndicadoresByRes($idRes)->toArray();
+
+        foreach($indicadores as $indicador2){
+            if($indicador2->VALORIZACION == $orden){
+                if($indicador2->ID_INDICADOR==$id) continue;
+                $ordenRepetido=1;
+            }
+        }
+        if($ordenRepetido==1) return -2; //-2 significa que el orden ya esta repetido y no puede insertarlo!>:C
+        return eIndicador::updateIndicador($id, $nombre, $orden);
     }
     public function actualizarDescripcion(Request $request){
         $id = $request->get('_id',null);
-        $nombre = $request->get('_nombre',null);
-        eDescripcion::updateDescripcion($id, $nombre);
-    }
+        $desc = $request->get('_desc',null);
+        $nombre = $request->get('_descNom',null);
+        $orden = $request->get('_descOrd',null);
+        $idInd = $request->get('_idInd',null);
 
+        $ordenRepetido=0;
+        $descripciones = eDescripcion::getDescripcionesId($idInd)->toArray();
+        foreach($descripciones as $descripcion2){
+            if($descripcion2->VALORIZACION == $orden){
+                if($descripcion2->ID_DESCRIPCION==$id) continue;
+                $ordenRepetido=1;
+            }
+        }
+        if($ordenRepetido==1) return -2;
+        return eDescripcion::updateDescripcion($id, $desc, $nombre, $orden);
+    }
+    public function refrescarIndicadores(Request $request){
+        $idCat = $request->get('_idCat',null);
+        $indicadores = eIndicador::getIndicadoresId($idCat)->toArray();
+        $indicadoresOrdenados = self::ordenarIndicadores($indicadores);
+        return $indicadoresOrdenados;
+    }
 
     public function borrarResultado(Request $request){
         $id = $request->get('_id',null);
@@ -129,19 +181,19 @@ class ResultadoController extends Controller
     public function borrarCategoria(Request $request){
         $id = $request->get('_id',null);
         eCategoria::deleteCategoria($id);
-        $indicadores = obtenerIndicadores($id);
+        $indicadores = eIndicador::getIndicadoresId($id)->toArray();
         foreach($indicadores as $indicador){
             eIndicador::deleteIndicador($indicador->ID_INDICADOR);
-            $descripciones = obtenerDescripciones($indicador->ID_INDICADOR); 
+            $descripciones = eDescripcion::getDescripcionesId($indicador->ID_INDICADOR)->toArray();
             foreach($descripciones as $descripcion){
                 eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
             }                   
-        }
+        }   
     }
     public function borrarIndicador(Request $request){
         $id = $request->get('_id',null);
         eIndicador::deleteIndicador($id);
-        $descripciones = obtenerDescripciones($id); 
+        $descripciones = eDescripcion::getDescripcionesId($id)->toArray();
         foreach($descripciones as $descripcion){
             eDescripcion::deleteDescripcion($descripcion->ID_DESCRIPCION);
         }  
@@ -168,7 +220,7 @@ class ResultadoController extends Controller
 
         $idCat = $request->get('_idCat',null);
         $indicadores = eIndicador::getIndicadoresId($idCat)->toArray();
-
+        $indicadores = self::ordenarIndicadores($indicadores);
         return $indicadores;
     }
 
@@ -176,7 +228,7 @@ class ResultadoController extends Controller
 
         $idInd= $request->get('_idInd',null);
         $descripciones = eDescripcion::getDescripcionesId($idInd)->toArray();
-
+        $descripciones= self::ordenarDescripciones($descripciones);
         return $descripciones;
     }
    
@@ -244,12 +296,40 @@ class ResultadoController extends Controller
         $i=0;
         foreach($categorias as $categoria){
             $indicadores = eIndicador::getIndicadoresId($categoria->ID_CATEGORIA)->toArray();
-            $indicadoresTodos[$categoria->ID_CATEGORIA]=$indicadores;
+            $indicadoresOrdenados = self::ordenarIndicadores($indicadores);
+            $indicadoresTodos[$categoria->ID_CATEGORIA]=$indicadoresOrdenados;
         }
 
         return view('rubricas.categorias')
         ->with('categorias',$categorias)
         ->with('resultado',$resultado)
-        ->with('indicadoresTodos',$indicadoresTodos);
+        ->with('indicadoresTodos',$indicadoresTodos)
+        ->with('idRes',$idRes);
+    }
+    public function ordenarIndicadores($indicadores){
+        for($i=0;$i<count($indicadores);$i++){
+            $val = $indicadores[$i]->VALORIZACION;
+            $valReal = $indicadores[$i];
+            $j = $i-1;
+            while($j>=0 && $indicadores[$j]->VALORIZACION > $val){
+                $indicadores[$j+1] = $indicadores[$j];
+                $j--;
+            }
+            $indicadores[$j+1] = $valReal;
+        }
+        return $indicadores;
+    }
+    public function ordenarDescripciones($descripciones){
+        for($i=0;$i<count($descripciones);$i++){
+            $val = $descripciones[$i]->VALORIZACION;
+            $valReal = $descripciones[$i];
+            $j = $i-1;
+            while($j>=0 && $descripciones[$j]->VALORIZACION > $val){
+                $descripciones[$j+1] = $descripciones[$j];
+                $j--;
+            }
+            $descripciones[$j+1] = $valReal;
+        }
+        return $descripciones;
     }
 }
