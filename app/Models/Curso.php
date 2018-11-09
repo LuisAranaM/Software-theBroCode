@@ -85,7 +85,7 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
   }
 
-  static function getCursosYHorarios($idSemestre){
+  static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
