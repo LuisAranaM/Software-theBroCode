@@ -111,6 +111,10 @@ class Curso extends Eloquent
       $ans[] = $data;
     }
 
+    if($usuario->ID_ROL==4){        
+        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
+    }
+
     foreach($ans as $x){
       Curso::trace($x["curso"]->NOMBRE);
       foreach($x["horarios"] as $y){
