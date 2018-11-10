@@ -66,14 +66,14 @@ class ReunionesController extends Controller
                 //dd('Desc');
                 $files = array();
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "/upload/".$value;
+                    $file= public_path(). "\upload\\".$value;
                     //dd($file);
                     array_push($files, $file);
                 } 
                 //dd($files);
                 //$files = glob(public_path('js/*'));
-                \Zipper::make(public_path('/upload/test.zip'))->add($files)->close();
-                return response()->download(public_path('/upload/test.zip'));
+                \Zipper::make(public_path('\upload\comprimido.zip'))->add($files)->close();
+                return response()->download(public_path('\upload\comprimido.zip'));
             }
         }
         else{

@@ -85,7 +85,7 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
   }
 
-  static function getCursosYHorarios($idSemestre){
+  static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
@@ -109,6 +109,10 @@ class Curso extends Eloquent
       $data["horarios"] = $info;
       $info = array();
       $ans[] = $data;
+    }
+
+    if($usuario->ID_ROL==4){        
+        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
     }
 
     foreach($ans as $x){

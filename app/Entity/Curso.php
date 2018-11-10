@@ -23,8 +23,8 @@ class Curso extends \App\Entity\Base\Entity {
     }
 
 
-    static function getCursosYHorarios(){
-        return mCurso::getCursosYHorarios(self::getIdSemestre());
+    static function getCursosYHorarios($usuario=null){
+        return mCurso::getCursosYHorarios(self::getEspecialidadUsuario(),self::getIdSemestre(),$usuario);
     }
 
     static function getCursosbyIdSemestre($idSemestre) {
