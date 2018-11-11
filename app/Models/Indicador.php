@@ -91,7 +91,14 @@ class Indicador extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-
+	static function getIndicadoresByRes($idRes){
+		$sql = DB::table('INDICADORES')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*')
+                ->where('INDICADORES.ESTADO','=', 1)
+                ->where('CATEGORIAS.ID_RESULTADO','=', $idRes);
+        return $sql;
+	}
     static function getIndicador() {
         $sql = DB::table('INDICADORES')
                 ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
@@ -112,7 +119,7 @@ class Indicador extends Eloquent
 				->distinct();
         return $sql;
     }
-	public function insertIndicador($idCat,$nombre,$idSem,$idEsp){
+	public function insertIndicador($idCat,$nombre,$orden, $idSem,$idEsp){
 
 		DB::beginTransaction();
         $id=-1;
@@ -120,6 +127,7 @@ class Indicador extends Eloquent
         	$id = DB::table('INDICADORES')->insertGetId(
 		    	['ID_CATEGORIA' => $idCat,
 		     	 'NOMBRE' => $nombre,
+		     	 'VALORIZACION'=> $orden,
 		     	 'ID_SEMESTRE'=> $idSem,
 		     	 'ID_ESPECIALIDAD'=>$idEsp,
 		     	 'FECHA_REGISTRO' => Carbon::now(),
@@ -141,19 +149,23 @@ class Indicador extends Eloquent
         //dd($sql->get());
         return $sql;
     }
-    static function updateIndicador($id, $nombre){
+    static function updateIndicador($id, $nombre, $orden){
 		DB::beginTransaction();
+		$response= -1;
         try {
             DB::table('INDICADORES')->where('ID_INDICADOR',$id)
             	->update(
 		    	['NOMBRE' => $nombre,
+		    	 'VALORIZACION'=> $orden,
 		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
 		     	'USUARIO_MODIF' => Auth::id()]);
 			DB::commit();
+			$response=1;
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
             DB::rollback();
-        }	
+        }
+        return $response;
     }
     static function deleteIndicador($id){
     	DB::beginTransaction();
@@ -167,6 +179,45 @@ class Indicador extends Eloquent
             DB::rollback();
         }	
 	}
+
+	static function getDataGraficoResultadosxCurso($idSemestre,$idCurso,$idEspecialidad){
+		$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
+    	->select('RES.ID_RESULTADO','RES.NOMBRE',
+				DB::Raw('IFNULL(SUM(CASE WHEN ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE'))		
+		->leftJoin('RESULTADOS AS RES',function($join){
+			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
+		})
+		->leftJoin('INDICADORES AS IND',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHC.ID_INDICADOR');
+		})
+		->leftJoin('CATEGORIAS AS CAT',function($join){
+			$join->on('CAT.ID_CATEGORIA','=','IHC.ID_CATEGORIA');
+		})
+		->leftJoin('CURSOS AS CUR',function($join){
+			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
+		})
+		->leftJoin('HORARIOS AS HOR',function($join){
+			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
+			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
+		})
+		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
+		})
+		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
+		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
+		->where('CUR.ESTADO_ACREDITACION','=',1)  
+		->where('IHC.ESTADO','=',1)  
+		->where('RES.ESTADO','=',1)  
+		->where('IND.ESTADO','=',1)  
+		->where('CAT.ESTADO','=',1)  
+		->where('HOR.ESTADO','=',1)
+		->where('CUR.ID_CURSO','=',$idCurso)
+		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION')
+		->havingRaw('count(ESCALA_CALIFICACION) > ?', [0]);
+
+		return $sql;
+	}
+	
 	static function getDataGraficoReporteResultadosCiclo($idSemestre,$idEspecialidad){
 		$indicadores=(DB::table('INDICADORES_HAS_CURSOS AS IHC')
     	->select('IHC.ID_RESULTADO','IHC.ID_INDICADOR',
@@ -275,4 +326,56 @@ class Indicador extends Eloquent
 		return $sql;
     }
 
+    static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario,$idSemestre,$idEspecialidad){
+
+    	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
+    	->select(/*'RES.ID_RESULTADO','RES.NOMBRE AS COD_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO',*/
+    			'IND.ID_INDICADOR','IND.NOMBRE AS NOMBRE_INDICADOR',
+    			'DES.ID_DESCRIPCION','DES.NOMBRE AS NOMBRE_DESCRIPCION','DES.VALORIZACION','DES.NOMBRE_VALORIZACION',
+
+    			'IHAH.ESCALA_CALIFICACION','CAT.ID_CATEGORIA','IND.VALORIZACION AS VALORIZACION_INDICADOR')	
+
+		->leftJoin('RESULTADOS AS RES',function($join){
+			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
+		})
+		->leftJoin('INDICADORES AS IND',function($join){
+			$join->on('IND.ID_INDICADOR','=','IHC.ID_INDICADOR');
+		})
+		->leftJoin('DESCRIPCIONES AS DES',function($join){
+			$join->on('DES.ID_INDICADOR','=','IHC.ID_INDICADOR');
+		})
+		->leftJoin('CATEGORIAS AS CAT',function($join){
+			$join->on('CAT.ID_CATEGORIA','=','IHC.ID_CATEGORIA');
+		})
+		->leftJoin('CURSOS AS CUR',function($join){
+			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
+		})
+		->leftJoin('HORARIOS AS HOR',function($join){
+			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
+			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
+		})
+		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join) use($idAlumno){
+			$join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
+			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
+			$join->on('IHAH.ID_ALUMNO','=',DB::Raw($idAlumno));
+			$join->on('IHAH.ESTADO','=',DB::Raw(1));
+			$join->on('IHAH.ESCALA_CALIFICACION','=','DES.VALORIZACION');
+		})
+		->where('IHC.ID_RESULTADO','=',$idResultado)
+		->where('HOR.ID_HORARIO','=',$idHorario)
+		->where('IHC.ID_CURSO','=',$idCurso)
+		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
+		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
+		->where('CUR.ESTADO_ACREDITACION','=',1)  
+		->where('IHC.ESTADO','=',1)  
+		->where('RES.ESTADO','=',1)  
+		->where('DES.ESTADO','=',1)  
+		->where('IND.ESTADO','=',1)  
+		->where('CAT.ESTADO','=',1)  
+		->where('HOR.ESTADO','=',1)
+		->orderBy('IND.ID_INDICADOR','ASC')
+		->orderBy('DES.VALORIZACION','ASC');
+
+		return $sql;
+    }
 }

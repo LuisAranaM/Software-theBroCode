@@ -45,10 +45,10 @@
             
               <div class="row" value="{{$resultado->ID_RESULTADO}}">
                 <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
-                  <p class="pText" style="font-weight: bold; font-size: 30px; color: black">  {{$resultado->NOMBRE}}</p>
+                  <p class="pText" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
                 </div>
                 <div class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
-                  <i class="edit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
+                  <i class="resultadoEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
                   <i class="resultTrash fa fa-trash fa-lg" id="{{$resultado->ID_RESULTADO}}"  style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
                 </div>
                 <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
@@ -73,7 +73,7 @@
             aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Nuevo Resultado</h4>
+          <label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>
         </div>
         <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
         <div class="modal-body"> 
@@ -87,14 +87,15 @@
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Resultado</p>
                 </div>
                 <div class="col-xs-12" style="padding-bottom: 6px">
-                  <input type="text" id="txtCodigoResultado" class="form-control pText customInput" name="codigo" placeholder="Código" >     
+                  <input type="text" id="txtCodigoResultado" class="nombreResultado form-control pText customInput" name="codigo" placeholder="Código" >     
                 </div>
                 <div class="col-xs-12">
-                  <textarea type="text" id="txtResultado" class="form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+                  <textarea type="text" id="txtResultado" class="descripcionResultado form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
                 </div>
                 <div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>
                 </div>
+                <div id="filasCats">
                 <div class="col-xs-11" style="padding-bottom: 6px">
 
                   <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
@@ -102,7 +103,7 @@
                 <div id="agregarFilaIcono"class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
                   <i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
                 </div>
-                
+                </div>
 
               </div>
             </div>

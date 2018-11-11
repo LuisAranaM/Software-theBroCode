@@ -23,8 +23,13 @@ class Curso extends \App\Entity\Base\Entity {
     }
 
 
-    static function getCursosYHorarios(){
-        return mCurso::getCursosYHorarios(self::getIdSemestre());
+    static function getCursosYHorarios($usuario=null){
+        return mCurso::getCursosYHorarios(self::getEspecialidadUsuario(),self::getIdSemestre(),$usuario);
+    }
+
+    static function getCursosbyIdSemestre($idSemestre) {
+        $model = new mCurso();
+        return mCurso::getCursos($idSemestre, self::getEspecialidadUsuario())->get();
     }
 
     static function getCursosByIdIndicador($idIndicador) {
@@ -55,7 +60,9 @@ class Curso extends \App\Entity\Base\Entity {
         
         $model= new mCurso();
         
-        if ($model->agregarAcreditar(self::getIdSemestre(),$checks,$usuario)){
+
+        if ($model->agregarAcreditar(self::getIdSemestre(),self::getEspecialidadUsuario(),$checks,$usuario)){
+
             return true;
         }else{
             $this->setMessage('Hubo un error en el servidor de base de datos');
@@ -75,6 +82,11 @@ class Curso extends \App\Entity\Base\Entity {
             return false;
         }
 
+    }
+
+    public function getIdCurso($codCurso){
+        $model = new mCurso();
+        return $model->getIdCurso($codCurso);
     }
 
 }

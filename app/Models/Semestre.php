@@ -121,5 +121,12 @@ class Semestre extends Eloquent
 		return $sql;
 	}
 
+	static function getSemestres(){
+		$sql=DB::table('SEMESTRES')
+				->select('ID_SEMESTRE',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
+				->where('ESTADO','=',1);
+		return $sql;
+	}
+
 
 }

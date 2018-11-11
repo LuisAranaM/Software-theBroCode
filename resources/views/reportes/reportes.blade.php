@@ -2,7 +2,7 @@
 
 @section('js-libs')
 <!-- Required Javascript -->
-<script src="canvas/canvasjs.min.js"></script>
+
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <!-- Seccion 2: Cursos x Resultado -->
+    <!-- Seccion 2: Resultados x Curso-->
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
         <div class="row">
@@ -52,7 +52,7 @@
             <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
           </div>
           <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
+            <h1 class="reportsTitle mainTitle"> Resultados x Curso </h1>
             <div class="row">
               <div class="groupBoxOptions">
                 <div class="form-check">
@@ -78,7 +78,7 @@
             <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
           </div>
           <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle">Indicadores x Resultado </h1>
+            <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
               <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
@@ -130,11 +130,7 @@
       <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
-          <select id="ciclosRxC" class="form-control" onchange="gestionarCboxRxC()">
-            <option value="2018-2">2018-2</option>
-            <option value="2018-1">2018-1</option>
-            <option value="2017-2">2017-2</option>
-            <option value="2017-1">2017-1</option>
+          <select id="ciclos1" class="ciclos form-control" required>
           </select>
         </div>
       </div>
@@ -144,7 +140,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="graficoResultadoxCiclo" width="400" height="400"></canvas>
           </div> 
         </div>
       </div>
@@ -170,8 +166,8 @@
 </div>
 <!-- Fin Modal Resultados x Ciclo-->
 
-<!-- ******* 2. Modal Curso x Resultado ******* -->
-<div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+<!-- ******* 2. Modal Resultados x Curso ******* -->
+<div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
   id="modalCursos" data-keyboard="false" data-backdrop="static"
   aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
@@ -183,7 +179,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados por Curso</h4>
       </div>
       <!-- Fin Cabeza del modal -->
     
@@ -192,11 +188,9 @@
       <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
-          <select id="heard" class="form-control" required>
-            <option value="">2018-2</option>
-            <option value="press">2018-1</option>
-            <option value="net">2017-2</option>
-            <option value="mouth">2017-1</option>
+          <select id="ciclos2" class="ciclos form-control" required>
+          </select>
+          <select id="cursos2" class="cursos form-control" required>
           </select>
         </div>
       </div>
@@ -206,8 +200,9 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="graficoResultadosxCurso" width="400" height="400"></canvas>
           </div> 
+          
         </div>
       </div>
       <!-- Fin Cuerpo del modal -->
@@ -220,8 +215,8 @@
           <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          <a href="{{route('exportar.reporte2')}}">
+            <button id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
         </div>
       </div>
@@ -254,11 +249,7 @@
       <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
-          <select id="heard" class="form-control" required>
-            <option value="">2018-2</option>
-            <option value="press">2018-1</option>
-            <option value="net">2017-2</option>
-            <option value="mouth">2017-1</option>
+          <select id="ciclos3" class="ciclos form-control" required>
           </select>
         </div>
       </div>
@@ -268,7 +259,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -283,7 +274,7 @@
         </div>
         <div class="col-md-4 text-left">
           <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+            <button id="btnDescargarReportes3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
         </div>
       </div>
@@ -295,7 +286,7 @@
 <!-- Fin Modal Indicadores x Resultado -->
 
 <!-- ******* 4. Modal Consolidado Historico ******* -->
-<div id = "modalCH" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+<div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
   id="modalCursos" data-keyboard="false" data-backdrop="static"
   aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
@@ -315,12 +306,8 @@
       
       <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <div class="col-xs-offset-8 col-xs-3">
-          <select id="heard" class="form-control" required>
-            <option value="">2018-2</option>
-            <option value="press">2018-1</option>
-            <option value="net">2017-2</option>
-            <option value="mouth">2017-1</option>
+        <div id="ciclos4" class="col-xs-offset-8 col-xs-3">
+          <select class="ciclos form-control" required>
           </select>
         </div>
       </div>
@@ -330,7 +317,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -344,8 +331,8 @@
           <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          <a href="{{route('exportar.reporte4')}}">
+            <button id="btnDescargarReportes4" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
           </a>
         </div>
       </div>

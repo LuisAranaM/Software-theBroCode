@@ -109,4 +109,9 @@ class Entity {
         return  $model->getEspecialidadUsuario(Auth::id())->NOMBRE_ESPECIALIDAD;
 
     }
+
+    public static function getUsuarioCompleto(){
+        return  Auth::user();
+
+    }
 }
