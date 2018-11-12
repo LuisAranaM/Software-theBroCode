@@ -86,7 +86,7 @@ function callback(data) {
         });
     }
     chart.render(); 
-}*/
+}
 
 function gestionarCboxRxC() {
     var indexCiclo = document.getElementById("ciclosRxC").value;
@@ -172,7 +172,7 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                         }]
                     }
                 }
-            });*/
+            });
         },
         error: function (xhr, status, text) {
             e.preventDefault();
