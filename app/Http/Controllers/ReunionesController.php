@@ -60,14 +60,23 @@ class ReunionesController extends Controller
         //dd($request->all(),$request->get('botonSubmit',null));  
 
 
-
         $tipo=$request->get('botonSubmit',null);
         $checks=$request->get('checkDocs',null);
 
         if($checks!=NULL){
             //Funciones
             if($tipo=="Elim"){
-                dd('Elim');
+               // dd('Elim');
+                $files = array();
+
+                foreach ($checks as $key => $value) {
+                    $file= public_path(). "/upload/".$value;
+                   // dd($file);
+                    //$file->delete();
+                    //array_push($files, $file);
+                  //  if(File::exists($file)) File::delete($file);
+                } 
+
             }else{
                 //dd('Desc');
                 $files = array();
@@ -83,6 +92,8 @@ class ReunionesController extends Controller
             }
         }
         else{
+            //alert('No se ha seleccionado ningún documento para descargar.');
+            //flash('No se ha seleccionado ningún documento para descargar.')->success();
             return back();
         }
         /*$checks=$request->get('checkDocumentos',null);

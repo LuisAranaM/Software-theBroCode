@@ -20,43 +20,46 @@
 			{{ csrf_field() }}
 			<div class=" x_panel tile coursesBox">
 
-				<div class="row x_panel" style="text-align: center;" >
-					<div class="col-md-2">
+				<div class="row x_panel" style="text-align: center; padding-top: 15px; padding-bottom: 10px; " >
+				<div class="col-md-4">	
+					<div class="col-md-6" style="padding-top: 5px;">
 						<label class="pText">Semestre inicio:</label>
 					</div>
 
-					<div class="col-md-1">
+					<div class="col-md-3" style="padding-top: 5px;">
 						<input type="text" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
 						name="anhoInicio" id="anhoInicio" placeholder="" value="">  
 					</div>
 
-					<div class="col-md-1">
-						<select name="semIni" id="semIni">
+					<div class="col-md-1" style="padding-top: 5px;">
+						<select name="semIni" id="semIni"  style="height: 24px;">
 							<option value="1">1</option>
 							<option value="2">2</option>
 						</select>
 					</div>
-
-					<div class="col-md-2">
+				</div>
+				<div class="col-md-4">	
+					<div class="col-md-6" style="padding-top: 5px;">
 						<label class="pText">Semestre fin:</label>
 					</div>
 
-					<div class="col-md-1">
+					<div class="col-md-3" style="padding-top: 5px;">
 						<input type="text" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
 						name="anhoFin" id="anhoFin"  placeholder="" value="">  
 					</div>
 
-					<div class="col-md-1">
-						<select name="semFin" id="semFin">
+					<div class="col-md-1" style="padding-top: 5px;">
+						<select name="semFin" id="semFin" style="height: 24px;">
 							<option value="1">1</option>
 							<option value="2">2</option>
 						</select>
 					</div>
 
-					<div class="col-md-2">
+					
+				</div>
+				<div class="col-md-4" style="text-align: center;">
 						<button id="btnBuscarDocs" class="btn btn-success pText customButtonThin">Buscar</button>
 					</div>
-
 				</div>
 
 				<div class="row">
