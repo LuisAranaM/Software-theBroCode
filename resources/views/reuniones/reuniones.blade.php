@@ -76,7 +76,7 @@
 								<!--CargarCurso-->
 
 								<tbody class="text-left" id="listaDocumentos">
-									<!--@foreach($documentos as $documento)
+									@foreach($documentos as $documento)
 									<tr class="even pointer" id="">
 
 
@@ -97,7 +97,7 @@
 										</td>
 
 									</tr>
-									@endforeach-->
+									@endforeach
 								</tbody>
 							</table>
 
