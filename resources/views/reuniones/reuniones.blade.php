@@ -26,12 +26,12 @@
 					</div>
 
 					<div class="col-md-2">
-						<input type="text" id="txt" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
-						name="semestreInicio" placeholder="" value="">  
+						<input type="text" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
+						name="anhoInicio" id="anhoInicio" placeholder="" value="">  
 					</div>
 
 					<div class="col-md-1">
-						<select name="semIni">
+						<select name="semIni" id="semIni">
 							<option value="1">1</option>
 							<option value="2">2</option>
 						</select>
@@ -42,12 +42,12 @@
 					</div>
 
 					<div class="col-md-2">
-						<input type="text" id="txt" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
-						name="semestreFin" placeholder="" value="">  
+						<input type="text" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
+						name="anhoFin" id="anhoFin"  placeholder="" value="">  
 					</div>
 
 					<div class="col-md-1">
-						<select name="semIni">
+						<select name="semFin" id="semFin">
 							<option value="1">1</option>
 							<option value="2">2</option>
 						</select>
@@ -60,6 +60,7 @@
 				</div>
 
 				<div class="row">
+					<!--<input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}"> -->
 					<h2 class="">Documentos</h2>
 					<div class="col-md-8">
 						<div class="table-responsive">
@@ -75,28 +76,7 @@
 								<!--CargarCurso-->
 
 								<tbody class="text-left" id="listaDocumentos">
-									@foreach($documentos as $documento)
-									<tr class="even pointer" id="">
-
-
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$documento->DOCUMENTO_ANHO}}-{{$documento->DOCUMENTO_SEMESTRE}}</td>
-										@if($documento->TIPO_DOCUMENTO == "acta")
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Acta de Reunión</td>
-										@else
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Plan de Mejora</td>
-										@endif
-										<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$documento->NOMBRE)}}" download="{{$documento->NOMBRE}}" style="text-decoration: underline;">{{$documento->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
-
-										<td>
-											<label>
-												<input type="checkbox" class="form-check-input checkDoc" 
-												name="checkDocs[]" value="{{$documento->NOMBRE}}" style="text-align: center;" >
-												<span class="pText label-text "></span>
-											</label>
-										</td>
-
-									</tr>
-									@endforeach
+									
 								<!---
 									
 								<tr class="even pointer" id="">

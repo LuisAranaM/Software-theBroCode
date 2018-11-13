@@ -70,4 +70,15 @@ class PlanesDeMejora extends Eloquent
         //dd($sql);
         return $sql;
     }
+
+    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin){
+        
+        $ans = DB::table('DOCUMENTOS_REUNIONES')
+            ->select('DOCUMENTOS_REUNIONES.*')
+            ->where('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE','>=',$anhoInicio*10 + $semIni)
+            ->where('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE','<=',$anhoFin*10 + $semFin)
+            ->orderBy('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE', 'desc')
+            ->get()->toArray();
+        return $ans;
+    }
 }

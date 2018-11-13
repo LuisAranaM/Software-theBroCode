@@ -98,7 +98,7 @@ Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion'])
 Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunionesGestion']);
 Route::post('/reuniones/guardar', ['as'=>'reuniones.store','uses'=>'ReunionesController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/reuniones-descargarDocumentos', ['as'=>'descDocs','uses'=>'ReunionesController@descargarDocumentosReuniones']);
-
+Route::get('/resultadosFiltroDocs', ['as'=>'reultadosFiltro.docs','uses'=>'ReportesController@resultadosFiltroDocs']);
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
