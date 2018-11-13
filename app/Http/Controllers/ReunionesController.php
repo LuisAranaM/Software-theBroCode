@@ -18,7 +18,7 @@ class ReunionesController extends Controller
 
     public function reunionesGestion() {    
         return view('reuniones.reuniones');
-       // ->with('documentos',PlanesDeMejora::buscarDocumentos());
+        ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     function resultadosFiltroDocs(Request $request){
         //flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();

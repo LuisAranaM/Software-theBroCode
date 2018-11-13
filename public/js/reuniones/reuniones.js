@@ -37,7 +37,7 @@ $( document ).ready(function() {
 		semFin = document.getElementById('semFin').options[document.getElementById('semFin').selectedIndex].value;
 		console.log("leyo sem fin");
 		console.log(semFin);
-		filtrarDocumentosReuniones(array,anhoInicio,semIni,anhoFin,semFin);
+		//filtrarDocumentosReuniones(array,anhoInicio,semIni,anhoFin,semFin);
 	});
 
 
