@@ -86,10 +86,6 @@ Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
-
-/***GENERAR AVISOS***/
-Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion']);
-
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
@@ -122,3 +118,10 @@ Route::get('/exportarExcelResporte1', ['as'=>'exportar.reporte1','uses'=>'Report
 Route::get('/exportarExcelResporte2', ['as'=>'exportar.reporte2','uses'=>'ReportesController@exportarReporteCursosResultado']);
 //Reporte consolidado
 Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'ReportesController@exportarReporteConsolidado']);
+
+/**AVISOS**/
+Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+	Route::post('/generar-aviso', ['as'=>'generar.aviso','uses'=>'AvisosController@generarAviso']);
+	Route::get('/avisos', ['as'=>'avisos','uses'=>'AvisosController@gestionAvisos']);
+});
+

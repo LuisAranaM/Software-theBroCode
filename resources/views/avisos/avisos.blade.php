@@ -24,13 +24,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div id="listaAvisos" class="row">
+				@foreach ($avisos as $a) 
 				<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
 					<button type="button" class="closeaviso close" data-dismiss="alert" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" textoaviso="Se acrca la fecha de cierre de notas, por favor concluir con las calificaciones."><span aria-hidden="true">×</span>
 
 					</button>
+					<p class="pText">{{$a->FECHA_INICIO}} a {{$a->FECHA_FIN}} : {{$a->DESCRIPCION}}</p>
+					<!-->
 					<p class="pText">01/15/2018 a 01/25/2018 : Se acerca la fecha de cierre de notas, por favor concluir con las calificaciones.</p>
+					<-->
 				</div>
+				@endforeach
 			</div>
 
 		</div>
@@ -53,9 +58,9 @@
 		</div>
 		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 		<div class="modal-body">
-			<div class="row">
+			<div class="row" style="padding-left: 30px">
 				
-				<div class="col-xs-6">
+				<div class="col-xs-6 text-left">
 					<label class="pText">Seleccionar la fecha de inicio:</label>	
 				</div>
 				<div class="col-xs-6">
@@ -72,17 +77,13 @@
 						</fieldset>
 					</form>
 				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-xs-6" >
+				<div class="col-xs-12 text-left" >
 					<label class="pText">Texto a mostrar:</label>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12" >
-					<textarea name="texto" rows="3" cols="30" style="margin: 0px; height: 87px; width: 350px; resize: none;"></textarea>
+				<div class="col-md-12 text-left">
+					<textarea id="textoAviso" class="customInput" name="texto" rows="3" cols="30" style="margin: 0px; height: 87px; width: 530px; resize: none;"></textarea>
 				</div>
+
 			</div>
 
 			<div id="btnsAgregarCurso" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
