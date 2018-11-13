@@ -14,7 +14,8 @@ use DB;
 class ObjetivosEducacionalesController extends Controller
 {
     public function objetivosGestion() {    
-        return view('objetivos.objetivos');
-        //->with('documentos',PlanesDeMejora::buscarDocumentos());
+        return view('objetivos.objetivos')
+        ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
+        ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
     }
 }
