@@ -73,12 +73,13 @@ class PlanesDeMejora extends Eloquent
 
     static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin){
         
-        $ans = DB::table('DOCUMENTOS_REUNIONES')
-            ->select('DOCUMENTOS_REUNIONES.*')
-            ->where('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE','>=',$anhoInicio*10 + $semIni)
-            ->where('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE','<=',$anhoFin*10 + $semFin)
-            ->orderBy('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE', 'desc')
-            ->get()->toArray();
+        $sql = DB::table('DOCUMENTOS_REUNIONES')
+            ->select()
+            ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
+            ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'<=',$anhoFin*10 + $semFin)
+            ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+            ->get();
+        $ans=$sql->toArray();
         return $ans;
     }
 }

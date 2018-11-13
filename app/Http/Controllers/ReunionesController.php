@@ -21,6 +21,7 @@ class ReunionesController extends Controller
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     function resultadosFiltroDocs(Request $request){
+
         //flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
         return PlanesDeMejora::resultadosFiltroDocs($request->get('anhoInicio'),$request->get('semIni'),$request->get('anhoFin'),$request->get('semFin'));
         
