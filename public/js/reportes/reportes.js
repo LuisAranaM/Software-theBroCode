@@ -283,9 +283,10 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
     if (activePoint !== undefined) {
         var data = activePoint._chart.data;
         var datasetIndex = activePoint._datasetIndex;
+        var labels = data.labels[activePoint._index];
         var label = data.datasets[datasetIndex].label;
         var value = data.datasets[datasetIndex].data[activePoint._index];
-        console.log(label, value);
+        console.log(labels, label, value);
     }
  };
 
@@ -294,9 +295,10 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
     if (activePoint !== undefined) {
         var data = activePoint._chart.data;
         var datasetIndex = activePoint._datasetIndex;
+        var labels = data.labels[activePoint._index];
         var label = data.datasets[datasetIndex].label;
         var value = data.datasets[datasetIndex].data[activePoint._index];
-        console.log(label, value);
+        console.log(labels, label, value);
     }
  };
 
