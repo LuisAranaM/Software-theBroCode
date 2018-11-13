@@ -116,6 +116,9 @@ class Indicador extends \App\Entity\Base\Entity {
                 });
 
                 $codResultado = "";
+                $nombreCategoria = "";
+                $filaInicialCat = 6;
+                $filaFinalCat = 6;
                 $filaInicial = 4;
                 $filaFinal = 4;
                 $nIndicadores = 0;
@@ -124,10 +127,9 @@ class Indicador extends \App\Entity\Base\Entity {
 
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
-                        //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
-                        //dd($i);
+                        //solo la primera fila no lo hará, las siguientes verificarán si el 
                         if($i!=3){
-                            $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                            $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                             $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));  
                             $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');
                             $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
@@ -165,18 +167,32 @@ class Indicador extends \App\Entity\Base\Entity {
                         });
                         $sheet->row($i++, array("","Categoría", "Indicador","Promedio Indicador %","Promedio Resultado %"));
                         $filaInicial=$i;
+                        $filaInicialCat=$i;
+                    }
+                    else if($nombreCategoria!=$fila->NOMBRE_CATEGORIA){
                         
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        
+                        if($i!=$filaInicial){
+                            //dd($i,$filaInicialCat,$filaInicial,$filaFinalCat);
+                            $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
+                            //$sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');
+                            //$filaInicialCat=$i;
+                        }
+                        $filaInicialCat=$i;
                     }
                     
-                    $sheet->row($i, array('',$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
+                    $sheet->row($i, array('',$fila->NOMBRE_CATEGORIA, $fila->COD_RESULTADO.$fila->VALORIZACION.'. '.$fila->NOMBRE_INDICADOR,
                                 $fila->PORCENTAJE_PONDERADO));
                     $sheet->setHeight($i, 45);
                     $i++;
-                    $codResultado=$fila->COD_RESULTADO;
+                    $codResultado = $fila->COD_RESULTADO;
+                    $nombreCategoria = $fila->NOMBRE_CATEGORIA;
                     $filaFinal=$i;
+                    $filaFinalCat=$i;
                     $nIndicadores++;
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
-                }  
+                }
                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                 $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                 $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
@@ -194,8 +210,6 @@ class Indicador extends \App\Entity\Base\Entity {
                 });
             });
         })->download('xlsx');
-        //flash('El reporte se generó correctamente')->success();
-        //return back();
     }
 
     static function getReporteCursosResultado($filtros){
