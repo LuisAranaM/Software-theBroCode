@@ -10,6 +10,7 @@ use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
 use App\Entity\Resultado as eResultado;
 use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
 use App\Entity\Indicador as eIndicador;
+use App\Entity\Categoria as eCategoria;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -26,6 +27,22 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
+    public function getRubricaDeCurso($idCurso){
+        $rubricaDeCurso = [];
+        $rubricaDeCurso = json_decode(json_encode(eResultado::getResultadosbyIdCurso($idCurso),true));
+        $cantResultados = 0;/*
+        foreach ($rubricaDeCurso as $resultado){            
+            $cantResultados++;
+            $idResultado = $resultado->ID_RESULTADO;
+            $indicadoresxResultado = [];
+            $indicadoresxResultado = eCategoria::getCategoriaDeResultado($idResultado);
+            $rubricaDeCurso[$cantResultados][]=$indicadoresxResultado;
+        }
+        return $rubricaDeCurso;*/
+
+    }
 
 
     public function index(Request $request)
@@ -40,11 +57,13 @@ class ProfesorController extends Controller
         //dd(Proyecto::getRutaProyectos($idHorario));
         //d
         //dd(eAlumnosHasHorario::getAlumnosByIdHorario($idHorario),eAlumnosHasHorario::getAlumnoXHorario($idHorario));
+
         //dd(eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso),eIndicador::getIndicadores());
         //dd(eResultado::getResultadosbyIdCurso($idCurso));
         //dd(eResultado::getResultadosbyIdCurso($idCurso));
         //
         //dd(eAlumnosHasHorario::getAlumnoXHorario($idHorario));
+
         return view('profesor.alumnos')
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
@@ -53,7 +72,8 @@ class ProfesorController extends Controller
         ->with('projects',Proyecto::getRutaProyectos($idHorario))
         ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
         ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
-        ->with('todoIndicadores',eIndicador::getIndicadores());  
+        ->with('todoIndicadores',eIndicador::getIndicadores())
+        ->with('rubricaDeCurso',$this->getRubricaDeCurso($idCurso));  
     }
 
     public function profesorCalificar()
@@ -67,6 +87,7 @@ class ProfesorController extends Controller
     }
 
 
+    
 
 
     /**

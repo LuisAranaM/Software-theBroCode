@@ -99,6 +99,10 @@ Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunion
 Route::post('/reuniones/guardar', ['as'=>'reuniones.store','uses'=>'ReunionesController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/reuniones-descargarDocumentos', ['as'=>'descDocs','uses'=>'ReunionesController@descargarDocumentosReuniones']);
 
+//Rutas para objetivos educacionales
+Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion']);
+
+
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
