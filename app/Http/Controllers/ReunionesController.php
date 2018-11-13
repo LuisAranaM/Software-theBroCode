@@ -17,7 +17,7 @@ class ReunionesController extends Controller
     //
 
     public function reunionesGestion() {    
-        return view('reuniones.reuniones');
+        return view('reuniones.reuniones')
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     function resultadosFiltroDocs(Request $request){
