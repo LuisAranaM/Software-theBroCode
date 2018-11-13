@@ -36,7 +36,7 @@ class Avisos extends Eloquent
 		//dd($idSem);
         $sql = DB::table('AVISOS')
                 //->select('DESCRIPCION', DB::Raw('CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO'), DB::Raw('CONVERT(FECHA_FIN,DATE) AS FECHA_FIN'))
-        		->select('ID_AVISO', 'DESCRIPCION', DB::Raw('CONVERT(FECHA_INICIO, date) AS FECHA_INICIO'), DB::Raw('CONVERT(FECHA_FIN, date) AS FECHA_FIN'))
+        		->select('ID_AVISO', 'DESCRIPCION', DB::Raw('DATE_FORMAT(FECHA_INICIO, "%m/%d/%Y") AS FECHA_INICIO'), DB::Raw('DATE_FORMAT(FECHA_FIN, "%m/%d/%Y") AS FECHA_FIN'))
                 ->where('ESTADO','=',1)
                 ->where('ID_SEMESTRE','=',$idSem)
              	->where('ID_ESPECIALIDAD','=',$idEsp)

@@ -8,30 +8,31 @@ $( document ).ready(function() {
 
 	$("#btnAgregar").on("click", function(){
 		if($("#textoAviso").val().length==0){
-			$('#btnAgregar').attr('disabled',true);                
+			alert('Debe agregar una descripción');              
 		}
 		else{
-			$('#btnAgregar').removeAttr('disabled');        
+			var cadena =  $('#daterange').val();
+			var fechas = cadena.split(" - ");
+			console.log(fechas[0]);
+			console.log(fechas[1]);
+			fechasBD = convertirDateRange(fechas);
+			console.log(fechas[0]);
+			console.log(fechas[1]);
+			insertarAvisos($("#textoAviso").val(), fechas, fechasBD);
+			$("#modalAvisos").modal("hide");    
 		}
-		var cadena =  $('#daterange').val();
-		var fechas = convertirDateRange(cadena);
-		console.log(fechas[0]);
-		console.log(fechas[1]);
-		insertarAvisos($("#textoAviso").val(), fechas[0], fechas[1]);
-		$("#modalAvisos").modal("hide");		
+				
 	});
 
-	function convertirDateRange(range) {
-		var fechas = range.split(" - ");
+	function convertirDateRange(fechas) {
 		fecha1 = fechas[0].split("/");
 		fecha2 = fechas[1].split("/");
-		fechas[0] = fecha1[2] + "-" + fecha1[0] + "-" + fecha1[1];
-		fechas[1] = fecha2[2] + "-" + fecha2[0] + "-" + fecha2[1];
-		return fechas;
+		var fechasBD = [fecha1[2] + "-" + fecha1[0] + "-" + fecha1[1], fecha2[2] + "-" + fecha2[0] + "-" + fecha2[1]];
+		return fechasBD;
     }
 
 
-	function insertarAvisos(desc, fechaIni, fechaFin) {
+	function insertarAvisos(desc, fechas, fechasBD) {
 		//console.log("HOLA");
 		$.ajax({
 			url: APP_URL + 'avisos/generar-aviso',
@@ -41,8 +42,8 @@ $( document ).ready(function() {
 			},
 			data: {
 				_desc: desc,
-				_fechaIni: fechaIni,
-				_fechaFin: fechaFin,
+				_fechaIni: fechasBD[0],
+				_fechaFin: fechasBD[1],
 			},
 			dataType: "text",
 			success: function(result) {
@@ -50,7 +51,7 @@ $( document ).ready(function() {
 				html+='<div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">'
 				html+='<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">'
 				html+='<button type="button" class="closeaviso close" data-dismiss="alert" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" textoaviso="Se acrca la fecha de cierre de notas, por favor concluir con las calificaciones."><span aria-hidden="true">×</span></button>'
-				html += '<p class="pText">' + fechaIni + ' a ' + fechaFin + ' : ' + desc + '</p'
+				html += '<p class="pText">' + fechas[0] + ' a ' + fechas[1] + ' : ' + desc + '</p'
 				html += '</div>'
 				html += '</div>'
 				$('#listaAvisos').prepend(html);

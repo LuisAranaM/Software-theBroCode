@@ -70,7 +70,7 @@
 								<div class="controls">
 									<div class="input-prepend input-group">
 										<span class="add-on input-group-addon" ><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-										<input type="text" style="width: 200px; cursor:pointer;" name="daterange" id="daterange" class="form-control" value="01-01-2018 - 01-25-2018">
+										<input type="text" style="width: 200px; cursor:pointer;" name="daterange" id="daterange" class="form-control" >
 									</div>
 								</div>
 							</div>
