@@ -6,7 +6,7 @@
  */
 
 namespace App\Models;
-
+use DB;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -56,4 +56,11 @@ class Rol extends Eloquent
 	{
 		return $this->hasMany(\App\Models\Usuario::class, 'ID_ROL');
 	}
+
+	 static function getRolUsuario($idRol){
+        $sql=DB::table('ROLES')
+        			->select('NOMBRE')
+        			->where('ID_ROL','=',$idRol);
+        return $sql->first()->NOMBRE;
+    }
 }

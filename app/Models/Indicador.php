@@ -43,7 +43,8 @@ class Indicador extends Eloquent
 		'ID_ESPECIALIDAD' => 'int',
 		'ID_SEMESTRE' => 'int',
 		'USUARIO_MODIF' => 'int',
-		'ESTADO' => 'int'
+		'ESTADO' => 'int',
+		'VALORIZACION' => 'int'
 	];
 
 	protected $dates = [
@@ -111,12 +112,17 @@ class Indicador extends Eloquent
 
 	static function getIndicadores($idSem,$idEsp) {
 		$sql = DB::table('INDICADORES')
+				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.VALORIZACION','INDICADORES.NOMBRE')
 				->leftJoin('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
 				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'CATEGORIAS.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
 				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
 				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
-				->distinct();
+				->where('RESULTADOS.ESTADO', '=', 1)
+				->where('INDICADORES.ESTADO', '=', 1)
+				->distinct()
+				->orderBy('RESULTADOS.NOMBRE', 'ASC')
+				->orderBy('INDICADORES.VALORIZACION', 'ASC');
+		//dd($sql->get());
         return $sql;
     }
 	public function insertIndicador($idCat,$nombre,$orden, $idSem,$idEsp){
@@ -251,7 +257,7 @@ class Indicador extends Eloquent
 	static function exportarReporteResultadosCiclo($filtros,$idSemestre,$idEspecialidad){
     	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
     	->select('RES.ID_RESULTADO','RES.NOMBRE AS COD_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO','CAT.ID_CATEGORIA',
-    			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.NOMBRE AS NOMBRE_INDICADOR','IHAH.ID_INDICADOR',
+    			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.VALORIZACION','IND.NOMBRE AS NOMBRE_INDICADOR','IHAH.ID_INDICADOR',
 				DB::Raw('IFNULL(SUM(CASE WHEN ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE_PONDERADO'))		
 		->leftJoin('RESULTADOS AS RES',function($join){
 			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
@@ -291,7 +297,7 @@ class Indicador extends Eloquent
     	->select('RES.ID_RESULTADO','RES.NOMBRE AS COD_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO','CAT.ID_CATEGORIA',
     			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.NOMBRE AS NOMBRE_INDICADOR','CUR.ID_CURSO',
     			'CUR.CODIGO_CURSO','CUR.NOMBRE AS NOMBRE_CURSO','IHAH.ID_INDICADOR',DB::Raw('IFNULL(AVG(IHAH.ESCALA_CALIFICACION),0) AS PROMEDIO_CALIF'),
-				DB::Raw('IFNULL(SUM(CASE WHEN ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE_APROBADOS'))		
+				DB::Raw('IFNULL(SUM(CASE WHEN IHAH.ESCALA_CALIFICACION>2 THEN 1 ELSE 0 END)/(CASE WHEN COUNT(IHAH.ESCALA_CALIFICACION)=0 THEN 1 ELSE COUNT(ESCALA_CALIFICACION) END),0) AS PORCENTAJE_APROBADOS'))		
 		->leftJoin('RESULTADOS AS RES',function($join){
 			$join->on('RES.ID_RESULTADO','=','IHC.ID_RESULTADO');
 		})
@@ -303,6 +309,9 @@ class Indicador extends Eloquent
 		})
 		->leftJoin('CURSOS AS CUR',function($join){
 			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
+		})
+		->leftJoin('ALUMNOS AS ALU',function($join){
+			$join->on('ALU.ID_ALUMNO','=','IHC.ID_ALUMNO')
 		})
 		->leftJoin('HORARIOS AS HOR',function($join){
 			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
@@ -320,6 +329,7 @@ class Indicador extends Eloquent
 		->where('IND.ESTADO','=',1)  
 		->where('CAT.ESTADO','=',1)  
 		->where('HOR.ESTADO','=',1)
+		->where('ALU.ESTADO','=',1)
 		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
 		'IND.ID_INDICADOR','IND.NOMBRE','CUR.ID_CURSO','CUR.CODIGO_CURSO','CUR.NOMBRE','IHAH.ID_INDICADOR');
 

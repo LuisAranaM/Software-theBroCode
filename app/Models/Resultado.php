@@ -61,7 +61,8 @@ class Resultado extends Eloquent
                 ->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
                 ->where('ESTADO','=',1)
                 ->where('ID_SEMESTRE','=',$idSem)
-             	->where('ID_ESPECIALIDAD','=',$idEsp);
+				 ->where('ID_ESPECIALIDAD','=',$idEsp)
+				 ->orderBy('NOMBRE', 'ASC');
         //dd($sql->get());
         return $sql;
 
@@ -76,8 +77,8 @@ class Resultado extends Eloquent
 				->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
 				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
 				->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
-				
-				->distinct();
+				->distinct()
+				->orderBy('RESULTADOS.NOMBRE', 'ASC');
 
 		//Arana		
 		if($idResultado!=NULL){
