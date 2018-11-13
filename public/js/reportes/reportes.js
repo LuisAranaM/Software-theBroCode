@@ -75,7 +75,6 @@ $( document ).ready(function() {
      $('#btnDescargarReportes4').click(function() {
         $('#modalConsolidado').modal('hide');
     });
-
 });
 
 function callback(data) {   
@@ -233,10 +232,11 @@ function updateGraficoResultadosxCiclo(idSemestre) {
                                 beginAtZero:true
                             }
                         }]
-                    }
+                    },
+                    onClick: graficoResultadoxCicloClickEvent,
+                    onHover: cambiarCursor
                 }
             });
-
         },
         error: function (xhr, status, text) {
             e.preventDefault();
@@ -245,3 +245,18 @@ function updateGraficoResultadosxCiclo(idSemestre) {
         }
     });
 }
+
+function graficoResultadoxCicloClickEvent(evt, chartElement){
+    var activePoint = graficoResultadoxCiclo.getElementAtEvent(evt)[0];
+    if (activePoint !== undefined) {
+        var data = activePoint._chart.data;
+        var datasetIndex = activePoint._datasetIndex;
+        var label = data.datasets[datasetIndex].label;
+        var value = data.datasets[datasetIndex].data[activePoint._index];
+        console.log(label, value);
+    }
+ };
+
+ function cambiarCursor(evt, chartElement) {
+    event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+ }
