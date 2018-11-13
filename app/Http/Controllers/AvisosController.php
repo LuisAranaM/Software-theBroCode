@@ -84,16 +84,31 @@ class AvisosController extends Controller
     }
 
     public function generarAviso(Request $request){
-        $id = $request->get('_id', null);
         $desc = $request->get('_desc',null);
         $fechaIni = $request->get('_fechaIni',null);
         $fechaFin = $request->get('_fechaFin',null);
-        $idCat = eAvisos::insertAvisos($id, $desc,$fechaIni,$fechaFin);
+        //dd($request->all());
+        $id = eAvisos::insertAvisos($desc,$fechaIni,$fechaFin);
         return $id;
     }
+
+    public function eliminarAviso(Request $request) {
+        $idAviso = $request->get('_idAviso', null);
+        
+
+        if(eAvisos::eliminarAviso($idAviso)){
+            flash('El aviso se eliminó con éxito')->success();
+        } else {
+            flash('Hubo un error al tratar de eliminar el aviso')->error();
+        }
+
+        return back();
+    }
+
     public function gestionAvisos() {    
         $avisos = eAvisos::getAvisos();
         return view('avisos.avisos')
         ->with('avisos',$avisos);
     }
+
 }

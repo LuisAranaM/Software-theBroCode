@@ -120,8 +120,8 @@ Route::get('/exportarExcelResporte2', ['as'=>'exportar.reporte2','uses'=>'Report
 Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'ReportesController@exportarReporteConsolidado']);
 
 /**AVISOS**/
-Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+	Route::post('/eliminar-aviso', ['as'=>'eliminar.aviso','uses'=>'AvisosController@eliminarAviso']);
 	Route::post('/generar-aviso', ['as'=>'generar.aviso','uses'=>'AvisosController@generarAviso']);
 	Route::get('/avisos', ['as'=>'avisos','uses'=>'AvisosController@gestionAvisos']);
 });
-

@@ -35,22 +35,23 @@ class Avisos extends Eloquent
 	static function getAvisos($idSem,$idEsp) {
 		//dd($idSem);
         $sql = DB::table('AVISOS')
-                ->select('DESCRIPCION', 'FECHA_INICIO', 'FECHA_FIN')
+                //->select('DESCRIPCION', DB::Raw('CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO'), DB::Raw('CONVERT(FECHA_FIN,DATE) AS FECHA_FIN'))
+        		->select('ID_AVISO', 'DESCRIPCION', DB::Raw('CONVERT(FECHA_INICIO, date) AS FECHA_INICIO'), DB::Raw('CONVERT(FECHA_FIN, date) AS FECHA_FIN'))
                 ->where('ESTADO','=',1)
                 ->where('ID_SEMESTRE','=',$idSem)
-             	->where('ID_ESPECIALIDAD','=',$idEsp);
+             	->where('ID_ESPECIALIDAD','=',$idEsp)
+             	->orderBy('ID_AVISO', 'desc');
         //dd($sql->get());
         return $sql;
 
 	}
 
-	public function insertAviso($id, $desc,$fechaIni,$fechaFin, $idSem, $idEsp){
+	public function insertAviso($desc,$fechaIni,$fechaFin, $idSem, $idEsp){
 		DB::beginTransaction();
         $id=-1;
         try {
-            $id = DB::table('RESULTADOS')->insertGetId(
-		    	['ID_AVISO' => $id,
-		     	'DESCRIPCION' => $desc,
+            $id = DB::table('AVISOS')->insertGetId(
+		    	['DESCRIPCION' => $desc,
 		     	'FECHA_INICIO' => $fechaIni,
 		     	'FECHA_FIN' => $fechaFin,
 		     	'ID_SEMESTRE' => $idSem,
@@ -65,6 +66,24 @@ class Avisos extends Eloquent
             DB::rollback();
         }
 		return $id;
+	}
+
+	public function eliminarAviso($idAviso){
+		//dd("DEBUG");
+		DB::beginTransaction();
+        $status = true;
+       
+        try {
+            DB::table('AVISOS')
+                ->where('ID_AVISO','=',$idAviso)
+                ->update(['ESTADO'=>0]);
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
 	}
 	
 }

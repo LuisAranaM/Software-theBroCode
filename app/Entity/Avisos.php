@@ -20,9 +20,19 @@ class Avisos extends \App\Entity\Base\Entity {
         return mAvisos::getAvisos(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
 
-    static function insertAvisos($id, $desc,$fechaIni,$fechaFin){
+    static function insertAvisos($desc,$fechaIni,$fechaFin){
         $model = new mAvisos();
-        return $model->insertAviso($id, $desc,$fechaIni,$fechaFin, self::getIdSemestre(), self::getEspecialidadUsuario());
+        return $model->insertAviso($desc,$fechaIni,$fechaFin, self::getIdSemestre(), self::getEspecialidadUsuario());
+    }
+
+    static function eliminarAviso($idAviso){
+        $model = new mAvisos();
+        if ($model->eliminarAviso($idAviso)) {
+            return true;
+        } else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
     }
     
 }

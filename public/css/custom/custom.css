@@ -409,3 +409,21 @@ li {
    left: 580px;
 
 }
+
+.descriptionInput {
+  margin: 0px; 
+  height: 87px; 
+  width: 100%; 
+  resize: none;
+}
+
+.avisosModal {
+  width: 600px; 
+  height: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .avisosModal {
+    width: 400px;
+  } 
+}
