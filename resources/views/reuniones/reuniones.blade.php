@@ -25,7 +25,7 @@
 						<label class="pText">Semestre inicio:</label>
 					</div>
 
-					<div class="col-md-2">
+					<div class="col-md-1">
 						<input type="text" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
 						name="anhoInicio" id="anhoInicio" placeholder="" value="">  
 					</div>
@@ -41,7 +41,7 @@
 						<label class="pText">Semestre fin:</label>
 					</div>
 
-					<div class="col-md-2">
+					<div class="col-md-1">
 						<input type="text" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
 						name="anhoFin" id="anhoFin"  placeholder="" value="">  
 					</div>
