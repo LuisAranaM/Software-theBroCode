@@ -224,25 +224,31 @@ class Indicador extends \App\Entity\Base\Entity {
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
             $excel->setTitle('Reporte Resultados por Curso del semestre '.$semestre);
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
-                //Consideraciones previas
-                //$sheet->setAutoSize(true);
-                $sheet->mergeCells('A1:G1');
-                $sheet->setColumnFormat(array('G' => '0%'));
-                $i=1;
+
+                $sheet->setColumnFormat(array('H' => '0%'));
+                $sheet->getStyle('A2:G1000')->getAlignment()->setWrapText(true);
+                $sheet->cells('A2:G1000', function($cells) {
+                    $cells->setFontFamily('Arial');
+                    $cells->setFontSize(11);
+
+                });
+                $sheet->mergeCells('B2:H2');
+                
+                $i=2;
                 $sheet->setWidth(array(
-                                        'A'     =>  15,
-                                        'B'     =>  30,
+                                        'A'     =>  5,
+                                        'B'     =>  15,
                                         'C'     =>  30,
-                                        'D'     =>  30,
-                                        'E'     =>  30,
-                                        'F'     =>  15,
-                                        'G'     =>  15
+                                        'D'     =>  25,
+                                        'E'     =>  45,
+                                        'F'     =>  30,
+                                        'G'     =>  15,
+                                        'H'     =>  15,
                                     ));
 
-
-                $sheet->row($i++, array('Reporte Resultados por Curso del semestre '.$semestre));
-                $sheet->cells('A1:G1', function($cells) {    // manipulate the cell
-                            $cells->setBackground('#1FD7C1');
+                $sheet->setHeight($i, 30);
+                $sheet->row($i++, array('','REPORTE: RESULTADOS POR CURSOS DEL SEMESTRE '.$semestre));
+                $sheet->cells('B2:E2', function($cells) {    // manipulate the cell
                             $cells->setFontSize(20);
                             $cells->setFontWeight('bold');
                             $cells->setAlignment('center');
@@ -256,31 +262,30 @@ class Indicador extends \App\Entity\Base\Entity {
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
-                        if($i!=2){
-                            $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
+                        if($i!=3){
                             $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                            $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
                             $i++;
                         }
-                        $sheet->row($i++, array("Código","Resultado","Categoría", "Indicador",
+                        $sheet->row($i++, array("","Código","Resultado","Categoría", "Indicador",
                             "Curso","Promedio","Aprobados %"));
                         $filaInicial=$i;
                     }
-                    $sheet->row($i, array($fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
+                    $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
                             $fila->NOMBRE_CURSO,$fila->PROMEDIO_CALIF,$fila->PORCENTAJE_APROBADOS));
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
                     $filaFinal=$i;
                 }  
-                $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
                 //dd('A'.$filaInicial.':A'.($filaFinal-1));
                 
                 //Centrado
                 $sheet->cells('A2:G1000', function($cells) {   
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
-
                 });
             });
         })->download('xlsx');

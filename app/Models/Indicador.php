@@ -318,6 +318,9 @@ class Indicador extends Eloquent
 			$join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
 			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
 		})
+		->leftJoin('ALUMNOS AS ALU',function($join){
+			$join->on('ALU.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+		})
 		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
 		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
 		->where('CUR.ESTADO_ACREDITACION','=',1)  
@@ -328,7 +331,6 @@ class Indicador extends Eloquent
 		->where('HOR.ESTADO','=',1)
 		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
 		'IND.ID_INDICADOR','IND.NOMBRE','CUR.ID_CURSO','CUR.CODIGO_CURSO','CUR.NOMBRE','IHAH.ID_INDICADOR');
-
 		return $sql;
     }
 
