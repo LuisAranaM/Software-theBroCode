@@ -78,9 +78,9 @@
             <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
           </div>
           <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
+            <h1 class="reportsTitle mainTitle">Indicadores x Resultado </h1>
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-              <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            <button id="btnGraficoIndicadoresxResultado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -93,17 +93,17 @@
         <div class="row">
           <div class="col-xs-6">
             <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
-         </div>
-         <div class="col-xs-6 text-center">
-          <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
-          <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+          </div>
+          <div class="col-xs-6 text-center">
+            <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
             <button id="btnGraficoConsolidado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!-- Modales -->
@@ -225,7 +225,7 @@
     <!-- Fin Contenido del modal -->
   </div>
 </div>
-<!-- Fin Modal Curso x Resultado -->
+<!-- Fin Modal Resultado x Curso -->
 
 <!-- ******* 3. Modal Indicadores x Resultado ******* -->
 <div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
