@@ -61,6 +61,8 @@
     $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
 
     $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
+    $nombreRol=App\Entity\Rol::getRolUsuario();
+    //dd($nombreRol);
     $semestreActual=App\Entity\Semestre::getSemestre();
 ?>
 
@@ -142,7 +144,7 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - Coordinador de
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - {{$nombreRol}} de
                   {{$nombreEspecialidad}}
                   </span>
                   <span class=" fa fa-angle-down"></span>
