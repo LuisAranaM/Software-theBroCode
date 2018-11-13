@@ -18,45 +18,20 @@ $( document ).ready(function() {
                 $('.ciclos').append("<option value="+value.ID_SEMESTRE+">"+value.SEMESTRE+"</option>'");
             });
         }
-      });
+    });
+
+    // ***************** Combo boxes *****************
     //Cuando cambie el semestre del modal 1
     document.getElementById('ciclos1').onchange = function () {
         idSemestre = this.options[this.selectedIndex].value
         updategraficoResultadoxCiclo(idSemestre);
     }
     
-    //Boton para ingresar al Modal 1
-    $('#btnGraficoRxC').click(function() {
-        $('#ciclos1 option').last().prop('selected',true);
-        idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
-        updategraficoResultadoxCiclo(idSemestre);
-        $("#modalRxC").modal("show");
-    });
-
-    $('#btnDescargarReportes').click(function() {
-        $('#modalRxC').modal('hide');
-    });
-
-    $('#cerrarModalRxC').click(function() {
-        init_chartsgraficoCursosXResultado();
-        $('#modalRxC').modal('hide');
-    });
-
-    //Boton para ingresar al Modal 2
-    $('#btnGraficoResultadosCurso').click(function() {
-        $('#ciclos2 option').last().prop('selected',true);
-        idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
-        updateCmbCursos(idSemestre);
-        idCurso = document.getElementById('cursos2').options[0].value;
-        updateGraficoResultadosxCurso(idSemestre,idCurso);
-        $("#modalResultadosCurso").modal("show");
-    });
     //Cuando cambie el semestre del modal 2
     document.getElementById('ciclos2').onchange = function () {
         idSemestre = this.options[this.selectedIndex].value
         updateCmbCursos(idSemestre);
     }
-
     //Cuando cambie el curso del modal 2
     document.getElementById('cursos2').onchange = function () {
         idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
@@ -68,14 +43,56 @@ $( document ).ready(function() {
         $('#modalResultadosCurso').modal('hide');
     });
 
-    //Boton para ingresar al Modal 4
-     $('#btnGraficoConsolidado').click(function() {
-        $('#ciclos4 option').last().prop('selected',true);
-        $("#modalConsolidado").modal("show")
-    });
-
      $('#btnDescargarReportes4').click(function() {
         $('#modalConsolidado').modal('hide');
+    });
+
+    $('#btnDescargarReportes').click(function() {
+        $('#modalRxC').modal('hide');
+    });
+
+    $('#cerrarModalRxC').click(function() {
+        init_chartsgraficoCursosXResultado();
+        $('#modalRxC').modal('hide');
+    });
+
+    //Cuando cambie el semestre del modal 3
+    document.getElementById('ciclos3').onchange = function () {
+        idSemestre = this.options[this.selectedIndex].value
+        //updategraficoResultadoxCiclo(idSemestre);
+    }
+
+    // ***************** Botones que despliegan el modal *****************
+    //Boton para ingresar al Modal 1
+    $('#btnGraficoRxC').click(function() {
+        $('#ciclos1 option').last().prop('selected',true);
+        idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
+        updategraficoResultadoxCiclo(idSemestre);
+        $("#modalRxC").modal("show");
+    });
+
+    //Boton para ingresar al Modal 2
+    $('#btnGraficoResultadosCurso').click(function() {
+        $('#ciclos2 option').last().prop('selected',true);
+        idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
+        updateCmbCursos(idSemestre);
+        idCurso = document.getElementById('cursos2').options[0].value;
+        updateGraficoResultadosxCurso(idSemestre,idCurso);
+        $("#modalResultadosCurso").modal("show");
+    });
+
+    //Boton para ingresar al Modal 3
+    $('#btnGraficoIndicadoresResultado').click(function() {
+        //$('#ciclos1 option').last().prop('selected',true);
+        //idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
+        //updategraficoResultadoxCiclo(idSemestre);
+        $("#modalIxR").modal("show");
+    });
+
+    //Boton para ingresar al Modal 4
+    $('#btnGraficoConsolidado').click(function() {
+        $('#ciclos4 option').last().prop('selected',true);
+        $("#modalConsolidado").modal("show")
     });
 });
 
@@ -269,6 +286,85 @@ function updategraficoResultadoxCiclo(idSemestre) {
                 }
                 graficoResultadoxCiclo.update();
             }
+        },
+        error: function (xhr, status, text) {
+            xhr.preventDefault();
+            alert('Hubo un error al buscar la información');
+            item.removeClass('hidden').prev().addClass('hidden');
+        }
+    });
+}
+
+function updategraficoIndicadoresxResultado(idSemestre) {
+    //Grafico de barras
+    ctx1 = document.getElementById("graficoIndicadoresxResultado").getContext('2d');
+    $.ajax({
+		url: APP_URL + '/indicadoresResultado',
+		type: 'GET',
+		data: {
+            idSemestre: idSemestre
+		},
+		success: function (result) {
+            /*resultadosId=[];
+            resultadosNombre=[];
+            resultadosPorcentaje=[];
+            for(var i=0;i<result.length;i++){
+                resultadosId.push(result[i].ID_RESULTADO);
+                resultadosNombre.push(result[i].NOMBRE);
+                resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+            }
+            if (contResultadosxCiclo == 0) {
+                graficoResultadoxCiclo = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: resultadosNombre,
+                        datasets: [{
+                            label: 'Porcentaje',
+                            data: resultadosPorcentaje,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        },
+                        onClick: graficoResultadoxCicloClickEvent,
+                        onHover: cambiarCursor
+                    }
+                });
+                contResultadosxCiclo++;
+            }
+            else {
+                if (resultadosNombre.length == 0) {
+                    graficoResultadoxCiclo.data.labels = ['No se encontraron resultados en el ciclo'];
+                    graficoResultadoxCiclo.data.datasets.data = [0];
+                }
+                else {
+                    graficoResultadoxCiclo.data.labels = resultadosNombre;
+                    graficoResultadoxCiclo.data.datasets.data = resultadosPorcentaje;
+                }
+                graficoResultadoxCiclo.update();
+            }*/
         },
         error: function (xhr, status, text) {
             xhr.preventDefault();

@@ -80,7 +80,7 @@
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Indicadores x Resultado </h1>
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-            <button id="btnGraficoIndicadoresxResultado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            <button id="btnGraficoIndicadoresResultado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -240,7 +240,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Indicadores por Resultado</h4>
       </div>
       <!-- Fin Cabeza del modal -->
     
@@ -259,7 +259,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
+            <canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>
           </div> 
         </div>
       </div>
@@ -298,7 +298,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Consolidado Historico</h4>
       </div>
       <!-- Fin Cabeza del modal -->
     
