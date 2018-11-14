@@ -42,7 +42,8 @@ class IndicadoresHasCurso extends Eloquent
 		'ID_SEMESTRE' => 'int',
 		'ID_CURSO' => 'int',
 		'USUARIO_MODIF' => 'int',
-		'ESTADO' => 'int'
+		'ESTADO' => 'int',
+		'VALORIZACION' => 'int'
 	];
 
 	protected $dates = [
@@ -62,21 +63,32 @@ class IndicadoresHasCurso extends Eloquent
 		return $this->belongsTo(\App\Models\Curso::class, 'ID_CURSO');
 	}
 
+	static function getCantIndicadoresByCurso($idCurso, $idSemestre){
+		$ans = DB::table('INDICADORES_HAS_CURSOS')
+                ->select('*')
+                ->where('ESTADO','=',1)
+                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_CURSO', '=', $idCurso)
+                ->count();
+        return $ans;
+	}
 	
 	static function getIndicadoresbyIdCurso($idCurso,$idSem,$idEsp) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
+				->select('RESULTADOS.ID_RESULTADO','INDICADORES.ID_INDICADOR','INDICADORES.VALORIZACION','INDICADORES.NOMBRE')		
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 				->leftJoin('INDICADORES', 'INDICADORES_HAS_CURSOS.ID_INDICADOR', '=', 'INDICADORES.ID_INDICADOR')
 				->leftJoin('CATEGORIAS', 'INDICADORES_HAS_CURSOS.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
 				->leftJoin('RESULTADOS', 'INDICADORES_HAS_CURSOS.ID_RESULTADO', '=', 'RESULTADOS.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO','INDICADORES.ID_INDICADOR','INDICADORES.NOMBRE')
 				->where('RESULTADOS.ID_SEMESTRE', '=', $idSem)
 				->where('RESULTADOS.ID_ESPECIALIDAD', '=', $idEsp)
 				->where('INDICADORES_HAS_CURSOS.ESTADO', '=', 1)
 				->where('INDICADORES.ESTADO', '=', 1)
 				->where('CATEGORIAS.ESTADO', '=', 1)
 				->where('RESULTADOS.ESTADO', '=', 1)
-				->distinct();
+				->distinct()
+				->orderBy('RESULTADOS.NOMBRE', 'ASC')
+				->orderBy('INDICADORES.VALORIZACION', 'ASC');
         //dd($sql->get());
         return $sql;
 	}

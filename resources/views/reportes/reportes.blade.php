@@ -19,6 +19,7 @@
   </div>
 
   <!-- Inicio de Reportes -->
+  @include('flash::message')
   <div class="row">
     <!-- Seccion 1: Resultados x Ciclo -->
     <div class="col-md-6">
@@ -128,9 +129,10 @@
       <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
       
       <!-- Combo box -->
+      <form id="form" action="{{route('exportar.reporte1')}}">
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
-          <select id="ciclos1" class="ciclos form-control" required>
+          <select name="idSemestre" id="ciclos1" class="ciclos form-control" required>
           </select>
         </div>
       </div>
@@ -154,12 +156,11 @@
           <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-          </a>
+            <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
         </div>
       </div>
       <!-- Fin Botones inferiores del modal -->
+    </form>
     </div>
     <!-- Fin Contenido del modal -->
   </div>

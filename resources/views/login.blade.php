@@ -3,13 +3,15 @@
 @section('content')
 
 <div class="col-md-12 col-sm-12 col-xs-12">
-<img src="{{ URL::asset('img/logo.png') }}" alt="logoRubriK" style="height: 121.5px;width: 321.5px">
+<img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="height: 121.5px;width: 321.5px">
 </div>
 <form method="POST" action="{{ route('login.attempt') }}" >
     <div class="form-group">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input  class="form-control" placeholder="Usuario" type="text" required="" name="usuario">
-        <input class="form-control" placeholder="Contraseña" type="password" required="" name="pass">
+        <input class="form-control" placeholder="Contraseña" type="password" required="" name="pass" onKeyPress=" capLock(event) ">
+        <div id="caplock" style=" visibility:hidden ">El bloqueo de mayúsculas está activado</div>
+    
     </div>
     <div class="form-group">
         <button class="btn btn-primary" type="submit" style="font-size: 14px">Ingresar</button>
@@ -23,4 +25,8 @@
     </div>
     
 </form> 
+@stop
+
+@section('js-scripts')
+
 @stop

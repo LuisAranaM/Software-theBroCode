@@ -61,6 +61,8 @@
     $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
 
     $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
+    $nombreRol=App\Entity\Rol::getRolUsuario();
+    //dd($nombreRol);
     $semestreActual=App\Entity\Semestre::getSemestre();
 ?>
 
@@ -72,10 +74,11 @@
 
       <div class="col-md-3 left_col menu_fixed" >
         <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white">
-          <div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">
-            <a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>
-          </div>
-          <div class="clearfix" ></div>
+          <a href="#" class="site_title text-center" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 65%"/></a>
+          <!--<div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">-->
+            <!--<a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>-->
+          <!--</div>-->
+          <div class="clearfix" style="padding-bottom: 1px"></div>
           <hr id="sep-menu" style="border-color: 1px #D9DEE4; margin-top: 2px; margin-bottom: -10px">
 
           <!-- /menu profile quick info -->
@@ -113,6 +116,8 @@
                   </li>-->
                   <li class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
+                  <li class="pText"><a style="color:#72777a" href="{{route('objetivos')}}"><i class="fa fa-mortar-board"></i> Objetivos Educacionales</a>
+                  </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>
                 @endif
@@ -140,13 +145,14 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - Coordinador de
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - {{$nombreRol}} de
                   {{$nombreEspecialidad}}
                   </span>
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                   <li><a href="javascript:;"> Perfil</a></li>
+                  <li><a href="{{route('pass.update')}}"><i class="fa fa-key pull-right"></i>  Cambiar Contraseña</a></li>
                   <li>
                     <a href="javascript:;">
                       <span class="badge bg-red pull-right">50%</span>
@@ -167,7 +173,7 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-        @include('flash::message')
+        <!--@include('flash::message')-->
         @yield('content')         
       </div>
       <!-- /page content -->

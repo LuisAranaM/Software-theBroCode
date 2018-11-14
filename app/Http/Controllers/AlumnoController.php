@@ -50,71 +50,75 @@ class AlumnoController extends Controller
     }
 
     public function store(Request $request){
+
         if($request->hasFile('upload-file')){
-            $path = $request->file('upload-file')->getRealPath();
-            $data = \Excel::load($path)->get();
-            $fecha = date("Y-m-d H:i:s");
-            $usuario = Auth::user();
-            $especialidad = Entity::getEspecialidadUsuario();
-            $id_usuario = Auth::id();
-            $semestre_actual = Entity::getIdSemestre();
-            $idHorario = $request->input('codigoHorario'); 
-            $idProyecto = 1; 
-            //$especialidad = Entity::getEspecialidadUsuario();
-            if($data->count()){
-                foreach ($data as $key => $value) {
-                    // verificar si alumno ya existe en la BD
-                    
-                    if(DB::table('ALUMNOS')->where('CODIGO', $value->codigo)->doesntExist()){
-                        // insertar alumno en la bd
-                        DB::table('ALUMNOS')->insert(
-                            ['NOMBRES' => $value->nombres,
-                             'APELLIDO_PATERNO' => $value->apellido_paterno,
-                             'APELLIDO_MATERNO' => $value->apellido_materno,
-                             'CODIGO' => $value->codigo,
-                             'FECHA_REGISTRO' => $fecha,
-                             'FECHA_ACTUALIZACION' => $fecha,
-                             'ID_SEMESTRE'=>$semestre_actual,
-                             'ID_ESPECIALIDAD'=>$especialidad,
-                             'USUARIO_MODIF' => $usuario['ID_USUARIO'],
-                             'ESTADO' => 1
-                            ]);
-                    }
-                                       
-                    $q = DB::table('ALUMNOS')
-                                ->select('ID_ALUMNO')
-                                ->where('CODIGO', '=', $value->codigo )->get()->toArray();
-                    $this->trace('HOLIS2');
-                    $idAlumno = (int)($q[0]->ID_ALUMNO);
-                    $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
-                    whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ?',
-                        [$idAlumno,$idHorario,$idProyecto,$semestre_actual])->doesntExist();
+            try{
+                $path = $request->file('upload-file')->getRealPath();
+                $data = \Excel::load($path)->get();
+                $fecha = date("Y-m-d H:i:s");
+                $usuario = Auth::user();
+                $especialidad = Entity::getEspecialidadUsuario();
+                $id_usuario = Auth::id();
+                $semestre_actual = Entity::getIdSemestre();
+                $idHorario = $request->input('codigoHorario'); 
+                $idProyecto = 1; 
+                //$especialidad = Entity::getEspecialidadUsuario();
+                if($data->count()){
+                    foreach ($data as $key => $value) {
+                        // verificar si alumno ya existe en la BD
+                        
+                        if(DB::table('ALUMNOS')->where('CODIGO', $value->codigo)->doesntExist()){
+                            // insertar alumno en la bd
+                            DB::table('ALUMNOS')->insert(
+                                ['NOMBRES' => $value->nombres,
+                                 'APELLIDO_PATERNO' => $value->apellido_paterno,
+                                 'APELLIDO_MATERNO' => $value->apellido_materno,
+                                 'CODIGO' => $value->codigo,
+                                 'FECHA_REGISTRO' => $fecha,
+                                 'FECHA_ACTUALIZACION' => $fecha,
+                                 'ID_SEMESTRE'=>$semestre_actual,
+                                 'ID_ESPECIALIDAD'=>$especialidad,
+                                 'USUARIO_MODIF' => $usuario['ID_USUARIO'],
+                                 'ESTADO' => 1
+                                ]);
+                        }
+                                           
+                        $q = DB::table('ALUMNOS')
+                                    ->select('ID_ALUMNO')
+                                    ->where('CODIGO', '=', $value->codigo )->get()->toArray();
+                        //$this->trace('HOLIS2');
+                        $idAlumno = (int)($q[0]->ID_ALUMNO);
+                        $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
+                        whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ?',
+                            [$idAlumno,$idHorario,$idProyecto,$semestre_actual])->doesntExist();
 
-                    if($cond){
-                        $lista[] = ['ID_ALUMNO' => $idAlumno,
-                                    'ID_HORARIO' => $idHorario,
-                                    'ID_PROYECTO' => $idProyecto,
-                                    'ID_SEMESTRE' => $semestre_actual,
-                                    'FECHA_REGISTRO' => $fecha,
-                                    'ID_SEMESTRE'=>$semestre_actual,
-                                    'ID_ESPECIALIDAD'=>$especialidad,
-                                    'FECHA_ACTUALIZACION' => $fecha,
-                                    'USUARIO_MODIF' => $usuario['ID_USUARIO'],
-                                    'ESTADO' => 1];
+                        if($cond){
+                            $lista[] = ['ID_ALUMNO' => $idAlumno,
+                                        'ID_HORARIO' => $idHorario,
+                                        'ID_PROYECTO' => $idProyecto,
+                                        'ID_SEMESTRE' => $semestre_actual,
+                                        'FECHA_REGISTRO' => $fecha,
+                                        'ID_SEMESTRE'=>$semestre_actual,
+                                        'ID_ESPECIALIDAD'=>$especialidad,
+                                        'FECHA_ACTUALIZACION' => $fecha,
+                                        'USUARIO_MODIF' => $usuario['ID_USUARIO'],
+                                        'ESTADO' => 1];
+                        }
                     }
+                    //$this->trace('HOLIS3');
+                    if(!empty($lista)){
+                        #Curso::insert($lista_cursos);
+                        //$this->trace('Hasta aqui');
+                        DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
+                        //$this->trace('HOLIS5');
+                    }
+                    flash('Alumnos cargados correctamente')->success();
                 }
-                $this->trace('HOLIS3');
-                if(!empty($lista)){
-                    #Curso::insert($lista_cursos);
-                    $this->trace('HOLIS4');
-                    DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
-                    $this->trace('HOLIS5');
-                }
-                flash('Alumnos cargados correctamente manito')->success();
+            }catch(Exception $e){
+                flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+                return Redirect::back();
             }
-
-        }
-        else{
+        }else{
             flash('No se selecciono un archivo')->error();
         }
         return Redirect::back();

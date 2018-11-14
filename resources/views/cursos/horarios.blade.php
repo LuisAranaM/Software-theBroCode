@@ -24,7 +24,7 @@
       @endif
     </div>
   </div>
-
+@include('flash::message')
   <div class="row">
 
     @if($codCurso===null)
@@ -106,7 +106,6 @@
         <!-- start accordion -->
         <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
           @php ($nres = 0)
-          @php($count = 0)
           @foreach($resultados as $resultado)
           @php ($flagfirst = 1)
           @php ($nres = $nres + 1 )
@@ -119,14 +118,10 @@
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                   <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                     @php ($countId = 0)
-                    @php($count = 0)
-                    @foreach($todoIndicadores as $indicador)
+                    @foreach($indicadores as $indicador)
                     @php ($countId = $countId + 1)
                     @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
-                    @php ($count = $count + 1 )
-                    @endif
-                    @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
-                    <li role="presentation" class=""><a href="#tab_content{{$countId}}" class="primero{{$flagfirst}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$count}}</a>
+                    <li role="presentation" class=""><a href="#tab_content{{$countId}}" class="primero{{$flagfirst}}" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">Indicador {{$resultado->NOMBRE}}{{$indicador->VALORIZACION}}</a>
                     </li>
                     @php ($flagfirst = 0 )
                     @endif
@@ -134,9 +129,9 @@
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     @php ($countId = 0)
-                    @foreach($todoIndicadores as $indicador)
+                    @foreach($indicadores as $indicador)
                     @php ($countId = $countId + 1 )
-                    @if(($resultado->ID_RESULTADO==$indicador->ID_RESULTADO) and (in_array($indicador->ID_INDICADOR, $idInd)))
+                    @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
                     <div role="tabpanel" class="tab-pane fade" id="tab_content{{$countId}}" aria-labelledby="home-tab">
                       <p>{{$indicador->NOMBRE}}</p>
                     </div>
@@ -201,10 +196,8 @@
                       </td>
                     </tr>
                     <!-- checkbox de cada indicador-->
-                    @php ($count = 0)
                     @foreach($todoIndicadores as $indicador)
                     @if($resultado->ID_RESULTADO==$indicador->ID_RESULTADO)
-                    @php ($count = $count + 1 )
                     <tr class="even pointer">
                       <td class="a-center"  style="background-color: white; padding-right: 0px">
                        <div class="form-check" style="padding-left: 10px; width: 20px">
@@ -213,7 +206,7 @@
                         </label>
                       </div>
                     </td>
-                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$resultado->NOMBRE}}{{$count}}: {{$indicador->NOMBRE}}</td>
+                    <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$resultado->NOMBRE}}{{$indicador->VALORIZACION}}: {{$indicador->NOMBRE}}</td>
                   </td>
                 </tr>
                 @endif

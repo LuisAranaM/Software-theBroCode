@@ -8,6 +8,10 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use DB;
+use Log;
+use Jenssegers\Date\Date as Carbon;
+
 
 /**
  * Class So
@@ -27,7 +31,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class So extends Eloquent
+class Sos extends Eloquent
 {
 	public $timestamps = false;
 
@@ -44,7 +48,7 @@ class So extends Eloquent
 	];
 
 	protected $fillable = [
-		'DESCRIPCION',
+		'NOMBRE',
 		'FECHA_REGISTRO',
 		'FECHA_ACTUALIZACION',
 		'USUARIO_MODIF',
@@ -65,5 +69,14 @@ class So extends Eloquent
 	{
 		return $this->belongsToMany(\App\Models\Eo::class, 'sos_has_eos', 'ID_SOS', 'ID_EOS')
 					->withPivot('ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+	}
+
+	static function getObjetivosEstudiante($idSemestre,$idEspecialidad){
+		$objetivosEstudiante = DB::table('SOS')
+								->select('NOMBRE')
+								->where('ID_SEMESTRE','=',$idSemestre)
+								->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+								->where('ESTADO','=',1);
+		return $objetivosEstudiante;
 	}
 }

@@ -72,6 +72,21 @@ class Descripcion extends Eloquent
 
 		return $id;
 	}
+
+	private function max($a, $b){
+		if($a > $b) return $a;
+		return $b;
+	}
+
+	static function getValorizacionMaxima(){
+		$sql = DB::select('SELECT * FROM DESCRIPCIONES');
+		$ans = 0;
+		foreach($sql as $x){
+			$ans = max($ans,$x->VALORIZACION); 
+		}
+		return $ans;
+	}
+
 	static function getDescripcionesId($idInd) {
         $sql = DB::table('DESCRIPCIONES')
                 ->select('*')

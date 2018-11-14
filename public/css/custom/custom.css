@@ -405,10 +405,35 @@ li {
 }
 
 .pnotify-center {
-   top: 15px;
-   left: 580px;
+  background-color: #D5EAFA !important;
+  top: 15px;
+  left: 580px;
 
 }
+
+.ui-pnotify .ui-pnotify-container {
+  color: black;
+  background-color: #D5EAFA !important;
+  border-color: #D5EAFA !important;
+}
+
+
+.descriptionInput {
+  margin: 0px; 
+  height: 87px; 
+  width: 100%; 
+  resize: none;
+}
+
+.avisosModal {
+  width: 600px; 
+  height: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .avisosModal {
+    width: 400px;
+  } 
 
 .customButtonReuniones {
   height: 35px;
@@ -427,3 +452,27 @@ li {
   border-radius: 4px;
   height: 25px;
 }
+
+/*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
+/*.modalCargando {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading .modalCargando {
+    overflow: hidden;   
+}
+
+body.loading .modalCargando {
+    display: block;
+}
+*/

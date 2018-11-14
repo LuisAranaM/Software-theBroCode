@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use App\Models\Acta as mActa;
+use App\Models\Rol as mRol;
 use Jenssegers\Date\Date as Carbon;
 
-class Acta extends \App\Entity\Base\Entity {
+class Rol extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
     
@@ -22,5 +22,9 @@ class Acta extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getRolUsuario(){
+        $model = new mRol();
+        return $model->getRolUsuario(self::getUsuarioCompleto()->ID_ROL);
+    }
     
 }
