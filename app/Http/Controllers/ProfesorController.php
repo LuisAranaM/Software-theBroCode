@@ -83,7 +83,8 @@ class ProfesorController extends Controller
         //dd(Curso::getCursosYHorarios());
         //dd(Auth::user()->ID_ROL);
         return view('profesor.calificar')
-        ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
+            ->with('ultimoAviso','Función de Daniela')
+            ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
     }
 
 
@@ -229,7 +230,7 @@ class ProfesorController extends Controller
                     $html.=' idResultado="'.$idResultado.'" ';
                     $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
                     $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
-                   $html.=' onclick="new PNotify({
+                    $html.=' onclick="new PNotify({
                               title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
                               text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
                               type: '."'".'info'."'".',

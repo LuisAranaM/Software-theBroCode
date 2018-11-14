@@ -6,7 +6,7 @@
 @stop
 
 <div class="customBody">
-
+  <input type="text" id="ultimoAviso" value="{{$ultimoAviso}}">
   <div class="row">
     <div class="col-md-8 col-sm-6">
       <h1 class="mainTitle"> Seleccione horario a calificar</h1>
@@ -154,9 +154,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <script type="text/javascript">
   //PNotify
   $( document ).ready(function() {
+    var variableText='Hola';
     (new PNotify({
         title: 'Aviso',
-        text: 'Se acerca la fecha de cierre de notas, por favor concluir con las calificaciones.',
+        text: variableText,
         hide: true,
         sticker: false,
         nonblock: {
