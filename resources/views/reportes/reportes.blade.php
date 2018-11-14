@@ -30,15 +30,18 @@
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Resultados x Ciclo </h1>
-            <div class="row">
+            <div class="row"><!--
               <div class="groupBoxOptions">
                 <div class="form-check">
                   <label>
                     <input type="checkbox" checked=""> <span class="pText label-text ">Comparar con semestre anterior</span>
                   </label>
                 </div>
-              </div>
+              </div>-->
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+
               <button id="btnGraficoRxC" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            </div>
             </div>
           </div>
         </div>
@@ -54,15 +57,18 @@
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle"> Resultados x Curso </h1>
-            <div class="row">
+            <div class="row"><!--
               <div class="groupBoxOptions">
                 <div class="form-check">
                   <label>
                     <input type="checkbox" checked=""> <span class="pText label-text">Comparar con semestre anterior</span>
                   </label>
                 </div>
-              </div>
+              </div>-->
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+
               <button id="btnGraficoResultadosCurso" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            </div>
             </div>
           </div>
         </div>
