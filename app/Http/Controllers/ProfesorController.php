@@ -205,23 +205,27 @@ class ProfesorController extends Controller
               <p>'.$resultado->DESCRIPCION.'</p>
               ';*/
               $html='';
-              $html.='<label> Resultado:'.$resultado->NOMBRE.'</label><br>';
+              $html.='<label> Resultado: '.$resultado->NOMBRE.'</label><br>';
               $html.='<label>'.$resultado->DESCRIPCION.'</label>';
 
               $html.='<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">';
               foreach ($infoResultado as $indicador) {
                 $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
 
-                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.' '.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="smallText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
+                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
 
 
-                $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body"><div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
+                $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
+                foreach($indicador['DESCRIPCIONES'] as $descripcion){
+                    $html.='<p class="smallText"> - '.$descripcion['NOMBRE_VALORIZACION'].': '.$descripcion['NOMBRE_DESCRIPCION'].'</p>';
+                }
+                $html.='<div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
                 foreach($indicador['DESCRIPCIONES'] as $descripcion){
                     $checked='';
                     $active='';
                     if($descripcion['ESCALA_CALIFICACION']!=NULL){
                         $checked='checked';
-                        $active='active focus';
+                        $active='active';
                     }
                     $html.='<label class="btnCriteria btn btn-primary '.$active.'" ';
                     $html.=' idAlumno="'.$idAlumno.'" ';
@@ -231,11 +235,11 @@ class ProfesorController extends Controller
                     $html.=' idResultado="'.$idResultado.'" ';
                     $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
                     $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
-                    $html.=' onclick="new PNotify({
+                    /*$html.=' onclick="new PNotify({
                               title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
                               text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
                               type: '."'".'info'."'".',
-                              styling: '."'".'bootstrap3'."'".'});"';
+                              styling: '."'".'bootstrap3'."'".'});"';*/
 
                           $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
 
