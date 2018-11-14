@@ -7,6 +7,7 @@ $( document ).ready(function() {
 	});
 
 	$("#btnAgregar").on("click", function(){
+		console.log('HOLI');
 		if($("#textoAviso").val().length==0){
 			alert('Debe agregar una descripción');              
 		}

@@ -86,7 +86,7 @@
 
 			</div>
 
-			<div id="btnsAgregarCurso" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
+			<div id="btnsAgregarAvisos" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
 				<div class="row" style="text-align: center; padding-top: 10px">
 					<div class="col-md-12">
 						<button id="btnAgregar" class="btn btn-success pText customButtonThin" >Agregar</button>
