@@ -78,9 +78,9 @@
             <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
           </div>
           <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle">Indicadores x Resultado </h1>
+            <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-            <button id="btnGraficoIndicadoresResultado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+              <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -93,17 +93,17 @@
         <div class="row">
           <div class="col-xs-6">
             <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
-          </div>
-          <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
-            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+         </div>
+         <div class="col-xs-6 text-center">
+          <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
+          <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
             <button id="btnGraficoConsolidado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- Modales -->
@@ -128,9 +128,10 @@
       <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
       
       <!-- Combo box -->
+      <form id="form" action="{{route('exportar.reporte1')}}">
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
-          <select id="ciclos1" class="ciclos form-control" required>
+          <select name="idSemestre" id="ciclos1" class="ciclos form-control" required>
           </select>
         </div>
       </div>
@@ -154,12 +155,11 @@
           <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-          </a>
+            <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
         </div>
       </div>
       <!-- Fin Botones inferiores del modal -->
+    </form>
     </div>
     <!-- Fin Contenido del modal -->
   </div>
@@ -225,7 +225,7 @@
     <!-- Fin Contenido del modal -->
   </div>
 </div>
-<!-- Fin Modal Resultado x Curso -->
+<!-- Fin Modal Curso x Resultado -->
 
 <!-- ******* 3. Modal Indicadores x Resultado ******* -->
 <div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
@@ -240,7 +240,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Indicadores por Resultado</h4>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
       </div>
       <!-- Fin Cabeza del modal -->
     
@@ -259,7 +259,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>
+            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
           </div> 
         </div>
       </div>
@@ -298,7 +298,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Consolidado Historico</h4>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
       </div>
       <!-- Fin Cabeza del modal -->
     

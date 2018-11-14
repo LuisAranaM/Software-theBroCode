@@ -19,11 +19,11 @@ $( document ).ready(function() {
             });
         }
     });
-
     // ***************** Combo boxes *****************
     //Cuando cambie el semestre del modal 1
     document.getElementById('ciclos1').onchange = function () {
-        idSemestre = this.options[this.selectedIndex].value
+        idSemestre = this.options[this.selectedIndex].value;
+        //$(".ruta1").prop("href", "{{route('exportar.reporte1)}}?idSemestre="+idSemestre);
         updategraficoResultadoxCiclo(idSemestre);
     }
     
@@ -38,7 +38,12 @@ $( document ).ready(function() {
         
         idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
         updateGraficoResultadosxCurso(idSemestre,idCurso);
-}
+    }
+    $('#btnDescargarReportes1').click(function() {
+        idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
+        //$('#modalRxC').modal('hide');
+    });
+
      $('#btnDescargarReportes2').click(function() {
         $('#modalResultadosCurso').modal('hide');
     });
@@ -47,9 +52,7 @@ $( document ).ready(function() {
         $('#modalConsolidado').modal('hide');
     });
 
-    $('#btnDescargarReportes').click(function() {
-        $('#modalRxC').modal('hide');
-    });
+    
 
     $('#cerrarModalRxC').click(function() {
         init_chartsgraficoCursosXResultado();
@@ -58,7 +61,7 @@ $( document ).ready(function() {
 
     //Cuando cambie el semestre del modal 3
     document.getElementById('ciclos3').onchange = function () {
-        idSemestre = this.options[this.selectedIndex].value
+        idSemestre = this.options[this.selectedIndex].value;
         //updategraficoResultadoxCiclo(idSemestre);
     }
 
@@ -67,9 +70,12 @@ $( document ).ready(function() {
     $('#btnGraficoRxC').click(function() {
         $('#ciclos1 option').last().prop('selected',true);
         idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
+        //$("#ruta1").prop("href", "{{route('exportar.reporte1')}}");
         updategraficoResultadoxCiclo(idSemestre);
         $("#modalRxC").modal("show");
     });
+
+    
 
     //Boton para ingresar al Modal 2
     $('#btnGraficoResultadosCurso').click(function() {
@@ -131,6 +137,21 @@ function updateCmbCursos(idSemestre) {
       });
     
 }
+
+function descargarReporte1(idSemestre) {
+    $.ajax({
+        url: APP_URL + '/exportarExcelResporte1',
+		type: 'GET',
+		data: {
+            idSemestre: idSemestre
+        },
+        success: function( result ) {
+            console.log("exitoo");   
+        }
+      });
+    
+}
+
 var ctx2;
 var ctx;
 

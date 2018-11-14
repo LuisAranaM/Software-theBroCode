@@ -20,7 +20,7 @@ class ReportesController extends Controller
 
 	function exportarReporteResultadosCiclo(Request $request){
 		$filtros=[];
-		$reporte=Indicador::getReporteResultadosCiclo($filtros);
+		$reporte=Indicador::getReporteResultadosCiclo($filtros,$request->get('idSemestre'));
 		flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
 		return back();
 	}
