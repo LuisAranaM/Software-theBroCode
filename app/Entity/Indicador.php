@@ -66,6 +66,10 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model->getDataGraficoReporteResultadosCiclo($idSemestre,self::getEspecialidadUsuario())->get();   
     }
+    static function graficoIndicadoresResultado($idSemestre,$idResultado){
+        $model =new mIndicador();
+        return $model->getDataGraficoIndicadoresResultado($idSemestre,$idResultado,self::getEspecialidadUsuario())->get();   
+    }
 
     static function graficoReporteResultadosCurso($idSemestre,$idCurso){
         $model =new mIndicador();

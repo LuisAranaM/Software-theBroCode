@@ -332,4 +332,10 @@ class ResultadoController extends Controller
         }
         return $descripciones;
     }
+
+    public function getResultadosCbo(Request $request){
+        $idSemestre = $request->get('idSemestre', null);
+        return eResultado::getResultadosBySemestre($idSemestre);
+    }
+
 }
