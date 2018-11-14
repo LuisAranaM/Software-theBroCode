@@ -82,15 +82,15 @@ class Usuario extends \App\Entity\Base\Entity {
     }
 
 
-    public function changePassword($usuario,$apassword,$npassword){
+    public function actualizarContrasena($usuario,$apassword,$npassword){
 
         $model = new mUsuario();
-        if (!($model->verifyPassword($registro,$apassword))){
+        if (!($model->verificarContrasena($usuario,$apassword))){
             $this->setMessage('La contraseña ingresada no coincide con la original');
             return false;
         }
         else{
-            $model->updateNewPassword($registro,$npassword);
+            $model->actualizarContrasena($usuario,$npassword);
             $this->setMessage('La contraseña fue cambiada exitosamente');
             return true;
         }

@@ -152,6 +152,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                   <li><a href="javascript:;"> Perfil</a></li>
+                  <li><a href="{{route('pass.update')}}"><i class="fa fa-key pull-right"></i>  Cambiar Contraseña</a></li>
                   <li>
                     <a href="javascript:;">
                       <span class="badge bg-red pull-right">50%</span>
@@ -172,7 +173,7 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-        @include('flash::message')
+        <!--@include('flash::message')-->
         @yield('content')         
       </div>
       <!-- /page content -->
