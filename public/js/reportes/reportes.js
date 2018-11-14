@@ -419,6 +419,7 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         var value = data.datasets[datasetIndex].data[activePoint._index];
         console.log(labels, label, value);
     }
+    
  };
 
  function cambiarCursor(evt, chartElement) {

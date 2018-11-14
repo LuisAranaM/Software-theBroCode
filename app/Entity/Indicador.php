@@ -162,7 +162,6 @@ class Indicador extends \App\Entity\Base\Entity {
                             $cells->setFontWeight('bold');
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
-
                         });
                         $sheet->row($i++, array("","Categoría", "Indicador","Promedio Indicador %","Promedio Resultado %"));
                         $filaInicial=$i;
@@ -192,7 +191,6 @@ class Indicador extends \App\Entity\Base\Entity {
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
                 }
                 if(empty($reporte)){
-                    dd("hehe");
                     $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                     $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                     $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
@@ -203,12 +201,12 @@ class Indicador extends \App\Entity\Base\Entity {
                     $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');   
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
-                    //Centrado
-                    $sheet->cells('A2:G1000', function($cells) {   
-                        $cells->setAlignment('center');
-                        $cells->setValignment('center');
-                    });
+                    //Centrado 
                 }
+                $sheet->cells('A2:E1000', function($cells) {   
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
+                });
             });
         })->download('xlsx');
     }
@@ -314,12 +312,12 @@ class Indicador extends \App\Entity\Base\Entity {
                     }
                     
                     
-                    $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
+                    $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA,  $fila->COD_RESULTADO.$fila->VALORIZACION.'. '.$fila->NOMBRE_INDICADOR,
                             $fila->NOMBRE_CURSO,round($fila->PROMEDIO_CALIF,2),$fila->PORCENTAJE_APROBADOS));
                     $sheet->setHeight($i, 45);
                     if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#FF0000');});
                     else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('H'.$filaFinal, function($color){$color->setBackground('#00FF00');});
+                    else $sheet->cell('H'.$i, function($color){$color->setBackground('#00FF00');});
 
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
