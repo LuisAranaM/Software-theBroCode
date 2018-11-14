@@ -5,6 +5,7 @@
 
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
 @stop
@@ -154,14 +155,15 @@
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
         <div class="col-md-4 text-right">
-          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
-        </div>
-        <div class="col-md-4 text-left">
             <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
         </div>
+        <div class="col-md-4 text-left">
+          <a id="btnDescargarGraficos1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+        </div>
       </div>
-      <!-- Fin Botones inferiores del modal -->
     </form>
+      <!-- Fin Botones inferiores del modal -->
+    
     </div>
     <!-- Fin Contenido del modal -->
   </div>
@@ -201,7 +203,7 @@
         <!-- Combo box Resultado -->
         <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
           <div class="col-xs-offset-8 col-xs-3">
-            <select name="idSemestre" id="resultados" class="ciclos form-control" required>
+            <select id="cboResultados" class="resultados form-control" required>
             </select>
           </div>
         </div>

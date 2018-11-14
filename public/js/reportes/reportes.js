@@ -20,6 +20,20 @@ $( document ).ready(function() {
             });
         }
     });
+
+    $.ajax({
+        url: APP_URL + '/getResultadosCbo',
+		type: 'GET',
+		data: {
+            idSemestre: 2
+        },
+        async: false,
+        success: function( result ) {
+            $.each(result, function(i, value) {
+                $('.resultados').append("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
+            });
+        }
+      });
     // ***************** Combo boxes *****************
     //Cuando cambie el semestre del modal 1
     document.getElementById('ciclos1').onchange = function () {
@@ -66,17 +80,12 @@ $( document ).ready(function() {
         $('#modalRxC').modal('hide');
     });
 
-    //Cuando cambie el semestre del modal 1.2
-    //document.getElementById('ciclos3').onchange = function () {
-        /*$('#ciclos3 option').last().prop('selected',true);
-        idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
-        updateCmbResultados(idSemestre);*/
-    //}
-
     //Cuando cambie el resultado del modal 1.2
-    document.getElementById('resultados').onchange = function () {
-        /*idResultado = this.options[this.selectedIndex].value;
-        updategraficoIndicadoresxResultado(idSemestre, idResultado);*/
+    document.getElementById('cboResultados').onchange = function () {
+        idResultado = this.options[this.selectedIndex].value;
+        idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
+        //idResultado = document.getElementById('cboResultados').options[document.getElementById('cboResultados').selectedIndex].value;
+        updategraficoIndicadoresxResultado(idSemestre, idResultado);
     }
 
     // ***************** Botones que despliegan el modal *****************
@@ -91,7 +100,7 @@ $( document ).ready(function() {
 
     //Boton para ingresar al Modal 2
     $('#btnGraficoResultadosCurso').click(function() {
-        $('#ciclos2 option').last().prop('selected',true);
+        $('#ciclos2 option').last().attr('selected',true);
         idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
         updateCmbCursos(idSemestre);
         idCurso = document.getElementById('cursos2').options[0].value;
@@ -109,6 +118,21 @@ $( document ).ready(function() {
         $('#ciclos4 option').last().prop('selected',true);
         $("#modalConsolidado").modal("show")
     });
+
+    $('#btnDescargarGraficos1').click(function(event) {
+        // get size of report page
+        var reportPageHeight = 297;
+        var reportPageWidth = 210;
+        
+        var canvas = document.querySelector('#graficoResultadoxCiclo');
+        var dataURL = canvas.toDataURL();
+        var pdf = new jsPDF();
+        pdf.addImage(dataURL, 'PNG', 35, 50);
+        semestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].text;
+        pdf.text('Resultados del Ciclo '+semestre, 70, 40)
+        pdf.save('Gráfico Resultados '+semestre+".pdf");
+      });
+
 });
 
 function callback(data) {   
@@ -347,6 +371,8 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
 		},
 		success: function (result) {
             console.log(result);
+            updateCmbResultados(idSemestre);
+            document.getElementById('cboResultados').value = idResultado;
             indicadoresId=[];
             indicadoresNombre=[];
             indicadoresPorcentaje=[];
@@ -432,7 +458,6 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         $('#ciclos1 option').last().prop('selected',true);
         var idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
         updategraficoIndicadoresxResultado(idSemestre, globResultadosId[activePoint._index]);
-        
         $("#modalIxR").modal("show");
 
         // Se oculta el modal de Resultados x Curso
@@ -456,3 +481,46 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
  function cambiarCursor(evt, chartElement) {
     event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
  }
+
+ $('#downloadPdf').click(function(event) {
+  // get size of report page
+  var reportPageHeight = $('#reportPage').innerHeight();
+  var reportPageWidth = $('#reportPage').innerWidth();
+  
+  // create a new canvas object that we will populate with all other canvas objects
+  var pdfCanvas = $('<canvas />').attr({
+    id: "canvaspdf",
+    width: reportPageWidth,
+    height: reportPageHeight
+  });
+  
+  // keep track canvas position
+  var pdfctx = $(pdfCanvas)[0].getContext('2d');
+  var pdfctxX = 0;
+  var pdfctxY = 0;
+  var buffer = 100;
+  
+  // for each chart.js chart
+  $("canvas").each(function(index) {
+    // get the chart height/width
+    var canvasHeight = $(this).innerHeight();
+    var canvasWidth = $(this).innerWidth();
+    
+    // draw the chart into the new canvas
+    pdfctx.drawImage($(this)[0], pdfctxX, pdfctxY, canvasWidth, canvasHeight);
+    pdfctxX += canvasWidth + buffer;
+    
+    // our report page is in a grid pattern so replicate that in the new canvas
+    if (index % 2 === 1) {
+      pdfctxX = 0;
+      pdfctxY += canvasHeight + buffer;
+    }
+  });
+  
+  // create new pdf and add our new canvas as an image
+  var pdf = new jsPDF('l', 'pt', [reportPageWidth, reportPageHeight]);
+  pdf.addImage($(pdfCanvas)[0], 'PNG', 0, 0);
+  
+  // download the pdf
+  pdf.save('filename.pdf');
+});
