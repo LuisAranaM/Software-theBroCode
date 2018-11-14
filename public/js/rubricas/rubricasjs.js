@@ -400,10 +400,10 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 		success: function(result){
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
-				if(catIds[i]=="") continue;
 				if(cat[i]=="") borrarCategoria(catIds[i]);
 				else{
-					actualizarCategoria(catIds[i],cat[i]);
+					if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
+					else actualizarCategoria(catIds[i],cat[i]);
 				}
 			}
 			$("#modalAgregarResultado").modal("hide");
@@ -452,6 +452,7 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 			result = JSON.parse(result);
 			if(result== -2){
 				alert("Oops! Ya existe un indicador con este orden. Ingrese otro orden por favor");
+				return;
 			}
 			else{
 				for(i=0; i<descs.length;i++){
