@@ -41,8 +41,11 @@ $( document ).ready(function() {
 	$(document).on("click",".agregarIndicador", function(){
 		
 		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
-		$(".nombreIndicador").val("");
+		$(".ordenIndicador").val("");
 		$(".descripcionIndicador").val("");
+		$(".descOrd").val("");
+		$(".descNom").val("");
+		$(".desc").val("");
 		$("#modalIndicador").modal("show");
 		$("#modalIndicador").val($(this).attr('id'));
 	});
