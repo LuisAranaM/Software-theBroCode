@@ -79,7 +79,7 @@ $( document ).ready(function() {
 
     //Boton para ingresar al Modal 2
     $('#btnGraficoResultadosCurso').click(function() {
-        $('#ciclos2 option').last().prop('selected',true);
+        $('#ciclos2 option').last().attr('selected',true);
         idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
         updateCmbCursos(idSemestre);
         idCurso = document.getElementById('cursos2').options[0].value;
