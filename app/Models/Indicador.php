@@ -310,9 +310,6 @@ class Indicador extends Eloquent
 		->leftJoin('CURSOS AS CUR',function($join){
 			$join->on('CUR.ID_CURSO','=','IHC.ID_CURSO');
 		})
-		->leftJoin('ALUMNOS AS ALU',function($join){
-			$join->on('ALU.ID_ALUMNO','=','IHC.ID_ALUMNO')
-		})
 		->leftJoin('HORARIOS AS HOR',function($join){
 			$join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
 			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');

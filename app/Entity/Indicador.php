@@ -86,8 +86,8 @@ class Indicador extends \App\Entity\Base\Entity {
             $excel->setTitle('Reporte Resultados del semestre '.$semestre);
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
                 $sheet->setColumnFormat(array('D' => '0%','E' => '0%'));
-                $sheet->getStyle('A2:G1000')->getAlignment()->setWrapText(true);
-                $sheet->cells('A2:G1000', function($cells) {
+                $sheet->getStyle('A2:H1000')->getAlignment()->setWrapText(true);
+                $sheet->cells('A2:H1000', function($cells) {
                     $cells->setFontFamily('Arial');
                     $cells->setFontSize(11);
 
@@ -181,7 +181,6 @@ class Indicador extends \App\Entity\Base\Entity {
                         }
                         $filaInicialCat=$i;
                     }
-                    
                     $sheet->row($i, array('',$fila->NOMBRE_CATEGORIA, $fila->COD_RESULTADO.$fila->VALORIZACION.'. '.$fila->NOMBRE_INDICADOR,
                                 $fila->PORCENTAJE_PONDERADO));
                     $sheet->setHeight($i, 45);
@@ -193,7 +192,7 @@ class Indicador extends \App\Entity\Base\Entity {
                     $nIndicadores++;
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
                 }
-                $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                 $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                 $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                 $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
@@ -226,8 +225,8 @@ class Indicador extends \App\Entity\Base\Entity {
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
 
                 $sheet->setColumnFormat(array('H' => '0%'));
-                $sheet->getStyle('A2:G1000')->getAlignment()->setWrapText(true);
-                $sheet->cells('A2:G1000', function($cells) {
+                $sheet->getStyle('A2:H1000')->getAlignment()->setWrapText(true);
+                $sheet->cells('A2:H1000', function($cells) {
                     $cells->setFontFamily('Arial');
                     $cells->setFontSize(11);
 
@@ -253,34 +252,76 @@ class Indicador extends \App\Entity\Base\Entity {
                             $cells->setFontWeight('bold');
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
-
                 });
+                
 
                 $codResultado="";
                 $filaInicial=3;
                 $filaFinal=3;
+                $filaInicialCat=3;
+                $filaFinalCat=3;
+                $nombreCategoria="";
+                $filaInicialInd=3;
+                $filaFinalInd=3;
+                $nombreInd="";
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
                         if($i!=3){
+                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                            $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                             $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                             $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
                             $i++;
                         }
+                        $sheet->cells('B'.$i.':H'.$i,  function($cells) {
+                            $cells->setBackground('#000066');
+                            $cells->setFontColor('#FFFFFF');
+                            $cells->setFontWeight('bold');
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+        
+                        });
                         $sheet->row($i++, array("","Código","Resultado","Categoría", "Indicador",
                             "Curso","Promedio","Aprobados %"));
+                        
                         $filaInicial=$i;
+                        $filaInicialCat=$i;
+                        $filaInicialInd=$i;
                     }
+                    else if($nombreCategoria!=$fila->NOMBRE_CATEGORIA){
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        if($i!=$filaInicial){
+                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                            $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
+                        }
+                        $filaInicialCat=$i;
+                        $filaInicialInd=$i;
+                    }
+                    else if($nombreInd!=$fila->NOMBRE_INDICADOR){
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        if($i!=$filaInicialCat){
+                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                        }
+                        $filaInicialInd=$i;
+                    }
+                    
+                    
                     $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
                             $fila->NOMBRE_CURSO,$fila->PROMEDIO_CALIF,$fila->PORCENTAJE_APROBADOS));
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
+                    $nombreCategoria = $fila->NOMBRE_CATEGORIA;
+                    $nombreInd = $fila->NOMBRE_INDICADOR;
                     $filaFinal=$i;
+                    $filaFinalCat=$i;
+                    $filaFinalInd=$i;
                 }  
+                $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                 $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
-                //dd('A'.$filaInicial.':A'.($filaFinal-1));
                 
                 //Centrado
                 $sheet->cells('A2:G1000', function($cells) {   
