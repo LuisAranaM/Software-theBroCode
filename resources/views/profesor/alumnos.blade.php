@@ -16,6 +16,34 @@
     display:block;
   }
 
+  .modalCargando {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    opacity: 0.7;
+    background: #FFFFFF/*rgba( 255, 255, 255, .6 ) */
+                /*url('https://1.bp.blogspot.com/-tF9yshvZFJA/V7hCVvgU_VI/AAAAAAAAAmw/UP4HfIHN9dos1J8BHsxLLsQyayx8P_7qACLcB/s1600/jean-claude-van%2Bdamme-gif-transparente-vagonettas.gif') */
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modalCargando {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modalCargando {
+    display: block;
+}
+
   </style>
 
 @stop
@@ -135,7 +163,7 @@
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
  id="modalCalificacion" data-keyboard="false" data-backdrop="static"
- aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="z-index: 2000;position: fixed;">
  <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
   <div class="modal-content">
     <div class="modal-header">
@@ -185,6 +213,10 @@
 
 </div>
 
+
+
+
+<div class="modalCargando"><!-- Place at bottom of page --></div>
 
 @stop
 

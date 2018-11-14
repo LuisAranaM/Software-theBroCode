@@ -96,6 +96,11 @@ class Entity {
         return $model->getCiclo(self::getIdSemestre())->first()->SEMESTRE;
     }
 
+    public static function getSemestreByIdSemestre($idSemestre){
+        $model= new mSemestre();
+        return $model->getCiclo($idSemestre)->first()->SEMESTRE;
+    }
+
     public static function getEspecialidadUsuario(){
         //dd(Auth::user());
         $model=new mEspecialidad();

@@ -120,7 +120,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 			</div>
 
 			<div id="btnsAgregarCurso" class="modal-footer">
-				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center; padding-bottom: 100px">
+				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center; padding-bottom: 5px">
 					<div class="col-md-4">
 						<button id="btnAgregarIndicador" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px; " type="submit" name="submit">Cargar</button>
 					</div>

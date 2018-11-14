@@ -72,13 +72,12 @@ class Indicador extends \App\Entity\Base\Entity {
         return $model->getDataGraficoResultadosxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario())->get();
     }
 
-    static function getReporteResultadosCiclo($filtros){
+    static function getReporteResultadosCiclo($filtros, $idSemestre){
         $model =new mIndicador();
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
-        $semestre=self::getSemestre();
+        $semestre=self::getSemestreByIdSemestre($idSemestre);
         $nombreExcel='Reporte_Resultados_Ciclo_'.$nombreEspecialidad.'_'.$semestre;
-
-        $reporte=$model->exportarReporteResultadosCiclo($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        $reporte=$model->exportarReporteResultadosCiclo($filtros,$idSemestre,self::getEspecialidadUsuario())->get();
         //dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
@@ -192,21 +191,24 @@ class Indicador extends \App\Entity\Base\Entity {
                     $nIndicadores++;
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
                 }
-                $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
-                $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
-                $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
-                $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
-                if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
-                else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');}); 
-                $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');   
-                //dd('A'.$filaInicial.':A'.($filaFinal-1));
-                $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
-                //Centrado
-                $sheet->cells('A2:G1000', function($cells) {   
-                    $cells->setAlignment('center');
-                    $cells->setValignment('center');
-                });
+                if(empty($reporte)){
+                    dd("hehe");
+                    $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
+                    $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
+                    $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
+                    $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
+                    if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
+                    else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
+                    else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');}); 
+                    $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');   
+                    //dd('A'.$filaInicial.':A'.($filaFinal-1));
+                    $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
+                    //Centrado
+                    $sheet->cells('A2:G1000', function($cells) {   
+                        $cells->setAlignment('center');
+                        $cells->setValignment('center');
+                    });
+                }
             });
         })->download('xlsx');
     }
@@ -264,6 +266,9 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaInicialInd=3;
                 $filaFinalInd=3;
                 $nombreInd="";
+
+                $style = array('font' => array('size' => 15,'bold' => true));
+
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
@@ -272,6 +277,8 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                             $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                             $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
+                            $sheet->setBorder('B'.($filaInicial-1).':H'.($filaFinal-1), 'thin');
+                            $sheet->getStyle("G".$filaInicial.":H".($filaFinal-1))->applyFromArray($style);
                             $i++;
                         }
                         $sheet->cells('B'.$i.':H'.$i,  function($cells) {
@@ -308,8 +315,12 @@ class Indicador extends \App\Entity\Base\Entity {
                     
                     
                     $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
-                            $fila->NOMBRE_CURSO,$fila->PROMEDIO_CALIF,$fila->PORCENTAJE_APROBADOS));
+                            $fila->NOMBRE_CURSO,round($fila->PROMEDIO_CALIF,2),$fila->PORCENTAJE_APROBADOS));
                     $sheet->setHeight($i, 45);
+                    if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#FF0000');});
+                    else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#FFFF00');});
+                    else $sheet->cell('H'.$filaFinal, function($color){$color->setBackground('#00FF00');});
+
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
                     $nombreCategoria = $fila->NOMBRE_CATEGORIA;
@@ -322,9 +333,10 @@ class Indicador extends \App\Entity\Base\Entity {
                 $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                 $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
-                
+                $sheet->setBorder('B'.($filaInicial-1).':H'.($filaFinal-1), 'thin');
+                $sheet->getStyle("G".$filaInicial.":H".($filaFinal-1))->applyFromArray($style);
                 //Centrado
-                $sheet->cells('A2:G1000', function($cells) {   
+                $sheet->cells('A2:H1000', function($cells) {   
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
                 });

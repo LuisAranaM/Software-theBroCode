@@ -153,14 +153,14 @@ class Usuario extends Authenticatable implements Auditable{
              ->where('USUARIO','=',$usuario)
             ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>$hoy]);
     }
-    public function updateNewPassword($usuario,$password){
+    public function actualizarContrasena($idUsuario,$password){
         return DB::table('USUARIOS')
-             ->where('USUARIO','=',$usuario)
-            ->update(['PASS' => Hash::make($password)]);
+             ->where('ID_USUARIO','=',$idUsuario)
+            ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>Carbon::now(),'USUARIO_MODIF'=>$idUsuario]);
     }
-    public function verifyPassword($usuario,$apassword){
+    public function verificarContrasena($idUsuario,$apassword){
         $sql = DB::table('USUARIOS AS US')
-               ->where('USUARIO', '=', $usuario)
+               ->where('ID_USUARIO', '=', $idUsuario)
                ->where('ESTADO','=','1');
          
         //El usuario encontrado es la primera coincidencia (usuario es unico)     

@@ -71,6 +71,7 @@ $( document ).ready(function() {
 	$(document).on('click', '.btnCriteria', function(){
 		//console.log('HOLA');
 		$(this).find('input').attr('checked','true');
+
 		var idAlumno = $(this).attr('idAlumno');
 		var idHorario = $(this).attr('idHorario');
 		var idIndicador = $(this).attr('idIndicador');
@@ -146,6 +147,19 @@ $( document ).ready(function() {
         }
 		});
 	}
+
+	$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { 
+    	$('#modalCalificacion').css('z-index',1000);
+    	$body.addClass("loading");    
+    },
+     ajaxStop: function() { 
+    	$('#modalCalificacion').css('z-index',2000);
+     	$body.removeClass("loading");
+     	 }    
+});
 });
 
 

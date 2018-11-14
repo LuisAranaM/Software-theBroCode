@@ -55,4 +55,53 @@ class PassController extends Controller {
         } 
         return $randomString;
     }
+
+     function formularioNuevaContrasena(Request $request) {
+        return view('passUpdate');
+    }
+
+     function actualizarContrasena(Request $request){
+        /*
+            Mediante esta función lograremos actualizar en la base de datos
+            la nueva contraseña que el usuario haya elegido
+        */
+            
+            $passA=$request->get('passwA');
+            $passN=$request->get('passwN');
+            $passR=$request->get('passwR');
+
+            $usuarioActual = Auth::id(); 
+            
+            $usuario=new Usuario();
+            
+            if(!($passN==$passR)) {
+                 $usuario->setMessage('La contraseña de confirmación no coincide con la nueva ingresada');
+                 flash($usuario->getMessage())->error();
+                 return back();
+            }
+            else if(strlen($passN)<6 and strlen($passN)>20){
+                 $usuario->setMessage('La contraseña debe ser mayor a 6 caracteres y menor a 20');
+                 flash($usuario->getMessage())->error();
+                 return back();
+            }
+            else{                
+                if($passA==$passN){
+                    $usuario->setMessage('La nueva contraseña debe de ser diferente de la anterior');
+                    flash($usuario->getMessage())->error();
+                    return back();
+                }
+
+                if($usuario->actualizarContrasena($usuarioActual,$passA,$passN)){
+                    flash($usuario->getMessage())->success();
+                    return back();
+                }
+                else{
+                    flash($usuario->getMessage())->error();
+                    return back();
+                }
+            
+            }
+
+            
+    }
 }

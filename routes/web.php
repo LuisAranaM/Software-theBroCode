@@ -32,6 +32,8 @@ Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 Route::post('/login', ['as' => 'login.attempt', 'uses' => 'LoginController@attempt']);
 /* RUTAS RECUPERACION */
 Route::get('/pass-gen', ['as' => 'pass.gen', 'uses' => 'PassController@gen']);
+Route::get('/pass-update', ['as' => 'pass.update', 'uses' => 'PassController@formularioNuevaContrasena']);
+Route::post('/pass-update-post',['as'=>'pass.update.post','uses'=>'PassController@actualizarContrasena']);
 Route::post('/pass-save', ['as' => 'pass.save', 'uses' => 'PassController@save']);
 Route::get('/extra-login', ['as' => 'pass.login', 'uses' => 'PassController@login']);
 Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController@attempt']);
@@ -132,9 +134,9 @@ Route::get('/rubricas/categorias', ['as'=>'rubricas.categorias','uses'=>'Resulta
 Route::post('/actualizar-indicadores-curso', ['as'=>'actualizar.indicadorescurso','uses'=>'HorarioController@actualizarIndicadoresCurso']);
 
 //Reporte de cursos
-Route::get('/exportarExcelResporte1', ['as'=>'exportar.reporte1','uses'=>'ReportesController@exportarReporteResultadosCiclo']);
+Route::get('/exportarExcelReporte1', ['as'=>'exportar.reporte1','uses'=>'ReportesController@exportarReporteResultadosCiclo']);
 //Reporte de cursos
-Route::get('/exportarExcelResporte2', ['as'=>'exportar.reporte2','uses'=>'ReportesController@exportarReporteCursosResultado']);
+Route::get('/exportarExcelReporte2', ['as'=>'exportar.reporte2','uses'=>'ReportesController@exportarReporteCursosResultado']);
 //Reporte consolidado
 Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'ReportesController@exportarReporteConsolidado']);
 
