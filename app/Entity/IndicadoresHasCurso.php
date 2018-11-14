@@ -16,6 +16,10 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getCantIndicadoresByCurso($idCurso, $idSemestre){
+        return mIndicadoresHasCurso::getCantIndicadoresByCurso($idCurso, $idSemestre);
+    }
+
     function setValueToTable() {
         return $this->cleanArray([
             'FECHA_REGISTRO' => $this->_fechaRegistro,

@@ -9,6 +9,7 @@ namespace App\Models;
 
 use DB;
 use Log;
+use App\Models\Descripcion as Descripcion;
 use App\Entity\Alumno as Alumno;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
@@ -97,6 +98,15 @@ class Horario extends Eloquent
 		if($tot == 0)
 			return 0;
 		$ans = $part / $tot;
+		return $ans;
+	}
+
+	// Arana ctm
+	static function getIndicadoresHasAlumnosHasHorarios($idHorario){
+		$ans = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+				->get();
 		return $ans;
 	}
 

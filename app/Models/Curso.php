@@ -9,6 +9,8 @@ namespace App\Models;
 
 use DB;
 use Log;
+use App\Entity\IndicadoresHasCurso as IndicadoresHasCurso;
+use App\Entity\Descripcion as Descripcion;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -91,19 +93,63 @@ class Curso extends Eloquent
                 ->where('ESTADO_ACREDITACION','=',1)
                 ->where('ID_SEMESTRE','=',$idSemestre)
                 ->get();
+    
     $ans = array();
+    $cantValorizacion = Descripcion::getValorizacionMaxima();
+
     foreach($cursos as $c){
+      
       $data["curso"] = $c;
-      Curso::trace('IDCURSO');
-      Curso::trace($c->ID_CURSO);
       $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
+      $cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
+
       foreach($horarios as $h){
-        Curso::trace('IDHORARIO');
-        Curso::trace($h->ID_HORARIO);
         $horario["horario"] = $h;
-        $horario["avance"] = Horario::getAvance($h->ID_HORARIO);
-        $horario["alumnosCalif"] = Horario::getAlumnosCalif($h->ID_HORARIO);
-        $horario["alumnosTotal"] = Horario::getCantAlumnos($h->ID_HORARIO);
+        $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO);
+        /* Calcular avance */
+        $tot = 0; $part = 0;
+        $idAlumnos = array();
+        foreach($results as $x){
+            if($x->ESTADO == 0)
+                continue;
+            $id = $x->ID_ALUMNO;
+            $part++;
+            $has = false;
+            foreach($idAlumnos as $a){
+                if($a == $id){
+                    $has = true;
+                    break;
+                }
+            }
+            if($has == false){
+                $tot++;
+                $idAlumnos[] = $id;
+            }
+        }
+        $tot = $tot * $cantValorizacion * $cantIndicadores;
+        $res = 0;
+        //Curso::trace('Part vale = '); Curso::trace($part);
+        //Curso::trace('Tot vale = '); Curso::trace($tot);
+        if($tot != 0) $res = round($part*100/$tot,2);
+        $horario["avance"] = $res;
+
+        /* Calcular alumnosTotal */
+        $horario["alumnosTotal"] = sizeof($idAlumnos);
+
+        /* Calcular alumnosCalif */
+        $res = 0;
+        foreach($idAlumnos as $x){
+            $cont = 0;
+            foreach($results as $y){
+                if($y->ID_ALUMNO == $x) $cont++;
+            }
+            if($cont == $cantValorizacion * $cantIndicadores) $res++;
+        }
+        $horario["alumnosCalif"] = $res;
+
+        //$horario["avance"] = Horario::getAvance($h->ID_HORARIO);
+        //$horario["alumnosCalif"] = Horario::getAlumnosCalif($h->ID_HORARIO);
+        //$horario["alumnosTotal"] = Horario::getCantAlumnos($h->ID_HORARIO);
         $info[] = $horario;
       }
       $data["horarios"] = $info;
@@ -111,19 +157,24 @@ class Curso extends Eloquent
       $ans[] = $data;
     }
 
+    /* Estoy comentando el query de aqui abajito porque se invoca y nadie lo usa lol
     if($usuario->ID_ROL==4){        
         $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
     }
-
+    */
+   
+    /*
     foreach($ans as $x){
       Curso::trace($x["curso"]->NOMBRE);
       foreach($x["horarios"] as $y){
         Curso::trace($y["horario"]->NOMBRE);
       }
     }
-
+    */
+   
     return $ans;
   }
+
 	static function getCursoByIdHorario($idHorario) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->join('HORARIOS', 'CURSOS.ID_CURSO', '=', 'HORARIOS.ID_CURSO')
