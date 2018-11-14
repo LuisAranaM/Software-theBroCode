@@ -113,11 +113,11 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-sm-3">
+				<div class="row" style="padding-left: 67px;">
+					<div class="col-sm-4">
 						<button id="btnDescargarDoc" class="btn btn-success pText customButtonReuniones" name="botonSubmit" value="Desc">Descargar Documento</button>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<button id="btnEliminarDoc" class="btn btn-success pText customButtonReuniones" name="botonSubmit" value="Elim">Eliminar Documento</button>
 					</div>
 				</div>
