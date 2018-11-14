@@ -8,7 +8,7 @@ $( document ).ready(function() {
     //Obtener los cursos
     //Inicializamos valores de los combobox de semestre
     $.ajax({
-        url: APP_URL + 'getSemestres',
+        url: APP_URL + '/getSemestres',
 		type: 'GET',
 		data: {
         },
@@ -116,7 +116,7 @@ function gestionarCboxRxC() {
 function updateCmbCursos(idSemestre) {
     //Grafico de barras
     $.ajax({
-        url: APP_URL + 'getCursosbyIdSemestre',
+        url: APP_URL + '/getCursosbyIdSemestre',
 		type: 'GET',
 		data: {
             idSemestre: idSemestre

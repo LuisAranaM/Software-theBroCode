@@ -22,5 +22,10 @@ class Sos extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getObjetivosEstudiante(){
+        
+        return mSos::getObjetivosEstudiante(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+    }
+
     
 }
