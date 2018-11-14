@@ -102,10 +102,10 @@ Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunion
 Route::post('/reuniones/guardar', ['as'=>'reuniones.store','uses'=>'ReunionesController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/reuniones-descargarDocumentos', ['as'=>'descDocs','uses'=>'ReunionesController@descargarDocumentosReuniones','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
+Route::get('/resultadosFiltroDocs', ['as'=>'reultadosFiltro.docs','uses'=>'ReunionesController@resultadosFiltroDocs']);
+
 //Rutas para objetivos educacionales
 Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
-
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
