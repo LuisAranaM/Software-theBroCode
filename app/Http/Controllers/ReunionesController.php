@@ -20,6 +20,12 @@ class ReunionesController extends Controller
         return view('reuniones.reuniones')
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
+    function resultadosFiltroDocs(Request $request){
+
+        //flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
+        return PlanesDeMejora::resultadosFiltroDocs($request->get('anhoInicio'),$request->get('semIni'),$request->get('anhoFin'),$request->get('semFin'));
+        
+    }
     public function store(Request $request){
         $tipoDoc = $request->get('tipoDoc', null); //ver si es acta o plan el value
         $ano = $request->get('ano', null);
@@ -54,14 +60,23 @@ class ReunionesController extends Controller
         //dd($request->all(),$request->get('botonSubmit',null));  
 
 
-
         $tipo=$request->get('botonSubmit',null);
         $checks=$request->get('checkDocs',null);
 
         if($checks!=NULL){
             //Funciones
             if($tipo=="Elim"){
-                dd('Elim');
+               // dd('Elim');
+                $files = array();
+
+                foreach ($checks as $key => $value) {
+                    $file= public_path(). "/upload/".$value;
+                   // dd($file);
+                    //$file->delete();
+                    //array_push($files, $file);
+                  //  if(File::exists($file)) File::delete($file);
+                } 
+
             }else{
                 //dd('Desc');
                 $files = array();
@@ -77,6 +92,8 @@ class ReunionesController extends Controller
             }
         }
         else{
+            //alert('No se ha seleccionado ningún documento para descargar.');
+            //flash('No se ha seleccionado ningún documento para descargar.')->success();
             return back();
         }
         /*$checks=$request->get('checkDocumentos',null);
