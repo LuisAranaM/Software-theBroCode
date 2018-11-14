@@ -264,6 +264,9 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaInicialInd=3;
                 $filaFinalInd=3;
                 $nombreInd="";
+
+                $style = array('font' => array('size' => 15,'bold' => true));
+
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
@@ -272,6 +275,8 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                             $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                             $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
+                            $sheet->setBorder('B'.($filaInicial-1).':H'.($filaFinal-1), 'thin');
+                            $sheet->getStyle("G".$filaInicial.":H".($filaFinal-1))->applyFromArray($style);
                             $i++;
                         }
                         $sheet->cells('B'.$i.':H'.$i,  function($cells) {
@@ -308,8 +313,12 @@ class Indicador extends \App\Entity\Base\Entity {
                     
                     
                     $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
-                            $fila->NOMBRE_CURSO,$fila->PROMEDIO_CALIF,$fila->PORCENTAJE_APROBADOS));
+                            $fila->NOMBRE_CURSO,round($fila->PROMEDIO_CALIF,2),$fila->PORCENTAJE_APROBADOS));
                     $sheet->setHeight($i, 45);
+                    if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#FF0000');});
+                    else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#FFFF00');});
+                    else $sheet->cell('H'.$filaFinal, function($color){$color->setBackground('#00FF00');});
+
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
                     $nombreCategoria = $fila->NOMBRE_CATEGORIA;
@@ -322,9 +331,10 @@ class Indicador extends \App\Entity\Base\Entity {
                 $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                 $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
-                
+                $sheet->setBorder('B'.($filaInicial-1).':H'.($filaFinal-1), 'thin');
+                $sheet->getStyle("G".$filaInicial.":H".($filaFinal-1))->applyFromArray($style);
                 //Centrado
-                $sheet->cells('A2:G1000', function($cells) {   
+                $sheet->cells('A2:H1000', function($cells) {   
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
                 });
