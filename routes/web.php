@@ -149,9 +149,12 @@ Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|
 });
 
 Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesController@graficoReporteResultadosCiclo']);
+Route::get('/indicadoresResultado', ['as'=>'grafico.indicadoresResultado','uses'=>'ReportesController@graficoIndicadoresResultado']);
+
 Route::get('/getSemestres', ['as'=>'get.ciclos','uses'=>'SemestreController@getSemestres']);
 Route::get('/getCursosbyIdSemestre', ['as'=>'get.cursos','uses'=>'CursoController@getCursosbyIdSemestre']);
 Route::get('/resultadosCurso', ['as'=>'resultados.curso','uses'=>'ReportesController@graficoResultadosxCurso']);
+Route::get('/getResultadosCbo', ['as'=>'resultados.cbo','uses'=>'ResultadoController@getResultadosCbo']);
 
 Route::post('/modal-calificar-fetch-resultados',['as'=>'fetch.resultados','uses'=>'ProfesorController@fetchResultados']);
 
