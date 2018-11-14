@@ -6,7 +6,7 @@
 @stop
 
 <div class="customBody">
-  <input type="text" id="ultimoAviso" value="{{$ultimoAviso}}" hidden>
+  <input type="text" id="ultimoAviso" value="{{$ultimoAviso->DESCRIPCION}}" hidden>
   <div class="row">
     <div class="col-md-8 col-sm-6">
       <h1 class="mainTitle"> Seleccione horario a calificar</h1>

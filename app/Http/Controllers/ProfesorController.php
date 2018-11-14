@@ -6,6 +6,7 @@ use App\Entity\Base\Entity;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use App\Entity\Alumno as eAlumno;
+use App\Entity\Avisos as eAvisos;
 use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
 use App\Entity\Resultado as eResultado;
 use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
@@ -83,7 +84,7 @@ class ProfesorController extends Controller
         //dd(Curso::getCursosYHorarios());
         //dd(Auth::user()->ID_ROL);
         return view('profesor.calificar')
-            ->with('ultimoAviso','Función de Daniela')
+            ->with('ultimoAviso',eAvisos::getAvisos()->first())
             ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
     }
 
