@@ -19,6 +19,7 @@
   </div>
 
   <!-- Inicio de Reportes -->
+  @include('flash::message')
   <div class="row">
     <!-- Seccion 1: Resultados x Ciclo -->
     <div class="col-md-6">

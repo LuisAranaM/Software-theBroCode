@@ -24,7 +24,7 @@
       @endif
     </div>
   </div>
-
+@include('flash::message')
   <div class="row">
 
     @if($codCurso===null)

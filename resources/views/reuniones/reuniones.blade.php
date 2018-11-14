@@ -14,7 +14,7 @@
 	</div>
 
 
-
+@include('flash::message')
 	<div class="row">
 		<form id="frmAgregarDocs" action="{{route('descDocs')}}" method="POST">
 			{{ csrf_field() }}

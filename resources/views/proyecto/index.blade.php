@@ -9,6 +9,7 @@
 	<div class="col-md-12 col-sm-12">
       <h1 class="mainTitle"> Subir Archivo </h1>
     </div>
+    @include('flash::message')
 <div class ="ui buttom attached segment"></div>
 	<form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
 		{{ csrf_field() }}

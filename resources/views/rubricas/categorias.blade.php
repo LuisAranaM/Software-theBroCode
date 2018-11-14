@@ -14,6 +14,7 @@
 		<div id="Resultado" value="{{$idRes}}"></div>
 		<div id="ResultadoNombre" value="{{$resultado}}"></div>
 	</div>
+	@include('flash::message')
 	<div class="row">
 		@foreach ($categorias as $categoria) 
 		<div class="col-md-4 col-xs-6">
