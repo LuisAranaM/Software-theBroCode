@@ -79,7 +79,7 @@ class HorarioController extends Controller
                 foreach ($data as $key => $value) {
                     $auxCurso = $value->clave;
                     $auxIdCurso = (eCurso::buscarCursos($auxCurso))->ID_CURSO;
-                    if($auxIdCurso){
+                    if(!$auxIdCurso){
                         $lista_horarios = ['ID_CURSO'=>$auxIdCurso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 
                                             'NOMBRE'=>$value->horario,'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
                                             'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];

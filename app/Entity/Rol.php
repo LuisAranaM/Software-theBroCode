@@ -22,5 +22,9 @@ class Rol extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getRolUsuario(){
+        $model = new mRol();
+        return $model->getRolUsuario(self::getUsuarioCompleto()->ID_ROL);
+    }
     
 }

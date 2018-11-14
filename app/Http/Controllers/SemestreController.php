@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Entity\Semestre as eSemestre;
 
 class SemestreController extends Controller
 {
@@ -81,4 +82,12 @@ class SemestreController extends Controller
     {
         //
     }
+
+    function getSemestres()
+    {
+        $semestres = eSemestre::getSemestres();
+        return $semestres;
+    }
+
+    
 }

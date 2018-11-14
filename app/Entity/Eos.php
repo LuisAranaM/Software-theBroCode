@@ -22,5 +22,9 @@ class Eos extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getObjetivosEducacionales(){
+        
+        return mEos::getObjetivosEducacionales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+    }
     
 }

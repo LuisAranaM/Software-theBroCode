@@ -129,9 +129,25 @@ class Horario extends Eloquent
 				->select('*')
 				->where('ID_CURSO','=',$idCurso)
 				->where('ID_SEMESTRE','=',$idSemestre)
+				->where('ESTADO','=',1)
 				->get();
 		return $sql;
 	}
+
+	static function getHorariosProfesor($idSemestre,$idEspecialidad,$usuario){
+		$sql = DB::table('HORARIOS AS HOR')
+				->select('HOR.*')
+				 ->leftJoin('PROFESORES_HAS_HORARIOS AS PH', function ($join) {
+					$join->on('HOR.ID_HORARIO', '=', 'PH.ID_HORARIO');
+				})				
+				->where('HOR.ID_SEMESTRE','=',$idSemestre)
+				->where('PH.ID_USUARIO','=',$usuario)
+				->where('HOR.ESTADO','=',1)
+				->get();
+		return $sql;
+	}
+
+
 
 
 	static function getHorarios($idCurso,$idSemestre) {

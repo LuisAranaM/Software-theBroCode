@@ -85,7 +85,7 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
   }
 
-  static function getCursosYHorarios($idSemestre){
+  static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
@@ -109,6 +109,10 @@ class Curso extends Eloquent
       $data["horarios"] = $info;
       $info = array();
       $ans[] = $data;
+    }
+
+    if($usuario->ID_ROL==4){        
+        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
     }
 
     foreach($ans as $x){
@@ -159,12 +163,23 @@ class Curso extends Eloquent
         return $sql;
     }
 
-    function agregarAcreditar($idSemestre,$codigos,$usuario){
+
+    function agregarAcreditar($idSemestre,$idEspecialidad,$codigos,$usuario){
+
         //dd(Carbon::now());    
         DB::beginTransaction();
         $status = true;
        
         try {
+
+
+            DB::table('CURSOS AS CURSOS')                
+                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->update(['ESTADO_ACREDITACION'=>0,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$usuario]);
+
             DB::table('CURSOS AS CURSOS')
                 ->whereIn('CODIGO_CURSO',$codigos)
                 ->where('ID_SEMESTRE','=',$idSemestre)
@@ -201,6 +216,13 @@ class Curso extends Eloquent
         }
         return $status;
         //dd($sql->get());
+    }
+
+    public function getIdCurso($codCurso){
+        $sql = DB::table('CURSOS')
+                ->select('ID_CURSO')
+                ->where('CODIGO_CURSO','=',$codCurso)
+                ->where('ESTADO','=',1);
     }
 
 }

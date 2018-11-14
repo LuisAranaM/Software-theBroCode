@@ -22,5 +22,9 @@ class Semestre extends \App\Entity\Base\Entity {
         ]);
     }
 
-    
+    static function getSemestres()
+    {
+        return mSemestre::getSemestres()->get();
+    }
+
 }
