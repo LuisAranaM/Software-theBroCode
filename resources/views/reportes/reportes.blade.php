@@ -202,7 +202,7 @@
         <!-- Combo box Resultado -->
         <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
           <div class="col-xs-offset-8 col-xs-3">
-            <select name="idSemestre" id="resultados" class="ciclos form-control" required>
+            <select id="cboResultados" class="resultados form-control" required>
             </select>
           </div>
         </div>
