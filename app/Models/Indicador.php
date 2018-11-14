@@ -276,6 +276,7 @@ class Indicador extends Eloquent
 			$join->on('HOR.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
 		})
 		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
+			$join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
 			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
 		})
 		->leftJoin('ALUMNOS AS ALU',function($join){
