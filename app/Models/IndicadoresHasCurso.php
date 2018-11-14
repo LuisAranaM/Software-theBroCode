@@ -63,6 +63,15 @@ class IndicadoresHasCurso extends Eloquent
 		return $this->belongsTo(\App\Models\Curso::class, 'ID_CURSO');
 	}
 
+	static function getCantIndicadoresByCurso($idCurso, $idSemestre){
+		$ans = DB::table('INDICADORES_HAS_CURSOS')
+                ->select('*')
+                ->where('ESTADO','=',1)
+                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_CURSO', '=', $idCurso)
+                ->count();
+        return $ans;
+	}
 	
 	static function getIndicadoresbyIdCurso($idCurso,$idSem,$idEsp) {
 		$sql = DB::table('INDICADORES_HAS_CURSOS')

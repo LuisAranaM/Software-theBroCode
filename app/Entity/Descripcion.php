@@ -16,7 +16,11 @@ class Descripcion extends \App\Entity\Base\Entity {
     protected $_usuarioModif;
     protected $_estado;
     protected $_idCriterio;
-    
+
+    static function getValorizacionMaxima(){
+        return mDescripcion::getValorizacionMaxima();
+    }
+
     static function getDescripcionesId($idInd) {
         $model = new mDescripcion();
         return mDescripcion::getDescripcionesId($idInd)->get();
