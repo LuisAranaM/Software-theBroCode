@@ -310,7 +310,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
 function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
     console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
     //Grafico de barras
-    ctx1 = document.getElementById("graficoResultadosxCiclo").getContext('2d');
+    ctx1 = document.getElementById("graficoIndicadoresxResultado").getContext('2d');
     $.ajax({
 		url: APP_URL + '/indicadoresResultado',
 		type: 'GET',
