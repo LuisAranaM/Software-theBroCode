@@ -2,6 +2,7 @@ var graficoResultadoxCiclo;
 var graficoResultadosxCurso;
 var contResultadosxCiclo = 0;
 var contResultadosxCurso = 0;
+var contIndicadoresxResultado = 0;
 
 $( document ).ready(function() {
     //init_charts();
@@ -309,30 +310,31 @@ function updategraficoResultadoxCiclo(idSemestre) {
 function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
     console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
     //Grafico de barras
-    ctx3 = document.getElementById("graficoIndicadoresxResultado").getContext('2d');
-    /*$.ajax({
+    ctx1 = document.getElementById("graficoResultadosxCiclo").getContext('2d');
+    $.ajax({
 		url: APP_URL + '/indicadoresResultado',
 		type: 'GET',
 		data: {
-            idSemestre: idSemestre
+            idSemestre: idSemestre,
+            idResultado: idResultado
 		},
 		success: function (result) {
-            resultadosId=[];
-            resultadosNombre=[];
-            resultadosPorcentaje=[];
+            indicadoresId=[];
+            indicadoresNombre=[];
+            indicadoresPorcentaje=[];
             for(var i=0;i<result.length;i++){
-                resultadosId.push(result[i].ID_RESULTADO);
-                resultadosNombre.push(result[i].NOMBRE);
-                resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+                indicadoresId.push(result[i].ID_INDICADOR);
+                indicadoresNombre.push(result[i].NOMBRE);
+                indicadoresPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
             }
-            if (contResultadosxCiclo == 0) {
-                graficoResultadoxCiclo = new Chart(ctx1, {
+            if (contIndicadoresxResultado == 0) {
+                graficoIndicadoresxResultado = new Chart(ctx3, {
                     type: 'bar',
                     data: {
-                        labels: resultadosNombre,
+                        labels: indicadoresNombre,
                         datasets: [{
                             label: 'Porcentaje',
-                            data: resultadosPorcentaje,
+                            data: indicadoresPorcentaje,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
@@ -359,23 +361,23 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
                                     beginAtZero:true
                                 }
                             }]
-                        },
-                        onClick: graficoResultadoxCicloClickEvent,
-                        onHover: cambiarCursor
+                        }//,
+                        //onClick: graficoResultadoxCicloClickEvent,
+                        //onHover: cambiarCursor
                     }
                 });
-                contResultadosxCiclo++;
+                contIndicadoresxResultado++;
             }
             else {
                 if (resultadosNombre.length == 0) {
-                    graficoResultadoxCiclo.data.labels = ['No se encontraron resultados en el ciclo'];
-                    graficoResultadoxCiclo.data.datasets.data = [0];
+                    graficoIndicadoresxResultado.data.labels = ['No se encontraron resultados en el ciclo'];
+                    graficoIndicadoresxResultado.data.datasets.data = [0];
                 }
                 else {
-                    graficoResultadoxCiclo.data.labels = resultadosNombre;
-                    graficoResultadoxCiclo.data.datasets.data = resultadosPorcentaje;
+                    graficoIndicadoresxResultado.data.labels = indicadoresNombre;
+                    graficoIndicadoresxResultado.data.datasets.data = indicadoresPorcentaje;
                 }
-                graficoResultadoxCiclo.update();
+                graficoIndicadoresxResultado.update();
             }
         },
         error: function (xhr, status, text) {
@@ -383,7 +385,7 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
             alert('Hubo un error al buscar la información');
             item.removeClass('hidden').prev().addClass('hidden');
         }
-    });*/
+    });
 }
 
 function graficoResultadoxCicloClickEvent(evt, chartElement){

@@ -260,7 +260,7 @@
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
+          <canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>
           </div> 
         </div>
       </div>
