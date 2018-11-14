@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-md-12 col-sm-12 col-xs-12">
-<img src="{{ URL::asset('img/logo.png') }}" alt="logoRubriK" style="height: 121.5px;width: 321.5px">
+<img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="height: 121.5px;width: 321.5px">
 </div>
 <form method="POST" action="{{ route('login.attempt') }}" >
     <div class="form-group">
