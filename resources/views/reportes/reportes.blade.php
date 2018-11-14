@@ -167,6 +167,74 @@
 </div>
 <!-- Fin Modal Resultados x Ciclo-->
 
+<!-- ******* 1.2. Modal Indicadores x Resultado ******* -->
+<div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+  id="modalCursos" data-keyboard="false" data-backdrop="static"
+  aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+  <div class="modal-dialog modal-lg" style="width: 600px;">
+
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+      <!-- Cabeza del modal -->
+      <div class="modal-header">
+        <a href="#modalRxC" data-toggle="modal" data-dismiss="modal"><i id="btnAtrasIxR" class="fa fa-chevron-left left"></i></a>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Indicadores por Resultado</h4>
+      </div>
+      <!-- Fin Cabeza del modal -->
+    
+      <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+      
+      <form id="form" action="{{route('exportar.reporte1')}}">
+        <!-- Combo box Ciclo -->
+        <!-- <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+          <div class="col-xs-offset-8 col-xs-3">
+            <select name="idSemestre" id="ciclos3" class="ciclos form-control" required>
+            </select>
+          </div>
+        </div> -->
+        <!-- Fin Combo box -->
+
+        <!-- Combo box Resultado -->
+        <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+          <div class="col-xs-offset-8 col-xs-3">
+            <select name="idSemestre" id="resultados" class="ciclos form-control" required>
+            </select>
+          </div>
+        </div>
+        <!-- Fin Combo box -->
+
+        <!-- Cuerpo del modal -->
+        <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
+          <div class="row">
+            <div class="x_content">
+              <canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>
+            </div> 
+          </div>
+        </div>
+        <!-- Fin Cuerpo del modal -->
+
+        <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+        <!-- Botones inferiores del modal -->
+        <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+          <div class="col-md-4 text-right">
+            <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+          </div>
+          <div class="col-md-4 text-left">
+              <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+          </div>
+        </div>
+        <!-- Fin Botones inferiores del modal -->
+      </form>
+    </div>
+    <!-- Fin Contenido del modal -->
+  </div>
+</div>
+<!-- Fin Modal Indicadores x Resultado -->
+
 <!-- ******* 2. Modal Resultados x Curso ******* -->
 <div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
   id="modalCursos" data-keyboard="false" data-backdrop="static"
@@ -229,7 +297,7 @@
 <!-- Fin Modal Curso x Resultado -->
 
 <!-- ******* 3. Modal Indicadores x Resultado ******* -->
-<div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+<div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
   id="modalCursos" data-keyboard="false" data-backdrop="static"
   aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
@@ -248,19 +316,19 @@
       <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
       
       <!-- Combo box -->
-      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
           <select id="ciclos3" class="ciclos form-control" required>
           </select>
         </div>
-      </div>
+      </div>-->
       <!-- Fin Combo box -->
 
       <!-- Cuerpo del modal -->
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-          <canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>
+          <!--<canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>-->
           </div> 
         </div>
       </div>

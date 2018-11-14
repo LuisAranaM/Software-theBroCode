@@ -40,6 +40,12 @@ $( document ).ready(function() {
         idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
         updateGraficoResultadosxCurso(idSemestre,idCurso);
     }
+
+    /*$('#btnAtrasIxR').click(function() {
+        $('#modalRxC').modal('show');
+        $('#modalIxR').modal('hide');
+    });*/
+
     $('#btnDescargarReportes1').click(function() {
         idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
         //$('#modalRxC').modal('hide');
@@ -60,10 +66,17 @@ $( document ).ready(function() {
         $('#modalRxC').modal('hide');
     });
 
-    //Cuando cambie el semestre del modal 3
-    document.getElementById('ciclos3').onchange = function () {
-        idSemestre = this.options[this.selectedIndex].value;
-        //updategraficoResultadoxCiclo(idSemestre);
+    //Cuando cambie el semestre del modal 1.2
+    //document.getElementById('ciclos3').onchange = function () {
+        /*$('#ciclos3 option').last().prop('selected',true);
+        idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
+        updateCmbResultados(idSemestre);*/
+    //}
+
+    //Cuando cambie el resultado del modal 1.2
+    document.getElementById('resultados').onchange = function () {
+        /*idResultado = this.options[this.selectedIndex].value;
+        updategraficoIndicadoresxResultado(idSemestre, idResultado);*/
     }
 
     // ***************** Botones que despliegan el modal *****************
@@ -75,8 +88,6 @@ $( document ).ready(function() {
         updategraficoResultadoxCiclo(idSemestre);
         $("#modalRxC").modal("show");
     });
-
-    
 
     //Boton para ingresar al Modal 2
     $('#btnGraficoResultadosCurso').click(function() {
@@ -90,10 +101,7 @@ $( document ).ready(function() {
 
     //Boton para ingresar al Modal 3
     $('#btnGraficoIndicadoresResultado').click(function() {
-        $('#ciclos3 option').last().prop('selected',true);
-        idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
-        updategraficoIndicadoresxResultado(idSemestre);
-        $("#modalIxR").modal("show");
+        
     });
 
     //Boton para ingresar al Modal 4
@@ -139,9 +147,28 @@ function updateCmbCursos(idSemestre) {
     
 }
 
+function updateCmbResultados(idSemestre) {
+    //Grafico de barras
+    $.ajax({
+        url: APP_URL + '/getResultadosbyIdSemestre',
+		type: 'GET',
+		data: {
+            idSemestre: idSemestre
+        },
+        async: false,
+        success: function( result ) {
+            $(".resultados").empty();
+            $.each(result, function(i, value) {
+                $('.resultados').append("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
+            });
+        }
+      });
+    
+}
+
 var ctx;
+var ctx1_2;
 var ctx2;
-var ctx3;
 
 function updateGraficoResultadosxCurso(idSemestre,idCurso) {
 
@@ -310,7 +337,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
 function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
     console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
     //Grafico de barras
-    ctx1 = document.getElementById("graficoIndicadoresxResultado").getContext('2d');
+    ctx1_2 = document.getElementById("graficoIndicadoresxResultado").getContext('2d');
     $.ajax({
 		url: APP_URL + '/indicadoresResultado',
 		type: 'GET',
@@ -319,16 +346,17 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
             idResultado: idResultado
 		},
 		success: function (result) {
+            console.log(result);
             indicadoresId=[];
             indicadoresNombre=[];
             indicadoresPorcentaje=[];
             for(var i=0;i<result.length;i++){
                 indicadoresId.push(result[i].ID_INDICADOR);
-                indicadoresNombre.push(result[i].NOMBRE);
-                indicadoresPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+                indicadoresNombre.push("" + result[i].COD_RESULTADO + result[i].VALORIZACION);
+                indicadoresPorcentaje.push(Math.round(result[i].PORCENTAJE_PONDERADO*100));
             }
             if (contIndicadoresxResultado == 0) {
-                graficoIndicadoresxResultado = new Chart(ctx3, {
+                graficoIndicadoresxResultado = new Chart(ctx1_2, {
                     type: 'bar',
                     data: {
                         labels: indicadoresNombre,
@@ -401,9 +429,10 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         console.log(labels, label, value, globResultadosId, activePoint._index);
         
         // Se muestra el modal de Indicadores x Resultado
-        $('#ciclos3 option').last().prop('selected',true);
-        var idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
+        $('#ciclos1 option').last().prop('selected',true);
+        var idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
         updategraficoIndicadoresxResultado(idSemestre, globResultadosId[activePoint._index]);
+        
         $("#modalIxR").modal("show");
 
         // Se oculta el modal de Resultados x Curso
