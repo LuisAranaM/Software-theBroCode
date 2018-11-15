@@ -22,11 +22,11 @@ class PlanesDeMejora extends \App\Entity\Base\Entity {
         ]);
     }
     static function buscarDocumentos(){
-        return mPlanesDeMejora::buscarDocumentos();
+        return mPlanesDeMejora::buscarDocumentos(self::getEspecialidadUsuario());
     }
     static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin){
         $model =new mPlanesDeMejora();
-        return $model->resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin);   
+        return $model->resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,self::getEspecialidadUsuario());   
     }
     
 }

@@ -6,7 +6,11 @@
 @stop
 
 <div class="customBody">
-  <input type="text" id="ultimoAviso" value="{{$ultimoAviso->DESCRIPCION}}" hidden>
+  <input type="text" id="ultimoAviso" value="<?php 
+    $desc='';
+    if($ultimoAviso!=NULL) $desc=$ultimoAviso->DESCRIPCION;
+    echo ($desc);
+  ?>" hidden>
   <div class="row">
     <div class="col-md-8 col-sm-6">
       <h1 class="mainTitle"> Seleccione horario a calificar</h1>
@@ -155,7 +159,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   //PNotify
   $( document ).ready(function() {
     var variableText=$('#ultimoAviso').val();
-    (new PNotify({
+    if (variableText!=''){(new PNotify({
         title: 'Aviso',
         text: variableText,
         hide: true,
@@ -165,7 +169,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       },
       styling: 'bootstrap3',
       addclass: 'pnotify-center' //dark
-    }));
+    }));}
   });
 </script>
 

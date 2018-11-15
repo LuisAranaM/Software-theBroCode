@@ -161,7 +161,7 @@ class CursoController extends Controller
                         $idCurso = $auxCurso->getIdCurso($value->clave);
                         //primero ingresamos curso
                         $datos_cursos=[];
-                        if(!idCurso){
+                        if(!$idCurso){
                             $datos_cursos= ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
                                         'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
                             $id_curso = DB::table('CURSOS')->insertGetId($datos_cursos);
