@@ -120,10 +120,6 @@ $( document ).ready(function() {
     });
 
     $('#btnDescargarGraficos1').click(function(event) {
-        // get size of report page
-        var reportPageHeight = 297;
-        var reportPageWidth = 210;
-        
         var canvas = document.querySelector('#graficoResultadoxCiclo');
         var dataURL = canvas.toDataURL();
         var pdf = new jsPDF();
@@ -131,6 +127,28 @@ $( document ).ready(function() {
         semestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].text;
         pdf.text('Resultados del Ciclo '+semestre, 70, 40)
         pdf.save('Gráfico Resultados '+semestre+".pdf");
+      });
+
+      $('#btnDescargarGraficos12').click(function(event) {       
+        var canvas = document.querySelector('#graficoIndicadoresxResultado');
+        var dataURL = canvas.toDataURL();
+        var pdf = new jsPDF();
+        pdf.addImage(dataURL, 'PNG', 35, 50);
+        semestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
+        resultado = document.getElementById('cboResultados').options[document.getElementById('cboResultados').selectedIndex].text;
+        pdf.text('Resultado '+resultado+' Ciclo '+semestre, 70, 40);
+        pdf.save('Grafico Resultado '+resultado+' Ciclo '+semestre+".pdf");
+      });
+
+      $('#btnDescargarGraficos2').click(function(event) {       
+        var canvas = document.querySelector('#graficoResultadosxCurso');
+        var dataURL = canvas.toDataURL();
+        var pdf = new jsPDF();
+        pdf.addImage(dataURL, 'PNG', 35, 50);
+        semestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
+        curso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
+        pdf.text('Resultados\nCurso '+curso+'\nCiclo '+semestre, 70, 30);
+        pdf.save('Grafico Resultados Curso '+curso+' Ciclo '+semestre+".pdf");
       });
 
 });
