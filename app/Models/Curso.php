@@ -98,12 +98,34 @@ class Curso extends Eloquent
     $ans = array();
     $cantValorizacion = Descripcion::getValorizacionMaxima();
 
+    $horariosProf = DB::table('CURSOS')
+                    ->select('*')
+                    ->where('ID_SEMESTRE','=',-1)
+                    ->get();
+
+    if($usuario->ID_ROL==4){        
+        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
+    }
+
     foreach($cursos as $c){
       
-      $data["curso"] = $c;
-      $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
-      $cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
-      foreach($horarios as $h){
+        $data["curso"] = $c;
+        $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
+        $cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
+      
+        foreach($horarios as $h){
+            
+        if($usuario->ID_ROL == 4){
+            // filtrar cursos
+            $esta = false;
+            foreach($horariosProf as $x){
+                if($h->ID_HORARIO == $x->ID_HORARIO)
+                    $esta = true;
+            }
+            if(!$esta) continue;
+        }
+        
+
         $horario["horario"] = $h;
         $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO);
         $tot = Horario::getCantAlumnos($h->ID_HORARIO);
