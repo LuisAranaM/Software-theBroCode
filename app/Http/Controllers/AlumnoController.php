@@ -166,12 +166,13 @@ class AlumnoController extends Controller
                 if($cont == 0){
                     $this->trace('No se subio nada');
                     // se subio un archivo donde todos los alumnos no estan en el horario seleccionado
-                    flash('Los alumnos del archivo no pertenecen al horario seleccionado')->error();
+                    flash('Los alumnos del archivo no pertenecen al horario seleccionado o se subio un formato de archivo incorrecto.')->error();
                     $this->trace('Holis');
                     return Redirect::back();
                 }
 
             }catch(Exception $e){
+                $this->trace($e);
                 flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
                 return Redirect::back();
             }
