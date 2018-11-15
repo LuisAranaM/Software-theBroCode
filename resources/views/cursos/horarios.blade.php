@@ -75,9 +75,11 @@
     @endif
   </div>
   @php ($idInd = array())
+  @php ($idRes = array())
   @php ($i = 0)
   @foreach($indicadores as $indicador)
   @php ($idInd[$i] = $indicador->ID_INDICADOR)
+  @php ($idRes[$i] = $indicador->ID_RESULTADO)
   @php ($i = $i + 1)
   @endforeach
 
@@ -107,6 +109,7 @@
         <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
           @php ($nres = 0)
           @foreach($resultados as $resultado)
+          @if(in_array($resultado->ID_RESULTADO, $idRes))
           @php ($flagfirst = 1)
           @php ($nres = $nres + 1 )
           <div class="panel">
@@ -142,6 +145,7 @@
               </div>
             </div>
           </div>
+          @endif
           @endforeach
           <!-- Terminan los acordion -->
         </div>
