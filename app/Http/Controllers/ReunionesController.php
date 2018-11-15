@@ -70,11 +70,26 @@ class ReunionesController extends Controller
                 $files = array();
 
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "/upload/".$value;
-                   // dd($file);
-                    //$file->delete();
-                    //array_push($files, $file);
-                  //  if(File::exists($file)) File::delete($file);
+                    $file= public_path(). "\upload\\".$value;
+                    /*NO BORRAR esto es para eliminar fisicamente el archivo
+
+                    $dirHandle = opendir(public_path(). "/upload/");
+                    $dir = public_path(). "/upload/";
+                    while ($file = readdir($dirHandle)) {
+                        if($file==$value) {
+                            unlink($dir.'/'.$file);
+                        }
+                    }
+                    closedir($dirHandle);
+                    */
+                    //Esto es para cambiar el estado a cero
+                    //dd($file);
+                    DB::table('DOCUMENTOS_REUNIONES')
+                    ->where('RUTA', $file)
+                    ->update(['ESTADO' => 0]);
+
+
+                    return back();
                 } 
 
             }else{

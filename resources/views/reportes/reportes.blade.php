@@ -120,6 +120,7 @@
     <div class="modal-content">
       <!-- Cabeza del modal -->
       <div class="modal-header">
+        <i class="fa fa-home left"></i>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -247,6 +248,7 @@
     <div class="modal-content">
       <!-- Cabeza del modal -->
       <div class="modal-header">
+        <i class="fa fa-home left"></i>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -261,6 +263,11 @@
         <div class="col-xs-offset-8 col-xs-3">
           <select id="ciclos2" class="ciclos form-control" required>
           </select>
+        </div>
+      </div>
+
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <div class="col-xs-offset-8 col-xs-3">
           <select id="cursos2" class="cursos form-control" required>
           </select>
         </div>
