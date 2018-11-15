@@ -57,9 +57,14 @@ body.loading .modalCargando {
 <!--La variable $indicadores contiene 'ID_RESULTADO', 'NOMBRE','ID_INDICADOR' -->
 <div class="customBody">
 
+
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="mainTitle">{{$curso[0]->CODIGO_CURSO}} - {{$horario[0]->NOMBRE}}</h1>
+      @if($vistaProc=='calificar')
+      <h1 class="mainTitle" ><a href="{{route('profesor.calificar')}}"> Calificar Alumnos </a> > <a href=""> {{$curso[0]->CODIGO_CURSO}} - {{$horario[0]->NOMBRE}}</a></h1>
+      @elseif($vistaProc=='horarios')
+      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href="{{ route('cursos.horarios') }}?id={{$curso[0]->ID_CURSO}}&nombre={{$curso[0]->NOMBRE}}&codigo={{$curso[0]->CODIGO_CURSO}}">{{$curso[0]->CODIGO_CURSO}} -{{$curso[0]->NOMBRE}}</a> > <a href=""> {{$horario[0]->NOMBRE}}</a></h1>
+      @endif
 		</div>
 
 		<div class="col-md-4 col-sm-6 form-group top_search" >
