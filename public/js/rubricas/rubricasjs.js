@@ -247,8 +247,9 @@ function insertarDescripciones(desc,descNom, descOrd, idInd){
 			result = JSON.parse(result);
 			if(result== -2){
 				alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
+				return -2;
 			}
-			return -2;
+			return 1;
 		},
 		error: function (xhr, status, text) {
 			alert('Hubo un error al insertar una de las descripciones');
@@ -524,8 +525,9 @@ function actualizarDescripcion(idDesc,desc,descNom,descOrd,idInd){
 			result = JSON.parse(result);
 			if(result== -2){
 				alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
+				return -2;
 			}
-			return -2;
+			return 1;
 			
 		},
 		error: function (xhr, status, text) {
