@@ -398,7 +398,6 @@ class Indicador extends Eloquent
 		->where('AHH.ESTADO','=',1)
 		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
 		'IND.ID_INDICADOR','IND.NOMBRE','CUR.ID_CURSO','CUR.CODIGO_CURSO','CUR.NOMBRE','IHAH.ID_INDICADOR');
-		//dd($sql->get());
 		return $sql;
     }
 

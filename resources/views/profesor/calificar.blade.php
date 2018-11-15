@@ -6,7 +6,11 @@
 @stop
 
 <div class="customBody">
-  <input type="text" id="ultimoAviso" value="{{$ultimoAviso->DESCRIPCION}}" hidden>
+  <input type="text" id="ultimoAviso" value="<?php 
+    $desc='';
+    if($ultimoAviso!=NULL) $desc=$ultimoAviso->DESCRIPCION;
+    echo ($desc);
+  ?>" hidden>
   <div class="row">
     <div class="col-md-8 col-sm-6">
       <h1 class="mainTitle"> Seleccione horario a calificar</h1>
@@ -25,6 +29,7 @@
   <div class="row">
 
     @foreach($cursos as $c)
+    @if(count($c["horarios"])>0)
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
@@ -65,7 +70,10 @@
           <div class="col-sm-2 col-xs-3 text-right">
               @if($h["alumnosTotal"] == 0)
               <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2" data-id="{{$h["horario"]->ID_HORARIO}}" > Cargar Alumnos</button>
+                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+                 data-id = "{{$h["horario"]->ID_HORARIO}}" 
+                 data-horario ="{{$h["horario"]->NOMBRE}}"
+                 > Cargar Alumnos</button>
               </a>
               <!--
               <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
@@ -78,6 +86,7 @@
               @endif
           </div>
         </div>
+
         @endforeach
 
 
@@ -86,6 +95,7 @@
     </div>
   </div>
 </div>
+@endif
 @endforeach
   
 
@@ -126,6 +136,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
             <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
                 <input id="bookId" name="codigoHorario" type="hidden">
+                <input id="horario" name="horario" type="hidden">
                 <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
                 style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
               </div>
@@ -155,7 +166,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   //PNotify
   $( document ).ready(function() {
     var variableText=$('#ultimoAviso').val();
-    (new PNotify({
+    if (variableText!=''){(new PNotify({
         title: 'Aviso',
         text: variableText,
         hide: true,
@@ -165,7 +176,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       },
       styling: 'bootstrap3',
       addclass: 'pnotify-center' //dark
-    }));
+    }));}
   });
 </script>
 

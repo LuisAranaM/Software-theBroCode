@@ -130,6 +130,7 @@ class Horario extends Eloquent
 				->select('*')
 				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
 				->count();
+
 		return $tot;
 	}
 
@@ -156,9 +157,6 @@ class Horario extends Eloquent
 				->get();
 		return $sql;
 	}
-
-
-
 
 	static function getHorarios($idCurso,$idSemestre) {
 		//dd($idCurso);

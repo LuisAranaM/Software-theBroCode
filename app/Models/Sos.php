@@ -73,7 +73,7 @@ class Sos extends Eloquent
 
 	static function getObjetivosEstudiante($idSemestre,$idEspecialidad){
 		$objetivosEstudiante = DB::table('SOS')
-								->select('NOMBRE')
+								->select()
 								->where('ID_SEMESTRE','=',$idSemestre)
 								->where('ID_ESPECIALIDAD','=',$idEspecialidad)
 								->where('ESTADO','=',1);

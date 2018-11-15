@@ -8,7 +8,7 @@ $( document ).ready(function() {
 		$("#modalCargarAlumnos").modal("show");
 	})
 
-	$(".indicadorTrash").on("click", function(e){
+	$(document).on("click",".indicadorTrash", function(e){
 
 		//var codigoCurso=$(this).attr('codigoCurso');
         //var nombreCurso=$(this).attr('nombreCurso');
@@ -23,7 +23,7 @@ $( document ).ready(function() {
         e.preventDefault();
     });
 
-	$(".resultTrash").on("click", function(e){
+	$(document).on("click",".resultTrash", function(e){
 		//var codigoCurso=$(this).attr('codigoCurso');
         //var nombreCurso=$(this).attr('nombreCurso');
         var resp=confirm("¿Estás seguro de que deseas eliminar este indicador?");
@@ -116,6 +116,8 @@ $( document ).ready(function() {
 		console.log(codigo);
 		$(".descripcionIndicador").val(descripcion);
 		console.log(descripcion);
+		$("#modalIndicador").val($(this).parent().parent().parent().parent().attr('cat'));
+		console.log($('#modalIndicador').val());
 		obtenerDescripciones($(this).attr("id"));
 	});
 
@@ -230,27 +232,32 @@ $( document ).ready(function() {
 
 });
 function insertarDescripciones(desc,descNom, descOrd, idInd){
-		$.ajax({
-			type:'POST',
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			url: APP_URL + '/rubricas/insertar-descripciones',
-			data: {
-				_desc: desc,
-				_descNom: descNom,
-				_descOrd: descOrd,
-				_idInd: idInd,
-			},
-			dataType: "text",
-			success: function(result) {
-				result = JSON.parse(result);
-				if(result== -2){
-					alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
-				}
+	$.ajax({
+		type:'POST',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/insertar-descripciones',
+		data: {
+			_desc: desc,
+			_descNom: descNom,
+			_descOrd: descOrd,
+			_idInd: idInd,
+		},
+		dataType: "text",
+		success: function(result) {
+			result = JSON.parse(result);
+			if(result== -2){
+				alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
 				return -2;
 			}
-		});
+			return 1;
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al insertar una de las descripciones');
+		}
+
+	});
 }
 function obtenerCategorias(idRes){
 	$.ajax({
@@ -285,6 +292,9 @@ function obtenerCategorias(idRes){
 	    	$('#filasCat').append(html);
 			$("#modalAgregarResultado").modal("show");
 			$("#modalAgregarResultado").val(idRes);
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al obtener las categorias');
 		}
 	});
 }
@@ -338,6 +348,9 @@ function obtenerDescripciones(idInd){
 	    	$('#filasDesc').append(html);
 			$("#modalIndicador").modal("show");
 			$("#modalIndicador").attr("idInd",idInd);
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al obtener las descripciones');
 		}
 	});
 }
@@ -357,9 +370,11 @@ function refrescarIndicadores(idCat,resultado){
 			var indicadores = result;
 			console.log("llega justo antes");
 			$('#'+idCat+'rem').remove();
-			console.log("llega justo despues");
+			var s = indicadores[0];
+			console.log(indicadores.length);
 			var html = '<div id="'+idCat+'rem">';
 			for(i=0;i<indicadores.length; i++){
+				
 				html+='<div class="row">'
 				html+='<hr>'
 				html+='<div class="col-xs-9">'
@@ -381,7 +396,10 @@ function refrescarIndicadores(idCat,resultado){
 			html+='</div>'
 			$('#'+idCat+'Ord').append(html);
 			$("#modalIndicador").modal("hide");			
-		}
+		},
+		error: function (xhr, status, text) {
+			alert('Hubo un error al refrescar los indicadores');
+		}		
 	});
 }
 function actualizarResultado(idRes,codRes,descRes,cat,catIds){
@@ -485,6 +503,7 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 				var resultado = $('#ResultadoNombre').attr("value");
 				refrescarIndicadores(idCat,resultado);
 			}
+			//refrescarIndicadores(idCat,res);
 		},
 		error: function (xhr, status, text) {
 			alert('Hubo un error al actualizar el resultado');
@@ -510,8 +529,9 @@ function actualizarDescripcion(idDesc,desc,descNom,descOrd,idInd){
 			result = JSON.parse(result);
 			if(result== -2){
 				alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
+				return -2;
 			}
-			return -2;
+			return 1;
 			
 		},
 		error: function (xhr, status, text) {

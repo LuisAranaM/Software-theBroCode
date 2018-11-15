@@ -31,15 +31,18 @@
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Resultados x Ciclo </h1>
-            <div class="row">
+            <div class="row"><!--
               <div class="groupBoxOptions">
                 <div class="form-check">
                   <label>
                     <input type="checkbox" checked=""> <span class="pText label-text ">Comparar con semestre anterior</span>
                   </label>
                 </div>
-              </div>
+              </div>-->
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+
               <button id="btnGraficoRxC" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            </div>
             </div>
           </div>
         </div>
@@ -55,15 +58,18 @@
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle"> Resultados x Curso </h1>
-            <div class="row">
+            <div class="row"><!--
               <div class="groupBoxOptions">
                 <div class="form-check">
                   <label>
                     <input type="checkbox" checked=""> <span class="pText label-text">Comparar con semestre anterior</span>
                   </label>
                 </div>
-              </div>
+              </div>-->
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+
               <button id="btnGraficoResultadosCurso" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+            </div>
             </div>
           </div>
         </div>
@@ -154,11 +160,11 @@
 
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-        <div class="col-md-4 text-right">
-            <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-        </div>
         <div class="col-md-4 text-left">
           <a id="btnDescargarGraficos1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+        </div>
+        <div class="col-md-4 text-right">
+            <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
         </div>
       </div>
     </form>
@@ -224,7 +230,7 @@
         <!-- Botones inferiores del modal -->
         <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
           <div class="col-md-4 text-right">
-            <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+            <a id="btnDescargarGraficos12" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
           </div>
           <div class="col-md-4 text-left">
               <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
@@ -290,7 +296,7 @@
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
         <div class="col-md-4 text-right">
-          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+          <a id="btnDescargarGraficos2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
         </div>
         <div class="col-md-4 text-left">
           <a href="{{route('exportar.reporte2')}}">

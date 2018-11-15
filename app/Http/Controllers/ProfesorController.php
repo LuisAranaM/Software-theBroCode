@@ -212,7 +212,7 @@ class ProfesorController extends Controller
               foreach ($infoResultado as $indicador) {
                 $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
 
-                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
+                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><i class="fas fa-user-tie"></i><div class="col-xs-9"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
 
 
                 $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
@@ -235,11 +235,11 @@ class ProfesorController extends Controller
                     $html.=' idResultado="'.$idResultado.'" ';
                     $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
                     $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
-                    /*$html.=' onclick="new PNotify({
+                    $html.=' onclick="new PNotify({
                               title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
                               text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
                               type: '."'".'info'."'".',
-                              styling: '."'".'bootstrap3'."'".'});"';*/
+                              styling: '."'".'bootstrap3'."'".'});"';
 
                           $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
 
@@ -274,8 +274,8 @@ class ProfesorController extends Controller
              $html .= '
              <br /><br />
              <div align="center">
-             <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
-             <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
+             <button style="color:white" type="button" name="previous" class="btn customButton previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
+             <button style="color:white" type="button" name="next" class="btn customButton next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
              </div>
              <br /><br />
              ';
