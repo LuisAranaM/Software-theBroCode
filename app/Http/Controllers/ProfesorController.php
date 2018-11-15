@@ -235,11 +235,11 @@ class ProfesorController extends Controller
                     $html.=' idResultado="'.$idResultado.'" ';
                     $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
                     $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
-                    /*$html.=' onclick="new PNotify({
+                    $html.=' onclick="new PNotify({
                               title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
                               text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
                               type: '."'".'info'."'".',
-                              styling: '."'".'bootstrap3'."'".'});"';*/
+                              styling: '."'".'bootstrap3'."'".'});"';
 
                           $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
 
@@ -274,8 +274,8 @@ class ProfesorController extends Controller
              $html .= '
              <br /><br />
              <div align="center">
-             <button type="button" name="previous" class="btn btn-warning btn-sm previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
-             <button type="button" name="next" class="btn btn-warning btn-sm next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
+             <button style="color:white" type="button" name="previous" class="btn customButton previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
+             <button style="color:white" type="button" name="next" class="btn customButton next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
              </div>
              <br /><br />
              ';
