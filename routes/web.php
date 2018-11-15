@@ -27,6 +27,7 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
 /****RUTAS GENERALES****/
 /* Rutas públicas */
 Route::get('/', ['as' => 'login.index', 'uses' => 'LoginController@index']);
+Route::get('/pagenotfound',['as'=>'notfound','uses'=>'HomeController@pagenotfound']);
 Route::get('/home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
 Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 Route::post('/login', ['as' => 'login.attempt', 'uses' => 'LoginController@attempt']);
