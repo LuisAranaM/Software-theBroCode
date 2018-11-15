@@ -194,7 +194,7 @@ class Indicador extends \App\Entity\Base\Entity {
                     $nIndicadores++;
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
                 }
-                if(empty($reporte)){
+                if(!empty($reporte)){
                     $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                     $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                     $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
@@ -331,12 +331,14 @@ class Indicador extends \App\Entity\Base\Entity {
                     $filaFinalCat=$i;
                     $filaFinalInd=$i;
                 }  
-                $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
-                $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
-                $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
-                $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
-                $sheet->setBorder('B'.($filaInicial-1).':H'.($filaFinal-1), 'thin');
-                $sheet->getStyle("G".$filaInicial.":H".($filaFinal-1))->applyFromArray($style);
+                if(!empty($reporte)){
+                    $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                    $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
+                    $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                    $sheet->mergeCells('C'.$filaInicial.':C'.($filaFinal-1));
+                    $sheet->setBorder('B'.($filaInicial-1).':H'.($filaFinal-1), 'thin');
+                    $sheet->getStyle("G".$filaInicial.":H".($filaFinal-1))->applyFromArray($style);
+                }
                 //Centrado
                 $sheet->cells('A2:H1000', function($cells) {   
                             $cells->setAlignment('center');
@@ -408,10 +410,11 @@ class Indicador extends \App\Entity\Base\Entity {
                     $codResultado=$fila->COD_RESULTADO;
                     $filaFinal=$i;
                 }  
-                $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
-                $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
-                //dd('A'.$filaInicial.':A'.($filaFinal-1));
-                
+                if(!empty($reporte)){
+                    $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
+                    $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                    //dd('A'.$filaInicial.':A'.($filaFinal-1));    
+                }
                 //Centrado
                 $sheet->cells('A2:G1000', function($cells) {   
                             $cells->setAlignment('center');
