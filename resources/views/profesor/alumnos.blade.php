@@ -154,9 +154,10 @@ body.loading .modalCargando {
       </div>
     </div>
   </div>
-  <div class="row">
+ <!-- <div class="row">
    <a href="{{route('profesor.calificar')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la vista de cursos</a>
  </div>
+ <-->
 
 
 
