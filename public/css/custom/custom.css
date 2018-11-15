@@ -405,9 +405,16 @@ li {
 }
 
 .pnotify-center {
-   top: 15px;
-   left: 580px;
+  background-color: #D5EAFA !important;
+  top: 15px;
+  left: 580px;
 
+}
+
+.ui-pnotify .ui-pnotify-container {
+  color: black;
+  background-color: #D5EAFA !important;
+  border-color: #D5EAFA !important;
 }
 
 

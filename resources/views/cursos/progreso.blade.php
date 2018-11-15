@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-
+@include('flash::message')
 
 
   <div class="row">

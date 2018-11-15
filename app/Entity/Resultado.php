@@ -30,6 +30,11 @@ class Resultado extends \App\Entity\Base\Entity {
         $model = new mResultado();
         return mResultado::getResultados(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
+
+    static function getResultadosBySemestre($idSemestre) {
+        $model = new mResultado();
+        return mResultado::getResultados($idSemestre,self::getEspecialidadUsuario())->get();
+    }
     
     static function getResultadosbyIdCurso($idCurso,$idResultado=null,$orden=null) {
         $model = new mResultado();
