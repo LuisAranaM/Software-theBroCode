@@ -115,7 +115,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
 });
 /****RUTAS PARA COORDINADOR****/
-Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2']], function() {
+Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
