@@ -71,7 +71,7 @@ class Eos extends Eloquent
 
 	static function getObjetivosEducacionales($idSemestre,$idEspecialidad){
 		$objetivosEducacionales = DB::table('EOS')
-								->select('ID_EOS','NOMBRE')
+								->select()
 								->where('ID_SEMESTRE','=',$idSemestre)
 								->where('ID_ESPECIALIDAD','=',$idEspecialidad)
 								->where('ESTADO','=',1);
