@@ -20,7 +20,7 @@
 		<div class="col-md-4 col-xs-6">
 			<div class="x_panel tile coursesBox">
 				<!-- INDICADORES CARGADOS DE LA BD -->
-				<div id="{{$categoria->ID_CATEGORIA}}Ord" class="row rowFinal" style="padding-bottom: 0px">
+				<div id="{{$categoria->ID_CATEGORIA}}Ord" cat="{{$categoria->ID_CATEGORIA}}" class="row rowFinal" style="padding-bottom: 0px">
 					<div class="row">
 
 						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
