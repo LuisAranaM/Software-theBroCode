@@ -65,7 +65,10 @@
           <div class="col-sm-2 col-xs-3 text-right">
               @if($h["alumnosTotal"] == 0)
               <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2" data-id="{{$h["horario"]->ID_HORARIO}}" > Cargar Alumnos</button>
+                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+                 data-id = "{{$h["horario"]->ID_HORARIO}}" 
+                 data-horario ="{{$h["horario"]->NOMBRE}}"
+                 > Cargar Alumnos</button>
               </a>
               <!--
               <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
@@ -126,6 +129,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
             <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
                 <input id="bookId" name="codigoHorario" type="hidden">
+                <input id="horario" name="horario" type="hidden">
                 <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
                 style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
               </div>

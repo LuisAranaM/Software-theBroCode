@@ -49,9 +49,52 @@ class AlumnoController extends Controller
         $output->writeln("<info>".$cad."</info>");
     }
 
+    private function getNombre($x){
+        $ans = '';
+        $valid = false;
+        for($i = 0; $i < strlen($x); $i++){
+            if($valid) $ans .= $x[$i];
+            if($x[$i] == ','){
+                $i++;
+                $valid = true;
+            }
+        }
+        return $ans;
+    }
+
+    private function getApellidoPaterno($x){
+        $ans = '';
+        for($i = 0; $i < strlen($x); $i++){
+            if($x[$i] == ' ') break;
+            $ans .= $x[$i];
+        }
+        return $ans;
+    }
+
+    private function getApellidoMaterno($x){
+        $ans = '';
+        $valid = false;
+        for($i = 0; $i < strlen($x); $i++){
+            if($x[$i] == ',') break;
+            if($valid) $ans .= $x[$i];
+            if($x[$i] == ' ') $valid = true;
+        }
+        return $ans;
+    }
+
+    private function fix($cad){
+        $ans = '';
+        $i = 0;
+        if($cad[0] == '0') $i++;
+        for(; $i < strlen($cad); $i++)
+            $ans .= $cad[$i];
+        return $ans;
+    }
+
     public function store(Request $request){
 
         if($request->hasFile('upload-file')){
+            $this->trace('Request paso');
             try{
                 $path = $request->file('upload-file')->getRealPath();
                 $data = \Excel::load($path)->get();
@@ -61,19 +104,28 @@ class AlumnoController extends Controller
                 $id_usuario = Auth::id();
                 $semestre_actual = Entity::getIdSemestre();
                 $idHorario = $request->input('codigoHorario'); 
+                $nombreHorario = $request->input('horario');
+                $nombreHorario = $this->fix($nombreHorario);
                 $idProyecto = 1; 
+                $cont = 0;
                 //$especialidad = Entity::getEspecialidadUsuario();
                 if($data->count()){
+                    $this->trace('Data count');
                     foreach ($data as $key => $value) {
                         // verificar si alumno ya existe en la BD
-                        
-                        if(DB::table('ALUMNOS')->where('CODIGO', $value->codigo)->doesntExist()){
+                        if($value->horario != $nombreHorario) continue;
+                        $cont++;
+                        $nombre = $this->getNombre($value->nombre);
+                        $apellidoPaterno = $this->getApellidoPaterno($value->nombre);
+                        $apellidoMaterno = $this->getApellidoMaterno($value->nombre);
+                        $codigo = $value->alumno;
+                        if(DB::table('ALUMNOS')->where('CODIGO', $value->alumno)->doesntExist()){
                             // insertar alumno en la bd
                             DB::table('ALUMNOS')->insert(
-                                ['NOMBRES' => $value->nombres,
-                                 'APELLIDO_PATERNO' => $value->apellido_paterno,
-                                 'APELLIDO_MATERNO' => $value->apellido_materno,
-                                 'CODIGO' => $value->codigo,
+                                ['NOMBRES' => $nombre,
+                                 'APELLIDO_PATERNO' => $apellidoPaterno,
+                                 'APELLIDO_MATERNO' => $apellidoMaterno,
+                                 'CODIGO' => $codigo,
                                  'FECHA_REGISTRO' => $fecha,
                                  'FECHA_ACTUALIZACION' => $fecha,
                                  'ID_SEMESTRE'=>$semestre_actual,
@@ -85,7 +137,7 @@ class AlumnoController extends Controller
                                            
                         $q = DB::table('ALUMNOS')
                                     ->select('ID_ALUMNO')
-                                    ->where('CODIGO', '=', $value->codigo )->get()->toArray();
+                                    ->where('CODIGO', '=', $codigo )->get()->toArray();
                         //$this->trace('HOLIS2');
                         $idAlumno = (int)($q[0]->ID_ALUMNO);
                         $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
@@ -105,15 +157,20 @@ class AlumnoController extends Controller
                                         'ESTADO' => 1];
                         }
                     }
-                    //$this->trace('HOLIS3');
-                    if(!empty($lista)){
-                        #Curso::insert($lista_cursos);
-                        //$this->trace('Hasta aqui');
+                    if($cont > 0 && !empty($lista))
                         DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
-                        //$this->trace('HOLIS5');
-                    }
-                    flash('Alumnos cargados correctamente')->success();
+                    if($cont > 0)
+                        flash('Alumnos cargados correctamente')->success();
                 }
+
+                if($cont == 0){
+                    $this->trace('No se subio nada');
+                    // se subio un archivo donde todos los alumnos no estan en el horario seleccionado
+                    flash('Los alumnos del archivo no pertenecen al horario seleccionado')->error();
+                    $this->trace('Holis');
+                    return Redirect::back();
+                }
+
             }catch(Exception $e){
                 flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
                 return Redirect::back();
