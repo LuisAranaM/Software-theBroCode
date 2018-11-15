@@ -19,6 +19,20 @@ $( document ).ready(function() {
 		}
 	});
 
+	
+	$('#anhoFin').on('paste', function (event) {
+		if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+			event.preventDefault();
+		}
+	});
+
+	$("#anhoFin").on("keypress",function(event){
+		if(event.which < 48 || event.which >57){
+			return false;
+		}
+	});
+	
+
 	$("#btnDescargarDoc").on("click", function(){
 		console.log("Descargando documentos");
 		array = []

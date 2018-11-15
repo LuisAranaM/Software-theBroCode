@@ -28,7 +28,7 @@
 
 					<div class="col-md-3" style="padding-top: 5px;">
 						<input type="text" class="form-control pText customInputDocsReuniones" style="width: 70px; height: 24px;" 
-						name="anhoInicio" id="anhoInicio" placeholder="" value="">  
+						name="anhoInicio" maxlength="4"  id="anhoInicio" placeholder="" value="">  
 					</div>
 
 					<div class="col-md-1" style="padding-top: 5px;">
@@ -45,7 +45,7 @@
 
 					<div class="col-md-3" style="padding-top: 5px;">
 						<input type="text" class="form-control pText customInputDocsReuniones"   style="width: 70px; height: 24px;"
-						name="anhoFin" id="anhoFin"  placeholder="" value="">  
+						name="anhoFin" id="anhoFin"  maxlength="4"  placeholder="" value="">  
 					</div>
 
 					<div class="col-md-1" style="padding-top: 5px;">
