@@ -110,9 +110,11 @@ class AlumnoController extends Controller
                 $cont = 0;
                 //$especialidad = Entity::getEspecialidadUsuario();
                 if($data->count()){
+                    //dd($data);
                     $this->trace('Data count');
                     foreach ($data as $key => $value) {
                         // verificar si alumno ya existe en la BD
+                        
                         if($value->horario != $nombreHorario) continue;
                         $cont++;
                         $nombre = $this->getNombre($value->nombre);
@@ -121,6 +123,7 @@ class AlumnoController extends Controller
                         $codigo = $value->alumno;
                         if(DB::table('ALUMNOS')->where('CODIGO', $value->alumno)->doesntExist()){
                             // insertar alumno en la bd
+                            //dd("goli");
                             DB::table('ALUMNOS')->insert(
                                 ['NOMBRES' => $nombre,
                                  'APELLIDO_PATERNO' => $apellidoPaterno,
