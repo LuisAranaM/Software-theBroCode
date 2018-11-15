@@ -116,6 +116,8 @@ $( document ).ready(function() {
 		console.log(codigo);
 		$(".descripcionIndicador").val(descripcion);
 		console.log(descripcion);
+		$("#modalIndicador").val($(this).parent().parent().parent().parent().attr('cat'));
+		console.log($('#modalIndicador').val());
 		obtenerDescripciones($(this).attr("id"));
 	});
 
@@ -368,9 +370,11 @@ function refrescarIndicadores(idCat,resultado){
 			var indicadores = result;
 			console.log("llega justo antes");
 			$('#'+idCat+'rem').remove();
-			console.log("llega justo despues");
+			var s = indicadores[0];
+			console.log(indicadores.length);
 			var html = '<div id="'+idCat+'rem">';
 			for(i=0;i<indicadores.length; i++){
+				
 				html+='<div class="row">'
 				html+='<hr>'
 				html+='<div class="col-xs-9">'
@@ -394,7 +398,7 @@ function refrescarIndicadores(idCat,resultado){
 			$("#modalIndicador").modal("hide");			
 		},
 		error: function (xhr, status, text) {
-			alert('Hubo un error al refresacar los indicadores');
+			alert('Hubo un error al refrescar los indicadores');
 		}		
 	});
 }
