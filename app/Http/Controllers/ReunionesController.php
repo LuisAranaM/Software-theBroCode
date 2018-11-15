@@ -70,7 +70,7 @@ class ReunionesController extends Controller
                 $files = array();
 
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "\upload\\".$value;
+                    $file= public_path(). "/upload/".$value;
                     /*NO BORRAR esto es para eliminar fisicamente el archivo
 
                     $dirHandle = opendir(public_path(). "/upload/");
@@ -96,14 +96,14 @@ class ReunionesController extends Controller
                 //dd('Desc');
                 $files = array();
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "\upload\\".$value;
+                    $file= public_path(). "/upload/".$value;
                     //dd($file);
                     array_push($files, $file);
                 } 
                 //dd($files);
                 //$files = glob(public_path('js/*'));
-                \Zipper::make(public_path('\upload\comprimido.zip'))->add($files)->close();
-                return response()->download(public_path('\upload\comprimido.zip'));
+                \Zipper::make(public_path('/upload/comprimido.zip'))->add($files)->close();
+                return response()->download(public_path('/upload/comprimido.zip'));
             }
         }
         else{
