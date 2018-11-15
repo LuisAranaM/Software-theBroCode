@@ -46,16 +46,52 @@ $( document ).ready(function() {
 		$(".descOrd").val("");
 		$(".descNom").val("");
 		$(".desc").val("");
+		$('#agregarFilaIcono').remove();
+		$('#removeAgregar').remove();
+    	$('#filasDescs').remove();
+    	var html='<div id="filasDescs">'
+    	html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
+		html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>'
+		html+='</div>'
+		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
+		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Nombre" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='<div id="" class="col-xs-12">'
+		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+
+		html+='<div id="removeAgregar" class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">'
+		html+='<p class="pText">Agregar nueva valorización</p>'
+		html+='</div>'
+		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
+		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
+		html+='</div>'
+		html+='</div>'
+		
+    	$('#filasDesc').append(html);
 		$("#modalIndicador").modal("show");
 		$("#modalIndicador").val($(this).attr('id'));
 	});
 
-	$("#AgregarResultado").on("click", function(){
+	$("#AgregarResultado").on("click", function(e){
 		
 		$("#ModalTitle").text("Agregar Nuevo Resultado" );
 		$(".nombreResultado").val("");
 		$(".descripcionResultado").val("");
+		$('#agregarFilaIcono').remove();
+    	$('#filasCats').remove();
+		var html = '<div id="filasCats">';
+    	html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
+    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+    	html+='</div>'
+    	
+    	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+    	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+    	html+='</div>'
+    	html+='</div>'
+    	$('#filasCat').append(html);
 		$("#modalAgregarResultado").modal("show");
+    	e.preventDefault();
 	});
 
 	$(document).on("click",".resultadoEdit", function(){
@@ -89,13 +125,6 @@ $( document ).ready(function() {
 		$("#modalResultados").modal("show");
 	});
 
-
-
-	$("#hola").click(function () {
-        //$("#hola").hide();
-    });
-    //no pongo seleccion en validaciones pues esa casilla depende de indicadores 
-    //y no hay más listas que desprendan de validaciones
 
     $('#btnAgregarResultado').on('click',function(e) {
     	var codRes = $('#txtCodigoResultado').val();
@@ -161,8 +190,7 @@ $( document ).ready(function() {
 		}
 		
 	});
-
-    $('#filasCats').on('click','.fa-plus-circle' ,function(e) {
+    $(document).on('click','#filasCat .fa-plus-circle ' ,function(e) {
     	$('#agregarFilaIcono').remove();
     	html=''
     	html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
@@ -176,7 +204,7 @@ $( document ).ready(function() {
     	e.preventDefault();
     });
 
-    $('#filasDesc').on('click','.fa-plus-circle' ,function(e) {
+    $(document).on('click','#filasDesc .fa-plus-circle ' ,function(e) {
     	$('#agregarFilaIcono').remove();
     	$('#removeAgregar').remove();
     	html='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
@@ -372,10 +400,10 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 		success: function(result){
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
-				if(catIds[i]=="") continue;
 				if(cat[i]=="") borrarCategoria(catIds[i]);
 				else{
-					actualizarCategoria(catIds[i],cat[i]);
+					if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
+					else actualizarCategoria(catIds[i],cat[i]);
 				}
 			}
 			$("#modalAgregarResultado").modal("hide");
@@ -424,6 +452,7 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 			result = JSON.parse(result);
 			if(result== -2){
 				alert("Oops! Ya existe un indicador con este orden. Ingrese otro orden por favor");
+				return;
 			}
 			else{
 				for(i=0; i<descs.length;i++){

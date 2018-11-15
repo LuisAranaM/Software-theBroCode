@@ -12,6 +12,7 @@
 			<h1 class="mainTitle"> Objetivos Educacionales </h1>
 		</div>
 	</div>
+	@include('flash::message')
 
 	
 	

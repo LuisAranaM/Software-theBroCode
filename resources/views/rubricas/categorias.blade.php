@@ -14,6 +14,7 @@
 		<div id="Resultado" value="{{$idRes}}"></div>
 		<div id="ResultadoNombre" value="{{$resultado}}"></div>
 	</div>
+	@include('flash::message')
 	<div class="row">
 		@foreach ($categorias as $categoria) 
 		<div class="col-md-4 col-xs-6">
@@ -78,7 +79,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 
 	<div class="modal-body"> 
 		<div class="container-fluid" style="">
-			<div class="tile coursesModalBox" style="padding-bottom: 20px;">
+			<div class="tile coursesModalBox" style="">
 
 				<div id="filasDesc" class="row rowFinal2">
 					<div class="col-xs-12">
@@ -120,7 +121,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 			</div>
 
 			<div id="btnsAgregarCurso" class="modal-footer">
-				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center; padding-bottom: 5px">
+				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center; padding-bottom: 70px">
 					<div class="col-md-4">
 						<button id="btnAgregarIndicador" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px; " type="submit" name="submit">Cargar</button>
 					</div>
