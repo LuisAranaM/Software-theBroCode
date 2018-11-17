@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Entity\Usuario as Usuario;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller {
 
@@ -24,16 +25,33 @@ class LoginController extends Controller {
         return view('login');
     }
 
-    public function attempt(Request $request) {
-    	//dd("HOLA");
+    public function attempt(Request $request,$usuarioGoogle =[]) {
+        //dd($usuarioGoogle);
         $usuario = $request->get('usuario', null);
         $pass = $request->get('pass', null);
+        if($usuarioGoogle!=NULL){
+            //Logueo mediante google 
+            //dd("Me estoy logueando mediante Google",$usuarioGoogle);
+            $user = Usuario::getCorreo($usuarioGoogle['EMAIL_GOOGLE']);
+            if ($user==NULL) {
+                flash('No existe un usuario en RubriK con ese correo, se debe de crear')->error();
+                return redirect()->route('login.index');
+            }            
 
-        if (!Auth::attempt(['USUARIO' => $usuario, 'password' => $pass],TRUE)) {
-            flash('Usuario o Contraseña errado')->error();
-            return redirect()->route('login.index');
-        }        
-        return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
+            Auth::loginUsingId($user->ID_USUARIO);            
+            //Falta la opción para poder registrarse
+        }
+        else{
+
+            if (!Auth::attempt(['USUARIO' => $usuario, 'password' => $pass],TRUE)) {
+                if (!Auth::attempt(['CORREO' => $usuario, 'password' => $pass],TRUE)) {
+                    flash('Usuario o Contraseña errado')->error();
+                    return redirect()->route('login.index');
+                }
+            }        
+        }
+        //dd(Auth::user());
+            return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
     }
 
     protected function register($usuario) {
@@ -89,6 +107,39 @@ class LoginController extends Controller {
     function logout(Request $request){
         Auth::logout();
         return redirect()->route('login.index');
+    }
+
+
+
+       /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(Request $request)
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        
+        //$user->getId();
+        //$user->getNickname();
+        $nombreUsuario=$user->getName();
+        $emailGoogle=$user->getEmail();
+        $imagenPerfil=$user->getAvatar();
+        
+        $usuarioGoogle=['NOMBRES'=>$nombreUsuario,'EMAIL_GOOGLE'=>$emailGoogle,'IMAGEN_PERFIL'=>$imagenPerfil];
+
+        return self::attempt($request,$usuarioGoogle);
+
     }
 
 }

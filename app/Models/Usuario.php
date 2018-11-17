@@ -133,6 +133,13 @@ class Usuario extends Authenticatable implements Auditable{
         //dd($sql);
         return $sql;
     }
+     static function getCorreo($correo){
+        $sql=DB::table('USUARIOS')
+                ->select()
+                ->where('CORREO','=',$correo);
+        //dd($sql);
+        return $sql;
+    }
     static function updateMasive(){
         $usuarios = DB::table('USUARIOS AS US')->select('US.USUARIO')
         ->where('ID_ROL','=',4)
@@ -146,11 +153,11 @@ class Usuario extends Authenticatable implements Auditable{
         }
     }
     
-    static function updatePassword($usuario,$password){
+    static function updatePassword($correo,$password){
         //dd("HOLA");
         $hoy=Carbon::now();
         return DB::table('USUARIOS')
-             ->where('USUARIO','=',$usuario)
+             ->where('CORREO','=',$correo)
             ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>$hoy]);
     }
     public function actualizarContrasena($idUsuario,$password){

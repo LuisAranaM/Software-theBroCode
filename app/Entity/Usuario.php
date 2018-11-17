@@ -43,6 +43,11 @@ class Usuario extends \App\Entity\Base\Entity {
         $model = new mUsuario();      
         return $model->getUsuario($usuario)->first();
     }
+
+    static function getCorreo($correo){
+        $model = new mUsuario();      
+        return $model->getCorreo($correo)->first();
+    }
     /*
         PODEMOS GENERAR MÉTODOS PARA LISTAR A LOS PROFESORES EN GENERAL O POR ESPECIALIDAD
      */
