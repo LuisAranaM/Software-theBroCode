@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <link rel="icon" href="{{ URL::asset('img/pucp.png') }}">       
+  <link rel="icon" href="{{ URL::asset('img/logo.png') }}">       
   <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
 
 
@@ -24,6 +24,7 @@
 <link href="{{ URL::asset('css/pnotify.nonblock.css') }}" rel="stylesheet">
 
 <link href="{{ URL::asset('css/daterangepicker.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
 
   <!--JS-->
   <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
@@ -44,6 +45,11 @@
 <!--AGREGUE PARA TREE CON CHECKBOX-->
 <script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap-treeview.js') }}"></script>
+
+<!--FORM VALIDATION-->
+<script type="text/javascript" src="{{ URL::asset('js/formvalidation/formValidation.popular.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/formvalidation/language/es_CL.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
 
   @yield('js-libs')
 
@@ -100,11 +106,13 @@
                   <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas</a>
                     
                   </li>
-                  <li class="pText"><a style="color:#72777a"><i class="fa fa-edit"></i> Cursos <span class="fa fa-chevron-down"></span></a></a>
-                    <ul class="nav child_menu">
+                  <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a"><i class="fa fa-edit"></i> Gestionar Cursos 
+                    <!--<span class="fa fa-chevron-down"> </span>-->
+                  </a>
+                    <!--<ul class="nav child_menu">
                       <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
                       <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
-                    </ul>
+                    </ul>-->
                   </li>
                   <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
                   </li>-->
@@ -119,8 +127,16 @@
                   <li class="pText"><a style="color:#72777a" href="{{route('objetivos')}}"><i class="fa fa-mortar-board"></i> Objetivos Educacionales</a>
                   </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
-                  </li>
+                  </li>                  
                 @endif
+                <li class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none;">
+                      <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx" style="color:#72777a">
+                        <i class="fa fa-book"></i>Carga de Cursos</a></li>
+                      <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx" style="color:#72777a">
+                        <i class="fa fa-users"></i>Carga de Alumnos</a></li>
+                    </ul>
+                  </li>
 
               </ul>
             </div>         
@@ -144,7 +160,12 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
+                  @if(Auth::user()->PERFIL==NULL)
+                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
+                  @else
+                  <img src="{{Auth::user()->PERFIL}}" alt="perfil"> 
+                  @endif
+                  <span style="font-family: segoe UI">
                   {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - {{$nombreRol}} de
                   {{$nombreEspecialidad}}
                   </span>

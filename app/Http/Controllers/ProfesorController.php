@@ -51,6 +51,7 @@ class ProfesorController extends Controller
         //dd($request->all());
         $idHorario=$request->get('idHorario',null); 
         $idCurso=$request->get('idCurso',null); 
+        $vistaProc=$request->get('vistaProc',null); 
         
         //$infoCurso=Prueba::getInformacionCurso($idCurso);
         //$infoCurso trae la información principal del curso en un arreglo  
@@ -66,6 +67,7 @@ class ProfesorController extends Controller
         //dd(eAlumnosHasHorario::getAlumnoXHorario($idHorario));
 
         return view('profesor.alumnos')
+        ->with('vistaProc',$vistaProc)
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
         ->with('alumnos',eAlumnosHasHorario::getAlumnosByIdHorario($idHorario))

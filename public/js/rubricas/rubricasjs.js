@@ -298,7 +298,41 @@ function obtenerCategorias(idRes){
 		}
 	});
 }
+
+const http = {
+	get: function({
+		path,
+		data,
+		success,
+		error,
+
+	}) {
+		return $.ajax({
+			url: APP_URL + path,
+			type: 'GET',
+			headers: {},
+			data: data,
+			success: success,
+			error: error,
+			dataType: 'text'
+		})
+	}
+}
+
+
 function obtenerDescripciones(idInd){
+	/*http.get({
+		path: '/rubricas/obtener-descripciones',
+		data: {
+			_idInd: idInd
+		},
+		success: result => {
+
+		},
+		error: (xhr, status, text) => {
+
+		}
+	})*/
 	$.ajax({
 		url: APP_URL + '/rubricas/obtener-descripciones',
 		type:'GET',
@@ -418,7 +452,9 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 		success: function(result){
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
-				if(cat[i]=="") borrarCategoria(catIds[i]);
+				if(cat[i]=="") 
+					if(catIds[i]=="") continue;
+					else borrarCategoria(catIds[i]);
 				else{
 					if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
 					else actualizarCategoria(catIds[i],cat[i]);
@@ -638,6 +674,7 @@ function insertarResultados(codRes,descRes,cat){
 			var idRes= result;	
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
+				if(cat[i]=="") continue;
 				insertarCategorias(cat[i], idRes);
 			}
 			window.location = APP_URL + "/rubricas/gestion";			
