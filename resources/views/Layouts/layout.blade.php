@@ -124,7 +124,11 @@
                   </li>-->
                   <li class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
-                  <li class="pText"><a style="color:#72777a" href="{{route('objetivos')}}"><i class="fa fa-mortar-board"></i> Objetivos Educacionales</a>
+                  <li class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Obj. Educacionales <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>
+                      <li class="pText"><a href="{{route('objetivos')}}" style="color:#72777a">Mapear Objetivos</a></li>
+                    </ul>
                   </li>
                   <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>                  

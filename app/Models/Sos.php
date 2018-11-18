@@ -79,4 +79,50 @@ class Sos extends Eloquent
 								->where('ESTADO','=',1);
 		return $objetivosEstudiante;
 	}
+
+	function eliminarSos($registro){
+        //dd($registro);    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+           DB::table('SOS')
+            ->where('ID_SOS','=',$registro['IDSOS'])
+            ->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+            ->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+            ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        //dd($status);
+        return $status;
+        //dd($sql->get());
+    }
+    
+    function editarSos($registro){
+        //dd($registro);    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+           DB::table('SOS')
+            ->where('ID_SOS','=',$registro['IDSOS'])
+            ->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+            ->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+            ->update(['NOMBRE'=>$registro['nombreSOS'],'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        //dd($status);
+        return $status;
+        //dd($sql->get());
+    }
 }
