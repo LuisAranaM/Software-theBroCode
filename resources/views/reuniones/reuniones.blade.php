@@ -66,7 +66,7 @@
 					<!--<input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}"> -->
 					<h2 class="">Documentos</h2>
 					<div class="col-md-8">
-						<div class="table-responsive">
+						<div class="table-responsive" style="height:300px;overflow:auto;">
 							<table class="table table-striped jambo_table bulk_action">
 								<thead >
 									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
