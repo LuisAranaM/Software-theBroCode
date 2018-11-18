@@ -56,7 +56,7 @@
 							<div class="row" style="text-align: center; padding-top: 10px">
 								<div class="col-md-12">
 									<!--<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>-->
-									<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white">Agregar</button>
+									<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white; width: 200px;">Agregar Obj. Estudiante</button>
 								</div>
 							</div>
 
@@ -100,7 +100,7 @@
 						<div id="btnsGuardar" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
 							<div class="row" style="text-align: center; padding-top: 10px">
 								<div class="col-md-12">
-									<button id="btnAgregarEos" class="btn btn-success pText customButtonThin" >Agregar</button>
+									<button id="btnAgregarEos" class="btn btn-success pText customButtonThin" style="width: 200px;">Agregar Obj. Educacionales</button>
 								</div>
 							</div>
 
@@ -123,6 +123,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <!--<label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>-->
+          <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Objetivo del Estudiante</h4>
         </div>
         <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
         <div class="modal-body"> 
