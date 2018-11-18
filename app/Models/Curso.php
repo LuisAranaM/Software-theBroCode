@@ -269,6 +269,7 @@ class Curso extends Eloquent
                 ->select('ID_CURSO')
                 ->where('CODIGO_CURSO','=',$codCurso)
                 ->where('ESTADO','=',1);
+        return $sql;
     }
 
 }

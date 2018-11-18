@@ -157,10 +157,11 @@ class CursoController extends Controller
                 foreach ($data as $key => $value) {                    
                     if(($value->clave)!=""){
                         //buscamos el curso
+                        
                         $auxCurso = new Curso();
                         $idCurso = $auxCurso->getIdCurso($value->clave);
                         //primero ingresamos curso
-                        //dd($idCurso);
+                        dd($idCurso);
                         $datos_cursos=[];
                         if($idCurso==null){
 
@@ -186,6 +187,7 @@ class CursoController extends Controller
                         $codProf = $value->codigo;
                         $model = new Usuario();
                         $idProf = $model->getIdUsuario($codProf);
+                        dd($idProf);
                         //si no existe, si existe ya tenemos el id
                         if(!$idProf){
                             $auxNombProfe = explode(",",$value->profesor);
