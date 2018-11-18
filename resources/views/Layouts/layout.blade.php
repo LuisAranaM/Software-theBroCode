@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <link rel="icon" href="{{ URL::asset('img/pucp.png') }}">       
+  <link rel="icon" href="{{ URL::asset('img/logo.png') }}">       
   <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
 
 
@@ -24,6 +24,7 @@
 <link href="{{ URL::asset('css/pnotify.nonblock.css') }}" rel="stylesheet">
 
 <link href="{{ URL::asset('css/daterangepicker.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
 
   <!--JS-->
   <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
@@ -44,6 +45,11 @@
 <!--AGREGUE PARA TREE CON CHECKBOX-->
 <script  type="text/javascript" src="{{ URL::asset('js/checktree.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap-treeview.js') }}"></script>
+
+<!--FORM VALIDATION-->
+<script type="text/javascript" src="{{ URL::asset('js/formvalidation/formValidation.popular.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/formvalidation/language/es_CL.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
 
   @yield('js-libs')
 
@@ -154,7 +160,12 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> <span style="font-family: segoe UI">
+                  @if(Auth::user()->PERFIL==NULL)
+                  <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
+                  @else
+                  <img src="{{Auth::user()->PERFIL}}" alt="perfil"> 
+                  @endif
+                  <span style="font-family: segoe UI">
                   {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - {{$nombreRol}} de
                   {{$nombreEspecialidad}}
                   </span>

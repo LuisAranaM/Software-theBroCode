@@ -140,6 +140,14 @@ class Usuario extends Authenticatable implements Auditable{
         //dd($sql);
         return $sql;
     }
+
+    static function updateFoto($idUsuario,$usuarioGoogle){
+        $hoy=Carbon::now();
+        $sql=DB::table('USUARIOS')                
+                ->where('ID_USUARIO','=',$idUsuario)
+                ->update(['PERFIL' => $usuarioGoogle['IMAGEN_PERFIL'],'FECHA_ACTUALIZACION'=>$hoy]);
+        return true;
+    }
     static function updateMasive(){
         $usuarios = DB::table('USUARIOS AS US')->select('US.USUARIO')
         ->where('ID_ROL','=',4)
@@ -182,5 +190,27 @@ class Usuario extends Authenticatable implements Auditable{
                 ->where('USUARIO','=',$codUsuario)
                 ->where('ESTADO','=',1);
 
+    }
+
+    function crearCuentaRubrik($usuario,$usuarioEspecialidad){
+        //dd(Carbon::now());    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+            $idUsuario=DB::table('USUARIOS')->insertGetId($usuario);
+            $usuarioEspecialidad['ID_USUARIO']=$idUsuario;
+            $usuarioEspecialidad['USUARIO_MODIF']=$idUsuario;
+            if($usuario['ID_ROL']!=1){
+                DB::table('USUARIOS_HAS_ESPECIALIDADES')->insert($usuarioEspecialidad);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
     }
 }

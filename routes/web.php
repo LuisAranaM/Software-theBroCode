@@ -30,6 +30,8 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
 /*ACCESO CON GOOGLE*/
 Route::get('login/google', ['as'=>'login.google','uses'=>'LoginController@redirectToProvider']);
 Route::get('login/google/callback', ['as'=>'login.google.callback','uses'=>'LoginController@handleProviderCallback']);
+Route::get('login/google/formulario', ['as'=>'login.google.formulario','uses'=>'LoginController@formularioCuentaRubrikGoogle']);
+Route::post('login/google/crear', ['as'=>'login.google.crear','uses'=>'LoginController@crearCuentaRubrikGoogle']);
 /**/
 
 Route::get('/', ['as' => 'login.index', 'uses' => 'LoginController@index']);

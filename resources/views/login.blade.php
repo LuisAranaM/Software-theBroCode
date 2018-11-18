@@ -26,7 +26,6 @@
     
 </form> 
 
-<div id="google" class="google-button" tabindex="0"> <span class="icon"></span> <span class="label">Registrarse con Google</span> </div>
 @stop
 
 @section('js-scripts')
