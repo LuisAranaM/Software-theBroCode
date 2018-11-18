@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Entity\Usuario as Usuario;
 
 class AdministradorController extends Controller
 {
@@ -80,5 +81,24 @@ class AdministradorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+    public function gestionUsuarios(Request $request){
+        $filtros=[
+            'page' => $request->get('page',1),
+        ];
+        $orden=[];
+        return view('administrador.gestion-usuario')
+        ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario'))
+        ->with('filtros',$filtros)
+        ->with('orden',$orden);
+    }
+    public function gestionSemestres(Request $request){
+        return view('administrador.gestion-semestre');
+    }
+    public function gestionEspecialidades(Request $request){
+        return view('administrador.gestion-especialidad');
     }
 }

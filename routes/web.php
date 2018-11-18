@@ -121,6 +121,9 @@ Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
+	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
+	Route::get('/gestionar-semestre',['as'=>'administrador.semestre','uses'=>'AdministradorController@gestionSemestres']);
+	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
 });
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {

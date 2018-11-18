@@ -98,10 +98,18 @@
 
               <label class="sideBarText" style="padding-left: 14px" >Semestre: {{$semestreActual}}</label>
 
-                
+                @if($modoAdministrador)
+                <li class="pText"><a href="{{route('administrador.usuario')}}" style="color:#72777a"><i class="fa fa-users"></i>Gestionar Usuarios</a>
+                </li>
+                <li class="pText"><a href="{{route('administrador.semestre')}}" style="color:#72777a"><i class="fa fa-calendar"></i>Gestionar Semestres</a>
+                </li>
+                <li class="pText"><a href="{{route('administrador.especialidad')}}" style="color:#72777a"><i class="fa fa-graduation-cap"></i>Gestionar Especialidad</a>
+                </li>
+                @endif
+                @if($modoProfesor or $modoAsistente or $modoProfesor)
                 <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
-                
+                @endif
                 @if($modoCoordinador or $modoAsistente)
                   <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas</a>
                     
