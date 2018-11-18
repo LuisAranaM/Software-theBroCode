@@ -67,6 +67,10 @@
     $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
 
     $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
+    
+    if($nombreEspecialidad=='')
+      $nombreEspecialidad='RubriK';
+
     $nombreRol=App\Entity\Rol::getRolUsuario();
     //dd($nombreRol);
     $semestreActual=App\Entity\Semestre::getSemestre();

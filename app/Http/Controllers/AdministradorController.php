@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Entity\Usuario as Usuario;
 use App\Entity\Rol as Rol;
 use App\Entity\Especialidad as Especialidad;
+use App\Entity\Semestre as Semestre;
 
 class AdministradorController extends Controller
 {
@@ -118,9 +119,28 @@ class AdministradorController extends Controller
     }
 
     public function gestionSemestres(Request $request){
-        return view('administrador.gestion-semestre');
+        return view('administrador.gestion-semestre')
+        ->with('semestres',Semestre::getSemestres());
     }
+
+     public function crearSemestre(Request $request){
+
+    }
+
+    public function editarSemestre(Request $request){
+
+    }
+
     public function gestionEspecialidades(Request $request){
-        return view('administrador.gestion-especialidad');
+        return view('administrador.gestion-especialidad')
+        ->with('especialidades',Especialidad::getEspecialidades());
+    }
+
+    public function crearEspecialidad(Request $request){
+
+    }
+
+    public function editarEspecialidad(Request $request){
+
     }
 }
