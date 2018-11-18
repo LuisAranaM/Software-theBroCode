@@ -124,6 +124,14 @@ Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
+	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
+	Route::post('/gestionar-usuario/crear',['as'=>'administrador.usuario.crear','uses'=>'AdministradorController@crearCuentaRubrik']);
+	Route::get('/gestionar-semestre',['as'=>'administrador.semestre','uses'=>'AdministradorController@gestionSemestres']);
+	Route::post('/gestionar-semestre/crear',['as'=>'administrador.semestre.crear','uses'=>'AdministradorController@crearSemestre']);
+	Route::post('/gestionar-semestre/editar',['as'=>'administrador.semestre.editar','uses'=>'AdministradorController@editarSemestre']);
+	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
+	Route::post('/gestionar-especialidad/crear',['as'=>'administrador.especialidad.crear','uses'=>'AdministradorController@crearEspecialidad']);
+	Route::post('/gestionar-especialidad/editar',['as'=>'administrador.especialidad.editar','uses'=>'AdministradorController@editarEspecialidad']);
 });
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {

@@ -123,7 +123,10 @@ class Semestre extends Eloquent
 
 	static function getSemestres(){
 		$sql=DB::table('SEMESTRES')
-				->select('ID_SEMESTRE',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
+				->select('ID_SEMESTRE',DB::Raw("CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO"),
+					DB::Raw("CONVERT(FECHA_FIN,DATE) AS FECHA_FIN"),
+					DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
+					DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
 				->where('ESTADO','=',1);
 		return $sql;
 	}
