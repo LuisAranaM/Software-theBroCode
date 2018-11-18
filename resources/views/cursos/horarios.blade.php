@@ -20,7 +20,7 @@
       @if($codCurso===null)
       <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > Horarios y Criterios</h1>
       @else
-      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href=""> {{$codCurso}} {{$nombreCurso}}</a></h1>
+      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href=""> {{$codCurso}} - {{$nombreCurso}}</a></h1>
       @endif
     </div>
   </div>
@@ -57,7 +57,7 @@
       <div id="listHorarios">
         @foreach($horarios as $h)
         @if($h->ESTADO===1)
-        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}">
+        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
           <div class="x_content bs-example-popovers courseContainer">
             <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
               <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>

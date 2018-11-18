@@ -103,6 +103,7 @@ class Curso extends Eloquent
                     ->where('ID_SEMESTRE','=',-1)
                     ->get();
 
+    $info = array();
     if($usuario->ID_ROL==4){        
         $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
     }

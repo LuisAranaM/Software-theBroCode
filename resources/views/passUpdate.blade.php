@@ -2,14 +2,13 @@
 @section('pageTitle', 'Cambiar Contraseña')
 @section('content')
 @section('js-libs')
-<link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
-<link href="{{ URL::asset('css/switchery.min.css') }}" rel="stylesheet" type="text/css">
+<!--
+  <link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
 
-<script type="text/javascript" src="{{ URL::asset('js/formvalidation/formValidation.popular.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/formvalidation/language/es_CL.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
-
+  <script type="text/javascript" src="{{ URL::asset('js/formvalidation/formValidation.popular.min.js') }}"></script>
+  <script type="text/javascript" src="{{ URL::asset('js/formvalidation/language/es_CL.js') }}"></script>
+  <script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
+-->
 @stop
 <div class="customBody">
 

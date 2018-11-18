@@ -64,6 +64,14 @@ class Especialidad extends Eloquent
 				})
 				->where('US.ID_USUARIO','=',$id_usuario);
 		return $sql->first();
+	}
+
+	public function getEspecialidades()
+	{	
+		$sql=DB::table('ESPECIALIDADES')
+				->select()
+				->where('ESTADO','=',1);
+		return $sql;
 	}	
 
 	public function actas()
