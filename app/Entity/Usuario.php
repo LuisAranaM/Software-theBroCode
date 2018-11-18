@@ -153,14 +153,24 @@ class Usuario extends \App\Entity\Base\Entity {
             'PERFIL'=>$datosCuenta['perfil']
         ];
 
-        $usuarioEspecialidad=['ID_USUARIO' =>NULL,        
-        'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
-        'FECHA_REGISTRO'=>$hoy,
-        'FECHA_ACTUALIZACION'=>$hoy,
-        'USUARIO_MODIF' =>NULL,     
-        'ESTADO'=>1
-    ];
+        $usuarioEspecialidad=[];
+        if($usuario['ID_ROL']!=1){
+            $usuarioEspecialidad=['ID_USUARIO' =>NULL,        
+            'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
+            'FECHA_REGISTRO'=>$hoy,
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF' =>NULL,     
+            'ESTADO'=>1
+            ];
+        }
+    //Verificar que usuario y correo no estén registrados
+    if($model->verificarUsuario($usuario)){
+        //dd("HOLA");
+        $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+        return false;        
+    }
 
+    
     if ($model->crearCuentaRubrik($usuario,$usuarioEspecialidad)){
         return true;
     }else{

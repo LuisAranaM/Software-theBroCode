@@ -148,6 +148,7 @@ class Usuario extends Authenticatable implements Auditable{
         ->leftJoin('ESPECIALIDADES AS ES',function($join){
             $join->on('ES.ID_ESPECIALIDAD','=','UE.ID_ESPECIALIDAD');
         })
+        ->where('US.ESTADO','=',1)
         ->orderBy('ROL.NOMBRE','ASC')
         ->orderBy(DB::Raw("CONCAT(US.CORREO,US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO)"),'ASC');
         
@@ -162,6 +163,15 @@ class Usuario extends Authenticatable implements Auditable{
                 ->where('CORREO','=',$correo);
         //dd($sql);
         return $sql;
+    }
+
+    static function verificarUsuario($usuario){
+        $sql=DB::table('USUARIOS')
+                ->select()
+                ->where('CORREO','=',$usuario['CORREO'])
+                ->where('USUARIO','=',$usuario['USUARIO']);
+        //dd($sql);
+        return $sql->count();
     }
 
     static function updateFoto($idUsuario,$usuarioGoogle){

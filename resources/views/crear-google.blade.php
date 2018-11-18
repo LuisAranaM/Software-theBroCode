@@ -149,13 +149,6 @@ especialidad: {
        },
    }
 },
-usuario: {
-    validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
-   }
-},
 pass: {
     validators: {
         notEmpty: {

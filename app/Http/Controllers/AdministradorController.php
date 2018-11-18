@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Entity\Usuario as Usuario;
+use App\Entity\Rol as Rol;
+use App\Entity\Especialidad as Especialidad;
 
 class AdministradorController extends Controller
 {
@@ -93,8 +95,28 @@ class AdministradorController extends Controller
         return view('administrador.gestion-usuario')
         ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario'))
         ->with('filtros',$filtros)
-        ->with('orden',$orden);
+        ->with('orden',$orden)
+        ->with('roles',Rol::getRoles())
+        ->with('especialidades',Especialidad::getEspecialidades());
     }
+
+        public function crearCuentaRubrik(Request $request){
+        //dd($request->all());
+
+        //Registraremos el usuario y nos loguearemos
+        $usuario=new Usuario();
+
+        if($usuario->crearCuentaRubrik($request->all())){
+            flash('Se registró el usuario correctamente')->success();
+            //return back();
+        } else {
+            flash($usuario->getMessage())->error();
+        }
+            return back();      
+        
+
+    }
+
     public function gestionSemestres(Request $request){
         return view('administrador.gestion-semestre');
     }
