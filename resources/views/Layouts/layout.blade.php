@@ -80,7 +80,7 @@
 
       <div class="col-md-3 left_col menu_fixed" >
         <div class="left_col scroll-view" style="border: solid 1px #D9DEE4; border-top: transparent;background-color: white">
-          <a href="#" class="site_title text-center" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 65%"/></a>
+          <a href="#" class="site_title text-center" style=""><img id="imagenRubrik" src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 65%"/></a>
           <!--<div class="navbar nav_title text-center" style="border: 0; background-color: white;height: auto">-->
             <!--<a href="#" class="site_title" style=""><img src="{{ URL::asset('img/logo2.png') }}" alt="logoRubriK" style="width: 70%"/></a>-->
           <!--</div>-->
@@ -95,9 +95,9 @@
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
               <ul class="nav side-menu">
-
-              <label class="sideBarText" style="padding-left: 14px" >Semestre: {{$semestreActual}}</label>
-
+                
+                <li class="pText" ><a href="#" style="color:#72777a;font-weight: bold;cursor: default;color:black"><i class="fa fa-calendar"></i>Semestre: {{$semestreActual}}</a>
+                </li>
                 @if($modoAdministrador)
                 <li class="pText"><a href="{{route('administrador.usuario')}}" style="color:#72777a"><i class="fa fa-users"></i>Gestionar Usuarios</a>
                 </li>
@@ -106,7 +106,7 @@
                 <li class="pText"><a href="{{route('administrador.especialidad')}}" style="color:#72777a"><i class="fa fa-graduation-cap"></i>Gestionar Especialidad</a>
                 </li>
                 @endif
-                @if($modoProfesor or $modoAsistente or $modoProfesor)
+                @if($modoCoordinador or $modoAsistente or $modoProfesor)
                 <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
                 @endif
