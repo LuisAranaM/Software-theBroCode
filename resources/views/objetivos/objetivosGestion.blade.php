@@ -34,10 +34,10 @@
 								<tbody class="text-left" id="listaSOS">
 									@foreach($objetivosEstudiante as $so)
 									<tr class="even pointer" id="columnaX">
-										<td class="pText" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;">{{$so->NOMBRE}}</td>
+										<td class="pText editSo" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
 
 										<td  style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
-											<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="editSo fa fa-pencil fa-lg" style=" cursor: pointer"></i>
+											<i id="edit" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
 											<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="elimSo fa fa-trash fa-lg" style=" cursor: pointer"></i>
 
 											<!--<label>
@@ -55,7 +55,8 @@
 						<div id="btnsGuardar" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
 							<div class="row" style="text-align: center; padding-top: 10px">
 								<div class="col-md-12">
-									<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>
+									<!--<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>-->
+									<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white">Agregar</button>
 								</div>
 							</div>
 
@@ -144,7 +145,7 @@
             <div id="btnsResultado" class="modal-footer">
               <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
                 <div class="col-md-4">
-                  <button id="btnAgregarResultado" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Guardar</button>
+                  <button id="btnAgregarSosModal" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Guardar</button>
                 </div>
 
               </div>

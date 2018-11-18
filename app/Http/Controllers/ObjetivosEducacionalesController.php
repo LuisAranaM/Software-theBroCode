@@ -55,12 +55,24 @@ class ObjetivosEducacionalesController extends Controller
 
      public function editarSos(Request $request){
         $sos=new eSos();
-
-        if($sos->editarSos($request->all(),Auth::id())){
-            
+        //dd($request->get('IDSOS'));
+        if($sos->editarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
+        
         } else {
             flash('Hubo un error')->error();
         }
         return back();
      }
+
+     
+     public function agregarSos(Request $request){
+        $sos=new eSos();
+
+        if($sos->agregarSos($request->get('textSos'),Auth::id())){
+            
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }  
 }
