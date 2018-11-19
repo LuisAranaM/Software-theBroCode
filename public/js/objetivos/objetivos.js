@@ -115,21 +115,23 @@ $( document ).ready(function() {
 			$(this).html(input);
 			*/
 			var $this = $(this);
+			var nombreAtributo=$this.attr('nombreSOS');
 			var $input = $('<input>', {
-				value: $this.text(),
-				type: 'text',
-				width: '700px',
+				value: nombreAtributo,
+				width: '350px',
 				blur: function() {
+					$this.attr('nombreSOS',this.value);
 					$this.text(this.value);
 				},
 				keyup: function(e) {
 					if (e.which === 13) {
 						$input.blur();
-						var IDSOS=$("#edit").attr('idSOS');
-						var nombreSOS=$("#edit").attr('nombreSOS');
+						var IDSOS=$this.attr('idSOS');
+						var nombreSOS=$this.attr('nombreSOS');
 						console.log(IDSOS);
 						console.log(nombreSOS);
 						editarSOS(IDSOS,nombreSOS); 
+						e.preventDefault();
 					}
 				}
 			}).appendTo( $this.empty() ).focus();
@@ -137,6 +139,7 @@ $( document ).ready(function() {
 
 
 	function editarSOS(IDSOS,nombreSOS)	{
+
 		console.log("entra a funcion");
 		$.ajax({
 			type:'POST',

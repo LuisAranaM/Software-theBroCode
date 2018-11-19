@@ -55,6 +55,7 @@ class ObjetivosEducacionalesController extends Controller
 
      public function editarSos(Request $request){
         $sos=new eSos();
+        //dd("HOLA");
         //dd($request->get('IDSOS'));
         if($sos->editarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
         

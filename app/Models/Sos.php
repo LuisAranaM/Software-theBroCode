@@ -107,7 +107,7 @@ class Sos extends Eloquent
         //dd($registro);    
 		DB::beginTransaction();
 		$status = true;
-
+		//dd($registro);
 		try {
 			DB::table('SOS')
 			->where('ID_SOS','=',$registro['ID_SOS'])
