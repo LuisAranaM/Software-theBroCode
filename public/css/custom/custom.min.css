@@ -3155,6 +3155,12 @@ a.hiddenanchor {
 	max-width:350px;
 	position:relative
 }
+.new_user_wrapper {
+	right:0;
+	margin:5% auto 0;
+	max-width:700px;
+	position:relative
+}
 .cropper .docs-cropped .modal-body>canvas,.cropper .docs-cropped .modal-body>img,.cropper .img-container>img,.cropper .img-preview>img {
 	max-width:100%
 }

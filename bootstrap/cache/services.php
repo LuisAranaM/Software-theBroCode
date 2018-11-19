@@ -29,21 +29,23 @@
     25 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     26 => 'Jenssegers\\Date\\DateServiceProvider',
     27 => 'Laracasts\\Flash\\FlashServiceProvider',
-    28 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    31 => 'OwenIt\\Auditing\\AuditingServiceProvider',
-    32 => 'Way\\Generators\\GeneratorsServiceProvider',
-    33 => 'Xethron\\MigrationsGenerator\\MigrationsGeneratorServiceProvider',
-    34 => 'App\\Providers\\AppServiceProvider',
-    35 => 'App\\Providers\\AuthServiceProvider',
-    36 => 'App\\Providers\\EventServiceProvider',
-    37 => 'App\\Providers\\RouteServiceProvider',
-    38 => 'Barryvdh\\Debugbar\\ServiceProvider',
-    39 => 'Barryvdh\\Cors\\ServiceProvider',
-    40 => 'Reliese\\Coders\\CodersServiceProvider',
-    41 => 'OwenIt\\Auditing\\AuditingServiceProvider',
-    42 => 'Chumper\\Zipper\\ZipperServiceProvider',
+    28 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    29 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    30 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    31 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    32 => 'OwenIt\\Auditing\\AuditingServiceProvider',
+    33 => 'Way\\Generators\\GeneratorsServiceProvider',
+    34 => 'Xethron\\MigrationsGenerator\\MigrationsGeneratorServiceProvider',
+    35 => 'App\\Providers\\AppServiceProvider',
+    36 => 'App\\Providers\\AuthServiceProvider',
+    37 => 'App\\Providers\\EventServiceProvider',
+    38 => 'App\\Providers\\RouteServiceProvider',
+    39 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    40 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    41 => 'Barryvdh\\Cors\\ServiceProvider',
+    42 => 'Reliese\\Coders\\CodersServiceProvider',
+    43 => 'OwenIt\\Auditing\\AuditingServiceProvider',
+    44 => 'Chumper\\Zipper\\ZipperServiceProvider',
   ),
   'eager' => 
   array (
@@ -175,6 +177,7 @@
     'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
+    'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     'OwenIt\\Auditing\\Contracts\\Auditor' => 'OwenIt\\Auditing\\AuditingServiceProvider',
@@ -216,6 +219,9 @@
     array (
     ),
     'Illuminate\\Validation\\ValidationServiceProvider' => 
+    array (
+    ),
+    'Laravel\\Socialite\\SocialiteServiceProvider' => 
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 

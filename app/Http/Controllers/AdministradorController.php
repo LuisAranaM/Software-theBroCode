@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Entity\Usuario as Usuario;
+use App\Entity\Rol as Rol;
+use App\Entity\Especialidad as Especialidad;
+use App\Entity\Semestre as Semestre;
 
 class AdministradorController extends Controller
 {
@@ -80,5 +84,63 @@ class AdministradorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+    public function gestionUsuarios(Request $request){
+        $filtros=[
+            'page' => $request->get('page',1),
+        ];
+        $orden=[];
+        return view('administrador.gestion-usuario')
+        ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario'))
+        ->with('filtros',$filtros)
+        ->with('orden',$orden)
+        ->with('roles',Rol::getRoles())
+        ->with('especialidades',Especialidad::getEspecialidades());
+    }
+
+        public function crearCuentaRubrik(Request $request){
+        //dd($request->all());
+
+        //Registraremos el usuario y nos loguearemos
+        $usuario=new Usuario();
+
+        if($usuario->crearCuentaRubrik($request->all())){
+            flash('Se registró el usuario correctamente')->success();
+            //return back();
+        } else {
+            flash($usuario->getMessage())->error();
+        }
+            return back();      
+        
+
+    }
+
+    public function gestionSemestres(Request $request){
+        return view('administrador.gestion-semestre')
+        ->with('semestres',Semestre::getSemestres());
+    }
+
+     public function crearSemestre(Request $request){
+
+    }
+
+    public function editarSemestre(Request $request){
+
+    }
+
+    public function gestionEspecialidades(Request $request){
+        return view('administrador.gestion-especialidad')
+        ->with('especialidades',Especialidad::getEspecialidades());
+    }
+
+    public function crearEspecialidad(Request $request){
+
+    }
+
+    public function editarEspecialidad(Request $request){
+
     }
 }

@@ -22,5 +22,9 @@ class Especialidad extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getEspecialidades(){
+        $model = new mEspecialidad();
+        return $model->getEspecialidades()->get();
+    }
     
 }
