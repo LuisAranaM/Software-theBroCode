@@ -121,7 +121,7 @@ Route::post('/eliminar-eos',['as'=>'eliminar.eos','uses'=>'ObjetivosEducacionale
 Route::post('/editar-sos',['as'=>'editar.sos','uses'=>'ObjetivosEducacionalesController@editarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/editar-eos',['as'=>'editar.eos','uses'=>'ObjetivosEducacionalesController@editarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/agregar-sos',['as'=>'agregar.sos','uses'=>'ObjetivosEducacionalesController@agregarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
+Route::post('/agregar-eos',['as'=>'agregar.eos','uses'=>'ObjetivosEducacionalesController@agregarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses'=>'ObjetivosEducacionalesController@objetivosGuardar','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 /****RUTAS PARA ADMINISTRADOR****/

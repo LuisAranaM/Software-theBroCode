@@ -100,7 +100,7 @@
 						<div id="btnsGuardar" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
 							<div class="row" style="text-align: center; padding-top: 10px">
 								<div class="col-md-12">
-									<button id="btnAgregarEos" class="btn btn-success pText customButtonThin" style="width: 200px;">Agregar Obj. Educacionales</button>
+									<button id="btnAgregarEos" class=" btn pText customButtonThin" style="color: white; width: 200px;">Agregar Obj. Educacionales</button>
 								</div>
 							</div>
 
@@ -112,7 +112,7 @@
 
 			</div>
 		</div>
-		<!--MODAL-->
+		<!--MODAL SOS-->
 		<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarObjetivosSOS" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 			<div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
 				<div class="modal-content">
@@ -146,6 +146,57 @@
 								<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
 									<div class="col-md-4">
 										<button id="btnAgregarSosModal" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Guardar</button>
+									</div>
+
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+
+	<!--MODAL EOS-->
+		<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarObjetivosEOS" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+			<div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<!--<label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>-->
+					<h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Objetivo Educacional</h4>
+				</div>
+				<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+				<div class="modal-body"> 
+					<div class="container-fluid" style="">
+						<form id="frmAgregarCursos" action="" method="POST">
+							{{ csrf_field() }}
+							<div class="tile coursesModalBox" style="padding-bottom: 20px;">
+
+								<div id="filasCat"class="row rowFinal2">
+									<div class="col-xs-12">
+										<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Objetivo Educacional</p>
+									</div>
+									<div class="col-xs-12">
+										<textarea type="text" id="txtEos" class="descripcionSos form-control pText customInput" name="nombreSos" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+									</div>
+
+								</div>
+							</div>
+
+							<div id="btnsResultado" class="modal-footer">
+								<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+									<div class="col-md-4">
+										<button id="btnAgregarEosModal" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Guardar</button>
 									</div>
 
 								</div>

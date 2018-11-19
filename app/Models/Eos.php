@@ -127,4 +127,24 @@ class Eos extends Eloquent
         //dd($sql->get());
 	}
 
+	function agregarEos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+			DB::table('EOS')
+			->insert(['NOMBRE'=>$registro['NOMBRESEOS'],'ID_SEMESTRE'=>$registro['ID_SEMESTRE'],'ID_ESPECIALIDAD'=>$registro['ID_ESPECIALIDAD'],'FECHA_REGISTRO'=>$registro['FECHA_REGISTRO'],'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION'],'USUARIO_MODIF'=>$registro['USUARIO_MODIF'],'ESTADO'=>$registro['ESTADO']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
 }

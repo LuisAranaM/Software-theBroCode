@@ -75,8 +75,26 @@ class Eos extends \App\Entity\Base\Entity {
     }
 
 
-    
+    public function agregarEos($textEos,$usuario){
+        //dd($data['textSos']);
+        $registro=['NOMBRESEOS'=>$textEos,        
+        'ID_SEMESTRE'=>self::getIdSemestre(),
+        'ID_ESPECIALIDAD'=>self::getEspecialidadUsuario(),            
+        'FECHA_REGISTRO'=>Carbon::now(),
+        'FECHA_ACTUALIZACION'=>Carbon::now(),
+        'USUARIO_MODIF'=>$usuario,
+        'ESTADO'=>1];
+        //dd($registro);
+        //Armamos lo que vamos a insertar
+        //dd("HOLI");
+        $model= new mEos();
 
-
+        if ($model->agregarEos($registro)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+    }  
     
 }

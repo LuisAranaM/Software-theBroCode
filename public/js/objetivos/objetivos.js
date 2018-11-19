@@ -144,6 +144,43 @@ $( document ).ready(function() {
 		});
 	}
 
+	$("#btnAgregarEos").on("click", function(){
+		console.log("boton");
+		$("#modalAgregarObjetivosEOS").modal("show");
+    	//e.preventDefault(); 
+    });
+
+	
+	$("#btnAgregarEosModal").on("click", function(){
+		console.log('HOLA3');
+		var txtEos=$('#txtEos').val();
+		console.log(txtEos);
+		agregarEOS(txtEos);             
+		
+	});
+
+	function agregarEOS(txtEos)	{
+		console.log('agregarEOS');
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url:APP_URL+'/agregar-eos',
+			data:{
+				txtEos:txtEos,				
+			},
+			success:function(result)
+			{
+				console.log('EXITO');
+				location.reload();
+			},error: function (xhr, status, text) {
+				e.preventDefault();
+				alert('Hubo un error al registrar la información');           
+			}
+		});
+	}
+
 
 	$(document).on('click', '.editSo', function(){
 			/*console.log('editSo');
