@@ -39,6 +39,43 @@ $( document ).ready(function() {
 		});
 	}
 
+	$(document).on('click', '.elimEo', function(e){
+		console.log('HOLA');
+		var IDEOS=$(this).attr('idEOS');
+		var nombreEOS=$(this).attr('nombreEOS');
+		//var filaAlumno=$(this).parent().parent().parent();
+		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreEOS+"?");
+		//var botonCurso=$(this).closest('div').closest('div');
+		if (resp == true) {
+			eliminarEOS(IDEOS,nombreEOS);          
+			//.css('display','none');
+		} 
+		e.preventDefault();    
+		
+	});
+
+	function eliminarEOS(IDEOS,nombreEOS)	{
+		console.log("elim");
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url:APP_URL+'/eliminar-eos',
+			data:{
+				IDEOS:IDEOS,				
+				nombreEOS:nombreEOS,				
+			},
+			success:function(result)
+			{
+				location.reload();
+			},error: function (xhr, status, text) {
+				e.preventDefault();
+				alert('Hubo un error al registrar la información');           
+			}
+		});
+	}
+
 	/*
 	$(document).on('click', '.editSo', function(){
 		//console.log('HOLA');
@@ -99,7 +136,7 @@ $( document ).ready(function() {
 			success:function(result)
 			{
 				console.log('EXITO');
-				//filaAlumno.css('display','none');
+				location.reload();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
 				alert('Hubo un error al registrar la información');           
@@ -154,6 +191,7 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
+				location.reload();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
 				e.preventDefault();

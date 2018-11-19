@@ -117,6 +117,7 @@ Route::get('/resultadosFiltroDocs', ['as'=>'reultadosFiltro.docs','uses'=>'Reuni
 Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/objetivos-educacionales-gestion', ['as'=>'objetivosGestion','uses'=>'ObjetivosEducacionalesController@objetivosGestionTablas','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/eliminar-sos',['as'=>'eliminar.sos','uses'=>'ObjetivosEducacionalesController@eliminarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/eliminar-eos',['as'=>'eliminar.eos','uses'=>'ObjetivosEducacionalesController@eliminarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/editar-sos',['as'=>'editar.sos','uses'=>'ObjetivosEducacionalesController@editarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/agregar-sos',['as'=>'agregar.sos','uses'=>'ObjetivosEducacionalesController@agregarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 

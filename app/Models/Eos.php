@@ -77,4 +77,31 @@ class Eos extends Eloquent
 								->where('ESTADO','=',1);
 		return $objetivosEducacionales;
 	}
+
+	
+	function eliminarEos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+			DB::table('EOS')
+			->where('ID_EOS','=',$registro['ID_EOS'])
+			->where('NOMBRE','=',$registro['NOMBREEOS'])
+			->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+			->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+			->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
+
 }

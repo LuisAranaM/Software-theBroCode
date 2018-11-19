@@ -46,7 +46,19 @@ class ObjetivosEducacionalesController extends Controller
         $sos=new eSos();
 
         if($sos->eliminarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
-            flash('Se eliminó al alumno correctamente')->success();
+            flash('Se eliminó el objetivo correctamente')->success();
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }
+
+
+     public function eliminarEos(Request $request){
+        $eos=new eEos();
+
+        if($eos->eliminarEos($request->get('IDEOS'),$request->get('nombreEOS'),Auth::id())){
+            flash('Se eliminó el objetivo correctamente')->success();
         } else {
             flash('Hubo un error')->error();
         }

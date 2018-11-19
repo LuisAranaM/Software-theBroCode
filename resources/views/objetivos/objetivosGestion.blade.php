@@ -82,7 +82,9 @@
 								<tr class="even pointer" id="columnaX">
 									<td class="pText" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;">{{$eo->NOMBRE}}</td>
 
-									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;" > <i idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" class="elimEo fa fa-trash fa-lg"</i>
+									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;" >
+									<i id="editEo" idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" ></i>
+									<i idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" class="elimEo fa fa-trash fa-lg" style=" cursor: pointer"</i>
 											<!--<label>
 												<input type="checkbox" class="form-check-input checkSo" 
 												name="checkSelectso[]" value="{{$eo->ID_EOS}}" style="text-align: center;"><span class="pText label-text "></span>

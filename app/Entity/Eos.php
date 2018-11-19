@@ -26,5 +26,30 @@ class Eos extends \App\Entity\Base\Entity {
         
         return mEos::getObjetivosEducacionales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
+
+    public function eliminarEos($IDEOS,$nombreEOS,$usuario){
+        //dd($data['idAlumno']);
+        $registro=['ID_EOS'=>$IDEOS, 
+        'NOMBREEOS'=>$nombreEOS,          
+        'ID_SEMESTRE'=>self::getIdSemestre(),
+        'ID_ESPECIALIDAD'=>self::getEspecialidadUsuario(),            
+        'FECHA_REGISTRO'=>Carbon::now(),
+        'FECHA_ACTUALIZACION'=>Carbon::now(),
+        'USUARIO_MODIF'=>$usuario,
+        'ESTADO'=>1];
+        //dd($registro);
+        //Armamos lo que vamos a insertar
+        //dd("HOLI");
+        $model= new mEos();
+
+        if ($model->eliminarEos($registro)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+    }
+
+
     
 }
