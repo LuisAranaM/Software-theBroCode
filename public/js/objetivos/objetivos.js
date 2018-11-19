@@ -2,13 +2,13 @@ $( document ).ready(function() {
 	console.log("holaaa");
 
 	
-	$(document).on('click', '.elimSo', function(){
+	$(document).on('click', '.elimSo', function(e){
 		console.log('HOLA');
 		var IDSOS=$(this).attr('idSOS');
 		var nombreSOS=$(this).attr('nombreSOS');
 		//var filaAlumno=$(this).parent().parent().parent();
 		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreSOS+"?");
-		var botonCurso=$(this).closest('div').closest('div');
+		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
 			eliminarSOS(IDSOS,nombreSOS);          
 			//.css('display','none');
@@ -18,6 +18,7 @@ $( document ).ready(function() {
 	});
 
 	function eliminarSOS(IDSOS,nombreSOS)	{
+		console.log("elim");
 		$.ajax({
 			type:'POST',
 			headers: {
@@ -30,7 +31,7 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				//filaAlumno.css('display','none');
+				location.reload();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
 				alert('Hubo un error al registrar la información');           

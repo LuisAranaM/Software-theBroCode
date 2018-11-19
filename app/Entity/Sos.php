@@ -27,9 +27,10 @@ class Sos extends \App\Entity\Base\Entity {
         return mSos::getObjetivosEstudiante(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
 
-    public function eliminarSos($data,$usuario){
+    public function eliminarSos($IDSOS,$nombreSOS,$usuario){
         //dd($data['idAlumno']);
-        $registro=['ID_SOS'=>$data['IDSOS'],           
+        $registro=['ID_SOS'=>$IDSOS, 
+            'NOMBRESOS'=>$nombreSOS,          
             'ID_SEMESTRE'=>self::getIdSemestre(),
             'ID_ESPECIALIDAD'=>self::getEspecialidadUsuario(),            
             'FECHA_REGISTRO'=>Carbon::now(),

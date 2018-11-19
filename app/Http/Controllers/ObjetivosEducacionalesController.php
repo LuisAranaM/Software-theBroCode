@@ -45,7 +45,7 @@ class ObjetivosEducacionalesController extends Controller
      public function eliminarSos(Request $request){
         $sos=new eSos();
 
-        if($sos->eliminarSos($request->all(),Auth::id())){
+        if($sos->eliminarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
             flash('Se eliminó al alumno correctamente')->success();
         } else {
             flash('Hubo un error')->error();
@@ -70,7 +70,7 @@ class ObjetivosEducacionalesController extends Controller
         $sos=new eSos();
 
         if($sos->agregarSos($request->get('textSos'),Auth::id())){
-            
+        //dd($request->get('textSos'));
         } else {
             flash('Hubo un error')->error();
         }

@@ -87,7 +87,8 @@ class Sos extends Eloquent
 
 		try {
 			DB::table('SOS')
-			->where('ID_SOS','=',$registro['IDSOS'])
+			->where('ID_SOS','=',$registro['ID_SOS'])
+			->where('NOMBRE','=',$registro['NOMBRESOS'])
 			->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
 			->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
 			->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
