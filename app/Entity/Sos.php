@@ -74,7 +74,6 @@ class Sos extends \App\Entity\Base\Entity {
         }
     }
 
-    
     public function agregarSos($textSos,$usuario){
         //dd($data['textSos']);
         $registro=['NOMBRESOS'=>$textSos,        

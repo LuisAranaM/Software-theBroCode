@@ -80,7 +80,7 @@
 							<tbody class="text-left" id="listaSOS">
 								@foreach($objetivosEducacionales as $eo)
 								<tr class="even pointer" id="columnaX">
-									<td class="pText" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;">{{$eo->NOMBRE}}</td>
+									<td class="pText editEo" idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$eo->NOMBRE}}</td>
 
 									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;" >
 									<i id="editEo" idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" ></i>

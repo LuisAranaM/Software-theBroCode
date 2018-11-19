@@ -76,6 +76,19 @@ class ObjetivosEducacionalesController extends Controller
         }
         return back();
      }
+     
+     public function editarEos(Request $request){
+        $eos=new eEos();
+        //dd("HOLA");
+        //dd($request->get('IDSOS'));
+        if($eos->editarEos($request->get('IDEOS'),$request->get('nombreEOS'),Auth::id())){
+        
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }
+
 
      
      public function agregarSos(Request $request){

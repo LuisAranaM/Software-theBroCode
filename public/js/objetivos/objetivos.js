@@ -199,4 +199,55 @@ $( document ).ready(function() {
 			}
 		});
 	}
+
+
+		$(document).on('click', '.editEo', function(){
+			var $this = $(this);
+			var nombreAtributo=$this.attr('nombreEOS');
+			var $input = $('<input>', {
+				value: nombreAtributo,
+				width: '350px',
+				blur: function() {
+					$this.attr('nombreEOS',this.value);
+					$this.text(this.value);
+				},
+				keyup: function(e) {
+					if (e.which === 13) {
+						$input.blur();
+						var IDEOS=$this.attr('idEOS');
+						var nombreEOS=$this.attr('nombreEOS');
+						console.log(IDEOS);
+						console.log(nombreEOS);
+						editarEOS(IDEOS,nombreEOS); 
+						e.preventDefault();
+					}
+				}
+			}).appendTo( $this.empty() ).focus();
+		});
+
+
+	function editarEOS(IDEOS,nombreEOS)	{
+
+		console.log("entra a funcion");
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url:APP_URL+'/editar-eos',
+			data:{
+				IDEOS:IDEOS,				
+				nombreEOS:nombreEOS,				
+			},
+			success:function(result)
+			{
+				location.reload();
+				//filaAlumno.css('display','none');
+			},error: function (xhr, status, text) {
+				e.preventDefault();
+				alert('Hubo un error al registrar la información');           
+			}
+		});
+	}
+
 	});
