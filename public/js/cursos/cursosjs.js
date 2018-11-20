@@ -27,7 +27,7 @@ $( document ).ready(function() {
         $(".modal-body #bookId").val( cod );
         $(".modal-body #horario").val(horario);
         $("#modalCargarAlumnos").modal("show");
-    })
+    });
 
     $("#btnCargarAlumnos").on("click", function(){
       console.log("btn accionado");
@@ -133,6 +133,7 @@ function eliminarCursoAcreditar(codigoCurso,botonCurso){
     //console.log("Necesitamos agregar cursos");
     $.ajax({
         url: APP_URL + 'cursos/eliminar-acreditacion',
+        //url: "{{route('eliminar.acreditacion')}}",     
         type: 'POST',        
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

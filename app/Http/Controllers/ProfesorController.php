@@ -86,8 +86,8 @@ class ProfesorController extends Controller
         //dd(Curso::getCursosYHorarios());
         //dd(Auth::user()->ID_ROL);
         return view('profesor.calificar')
-            ->with('ultimoAviso',eAvisos::getAvisos()->first())
-            ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
+        ->with('ultimoAviso',eAvisos::getAvisos()->first())
+        ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
     }
 
 
@@ -193,11 +193,11 @@ class ProfesorController extends Controller
         $idAlumno=$request->get('idAlumno',null);
         //dd($resultado);
         if($idResultado!=NULL){
-         $output = '';
-         $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
-         $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
-         $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
-         $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario);
+           $output = '';
+           $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
+           $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
+           $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
+           $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario);
 
            //dd($infoResultado);
             //Falta armar el esquema con el de Yoluana
@@ -218,9 +218,9 @@ class ProfesorController extends Controller
 
 
                 $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
-                foreach($indicador['DESCRIPCIONES'] as $descripcion){
+                /*foreach($indicador['DESCRIPCIONES'] as $descripcion){
                     $html.='<p class="smallText"> - '.$descripcion['NOMBRE_VALORIZACION'].': '.$descripcion['NOMBRE_DESCRIPCION'].'</p>';
-                }
+                }*/
                 $html.='<div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
                 foreach($indicador['DESCRIPCIONES'] as $descripcion){
                     $checked='';
@@ -238,74 +238,76 @@ class ProfesorController extends Controller
                     $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
                     $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
                     $html.=' onclick="new PNotify({
-                              title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
-                              text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
-                              type: '."'".'info'."'".',
-                              styling: '."'".'bootstrap3'."'".'});"';
+                      title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
+                      text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
+                      type: '."'".'info'."'".',
+                      styling: '."'".'bootstrap3'."'".'});"';
 
-                          $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
+                      $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
 
-                          <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">'.$descripcion['NOMBRE_VALORIZACION'].'</span></label>';
+                      <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">'.$descripcion['NOMBRE_VALORIZACION'].'</span></label>';
 
 
-                      }
-                      $html.='</div></div></div></div></div>';
                   }
-                  $html.='</div>';
+                  $html.='</div></div></div></div></div>';
+              }
+              $html.='</div>';
 
-                  $if_previous_disable = '';
-                  $if_next_disable = '';
-                  $idPrevious = '';
-                  $nombrePrevious = 'Anterior';
-                  $idNext = '';
-                  $nombreNext = 'Siguiente';
-                  if($previous==NULL)              
-                    $if_previous_disable = 'disabled';
-                else{
-                    $idPrevious = $previous->ID_RESULTADO;
-                    $nombrePrevious='Resultado '.$previous->NOMBRE;
+              $if_previous_disable = '';
+              $if_next_disable = '';
+              $idPrevious = '';
+              $nombrePrevious = 'Anterior';
+              $idNext = '';
+              $nombreNext = 'Siguiente';
+              if($previous==NULL)              
+                $if_previous_disable = 'disabled';
+            else{
+                $idPrevious = $previous->ID_RESULTADO;
+                $nombrePrevious='Resultado '.$previous->NOMBRE;
 
-                }
+            }
 
-                if($next == NULL)            
-                 $if_next_disable = 'disabled';
-             else{
-                 $idNext = $next->ID_RESULTADO;
-                 $nombreNext='Resultado '.$next->NOMBRE;
-             }
-             $html .= '
-             <br /><br />
-             <div align="center">
-             <button style="color:white" type="button" name="previous" class="btn customButton previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'>'.$nombrePrevious.'</button>
-             <button style="color:white" type="button" name="next" class="btn customButton next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.'</button>
-             </div>
-             <br /><br />
-             ';
-         }
-         return $html;
+            if($next == NULL)            
+               $if_next_disable = 'disabled';
+           else{
+               $idNext = $next->ID_RESULTADO;
+               $nombreNext='Resultado '.$next->NOMBRE;
+           }
+           $html .= '
+           <br /><br />
+           <div align="center">';
+           if($if_previous_disable == '')
+               $html.='<a style="color:black;margin-right: 30px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
+           if($if_next_disable == '')
+               $html.='<a style="color:black;margin-left: 30px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
+           </div>
+           <br /><br />
+           ';
+       }
+       return $html;
 
-     }
-     public function calificarAlumnos(Request $request){
-        $alumno=new eAlumno();
-        
-        if($alumno->calificarAlumnos($request->all(),Auth::id())){
-            flash('Se registró la nota correctamente')->success();
-        } else {
-            flash('Hubo un error')->error();
-        }
-        return back();
-     }
+   }
+   public function calificarAlumnos(Request $request){
+    $alumno=new eAlumno();
+    
+    if($alumno->calificarAlumnos($request->all(),Auth::id())){
+        flash('Se registró la nota correctamente')->success();
+    } else {
+        flash('Hubo un error')->error();
+    }
+    return back();
+}
 
 
-     public function eliminarAlumnoHorario(Request $request){
-        $alumno=new eAlumno();
+public function eliminarAlumnoHorario(Request $request){
+    $alumno=new eAlumno();
 
-        if($alumno->eliminarAlumnoHorario($request->all(),Auth::id())){
-            flash('Se eliminó al alumno correctamente')->success();
-        } else {
-            flash('Hubo un error')->error();
-        }
-        return back();
-     }
+    if($alumno->eliminarAlumnoHorario($request->all(),Auth::id())){
+        flash('Se eliminó al alumno correctamente')->success();
+    } else {
+        flash('Hubo un error')->error();
+    }
+    return back();
+}
 
- }
+}

@@ -137,6 +137,14 @@
   padding-left: 30px;
 }
 
+.customButtonReuniones {
+  width: 165px !important;
+  height: 35px;
+  background-color: #005b7f;
+  border-color: #005b7f;
+  margin-right: 0px;
+}
+
 .customButton {
   height: 35px;
   background-color: #005b7f;
@@ -436,13 +444,7 @@ li {
     width: 400px;
   } 
 
-.customButtonReuniones {
-  height: 35px;
-  background-color: #005b7f;
-  border-color:#005b7f;
-  margin-right: 0px;
-  width: 200px;
-}
+
 
 .customInputDocsReunionesModal {
   border-radius: 4px;

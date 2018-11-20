@@ -28,8 +28,8 @@ class ReunionesController extends Controller
     }
     public function store(Request $request){
         $tipoDoc = $request->get('tipoDoc', null); //ver si es acta o plan el value
-        $ano = $request->get('ano', null);
-        $semestre = $request->get('semestre', null);
+        $ciclo = $request->get('ciclo', null);
+        $semestre = explode( '-', $ciclo );
         $file = $request->file('archivo');
         #$semestre_actual = Entity::getIdSemestre();
         $semestreActual = Entity::getIdSemestre();
@@ -46,7 +46,7 @@ class ReunionesController extends Controller
 
         //dd($semestre);
         #creationg array for data
-        $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$ano, 'DOCUMENTO_SEMESTRE'=>$semestre,'TIPO_DOCUMENTO'=>$tipoDoc);
+        $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$semestre[0], 'DOCUMENTO_SEMESTRE'=>$semestre[1],'TIPO_DOCUMENTO'=>$tipoDoc);
         $idProyecto = DB::table('DOCUMENTOS_REUNIONES')->insertGetId(
             $data
         );

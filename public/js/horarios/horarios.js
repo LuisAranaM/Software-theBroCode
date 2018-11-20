@@ -11,6 +11,12 @@ $( document ).ready(function() {
 		
 	});
 
+    $(".btnCargarAlumnos2").on("click", function(){
+        var codCurso = $(this).data('codCurso');
+        $(".modal-body #codCurso").val( codCurso );
+        $("#modalCargarAlumnos").modal("show");
+    });
+
 	//Selecciona todos los checkbox de los indicadores de un resultado
 	$('.selectAll').click(function() {
 		

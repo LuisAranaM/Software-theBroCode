@@ -34,8 +34,8 @@
 									<tr class="even pointer" id="columnaX">
 										<td class="pText editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
 
-										<td  style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
-											<i id="edit" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
+										<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
+											<i id="editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
 											<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="elimSo fa fa-trash fa-lg" style=" cursor: pointer"></i>
 
 											<!--<label>
@@ -136,7 +136,7 @@
 										<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Objetivo del Estudiante</p>
 									</div>
 									<div class="col-xs-12">
-										<textarea type="text" id="txtSos" class="descripcionSos form-control pText customInput" name="nombreSos" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+										<textarea type="text" id="txtSos" class="descripcionSos form-control pText customInput" name="nombresos2" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
 									</div>
 
 								</div>
@@ -187,7 +187,7 @@
 										<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Detalles del Objetivo Educacional</p>
 									</div>
 									<div class="col-xs-12">
-										<textarea type="text" id="txtEos" class="descripcionSos form-control pText customInput" name="nombreSos" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
+										<textarea type="text" id="txtEos" class="descripcionSos form-control pText customInput" name="nombreeos2" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>   
 									</div>
 
 								</div>
