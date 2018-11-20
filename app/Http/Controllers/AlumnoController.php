@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entity\Base\Entity;
+use App\Entity\Alumno as Alumno;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use DB;
@@ -89,6 +90,32 @@ class AlumnoController extends Controller
         for(; $i < strlen($cad); $i++)
             $ans .= $cad[$i];
         return $ans;
+    }
+
+    public function uploadAlumnosDeCurso(Request $request){
+        dd($request);
+        if($request -> hasFile('upload-file')){
+            try{
+                $path = $request->file('upload-file')->getRealPath();
+                $data = \Excel::load($path)->get();
+                //$fecha = date("Y-m-d H:i:s");
+                //$usuario = Auth::user();
+                //$especialidad = Entity::getEspecialidadUsuario();
+                //$id_usuario = Auth::id();
+                //$semestre_actual = Entity::getIdSemestre();
+                $codCurso = $request->input('codCurso'); 
+                $this->trace($codCurso);
+                //$val = Alumno::uploadAlumnosDeCurso($request);
+                $val = 0;
+                if($val == 0)
+                    flash('Alumnos cargados correctamente')->success();
+                else
+                    flash('No se pudieron subir los alumnos')->error();
+            }
+        }else{
+            flash('No se selecciono un archivo')->error();
+        }
+        return Redirect::back();
     }
 
     public function store(Request $request){

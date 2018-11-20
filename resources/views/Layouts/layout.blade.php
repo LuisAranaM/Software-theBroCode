@@ -100,7 +100,7 @@
             <div class="menu_section" >
               <ul class="nav side-menu">
                 
-                <li class="pText" ><a href="#" style="color:#72777a;font-weight: bold;cursor: default;color:black"><i class="fa fa-calendar"></i>Semestre: {{$semestreActual}}</a>
+                <li class="pText" ><a href="#" style="color:#72777a;font-weight: bold;cursor: default;color:black" id="semestreSistema"><i class="fa fa-calendar"></i>Semestre: {{$semestreActual}}</a>
                 </li>
                 @if($modoAdministrador)
                 <li class="pText"><a href="{{route('administrador.usuario')}}" style="color:#72777a"><i class="fa fa-users"></i>Gestionar Usuarios</a>
