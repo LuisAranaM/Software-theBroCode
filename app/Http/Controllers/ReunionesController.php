@@ -71,9 +71,9 @@ class ReunionesController extends Controller
             if($tipo=="Elim"){
                // dd('Elim');
                 $files = array();
-
+                $cant = 0;
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "/upload/".$value;
+                    $file= public_path(). "\upload\\".$value;
                     /*NO BORRAR esto es para eliminar fisicamente el archivo
 
                     $dirHandle = opendir(public_path(). "/upload/");
@@ -90,13 +90,35 @@ class ReunionesController extends Controller
                     DB::table('DOCUMENTOS_REUNIONES')
                     ->where('RUTA', $file)
                     ->update(['ESTADO' => 0]);
-
-
-                    return back();
+                    $cant = $cant + 1;
                 } 
+                flash('Se ha eliminado '.$cant.' archivo(s) de forma correcta.')->success();
+                return back();
 
             }else{
                 //dd('Desc');
+                try{
+
+                    $dirHandle = opendir(public_path(). "\upload\\");
+                    $dir = public_path(). "\upload\\";
+                    $valueComprimido = public_path(). "\upload\comprimido.zip";
+                    $aux = 0;
+                    while ($file = readdir($dirHandle)) {
+                        if($aux == 3){
+                            //dd($file);
+                        }
+                        if($file=="comprimido.zip") {
+                            //dd("Elimina el comprimido");
+                            unlink($dir.'\\'.$file);
+                        }
+                        $aux= $aux + 1;
+                    }
+                    //dd($aux);
+                    closedir($dirHandle);
+                }catch(Exception $e){
+
+                }
+
                 $files = array();
                 foreach ($checks as $key => $value) {
                     $file= public_path(). "/upload/".$value;
@@ -105,6 +127,9 @@ class ReunionesController extends Controller
                 } 
                 //dd($files);
                 //$files = glob(public_path('js/*'));
+
+                
+
                 \Zipper::make(public_path('/upload/comprimido.zip'))->add($files)->close();
                 return response()->download(public_path('/upload/comprimido.zip'));
             }
