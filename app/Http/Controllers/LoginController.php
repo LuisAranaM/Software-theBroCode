@@ -48,8 +48,8 @@ class LoginController extends Controller {
         }
         else{
 
-            if (!Auth::attempt(['USUARIO' => $usuario, 'password' => $pass],TRUE)) {
-                if (!Auth::attempt(['CORREO' => $usuario, 'password' => $pass],TRUE)) {
+            if (!Auth::attempt(['USUARIO' => $usuario,'ESTADO' => 1, 'password' => $pass],TRUE)) {
+                if (!Auth::attempt(['CORREO' => $usuario, 'ESTADO' => 1,'password' => $pass],TRUE)) {
                     flash('Usuario o Contraseña errado')->error();
                     return redirect()->route('login.index');
                 }

@@ -8,7 +8,7 @@
 
 @stop
 
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Horarios y Criterios')
 @section('content')
 <div id="idCurso" data-field-id="{{$idCurso}}" ></div>
 <div id="nombreCurso" data-field-id="{{$nombreCurso}}" ></div>

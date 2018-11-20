@@ -107,7 +107,7 @@ class AdministradorController extends Controller
         public function crearCuentaRubrik(Request $request){
         //dd($request->all());
 
-        //Registraremos el usuario y nos loguearemos
+
         $usuario=new Usuario();
 
         if($usuario->crearCuentaRubrik($request->all())){
@@ -121,6 +121,39 @@ class AdministradorController extends Controller
 
     }
 
+
+        public function editarCuentaRubrik(Request $request){
+        //dd($request->all());
+        //En construcción
+        $usuario=new Usuario();
+
+        if($usuario->editarCuentaRubrik($request->all())){
+            flash('Se editó el usuario correctamente')->success();
+            //return back();
+        } else {
+            flash($usuario->getMessage())->error();
+        }
+            return back();      
+        
+
+    }
+
+
+        public function eliminarCuentaRubrik(Request $request){
+        //dd($request->all());
+        //En construcción
+        $usuario=new Usuario();
+
+        if($usuario->eliminarCuentaRubrik($request->get('idUsuario'),Auth::id())){
+            flash('Se eliminó el usuario correctamente')->success();
+            //return back();
+        } else {
+            flash($usuario->getMessage())->error();
+        }
+            return back();      
+        
+
+    }
     public function gestionSemestres(Request $request){
         return view('administrador.gestion-semestre')
         ->with('semestres',Semestre::getSemestres())
