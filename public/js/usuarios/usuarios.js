@@ -2,12 +2,40 @@ $( document ).ready(function() {
 
   console.log("inicio");
 
-  $("#btnNuevoUsuario").on("click", function(){
+  $("#btnNuevoUsuario").on("click", function(e){
     console.log("Nuevo Usuario");
+    $('#frmNuevoUsuario').trigger("reset");           
 
+
+
+    $('#frmNuevoUsuario input[type="text"]').val('');     
+    $('#frmNuevoUsuario').formValidation('destroy', true);
+    initializeFormUsuario();
     $("#modalNuevoUsuario").modal("show");
 
   });
+
+  $(".eliminarUsuario").on("click", function(e){
+    var filaUsuario=$(this).parent().parent();
+    var idUsuario=filaUsuario.attr('idUsuario');
+    var nombreUsuario=filaUsuario.attr('nombreUsuario');
+
+    var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreUsuario+"?");
+    if (resp == true) {
+      console.log("Vamos a eliminar a "+nombreUsuario+ ' con el id '+idUsuario);
+      //filaUsuario.remove();
+      eliminarUsuario(idUsuario,nombreUsuario,filaUsuario);            
+    } 
+    e.preventDefault();
+    });
+
+   $(".editarUsuario").on("click", function(e){
+    var filaUsuario=$(this).parent().parent();
+    var idUsuario=filaUsuario.attr('idUsuario');
+    var nombreUsuario=filaUsuario.attr('nombreUsuario');
+      console.log("Vamos a editar a "+nombreUsuario+ ' con el id '+idUsuario);
+    });
+
 
   /*$('.formatInputNumber').keyup(function () {
     this.value = (this.value + '').replace(/[^0-9]/g, '');
@@ -31,64 +59,95 @@ $( document ).ready(function() {
       }
     });
 
-  $('#frmNuevoUsuario').formValidation({
-    framework: 'bootstrap',
-    icon: {
-      valid: 'glyphicon glyphicon-ok',
-      invalid: 'glyphicon glyphicon-remove',
-      validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-      usuario: {
+
+});
+
+function eliminarUsuario(idUsuario,nombreUsuario,filaUsuario){
+    //console.log("Necesitamos agregar cursos");
+    //filaUsuario.remove();
+      //eliminarUsuario(idUsuario);      
+    $.ajax({
+        url: APP_URL + 'admin/gestionar-usuario/eliminar',
+        //url: "{{route('eliminar.acreditacion')}}",     
+        type: 'POST',        
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{
+            idUsuario:idUsuario,
+        },
+        success: function (result) {
+            filaUsuario.remove();
+            alert('Se eliminó al usuario '+nombreUsuario+' correctamente');
+        },
+        error: function (xhr, status, text) {
+            e.preventDefault();
+            alert('Hubo un error al eliminar el usuario');
+        }
+    });
+
+}
+
+function initializeFormUsuario() {
+    //console.log('Ingresamos al form validation');
+    
+    return $('#frmNuevoUsuario').formValidation({
+      framework: 'bootstrap',
+      icon: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        usuario: {
+          validators: {
+            notEmpty: {
+             message: '*Campo obligatorio'
+           },
+           regexp: {
+            regexp: /^[0-9]+$/,
+            message: 'El código debe ser numérico'
+          },
+          stringLength: {
+            message: 'El usuario debe tener como máximo 8 caracteres',
+            max: 8
+          } 
+        }
+      },
+      nombres: {
         validators: {
           notEmpty: {
            message: '*Campo obligatorio'
          },
          regexp: {
-          regexp: /^([0-9]+)$/,
-          message: 'El código debe ser numérico'
-        }
-          stringLength: {
-    message: 'El usuario debe tener como máximo 8 caracteres',
-   
-    max: 8
-  } 
-      }
-    },
-    nombres: {
+           regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
+           message: 'Los nombres solo puede tener caracteres alfabéticos'
+         }
+       }
+     },
+     apellidoMat: {
       validators: {
         notEmpty: {
          message: '*Campo obligatorio'
        },
        regexp: {
          regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
-         message: 'Los nombres solo puede tener caracteres alfabéticos'
+         message: 'El apellido materno solo puede tener caracteres alfabéticos'
        }
      }
    },
-   apellidoMat: {
+   apellidoPat: {
     validators: {
       notEmpty: {
        message: '*Campo obligatorio'
      },
      regexp: {
        regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
-       message: 'El apellido materno solo puede tener caracteres alfabéticos'
+       message: 'El apellido paterno solo puede tener caracteres alfabéticos'
      }
    }
  },
- apellidoPat: {
-  validators: {
-    notEmpty: {
-     message: '*Campo obligatorio'
-   },
-   regexp: {
-     regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
-     message: 'El apellido paterno solo puede tener caracteres alfabéticos'
-   }
- }
-},
-email: {
+ email: {
   validators: {
     notEmpty: {
      message: '*Campo obligatorio'
@@ -106,13 +165,6 @@ rol: {
  }
 },
 especialidad: {
-  validators: {
-    notEmpty: {
-     message: '*Campo obligatorio'
-   },
- }
-},
-usuario: {
   validators: {
     notEmpty: {
      message: '*Campo obligatorio'
@@ -151,8 +203,10 @@ passConfirm: {
   }             
 }
 }
-}
-});
 
-});
 
+},
+})
+    .off('success.form.fv');  
+
+  }

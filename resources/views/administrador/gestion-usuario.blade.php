@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-@section('pageTitle', 'Administrador - Usuarios')
+@section('pageTitle', 'Gestionar Usuarios')
 
 
 <div class="customBody">
@@ -47,7 +47,7 @@
 					<tbody>
 						@if(count($usuarios)>0)
 						@foreach($usuarios as $usuario)
-						<tr>
+						<tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}} ">
 							<td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
 							<td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
 							<td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 
@@ -63,8 +63,8 @@
 
 								<td style="vertical-align:middle;text-align:center">{{$usuario->ROL_USUARIO}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$usuario->ESPECIALIDAD_USUARIO}}</td>
-								<td style="vertical-align:middle;text-align:center"><a href="#"><i class="fa fa-edit" style="font-size: 20px"></i></a></td>
-								<td style="vertical-align:middle;text-align:center"><a href="#"><i class="fa fa-trash" style="font-size: 20px"></i></a></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarUsuario" style="font-size: 20px;cursor: pointer;"></i></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarUsuario" style="font-size: 20px;cursor: pointer;"></i></td>
 							</tr>
 							@endforeach
 							@else

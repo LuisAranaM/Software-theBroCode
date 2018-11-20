@@ -70,6 +70,7 @@ class Resultado extends Eloquent
 	
 	static function getResultadosbyIdCurso($idCurso,$idSem,$idEsp,$idResultado=null,$orden=null) {
 		//dd($idCurso,$idSem,$idEsp);
+		//if ($orden=='desc')dd($idResultado);
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'INDICADORES_HAS_CURSOS.ID_RESULTADO')
@@ -77,20 +78,26 @@ class Resultado extends Eloquent
 				->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
 				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
 				->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
-				->distinct()
-				->orderBy('RESULTADOS.NOMBRE', 'ASC');
+				->distinct();
 
 		//Arana		
 		if($idResultado!=NULL){
 			if($orden!=NULL){
-				if($orden=='desc')
-					$sql=$sql->where('RESULTADOS.ID_RESULTADO','<',$idResultado);								
+				if($orden=='desc'){
+					$sql=$sql->where('RESULTADOS.ID_RESULTADO','<',$idResultado);	
+					//dd($sql->get());	
+				}						
 				else
 					$sql=$sql->where('RESULTADOS.ID_RESULTADO','>',$idResultado);
-				$sql=$sql->orderBy('RESULTADOS.ID_RESULTADO',$orden)->limit(1)->first();
+				
+					$sql=$sql->orderBy('RESULTADOS.ID_RESULTADO',$orden)->first();
+					//dd($sql);
+				
+
 			}	
 			else{
-				$sql=$sql->where('RESULTADOS.ID_RESULTADO','=',$idResultado)->first();
+				$sql=$sql->where('RESULTADOS.ID_RESULTADO','=',$idResultado)
+				->orderBy('RESULTADOS.ID_RESULTADO', 'ASC')->first();
 			}
 		}
 		else{

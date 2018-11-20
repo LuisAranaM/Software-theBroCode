@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-@section('pageTitle', 'Administrador - Especialidades')
+@section('pageTitle', 'Gestionar Especialidades')
 
 
 <div class="customBody">

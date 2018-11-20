@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-@section('pageTitle', 'Administrador - Semestres')
+@section('pageTitle', 'Gestionar Semestres')
 
 
 <div class="customBody">
