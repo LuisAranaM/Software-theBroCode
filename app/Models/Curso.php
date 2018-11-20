@@ -9,6 +9,8 @@ namespace App\Models;
 
 use DB;
 use Log;
+use App\Entity\IndicadoresHasCurso as IndicadoresHasCurso;
+use App\Entity\Descripcion as Descripcion;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -89,41 +91,86 @@ class Curso extends Eloquent
     $cursos = DB::table('CURSOS')
                 ->select('*')
                 ->where('ESTADO_ACREDITACION','=',1)
+                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ID_SEMESTRE','=',$idSemestre)
                 ->get();
+    
     $ans = array();
+    $cantValorizacion = Descripcion::getValorizacionMaxima();
+
+    $horariosProf = DB::table('CURSOS')
+                    ->select('*')
+                    ->where('ID_SEMESTRE','=',-1)
+                    ->get();
+
+    $info = array();
+    if($usuario->ID_ROL==4){        
+        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
+    }
+
     foreach($cursos as $c){
-      $data["curso"] = $c;
-      Curso::trace('IDCURSO');
-      Curso::trace($c->ID_CURSO);
-      $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
-      foreach($horarios as $h){
-        Curso::trace('IDHORARIO');
-        Curso::trace($h->ID_HORARIO);
+      
+        $data["curso"] = $c;
+        $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
+        $cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
+      
+        foreach($horarios as $h){
+            
+        if($usuario->ID_ROL == 4){
+            // filtrar cursos
+            $esta = false;
+            foreach($horariosProf as $x){
+                if($h->ID_HORARIO == $x->ID_HORARIO)
+                    $esta = true;
+            }
+            if(!$esta) continue;
+        }
+        
+
         $horario["horario"] = $h;
-        $horario["avance"] = Horario::getAvance($h->ID_HORARIO);
-        $horario["alumnosCalif"] = Horario::getAlumnosCalif($h->ID_HORARIO);
-        $horario["alumnosTotal"] = Horario::getCantAlumnos($h->ID_HORARIO);
+        $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO);
+        $tot = Horario::getCantAlumnos($h->ID_HORARIO);
+        $horario["alumnosTotal"] = $tot;
+        $part = 0;
+        $idAlumnos = array();
+        foreach($results as $x){
+            if($x->ESTADO == 0)
+                continue;
+            $id = $x->ID_ALUMNO;
+            $part++;
+            $has = false;
+            foreach($idAlumnos as $a){
+                if($a == $id){
+                    $has = true;
+                    break;
+                }
+            }
+            if($has == false){
+                $idAlumnos[] = $id;
+            }
+        }
+        $tot = $tot * $cantValorizacion * $cantIndicadores;
+        $res = 0;
+        if($tot != 0) $res = round($part*100/$tot,2);
+        $horario["avance"] = $res;
+        $res = 0;
+        foreach($idAlumnos as $x){
+            $cont = 0;
+            foreach($results as $y){
+                if($y->ID_ALUMNO == $x) $cont++;
+            }
+            if($cont == $cantValorizacion * $cantIndicadores) $res++;
+        }
+        $horario["alumnosCalif"] = $res;
         $info[] = $horario;
       }
       $data["horarios"] = $info;
       $info = array();
       $ans[] = $data;
     }
-
-    if($usuario->ID_ROL==4){        
-        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
-    }
-
-    foreach($ans as $x){
-      Curso::trace($x["curso"]->NOMBRE);
-      foreach($x["horarios"] as $y){
-        Curso::trace($y["horario"]->NOMBRE);
-      }
-    }
-
     return $ans;
   }
+
 	static function getCursoByIdHorario($idHorario) {
         $sql = DB::table('CURSOS AS CURSOS')
                 ->join('HORARIOS', 'CURSOS.ID_CURSO', '=', 'HORARIOS.ID_CURSO')

@@ -12,7 +12,7 @@
       <h1 class="mainTitle"> Gestionar Cursos </h1>
     </div>
   </div>
-
+@include('flash::message')
   <div class="row">
     <div class=" x_panel tile coursesBox">
 

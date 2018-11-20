@@ -9,7 +9,7 @@ use Jenssegers\Date\Date as Carbon;
 class PlanesDeMejora extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
-    
+
     function setProperties($data) {
         $this->setValues([
             '_fechaRegistro' => $data->FECHA_REGISTRO,
@@ -22,7 +22,11 @@ class PlanesDeMejora extends \App\Entity\Base\Entity {
         ]);
     }
     static function buscarDocumentos(){
-        return mPlanesDeMejora::buscarDocumentos();
+        return mPlanesDeMejora::buscarDocumentos(self::getEspecialidadUsuario());
+    }
+    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin){
+        $model =new mPlanesDeMejora();
+        return $model->resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,self::getEspecialidadUsuario());   
     }
     
 }

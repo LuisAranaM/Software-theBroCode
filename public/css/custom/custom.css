@@ -44,6 +44,7 @@
   text-align: center;
 }
 
+
 .searchButton {
   font-size: 14px;
   font-family: Segoe UI;
@@ -420,6 +421,7 @@ li {
 }
 
 .ui-pnotify .ui-pnotify-container {
+  color: black;
   background-color: #D5EAFA !important;
   border-color: #D5EAFA !important;
 }

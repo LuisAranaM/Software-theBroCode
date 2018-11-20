@@ -3141,7 +3141,7 @@ ul.project_files li a i {
 	font-size:35px
 }
 .login {
-	background:#F7F7F7
+	background:#f7fcf9
 }
 .login .fa-paw {
 	font-size:26px
@@ -3153,6 +3153,12 @@ a.hiddenanchor {
 	right:0;
 	margin:5% auto 0;
 	max-width:350px;
+	position:relative
+}
+.new_user_wrapper {
+	right:0;
+	margin:5% auto 0;
+	max-width:700px;
 	position:relative
 }
 .cropper .docs-cropped .modal-body>canvas,.cropper .docs-cropped .modal-body>img,.cropper .img-container>img,.cropper .img-preview>img {
@@ -3852,3 +3858,23 @@ ul.notifications {
 .nav-pills > li > a:focus, .nav-pills > li > a:hover {
     background-color: #eee;
 }
+
+.boxshadow {
+    /*position: absolute;*/
+    z-index: -1; /* hide shadow behind image */
+    box-shadow: 0px 0px 20px rgba(175, 175, 175, 0.3); 
+    width: 70%; 
+	left: 15%; /* one half of the remaining 30% */
+    height: 100px;
+    bottom: 0;
+}
+
+.lefthr { 
+	position: absolute; 
+	left: 0px;
+}
+	
+.righthr { 
+	position: absolute; 
+	left: 400px;
+} 

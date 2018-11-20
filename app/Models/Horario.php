@@ -9,6 +9,7 @@ namespace App\Models;
 
 use DB;
 use Log;
+use App\Models\Descripcion as Descripcion;
 use App\Entity\Alumno as Alumno;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
@@ -100,6 +101,15 @@ class Horario extends Eloquent
 		return $ans;
 	}
 
+	// Arana ctm
+	static function getIndicadoresHasAlumnosHasHorarios($idHorario){
+		$ans = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+				->get();
+		return $ans;
+	}
+
 	static function getAlumnosCalif($idHorario){
 		$alumnos = Alumno::getAlumnosByHorario($idHorario);
 		$ans = 0;
@@ -120,6 +130,7 @@ class Horario extends Eloquent
 				->select('*')
 				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
 				->count();
+
 		return $tot;
 	}
 
@@ -146,9 +157,6 @@ class Horario extends Eloquent
 				->get();
 		return $sql;
 	}
-
-
-
 
 	static function getHorarios($idCurso,$idSemestre) {
 		//dd($idCurso);

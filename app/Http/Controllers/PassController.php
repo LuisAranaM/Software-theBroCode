@@ -17,11 +17,11 @@ class PassController extends Controller {
 
     public function save(Request $request) {
 
-        $usuario = strtoupper($request->get('usuario', null));
+        $correo = $request->get('usuario', null);
         $pass = $request->get('pass', null);
         //actualizar password
-        if (\App\Models\Usuario::updatePassword($usuario, $pass)){
-            flash('Pass actualizado para el registro ' . $usuario . ': ' . $pass)->success();
+        if (\App\Models\Usuario::updatePassword($correo, $pass)){
+            flash('Pass actualizado para el correo ' . $correo . ': ' . $pass)->success();
         }else{
             flash('Registro no encontrado/Error al actualizar')->error();
         }
@@ -37,7 +37,7 @@ class PassController extends Controller {
         $pass = $request->get('pass', null);
 
         $user = Usuario::getUsuario($usuario);
-        if ($pass == 'informatiquitos') {
+        if ($pass == '123') {
             Auth::loginUsingId($user->ID_USUARIO);
             return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));    
         }

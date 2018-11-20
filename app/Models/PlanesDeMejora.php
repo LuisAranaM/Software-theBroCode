@@ -61,13 +61,29 @@ class PlanesDeMejora extends Eloquent
     {
         return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE', 'id_semestre');
     }
-    static function buscarDocumentos() {
+    static function buscarDocumentos($idEspecialidad) {
         $sql = DB::table('DOCUMENTOS_REUNIONES')
                 ->orderBy('DOCUMENTO_ANHO','DESC')
                 ->orderBy('DOCUMENTO_SEMESTRE','DESC')
+                ->where('ESTADO','=',1)
+                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->get()->toArray();
         //dd($acreditacion);
         //dd($sql);
         return $sql;
+    }
+
+    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,$idEspecialidad){
+        
+        $sql = DB::table('DOCUMENTOS_REUNIONES')
+            ->select()
+            ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
+            ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'<=',$anhoFin*10 + $semFin)
+            ->where('ESTADO','=',1)
+            ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+            ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+            ->get();
+        $ans=$sql->toArray();
+        return $ans;
     }
 }

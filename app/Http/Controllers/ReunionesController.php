@@ -20,6 +20,12 @@ class ReunionesController extends Controller
         return view('reuniones.reuniones')
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
+    function resultadosFiltroDocs(Request $request){
+
+        //flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
+        return PlanesDeMejora::resultadosFiltroDocs($request->get('anhoInicio'),$request->get('semIni'),$request->get('anhoFin'),$request->get('semFin'));
+        
+    }
     public function store(Request $request){
         $tipoDoc = $request->get('tipoDoc', null); //ver si es acta o plan el value
         $ano = $request->get('ano', null);
@@ -54,29 +60,55 @@ class ReunionesController extends Controller
         //dd($request->all(),$request->get('botonSubmit',null));  
 
 
-
         $tipo=$request->get('botonSubmit',null);
         $checks=$request->get('checkDocs',null);
 
         if($checks!=NULL){
             //Funciones
             if($tipo=="Elim"){
-                dd('Elim');
+               // dd('Elim');
+                $files = array();
+
+                foreach ($checks as $key => $value) {
+                    $file= public_path(). "/upload/".$value;
+                    /*NO BORRAR esto es para eliminar fisicamente el archivo
+
+                    $dirHandle = opendir(public_path(). "/upload/");
+                    $dir = public_path(). "/upload/";
+                    while ($file = readdir($dirHandle)) {
+                        if($file==$value) {
+                            unlink($dir.'/'.$file);
+                        }
+                    }
+                    closedir($dirHandle);
+                    */
+                    //Esto es para cambiar el estado a cero
+                    //dd($file);
+                    DB::table('DOCUMENTOS_REUNIONES')
+                    ->where('RUTA', $file)
+                    ->update(['ESTADO' => 0]);
+
+
+                    return back();
+                } 
+
             }else{
                 //dd('Desc');
                 $files = array();
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "\upload\\".$value;
+                    $file= public_path(). "/upload/".$value;
                     //dd($file);
                     array_push($files, $file);
                 } 
                 //dd($files);
                 //$files = glob(public_path('js/*'));
-                \Zipper::make(public_path('\upload\comprimido.zip'))->add($files)->close();
-                return response()->download(public_path('\upload\comprimido.zip'));
+                \Zipper::make(public_path('/upload/comprimido.zip'))->add($files)->close();
+                return response()->download(public_path('/upload/comprimido.zip'));
             }
         }
         else{
+            //alert('No se ha seleccionado ningún documento para descargar.');
+            //flash('No se ha seleccionado ningún documento para descargar.')->success();
             return back();
         }
         /*$checks=$request->get('checkDocumentos',null);

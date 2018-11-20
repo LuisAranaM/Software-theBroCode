@@ -7,6 +7,10 @@
 
 namespace App\Models;
 
+use DB;
+use Log;
+use Jenssegers\Date\Date as Carbon;
+
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -26,7 +30,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class SosHasEo extends Eloquent
+class SosHasEos extends Eloquent
 {
 	public $incrementing = false;
 	public $timestamps = false;
@@ -60,8 +64,44 @@ class SosHasEo extends Eloquent
 	public function so()
 	{
 		return $this->belongsTo(\App\Models\So::class, 'ID_SOS')
-					->where('sos.ID_SOS', '=', 'sos_has_eos.ID_SOS')
-					->where('sos.ID_ESPECIALIDAD', '=', 'sos_has_eos.ID_ESPECIALIDAD')
-					->where('sos.ID_SEMESTRE', '=', 'sos_has_eos.ID_SEMESTRE');
+		->where('sos.ID_SOS', '=', 'sos_has_eos.ID_SOS')
+		->where('sos.ID_ESPECIALIDAD', '=', 'sos_has_eos.ID_ESPECIALIDAD')
+		->where('sos.ID_SEMESTRE', '=', 'sos_has_eos.ID_SEMESTRE');
+	}
+
+	static function getSosHasEos($idSemestre,$idEspecialidad){
+		$sql=DB::table('SOS_HAS_EOS')
+			->select()
+			->where('ESTADO','=',1)
+			->where('ID_SEMESTRE','=',$idSemestre)
+			->where('ID_ESPECIALIDAD','=',$idEspecialidad);
+		return $sql;
+	}
+
+	public function actualizarObjetivos($idSemestre,$idEspecialidad,$checks,$idUsuario){
+		//dd($checks);
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+		
+
+			DB::table('SOS_HAS_EOS')                
+			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+			->where('ID_SEMESTRE','=',$idSemestre)
+			->delete();
+			/*->update(['ESTADO'=>0,
+				'FECHA_ACTUALIZACION'=>Carbon::now(),
+				'USUARIO_MODIF'=>$idUsuario]);*/
+
+			DB::table('SOS_HAS_EOS')->insert($checks);
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+		return $status;
+
 	}
 }

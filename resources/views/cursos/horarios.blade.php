@@ -20,11 +20,11 @@
       @if($codCurso===null)
       <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > Horarios y Criterios</h1>
       @else
-      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href=""> {{$codCurso}} {{$nombreCurso}}</a></h1>
+      <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href=""> {{$codCurso}} - {{$nombreCurso}}</a></h1>
       @endif
     </div>
   </div>
-
+@include('flash::message')
   <div class="row">
 
     @if($codCurso===null)
@@ -57,7 +57,7 @@
       <div id="listHorarios">
         @foreach($horarios as $h)
         @if($h->ESTADO===1)
-        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}">
+        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
           <div class="x_content bs-example-popovers courseContainer">
             <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
               <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
@@ -75,9 +75,11 @@
     @endif
   </div>
   @php ($idInd = array())
+  @php ($idRes = array())
   @php ($i = 0)
   @foreach($indicadores as $indicador)
   @php ($idInd[$i] = $indicador->ID_INDICADOR)
+  @php ($idRes[$i] = $indicador->ID_RESULTADO)
   @php ($i = $i + 1)
   @endforeach
 
@@ -107,6 +109,7 @@
         <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
           @php ($nres = 0)
           @foreach($resultados as $resultado)
+          @if(in_array($resultado->ID_RESULTADO, $idRes))
           @php ($flagfirst = 1)
           @php ($nres = $nres + 1 )
           <div class="panel">
@@ -142,6 +145,7 @@
               </div>
             </div>
           </div>
+          @endif
           @endforeach
           <!-- Terminan los acordion -->
         </div>
