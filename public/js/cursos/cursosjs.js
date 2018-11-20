@@ -27,7 +27,7 @@ $( document ).ready(function() {
         $(".modal-body #bookId").val( cod );
         $(".modal-body #horario").val(horario);
         $("#modalCargarAlumnos").modal("show");
-    })
+    });
 
     $("#btnCargarAlumnos").on("click", function(){
       console.log("btn accionado");

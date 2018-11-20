@@ -97,8 +97,10 @@ Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@Impor
 Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //pruebas excel
 #Route::get('upload', 'CursoController@showForm');
+
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
+Route::post('/subir-excels/uploadAlumnosDeCurso', 'AlumnoController@uploadAlumnosDeCurso');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
 
