@@ -1,6 +1,17 @@
 $( document ).ready(function() {
-	console.log("inicioAvisos");
 
+
+	function myFunction(x) {
+	    if (x.matches) { // If media query matches
+	        $('#rangoSemestres').toggleClass("col-xs-12", true);
+	    } else {
+	    	$('#rangoSemestres').toggleClass("col-xs-12", false);
+	    }
+	}
+
+	var x = window.matchMedia("(max-width: 500px)");
+	myFunction(x); // Call listener function at run time
+	x.addListener(myFunction); // Attach listener function on state changes
 
 	$("#ModalCargar").on("click", function(){
 		$("#modalCargarDocsReuniones").modal("show");
@@ -13,10 +24,9 @@ $( document ).ready(function() {
 		$("input:checkbox[name=checkDocs]:checked").each(function(){
 			array.push($(this).val());
 		});
-		console.log(array);
-
-		
+		console.log(array);		
 	});
+
 	var anhoInicio;
 	var anhoFin;
 	$('#btnBuscarDocs').click(function(e) {

@@ -24,8 +24,9 @@
                         <h1 class="secondaryTitle mainTitle">Buscar documentos</h1>
                     </div>
                     <div class="col-xs-12">  
-                            <label class="pText">Semestre inicial:</label>
-                            <select name="semIni" id="semIni"  class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px">
+                        <div id="rangoSemestres" class="no-padding" style="display: inline-block">
+                            <label class="pText" style="padding-top: 5px">Semestre inicial:</label>
+                            <select name="semIni" id="semIni"  class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px; margin-right: 20px; padding-top: 5px">
                                 <option value="1">2018-2</option>
                                 <option value="2">2018-1</option>
                                 <option value="2">2017-2</option>
@@ -33,30 +34,32 @@
                                 <option value="2">2016-2</option>
                                 <option value="2">2016-1</option>
                             </select>
-                            <label class="pText" style="margin-left: 20px">Semestre final:</label>
-                            <select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-left: 10px; margin-right: 20px; display: inline-block; font-size: 14px">
-                                <option value="1">2018-2</option>
-                                <option value="2">2018-1</option>
-                                <option value="2">2017-2</option>
-                                <option value="2">2017-1</option>
-                                <option value="2">2016-2</option>
-                                <option value="2">2016-1</option>
-                            </select>
-                            <div id="btnBuscarDocs" style="display: inline-block">
-                                <i class="fa fa-search fa-lg"></i>          
-                            </div>    
+                        </div>
+                        <div id="rangoSemestres" class="no-padding" style="display: inline-block">
+                        <label class="pText" style="padding-top: 5px" >Semestre final:</label>
+                        <select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-left: 10px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
+                            <option value="1">2018-2</option>
+                            <option value="2">2018-1</option>
+                            <option value="2">2017-2</option>
+                            <option value="2">2017-1</option>
+                            <option value="2">2016-2</option>
+                            <option value="2">2016-1</option>
+                        </select>
+                    </div>
+                        <div id="btnBuscarDocs" style="display: inline-block; cursor:pointer">
+                            <i class="fa fa-search fa-lg"></i>          
+                        </div>    
 
                     </div>
                     
-                    </div>
-                
+                </div>
 
                 <div class="row" style="padding-top: 20px; padding-bottom: 10px">
-                    <div class="col-xs-9">
+                    <div class="col-sm-9">
                         <h1 class="secondaryTitle mainTitle">Seleccione los documentos a descargar o eliminar</h1>
                     </div>
-                    <div class="col-xs-3 text-right">
-                        <button id="ModalCargar" class="customButtonReuniones btn btn-success pText">Nuevo Documento <i class="fa fa-upload" style="padding-left: 5px"></i></button>
+                    <div class="col-sm-3 text-right">
+                        <button  id="ModalCargar" class="customButtonReuniones btn btn-success pText" type="button">Nuevo Documento <i class="fa fa-upload" style="padding-left: 5px"></i></button>
                     </div>
                 </div>
                 <div class="row">
@@ -103,12 +106,10 @@
                  </div>
 
              </div>
-             <div class="row" style="padding-top: 10px">
-                <div class="col-xs-6 text-left">
-                    <button id="btnDescargarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Desc" style="margin-right: 10px">Descargar Documentos</button>
-                    <button id="btnEliminarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Elim">Eliminar Documentos</button>
-                </div>
-           
+             <div class="row text-center" style="padding-top: 10px">
+                <button id="btnDescargarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Desc" style="margin-right: 10px">Descargar Documentos</button>
+                <button id="btnEliminarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Elim">Eliminar Documentos</button>
+
             </div>
         </div>
 
@@ -129,7 +130,7 @@
 id="modalCargarDocsReuniones" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="customModal modal-dialog modal-lg ">
-    <div class="modal-content" style="top: 30%">
+    <div class="modal-content" style="top: 30%; padding-bottom: 10px">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"
             aria-label="Close">
@@ -142,29 +143,22 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <form id="upload_form" action = "{{ route('reuniones.store') }}" method = "post" enctype = "multipart/form-data">
             {{csrf_field()}}
             <div class="row" style="padding: 10px;">
-
-                <label class="pText">Seleccionar tipo de documento a subir:</label>
-                <select name="tipoDoc">
+                <label class="pText">Tipo de documento</label>
+                <select name="tipoDoc" class="form-control" style="width: 150px; margin-left: 10px; display: inline-block; font-size: 14px">
                     <option value="acta">Acta de Reunión</option>
                     <option value="plan">Plan de Mejora</option>
                 </select>
             </div>
             <div class="row" style="padding: 10px;">
-                <div class="col-md-8">
-                    <label class="pText">Seleccionar semestre de creación:</label>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" id="txt" class="form-control pText customInputDocsReunionesModal"  style="width: 70px;" 
-                    name="ano" placeholder="" value=""> 
-                </div>  
-
-                <div class="col-md-2">
-                    <select name="semestre">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                </div>   
-
+                <label class="pText">Semestre de creación</label>
+                <select name="ciclo" class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px">
+                    <option value="2018-2">2018-2</option>
+                    <option value="2018-1">2018-1</option>
+                    <option value="2017-2">2017-2</option>
+                    <option value="2017-1">2017-1</option>
+                    <option value="2016-2">2016-2</option>
+                    <option value=">2016-1">2016-1</option>
+                </select>
             </div>
             <div class="row" style="padding-bottom: 30px;">
                 <div class="container-fluid text-center">
@@ -175,17 +169,11 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
                             <div class = "form-group">
                                 <input type="file" name="archivo" id = "file" class="form-control image" style="border-color: white">
                             </div>
-                            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
-                                <div class="col-md-4">
-                                    <input id="btnCargarHorariosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                            <div class="row" style="padding-top: 10px; text-align: center; display: flex;justify-content: center;">
+                                <div class="col-md-12">
+                                    <input id="btnCargarHorariosModal" class = "btn btn-success pText customButtonReuniones upload-file" type="submit" value = "Cargar Documento" name="submit">
                                 </div>
                             </div>
-
-
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -198,7 +186,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 </div>
 <!-- /.modal -->
 
-</div>
 
 
 @stop
