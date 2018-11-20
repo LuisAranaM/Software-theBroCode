@@ -104,8 +104,8 @@ class ObjetivosEducacionalesController extends Controller
      
      public function agregarEos(Request $request){
         $eos=new eEos();
-
-        if($eos->agregarEos($request->get('textEos'),Auth::id())){
+        //dd($request->all());
+        if($eos->agregarEos($request->get('txtEos'),Auth::id())){
         //dd($request->get('textSos'));
         } else {
             flash('Hubo un error')->error();

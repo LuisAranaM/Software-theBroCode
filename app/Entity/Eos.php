@@ -88,7 +88,7 @@ class Eos extends \App\Entity\Base\Entity {
         //Armamos lo que vamos a insertar
         //dd("HOLI");
         $model= new mEos();
-
+            //dd($registro);
         if ($model->agregarEos($registro)){
             return true;
         }else{

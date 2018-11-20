@@ -151,11 +151,12 @@ $( document ).ready(function() {
     });
 
 	
-	$("#btnAgregarEosModal").on("click", function(){
+	$("#btnAgregarEosModal").on("click", function(e){
 		console.log('HOLA3');
 		var txtEos=$('#txtEos').val();
 		console.log(txtEos);
-		agregarEOS(txtEos);             
+		agregarEOS(txtEos);       
+		//e.preventDefault();      
 		
 	});
 
