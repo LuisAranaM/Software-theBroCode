@@ -18,6 +18,32 @@ $( document ).ready(function() {
 	});
 
 
+	$('#anhoInicio').on('paste', function (event) {
+		if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+			event.preventDefault();
+		}
+	});
+
+	$("#anhoInicio").on("keypress",function(event){
+		if(event.which < 48 || event.which >57){
+			return false;
+		}
+	});
+
+	
+	$('#anhoFin').on('paste', function (event) {
+		if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+			event.preventDefault();
+		}
+	});
+
+	$("#anhoFin").on("keypress",function(event){
+		if(event.which < 48 || event.which >57){
+			return false;
+		}
+	});
+	
+
 	$("#btnDescargarDoc").on("click", function(){
 		console.log("Descargando documentos");
 		array = []
@@ -48,7 +74,7 @@ $( document ).ready(function() {
 
 
 	function filtrarDocumentosReuniones(anhoInicio,semIni,anhoFin,semFin) {
-			console.log(anhoInicio,semIni,anhoFin,semFin);
+		console.log(anhoInicio,semIni,anhoFin,semFin);
 		$.ajax({
 			url: APP_URL + '/resultadosFiltroDocs',
 			type: 'GET',

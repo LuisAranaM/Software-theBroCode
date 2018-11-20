@@ -18,6 +18,13 @@ class ObjetivosEducacionalesController extends Controller
         ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
         ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
     }
+     public function objetivosGestionTablas() {    
+        //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
+        return view('objetivos.objetivosGestion')
+        //->with('casillasChecks',SosHasEos::getSosHasEos())
+        ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
+        ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
+    }
 
     public function objetivosGuardar(Request $request) {  
     	//dd($request->all());
@@ -34,4 +41,76 @@ class ObjetivosEducacionalesController extends Controller
         return back();
 
     }
+    
+     public function eliminarSos(Request $request){
+        $sos=new eSos();
+
+        if($sos->eliminarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
+            flash('Se eliminó el objetivo correctamente')->success();
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }
+
+
+     public function eliminarEos(Request $request){
+        $eos=new eEos();
+
+        if($eos->eliminarEos($request->get('IDEOS'),$request->get('nombreEOS'),Auth::id())){
+            flash('Se eliminó el objetivo correctamente')->success();
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }
+
+     public function editarSos(Request $request){
+        $sos=new eSos();
+        //dd("HOLA");
+        //dd($request->get('IDSOS'));
+        if($sos->editarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
+        
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }
+     
+     public function editarEos(Request $request){
+        $eos=new eEos();
+        //dd("HOLA");
+        //dd($request->get('IDSOS'));
+        if($eos->editarEos($request->get('IDEOS'),$request->get('nombreEOS'),Auth::id())){
+        
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }
+
+
+     
+     public function agregarSos(Request $request){
+        $sos=new eSos();
+
+        if($sos->agregarSos($request->get('textSos'),Auth::id())){
+        //dd($request->get('textSos'));
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }  
+     
+     public function agregarEos(Request $request){
+        $eos=new eEos();
+
+        if($eos->agregarEos($request->get('txtEos'),Auth::id())){
+        //dd($request->get('textSos'));
+        } else {
+            flash('Hubo un error')->error();
+        }
+        return back();
+     }  
+
 }
