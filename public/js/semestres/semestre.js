@@ -50,9 +50,8 @@ $('#semestreAct').on('change', function(e) {
 	function actualizarSemestreSistema(idSemestre){
 
     	$.ajax({
-
-        url: "{{route('administrador.semestre.sistema')}}",     
-        //url: APP_URL + 'admin/gestionar-semestre/sistema',
+    	//url: "{{route('administrador.semestre.sistema')}}",    
+        url: APP_URL + 'admin/gestionar-semestre/sistema',
         type: 'POST',        
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

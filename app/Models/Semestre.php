@@ -7,6 +7,7 @@
 
 namespace App\Models;
 use DB;
+use Jenssegers\Date\Date as Carbon;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
