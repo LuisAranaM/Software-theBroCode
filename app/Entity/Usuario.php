@@ -179,4 +179,21 @@ class Usuario extends \App\Entity\Base\Entity {
     }
 
 }
+
+function editarCuentaRubrik($datosCuenta){
+
+}
+
+function eliminarCuentaRubrik($idUsuario,$usuarioModif){
+    $model= new mUsuario();
+        
+        if ($model->eliminarCuentaRubrik($idUsuario,$usuarioModif)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
+}
+
 }

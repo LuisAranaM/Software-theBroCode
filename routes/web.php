@@ -125,8 +125,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
 	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
 	Route::post('/gestionar-usuario/crear',['as'=>'administrador.usuario.crear','uses'=>'AdministradorController@crearCuentaRubrik']);
+	Route::post('/gestionar-usuario/editar',['as'=>'administrador.usuario.editar','uses'=>'AdministradorController@editarCuentaRubrik']);
+	Route::post('/gestionar-usuario/eliminar',['as'=>'administrador.usuario.eliminar','uses'=>'AdministradorController@eliminarCuentaRubrik']);
 	Route::get('/gestionar-semestre',['as'=>'administrador.semestre','uses'=>'AdministradorController@gestionSemestres']);
 	Route::post('/gestionar-semestre/crear',['as'=>'administrador.semestre.crear','uses'=>'AdministradorController@crearSemestre']);
+	Route::post('/gestionar-semestre/sistema',['as'=>'administrador.semestre.sistema','uses'=>'AdministradorController@seleccionarSemestreSistema']);
 	Route::post('/gestionar-semestre/editar',['as'=>'administrador.semestre.editar','uses'=>'AdministradorController@editarSemestre']);
 	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
 	Route::post('/gestionar-especialidad/crear',['as'=>'administrador.especialidad.crear','uses'=>'AdministradorController@crearEspecialidad']);
