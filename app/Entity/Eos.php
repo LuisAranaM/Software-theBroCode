@@ -75,9 +75,9 @@ class Eos extends \App\Entity\Base\Entity {
     }
 
 
-    public function agregarEos($textEos,$usuario){
+    public function agregarEos($txtEos,$usuario){
         //dd($data['textSos']);
-        $registro=['NOMBRESEOS'=>$textEos,        
+        $registro=['NOMBRESEOS'=>$txtEos,        
         'ID_SEMESTRE'=>self::getIdSemestre(),
         'ID_ESPECIALIDAD'=>self::getEspecialidadUsuario(),            
         'FECHA_REGISTRO'=>Carbon::now(),

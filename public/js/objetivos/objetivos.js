@@ -229,7 +229,7 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				location.reload();
+				//location.reload();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
 				e.preventDefault();
@@ -279,7 +279,7 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				location.reload();
+				//location.reload();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
 				e.preventDefault();
