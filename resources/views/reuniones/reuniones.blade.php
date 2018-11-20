@@ -19,55 +19,44 @@
         <form id="frmAgregarDocs" action="{{route('descDocs')}}" method="POST">
             {{ csrf_field() }}
             <div class=" x_panel tile coursesBox">
-
-                <div class="row x_panel" style="text-align: center; padding-top: 15px; padding-bottom: 10px; " >
-                    <div class="col-md-4">  
-                        <div class="col-md-6" style="padding-top: 5px;">
-                            <label class="pText">Semestre inicio:</label>
-                        </div>
-
-                        <div class="col-md-3" style="padding-top: 5px;">
-                            <input type="text" class="form-control pText customInputDocsReuniones"  style="width: 70px;" 
-                            name="anhoInicio" id="anhoInicio" placeholder="" value="">  
-                        </div>
-
-                        <div class="col-md-1" style="padding-top: 5px;">
-                            <select name="semIni" id="semIni"  style="height: 24px;">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                <div class="row">
+                    <div class="col-xs-12" >
+                        <h1 class="secondaryTitle mainTitle">Buscar documentos</h1>
+                    </div>
+                    <div class="col-xs-12">  
+                            <label class="pText">Semestre inicial:</label>
+                            <select name="semIni" id="semIni"  class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px">
+                                <option value="1">2018-2</option>
+                                <option value="2">2018-1</option>
+                                <option value="2">2017-2</option>
+                                <option value="2">2017-1</option>
+                                <option value="2">2016-2</option>
+                                <option value="2">2016-1</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">  
-                        <div class="col-md-6" style="padding-top: 5px;">
-                            <label class="pText">Semestre fin:</label>
-                        </div>
-
-                        <div class="col-md-3" style="padding-top: 5px;">
-                            <input type="text" class="form-control pText customInputDocsReuniones"   style="width: 70px;"
-                            name="anhoFin" id="anhoFin"  placeholder="" value="">  
-                        </div>
-
-                        <div class="col-md-1" style="padding-top: 5px;">
-                            <select name="semFin" id="semFin" style="height: 24px;">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                            <label class="pText" style="margin-left: 20px">Semestre final:</label>
+                            <select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-left: 10px; margin-right: 20px; display: inline-block; font-size: 14px">
+                                <option value="1">2018-2</option>
+                                <option value="2">2018-1</option>
+                                <option value="2">2017-2</option>
+                                <option value="2">2017-1</option>
+                                <option value="2">2016-2</option>
+                                <option value="2">2016-1</option>
                             </select>
-                        </div>
+                            <div id="btnBuscarDocs" style="display: inline-block">
+                                <i class="fa fa-search fa-lg"></i>          
+                            </div>    
 
-                        
                     </div>
-                    <div class="col-md-4" style="text-align: center;">
-                        <button id="btnBuscarDocs" class="btn btn-success pText customButtonThin">Buscar</button>
+                    
                     </div>
-                </div>
+                
 
-                <div class="row" style="padding-top: 10px; padding-bottom: 10px">
-                    <div class="col-xs-9" >
+                <div class="row" style="padding-top: 20px; padding-bottom: 10px">
+                    <div class="col-xs-9">
                         <h1 class="secondaryTitle mainTitle">Seleccione los documentos a descargar o eliminar</h1>
                     </div>
                     <div class="col-xs-3 text-right">
-                        <button id="ModalCargar" class="customButtonReuniones btn btn-success pText">Cargar Documentos</button>
+                        <button id="ModalCargar" class="customButtonReuniones btn btn-success pText">Nuevo Documento <i class="fa fa-upload" style="padding-left: 5px"></i></button>
                     </div>
                 </div>
                 <div class="row">
@@ -76,10 +65,10 @@
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead >
                                     <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-                                        <th class="pText column-title" style="border: none">Semestre</th>
-                                        <th class="pText column-title" style="border: none">Tipo</th>
-                                        <th class="pText column-title" style="border: none">Nombre</th>
-                                        <th class="pText column-title" style="border: none">Seleccionar</th>
+                                        <th class="pText column-title" style="border: none; text-align: center">Semestre</th>
+                                        <th class="pText column-title" style="border: none; text-align: center">Tipo</th>
+                                        <th class="pText column-title" style="border: none; text-align: center">Nombre</th>
+                                        <th class="pText column-title" style="border: none; text-align: center">Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <!--CargarCurso-->
@@ -95,9 +84,9 @@
                                         @else
                                         <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">Plan de Mejora</td>
                                         @endif
-                                        <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$documento->NOMBRE)}}" download="{{$documento->NOMBRE}}" style="text-decoration: underline;">{{$documento->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
+                                        <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center"><a href="{{URL::asset('upload/'.$documento->NOMBRE)}}" download="{{$documento->NOMBRE}}" style="text-decoration: underline;">{{$documento->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
 
-                                        <td>
+                                        <td style="background-color: white; text-align: center;vertical-align: center">
                                             <label>
                                              <input type="checkbox" class="form-check-input checkDoc" 
                                              name="checkDocs[]" value="{{$documento->NOMBRE}}" style="text-align: center;" >
@@ -112,24 +101,21 @@
 
                      </div>
                  </div>
-                 <div class="col-md-4">
-                    <div class=" x_panel tile coursesBox" id="ModalCargar" style="text-align: center; cursor: pointer;">
-                        <h2 class="">Cargar Documentos</h2> <i class="fa fa-upload" style="font-size: 30px;"></i> 
-                    </div>
+
+             </div>
+             <div class="row" style="padding-top: 10px">
+                <div class="col-xs-6 text-left">
+                    <button id="btnDescargarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Desc" style="margin-right: 10px">Descargar Documentos</button>
+                    <button id="btnEliminarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Elim">Eliminar Documentos</button>
                 </div>
+           
             </div>
         </div>
-        
+
+
     </div>
 
-    <div class="row" style="padding-top: 10px">
-        <div class="col-sm-2">
-            <button id="btnDescargarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Desc">Descargar Documento</button>
-        </div>
-        <div class="col-sm-2">
-            <button id="btnEliminarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Elim">Eliminar Documento</button>
-        </div>
-    </div>
+
 
 </form>
 </div>
