@@ -93,25 +93,21 @@ class AlumnoController extends Controller
     }
 
     public function uploadAlumnosDeCurso(Request $request){
-        dd($request);
         if($request -> hasFile('upload-file')){
             try{
                 $path = $request->file('upload-file')->getRealPath();
                 $data = \Excel::load($path)->get();
-                //$fecha = date("Y-m-d H:i:s");
-                //$usuario = Auth::user();
-                //$especialidad = Entity::getEspecialidadUsuario();
-                //$id_usuario = Auth::id();
-                //$semestre_actual = Entity::getIdSemestre();
-                $codCurso = $request->input('codCurso'); 
-                $this->trace($codCurso);
-                //$val = Alumno::uploadAlumnosDeCurso($request);
-                $val = 0;
+                $codCurso = $request->input('codigoCurso');
+                $idCurso = Curso::getIdCurso2($codCurso);
+                $val = Alumno::uploadAlumnosDeCurso($data, $idCurso);
                 if($val == 0)
                     flash('Alumnos cargados correctamente')->success();
                 else
-                    flash('No se pudieron subir los alumnos')->error();
-            }
+                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+            }catch(Exception $e){
+                $this->trace($e);
+                flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+            } 
         }else{
             flash('No se selecciono un archivo')->error();
         }
@@ -197,7 +193,6 @@ class AlumnoController extends Controller
                     $this->trace('Holis');
                     return Redirect::back();
                 }
-
             }catch(Exception $e){
                 $this->trace($e);
                 flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();

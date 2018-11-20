@@ -52,6 +52,20 @@ class Especialidad extends Eloquent
 		'ESTADO'
 	];
 
+	static function fix($cad){
+		$cad = lcfirst($cad);
+		return ucwords($cad);
+	}
+
+	static function getNombreEspecialidad($idEspecialidad){
+		$ans = DB::table('ESPECIALIDADES')
+				->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+				->get()
+				->toArray();
+		$cad = $ans[0]->NOMBRE;
+		return Especialidad::fix($cad);
+	}
+
 	public function getEspecialidadUsuario($id_usuario)
 	{	
 		$sql=DB::table('USUARIOS AS US')

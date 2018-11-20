@@ -110,6 +110,17 @@ class Horario extends Eloquent
 		return $ans;
 	}
 
+	static function getHorariosByCodCurso($idSemestre, $idEspecialidad, $idCurso){
+		$ans = DB::table('HORARIOS')
+				->select('*')
+				->where('ID_SEMESTRE','=',$idSemestre)
+				->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+				->where('ID_CURSO','=',$idCurso)
+				->where('ESTADO','=',1)
+				->get();
+		return $ans;
+	}
+
 	static function getAlumnosCalif($idHorario){
 		$alumnos = Alumno::getAlumnosByHorario($idHorario);
 		$ans = 0;
