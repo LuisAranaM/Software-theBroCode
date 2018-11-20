@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Entity\PlanesDeMejora as PlanesDeMejora;
+use App\Entity\Semestre;
 use App\Entity\Acta as Acta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class ReunionesController extends Controller
 
     public function reunionesGestion() {    
         return view('reuniones.reuniones')
+        ->with('semestres',Semestre::getSemestres())
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     function resultadosFiltroDocs(Request $request){
@@ -47,6 +49,7 @@ class ReunionesController extends Controller
         //dd($semestre);
         #creationg array for data
         $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$semestre[0], 'DOCUMENTO_SEMESTRE'=>$semestre[1],'TIPO_DOCUMENTO'=>$tipoDoc);
+        //dd($data);
         $idProyecto = DB::table('DOCUMENTOS_REUNIONES')->insertGetId(
             $data
         );

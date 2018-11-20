@@ -28,23 +28,20 @@
 						<div id="rangoSemestres" class="no-padding" style="display: inline-block">
 							<label class="pText" style="padding-top: 5px">Semestre inicial:</label>
 							<select name="semIni" id="semIni"  class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px; margin-right: 20px; padding-top: 5px">
-								<option value="1">2018-2</option>
-								<option value="2">2018-1</option>
-								<option value="2">2017-2</option>
-								<option value="2">2017-1</option>
-								<option value="2">2016-2</option>
-								<option value="2">2016-1</option>
+
+								<option value=""></option>
+								@foreach($semestres as $semestre)
+									<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+								@endforeach
 							</select>
 						</div>
 						<div id="rangoSemestres" class="no-padding" style="display: inline-block">
 							<label class="pText" style="padding-top: 5px" >Semestre final:</label>
 							<select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-left: 10px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
-								<option value="1">2018-2</option>
-								<option value="2">2018-1</option>
-								<option value="2">2017-2</option>
-								<option value="2">2017-1</option>
-								<option value="2">2016-2</option>
-								<option value="2">2016-1</option>
+								<option value=""></option>
+								@foreach($semestres as $semestre)
+									<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+								@endforeach
 							</select>
 						</div>
 						<div id="btnBuscarDocs" style="display: inline-block; cursor:pointer">
@@ -145,12 +142,10 @@
 				<div class="row" style="padding: 10px;">
 					<label class="pText">Semestre de creación</label>
 					<select name="ciclo" class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px">
-						<option value="2018-2">2018-2</option>
-						<option value="2018-1">2018-1</option>
-						<option value="2017-2">2017-2</option>
-						<option value="2017-1">2017-1</option>
-						<option value="2016-2">2016-2</option>
-						<option value=">2016-1">2016-1</option>
+						<option value=""></option>
+								@foreach($semestres as $semestre)
+									<option value="{{$semestre->SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+								@endforeach
 					</select>
 				</div>
 				<div class="row" style="padding-bottom: 30px;">

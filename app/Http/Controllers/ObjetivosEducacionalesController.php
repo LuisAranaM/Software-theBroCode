@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entity\Sos as eSos;
 use App\Entity\Eos as eEos;
 use App\Entity\SosHasEos;
+use App\Entity\Semestre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
