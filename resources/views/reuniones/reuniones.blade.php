@@ -59,10 +59,17 @@
 
 				</div>
 
+				<div class="row" style="padding-top: 10px; padding-bottom: 10px">
+					<div class="col-xs-9" >
+						<h1 class="secondaryTitle mainTitle">Seleccione los documentos a descargar o eliminar</h1>
+					</div>
+					<div class="col-xs-3 text-right">
+						<button id="ModalCargar" class="customButtonReuniones btn btn-success pText">Cargar Documentos</button>
+					</div>
+				</div>
 				<div class="row">
-					<h2 class="">Documentos</h2>
-					<div class="col-md-8">
-						<div class="table-responsive">
+					<div class="col-xs-12">
+						<div class="table-responsive"  style="height:300px;overflow:auto; position: relative">
 							<table class="table table-striped jambo_table bulk_action">
 								<thead >
 									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
@@ -134,19 +141,15 @@
 
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class=" x_panel tile coursesBox" id="ModalCargar" style="text-align: center; cursor: pointer;">
-					<h2 class="">Cargar Documentos</h2> <i class="fa fa-upload" style="font-size: 30px;"></i> 
-				</div>
-			</div>
+			
 		</div>
 
-		<div class="row">
-			<div class="col-sm-3">
-				<button id="btnDescargarDoc" class="btn btn-success pText customButtonReuniones" name="botonSubmit" value="Desc">Descargar Documento</button>
+		<div class="row" style="padding-top: 10px">
+			<div class="col-sm-2">
+				<button id="btnDescargarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Desc">Descargar Documento</button>
 			</div>
-			<div class="col-sm-3">
-				<button id="btnEliminarDoc" class="btn btn-success pText customButtonReuniones" name="botonSubmit" value="Elim">Eliminar Documento</button>
+			<div class="col-sm-2">
+				<button id="btnEliminarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Elim">Eliminar Documento</button>
 			</div>
 		</div>
 
