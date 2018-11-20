@@ -4,6 +4,7 @@
 <link href="{{ URL::asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" >
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker.es.min.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/semestres/semestre.js') }}"></script>
 
 
 @stop
@@ -60,6 +61,24 @@
 					</table>
 
 
+				</div>
+			</div>
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Seleccionar semestre actual</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<select class="form-control" id="semestreAct">
+
+
+							<option value="">Elige un semestre</option>
+							@foreach($semestres as $semestre)
+							<option value="{{$semestre->ID_SEMESTRE}}" ciclo="{{$semestre->SEMESTRE}}"" {{($semestre->ID_SEMESTRE == $semestreActual)? 'selected="selected"':''}}>{{$semestre->SEMESTRE}}</option>
+							@endforeach
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -169,27 +188,5 @@
 @stop
 
 @section('js-scripts')
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('.dfecha').each(function() {
-			$(this).datepicker({
-				maxViewMode: 1,
-				daysOfWeekDisabled: "0,6",
-				language: "es",
-				autoclose: true,
-				startDate: "+1d",
-				endDate: "+365d",
-				format: "yyyy-mm-dd",
-			})
-			.on('changeDate', function(e) {
-            // Revalidate the date field
-            //revalidateFechas();            	
-        });
-		});
 
-		$('.formatInputNumber').keyup(function () {
-			this.value = (this.value + '').replace(/[^0-9]/g, '');
-		});
-	});
-</script>
 @stop

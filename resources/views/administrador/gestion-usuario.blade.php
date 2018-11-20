@@ -114,7 +114,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
             </div>
             <div class="form-group">
                 <label>Nombres</label>
-                <input style="margin-bottom: 0px;"  class="form-control" placeholder="Nombres" type="text" name="nombres" value="">
+                <input style="margin-bottom: 0px;"  class="form-control formatInputLetter" placeholder="Nombres" type="text" name="nombres" value="">
             </div>
             <div class="form-group">
                 <label>Apellido Paterno</label>

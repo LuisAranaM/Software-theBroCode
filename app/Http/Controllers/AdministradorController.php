@@ -7,7 +7,10 @@ use App\Entity\Usuario as Usuario;
 use App\Entity\Rol as Rol;
 use App\Entity\Especialidad as Especialidad;
 use App\Entity\Semestre as Semestre;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 class AdministradorController extends Controller
 {
     /**
@@ -120,7 +123,8 @@ class AdministradorController extends Controller
 
     public function gestionSemestres(Request $request){
         return view('administrador.gestion-semestre')
-        ->with('semestres',Semestre::getSemestres());
+        ->with('semestres',Semestre::getSemestres())
+        ->with('semestreActual',Semestre::getIdSemestre());
     }
 
      public function crearSemestre(Request $request){
@@ -129,6 +133,18 @@ class AdministradorController extends Controller
 
     public function editarSemestre(Request $request){
 
+    }    
+
+    public function seleccionarSemestreSistema(Request $request){
+        //dd("HOLA");
+        $semestre = new Semestre();          
+        //dd($request->get('idSemestre'));
+        if($semestre->actualizarSemestreSistema($request->get('idSemestre'),Auth::id())){
+            flash('Se cambió de semestre exitosamente')->success();
+        } else {
+            flash('Hubo un error al tratar de cambiar de semestre')->error();
+        }
+        return back();
     }
 
     public function gestionEspecialidades(Request $request){
