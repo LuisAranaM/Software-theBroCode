@@ -240,6 +240,9 @@ $( document ).ready(function() {
 	$(document).on('click','#filasCat .fa-plus-circle ' ,function(e) {
 		$('#agregarFilaIcono').remove();
 		html=''
+		html+='<div id="eliminarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+		html+='<i class=" fas fa-trash fa-md" style="color: #005b7f; cursor: pointer;"></i>'
+		html+='</div>'
 		html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
 		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
@@ -248,6 +251,12 @@ $( document ).ready(function() {
 		html+='</div>'
 		$('#filasCats').append(html);
 
+		e.preventDefault();
+	});
+
+	$(document).on('click','#filasCat .fa-trash ' ,function(e) {
+		$(this).parent().prev('div').remove();
+		$(this).parent().remove();
 		e.preventDefault();
 	});
 
