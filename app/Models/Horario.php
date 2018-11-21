@@ -228,5 +228,15 @@ class Horario extends Eloquent
         return $status;
     }
 
+    static function getIdHorario($nombre,$idCurso,$idEspecialidad,$idSemestre){
+    	$sql = DB::table('HORARIOS')
+    			->select('ID_HORARIO')
+    			->where('ID_CURSO','=',$idCurso)
+    			->where('NOMBRE','=',$nombre)
+    			->where('ID_SEMESTRE','=',$idSemestre)
+    			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+    			->where('ESTADO','=',1);
+    }
+
 
 }
