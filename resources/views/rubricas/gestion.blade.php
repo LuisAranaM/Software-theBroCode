@@ -14,8 +14,8 @@
         <h1 class="mainTitle" style="padding-left: 10px"><a>Lista de Resultados</a></h1>
       </div>
       <div class="col-md-4 col-xs-6" style="text-align: right">
-        <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar"> Guardar Rúbrica </button>
-        <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="descargar_button" value="descargar"> Descargar Rúbrica </button>
+        <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar" style="background-color: #1ABB9C; border-color: transparent"> Guardar Rúbrica </button>
+        <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="descargar_button" value="descargar" style="background-color: #1ABB9C; border-color:   transparent"> Descargar Rúbrica </button>
       </div>
     </div>
     
@@ -23,13 +23,13 @@
     <!-- RESULTADOS -->
 
     <div class="col-md-3 col-xs-4">
-      <div class="resultContainer no-padding x_panel tile coursesBox">
+      <div class="resultContainer no-padding x_panel tile coursesBox" style="background-color: #DFE3E6">
         <div class="outer">
           <div class="middle">
 
 
-            <div id ="AgregarResultado" class="text-center inner resultButton alert alert-success alert-dismissible fade in" role="alert" style="padding-right: 15px">
-              <img src="{{ URL::asset('img/add.png') }}" style="height: 50px">
+            <div id ="AgregarResultado" class="text-center inner resultButton alert alert-success alert-dismissible fade in" role="alert" style="padding-right: 15px; background-color: #DFE3E6; border-color: transparent">
+              <p class="pText">Crear nuevo resultado...</p>
               
             </div>
           </div>
@@ -48,8 +48,8 @@
                   <p class="pText" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
                 </div>
                 <div  class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
-                  <i class="resultadoEdit fas fa-pen fa-md" style="color: #72777A; cursor: pointer; display: none " id ="EditarIndicador"></i>
-                  <i class="resultTrash fas fa-trash fa-md" id="{{$resultado->ID_RESULTADO}}"  style="color: #72777A; padding-left: 2px; cursor: pointer; display: none"></i>
+                  <i class="resultadoEdit fas fa-pen fa-md" style="color: #72777a; cursor: pointer; display: none; opacity: 0.7" id ="EditarIndicador"></i>
+                  <i class="resultTrash fas fa-trash fa-md" id="{{$resultado->ID_RESULTADO}}"  style="color: #72777a; padding-left: 2px; cursor: pointer; display: none; opacity: 0.7"></i>
                 </div>
                 <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
                 <div id="{{$resultado->ID_RESULTADO}}" class="col-xs-12 resultButton alert-success alert-dismissible fade in" role="alert" style="padding-right: 25px">
