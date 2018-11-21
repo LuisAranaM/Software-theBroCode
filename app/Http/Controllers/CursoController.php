@@ -328,4 +328,9 @@ class CursoController extends Controller
     {
         //
     }
+
+    public function getCursosByResultado(Request $request){
+        $idSemestre = $request->get('idSemestre', null);
+        return eResultado::getCursosByResultado($idSemestre);
+    }
 }
