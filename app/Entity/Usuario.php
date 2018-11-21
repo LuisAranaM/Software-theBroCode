@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Models\Usuario as mUsuario;
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Hash;
 use DB;
 
 class Usuario extends \App\Entity\Base\Entity {
@@ -144,7 +145,7 @@ class Usuario extends \App\Entity\Base\Entity {
 
             $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
             'USUARIO' =>$datosCuenta['usuario'],           
-            'PASS'=>$datosCuenta['pass'],               
+            'PASS'=>Hash::make($datosCuenta['pass']),               
             'CORREO' =>$datosCuenta['email'],            
             'FECHA_REGISTRO'=>$hoy,     
             'FECHA_ACTUALIZACION'=>$hoy,

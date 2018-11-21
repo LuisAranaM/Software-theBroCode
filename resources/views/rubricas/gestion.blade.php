@@ -138,10 +138,10 @@
 </div>
 </form>
 
-<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>
-<!--@if(count($resultados)==0)-->
+@if(count($resultados)==0)
+  <a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>
+@endif
 
-<!--@endif-->
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracion" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
     <div class="modal-content">

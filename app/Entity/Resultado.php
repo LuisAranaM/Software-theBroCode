@@ -149,4 +149,17 @@ class Resultado extends \App\Entity\Base\Entity {
         }
         return $resultados;
     }
+
+    function copiarRubrica($idSemestreCopiar,$idUsuario){
+        $model=new mResultado();
+        $rubrica=self::getInformacionRubrica($idSemestreCopiar);
+
+        if ($model->copiarRubrica(self::getIdSemestre(),self::getEspecialidadUsuario(),$rubrica,$idUsuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
+    }
 }

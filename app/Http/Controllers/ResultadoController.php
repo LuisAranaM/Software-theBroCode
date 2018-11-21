@@ -7,6 +7,7 @@ use App\Entity\Indicador as eIndicador;
 use App\Entity\Descripcion as eDescripcion;
 use App\Entity\Semestre;
 use App\Entity\EscalaCalificacion as eEscala;
+use Illuminate\Support\Facades\Auth;
 
 
 use Illuminate\Http\Request;
@@ -347,15 +348,13 @@ class ResultadoController extends Controller
     }
 
     public function copiarRubrica(Request $request){
-        dd($request->all());
-        $rubrica=eResultado::getInformacionRubrica($request->get('idSemestre'));
         
-        $curso = new Curso();           
+        $rubrica = new eResultado();           
         
-        if($curso->agregarAcreditar($checks,Auth::id())){
-            flash('Las cursos a acreditar se registraron correctamente.')->success();
+        if($rubrica->copiarRubrica($request->get('idSemestreConfirmado'),Auth::id())){
+            flash('Se copió la configuración correctamente')->success();
         } else {
-            flash('Hubo un error al registrar los cursos a acreditar.')->error();
+            flash('Hubo un error al copiar la configuración')->error();
         }
         return back();
     }

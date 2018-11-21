@@ -57,14 +57,14 @@ class Resultado extends Eloquent
 
 	static function getResultados($idSem,$idEsp) {
 		//dd($idSem);
-        $sql = DB::table('RESULTADOS')
-                ->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
-                ->where('ESTADO','=',1)
-                ->where('ID_SEMESTRE','=',$idSem)
-				 ->where('ID_ESPECIALIDAD','=',$idEsp)
-				 ->orderBy('NOMBRE', 'ASC');
+		$sql = DB::table('RESULTADOS')
+		->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
+		->where('ESTADO','=',1)
+		->where('ID_SEMESTRE','=',$idSem)
+		->where('ID_ESPECIALIDAD','=',$idEsp)
+		->orderBy('NOMBRE', 'ASC');
         //dd($sql->get());
-        return $sql;
+		return $sql;
 
 	}
 	
@@ -72,13 +72,13 @@ class Resultado extends Eloquent
 		//dd($idCurso,$idSem,$idEsp);
 		//if ($orden=='desc')dd($idResultado);
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
-				->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
-				->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'INDICADORES_HAS_CURSOS.ID_RESULTADO')
-				->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE', 'RESULTADOS.DESCRIPCION')
-				->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
-				->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
-				->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
-				->distinct();
+		->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
+		->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'INDICADORES_HAS_CURSOS.ID_RESULTADO')
+		->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE', 'RESULTADOS.DESCRIPCION')
+		->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
+		->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
+		->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
+		->distinct();
 
 		//Arana		
 		if($idResultado!=NULL){
@@ -90,7 +90,7 @@ class Resultado extends Eloquent
 				else
 					$sql=$sql->where('RESULTADOS.ID_RESULTADO','>',$idResultado);
 				
-					$sql=$sql->orderBy('RESULTADOS.ID_RESULTADO',$orden)->first();
+				$sql=$sql->orderBy('RESULTADOS.ID_RESULTADO',$orden)->first();
 					//dd($sql);
 				
 
@@ -104,63 +104,63 @@ class Resultado extends Eloquent
 			$sql=$sql->get();
 		}
         //dd($sql->get());
-        return $sql;
+		return $sql;
 	}
 	
 
 
 	public function insertResultado($nombre, $desc,$idSem,$idEsp){
 		DB::beginTransaction();
-        $id=-1;
-        try {
-            $id = DB::table('RESULTADOS')->insertGetId(
-		    	['NOMBRE' => $nombre,
-		     	'DESCRIPCION' => $desc,
-		     	'ID_SEMESTRE' => $idSem,
-		     	'ID_ESPECIALIDAD' => $idEsp,
-		     	'FECHA_REGISTRO' => Carbon::now(),
-		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
-		     	'USUARIO_MODIF' => Auth::id(),     	
-				 'ESTADO' => 1]);
+		$id=-1;
+		try {
+			$id = DB::table('RESULTADOS')->insertGetId(
+				['NOMBRE' => $nombre,
+				'DESCRIPCION' => $desc,
+				'ID_SEMESTRE' => $idSem,
+				'ID_ESPECIALIDAD' => $idEsp,
+				'FECHA_REGISTRO' => Carbon::now(),
+				'FECHA_ACTUALIZACION' => Carbon::now(),		
+				'USUARIO_MODIF' => Auth::id(),     	
+				'ESTADO' => 1]);
 			DB::commit();
-        } catch (\Exception $e) {
-            Log::error('BASE_DE_DATOS|' . $e->getMessage());
-            DB::rollback();
-        }	
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}	
 
 		return $id;
 	}
 	static function updateResultado($id, $nombre, $desc){
 		DB::beginTransaction();
-        try {
-            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
-            	->update(
-		    	['NOMBRE' => $nombre,
-		     	'DESCRIPCION' => $desc,
-		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
-		     	'USUARIO_MODIF' => Auth::id()]);
+		try {
+			DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+			->update(
+				['NOMBRE' => $nombre,
+				'DESCRIPCION' => $desc,
+				'FECHA_ACTUALIZACION' => Carbon::now(),		
+				'USUARIO_MODIF' => Auth::id()]);
 			DB::commit();
-        } catch (\Exception $e) {
-            Log::error('BASE_DE_DATOS|' . $e->getMessage());
-            DB::rollback();
-        }	
-    }
-    static function deleteResultado($id){
-    	DB::beginTransaction();
-        try {
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}	
+	}
+	static function deleteResultado($id){
+		DB::beginTransaction();
+		try {
         	//dd($id);
-            DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
-            	->update(
-		    	['ESTADO' => 0]);
+			DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+			->update(
+				['ESTADO' => 0]);
 			DB::commit();
-        } catch (\Exception $e) {
-            Log::error('BASE_DE_DATOS|' . $e->getMessage());
-            DB::rollback();
-        }	
-    }
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}	
+	}
 
-    static function getInformacionRubrica($idSemestre,$idEspecialidad){
-    	$sql=DB::table(DB::Raw("(SELECT 
+	static function getInformacionRubrica($idSemestre,$idEspecialidad){
+		$sql=DB::table(DB::Raw("(SELECT 
 			RES.ID_ESPECIALIDAD,RES.ID_SEMESTRE,
 			RES.ID_RESULTADO,RES.NOMBRE AS NOMBRE_RES,RES.DESCRIPCION AS DESCRIPCION_RES,
 			CAT.ID_CATEGORIA,CAT.NOMBRE AS NOMBRE_CAT,
@@ -174,13 +174,93 @@ class Resultado extends Eloquent
 			AND CAT.ESTADO=1
 			AND IND.ESTADO=1
 			AND DES.ESTADO=1 ORDER BY RES.ID_RESULTADO,CAT.ID_CATEGORIA,IND.ID_INDICADOR, DES.ID_DESCRIPCION) AS A"))
-    	->where('ID_SEMESTRE','=',$idSemestre)
-    	->where('ID_ESPECIALIDAD','=',$idEspecialidad);
+		->where('ID_SEMESTRE','=',$idSemestre)
+		->where('ID_ESPECIALIDAD','=',$idEspecialidad);
 
     	//dd($sql->get());
-    	return $sql;
-    }
+		return $sql;
+	}
 
+	function copiarRubrica($idSemestre,$idEspecialidad,$rubrica,$idUsuario){
+		DB::beginTransaction();
+		$idResultadoIngresar=-1;
+		$idCategoriaIngresar=-1;
+		$idIndicadorIngresar=-1;
+		$idDescripcionIngresar=-1;
+        //dd($rubrica);
+
+		//dd($resultadoIngresar);
+		try {
+			foreach ($rubrica as $resultado) {
+        	//dd($resultado);
+				$resultadoIngresar=[
+					'ID_SEMESTRE'=>$idSemestre,
+					'ID_ESPECIALIDAD'=>$idEspecialidad,
+					'NOMBRE'=>$resultado['RESULTADO'],
+					'DESCRIPCION'=>$resultado['DESCRIPCION'],
+					'FECHA_REGISTRO'=>Carbon::now(),
+					'FECHA_ACTUALIZACION'=>Carbon::now(),
+					'USUARIO_MODIF'=>$idUsuario,
+					'ESTADO'=>1,
+				];
+				$idResultadoIngresar= DB::table('RESULTADOS')->insertGetId($resultadoIngresar);
+        	//dd($resultadoIngresar);
+				foreach ($resultado['CATEGORIAS'] as $categorias) {
+        		//dd($categorias);
+					$categoriaIngresar=[
+						'ID_RESULTADO'=>$idResultadoIngresar,
+						'ID_SEMESTRE'=>$idSemestre,
+						'ID_ESPECIALIDAD'=>$idEspecialidad,
+						'NOMBRE'=>$categorias['NOMBRE_CATEGORIA'],
+						'FECHA_REGISTRO'=>Carbon::now(),
+						'FECHA_ACTUALIZACION'=>Carbon::now(),
+						'USUARIO_MODIF'=>$idUsuario,
+						'ESTADO'=>1,
+					];
+					$idCategoriaIngresar= DB::table('CATEGORIAS')->insertGetId($categoriaIngresar);
+        		//dd($categoriaIngresar);
+					foreach($categorias['INDICADORES'] as $indicadores){
+        			//dd($indicadores);
+						$indicadoresIngresar=[
+							'ID_CATEGORIA'=>$idCategoriaIngresar,
+							'ID_SEMESTRE'=>$idSemestre,
+							'ID_ESPECIALIDAD'=>$idEspecialidad,
+							'NOMBRE'=>$indicadores['NOMBRE_INDICADOR'],
+							'VALORIZACION'=>$indicadores['VALORIZACION'],
+							'FECHA_REGISTRO'=>Carbon::now(),
+							'FECHA_ACTUALIZACION'=>Carbon::now(),
+							'USUARIO_MODIF'=>$idUsuario,
+							'ESTADO'=>1,
+						];
+						$idIndicadorIngresar= DB::table('INDICADORES')->insertGetId($indicadoresIngresar);
+        			//dd($indicadoresIngresar);
+						foreach ($indicadores['DESCRIPCIONES'] as $descripciones) {
+        				//dd($descripciones);
+							$descripcionesIngresar=[
+								'ID_INDICADOR'=>$idIndicadorIngresar,        			
+								'NOMBRE'=>$descripciones['NOMBRE_DESCRIPCION'],
+								'VALORIZACION'=>$descripciones['VALORIZACION'],
+								'NOMBRE_VALORIZACION'=>$descripciones['NOMBRE_VALORIZACION'],
+								'FECHA_REGISTRO'=>Carbon::now(),
+								'FECHA_ACTUALIZACION'=>Carbon::now(),
+								'USUARIO_MODIF'=>$idUsuario,
+								'ESTADO'=>1,
+							];
+        			//dd($descripcionesIngresar);
+							$idDescripcionIngresar= DB::table('DESCRIPCIONES')->insertGetId($descripcionesIngresar);
+						}
+					}
+				}
+			}
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}	
+
+		return $id;
+	}
 	public function especialidad()
 	{
 		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD', 'id_especialidad');
