@@ -99,7 +99,42 @@ class AlumnoController extends Controller
                 $data = \Excel::load($path)->get();
                 $codCurso = $request->input('codigoCurso');
                 $idCurso = Curso::getIdCurso2($codCurso);
-                $val = Alumno::uploadAlumnosDeCurso($data, $idCurso);
+				$ans = 0;
+				/* Arreglos a llenar*/
+	            $alumnosNuevos = array();
+	            $alumnosExistentes = array();
+	            $alumnosBaneados = array(); // Los alumnos que se quedan fuera porque no pertenecen a ningun horario
+	            $alumnosPorHorario = array();
+	            // Cada elemento de esto es una estructura que tiene 
+	            // 1. Un horario
+	            // 2. Un arreglo de alumnos
+                $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
+                
+                /*Testando que esta bien */
+                /*Aparentemente lo esta */
+                $this->trace('alumnosNuevos');
+                foreach($alumnosNuevos as $x){
+                	$this->trace($x["NOMBRES"]);
+                }
+
+                $this->trace('alumnosExistentes');
+                foreach($alumnosExistentes as $x){
+                	$this->trace($x["NOMBRES"]);
+                }
+
+                $this->trace('alumnosBaneados');
+                foreach($alumnosBaneados as $x){
+                	$this->trace($x["NOMBRES"]);
+                }
+                
+                $this->trace('alumnosPorHorario');
+                foreach($alumnosPorHorario as $x){
+                	$this->trace($x["codigoHorario"]);
+                	foreach($x["alumnos"] as $a){
+                		$this->trace($a["NOMBRES"]);
+                	}
+                }
+
                 if($val == 0)
                     flash('Alumnos cargados correctamente')->success();
                 else

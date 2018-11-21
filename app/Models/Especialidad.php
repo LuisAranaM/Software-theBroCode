@@ -80,6 +80,15 @@ class Especialidad extends Eloquent
 		return $sql->first();
 	}
 
+	static function getEspecialidadess()
+	{	
+		$sql=DB::table('ESPECIALIDADES')
+				->select()
+				->where('ESTADO','=',1)
+				->get();
+		return $sql;
+	}
+
 	public function getEspecialidades()
 	{	
 		$sql=DB::table('ESPECIALIDADES')
