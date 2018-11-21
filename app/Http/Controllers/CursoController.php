@@ -252,6 +252,12 @@ class CursoController extends Controller
             $id_usuario = Auth::id();
             $semestre_actual = Entity::getIdSemestre();
             $especialidad = Entity::getEspecialidadUsuario();
+            $listaCursosNuevos = [];
+            //$listaCursosQuitados = [];
+            $listaHorariosNuevos = [];
+            //$listaHorariosQuitados = [];
+            $listaProfesoresNuevos = [];
+            //$listaProfesoresQuitados = [];
             //si el archivo tiene datos
             if($data->count()){
                 foreach ($data as $key => $value) {                    
@@ -267,6 +273,7 @@ class CursoController extends Controller
                             $datos_cursos= ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual,
                                             'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
                             $id_curso = DB::table('CURSOS')->insertGetId($datos_cursos);
+                            array_push($listaCursosNuevos,$value->curso);
                             //ingresamos datos de los horarios
                             $codigos_horarios = explode(',',($value->horario));
                             $lista_horarios = [];
@@ -276,6 +283,7 @@ class CursoController extends Controller
                                                 'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
                                 $id_horario = DB::table('HORARIOS')->insertGetId($datos_horario);          
                                 array_push($lista_horarios,$id_horario);//guardamos en una array los horarios para luego poder hacer match con el profesor
+                                array_push($listaHorariosNuevos,$id_curso,$val);
                             }
                             //ingresamos datos del profesor
                             $codProf = $value->codigo;
@@ -289,6 +297,7 @@ class CursoController extends Controller
                             $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
                                           'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>0, 'NOMBRES'=>$nombres, 'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
                             $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);
+                            array_push($listaProfesoresNuevos,$nombres,$aPaterno);
                         }//entramos aca si existe
                         else{
                             $id_curso=$idCurso;
@@ -305,6 +314,7 @@ class CursoController extends Controller
                                     $datos_horario=['ID_CURSO'=>$id_curso, 'ID_SEMESTRE'=>$semestre_actual, 'ID_ESPECIALIDAD'=>$especialidad, 'NOMBRE'=>$val, 
                                                     'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
                                     $id_horario = DB::table('HORARIOS')->insertGetId($datos_horario);
+                                    array_push($listaHorariosNuevos,$id_curso,$val);
                                 }// si existe el horario en el curso
                                 else{
                                     $id_horario=$idHorario;
@@ -328,10 +338,11 @@ class CursoController extends Controller
                                 $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
                                               'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>0, 'NOMBRES'=>$nombres, 'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
                                 $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);
+                                array_push($listaProfesoresNuevos,$nombres,$aPaterno);
                             }//si existe
                             else{
                                 $idProf=$idProfesor;
-                                //buscar el profesor que esta ligado actualmente a los horarios y romper esa relacion(recomendacion)                                
+                                                                
                             }  
                         }                   
                        
