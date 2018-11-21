@@ -130,7 +130,10 @@ class Usuario extends \App\Entity\Base\Entity {
 
         public function getIdUsuario($codUsuario){
             $model = new mUsuario();
-            return $model->getIdUsuario($codUsuario);
+            if($model->getIdUsuario($codUsuario)->first())
+                return $model->getIdUsuario($codUsuario)->first()->ID_USUARIO;
+            else
+                return $model->getIdUsuario($codUsuario)->first();
         }
 
         function crearCuentaRubrik($datosCuenta){

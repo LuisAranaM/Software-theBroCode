@@ -87,7 +87,7 @@
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-              <button type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+              <button id="btnGraficoIndicadoresResultado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -332,19 +332,25 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 
     <!-- Combo box -->
-      <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
           <select id="ciclos3" class="ciclos form-control" required>
           </select>
         </div>
-      </div>-->
+      </div>
+      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <div class="col-xs-offset-8 col-xs-3">
+          <select id="cboResultados2" class="resultados form-control" required>
+          </select>
+        </div>
+      </div>
       <!-- Fin Combo box -->
 
       <!-- Cuerpo del modal -->
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
         <div class="row">
           <div class="x_content">
-            <!--<canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>-->
+            <canvas id="graficoCursosxResultado" width="400" height="400"></canvas>
           </div> 
         </div>
       </div>

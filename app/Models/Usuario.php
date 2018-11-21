@@ -223,6 +223,7 @@ class Usuario extends Authenticatable implements Auditable{
                 ->select('ID_USUARIO')
                 ->where('USUARIO','=',$codUsuario)
                 ->where('ESTADO','=',1);
+        return $sql;
 
     }
 

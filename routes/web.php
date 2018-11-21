@@ -192,7 +192,7 @@ Route::get('/indicadoresResultado', ['as'=>'grafico.indicadoresResultado','uses'
 
 Route::get('/getResultadosCbo', ['as'=>'resultados.cbo','uses'=>'ResultadoController@getResultadosCbo']);
 
-
+Route::get('/getCursosByResultado', ['as'=>'get.cursosResultado','uses'=>'CursoController@getCursosByResultado','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 
 
