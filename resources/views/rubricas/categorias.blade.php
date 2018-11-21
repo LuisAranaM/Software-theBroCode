@@ -15,38 +15,36 @@
 		<div id="ResultadoNombre" value="{{$resultado}}"></div>
 	</div>
 	@include('flash::message')
-	<div class="row">
+	<div class="row" >
 		@foreach ($categorias as $categoria) 
 		<div class="col-md-4 col-xs-6">
-			<div class="x_panel tile coursesBox">
+			<div class="x_panel tile coursesBox" style="background-color: #dfe3e6; border-radius: 6px; padding: 18px; padding-top: 0px; padding-bottom: 0px" >
 				<!-- INDICADORES CARGADOS DE LA BD -->
 				<div id="{{$categoria->ID_CATEGORIA}}Ord" cat="{{$categoria->ID_CATEGORIA}}" class="row rowFinal" style="padding-bottom: 0px">
-					<div class="row">
-
+					<div class="row" style="padding-bottom: 10px">
 						<h1 class="secondaryTitle mainTitle">{{$categoria->NOMBRE}}</h1>
 					</div>
 
 					<div id="{{$categoria->ID_CATEGORIA}}rem">				
-					@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
-					<div class="row">
-						<hr>
-						<div class="col-xs-9">
-							<p class="pText" value="{{$indicador->VALORIZACION}}" style="font-weight: bold; color: black">{{$resultado}}.{{$indicador->VALORIZACION}}</p>
+						@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
+						<div class="indicadorBox row" style="background-color: white; padding: 10px; border-radius: 5px; margin-bottom: 10px; box-shadow: 1px 2px #c2c5c6">
+							<div class="col-xs-9">
+								<p class="pText" value="{{$indicador->VALORIZACION}}" style="font-weight: bold; color: #72777a">{{$resultado}}.{{$indicador->VALORIZACION}}</p>
+							</div>
+							<div class="col-xs-3" style="text-align: right">
+								<i id="{{$indicador->ID_INDICADOR}}" class="indicadorEdit fas fa-pen fa-md" style="color: #72777a; cursor: pointer; opacity: 0.7; display: none" id ="EditarIndicador"></i>
+								<i id="{{$indicador->ID_INDICADOR}}" class="indicadorTrash fas fa-trash fa-md" style="color: #72777a; padding-left: 6px; cursor: pointer; opacity: 0.7; display: none"></i>
+							</div>
+							<div class="col-xs-12">
+								<p class="pText">{{$indicador->NOMBRE}}</p>
+							</div>
 						</div>
-						<div class="col-xs-3" style="text-align: right">
-							<i id="{{$indicador->ID_INDICADOR}}" class="indicadorEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
-							<i id="{{$indicador->ID_INDICADOR}}" class="indicadorTrash fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
-						</div>
-						<div class="col-xs-12">
-							<p class="pText">{{$indicador->NOMBRE}}</p>
-						</div>
-					</div>
-					@endforeach
+						@endforeach
 
-					<hr>
-					<div class="row text-center">
-						<p id="{{$categoria->ID_CATEGORIA}}" class="pText agregarIndicador" style="color: #005b7f; cursor: pointer">Agregar nuevo indicador</p>
-					</div>
+						<div class="row text-left" style="padding-top: 5px">
+
+							<p id="{{$categoria->ID_CATEGORIA}}" class="pText agregarIndicador" style="color: #72777a; opacity: 0.8; cursor: pointer; font-size: 16px"><i class="fas fa-plus"></i> Agregar nuevo indicador</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -82,6 +80,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 			<div class="tile coursesModalBox" style="">
 
 				<div id="filasDesc" class="row rowFinal2">
+
 					<div class="col-xs-12">
 						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Indicador</p>
 					</div>
@@ -95,8 +94,9 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 					<div class="col-xs-12" style="padding-top: 20px !important; padding-left: 10px;">
 						<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Valorizaciones</p>
 					</div>
-					<div id="filasDescs">
-						<div class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px">
+					<div id="filasDescs" class="row" >
+						<div style="height:100px; overflow:auto; position: relative; display: block">
+						<div class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; height: 100%">
 
 							<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>       
 
@@ -110,18 +110,20 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 						<div class="col-xs-12">
 							<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>       
 						</div>
+						</div>
 						<div id="removeAgregar" class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
 							<p class="pText">Agregar nueva valorización</p>
 						</div>
-						<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
-							<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
-						</div>
+					
+					</div>
+					<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
+						<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
 					</div>				
 				</div>
 			</div>
 
 			<div id="btnsAgregarCurso" class="modal-footer">
-				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center; padding-bottom: 70px">
+				<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center; padding-bottom: 5px">
 					<div class="col-md-4">
 						<button id="btnAgregarIndicador" class = "customButton btn btn-success pText upload-file" style="padding-right: 5px; padding-left: 5px; " type="submit" name="submit">Cargar</button>
 					</div>

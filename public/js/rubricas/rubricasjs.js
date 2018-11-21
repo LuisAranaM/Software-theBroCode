@@ -2,6 +2,19 @@ $( document ).ready(function() {
 	
 	console.log("inicioR");
 
+	$( "#rubricas" ).addClass("current-page");
+	$( "#rubricas" ).addClass("active");
+
+	$( ".indicadorBox" ).hover(
+		function() {
+			$( this ).find("i.fa-trash").show();
+			$( this ).find("i.fa-pen").show();
+		}, function() {
+			$( this ).find("i.fa-trash").hide();
+			$( this ).find("i.fa-pen").hide();
+		}
+		);
+
 	$(".btnCargarAlumnos2").on("click", function(){
 		var cod = $(this).data('id');
 		$(".modal-body #bookId").val( cod );
@@ -48,9 +61,9 @@ $( document ).ready(function() {
 		$(".desc").val("");
 		$('#agregarFilaIcono').remove();
 		$('#removeAgregar').remove();
-    	$('#filasDescs').remove();
-    	var html='<div id="filasDescs">'
-    	html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
+		$('#filasDescs').remove();
+		var html='<div id="filasDescs">'
+		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
 		html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
@@ -68,7 +81,7 @@ $( document ).ready(function() {
 		html+='</div>'
 		html+='</div>'
 		
-    	$('#filasDesc').append(html);
+		$('#filasDesc').append(html);
 		$("#modalIndicador").modal("show");
 		$("#modalIndicador").val($(this).attr('id'));
 	});
@@ -79,19 +92,19 @@ $( document ).ready(function() {
 		$(".nombreResultado").val("");
 		$(".descripcionResultado").val("");
 		$('#agregarFilaIcono').remove();
-    	$('#filasCats').remove();
+		$('#filasCats').remove();
 		var html = '<div id="filasCats">';
-    	html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
-    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
-    	html+='</div>'
-    	
-    	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
-    	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
-    	html+='</div>'
-    	html+='</div>'
-    	$('#filasCat').append(html);
+		html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
+		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+
+		html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+		html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+		html+='</div>'
+		html+='</div>'
+		$('#filasCat').append(html);
 		$("#modalAgregarResultado").modal("show");
-    	e.preventDefault();
+		e.preventDefault();
 	});
 
 	$(document).on("click",".resultadoEdit", function(){
@@ -128,20 +141,20 @@ $( document ).ready(function() {
 	});
 
 
-    $('#btnAgregarResultado').on('click',function(e) {
-    	var codRes = $('#txtCodigoResultado').val();
-    	var descRes = $('#txtResultado').val();
-    	var cat = [];
-    	var catIds= [];
-    	$('#filasCats .cat').each(function() {
-    		cat.push( $(this).val());
-    		catIds.push($(this).parent().attr("id"));
-    	});
-    	if ($("#ModalTitle").text()=="Editar Resultado"){
-    		var idRes= $("#modalAgregarResultado").val();
-    		actualizarResultado(idRes,codRes,descRes,cat,catIds);
-    		e.preventDefault();	
-    	}else{    		
+	$('#btnAgregarResultado').on('click',function(e) {
+		var codRes = $('#txtCodigoResultado').val();
+		var descRes = $('#txtResultado').val();
+		var cat = [];
+		var catIds= [];
+		$('#filasCats .cat').each(function() {
+			cat.push( $(this).val());
+			catIds.push($(this).parent().attr("id"));
+		});
+		if ($("#ModalTitle").text()=="Editar Resultado"){
+			var idRes= $("#modalAgregarResultado").val();
+			actualizarResultado(idRes,codRes,descRes,cat,catIds);
+			e.preventDefault();	
+		}else{    		
 			//console.log(cat[1]);
 			console.log("si llega aca");
 			if(codRes!="" && descRes!="" && cat[0]!=""){
@@ -150,37 +163,37 @@ $( document ).ready(function() {
 			} else {
 				alert("Ingrese todos los campos del Resultado");
 			}
-    	}	
+		}	
 	});
 
 
-    $('#btnAgregarIndicador').on('click', function(e) {
+	$('#btnAgregarIndicador').on('click', function(e) {
 
 		var res= $('#Resultado').attr("value");
-    	var ind = $('#txtIndicador').val();
-    	var idCat= $('#modalIndicador').val();
-    	var ordenInd= $('#txtOrdenInd').val();
-    	var descs = []
-    	var descsNom= []
-    	var descsOrd= []
-    	var descsId=[]
-    	$('#filasDesc .desc').each(function() {
-    		descs.push( $(this).val());
-    		descsId.push($(this).parent().attr("id"));
-    	});
+		var ind = $('#txtIndicador').val();
+		var idCat= $('#modalIndicador').val();
+		var ordenInd= $('#txtOrdenInd').val();
+		var descs = []
+		var descsNom= []
+		var descsOrd= []
+		var descsId=[]
+		$('#filasDesc .desc').each(function() {
+			descs.push( $(this).val());
+			descsId.push($(this).parent().attr("id"));
+		});
 
-    	$('#filasDesc .descNom').each(function() {
-    		descsNom.push( $(this).val());
-    	});
+		$('#filasDesc .descNom').each(function() {
+			descsNom.push( $(this).val());
+		});
 
-    	$('#filasDesc .descOrd').each(function() {
-    		descsOrd.push( $(this).val());
-    	});
+		$('#filasDesc .descOrd').each(function() {
+			descsOrd.push( $(this).val());
+		});
 		//console.log(cat[1]);
 		if ($("#ModalTitle").text()=="Editar Indicador"){
 			var idInd= $("#modalIndicador").attr("idInd");
-    		actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat);
-    		e.preventDefault();
+			actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat);
+			e.preventDefault();
 		}else{
 			console.log("si llega aca");
 			if(ind!="" && ordenInd!="" && descs[0]!="" && descsNom[0]!="" && descsOrd[0]!=""){
@@ -192,24 +205,24 @@ $( document ).ready(function() {
 		}
 		
 	});
-    $(document).on('click','#filasCat .fa-plus-circle ' ,function(e) {
-    	$('#agregarFilaIcono').remove();
-    	html=''
-    	html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
-    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
-    	html+='</div>'
-    	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
-    	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
-    	html+='</div>'
-    	$('#filasCats').append(html);
+	$(document).on('click','#filasCat .fa-plus-circle ' ,function(e) {
+		$('#agregarFilaIcono').remove();
+		html=''
+		html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
+		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+		html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+		html+='</div>'
+		$('#filasCats').append(html);
 
-    	e.preventDefault();
-    });
+		e.preventDefault();
+	});
 
-    $(document).on('click','#filasDesc .fa-plus-circle ' ,function(e) {
-    	$('#agregarFilaIcono').remove();
-    	$('#removeAgregar').remove();
-    	html='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
+	$(document).on('click','#filasDesc .fa-plus-circle ' ,function(e) {
+		$('#agregarFilaIcono').remove();
+		$('#removeAgregar').remove();
+		html='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
 		html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
@@ -224,10 +237,10 @@ $( document ).ready(function() {
 		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
 		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
 		html+='</div>'
-    	$('#filasDescs').append(html);
+		$('#filasDescs').append(html);
 
-    	e.preventDefault();
-    });
+		e.preventDefault();
+	});
 
 
 });
@@ -274,22 +287,22 @@ function obtenerCategorias(idRes){
 			result = JSON.parse(result);
 			var categorias = result;
 			$('#agregarFilaIcono').remove();
-	    	$('#filasCats').remove();
+			$('#filasCats').remove();
 			var html = '<div id="filasCats">';
 
 			for (i = 0; i <categorias.length-1; i++) {
-		    	html+='<div id="'+categorias[i].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
-		    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[i].NOMBRE+'</textarea>'
-		    	html+='</div>'
+				html+='<div id="'+categorias[i].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
+				html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[i].NOMBRE+'</textarea>'
+				html+='</div>'
 			}
 			html+='<div id="'+categorias[categorias.length-1].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
-	    	html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[categorias.length-1].NOMBRE+'</textarea>'
-	    	html+='</div>'
-	    	html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
-	    	html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
-	    	html+='</div>'
-	    	html+='</div>'
-	    	$('#filasCat').append(html);
+			html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[categorias.length-1].NOMBRE+'</textarea>'
+			html+='</div>'
+			html+='<div id="agregarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+			html+='<i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>'
+			html+='</div>'
+			html+='</div>'
+			$('#filasCat').append(html);
 			$("#modalAgregarResultado").modal("show");
 			$("#modalAgregarResultado").val(idRes);
 		},
@@ -348,9 +361,9 @@ function obtenerDescripciones(idInd){
 			var descripciones = result;
 			$('#agregarFilaIcono').remove();
 			$('#removeAgregar').remove();
-	    	$('#filasDescs').remove();
-	    	var html='<div id="filasDescs">'
-	    	for(i=0;i<descripciones.length-1;i++){
+			$('#filasDescs').remove();
+			var html='<div id="filasDescs">'
+			for(i=0;i<descripciones.length-1;i++){
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
 				html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" >'+descripciones[i].VALORIZACION+'</textarea>'
 				html+='</div>'
@@ -360,8 +373,8 @@ function obtenerDescripciones(idInd){
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12">'
 				html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE+'</textarea>'
 				html+='</div>'	    		
-	    	}
-	    	html+='<div id="'+descripciones[descripciones.length-1].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
+			}
+			html+='<div id="'+descripciones[descripciones.length-1].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
 			html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" >'+descripciones[descripciones.length-1].VALORIZACION+'</textarea>'
 			html+='</div>'
 			html+='<div id="'+descripciones[descripciones.length-1].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
@@ -379,7 +392,7 @@ function obtenerDescripciones(idInd){
 			html+='</div>'
 			html+='</div>'
 			
-	    	$('#filasDesc').append(html);
+			$('#filasDesc').append(html);
 			$("#modalIndicador").modal("show");
 			$("#modalIndicador").attr("idInd",idInd);
 		},
@@ -454,7 +467,7 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 				console.log(cat[i]);
 				if(cat[i]=="") 
 					if(catIds[i]=="") continue;
-					else borrarCategoria(catIds[i]);
+				else borrarCategoria(catIds[i]);
 				else{
 					if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
 					else actualizarCategoria(catIds[i],cat[i]);
