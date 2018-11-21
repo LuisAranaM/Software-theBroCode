@@ -350,6 +350,14 @@ class ResultadoController extends Controller
         dd($request->all());
         $rubrica=eResultado::getInformacionRubrica($request->get('idSemestre'));
         
+        $curso = new Curso();           
+        
+        if($curso->agregarAcreditar($checks,Auth::id())){
+            flash('Las cursos a acreditar se registraron correctamente.')->success();
+        } else {
+            flash('Hubo un error al registrar los cursos a acreditar.')->error();
+        }
+        return back();
     }
 
 }
