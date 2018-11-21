@@ -353,6 +353,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
                 resultadosId.push(result[i].ID_RESULTADO);
                 resultadosNombre.push(result[i].NOMBRE);
                 resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+                console.log(result[i].ID_RESULTADO);
             }
             if (resultadosId.length == 0) {
                 resultadosNombre = ['No se encontraron resultados en el ciclo'];

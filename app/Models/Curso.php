@@ -82,10 +82,10 @@ class Curso extends Eloquent
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}*/
 
-  static function trace($cad){
+    static function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $output->writeln("<info>".$cad."</info>");
-  }
+    }
 
   static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
     $cursos = DB::table('CURSOS')
@@ -265,11 +265,14 @@ class Curso extends Eloquent
         //dd($sql->get());
     }
 
-    public function getIdCurso($codCurso){
+    public function getIdCurso($codCurso,$idSemestre,$idEspecialidad){
         $sql = DB::table('CURSOS')
                 ->select('ID_CURSO')
                 ->where('CODIGO_CURSO','=',$codCurso)
+                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
                 ->where('ESTADO','=',1);
+        return $sql;
     }
 
     public function getCursosByResultado($idEspecialidad,$idSemestre,$idResultado){
