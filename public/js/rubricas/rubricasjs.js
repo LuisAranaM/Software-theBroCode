@@ -13,6 +13,18 @@ $( document ).ready(function() {
 		}
 	}, '.indicadorBox');
 
+		$(document).on({
+		mouseenter: function () {
+			$( this ).find("i.fa-trash").show();
+			$( this ).find("i.fa-pen").show();
+		},
+		mouseleave: function () {
+			$( this ).find("i.fa-trash").hide();
+			$( this ).find("i.fa-pen").hide();
+		}
+	}, '.resultadoBox');
+
+
 	$("#abrir").on("click", function(){
 		$("#modalIndicador").modal("show");
 	})
