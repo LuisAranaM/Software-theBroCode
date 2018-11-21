@@ -70,7 +70,6 @@ $( document ).ready(function() {
 		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
 		$(".ordenIndicador").val("");
 		$(".descripcionIndicador").val("");
-		$(".descOrd").val("");
 		$(".descNom").val("");
 		$(".desc").val("");
 		$('#agregarFilaIcono').remove();
@@ -80,7 +79,7 @@ $( document ).ready(function() {
 		var html='<div id="filasDescs" class="row rowFinal2">'
 		html+='<div class="col-md-6 col-xs-12 no-padding">'
 		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
-		html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 1</p>'
+		html+='<p class="pText descOrd" numdesc="1" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 1</p>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
@@ -92,7 +91,7 @@ $( document ).ready(function() {
 
 		html+='<div class="col-md-6 col-xs-12 no-padding">'
 		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
-		html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 2</p>'
+		html+='<p class="pText descOrd" numdesc="2" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 2</p>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
@@ -219,7 +218,8 @@ $( document ).ready(function() {
 		});
 
 		$('#filasDesc .descOrd').each(function() {
-			descsOrd.push( $(this).val());
+			console.log("El orden de esta shit es: "+$(this).attr("numdesc"))
+			descsOrd.push( $(this).attr("numdesc"));
 		});
 		//console.log(cat[1]);
 		if ($("#ModalTitle").text()!="Agregar Nuevo Indicador"){
@@ -263,7 +263,7 @@ $( document ).ready(function() {
 		html=''
 		html+='<div class="col-md-6 col-xs-12 no-padding">'
 		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
-		html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + nivel + ' </p>'
+		html+='<p class="pText descOrd" numdesc="'+nivel+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + nivel + ' </p>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
@@ -411,7 +411,7 @@ function obtenerDescripciones(idInd){
 			for(i=0;i<descripciones.length;i++){
 				html+='<div class="col-md-6 col-xs-12 no-padding">'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
-				html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + (i+1) + '</p>'
+				html+='<p class="pText descOrd" numdesc="'+descripciones[i].VALORIZACION+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + descripciones[i].VALORIZACION + '</p>'
 				html+='</div>'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 				html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE_VALORIZACION+'</textarea>'
@@ -562,7 +562,7 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 				for(i=0; i<descs.length;i++){
 					console.log(descs[i]);
 					//si se deja n campo totalmente vacio se elimina o se obvia
-					if(descs[i]=="" && descsNom[i]=="" && descsOrd[i]==""){
+					if(descs[i]=="" && descsNom[i]==""){
 						if(descsId[i]!=""){
 							borrarDescripcion(descsId[i]);
 							continue;
@@ -570,7 +570,7 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 						else continue;
 					}
 					//si al menos un campo se deja vacio
-					if(descs[i]=="" || descsNom[i]=="" || descsOrd[i]==""){
+					if(descs[i]=="" || descsNom[i]==""){
 						alert("Para eliminar la descripcion, deje todos los campos en blanco! Si no, complete los datos faltantes");
 						return;
 					}
