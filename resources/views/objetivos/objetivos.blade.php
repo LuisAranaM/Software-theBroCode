@@ -13,6 +13,9 @@
 		</div>
 	</div>
 	@include('flash::message')
+	<?php 
+		$contEos=count($objetivosEducacionales);
+	 ?>
 	<div class="row">
 		<div class="x_panel">
 			<form action="{{ route('objetivos.guardar') }}" method="POST">
@@ -21,9 +24,9 @@
 					<table class="table table-striped jambo_table bulk_action">
 						<thead >
 							<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-								<th class="pText column-title" style="border: none;text-align:center; width: 70%">SO</th>
+								<th class="pText column-title" style="border: none;text-align:center; width: 60%">SO</th>
 								@foreach($objetivosEducacionales as $eo)
-								<th class="pText column-title" style="border: none;text-align:center;width:10% ">EO{{$eo->ID_EOS}}</th>
+								<th class="pText column-title" style="border: none;text-align:center;width:40/{{$contEos}}% ">EO{{$eo->ID_EOS}}</th>
 								@endforeach
 
 
