@@ -138,7 +138,7 @@
 </form>
 
 
-
+       /.modal -->
 @stop
 
 @section('js-scripts')
