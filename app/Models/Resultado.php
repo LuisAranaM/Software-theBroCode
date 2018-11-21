@@ -183,12 +183,12 @@ class Resultado extends Eloquent
 
 	function copiarRubrica($idSemestre,$idEspecialidad,$rubrica,$idUsuario){
 		DB::beginTransaction();
+		$status=true;
 		$idResultadoIngresar=-1;
 		$idCategoriaIngresar=-1;
 		$idIndicadorIngresar=-1;
 		$idDescripcionIngresar=-1;
         //dd($rubrica);
-
 		//dd($resultadoIngresar);
 		try {
 			foreach ($rubrica as $resultado) {
@@ -255,11 +255,12 @@ class Resultado extends Eloquent
 
 			DB::commit();
 		} catch (\Exception $e) {
+			$status=false;
 			Log::error('BASE_DE_DATOS|' . $e->getMessage());
 			DB::rollback();
 		}	
 
-		return $id;
+		return $status;
 	}
 	public function especialidad()
 	{

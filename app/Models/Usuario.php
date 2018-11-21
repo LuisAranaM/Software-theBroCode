@@ -218,11 +218,11 @@ class Usuario extends Authenticatable implements Auditable{
         return Hash::check($apassword, $usuario->PASS);
     }
 
-    public function getIdUsuario($codUsuario){
+    public function getIdUsuario($codUsuario,$correo){
         $sql = DB::table('USUARIOS')
                 ->select('ID_USUARIO')
                 ->where('USUARIO','=',$codUsuario)
-                ->where('ESTADO','=',1);
+                ->where('CORREO','=',$correo);
         return $sql;
 
     }
