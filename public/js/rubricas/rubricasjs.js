@@ -1,19 +1,21 @@
 $( document ).ready(function() {
-	
 	console.log("inicioR");
+	$( "#rubricas" ).css("border-right", "5px solid #1ABB9C");
 
-	$( "#rubricas" ).addClass("current-page");
-	$( "#rubricas" ).addClass("active");
-
-	$( ".indicadorBox" ).hover(
-		function() {
+	$(document).on({
+		mouseenter: function () {
 			$( this ).find("i.fa-trash").show();
 			$( this ).find("i.fa-pen").show();
-		}, function() {
+		},
+		mouseleave: function () {
 			$( this ).find("i.fa-trash").hide();
 			$( this ).find("i.fa-pen").hide();
 		}
-		);
+	}, '.indicadorBox');
+
+	$("#abrir").on("click", function(){
+		$("#modalIndicador").modal("show");
+	})
 
 	$(".btnCargarAlumnos2").on("click", function(){
 		var cod = $(this).data('id');
@@ -62,18 +64,34 @@ $( document ).ready(function() {
 		$('#agregarFilaIcono').remove();
 		$('#removeAgregar').remove();
 		$('#filasDescs').remove();
-		var html='<div id="filasDescs">'
-		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
-		html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>'
+		$('#numDescripciones').attr("value", 3);
+		var html='<div id="filasDescs" class="row rowFinal2">'
+		html+='<div class="col-md-6 col-xs-12 no-padding">'
+		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 1</p>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
-		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Nombre" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
+		html+='</div>'
 
-		html+='<div id="removeAgregar" class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">'
+		html+='<div class="col-md-6 col-xs-12 no-padding">'
+		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 2</p>'
+		html+='</div>'
+		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='<div id="" class="col-xs-12">'
+		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='</div>'
+
+		html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
+		html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
 		html+='<p class="pText">Agregar nueva valorización</p>'
 		html+='</div>'
 		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
@@ -84,6 +102,7 @@ $( document ).ready(function() {
 		$('#filasDesc').append(html);
 		$("#modalIndicador").modal("show");
 		$("#modalIndicador").val($(this).attr('id'));
+
 	});
 
 	$("#AgregarResultado").on("click", function(e){
@@ -123,8 +142,9 @@ $( document ).ready(function() {
 	$(document).on("click",".indicadorEdit", function(){
 		var codigo= $(this).parent().prev('div').find('p').attr("value");
 		var descripcion=$(this).parent().next('div').find('p').text();
+		var resultado = $('#ResultadoNombre').attr("value");
 
-		$("#ModalTitle").text("Editar Indicador");
+		$("#ModalTitle").text("Indicador " + resultado + "." + codigo);
 		$(".ordenIndicador").val(codigo);
 		console.log(codigo);
 		$(".descripcionIndicador").val(descripcion);
@@ -190,7 +210,7 @@ $( document ).ready(function() {
 			descsOrd.push( $(this).val());
 		});
 		//console.log(cat[1]);
-		if ($("#ModalTitle").text()=="Editar Indicador"){
+		if ($("#ModalTitle").text()!="Agregar Nuevo Indicador"){
 			var idInd= $("#modalIndicador").attr("idInd");
 			actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat);
 			e.preventDefault();
@@ -219,31 +239,44 @@ $( document ).ready(function() {
 		e.preventDefault();
 	});
 
+
+
+
+	//Agregar nueva valorizacion
 	$(document).on('click','#filasDesc .fa-plus-circle ' ,function(e) {
-		$('#agregarFilaIcono').remove();
+		var nivel = $('#numDescripciones').attr("value");
+		$('#contenedorAgregar').remove();
 		$('#removeAgregar').remove();
-		html='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
-		html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" ></textarea>'
+		$('#agregarFilaIcono').remove();
+		html=''
+		html+='<div class="col-md-6 col-xs-12 no-padding">'
+		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + nivel + ' </p>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
-		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Nombre" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'	  
 		html+='</div>'
-		html+='<div id="removeAgregar" class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">'
+		html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
+		html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
 		html+='<p class="pText">Agregar nueva valorización</p>'
 		html+='</div>'
 		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
 		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
 		html+='</div>'
+		html+='</div>'
 		$('#filasDescs').append(html);
-
-		e.preventDefault();
+		nivel++;
+		$('#numDescripciones').attr("value", nivel);
 	});
 
-
 });
+
+
+
 function insertarDescripciones(desc,descNom, descOrd, idInd){
 	$.ajax({
 		type:'POST',
@@ -261,7 +294,7 @@ function insertarDescripciones(desc,descNom, descOrd, idInd){
 		success: function(result) {
 			result = JSON.parse(result);
 			if(result== -2){
-				alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
+				alert("Oops! Ya existe una descripcion con el orden ingresado. Vuelva a editarlo por favor");
 				return -2;
 			}
 			return 1;
@@ -362,36 +395,30 @@ function obtenerDescripciones(idInd){
 			$('#agregarFilaIcono').remove();
 			$('#removeAgregar').remove();
 			$('#filasDescs').remove();
-			var html='<div id="filasDescs">'
-			for(i=0;i<descripciones.length-1;i++){
-				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
-				html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" >'+descripciones[i].VALORIZACION+'</textarea>'
+			var html='<div id="filasDescs" class="row rowFinal2">'
+			for(i=0;i<descripciones.length;i++){
+				html+='<div class="col-md-6 col-xs-12 no-padding">'
+				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+				html+='<p class="pText" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + (i+1) + '</p>'
 				html+='</div>'
-				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
-				html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Nombre" rows="1" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE_VALORIZACION+'</textarea>'
+				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+				html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE_VALORIZACION+'</textarea>'
 				html+='</div>'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12">'
 				html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE+'</textarea>'
-				html+='</div>'	    		
+				html+='</div>'	  
+				html+='</div>'	
 			}
-			html+='<div id="'+descripciones[descripciones.length-1].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-right: 5px; padding-top: 15px">'
-			html+='<textarea type="text" id="txt" class="descOrd form-control pText customInput" name="nombre" placeholder="Orden" rows="1" cols="30" style="resize: none" >'+descripciones[descripciones.length-1].VALORIZACION+'</textarea>'
+			$('#numDescripciones').attr("value", descripciones.length + 1);
+			console.log($('#numDescripciones').attr("value") );
 			html+='</div>'
-			html+='<div id="'+descripciones[descripciones.length-1].ID_DESCRIPCION+'" class="col-xs-6" style="padding-bottom: 6px; padding-left: 5px; padding-top: 15px">'
-			html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Nombre" rows="1" cols="30" style="resize: none;" >'+descripciones[descripciones.length-1].NOMBRE_VALORIZACION+'</textarea>'
-			html+='</div>'
-			html+='<div id="'+descripciones[descripciones.length-1].ID_DESCRIPCION+'" class="col-xs-12">'
-			html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" >'+descripciones[descripciones.length-1].NOMBRE+'</textarea>'
-			html+='</div>'
-
-			html+='<div id="removeAgregar" class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">'
+			html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
+			html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
 			html+='<p class="pText">Agregar nueva valorización</p>'
 			html+='</div>'
 			html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
 			html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
 			html+='</div>'
-			html+='</div>'
-			
 			$('#filasDesc').append(html);
 			$("#modalIndicador").modal("show");
 			$("#modalIndicador").attr("idInd",idInd);
@@ -422,23 +449,21 @@ function refrescarIndicadores(idCat,resultado){
 			var html = '<div id="'+idCat+'rem">';
 			for(i=0;i<indicadores.length; i++){
 				
-				html+='<div class="row">'
-				html+='<hr>'
+				html+='<div class="indicadorBox row" style="background-color: white; padding: 10px; border-radius: 5px; margin-bottom: 10px; box-shadow: 1px 2px #a9aaaa">'
 				html+='<div class="col-xs-9">'
-				html+='<p class="pText" value="'+indicadores[i].VALORIZACION+'"style="font-weight: bold; color: black">'+resultado+'.'+indicadores[i].VALORIZACION+'</p>'
+				html+='<p class="pText" value="'+indicadores[i].VALORIZACION+'" style="font-weight: bold; color: #72777a">'+resultado+'.'+indicadores[i].VALORIZACION+'</p>'
 				html+='</div>'
 				html+='<div class="col-xs-3" style="text-align: right">'
-				html+='<i id="'+indicadores[i].ID_INDICADOR+'" class="indicadorEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>'
-				html+='<i id="'+indicadores[i].ID_INDICADOR+'" class="indicadorTrash fa fa-trash fa-lg" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>'
+				html+='<i id="'+indicadores[i].ID_INDICADOR+'"class="indicadorEdit fas fa-pen fa-md" style="color: #72777a; cursor: pointer; opacity: 0.7; display: none" id ="EditarIndicador"></i>'
+				html+='<i id="'+indicadores[i].ID_INDICADOR+'" class="indicadorTrash fas fa-trash fa-md" style="color: #72777a; padding-left: 6px; cursor: pointer; opacity: 0.7; display: none"></i>'
 				html+='</div>'
 				html+='<div class="col-xs-12">'
 				html+='<p class="pText">'+indicadores[i].NOMBRE+'</p>'
 				html+='</div>'
 				html+='</div>'
 			} 	
-			html+='<hr>'
-			html+='<div class="row text-center">'
-			html+='<p id="'+idCat+'" class="pText agregarIndicador" style="color: #005b7f; cursor: pointer">Agregar nuevo indicador</p>'
+			html+='<div class="row text-left" style="padding-top: 5px">'
+			html+='<p id="'+idCat+'"  class="pText agregarIndicador" style="color: #72777a; opacity: 0.8; cursor: pointer; font-size: 16px"><i class="fas fa-plus"></i> Agregar nuevo indicador</p>'
 			html+='</div>'
 			html+='</div>'
 			$('#'+idCat+'Ord').append(html);
@@ -539,6 +564,7 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 					}
 					//si tiene todos los campos llenos y un id se actualiza, si no tiene id se inserta
 					if(descsId[i]!=""){
+						console.log("BONI");
 						var resp =actualizarDescripcion(descsId[i],descs[i],descsNom[i],descsOrd[i],idInd);
 						if(resp==-2) break;							
 					} else {
@@ -577,7 +603,7 @@ function actualizarDescripcion(idDesc,desc,descNom,descOrd,idInd){
 		success: function(result){
 			result = JSON.parse(result);
 			if(result== -2){
-				alert("Oops! Ya existe una descripcion con el orden ingreasado. Vuelva a editarlo por favor");
+				alert("Oops! Ya existe una descripcion con el orden ingresado. Vuelva a editarlo por favor");
 				return -2;
 			}
 			return 1;
