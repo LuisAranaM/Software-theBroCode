@@ -13,10 +13,12 @@
       <div class="col-md-8 col-xs-6">
         <h1 class="mainTitle" style="padding-left: 10px"><a>Lista de Resultados</a></h1>
       </div>
+      <!--
       <div class="col-md-4 col-xs-6" style="text-align: right">
         <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar" style="background-color: #1ABB9C; border-color: transparent"> Guardar Rúbrica </button>
         <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="descargar_button" value="descargar" style="background-color: #1ABB9C; border-color:   transparent"> Descargar Rúbrica </button>
       </div>
+      -->
     </div>
     
 @include('flash::message')
@@ -28,7 +30,7 @@
           <div class="middle">
 
 
-            <div id ="AgregarResultado" class="text-center inner resultButton alert alert-success alert-dismissible fade in" role="alert" style="padding-right: 15px; background-color: #DFE3E6; border-color: transparent">
+            <div id ="AgregarResultado" class="text-center inner resultButton alert alert-success alert-dismissible fade in" role="alert" style="padding-right: 15px; background-color: #DFE3E6; border-color: transparent; cursor:pointer">
               <p class="pText">Crear nuevo resultado...</p>
               
             </div>
