@@ -5,6 +5,7 @@
 
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.js') }}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 @stop
