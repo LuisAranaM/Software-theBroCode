@@ -75,7 +75,7 @@ class Horario extends \App\Entity\Base\Entity {
         if($model->getIdHorario($nombre,$idCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->first())
             return $model->getIdHorario($nombre,$idCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->first()->ID_HORARIO;
         else
-            return $model>getIdHorario($nombre,$idCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->first();
+            return $model->getIdHorario($nombre,$idCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->first();
     }
 
     
