@@ -3,6 +3,7 @@
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/rubricas/configuracion.js') }}"></script>
 @stop
 <form>
   <div id="apRes" class="customBody">
@@ -19,7 +20,7 @@
       </div>
     </div>
     
-@include('flash::message')
+    @include('flash::message')
     <!-- RESULTADOS -->
 
     <div class="col-md-4 col-xs-6 ">
@@ -42,21 +43,21 @@
       <div class="col-md-4 col-xs-6">
         <div class="resultContainer x_panel tile coursesBox">
           <div class="bs-example-popovers">
-            
-              <div class="row" value="{{$resultado->ID_RESULTADO}}">
-                <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
-                  <p class="pText" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
-                </div>
-                <div class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
-                  <i class="resultadoEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
-                  <i class="resultTrash fa fa-trash fa-lg" id="{{$resultado->ID_RESULTADO}}"  style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
-                </div>
-                <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
+
+            <div class="row" value="{{$resultado->ID_RESULTADO}}">
+              <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
+                <p class="pText" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
+              </div>
+              <div class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
+                <i class="resultadoEdit fa fa-pencil fa-lg" style="color: #005b7f; cursor: pointer " id ="EditarIndicador"></i>
+                <i class="resultTrash fa fa-trash fa-lg" id="{{$resultado->ID_RESULTADO}}"  style="color: #005b7f; padding-left: 2px; cursor: pointer"></i>
+              </div>
+              <a href="{{ route('rubricas.categorias')}}?idRes={{$resultado->ID_RESULTADO}}&resultado={{$resultado->NOMBRE}}">
                 <div id="{{$resultado->ID_RESULTADO}}" class="col-xs-12 resultButton alert-success alert-dismissible fade in" role="alert" style="padding-right: 25px">
                   <p class="pText">{{$resultado->DESCRIPCION}}</p>
                 </div>
-                </a>
-              </div>
+              </a>
+            </div>
             
           </div>        
         </div>
@@ -96,13 +97,13 @@
                   <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Lista de Categorías</p>
                 </div>
                 <div id="filasCats">
-                <div class="col-xs-11" style="padding-bottom: 6px">
+                  <div class="col-xs-11" style="padding-bottom: 6px">
 
-                  <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
-                </div>
-                <div id="agregarFilaIcono"class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
-                  <i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
-                </div>
+                    <textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>       
+                  </div>
+                  <div id="agregarFilaIcono"class="col-xs-1" style="padding-left: 2px; padding-top: 2px">
+                    <i id="btnAgregarFila" class="fa fa-plus-circle fa-2x" style="color: #005b7f"></i>
+                  </div>
                 </div>
 
               </div>
@@ -137,6 +138,106 @@
 </div>
 </form>
 
+<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>
+<!--@if(count($resultados)==0)-->
+
+<!--@endif-->
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracion" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+  <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Copiar Configuración de Rúbrica</h4>
+    </div>
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    <div class="modal-body"> 
+      <div class="container-fluid" style="">
+        <form id="frmAgregarCursos" action="" method="POST">
+          {{ csrf_field() }}
+          <div class="tile coursesModalBox" style="padding-bottom: 20px;">
+
+            <div id="filasCat"class="row">
+              <div class="col-xs-12">
+                <p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Selecciona el semestre para copiar la configuración:</p>
+              </div>
+              <div class="col-xs-12">
+                <select class="form-control" id="cboSemestreConfiguracion">
+                  <option>Seleccionar una opción</option>
+                  @foreach($semestres as $semestre)
+                  <option value="{{$semestre->ID_SEMESTRE}}" semestre="{{$semestre->SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+                  @endforeach
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <button id="btnMostrarConfiguracion" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Mostrar Configuración</button>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracionMostrar" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-y: scroll;">
+  <div class="customModal modal-dialog modal-lg" style="width: 1200px; height: 300px;" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      
+        <h4 class="mainTitle modal-title" style="padding-top: 10px" id="tituloModalConfirmacion"></h4>
+
+    </div>
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    <div class="modal-body"> 
+      <div class="container-fluid" style="">
+        <form id="frmCopiarConfiguracion" action="{{route('configuracion.copiar')}}" method="POST">
+          {{ csrf_field() }}
+          <div class="tile coursesModalBox" style="padding-bottom: 20px;" id="interiorConfirmacion">
+
+
+          </div>
+          <input type="hidden" name="idSemestreConfirmado" id="idSemestreConfirmado">
+
+          <div class="modal-footer">
+            <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <button id="btnAceptarCopia" class = "btn btn-success pText customButton" type="submit" style="width: 100px" >Copiar Configuración</button>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<?php $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario(); ?>
+<input type="hidden" value="{{$nombreEspecialidad}}" id="nombreEspecialidad">
 @stop
 
 @section('js-scripts')

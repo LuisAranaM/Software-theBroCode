@@ -55,4 +55,98 @@ class Resultado extends \App\Entity\Base\Entity {
         $model = new mResultado();
         $model->deleteResultado($id);
     }
+
+    static function getInformacionRubrica($idSemestre){
+        $model= new mResultado();
+        $infoRubrica=$model->getInformacionRubrica($idSemestre,self::getEspecialidadUsuario())->get();
+        $resultados=array();
+
+        $idResultado='';
+        $idCategoria='';
+        $idIndicador='';
+        $contRes=0;
+        $contCat=0;
+        $contInd=0;
+        $contDesc=0;
+        $indicadorNuevo=array();
+        $descripcionNueva=array();
+        $categoriaNueva=array();
+        $resultadoNuevo=array();
+        foreach ($infoRubrica as $fila) {
+            //dd($fila);
+            if($idResultado!=$fila->ID_RESULTADO){
+                if($contRes>0){ 
+                    $indicadorNuevo['DESCRIPCIONES'][]=$descripcionNueva;
+                    $categoriaNueva['INDICADORES'][]=$indicadorNuevo;
+                    $resultadoNuevo['CATEGORIAS'][]=$categoriaNueva;
+                    $resultados[]=$resultadoNuevo;
+                }
+                $resultadoNuevo=array();
+                //$categoriasResultado=array();
+                $resultadoNuevo=['ID_RESULTADO'=>$fila->ID_RESULTADO,
+                                'RESULTADO'=>$fila->NOMBRE_RES,
+                                'DESCRIPCION'=>$fila->DESCRIPCION_RES,
+                                'CATEGORIAS'=>[]];
+                $idResultado=$fila->ID_RESULTADO;
+                $contRes++;
+                //Nuevo arreglo de resultados
+            }
+            if($idCategoria!=$fila->ID_CATEGORIA){
+                if($contCat>0 and $fila->ID_RESULTADO==$categoriaNueva['ID_RESULTADO']) {
+                    $indicadorNuevo['DESCRIPCIONES'][]=$descripcionNueva;
+                    $categoriaNueva['INDICADORES'][]=$indicadorNuevo;
+                    $resultadoNuevo['CATEGORIAS'][]=$categoriaNueva;
+                }
+                $categoriaNueva=array();
+                //$categoriasResultado=array();
+                $categoriaNueva=['ID_RESULTADO'=>$fila->ID_RESULTADO,
+                                'ID_CATEGORIA'=>$fila->ID_CATEGORIA,
+                                'NOMBRE_CATEGORIA'=>$fila->NOMBRE_CAT,
+                                'INDICADORES'=>[]];
+                $idCategoria=$fila->ID_CATEGORIA;
+                $contCat++;
+                //Nuevo arreglo de resultados
+            }
+            if($idIndicador!=$fila->ID_INDICADOR){
+                if($contInd>0 and $fila->ID_CATEGORIA==$indicadorNuevo['ID_CATEGORIA']){ 
+                    $indicadorNuevo['DESCRIPCIONES'][]=$descripcionNueva;
+                    $categoriaNueva['INDICADORES'][]=$indicadorNuevo;
+                }
+                $indicadorNuevo=array();
+                //$categoriasResultado=array();
+                $indicadorNuevo=[
+                                //'ID_RESULTADO'=>$fila->ID_RESULTADO,
+                                'ID_CATEGORIA'=>$fila->ID_CATEGORIA,
+                                'ID_INDICADOR'=>$fila->ID_INDICADOR,
+                                'NOMBRE_INDICADOR'=>$fila->NOMBRE_IND,
+                                'VALORIZACION'=>$fila->VAL_IND,
+                                'DESCRIPCIONES'=>[]];
+                $idIndicador=$fila->ID_INDICADOR;
+                $contInd++;
+                //Nuevo arreglo de resultados
+            }
+            //Aquí las descripciones siempre existen
+            if($contDesc>0 and $fila->ID_INDICADOR==$descripcionNueva['ID_INDICADOR'])
+                $indicadorNuevo['DESCRIPCIONES'][]=$descripcionNueva;
+            $descripcionNueva=array();
+            $descripcionNueva=[
+                //'ID_RESULTADO'=>$fila->ID_RESULTADO,
+                //'ID_CATEGORIA'=>$fila->ID_CATEGORIA,
+                'ID_INDICADOR'=>$fila->ID_INDICADOR,
+                'ID_DESCRIPCION'=>$fila->ID_DESCRIPCION,
+                'NOMBRE_DESCRIPCION'=>$fila->NOMBRE_DES,
+                'VALORIZACION'=>$fila->VAL_DES,
+                'NOMBRE_VALORIZACION'=>$fila->NOMB_VAL_DES];
+            $contDesc++;
+
+        }
+        //Último resultado
+        if($descripcionNueva!=NULL){
+            $indicadorNuevo['DESCRIPCIONES'][]=$descripcionNueva;
+            $categoriaNueva['INDICADORES'][]=$indicadorNuevo;
+            $resultadoNuevo['CATEGORIAS'][]=$categoriaNueva;
+            $resultados[]=$resultadoNuevo;
+        }
+        return $resultados;
+    }
 }

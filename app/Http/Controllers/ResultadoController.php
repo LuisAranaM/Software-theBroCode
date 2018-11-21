@@ -5,6 +5,7 @@ use App\Entity\Resultado as eResultado;
 use App\Entity\Categoria as eCategoria;
 use App\Entity\Indicador as eIndicador;
 use App\Entity\Descripcion as eDescripcion;
+use App\Entity\Semestre;
 use App\Entity\EscalaCalificacion as eEscala;
 
 
@@ -54,6 +55,7 @@ class ResultadoController extends Controller
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
         ->with('indicadores', $indicadores)
+        ->with('semestres', Semestre::getSemestres())
         //->with('escalas', $escalas)
         ->with('descripciones', $descripciones);
     }
@@ -336,6 +338,18 @@ class ResultadoController extends Controller
     public function getResultadosCbo(Request $request){
         $idSemestre = $request->get('idSemestre', null);
         return eResultado::getResultadosBySemestre($idSemestre);
+    }
+
+    public function informacionRubrica(Request $request){
+
+        $rubrica=eResultado::getInformacionRubrica($request->get('idSemestre'));
+        return $rubrica;
+    }
+
+    public function copiarRubrica(Request $request){
+        dd($request->all());
+        $rubrica=eResultado::getInformacionRubrica($request->get('idSemestre'));
+        
     }
 
 }
