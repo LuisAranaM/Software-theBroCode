@@ -111,7 +111,11 @@ class ResultadoController extends Controller
         $id = $request->get('_idRes',null);
         $nombre = $request->get('_codRes',null);
         $desc = $request->get('_descRes',null);
+
+        $categorias = eCategoria::getCategoriasId($id)->toArray();
         eResultado::updateResultado($id, $nombre, $desc);
+        
+        return $categorias;
     }
     public function actualizarCategoria(Request $request){
         $id = $request->get('_idCat',null);

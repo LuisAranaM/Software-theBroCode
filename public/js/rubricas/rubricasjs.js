@@ -218,7 +218,6 @@ $( document ).ready(function() {
 		});
 
 		$('#filasDesc .descOrd').each(function() {
-			console.log("El orden de esta shit es: "+$(this).attr("numdesc"))
 			descsOrd.push( $(this).attr("numdesc"));
 		});
 		//console.log(cat[1]);
@@ -241,7 +240,7 @@ $( document ).ready(function() {
 		$('#agregarFilaIcono').remove();
 		html=''
 		html+='<div id="eliminarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
-		html+='<i class=" fas fa-trash fa-md" style="color: #005b7f; cursor: pointer;"></i>'
+		html+='<i class=" fas fa-trash fa-trash-add fa-md" style="color: #005b7f; cursor: pointer;"></i>'
 		html+='</div>'
 		html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
 		html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" placeholder="Nombre de la categoría" rows="1" cols="30" style="resize: none;" ></textarea>'
@@ -254,12 +253,16 @@ $( document ).ready(function() {
 		e.preventDefault();
 	});
 
-	$(document).on('click','#filasCat .fa-trash ' ,function(e) {
+	$(document).on('click','#filasCat .fa-trash-add' ,function(e) {
 		$(this).parent().prev('div').remove();
 		$(this).parent().remove();
 		e.preventDefault();
 	});
-
+	$(document).on('click','#filasCat .fa-trash-edit' ,function(e) {
+		$(this).parent().prev('div').remove();
+		$(this).parent().remove();
+		e.preventDefault();
+	});
 
 
 
@@ -347,6 +350,9 @@ function obtenerCategorias(idRes){
 			for (i = 0; i <categorias.length-1; i++) {
 				html+='<div id="'+categorias[i].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
 				html+='<textarea type="text" id="txtCategoria" class="cat form-control pText customInput" name="nombre" rows="1" cols="30" style="resize: none;" >'+categorias[i].NOMBRE+'</textarea>'
+				html+='</div>'			
+				html+='<div id="eliminarFilaIcono" class="col-xs-1" style="padding-left: 2px; padding-top: 2px">'
+				html+='<i class=" fas fa-trash fa-trash-edit fa-md" style="color: #005b7f; cursor: pointer;"></i>'
 				html+='</div>'
 			}
 			html+='<div id="'+categorias[categorias.length-1].ID_CATEGORIA+'" class="col-xs-11" style="padding-bottom: 6px">'
@@ -509,11 +515,37 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 		},
 		dataType: "text",
 		success: function(result){
+			result = JSON.parse(result);
+			var categorias = result;
+			var catEliminados=[];
+			var countEliminados=0;
+			for(j=0; j<categorias.length;j++){
+				var idCatExistente= categorias[j].ID_CATEGORIA;
+				var eliminado =1 ;
+				for(i=0; i<catIds.length;i++){
+					var idCatNoElimnado= catIds[i]
+					if(idCatExistente==idCatNoElimnado){
+						eliminado=0;
+						break;
+					}
+				}
+				if(eliminado==1){
+					catEliminados[countEliminados]=idCatExistente;
+					countEliminados++;
+				} 
+			}
+			if(countEliminados==categorias.length){
+				alert('No puedes eliminar todas las categorias!');
+				return;
+			}
+			for(k=0;k<countEliminados;k++){
+				borrarCategoria(catEliminados[k]);
+			}
 			for(i=0; i<cat.length;i++){
 				console.log(cat[i]);
 				if(cat[i]=="") 
 					if(catIds[i]=="") continue;
-				else borrarCategoria(catIds[i]);
+					else alert('No puedes dejar en blanco el nombre de una categoria');
 				else{
 					if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
 					else actualizarCategoria(catIds[i],cat[i]);
