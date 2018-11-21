@@ -316,6 +316,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
                 resultadosId.push(result[i].ID_RESULTADO);
                 resultadosNombre.push(result[i].NOMBRE);
                 resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+                console.log(result[i].ID_RESULTADO);
             }
             globResultadosId = resultadosId;
             if (contResultadosxCiclo == 0) {
