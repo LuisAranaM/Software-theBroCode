@@ -379,6 +379,7 @@ li {
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-radius: 6px !important;
 }
 
 @media screen and (max-width: 600px) {
@@ -445,7 +446,6 @@ li {
   } 
 
 
-
 .customInputDocsReunionesModal {
   border-radius: 4px;
   height: 20px;
@@ -455,6 +455,7 @@ li {
   border-radius: 4px;
   height: 25px;
 }
+
 
 /*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
 /*.modalCargando {
