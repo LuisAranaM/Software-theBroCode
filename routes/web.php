@@ -97,8 +97,10 @@ Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@Impor
 Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //pruebas excel
 #Route::get('upload', 'CursoController@showForm');
+
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
+Route::post('/subir-excels/uploadAlumnosDeCurso', 'AlumnoController@uploadAlumnosDeCurso');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
 
@@ -115,12 +117,29 @@ Route::get('/resultadosFiltroDocs', ['as'=>'reultadosFiltro.docs','uses'=>'Reuni
 
 //Rutas para objetivos educacionales
 Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
+Route::get('/objetivos-educacionales-gestion', ['as'=>'objetivosGestion','uses'=>'ObjetivosEducacionalesController@objetivosGestionTablas','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/eliminar-sos',['as'=>'eliminar.sos','uses'=>'ObjetivosEducacionalesController@eliminarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/eliminar-eos',['as'=>'eliminar.eos','uses'=>'ObjetivosEducacionalesController@eliminarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/editar-sos',['as'=>'editar.sos','uses'=>'ObjetivosEducacionalesController@editarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/editar-eos',['as'=>'editar.eos','uses'=>'ObjetivosEducacionalesController@editarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/agregar-sos',['as'=>'agregar.sos','uses'=>'ObjetivosEducacionalesController@agregarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/agregar-eos',['as'=>'agregar.eos','uses'=>'ObjetivosEducacionalesController@agregarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses'=>'ObjetivosEducacionalesController@objetivosGuardar','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
+	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
+	Route::post('/gestionar-usuario/crear',['as'=>'administrador.usuario.crear','uses'=>'AdministradorController@crearCuentaRubrik']);
+	Route::post('/gestionar-usuario/editar',['as'=>'administrador.usuario.editar','uses'=>'AdministradorController@editarCuentaRubrik']);
+	Route::post('/gestionar-usuario/eliminar',['as'=>'administrador.usuario.eliminar','uses'=>'AdministradorController@eliminarCuentaRubrik']);
+	Route::get('/gestionar-semestre',['as'=>'administrador.semestre','uses'=>'AdministradorController@gestionSemestres']);
+	Route::post('/gestionar-semestre/crear',['as'=>'administrador.semestre.crear','uses'=>'AdministradorController@crearSemestre']);
+	Route::post('/gestionar-semestre/sistema',['as'=>'administrador.semestre.sistema','uses'=>'AdministradorController@seleccionarSemestreSistema']);
+	Route::post('/gestionar-semestre/editar',['as'=>'administrador.semestre.editar','uses'=>'AdministradorController@editarSemestre']);
+	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
+	Route::post('/gestionar-especialidad/crear',['as'=>'administrador.especialidad.crear','uses'=>'AdministradorController@crearEspecialidad']);
+	Route::post('/gestionar-especialidad/editar',['as'=>'administrador.especialidad.editar','uses'=>'AdministradorController@editarEspecialidad']);
 });
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {

@@ -14,7 +14,7 @@ class Usuario extends \App\Entity\Base\Entity {
     const ROL_ASISTENTE = 3;
     const ROL_PROFESOR = 4;
 
-    const ITEMS_PER_PAGE = 15;
+    const ITEMS_PER_PAGE = 10;
 
     protected $_usuario;
     protected $_rol;
@@ -57,9 +57,25 @@ class Usuario extends \App\Entity\Base\Entity {
         PODEMOS GENERAR MÉTODOS PARA LISTAR A LOS PROFESORES EN GENERAL O POR ESPECIALIDAD
      */
 
+        static function getUsuariosGestion($filtros=[],$orden=[]){
+            $model=new mUsuario();
+            $query = $model->getUsuariosGestion($filtros);  
+
+            $totalCount = $query->count();
+           
+            $results = $query
+                    ->take(self::ITEMS_PER_PAGE)
+                    ->skip(self::ITEMS_PER_PAGE * ($filtros['page'] - 1))
+                    ->get();
+                     
+            $paginator = new Paginator($results, $totalCount, self::ITEMS_PER_PAGE, $filtros['page']);
+        //dd("Hola");
+
+        return $paginator;   
+        }
         static function redirectRol($rol) {
         //dd($rol);
-            $urlAdmin = 'administrador.principal';
+            $urlAdmin = 'administrador.usuario';
             $urlCoordinador = 'cursos.gestion';
             $urlAsistente = 'cursos.gestion';
             $urlProfesor = 'profesor.calificar';
@@ -127,33 +143,60 @@ class Usuario extends \App\Entity\Base\Entity {
             $model= new mUsuario();
 
             $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
-                    'USUARIO' =>$datosCuenta['usuario'],           
-                    'PASS'=>$datosCuenta['pass'],               
-                    'CORREO' =>$datosCuenta['email'],            
-                    'FECHA_REGISTRO'=>$hoy,     
-                    'FECHA_ACTUALIZACION'=>$hoy,
-                    'USUARIO_MODIF'=>NULL,      
-                    'ESTADO'=>1,             
-                    'NOMBRES' =>$datosCuenta['nombres'],           
-                    'APELLIDO_PATERNO'=>$datosCuenta['apellidoPat'],   
-                    'APELLIDO_MATERNO' =>$datosCuenta['apellidoMat'],  
-                    'PERFIL'=>$datosCuenta['perfil']
-                ];
+            'USUARIO' =>$datosCuenta['usuario'],           
+            'PASS'=>$datosCuenta['pass'],               
+            'CORREO' =>$datosCuenta['email'],            
+            'FECHA_REGISTRO'=>$hoy,     
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF'=>NULL,      
+            'ESTADO'=>1,             
+            'NOMBRES' =>$datosCuenta['nombres'],           
+            'APELLIDO_PATERNO'=>$datosCuenta['apellidoPat'],   
+            'APELLIDO_MATERNO' =>$datosCuenta['apellidoMat'],  
+            'PERFIL'=>$datosCuenta['perfil']
+        ];
 
+        $usuarioEspecialidad=[];
+        if($usuario['ID_ROL']!=1){
             $usuarioEspecialidad=['ID_USUARIO' =>NULL,        
-                            'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
-                            'FECHA_REGISTRO'=>$hoy,
-                            'FECHA_ACTUALIZACION'=>$hoy,
-                            'USUARIO_MODIF' =>NULL,     
-                            'ESTADO'=>1
-                        ];
+            'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
+            'FECHA_REGISTRO'=>$hoy,
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF' =>NULL,     
+            'ESTADO'=>1
+            ];
+        }
+    //Verificar que usuario y correo no estén registrados
+    if($model->verificarUsuario($usuario)){
+        //dd("HOLA");
+        $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+        return false;        
+    }
 
-        if ($model->crearCuentaRubrik($usuario,$usuarioEspecialidad)){
+    
+    if ($model->crearCuentaRubrik($usuario,$usuarioEspecialidad)){
+        return true;
+    }else{
+        $this->setMessage('Hubo un error en el servidor de base de datos');
+        return false;
+    }
+
+}
+
+function editarCuentaRubrik($datosCuenta){
+
+}
+
+function eliminarCuentaRubrik($idUsuario,$usuarioModif){
+    $model= new mUsuario();
+        
+        if ($model->eliminarCuentaRubrik($idUsuario,$usuarioModif)){
             return true;
         }else{
             $this->setMessage('Hubo un error en el servidor de base de datos');
             return false;
         }
 
-    }
+}
+
 }

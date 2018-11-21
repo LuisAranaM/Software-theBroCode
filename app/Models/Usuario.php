@@ -133,12 +133,46 @@ class Usuario extends Authenticatable implements Auditable{
         //dd($sql);
         return $sql;
     }
+
+
+    static function getUsuariosGestion($filtros=[]){
+        $sql=DB::table('USUARIOS AS US')
+        ->select('US.ID_USUARIO','US.USUARIO','US.CORREO',DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO) 
+            AS NOMBRES_COMPLETOS"),'US.PERFIL','ROL.NOMBRE AS ROL_USUARIO', 'ES.NOMBRE AS ESPECIALIDAD_USUARIO', 'US.ESTADO AS FLG_ACTIVO')    
+        ->leftJoin('ROLES AS ROL',function($join){
+            $join->on('US.ID_ROL','=','ROL.ID_ROL');
+        })
+        ->leftJoin('USUARIOS_HAS_ESPECIALIDADES AS UE',function($join){
+            $join->on('UE.ID_USUARIO','=','US.ID_USUARIO');
+        })
+        ->leftJoin('ESPECIALIDADES AS ES',function($join){
+            $join->on('ES.ID_ESPECIALIDAD','=','UE.ID_ESPECIALIDAD');
+        })
+        ->where('US.ESTADO','=',1)
+        ->orderBy('ROL.NOMBRE','ASC')
+        ->orderBy(DB::Raw("CONCAT(US.CORREO,US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO)"),'ASC');
+        
+        //dd($sql);
+        return $sql;
+    }
+
+
      static function getCorreo($correo){
         $sql=DB::table('USUARIOS')
                 ->select()
-                ->where('CORREO','=',$correo);
+                ->where('CORREO','=',$correo)
+                ->where('ESTADO','=',1);
         //dd($sql);
         return $sql;
+    }
+
+    static function verificarUsuario($usuario){
+        $sql=DB::table('USUARIOS')
+                ->select()
+                ->where('CORREO','=',$usuario['CORREO'])
+                ->where('USUARIO','=',$usuario['USUARIO']);
+        //dd($sql);
+        return $sql->count();
     }
 
     static function updateFoto($idUsuario,$usuarioGoogle){
@@ -214,4 +248,26 @@ class Usuario extends Authenticatable implements Auditable{
         return $status;
         //dd($sql->get());
     }
+
+    function eliminarCuentaRubrik($idUsuario,$usuarioModif){
+        //dd(Carbon::now());    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+            DB::table('USUARIOS')
+                ->where('ID_USUARIO','=',$idUsuario)
+                ->update(['ESTADO'=>0,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$usuarioModif]);
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
+    }
+
 }

@@ -87,7 +87,9 @@ class Entity {
     }
 
     public static function getIdSemestre(){
-        return config('app.id_semestre');
+        $model= new mSemestre();
+        return $model->getIdSemestre();
+        //return config('app.id_semestre');
     }
 
 

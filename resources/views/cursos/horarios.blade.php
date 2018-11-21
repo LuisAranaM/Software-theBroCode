@@ -8,7 +8,7 @@
 
 @stop
 
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Horarios y Criterios')
 @section('content')
 <div id="idCurso" data-field-id="{{$idCurso}}" ></div>
 <div id="nombreCurso" data-field-id="{{$nombreCurso}}" ></div>
@@ -41,7 +41,11 @@
         </div>
 
         <div class="col-sm-6 col-xs-6 text-right">
-          <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos  </button>
+            <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
+              <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+               data-curso = "{{ $codCurso }}" 
+               > Cargar Alumnos</button>
+            </a>
         </div>  
       </div>
 
@@ -249,6 +253,55 @@
 
 
 </div>
+
+<!-- Modal de Cargar Alumnos  -->
+
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+<div class="customModal modal-dialog modal-lg ">
+  <div class="modal-content" style="top: 30%">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 id="CargarAlumnos" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Cargar Alumnos</h4>
+  </div>
+  <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+  <div class="modal-body">
+    <div class="container-fluid text-center">
+      <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
+        <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
+        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+          <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnosDeCurso')}}"
+          method = "post" enctype = "multipart/form-data">
+            {{csrf_field()}}
+            <div class = "form-group">
+              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+            </div>
+            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+              <div class="col-md-4">
+                <input id="codCurso" name="codCurso" type="hidden">
+                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
+                style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+              </div>
+              <div class="col-md-4">
+                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              </div>
+
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- Modal de Cargar Alumnos y Horarios -->
 

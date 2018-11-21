@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Entity\PlanesDeMejora as PlanesDeMejora;
+use App\Entity\Semestre;
 use App\Entity\Acta as Acta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class ReunionesController extends Controller
 
     public function reunionesGestion() {    
         return view('reuniones.reuniones')
+        ->with('semestres',Semestre::getSemestres())
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     function resultadosFiltroDocs(Request $request){
@@ -28,8 +30,8 @@ class ReunionesController extends Controller
     }
     public function store(Request $request){
         $tipoDoc = $request->get('tipoDoc', null); //ver si es acta o plan el value
-        $ano = $request->get('ano', null);
-        $semestre = $request->get('semestre', null);
+        $ciclo = $request->get('ciclo', null);
+        $semestre = explode( '-', $ciclo );
         $file = $request->file('archivo');
         #$semestre_actual = Entity::getIdSemestre();
         $semestreActual = Entity::getIdSemestre();
@@ -46,7 +48,8 @@ class ReunionesController extends Controller
 
         //dd($semestre);
         #creationg array for data
-        $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$ano, 'DOCUMENTO_SEMESTRE'=>$semestre,'TIPO_DOCUMENTO'=>$tipoDoc);
+        $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$semestre[0], 'DOCUMENTO_SEMESTRE'=>$semestre[1],'TIPO_DOCUMENTO'=>$tipoDoc);
+        //dd($data);
         $idProyecto = DB::table('DOCUMENTOS_REUNIONES')->insertGetId(
             $data
         );
@@ -68,9 +71,9 @@ class ReunionesController extends Controller
             if($tipo=="Elim"){
                // dd('Elim');
                 $files = array();
-
+                $cant = 0;
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "/upload/".$value;
+                    $file= public_path(). "\upload\\".$value;
                     /*NO BORRAR esto es para eliminar fisicamente el archivo
 
                     $dirHandle = opendir(public_path(). "/upload/");
@@ -87,13 +90,35 @@ class ReunionesController extends Controller
                     DB::table('DOCUMENTOS_REUNIONES')
                     ->where('RUTA', $file)
                     ->update(['ESTADO' => 0]);
-
-
-                    return back();
+                    $cant = $cant + 1;
                 } 
+                flash('Se ha eliminado '.$cant.' archivo(s) de forma correcta.')->success();
+                return back();
 
             }else{
                 //dd('Desc');
+                try{
+
+                    $dirHandle = opendir(public_path(). "\upload\\");
+                    $dir = public_path(). "\upload\\";
+                    $valueComprimido = public_path(). "\upload\comprimido.zip";
+                    $aux = 0;
+                    while ($file = readdir($dirHandle)) {
+                        if($aux == 3){
+                            //dd($file);
+                        }
+                        if($file=="comprimido.zip") {
+                            //dd("Elimina el comprimido");
+                            unlink($dir.'\\'.$file);
+                        }
+                        $aux= $aux + 1;
+                    }
+                    //dd($aux);
+                    closedir($dirHandle);
+                }catch(Exception $e){
+
+                }
+
                 $files = array();
                 foreach ($checks as $key => $value) {
                     $file= public_path(). "/upload/".$value;
@@ -102,6 +127,9 @@ class ReunionesController extends Controller
                 } 
                 //dd($files);
                 //$files = glob(public_path('js/*'));
+
+                
+
                 \Zipper::make(public_path('/upload/comprimido.zip'))->add($files)->close();
                 return response()->download(public_path('/upload/comprimido.zip'));
             }

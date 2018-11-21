@@ -92,4 +92,10 @@ class Curso extends \App\Entity\Base\Entity {
             return $model->getIdCurso($codCurso)->first();
     }
 
+    public function getCursosByResultado($idSemestre,$idResultado){
+        //Para gráfico de Ronie 
+        $model = new mCurso();
+        return $model->getCursosByResultado(self::getEspecialidadUsuario(),$idSemestre,$idResultado)->get();
+    }
+
 }
