@@ -128,12 +128,12 @@ class Usuario extends \App\Entity\Base\Entity {
             $model->updateMasive();
         }
 
-        public function getIdUsuario($codUsuario){
+        public function getIdUsuario($codUsuario,$correo){
             $model = new mUsuario();
-            if($model->getIdUsuario($codUsuario)->first())
-                return $model->getIdUsuario($codUsuario)->first()->ID_USUARIO;
+            if($model->getIdUsuario($codUsuario,$correo)->first())
+                return $model->getIdUsuario($codUsuario,$correo)->first()->ID_USUARIO;
             else
-                return $model->getIdUsuario($codUsuario)->first();
+                return $model->getIdUsuario($codUsuario,$correo)->first();
         }
 
         function crearCuentaRubrik($datosCuenta){

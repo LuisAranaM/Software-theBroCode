@@ -323,6 +323,8 @@ class CursoController extends Controller
                                 //buscamos si ese horario existe dentro del curso
                                 $auxHorario = new Horario();
                                 $idHorario = $auxHorario->getIdHorario($val,$id_curso);
+                                //dd($val,$id_curso);
+                                //dd($idHorario);
                                 //si no existe el horario ingresamos la data como esta
                                 if(!$idHorario){
                                     $datos_horario=[];
@@ -341,7 +343,7 @@ class CursoController extends Controller
                             $codProf = $value->codigo;
                             //buscamos si existe el profesor
                             $auxProfesor = new Usuario();
-                            $idProfesor = $auxProfesor->getIdUsuario($codProf);
+                            $idProfesor = $auxProfesor->getIdUsuario($codProf,$value->correo);
                             $auxNombProfe = explode(",",$value->profesor);
                             $auxApellidos = $auxNombProfe[0];
                             $apellidos = explode(" ",$auxApellidos);
