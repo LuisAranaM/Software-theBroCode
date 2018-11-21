@@ -86,7 +86,10 @@ class Curso extends \App\Entity\Base\Entity {
 
     public function getIdCurso($codCurso){
         $model = new mCurso();
-        return $model->getIdCurso($codCurso)->first()->ID_CURSO;
+        if ($model->getIdCurso($codCurso)->first())
+            return $model->getIdCurso($codCurso)->first()->ID_CURSO;
+        else
+            return $model->getIdCurso($codCurso)->first();
     }
 
 }

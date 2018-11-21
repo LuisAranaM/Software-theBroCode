@@ -161,7 +161,7 @@ class CursoController extends Controller
                         $auxCurso = new Curso();
                         $idCurso = $auxCurso->getIdCurso($value->clave);
                         //primero ingresamos curso
-                        dd($idCurso);
+                        //dd($idCurso);
                         $datos_cursos=[];
                         if($idCurso==null){
 
@@ -171,23 +171,30 @@ class CursoController extends Controller
                         }
                         else{
                             $id_curso=$idCurso;
+                            //dd($id_curso);
+
                         }                   
                         //luego ingresamos sus horarios
-                        $codigos_horarios = explode(',',($value->horario));
+                        $codigos_horarios = explode(',',((string)$value->horario));                        
                         $lista_horarios = [];
-                        foreach ($codigos_horarios as $val) {
+                        foreach ($codigos_horarios as $val) {                            
                             $datos_horario=[];
                             $datos_horario=['ID_CURSO'=>$id_curso, 'ID_SEMESTRE'=>$semestre_actual, 'ID_ESPECIALIDAD'=>$especialidad,
                                             'NOMBRE'=>$val,'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
                                             'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
-                            $id_horario = DB::table('HORARIOS')->insertGetId($datos_horario);                
+
+                            $id_horario = DB::table('HORARIOS')->insertGetId($datos_horario);   
+                            //dd($id_horario);            
                             array_push($lista_horarios,$id_horario);
+                            //dd($lista_horarios);
                         }
+                        //dd("holis");
                         //ahora ingresaremos los profesores como usuarios
                         $codProf = $value->codigo;
+                        //dd($codProf);
                         $model = new Usuario();
                         $idProf = $model->getIdUsuario($codProf);
-                        dd($idProf);
+                        //dd($idProf);
                         //si no existe, si existe ya tenemos el id
                         if(!$idProf){
                             $auxNombProfe = explode(",",$value->profesor);
