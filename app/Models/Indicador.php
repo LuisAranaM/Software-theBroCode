@@ -220,11 +220,7 @@ class Indicador extends Eloquent
 		->where('CUR.ID_CURSO','=',$idCurso)
 		->groupBy('RES.ID_RESULTADO','RES.NOMBRE','RES.DESCRIPCION')
 		->havingRaw('count(ESCALA_CALIFICACION) > ?', [0]);
-<<<<<<< HEAD
-		dd($sql->get());
-=======
 		//dd($sql->get());
->>>>>>> fd852a572a8f19e6f4be628a9d854a8830d87f8e
 		return $sql;
 	}
 	
