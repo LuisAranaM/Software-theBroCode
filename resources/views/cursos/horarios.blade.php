@@ -41,10 +41,10 @@
         </div>
 
         <div class="col-sm-6 col-xs-6 text-right">
-            <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
-              <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
-               data-curso = "{{ $codCurso }}" 
-               > Cargar Alumnos</button>
+            <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
+                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+                 data-id = "{{ $codCurso }}" 
+                 > Cargar Alumnos</button>
             </a>
         </div>  
       </div>
@@ -257,7 +257,7 @@
 <!-- Modal de Cargar Alumnos  -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
+id="modalCargarAlumnos2" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30%">
@@ -282,7 +282,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
             </div>
             <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <input id="codCurso" name="codCurso" type="hidden">
+                <input id="codCurso" name="codigoCurso" type="hidden">
                 <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
                 style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
               </div>
