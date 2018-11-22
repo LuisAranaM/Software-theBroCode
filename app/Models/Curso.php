@@ -82,6 +82,16 @@ class Curso extends Eloquent
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}*/
 
+    static function getIdCurso2($codCurso){
+        $ans = DB::table('CURSOS')
+                ->select('*')
+                ->where('CODIGO_CURSO','=',$codCurso)
+                ->get()
+                ->toArray();
+        return $ans[0]->ID_CURSO;
+    }
+
+
     static function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $output->writeln("<info>".$cad."</info>");

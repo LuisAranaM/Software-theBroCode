@@ -73,7 +73,7 @@ class ReunionesController extends Controller
                 $files = array();
                 $cant = 0;
                 foreach ($checks as $key => $value) {
-                    $file= public_path(). "\upload\\".$value;
+                    $file= public_path(). "/upload//".$value;
                     /*NO BORRAR esto es para eliminar fisicamente el archivo
 
                     $dirHandle = opendir(public_path(). "/upload/");
@@ -99,9 +99,9 @@ class ReunionesController extends Controller
                 //dd('Desc');
                 try{
 
-                    $dirHandle = opendir(public_path(). "\upload\\");
-                    $dir = public_path(). "\upload\\";
-                    $valueComprimido = public_path(). "\upload\comprimido.zip";
+                    $dirHandle = opendir(public_path(). "/upload//");
+                    $dir = public_path(). "/upload//";
+                    $valueComprimido = public_path(). "/upload/comprimido.zip";
                     $aux = 0;
                     while ($file = readdir($dirHandle)) {
                         if($aux == 3){
@@ -109,7 +109,7 @@ class ReunionesController extends Controller
                         }
                         if($file=="comprimido.zip") {
                             //dd("Elimina el comprimido");
-                            unlink($dir.'\\'.$file);
+                            unlink($dir.'//'.$file);
                         }
                         $aux= $aux + 1;
                     }

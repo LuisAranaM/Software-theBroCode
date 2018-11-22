@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Models\Usuario as mUsuario;
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Jenssegers\Date\Date as Carbon;
+use Illuminate\Support\Facades\Hash;
 use DB;
 
 class Usuario extends \App\Entity\Base\Entity {
@@ -128,12 +129,12 @@ class Usuario extends \App\Entity\Base\Entity {
             $model->updateMasive();
         }
 
-        public function getIdUsuario($codUsuario){
+        public function getIdUsuario($codUsuario,$correo){
             $model = new mUsuario();
-            if($model->getIdUsuario($codUsuario)->first())
-                return $model->getIdUsuario($codUsuario)->first()->ID_USUARIO;
+            if($model->getIdUsuario($codUsuario,$correo)->first())
+                return $model->getIdUsuario($codUsuario,$correo)->first()->ID_USUARIO;
             else
-                return $model->getIdUsuario($codUsuario)->first();
+                return $model->getIdUsuario($codUsuario,$correo)->first();
         }
 
         function crearCuentaRubrik($datosCuenta){
@@ -144,7 +145,7 @@ class Usuario extends \App\Entity\Base\Entity {
 
             $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
             'USUARIO' =>$datosCuenta['usuario'],           
-            'PASS'=>$datosCuenta['pass'],               
+            'PASS'=>Hash::make($datosCuenta['pass']),               
             'CORREO' =>$datosCuenta['email'],            
             'FECHA_REGISTRO'=>$hoy,     
             'FECHA_ACTUALIZACION'=>$hoy,

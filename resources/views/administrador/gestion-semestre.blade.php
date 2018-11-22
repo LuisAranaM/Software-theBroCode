@@ -25,6 +25,24 @@
 		<div class="col-md-6 col-sm-6">			
 			<div class="x_panel">
 				<div class="x_title">
+					<h2>Seleccionar semestre actual</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<select class="form-control" id="semestreAct">
+
+
+							<option value="">Elige un semestre</option>
+							@foreach($semestres as $semestre)
+							<option value="{{$semestre->ID_SEMESTRE}}" ciclo="{{$semestre->SEMESTRE}}"" {{($semestre->ID_SEMESTRE == $semestreActual)? 'selected="selected"':''}}>{{$semestre->SEMESTRE}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="x_panel">
+				<div class="x_title">
 					<h2>Semestres</h2>
 					<div class="clearfix"></div>
 				</div>
@@ -61,24 +79,6 @@
 					</table>
 
 
-				</div>
-			</div>
-			<div class="x_panel">
-				<div class="x_title">
-					<h2>Seleccionar semestre actual</h2>
-					<div class="clearfix"></div>
-				</div>
-				<div class="x_content">
-					<div class="col-md-9 col-sm-9 col-xs-12">
-						<select class="form-control" id="semestreAct">
-
-
-							<option value="">Elige un semestre</option>
-							@foreach($semestres as $semestre)
-							<option value="{{$semestre->ID_SEMESTRE}}" ciclo="{{$semestre->SEMESTRE}}"" {{($semestre->ID_SEMESTRE == $semestreActual)? 'selected="selected"':''}}>{{$semestre->SEMESTRE}}</option>
-							@endforeach
-						</select>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -110,6 +110,17 @@ class Horario extends Eloquent
 		return $ans;
 	}
 
+	static function getHorariosByCodCurso($idSemestre, $idEspecialidad, $idCurso){
+		$ans = DB::table('HORARIOS')
+				->select('*')
+				->where('ID_SEMESTRE','=',$idSemestre)
+				->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+				->where('ID_CURSO','=',$idCurso)
+				->where('ESTADO','=',1)
+				->get();
+		return $ans;
+	}
+
 	static function getAlumnosCalif($idHorario){
 		$alumnos = Alumno::getAlumnosByHorario($idHorario);
 		$ans = 0;
@@ -228,7 +239,7 @@ class Horario extends Eloquent
         return $status;
     }
 
-    static function getIdHorario($nombre,$idCurso,$idEspecialidad,$idSemestre){
+    static function getIdHorario($nombre,$idCurso,$idSemestre,$idEspecialidad){
     	$sql = DB::table('HORARIOS')
     			->select('ID_HORARIO')
     			->where('ID_CURSO','=',$idCurso)
@@ -236,6 +247,7 @@ class Horario extends Eloquent
     			->where('ID_SEMESTRE','=',$idSemestre)
     			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
     			->where('ESTADO','=',1);
+    	return $sql;
     }
 
 

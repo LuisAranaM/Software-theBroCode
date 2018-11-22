@@ -95,93 +95,123 @@
     }
 });
 
-    $('#frmNuevoUsuarioGoogle').formValidation({
-        framework: 'bootstrap',
-        icon: {
-          valid: 'glyphicon glyphicon-ok',
-          invalid: 'glyphicon glyphicon-remove',
-          validating: 'glyphicon glyphicon-refresh'
+ $('#frmNuevoUsuarioGoogle').formValidation({
+      framework: 'bootstrap',
+      icon: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
       },
       fields: {
         usuario: {
-            validators: {
-                notEmpty: {
-                   message: '*Campo obligatorio'
-               },
-               regexp: {
-                regexp: /^[0-9]+$/i,
-                message: 'El usuario cuenta únicamente con caracteres alfanuméricos'
-            }
-        }
-    },
-    nombres: {
-        validators: {
+          validators: {
             notEmpty: {
-               message: '*Campo obligatorio'
+             message: '*Campo obligatorio'
            },
+           regexp: {
+            regexp: /^[0-9]+$/,
+            message: 'El código debe ser numérico'
+          },
+          stringLength: {
+            message: 'El usuario debe tener como máximo 8 caracteres',
+            max: 8
+          } 
+        }
+      },
+      nombres: {
+        validators: {
+          notEmpty: {
+           message: '*Campo obligatorio'
+         },
+         regexp: {
+           regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
+           message: 'Los nombres solo puede tener caracteres alfabéticos'
+         }
        }
+     },
+     apellidoMat: {
+      validators: {
+        notEmpty: {
+         message: '*Campo obligatorio'
+       },
+       regexp: {
+         regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
+         message: 'El apellido materno solo puede tener caracteres alfabéticos'
+       }
+     }
    },
-   apellidoMat: {
+   apellidoPat: {
     validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
+      notEmpty: {
+       message: '*Campo obligatorio'
+     },
+     regexp: {
+       regexp: /^[a-zA-ZñÑáéíóúü ]+$/,
+       message: 'El apellido paterno solo puede tener caracteres alfabéticos'
+     }
    }
-},
-apellidoPat: {
-    validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
-   }
+ },
+ email: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   emailAddress: {
+    message: 'La dirección debe ser un email válido'
+  }
+}
 },
 rol: {
-    validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
-   }
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
 },
 especialidad: {
-    validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
-   }
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
 },
 pass: {
-    validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
-       identical: {
-        field: 'passConfirm',
-        message: 'La nueva contraseña y la confirmación no son iguales'
-    },
-    stringLength: {
-        message: 'La contraseña debe tener entre 6 y 20 caracteres',
-        min: 6,
-        max: 20
-    } 
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   identical: {
+    field: 'passConfirm',
+    message: 'La nueva contraseña y la confirmación no son iguales'
+  },
+  stringLength: {
+    message: 'La contraseña debe tener entre 6 y 20 caracteres',
+    min: 6,
+    max: 20
+  } 
 }
 },
 passConfirm: {
-    validators: {
-        notEmpty: {
-           message: '*Campo obligatorio'
-       },
-       identical: {
-        field: 'pass',
-        message: 'La nueva contraseña y la confirmación no son iguales'
-    },
-    stringLength: {
-        message: 'La contraseña debe tener entre 6 y 20 caracteres',
-        min: 6,
-        max: 20
-    }             
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   identical: {
+    field: 'pass',
+    message: 'La nueva contraseña y la confirmación no son iguales'
+  },
+  stringLength: {
+    message: 'La contraseña debe tener entre 6 y 20 caracteres',
+    min: 6,
+    max: 20
+  }             
 }
 }
-}
-});
+
+
+},
+})
+    .off('success.form.fv');  
+
 </script>
 @stop

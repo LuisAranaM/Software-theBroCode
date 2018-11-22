@@ -5,7 +5,9 @@ use App\Entity\Resultado as eResultado;
 use App\Entity\Categoria as eCategoria;
 use App\Entity\Indicador as eIndicador;
 use App\Entity\Descripcion as eDescripcion;
+use App\Entity\Semestre;
 use App\Entity\EscalaCalificacion as eEscala;
+use Illuminate\Support\Facades\Auth;
 
 
 use Illuminate\Http\Request;
@@ -54,6 +56,7 @@ class ResultadoController extends Controller
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
         ->with('indicadores', $indicadores)
+        ->with('semestres', Semestre::getSemestres())
         //->with('escalas', $escalas)
         ->with('descripciones', $descripciones);
     }
@@ -111,7 +114,11 @@ class ResultadoController extends Controller
         $id = $request->get('_idRes',null);
         $nombre = $request->get('_codRes',null);
         $desc = $request->get('_descRes',null);
+
+        $categorias = eCategoria::getCategoriasId($id)->toArray();
         eResultado::updateResultado($id, $nombre, $desc);
+        
+        return $categorias;
     }
     public function actualizarCategoria(Request $request){
         $id = $request->get('_idCat',null);
@@ -336,6 +343,24 @@ class ResultadoController extends Controller
     public function getResultadosCbo(Request $request){
         $idSemestre = $request->get('idSemestre', null);
         return eResultado::getResultadosBySemestre($idSemestre);
+    }
+
+    public function informacionRubrica(Request $request){
+
+        $rubrica=eResultado::getInformacionRubrica($request->get('idSemestre'));
+        return $rubrica;
+    }
+
+    public function copiarRubrica(Request $request){
+        
+        $rubrica = new eResultado();           
+        
+        if($rubrica->copiarRubrica($request->get('idSemestreConfirmado'),Auth::id())){
+            flash('Se copió la configuración correctamente')->success();
+        } else {
+            flash('Hubo un error al copiar la configuración')->error();
+        }
+        return back();
     }
 
 }

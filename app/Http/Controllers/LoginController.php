@@ -37,9 +37,9 @@ class LoginController extends Controller {
             $user = Usuario::getCorreo($usuarioGoogle['EMAIL_GOOGLE']);
             if ($user==NULL) {
                 //Falta la opción para poder registrarse
-                flash('No existe un usuario en RubriK con ese correo, se debe de crear')->error();
-                return redirect()->route('login.index');
-                //return redirect()->route('login.google.formulario',['usuarioGoogle' => $usuarioGoogle]);
+                //flash('No existe un usuario en RubriK con ese correo, se debe de crear')->error();
+                //return redirect()->route('login.index');
+                return redirect()->route('login.google.formulario',['usuarioGoogle' => $usuarioGoogle]);
             }            
 
             Auth::loginUsingId($user->ID_USUARIO);            
@@ -154,7 +154,6 @@ class LoginController extends Controller {
                 ->with('usuarioGoogle',$request->get('usuarioGoogle',null))
                 ->with('roles',Rol::getRoles())
                 ->with('especialidades',Especialidad::getEspecialidades());
-
     }
 
 

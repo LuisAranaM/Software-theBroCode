@@ -203,3 +203,6 @@ Route::post('/modal-calificar-fetch-alumnos',['as'=>'fetch.alumnos','uses'=>'Pro
 Route::post('/agregar-calificacion-alumno',['as'=>'agregar.calificacion.alumnos','uses'=>'ProfesorController@calificarAlumnos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>'ProfesorController@eliminarAlumnoHorario','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
+Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);

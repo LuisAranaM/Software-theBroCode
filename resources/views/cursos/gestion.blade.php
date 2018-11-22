@@ -25,26 +25,27 @@
     </div>
   </div>
 @include('flash::message')
-  <div class="row">
+  <!--<div class="row">
     <div class=" x_panel tile coursesBox">
 
       <div class="row">
         <div class="col-xs12">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
-          <!--<button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
-          <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>-->
+          
         </div>  
       </div>
     </div>
-  </div>
+  </div>-->
   <div class="row">
     <div class=" x_panel tile coursesBox">
 
       <div class="row">
-        <div class="col-xs-6" >
+        <div class="col-xs-10" >
           <h1 class="secondaryTitle mainTitle">Cursos a Calificar </h1>
         </div>
-
+          <div class="col-xs-2">
+              <h1 class="secondaryTitle mainTitle">Cargar Cursos <i id="btnCargarCursos" class="fa fa-plus-circle" style="font-size: 30px;cursor:pointer;"></i></h1>
+          </div>
         <!--<div class="col-xs-6 text-right">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
           <button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
