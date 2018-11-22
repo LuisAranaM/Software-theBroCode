@@ -137,6 +137,14 @@
   padding-left: 30px;
 }
 
+.customButtonReuniones {
+  width: 165px !important;
+  height: 35px;
+  background-color: #005b7f;
+  border-color: #005b7f;
+  margin-right: 0px;
+}
+
 .customButton {
   height: 35px;
   background-color: #005b7f;
@@ -371,6 +379,7 @@ li {
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-radius: 6px !important;
 }
 
 @media screen and (max-width: 600px) {
@@ -436,13 +445,6 @@ li {
     width: 400px;
   } 
 
-.customButtonReuniones {
-  height: 35px;
-  background-color: #005b7f;
-  border-color:#005b7f;
-  margin-right: 0px;
-  width: 200px;
-}
 
 .customInputDocsReunionesModal {
   border-radius: 4px;
@@ -453,6 +455,7 @@ li {
   border-radius: 4px;
   height: 25px;
 }
+
 
 /*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
 /*.modalCargando {
