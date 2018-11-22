@@ -129,6 +129,7 @@ class Semestre extends Eloquent
 					DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
 					DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
 				->where('ESTADO','>=',1)
+				->orderBy('ANHO','DESC')
 				->orderBy(DB::Raw('ANHO+CICLO'),'DESC');
 		return $sql;
 	}
