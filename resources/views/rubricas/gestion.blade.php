@@ -14,6 +14,14 @@
       <div class="col-md-8 col-xs-6">
         <h1 class="mainTitle" style="padding-left: 10px"><a>Lista de Resultados</a></h1>
       </div>
+
+      @if(count($resultados)==0)
+      <div class="col-md-4 col-xs-6" style="text-align: right">
+        <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" id="btnCopiarConfiguracion" style="background-color: #1ABB9C; border-color: transparent"> Copiar Configuración</button>
+      </div>
+  <!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
+@endif
+
       <!--
       <div class="col-md-4 col-xs-6" style="text-align: right">
         <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar" style="background-color: #1ABB9C; border-color: transparent"> Guardar Rúbrica </button>
@@ -141,9 +149,6 @@
 </div>
 </form>
 
-@if(count($resultados)==0)
-  <a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>
-@endif
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracion" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
   <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
@@ -181,7 +186,7 @@
           <div class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <button id="btnMostrarConfiguracion" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Mostrar Configuración</button>
+                <button id="btnMostrarConfiguracion" class = "btn btn-success pText customButton btn-lg" type="button" value = "Cargar" name="cargar">Mostrar Configuración</button>
               </div>
 
             </div>
@@ -224,7 +229,7 @@
           <div class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <button id="btnAceptarCopia" class = "btn btn-success pText customButton" type="submit" style="width: 100px" >Copiar Configuración</button>
+                <button id="btnAceptarCopia" class = "btn btn-success pText customButton btn-lg" type="submit" style="width: 100px" >Copiar Configuración</button>
               </div>
 
             </div>

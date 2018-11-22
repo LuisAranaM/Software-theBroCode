@@ -77,14 +77,14 @@ function informacionRubrica(idSemestre){
         $('#btnAceptarCopia').removeAttr('disabled');
         for (var i = 0; i < result.length; i++) {     
           if(i==0 || i%3==0) html+='<div class="row">';
-          html+='    <div class="col-md-4"><div class=" x_panel">'   
-          html+='<label style="font-weight:bold">'+result[i].RESULTADO+' - '+result[i].DESCRIPCION+'</label>';
+          html+='    <div class="col-md-4"><div class="x_panel tile coursesBox" style="background-color: #DFE3E6">'   
+          html+='<label style="font-weight:bold;color:black;text-align:justify">'+result[i].RESULTADO+' - '+result[i].DESCRIPCION+'</label>';
           var categorias=result[i].CATEGORIAS;
           for(var j=0;j<categorias.length;j++){
-            html+='<p>'+categorias[j].NOMBRE_CATEGORIA+'</p>';
+            html+='<p style="color:black;text-align:justify;font-weight:bold">'+categorias[j].NOMBRE_CATEGORIA+'</p>';
             var indicadores=categorias[j].INDICADORES;
             for(var k=0;k<indicadores.length;k++){
-              html+='<p style="color:red">'+result[i].RESULTADO+indicadores[k].VALORIZACION+' - '+indicadores[k].NOMBRE_INDICADOR+'</p>';
+              html+='<p style="text-align:justify;">'+result[i].RESULTADO+indicadores[k].VALORIZACION+' - '+indicadores[k].NOMBRE_INDICADOR+'</p>';
             /*var descripciones=indicadores[k].DESCRIPCIONES;
             for(var l=0;l<descripciones.length;l++){
               html+='<p style="color:blue">'+descripciones[l].NOMBRE_VALORIZACION+' - '+descripciones[l].NOMBRE_DESCRIPCION+'</p>';
