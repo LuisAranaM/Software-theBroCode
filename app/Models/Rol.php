@@ -63,4 +63,11 @@ class Rol extends Eloquent
         			->where('ID_ROL','=',$idRol);
         return $sql->first()->NOMBRE;
     }
+
+    	public function getRoles()	{	
+		$sql=DB::table('ROLES')
+				->select()
+				->where('ESTADO','=',1);
+		return $sql;
+	}	
 }

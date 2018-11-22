@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="{{ URL::asset('img/logo.png') }}">       
+          <link rel="icon" href="{{ URL::asset('img/logo.png') }}">       
         <title>@yield('pageTitle') - RubriK</title>
 
         <!-- CSS-->
@@ -20,6 +20,12 @@
       <script type="text/javascript" src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>
       <script type="text/javascript" src="{{ URL::asset('js/k/custom.js') }}"></script>
 
+      <link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
+
+      <script type="text/javascript" src="{{ URL::asset('js/formvalidation/formValidation.popular.min.js') }}"></script>
+      <script type="text/javascript" src="{{ URL::asset('js/formvalidation/language/es_CL.js') }}"></script>
+      <script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
+
       @yield('js-libs')
 
         <script>
@@ -32,7 +38,7 @@
     <body class="login" >
       
         <div>
-            <div class="login_wrapper">
+            <div class="new_user_wrapper">
 
                 <div class="animate form login_form">
 

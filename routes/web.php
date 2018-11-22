@@ -26,6 +26,14 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
  */
 /****RUTAS GENERALES****/
 /* Rutas públicas */
+
+/*ACCESO CON GOOGLE*/
+Route::get('login/google', ['as'=>'login.google','uses'=>'LoginController@redirectToProvider']);
+Route::get('login/google/callback', ['as'=>'login.google.callback','uses'=>'LoginController@handleProviderCallback']);
+Route::get('login/google/formulario', ['as'=>'login.google.formulario','uses'=>'LoginController@formularioCuentaRubrikGoogle']);
+Route::post('login/google/crear', ['as'=>'login.google.crear','uses'=>'LoginController@crearCuentaRubrikGoogle']);
+/**/
+
 Route::get('/', ['as' => 'login.index', 'uses' => 'LoginController@index']);
 Route::get('/pagenotfound',['as'=>'notfound','uses'=>'HomeController@pagenotfound']);
 Route::get('/home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
@@ -42,7 +50,7 @@ Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 
 /**HORARIOS**/
-Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3']], function() {
+Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 });
@@ -53,7 +61,7 @@ Route::post('/subir-proyecto/guardar', ['as'=>'proyecto.store','uses'=>'Proyecto
 Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@downfunc','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoController@descargarProyecto','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 /*RÚBRICAS*/
-Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3']], function() {
+Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'ResultadoController@rubricasGestion']);
 	Route::post('/insertar-resultados', ['as' => 'insertar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
 	Route::post('/insertar-categorias', ['as' => 'insertar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
@@ -73,7 +81,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3'
 	Route::get('/obtener-descripciones', ['as' => 'obtener.descripciones', 'uses' => 'ResultadoController@obtenerDescripciones']);
 });
 /****RUTAS PARA CURSOS****/
-Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3']], function() {
+Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
 	Route::get('/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
 	Route::get('/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
@@ -89,8 +97,10 @@ Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@Impor
 Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //pruebas excel
 #Route::get('upload', 'CursoController@showForm');
+
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
+Route::post('/subir-excels/uploadAlumnosDeCurso', 'AlumnoController@uploadAlumnosDeCurso');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
 
@@ -113,9 +123,20 @@ Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
+	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
+	Route::post('/gestionar-usuario/crear',['as'=>'administrador.usuario.crear','uses'=>'AdministradorController@crearCuentaRubrik']);
+	Route::post('/gestionar-usuario/editar',['as'=>'administrador.usuario.editar','uses'=>'AdministradorController@editarCuentaRubrik']);
+	Route::post('/gestionar-usuario/eliminar',['as'=>'administrador.usuario.eliminar','uses'=>'AdministradorController@eliminarCuentaRubrik']);
+	Route::get('/gestionar-semestre',['as'=>'administrador.semestre','uses'=>'AdministradorController@gestionSemestres']);
+	Route::post('/gestionar-semestre/crear',['as'=>'administrador.semestre.crear','uses'=>'AdministradorController@crearSemestre']);
+	Route::post('/gestionar-semestre/sistema',['as'=>'administrador.semestre.sistema','uses'=>'AdministradorController@seleccionarSemestreSistema']);
+	Route::post('/gestionar-semestre/editar',['as'=>'administrador.semestre.editar','uses'=>'AdministradorController@editarSemestre']);
+	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
+	Route::post('/gestionar-especialidad/crear',['as'=>'administrador.especialidad.crear','uses'=>'AdministradorController@crearEspecialidad']);
+	Route::post('/gestionar-especialidad/editar',['as'=>'administrador.especialidad.editar','uses'=>'AdministradorController@editarEspecialidad']);
 });
 /****RUTAS PARA COORDINADOR****/
-Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2']], function() {
+Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);

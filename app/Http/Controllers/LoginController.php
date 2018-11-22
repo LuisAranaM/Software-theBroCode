@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Entity\Usuario as Usuario;
+use App\Entity\Especialidad as Especialidad;
+use App\Entity\Rol as Rol;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller {
 
@@ -24,16 +27,36 @@ class LoginController extends Controller {
         return view('login');
     }
 
-    public function attempt(Request $request) {
-    	//dd("HOLA");
+    public function attempt(Request $request,$usuarioGoogle =[]) {
+        //dd($usuarioGoogle);
         $usuario = $request->get('usuario', null);
         $pass = $request->get('pass', null);
+        if($usuarioGoogle!=NULL){
+            //Logueo mediante google 
+            //dd("Me estoy logueando mediante Google",$usuarioGoogle);
+            $user = Usuario::getCorreo($usuarioGoogle['EMAIL_GOOGLE']);
+            if ($user==NULL) {
+                //Falta la opción para poder registrarse
+                flash('No existe un usuario en RubriK con ese correo, se debe de crear')->error();
+                return redirect()->route('login.index');
+                //return redirect()->route('login.google.formulario',['usuarioGoogle' => $usuarioGoogle]);
+            }            
 
-        if (!Auth::attempt(['USUARIO' => $usuario, 'password' => $pass],TRUE)) {
-            flash('Usuario o Contraseña errado')->error();
-            return redirect()->route('login.index');
-        }        
-        return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
+            Auth::loginUsingId($user->ID_USUARIO);            
+            //Actualizamos la foto de perfil
+            Usuario::updateFoto($user->ID_USUARIO,$usuarioGoogle);
+        }
+        else{
+
+            if (!Auth::attempt(['USUARIO' => $usuario,'ESTADO' => 1, 'password' => $pass],TRUE)) {
+                if (!Auth::attempt(['CORREO' => $usuario, 'ESTADO' => 1,'password' => $pass],TRUE)) {
+                    flash('Usuario o Contraseña errado')->error();
+                    return redirect()->route('login.index');
+                }
+            }        
+        }
+        //dd(Auth::user());
+            return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
     }
 
     protected function register($usuario) {
@@ -89,6 +112,72 @@ class LoginController extends Controller {
     function logout(Request $request){
         Auth::logout();
         return redirect()->route('login.index');
+    }
+
+
+
+       /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(Request $request)
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        
+        $nombreUsuario=$user->getName();
+        $emailGoogle=$user->getEmail();
+        $imagenPerfil=$user->getAvatar();
+        
+        $arregloNombre=explode(' ',$nombreUsuario);
+        $tamanho=count($arregloNombre);
+        $usuarioGoogle=['NOMBRES'=>$arregloNombre[0], 'APELLIDO_PATERNO'=>$arregloNombre[$tamanho-2], 'APELLIDO_MATERNO'=>$arregloNombre[$tamanho-1],
+        'EMAIL_GOOGLE'=>$emailGoogle,'IMAGEN_PERFIL'=>$imagenPerfil];
+
+        return self::attempt($request,$usuarioGoogle);
+
+    }
+
+    public function formularioCuentaRubrikGoogle(Request $request){
+        
+        return view('crear-google')
+                ->with('usuarioGoogle',$request->get('usuarioGoogle',null))
+                ->with('roles',Rol::getRoles())
+                ->with('especialidades',Especialidad::getEspecialidades());
+
+    }
+
+
+    public function crearCuentaRubrikGoogle(Request $request){
+        //dd($request->all());
+
+        //Registraremos el usuario y nos loguearemos
+        $usuario=new Usuario();
+
+        if($usuario->crearCuentaRubrik($request->all())){
+            //flash('El curso se eliminó con éxito')->success();
+            //dd("Nos debemos de loguear");
+            $user = Usuario::getCorreo($request->get('email',null));
+            Auth::loginUsingId($user->ID_USUARIO);
+            return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
+
+        } else {
+            flash('Hubo un error al registrar el usuario')->error();
+            return back();
+        }
+        
+        
+
     }
 
 }

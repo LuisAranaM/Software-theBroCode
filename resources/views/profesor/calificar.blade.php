@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Calificar Alumnos')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
@@ -29,6 +29,7 @@
   <div class="row">
 
     @foreach($cursos as $c)
+    @if(count($c["horarios"])>0)
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
@@ -79,12 +80,13 @@
               -->
               @endif
               @if($h["alumnosTotal"] != 0)
-                <a href="{{route('profesor.alumnos')}}?idCurso={{$c['curso']->ID_CURSO}}&idHorario={{$h['horario']->ID_HORARIO}}">
+                <a href="{{route('profesor.alumnos')}}?idCurso={{$c['curso']->ID_CURSO}}&idHorario={{$h['horario']->ID_HORARIO}}&vistaProc=calificar">
                   <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
                 </a>
               @endif
           </div>
         </div>
+
         @endforeach
 
 
@@ -93,6 +95,7 @@
     </div>
   </div>
 </div>
+@endif
 @endforeach
   
 

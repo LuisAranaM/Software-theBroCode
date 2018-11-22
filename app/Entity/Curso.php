@@ -22,6 +22,9 @@ class Curso extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getIdCurso2($codCurso){
+        return mCurso::getIdCurso2($codCurso);
+    }
 
     static function getCursosYHorarios($usuario=null){
         return mCurso::getCursosYHorarios(self::getEspecialidadUsuario(),self::getIdSemestre(),$usuario);

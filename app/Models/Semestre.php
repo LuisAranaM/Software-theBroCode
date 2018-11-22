@@ -7,6 +7,7 @@
 
 namespace App\Models;
 use DB;
+use Jenssegers\Date\Date as Carbon;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -123,10 +124,48 @@ class Semestre extends Eloquent
 
 	static function getSemestres(){
 		$sql=DB::table('SEMESTRES')
-				->select('ID_SEMESTRE',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
-				->where('ESTADO','=',1);
+				->select('ID_SEMESTRE',DB::Raw("CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO"),
+					DB::Raw("CONVERT(FECHA_FIN,DATE) AS FECHA_FIN"),
+					DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
+					DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
+				->where('ESTADO','>=',1);
 		return $sql;
 	}
 
+	static function getIdSemestre(){
+		$sql=DB::table('SEMESTRES')
+				->select('ID_SEMESTRE')
+				->where('ESTADO','=',2);
+		return $sql->first()->ID_SEMESTRE;
+	}
+
+	function actualizarSemestreSistema($idSemestre,$idUsuario){
+		//dd(Carbon::now());    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+
+        	DB::table('SEMESTRES')                
+                ->where('ESTADO','=',2)
+                ->update(['ESTADO'=>1,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$idUsuario]);
+
+            DB::table('SEMESTRES')                
+                ->where('ID_SEMESTRE','=',$idSemestre)
+                ->update(['ESTADO'=>2,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$idUsuario]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
+	}
 
 }

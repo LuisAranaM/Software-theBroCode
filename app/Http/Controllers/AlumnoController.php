@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entity\Base\Entity;
+use App\Entity\Alumno as Alumno;
 use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use DB;
@@ -91,6 +92,63 @@ class AlumnoController extends Controller
         return $ans;
     }
 
+    public function uploadAlumnosDeCurso(Request $request){
+        if($request -> hasFile('upload-file')){
+            try{
+                $path = $request->file('upload-file')->getRealPath();
+                $data = \Excel::load($path)->get();
+                $codCurso = $request->input('codigoCurso');
+                $idCurso = Curso::getIdCurso2($codCurso);
+				$ans = 0;
+				/* Arreglos a llenar*/
+	            $alumnosNuevos = array();
+	            $alumnosExistentes = array();
+	            $alumnosBaneados = array(); // Los alumnos que se quedan fuera porque no pertenecen a ningun horario
+	            $alumnosPorHorario = array();
+	            // Cada elemento de esto es una estructura que tiene 
+	            // 1. Un horario
+	            // 2. Un arreglo de alumnos
+                $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
+                
+                /*Testando que esta bien */
+                /*Aparentemente lo esta */
+                $this->trace('alumnosNuevos');
+                foreach($alumnosNuevos as $x){
+                	$this->trace($x["NOMBRES"]);
+                }
+
+                $this->trace('alumnosExistentes');
+                foreach($alumnosExistentes as $x){
+                	$this->trace($x["NOMBRES"]);
+                }
+
+                $this->trace('alumnosBaneados');
+                foreach($alumnosBaneados as $x){
+                	$this->trace($x["NOMBRES"]);
+                }
+                
+                $this->trace('alumnosPorHorario');
+                foreach($alumnosPorHorario as $x){
+                	$this->trace($x["codigoHorario"]);
+                	foreach($x["alumnos"] as $a){
+                		$this->trace($a["NOMBRES"]);
+                	}
+                }
+
+                if($val == 0)
+                    flash('Alumnos cargados correctamente')->success();
+                else
+                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+            }catch(Exception $e){
+                $this->trace($e);
+                flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+            } 
+        }else{
+            flash('No se selecciono un archivo')->error();
+        }
+        return Redirect::back();
+    }
+
     public function store(Request $request){
 
         if($request->hasFile('upload-file')){
@@ -170,7 +228,6 @@ class AlumnoController extends Controller
                     $this->trace('Holis');
                     return Redirect::back();
                 }
-
             }catch(Exception $e){
                 $this->trace($e);
                 flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
