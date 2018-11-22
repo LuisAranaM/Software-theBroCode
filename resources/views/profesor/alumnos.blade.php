@@ -225,4 +225,11 @@ body.loading .modalCargando {
 
 @section('js-scripts')
 
+<script type="text/javascript">
+  PNotify.prototype.options.delay ? (function() {
+    PNotify.prototype.options.delay -= 500;
+    update_timer_display();
+}()) : (alert('Timer is already at zero.'))
+</script>
+
 @stop
