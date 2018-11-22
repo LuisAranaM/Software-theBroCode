@@ -186,7 +186,7 @@
           <div class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <button id="btnMostrarConfiguracion" class = "btn btn-success pText customButton btn-lg" type="button" value = "Cargar" name="cargar">Mostrar Configuración</button>
+                <button id="btnMostrarConfiguracion" class = "btn btn-success pText customButton btn-lg" type="button" value = "Cargar" name="cargar" style="width:160px !important">Mostrar Configuración</button>
               </div>
 
             </div>
@@ -229,7 +229,7 @@
           <div class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <button id="btnAceptarCopia" class = "btn btn-success pText customButton btn-lg" type="submit" style="width: 100px" >Copiar Configuración</button>
+                <button id="btnAceptarCopia" class = "btn btn-success pText customButton btn-lg" type="submit" style="width: 160px !important" >Copiar Configuración</button>
               </div>
 
             </div>

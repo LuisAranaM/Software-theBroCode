@@ -135,8 +135,7 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                             $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));  
                             $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');
-                            $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
-                            
+                            $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);               
                             $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                             $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
                             $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
@@ -284,14 +283,21 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->getStyle("G".$filaInicial.":H".($filaFinal))->applyFromArray($style);
                             if($contadorAlumnos!=0){
                                 $sheet->row($i, array("","","","", "","",$promedioResultado/($contadorAlumnos),""));
+                                if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.($i), function($color){$color->setBackground('#FF0000');});
+                                else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.($i), function($color){$color->setBackground('#FFFF00');});
+                                else $sheet->cell('G'.($i), function($color){$color->setBackground('#00FF00');});
+                                
                             }
                             $promedioResultado=0;
                             $contadorAlumnos=0;
-                            if($promedioResultado<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#FF0000');});
-                            else if($promedioResultado<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#FFFF00');});
-                            else $sheet->cell('G'.$i, function($color){$color->setBackground('#00FF00');});
                             $sheet->setBorder('G'.($i).':G'.($i), 'thin');
                             $sheet->setHeight($i, 45);
+                            $sheet->getStyle('G'.$i)
+                            ->getNumberFormat()->applyFromArray( 
+                                array( 
+                                    'code' =>  '0.00%'
+                                )
+                            );
                             $i+=2;
                         }
                         $sheet->cells('B'.$i.':H'.$i,  function($cells) {
@@ -355,12 +361,19 @@ class Indicador extends \App\Entity\Base\Entity {
                     $sheet->getStyle("G".$filaInicial.":H".($filaFinal))->applyFromArray($style);
                     if($contadorAlumnos!=0){
                         $sheet->row($i, array("","","","", "","",$promedioResultado/($contadorAlumnos),""));
+                        if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#FF0000');});
+                    else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#FFFF00');});
+                    else $sheet->cell('G'.$i, function($color){$color->setBackground('#00FF00');});
+                    
                     }
                     $promedioResultado=0;
                     $contadorAlumnos=0;
-                    if($promedioResultado<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#FF0000');});
-                    else if($promedioResultado<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('G'.$i, function($color){$color->setBackground('#00FF00');});
+                    $sheet->getStyle('G'.$i)
+                    ->getNumberFormat()->applyFromArray( 
+                        array( 
+                            'code' =>  '0.00%'
+                        )
+                    );
                     $sheet->setBorder('G'.($i).':G'.($i), 'thin');
                     $sheet->setHeight($i, 45);
                 }
