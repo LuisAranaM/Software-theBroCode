@@ -1,5 +1,7 @@
 var graficoResultadoxCiclo;
 var graficoResultadosxCurso;
+var graficoIndicadoresxResultado;
+var graficoCursosxResultado;
 var contResultadosxCiclo = 0;
 var contResultadosxCurso = 0;
 var contIndicadoresxResultado = 0;
@@ -137,11 +139,11 @@ $( document ).ready(function() {
         //$('#ciclos3 option').last().attr('selected',true);
         idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
         updateCmbResultados(idSemestre);
-        if (typeof document.getElementById('ciclos3').options[0] === "undefined")
-            idCurso=null;
+        if (typeof document.getElementById('cboResultados2').options[0] === "undefined")
+            idResultado=null;
         else
-            idCurso = document.getElementById('ciclos3').options[0].value;
-        updategraficoCursosxResultado(idSemestre,idCurso);
+            idResultado = document.getElementById('cboResultados2').options[0].value;
+        updategraficoCursosxResultado(idSemestre,idResultado);
         $("#modalCxR").modal("show");
     });
 
@@ -362,7 +364,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
             }
             console.log(resultadosPorcentaje);
             globResultadosId = resultadosId;
-            if (contResultadosxCiclo == 0) {
+            //if (contResultadosxCiclo == 0) {
                 graficoResultadoxCiclo = new Chart(ctx1, {
                     type: 'bar',
                     data: {
@@ -402,9 +404,9 @@ function updategraficoResultadoxCiclo(idSemestre) {
                     }
                 });
                 contResultadosxCiclo++;
-            }
-            else {
-                if (resultadosNombre.length == 0) {
+            //}
+            //else {
+                /*if (resultadosNombre.length == 0) {
                     graficoResultadoxCiclo.data.labels = ['No se encontraron resultados en el ciclo'];
                     graficoResultadoxCiclo.data.datasets.data = [0];
                 }
@@ -417,9 +419,10 @@ function updategraficoResultadoxCiclo(idSemestre) {
                     console.log("holi2: " + graficoResultadoxCiclo.data.datasets.data);
                     graficoResultadoxCiclo.data.datasets.data = resultadosPorcentaje;
                     console.log("holi3: " + graficoResultadoxCiclo.data.datasets.data);
-                }
-                graficoResultadoxCiclo.update();
-            }
+                    console.log(graficoResultadoxCiclo);
+                }*/
+                //graficoResultadoxCiclo.update();
+            //}
         },
         error: function (xhr, status, text) {
             event.preventDefault();
@@ -538,21 +541,25 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
             cursosId=[];
             cursosNombre=[];
             cursosPorcentaje=[];
+            cursosCodigo=[];
+            //console.log(result.length);
             for(var i=0;i<result.length;i++){
                 cursosId.push(result[i].ID_CURSO);
-                cursosNombre.push("" + result[i].NOMBRE);
-                cursosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+                cursosNombre.push("" + result[i].NOMBRE[0]);
+                cursosPorcentaje.push(Math.round(result[i].PROMEDIO_APROBADOS*100));
+                cursosCodigo.push(result[i].CODIGO_CURSO);
             }
-            console.log(cursosID);
+            //console.log(cursosID);
             if (cursosId.length == 0) {
                 cursosNombre = ['No se encontraron resultados en el ciclo'];
                 cursosPorcentaje = [0];
             }
+            
             if (contCursosxResultado == 0) {
                 graficoCursosxResultado = new Chart(ctx3, {
                     type: 'bar',
                     data: {
-                        labels: cursosNombre,
+                        labels: cursosCodigo,
                         datasets: [{
                             label: 'Porcentaje',
                             data: cursosPorcentaje,
@@ -576,6 +583,8 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                         }]
                     },
                     options: {
+                        //responsive: true,
+                        //maintainAspectRatio: true,
                         scales: {
                             yAxes: [{
                                 ticks: {
