@@ -265,16 +265,20 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
             resultadosId=[];
             resultadosNombre=[];
             resultadosPorcentaje=[];
+            
             for(var i=0;i<result.length;i++){
                 resultadosId.push(result[i].ID_RESULTADO);
                 resultadosNombre.push(result[i].NOMBRE);
                 resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
             }
+            console.log(resultadosId);
+            console.log(resultadosNombre);
+            console.log(resultadosPorcentaje);
             if (resultadosId.length == 0) {
                 resultadosNombre = ['No se encontraron resultados en el ciclo'];
                 resultadosPorcentaje = [0];
             }
-            if (contResultadosxCurso == 0) {
+            //if (contResultadosxCurso == 0) {
                 graficoResultadosxCurso = new Chart(ctx2, {
                     type: 'bar',
                     data: {
@@ -314,8 +318,8 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                     }
                 });
                 contResultadosxCurso++;
-            }
-            else {
+            },
+            /*else {
                 if (resultadosNombre.length == 0) {
                     graficoResultadosxCurso.data.labels = ['No se encontraron resultados en el curso'];
                     graficoResultadosxCurso.data.datasets.data = [0];
@@ -325,12 +329,12 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                     graficoResultadosxCurso.data.datasets.forEach((dataset) => {
                         dataset.data.pop();
                     });
-                    console.log("holi");
+                    console.log(resultadosPorcentaje);
                     graficoResultadosxCurso.data.datasets.data = resultadosPorcentaje;
                 }
                 graficoResultadosxCurso.update();
             }
-        },
+        },*/
         error: function (xhr, status, text) {
             event.preventDefault();
             alert('Hubo un error al buscar la información');
