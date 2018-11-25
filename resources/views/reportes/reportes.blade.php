@@ -141,7 +141,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Combo box -->
     <form id="form" action="{{route('exportar.reporte1')}}">
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <div class="col-xs-offset-8 col-xs-3">
+        <div class="col-xs-offset-1 col-xs-3">
+          <p>Ciclo:</p>
           <select name="idSemestre" id="ciclos1" class="ciclos form-control" required>
           </select>
         </div>
@@ -211,8 +212,9 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         <!-- Combo box Resultado -->
         <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
           <div class="col-xs-offset-8 col-xs-3">
-            <select id="cboResultados" class="resultados form-control" required>
-            </select>
+            <p>Resultado:</p>
+              <select id="cboResultados" class="resultados form-control" required>
+              </select>
           </div>
         </div>
         <!-- Fin Combo box -->
@@ -269,6 +271,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Combo box -->
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
       <div class="col-xs-offset-8 col-xs-3">
+        <p>Ciclo:</p>
         <select id="ciclos2" class="ciclos form-control" required>
         </select>
       </div>
@@ -276,6 +279,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
       <div class="col-xs-offset-8 col-xs-3">
+        <p>Curso:</p>
         <select id="cursos2" class="cursos form-control" required>
         </select>
       </div>
@@ -326,7 +330,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Cursos por Resultado</h4>
     </div>
     <!-- Fin Cabeza del modal -->
     
@@ -335,12 +339,14 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
+          <p>Ciclo:</p>
           <select id="ciclos3" class="ciclos form-control" required>
           </select>
         </div>
       </div>
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
+          <p>Resultado:</p>
           <select id="cboResultados2" class="resultados form-control" required>
           </select>
         </div>
@@ -399,6 +405,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Combo box -->
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
       <div id="ciclos4" class="col-xs-offset-8 col-xs-3">
+        <p>Ciclo:</p>
         <select class="ciclos form-control" required>
         </select>
       </div>

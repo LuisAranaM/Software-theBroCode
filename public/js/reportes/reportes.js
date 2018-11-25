@@ -51,6 +51,8 @@ $( document ).ready(function() {
     document.getElementById('ciclos2').onchange = function () {
         idSemestre = this.options[this.selectedIndex].value
         updateCmbCursos(idSemestre);
+        idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
+        updateGraficoResultadosxCurso(idSemestre,idCurso);
     }
     //Cuando cambie el curso del modal 2
     document.getElementById('cursos2').onchange = function () {
@@ -65,6 +67,17 @@ $( document ).ready(function() {
     document.getElementById('ciclos3').onchange = function () {
         idSemestre = this.options[this.selectedIndex].value
         updateCmbResultados(idSemestre);
+        idResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
+        updategraficoCursosxResultado(idSemestre,idResultado);
+    }
+
+    //Cuando cambie el resultado del modal 3
+    document.getElementById('cboResultados2').onchange = function () {
+        //contCursosxResultado = 0;
+        idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
+        //idResultado = this.options[this.selectedIndex].value;
+        idResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
+        updategraficoCursosxResultado(idSemestre,idResultado);
     }
 
     /*$('#btnAtrasIxR').click(function() {
@@ -99,16 +112,6 @@ $( document ).ready(function() {
         idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
         //idResultado = document.getElementById('cboResultados').options[document.getElementById('cboResultados').selectedIndex].value;
         updategraficoIndicadoresxResultado(idSemestre, idResultado);
-    }
-
-    //Cuando cambie el resultado del modal 3
-    document.getElementById('cboResultados2').onchange = function () {
-        //contCursosxResultado = 0;
-        idResultado = this.options[this.selectedIndex].value;
-        idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
-        console.log("" + idSemestre + " " + idResultado);
-        //idResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
-        updategraficoCursosxResultado(idSemestre,idResultado);
     }
 
     // ***************** Botones que despliegan el modal *****************
@@ -275,66 +278,52 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
             console.log(resultadosNombre);
             console.log(resultadosPorcentaje);
             if (resultadosId.length == 0) {
-                resultadosNombre = ['No se encontraron resultados en el ciclo'];
+                resultadosNombre = ['No se encontraron resultados en el curso'];
                 resultadosPorcentaje = [0];
             }
-            //if (contResultadosxCurso == 0) {
-                graficoResultadosxCurso = new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                        labels: resultadosNombre,
-                        datasets: [{
-                            label: 'Porcentaje',
-                            data: resultadosPorcentaje,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 2
+            if (contResultadosxCurso != 0) {
+                graficoResultadosxCurso.destroy();
+            }
+            graficoResultadosxCurso = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: resultadosNombre,
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: resultadosPorcentaje,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
                         }]
                     },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }]
-                        },
-                        onClick: graficoResultadoxCursoClickEvent,
-                        onHover: cambiarCursor
-                    }
-                });
-                contResultadosxCurso++;
-            },
-            /*else {
-                if (resultadosNombre.length == 0) {
-                    graficoResultadosxCurso.data.labels = ['No se encontraron resultados en el curso'];
-                    graficoResultadosxCurso.data.datasets.data = [0];
+                    onClick: graficoResultadoxCursoClickEvent,
+                    onHover: cambiarCursor
                 }
-                else {
-                    graficoResultadosxCurso.data.labels = resultadosNombre;
-                    graficoResultadosxCurso.data.datasets.forEach((dataset) => {
-                        dataset.data.pop();
-                    });
-                    console.log(resultadosPorcentaje);
-                    graficoResultadosxCurso.data.datasets.data = resultadosPorcentaje;
-                }
-                graficoResultadosxCurso.update();
-            }
-        },*/
+            });
+            contResultadosxCurso++;
+        },
         error: function (xhr, status, text) {
             event.preventDefault();
             alert('Hubo un error al buscar la información');
@@ -370,65 +359,48 @@ function updategraficoResultadoxCiclo(idSemestre) {
             }
             console.log(resultadosPorcentaje);
             globResultadosId = resultadosId;
-            //if (contResultadosxCiclo == 0) {
-                graficoResultadoxCiclo = new Chart(ctx1, {
-                    type: 'bar',
-                    data: {
-                        labels: resultadosNombre,
-                        datasets: [{
-                            label: 'Porcentaje',
-                            data: resultadosPorcentaje,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 2
+            if (contResultadosxCiclo != 0) {
+                graficoResultadoxCiclo.destroy();
+            }
+            graficoResultadoxCiclo = new Chart(ctx1, {
+            type: 'bar',
+                data: {
+                    labels: resultadosNombre,
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: resultadosPorcentaje,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
                         }]
                     },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }]
-                        },
-                        onClick: graficoResultadoxCicloClickEvent,
-                        onHover: cambiarCursor
-                    }
-                });
-                contResultadosxCiclo++;
-            //}
-            //else {
-                /*if (resultadosNombre.length == 0) {
-                    graficoResultadoxCiclo.data.labels = ['No se encontraron resultados en el ciclo'];
-                    graficoResultadoxCiclo.data.datasets.data = [0];
+                    onClick: graficoResultadoxCicloClickEvent,
+                    onHover: cambiarCursor
                 }
-                else {
-                    graficoResultadoxCiclo.data.labels = resultadosNombre;
-                    graficoResultadoxCiclo.data.datasets.forEach((dataset) => {
-                        dataset.data.pop();
-                    });
-                    console.log("holi1: " + resultadosPorcentaje);
-                    console.log("holi2: " + graficoResultadoxCiclo.data.datasets.data);
-                    graficoResultadoxCiclo.data.datasets.data = resultadosPorcentaje;
-                    console.log("holi3: " + graficoResultadoxCiclo.data.datasets.data);
-                    console.log(graficoResultadoxCiclo);
-                }*/
-                //graficoResultadoxCiclo.update();
-            //}
+            });
+            contResultadosxCiclo++;
         },
         error: function (xhr, status, text) {
             event.preventDefault();
@@ -462,64 +434,51 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
                 indicadoresPorcentaje.push(Math.round(result[i].PORCENTAJE_PONDERADO*100));
             }
             if (indicadoresId.length == 0) {
-                indicadoresNombre = ['No se encontraron resultados en el ciclo'];
+                indicadoresNombre = ['No se encontraron indicadores en el resultado'];
                 indicadoresPorcentaje = [0];
             }
-            //if (contIndicadoresxResultado == 0) {
-                graficoIndicadoresxResultado = new Chart(ctx1_2, {
-                    type: 'bar',
-                    data: {
-                        labels: indicadoresNombre,
-                        datasets: [{
-                            label: 'Porcentaje',
-                            data: indicadoresPorcentaje,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 2
+            if (contIndicadoresxResultado != 0) {
+                graficoIndicadoresxResultado.destroy();
+            }
+            graficoIndicadoresxResultado = new Chart(ctx1_2, {
+                type: 'bar',
+                data: {
+                    labels: indicadoresNombre,
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: indicadoresPorcentaje,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
                         }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }]
-                        }//,
-                        //onClick: graficoResultadoxCicloClickEvent,
-                        //onHover: cambiarCursor
-                    }
-                });
-                contIndicadoresxResultado++;
-            /*}
-            else {
-                if (resultadosNombre.length == 0) {
-                    graficoIndicadoresxResultado.data.labels = ['No se encontraron resultados en el ciclo'];
-                    graficoIndicadoresxResultado.data.datasets.data = [0];
+                    }//,
+                    //onClick: graficoResultadoxCicloClickEvent,
+                    //onHover: cambiarCursor
                 }
-                else {
-                    graficoIndicadoresxResultado.data.labels = indicadoresNombre;
-                    graficoIndicadoresxResultado.data.datasets.forEach((dataset) => {
-                        dataset.data.pop();
-                    });
-                    graficoIndicadoresxResultado.data.datasets.data = indicadoresPorcentaje;
-                    graficoIndicadoresxResultado.update();
-                }
-            }*/
+            });
+            contIndicadoresxResultado++;
         },
         error: function (xhr, status, text) {
             event.preventDefault();
@@ -541,8 +500,6 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
             idResultado: idResultado
 		},
 		success: function (result) {
-            console.log(result);
-
             //updateCmbResultados(idSemestre);
             document.getElementById('cboResultados').value = idResultado;
             cursosId=[];
@@ -557,68 +514,55 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                 cursosCodigo.push(result[i].CODIGO_CURSO);
             }
             //console.log(cursosID);
+            console.log(cursosId.length);
             if (cursosId.length == 0) {
-                cursosNombre = ['No se encontraron resultados en el ciclo'];
+                cursosCodigo = ['No se encontraron cursos con el resultado seleccionado'];
                 cursosPorcentaje = [0];
             }
-            
-            //if (contCursosxResultado == 0) {
-                graficoCursosxResultado = new Chart(ctx3, {
-                    type: 'bar',
-                    data: {
-                        labels: cursosCodigo,
-                        datasets: [{
-                            label: 'Porcentaje',
-                            data: cursosPorcentaje,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 2
+            if (contCursosxResultado != 0) {
+                graficoCursosxResultado.destroy();
+            }
+            graficoCursosxResultado = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: cursosCodigo,
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: cursosPorcentaje,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    //responsive: true,
+                    //maintainAspectRatio: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
                         }]
-                    },
-                    options: {
-                        //responsive: true,
-                        //maintainAspectRatio: true,
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }]
-                        }//,
-                        //onClick: graficoResultadoxCicloClickEvent,
-                        //onHover: cambiarCursor
-                    }
-                });
-                contCursosxResultado++;
-            /*}
-            else {
-                if (resultadosNombre.length == 0) {
-                    graficoCursosxResultado.data.labels = ['No se encontraron resultados en el ciclo'];
-                    graficoCursosxResultado.data.datasets.data = [0];
+                    }//,
+                    //onClick: graficoResultadoxCicloClickEvent,
+                    //onHover: cambiarCursor
                 }
-                else {
-                    graficoCursosxResultado.data.labels = cursosNombre;
-                    graficoCursosxResultado.data.datasets.forEach((dataset) => {
-                        dataset.data.pop();
-                    });
-                    graficoCursosxResultado.data.datasets.data = cursosPorcentaje;
-                }
-                graficoCursosxResultado.update();
-            }*/
+            });
+            contCursosxResultado++;
         },
         error: function (xhr, status, text) {
             event.preventDefault();
