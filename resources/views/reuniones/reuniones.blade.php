@@ -10,7 +10,7 @@
 	@include('flash::message')
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
-			<h1 class="mainTitle"> Gestionar Documentos de Reuniones</h1>
+			<h1 class="mainTitle"> Gestionar Histórico de Documentos de Reuniones</h1>
 		</div>
 	</div>
 
