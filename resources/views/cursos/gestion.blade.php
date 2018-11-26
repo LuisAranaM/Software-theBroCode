@@ -40,11 +40,11 @@
     <div class=" x_panel tile coursesBox">
 
       <div class="row">
-        <div class="col-xs-10" >
-          <h1 class="secondaryTitle mainTitle">Cursos a Calificar </h1>
+        <div class="col-xs-9" >
+          <h1 class="secondaryTitle mainTitle">Seleccionar Cursos a Evaluar </h1>
         </div>
-          <div class="col-xs-2">
-              <h1 class="secondaryTitle mainTitle">Cargar Cursos <i id="btnCargarCursos" class="fa fa-plus-circle" style="font-size: 30px;cursor:pointer;"></i></h1>
+          <div class="col-xs-3">
+              <h1 class="secondaryTitle mainTitle">Importar Cursos a Dictar<i id="btnCargarCursos" class="fa fa-plus-circle" style="font-size: 30px;cursor:pointer;"></i></h1>
           </div>
         <!--<div class="col-xs-6 text-right">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
@@ -57,7 +57,7 @@
         <div id ="CargarCurso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
           <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
           </button>
-          <p class="pText"> Agregar Nuevo Curso </p>
+          <p class="pText"> Agregar Nuevo Curso a Evaluar</p>
         </div>
       </div>
 
