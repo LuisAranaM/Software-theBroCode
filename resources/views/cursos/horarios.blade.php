@@ -55,7 +55,7 @@
 
           <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
           </button>
-          <p class="pText"> Agregar Nuevo Horario </p>
+          <p class="pText"> Agregar Nuevo Horario a Evaluar</p>
         </div>
       </div>
       <div id="listHorarios">

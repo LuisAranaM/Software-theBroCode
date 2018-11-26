@@ -103,8 +103,19 @@
                 <li class="pText" ><a href="#" style="color:#72777a;font-weight: bold;cursor: default;color:black" id="semestreSistema"><i class="fa fa-calendar"></i>Semestre: {{$semestreActual}}</a>
                 </li>
                 @if($modoAdministrador)
-                <li class="pText"><a href="{{route('administrador.usuario')}}" style="color:#72777a"><i class="fa fa-users"></i>Gestionar Usuarios</a>
+                <!--<li class="pText"><a href="{{route('administrador.usuario')}}" style="color:#72777a"><i class="fa fa-users"></i>Gestionar Usuarios</a>
+                </li>-->
+
+                <li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-users"></i>Gestionar Usuarios <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none;">
+                      <li class="pText"><a href="{{route('administrador.usuario')}}" style="color:#72777a">
+                        Principal</a></li>
+                      <li class="pText"><a href="{{route('administrador.usuario.activacion')}}" style="color:#72777a">
+                        Activar Usuarios</a></li>
+                    </ul>
                 </li>
+
+
                 <li class="pText"><a href="{{route('administrador.semestre')}}" style="color:#72777a"><i class="fa fa-calendar"></i>Gestionar Semestres</a>
                 </li>
                 <li class="pText"><a href="{{route('administrador.especialidad')}}" style="color:#72777a"><i class="fa fa-graduation-cap"></i>Gestionar Especialidad</a>
@@ -115,6 +126,12 @@
                 </li>
                 @endif
                 @if($modoCoordinador or $modoAsistente)
+                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Obj. Educacionales <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>
+                      <li class="pText"><a href="{{route('objetivos')}}" style="color:#72777a">Mapear Objetivos</a></li>
+                    </ul>
+                  </li>
                   <li id="rubricas" class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas</a>
                     
                   </li>
@@ -135,12 +152,6 @@
                   <!--<li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                   </li>-->
                   <li id="reuniones" class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
-                  </li>
-                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Obj. Educacionales <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>
-                      <li class="pText"><a href="{{route('objetivos')}}" style="color:#72777a">Mapear Objetivos</a></li>
-                    </ul>
                   </li>
                   <li id="avisos" class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>                  

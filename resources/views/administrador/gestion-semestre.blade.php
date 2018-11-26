@@ -61,13 +61,15 @@
 						<tbody>
 							@if(count($semestres)>0)
 							@foreach($semestres as $semestre)
-							<tr>
+							<tr idSemestre="{{$semestre->ID_SEMESTRE}}" semestre="{{$semestre->SEMESTRE}}"
+							anho="{{$semestre->ANHO}}" ciclo="{{$semestre->CICLO}}" fInicio="{{$semestre->FECHA_INICIO}}"
+							fFin="{{$semestre->FECHA_FIN}}" fAlerta="{{$semestre->FECHA_ALERTA}}" >
 								<td style="vertical-align:middle;text-align:center">{{$semestre->SEMESTRE}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$semestre->FECHA_INICIO}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$semestre->FECHA_FIN}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$semestre->FECHA_ALERTA}}</td>
-								<td style="vertical-align:middle;text-align:center"><a href="#"><i class="fa fa-edit" style="font-size: 20px"></i></a></td>
-								<td style="vertical-align:middle;text-align:center"><a href="#"><i class="fa fa-trash" style="font-size: 20px"></i></a></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarSemestre" style="font-size: 20px;cursor: pointer;"></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarSemestre" style="font-size: 20px;cursor: pointer;"></i></td>
 							</tr>
 							@endforeach
 							@else
@@ -132,7 +134,7 @@
 
 				</div>
 			</div>
-			<div class=" x_panel">
+			<div id="panelEditarUsuario" class=" x_panel hidden">
 				<div class="x_title">
 					<h2>Editar Semestre</h2>
 					<div class="clearfix"></div>
