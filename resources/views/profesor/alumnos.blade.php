@@ -130,7 +130,8 @@ body.loading .modalCargando {
 
       @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
 
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">{{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> </a></td>
+      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">
+        @if($project->ID_PROYECTO!=1){{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> @endif</a></td>
       @break
 
       @endif
