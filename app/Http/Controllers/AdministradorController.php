@@ -156,12 +156,23 @@ class AdministradorController extends Controller
     }
     public function gestionSemestres(Request $request){
         return view('administrador.gestion-semestre')
-        ->with('semestres',Semestre::getSemestres())
+        ->with('semestres',Semestre::getSemestres(1))
         ->with('semestreActual',Semestre::getIdSemestre());
     }
 
      public function crearSemestre(Request $request){
+        //dd($request->all());
 
+         $semestre=new Semestre();
+
+        if($semestre->crearSemestre($request->all(),Auth::id())){
+            flash('Se creó el semestre correctamente')->success();
+            //return back();
+        } else {
+            flash($semestre->getMessage())->error();
+        }
+            return back();      
+        
     }
 
     public function editarSemestre(Request $request){

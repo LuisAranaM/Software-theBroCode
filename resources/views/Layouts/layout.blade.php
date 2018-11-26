@@ -188,15 +188,15 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="javascript:;"> Perfil</a></li>
+                  <!--<li><a href="javascript:;"> Perfil</a></li>-->
                   <li><a href="{{route('pass.update')}}"><i class="fa fa-key pull-right"></i>  Cambiar Contraseña</a></li>
-                  <li>
+                  <!--<li>
                     <a href="javascript:;">
                       <span class="badge bg-red pull-right">50%</span>
                       <span>Configuración</span>
                     </a>
-                  </li>
-                  <li><a href="javascript:;">Ayuda</a></li>
+                  </li>-->
+                  <!--<li><a href="javascript:;">Ayuda</a></li>-->
                   <li><a href="{{route('logout')}}"><i class="fa fa-sign-out pull-right"></i> Cerrar sesión</a></li>
                 </ul>
               </li>

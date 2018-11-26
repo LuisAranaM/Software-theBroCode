@@ -122,14 +122,18 @@ class Semestre extends Eloquent
 		return $sql;
 	}
 
-	static function getSemestres(){
+	static function getSemestres($tipo=null){
 		$sql=DB::table('SEMESTRES')
 				->select('ID_SEMESTRE',DB::Raw("CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO"),
 					DB::Raw("CONVERT(FECHA_FIN,DATE) AS FECHA_FIN"),
 					DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
 					DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
-				->where('ESTADO','>=',1)
+				//->where('ESTADO','>=',1)
 				->orderBy(DB::Raw('ANHO+CICLO'),'DESC');
+		if($tipo)
+			$sql=$sql->where('ESTADO','<>',0);
+		else
+			$sql=$sql->where('ESTADO','>=',1);
 		return $sql;
 	}
 
@@ -167,6 +171,19 @@ class Semestre extends Eloquent
         }
         return $status;
         //dd($sql->get());
+	}
+
+	public function crearSemestre($semestre){
+		DB::beginTransaction();
+        $id=-1;
+        try {
+            $id = DB::table('SEMESTRES')->insertGetId($semestre);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }
+		return $id;
 	}
 
 }
