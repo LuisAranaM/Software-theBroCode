@@ -7,7 +7,9 @@
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/chartjs-plugin-datalabels.min.js') }}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/chartjs-plugin-annotation.min.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/jspdf.min.js') }}"></script>
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 @stop
 

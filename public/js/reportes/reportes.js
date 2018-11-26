@@ -354,7 +354,21 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                         }]
                     },
                     onClick: graficoResultadoxCursoClickEvent,
-                    onHover: cambiarCursor
+                    onHover: cambiarCursor,
+                    annotation: {
+                        annotations: [{
+                          type: 'line',
+                          mode: 'horizontal',
+                          scaleID: 'y-axis-0',
+                          value: 70,
+                          borderColor: '#ADF6B1',
+                          borderWidth: 1,
+                          label: {
+                            enabled: false,
+                            content: 'Test label'
+                          }
+                        }]
+                    }
                 }
             });
             contResultadosxCurso++;
@@ -453,7 +467,21 @@ function updategraficoResultadoxCiclo(idSemestre) {
                         }]
                     },
                     onClick: graficoResultadoxCicloClickEvent,
-                    onHover: cambiarCursor
+                    onHover: cambiarCursor,
+                    annotation: {
+                        annotations: [{
+                          type: 'line',
+                          mode: 'horizontal',
+                          scaleID: 'y-axis-0',
+                          value: 70,
+                          borderColor: '#ADF6B1',
+                          borderWidth: 1,
+                          label: {
+                            enabled: false,
+                            content: 'Test label'
+                          }
+                        }]
+                    }
                 }
             });
             contResultadosxCiclo++;
@@ -545,6 +573,20 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
                                 display: true,
                                 labelString: 'Indicadores'
                             }
+                        }]
+                    },
+                    annotation: {
+                        annotations: [{
+                          type: 'line',
+                          mode: 'horizontal',
+                          scaleID: 'y-axis-0',
+                          value: 70,
+                          borderColor: '#ADF6B1',
+                          borderWidth: 1,
+                          label: {
+                            enabled: false,
+                            content: 'Test label'
+                          }
                         }]
                     }//,
                     //onClick: graficoResultadoxCicloClickEvent,
@@ -646,6 +688,20 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                                 display: true,
                                 labelString: 'Cursos'
                             }
+                        }]
+                    },
+                    annotation: {
+                        annotations: [{
+                          type: 'line',
+                          mode: 'horizontal',
+                          scaleID: 'y-axis-0',
+                          value: 70,
+                          borderColor: '#ADF6B1',
+                          borderWidth: 1,
+                          label: {
+                            enabled: false,
+                            content: 'Test label'
+                          }
                         }]
                     }//,
                     //onClick: graficoResultadoxCicloClickEvent,
