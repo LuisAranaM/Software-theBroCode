@@ -6,7 +6,10 @@
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.js') }}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/chartjs-plugin-datalabels.min.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/chartjs-plugin-annotation.min.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/jspdf.min.js') }}"></script>
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 @stop
 
@@ -122,7 +125,7 @@
 <div id = "modalRxC" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px;">
+<div class="modal-dialog modal-lg" style="width: 1000px;">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -141,19 +144,21 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Combo box -->
     <form id="form" action="{{route('exportar.reporte1')}}">
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <div class="col-xs-offset-8 col-xs-3">
-          <select name="idSemestre" id="ciclos1" class="ciclos form-control" required>
+        <span>
+          Ciclo:
+          <select name="idSemestre" style="width: 100px" id="ciclos1" class="ciclos">
           </select>
-        </div>
+        </span>
       </div>
       <!-- Fin Combo box -->
 
       <!-- Cuerpo del modal -->
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
         <div class="row">
+          <div id="chartjs-legend" style="padding-top: 25px" class="noselect"></div>
           <div class="x_content">
-            <canvas id="graficoResultadoxCiclo" width="400" height="400"></canvas>
-          </div> 
+            <canvas id="graficoResultadoxCiclo" width="1000" height="400"></canvas>
+          </div>
         </div>
       </div>
       <!-- Fin Cuerpo del modal -->
@@ -182,7 +187,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px;">
+<div class="modal-dialog modal-lg" style="width: 1000px;">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -210,18 +215,20 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
         <!-- Combo box Resultado -->
         <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-          <div class="col-xs-offset-8 col-xs-3">
-            <select id="cboResultados" class="resultados form-control" required>
+          <span>
+            Resultado:
+            <select id="cboResultados" style="width: 100px" class="resultados">
             </select>
-          </div>
+          </span>
         </div>
         <!-- Fin Combo box -->
 
         <!-- Cuerpo del modal -->
         <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
           <div class="row">
+            <div id="chartjs-legend12" style="padding-top: 25px" class="noselect"></div>
             <div class="x_content">
-              <canvas id="graficoIndicadoresxResultado" width="400" height="400"></canvas>
+              <canvas id="graficoIndicadoresxResultado" width="1000" height="400"></canvas>
             </div> 
           </div>
         </div>
@@ -250,7 +257,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
+<div class="modal-dialog modal-lg" style="width: 1000px">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -268,27 +275,36 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
     <!-- Combo box -->
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <div class="col-xs-offset-8 col-xs-3">
-        <select id="ciclos2" class="ciclos form-control" required>
+      <!--<div class="col-xs-offset-2 col-xs-12">-->
+        <span class="col-xs-offset-1">
+        Ciclo:
+        <select id="ciclos2" style="width: 100px" class="ciclos">
         </select>
-      </div>
+        </span>
+        <span class="col-xs-offset-1">
+        Cursos:
+        <select id="cursos2" style="width: 200px" class="cursos">
+        </select>
+        </span>
+      <!--</div>-->
     </div>
 
-    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+    <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
       <div class="col-xs-offset-8 col-xs-3">
-        <select id="cursos2" class="cursos form-control" required>
+        <p>Curso:</p>
+        <select id="cursos2" class="cursos form-control">
         </select>
       </div>
-    </div>
+    </div>-->
     <!-- Fin Combo box -->
 
     <!-- Cuerpo del modal -->
-    <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+    <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
       <div class="row">
+        <div id="chartjs-legend2" style="padding-top: 25px" class="noselect"></div>
         <div class="x_content">
-          <canvas id="graficoResultadosxCurso" width="400" height="400"></canvas>
+          <canvas id="graficoResultadosxCurso" width="1000" height="400"></canvas>
         </div> 
-
       </div>
     </div>
     <!-- Fin Cuerpo del modal -->
@@ -317,7 +333,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
+<div class="modal-dialog modal-lg" style="width: 1000px;">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -326,7 +342,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
+      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Cursos por Resultado</h4>
     </div>
     <!-- Fin Cabeza del modal -->
     
@@ -334,24 +350,34 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
     <!-- Combo box -->
       <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <div class="col-xs-offset-8 col-xs-3">
-          <select id="ciclos3" class="ciclos form-control" required>
+        <!--<div class="col-xs-offset-8 col-xs-3">-->
+          <span class="col-xs-offset-0">
+          Ciclo:
+          <select id="ciclos3" style="width: 100px" class="ciclos">
           </select>
-        </div>
+          </span>
+          <span class="col-xs-offset-1">
+          Resultado:
+          <select id="cboResultados2" style="width: 100px" class="resultados">
+          </select>
+          </span>
+        <!--</div>-->
       </div>
-      <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
         <div class="col-xs-offset-8 col-xs-3">
+          <p>Resultado:</p>
           <select id="cboResultados2" class="resultados form-control" required>
           </select>
         </div>
-      </div>
+      </div>-->
       <!-- Fin Combo box -->
 
       <!-- Cuerpo del modal -->
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px">
         <div class="row">
+          <div id="chartjs-legend3" style="padding-top: 25px" class="noselect"></div>
           <div class="x_content">
-            <canvas id="graficoCursosxResultado" width="400" height="400"></canvas>
+            <canvas id="graficoCursosxResultado" width="1000" height="400"></canvas>
           </div> 
         </div>
       </div>
@@ -362,7 +388,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
         <div class="col-md-4 text-right">
-          <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+          <button id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
         <div class="col-md-4 text-left">
           <a href="{{route('exportar.reporte1')}}">
@@ -381,7 +407,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalCursos" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 600px; height: 800px">
+<div class="modal-dialog modal-lg" style="width: 1000px">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -399,6 +425,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Combo box -->
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
       <div id="ciclos4" class="col-xs-offset-8 col-xs-3">
+        <p>Ciclo:</p>
         <select class="ciclos form-control" required>
         </select>
       </div>
