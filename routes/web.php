@@ -178,7 +178,8 @@ Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|
 	Route::get('/avisos', ['as'=>'avisos','uses'=>'AvisosController@gestionAvisos']);
 });
 
-
+//Drag and Drop prueba
+Route::get('/pruebaDropzone', ['as'=>'prueba.Dropzone','uses'=>'DropzoneController@dropzoneGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 
 
