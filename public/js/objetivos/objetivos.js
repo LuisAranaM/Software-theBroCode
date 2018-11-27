@@ -117,8 +117,15 @@ $( document ).ready(function() {
 	$("#btnAgregarSosModal").on("click", function(){
 		console.log('HOLA2');
 		var textSos=$('#txtSos').val();
-		console.log(textSos);
-		agregarSOS(textSos);             
+		var myLength = $("#txtSos").val().length
+		if(myLength==null || myLength=='' || myLength < 3 ){
+			$('#txtSos').focus();
+			alert("Ingrese la descripción del SOS");
+			//return;
+		}else{
+			agregarSOS(textSos);             
+			
+		}
 		
 	});
 
@@ -154,8 +161,18 @@ $( document ).ready(function() {
 	$("#btnAgregarEosModal").on("click", function(e){
 		console.log('HOLA3');
 		var txtEos=$('#txtEos').val();
-		console.log(txtEos);
-		agregarEOS(txtEos);       
+
+		var myLengtheos = $("#txtEos").val().length
+		if(myLengtheos==null || myLengtheos=='' || myLengtheos < 3 ){
+			$('#txtEos').focus();
+			alert("Ingrese la descripción del EOS");
+			//return;
+		}else{
+			console.log(txtEos);
+			agregarEOS(txtEos);   
+		}
+
+		
 		//e.preventDefault();      
 		
 	});
@@ -239,29 +256,29 @@ $( document ).ready(function() {
 	}
 
 
-		$(document).on('click', '.editEo', function(){
-			var $this = $(this);
-			var nombreAtributo=$this.attr('nombreEOS');
-			var $input = $('<input>', {
-				value: nombreAtributo,
-				width: '350px',
-				blur: function() {
-					$this.attr('nombreEOS',this.value);
-					$this.text(this.value);
-				},
-				keyup: function(e) {
-					if (e.which === 13) {
-						$input.blur();
-						var IDEOS=$this.attr('idEOS');
-						var nombreEOS=$this.attr('nombreEOS');
-						console.log(IDEOS);
-						console.log(nombreEOS);
-						editarEOS(IDEOS,nombreEOS); 
-						e.preventDefault();
-					}
+	$(document).on('click', '.editEo', function(){
+		var $this = $(this);
+		var nombreAtributo=$this.attr('nombreEOS');
+		var $input = $('<input>', {
+			value: nombreAtributo,
+			width: '350px',
+			blur: function() {
+				$this.attr('nombreEOS',this.value);
+				$this.text(this.value);
+			},
+			keyup: function(e) {
+				if (e.which === 13) {
+					$input.blur();
+					var IDEOS=$this.attr('idEOS');
+					var nombreEOS=$this.attr('nombreEOS');
+					console.log(IDEOS);
+					console.log(nombreEOS);
+					editarEOS(IDEOS,nombreEOS); 
+					e.preventDefault();
 				}
-			}).appendTo( $this.empty() ).focus();
-		});
+			}
+		}).appendTo( $this.empty() ).focus();
+	});
 
 
 	function editarEOS(IDEOS,nombreEOS)	{
@@ -288,4 +305,4 @@ $( document ).ready(function() {
 		});
 	}
 
-	});
+});

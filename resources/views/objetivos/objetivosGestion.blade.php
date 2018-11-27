@@ -14,12 +14,12 @@
 	</div>
 	@include('flash::message')
 	<div class="row">
-		<div class="x_panel">
-			<div class="row">
-				<div class="col-md-6">
+		<div class="x_panel" >
+			<div class="row" style="padding-top: 20px;">
+				<div class="col-md-6" >
 					<form action="" method="">
 						{{ csrf_field() }}
-						<div class="table-responsive" style="height:300px;overflow:auto;">
+						<div class="table-responsive" style="min-height: 100px; max-height: 300px;  overflow:auto;">
 							<table class="table table-striped jambo_table bulk_action">
 								<thead >
 									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
@@ -62,10 +62,10 @@
 					</form>
 				</div>
 
-				<div class="col-md-6">
+				<div class="col-md-6" >
 
 
-					<div class="table-responsive" style="height:300px;overflow:auto;">
+					<div class="table-responsive" style="min-height:100px; max-height: 300px; overflow:auto;">
 						<table class="table table-striped jambo_table bulk_action">
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
