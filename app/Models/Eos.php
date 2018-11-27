@@ -77,4 +77,74 @@ class Eos extends Eloquent
 								->where('ESTADO','=',1);
 		return $objetivosEducacionales;
 	}
+
+
+	function eliminarEos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+			DB::table('EOS')
+			->where('ID_EOS','=',$registro['ID_EOS'])
+			->where('NOMBRE','=',$registro['NOMBREEOS'])
+			->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+			->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+			->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
+
+	function editarEos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+		//dd($registro);
+		try {
+			DB::table('EOS')
+			->where('ID_EOS','=',$registro['ID_EOS'])
+			->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+			->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+			->update(['NOMBRE'=>$registro['NOMBRE'],'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
+	function agregarEos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+			DB::table('EOS')
+			->insert(['NOMBRE'=>$registro['NOMBRESEOS'],'ID_SEMESTRE'=>$registro['ID_SEMESTRE'],'ID_ESPECIALIDAD'=>$registro['ID_ESPECIALIDAD'],'FECHA_REGISTRO'=>$registro['FECHA_REGISTRO'],'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION'],'USUARIO_MODIF'=>$registro['USUARIO_MODIF'],'ESTADO'=>$registro['ESTADO']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
 }

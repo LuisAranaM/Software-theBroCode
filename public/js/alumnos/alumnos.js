@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 	console.log("inicio");
 
+	
 
 	
 
@@ -43,7 +44,8 @@ $( document ).ready(function() {
 		var idHorario = $(this).attr("idHorario");
 		var idAlumno = $(this).attr("idAlumno");
 		var nombAlumno = $(this).attr('nombreAlumno');
-		$('#alumnoACalificar').text(nombAlumno);
+		var codAlumno = $(this).attr('codAlumno');
+		$('#alumnoACalificar').text(codAlumno + " - " + nombAlumno);
 		//console.log(idResultado);
 		fetchResultados(idResultado,idCurso,idAlumno,idHorario);
 	});

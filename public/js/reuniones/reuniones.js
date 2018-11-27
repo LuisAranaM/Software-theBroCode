@@ -1,11 +1,48 @@
 $( document ).ready(function() {
-	console.log("inicioAvisos");
 
+
+	function myFunction(x) {
+	    if (x.matches) { // If media query matches
+	        $('#rangoSemestres').toggleClass("col-xs-12", true);
+	    } else {
+	    	$('#rangoSemestres').toggleClass("col-xs-12", false);
+	    }
+	}
+
+	var x = window.matchMedia("(max-width: 500px)");
+	myFunction(x); // Call listener function at run time
+	x.addListener(myFunction); // Attach listener function on state changes
 
 	$("#ModalCargar").on("click", function(){
 		$("#modalCargarDocsReuniones").modal("show");
 	});
 
+
+	$('#anhoInicio').on('paste', function (event) {
+		if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+			event.preventDefault();
+		}
+	});
+
+	$("#anhoInicio").on("keypress",function(event){
+		if(event.which < 48 || event.which >57){
+			return false;
+		}
+	});
+
+	
+	$('#anhoFin').on('paste', function (event) {
+		if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+			event.preventDefault();
+		}
+	});
+
+	$("#anhoFin").on("keypress",function(event){
+		if(event.which < 48 || event.which >57){
+			return false;
+		}
+	});
+	
 
 	$("#btnDescargarDoc").on("click", function(){
 		console.log("Descargando documentos");
@@ -13,38 +50,31 @@ $( document ).ready(function() {
 		$("input:checkbox[name=checkDocs]:checked").each(function(){
 			array.push($(this).val());
 		});
-		console.log(array);
-
-		
+		console.log(array);		
 	});
+
 	var anhoInicio;
 	var anhoFin;
 	$('#btnBuscarDocs').click(function(e) {
+		console.log("HOLA");
 		array = []
 		$("input:checkbox[name=checkDocs]:checked").each(function(){
 			array.push($(this).val());
 		});
 
-		anhoInicio = $('#anhoInicio').val();
-		//console.log("leyo anho inicio");
-		//console.log(anhoInicio);
-		semIni = document.getElementById('semIni').options[document.getElementById('semIni').selectedIndex].value;
-		//console.log("leyo sem inicio");
-		//console.log(semIni);
-		anhoFin = $('#anhoFin').val();
-		//console.log("leyo anho fin");
-		//console.log(anhoFin);
-		semFin = document.getElementById('semFin').options[document.getElementById('semFin').selectedIndex].value;
-		//console.log("leyo sem fin");
-		//console.log(semFin);
-		filtrarDocumentosReuniones(anhoInicio,semIni,anhoFin,semFin);
+		semIni = document.getElementById('semIni').options[document.getElementById('semIni').selectedIndex].text;
+		semFin = document.getElementById('semFin').options[document.getElementById('semFin').selectedIndex].text;
+		cicloIni = semIni.split("-");
+		cicloFin = semFin.split("-");
+
+		filtrarDocumentosReuniones(cicloIni[0],cicloIni[1],cicloFin[0],cicloFin[1]);
 		e.preventDefault();
 	});
 
 
 
 	function filtrarDocumentosReuniones(anhoInicio,semIni,anhoFin,semFin) {
-			console.log(anhoInicio,semIni,anhoFin,semFin);
+		console.log(anhoInicio,semIni,anhoFin,semFin);
 		$.ajax({
 			url: APP_URL + '/resultadosFiltroDocs',
 			type: 'GET',
@@ -77,7 +107,7 @@ $( document ).ready(function() {
 					html+='center;vertical-align: center;"><a href="'+APP_URL+'/upload/'+result[i].NOMBRE+'"';
 					html+=' download="'+result[i].NOMBRE+'" style="text-decoration: underline;">'+result[i].NOMBRE;
 					html+='<i class="fa fa-download" style="padding-left: 5px"></i> </a></td> ';
-					html+='<td><label><input type="checkbox" class="form-check-input checkDoc" name="checkDocs[]" value="'+result[i].NOMBRE;
+					html+='<td style="background-color: white; text-align: center;vertical-align: center"><label><input type="checkbox" class="form-check-input checkDoc" name="checkDocs[]" value="'+result[i].NOMBRE;
 					html+='style="text-align: center;" ><span class="pText label-text "></span></label></td>';
 
 					html+='</tr>';

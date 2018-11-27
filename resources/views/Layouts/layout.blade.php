@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="{{ URL::asset('img/logo.png') }}">       
   <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
   <title>@yield('pageTitle') - RubriK</title>
 
@@ -111,14 +111,14 @@
                 </li>
                 @endif
                 @if($modoCoordinador or $modoAsistente or $modoProfesor)
-                <li class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
+                <li id="calificar" class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
                 @endif
                 @if($modoCoordinador or $modoAsistente)
-                  <li class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas</a>
+                  <li id="rubricas" class="pText"><a href="{{route('rubricas.gestion')}}" style="color:#72777a"><i class="fa fa-list-ul" ></i> Rúbricas</a>
                     
                   </li>
-                  <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a"><i class="fa fa-edit"></i> Gestionar Cursos 
+                  <li id="cursos" class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a"><i class="fa fa-edit"></i> Gestionar Cursos 
                     <!--<span class="fa fa-chevron-down"> </span>-->
                   </a>
                     <!--<ul class="nav child_menu">
@@ -128,20 +128,24 @@
                   </li>
                   <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
                   </li>-->
-                  <li class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
+                  <li id="reportes" class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes</a>
                   </li>
                   <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
                   </li>-->
                   <!--<li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
                   </li>-->
-                  <li class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
+                  <li id="reuniones" class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
-                  <li class="pText"><a style="color:#72777a" href="{{route('objetivos')}}"><i class="fa fa-mortar-board"></i> Objetivos Educacionales</a>
+                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Obj. Educacionales <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>
+                      <li class="pText"><a href="{{route('objetivos')}}" style="color:#72777a">Mapear Objetivos</a></li>
+                    </ul>
                   </li>
-                  <li class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
+                  <li id="avisos" class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>                  
                 @endif
-                <li class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
+                <li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx" style="color:#72777a">
                         <i class="fa fa-book"></i>Carga de Cursos</a></li>

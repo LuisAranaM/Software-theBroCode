@@ -68,15 +68,84 @@ class Sos extends Eloquent
 	public function eos()
 	{
 		return $this->belongsToMany(\App\Models\Eo::class, 'sos_has_eos', 'ID_SOS', 'ID_EOS')
-					->withPivot('ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
+		->withPivot('ID_ESPECIALIDAD', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
 	}
 
 	static function getObjetivosEstudiante($idSemestre,$idEspecialidad){
 		$objetivosEstudiante = DB::table('SOS')
-								->select()
-								->where('ID_SEMESTRE','=',$idSemestre)
-								->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-								->where('ESTADO','=',1);
+		->select()
+		->where('ID_SEMESTRE','=',$idSemestre)
+		->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+		->where('ESTADO','=',1);
 		return $objetivosEstudiante;
 	}
+
+	function eliminarSos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+			DB::table('SOS')
+			->where('ID_SOS','=',$registro['ID_SOS'])
+			->where('NOMBRE','=',$registro['NOMBRESOS'])
+			->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+			->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+			->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
+	
+	function editarSos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+		//dd($registro);
+		try {
+			DB::table('SOS')
+			->where('ID_SOS','=',$registro['ID_SOS'])
+			->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+			->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+			->update(['NOMBRE'=>$registro['NOMBRE'],'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
+	function agregarSos($registro){
+        //dd($registro);    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+			DB::table('SOS')
+			->insert(['NOMBRE'=>$registro['NOMBRESOS'],'ID_SEMESTRE'=>$registro['ID_SEMESTRE'],'ID_ESPECIALIDAD'=>$registro['ID_ESPECIALIDAD'],'FECHA_REGISTRO'=>$registro['FECHA_REGISTRO'],'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION'],'USUARIO_MODIF'=>$registro['USUARIO_MODIF'],'ESTADO'=>$registro['ESTADO']]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+        //dd($status);
+		return $status;
+        //dd($sql->get());
+	}
+
 }
