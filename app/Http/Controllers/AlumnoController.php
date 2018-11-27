@@ -111,7 +111,7 @@ class AlumnoController extends Controller
                 $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
                 
                 /*Testando que esta bien */
-                /*Aparentemente lo esta */
+                /*Aparentemente esta bien */
                 $this->trace('alumnosNuevos');
                 foreach($alumnosNuevos as $x){
                 	$this->trace($x["NOMBRES"]);
