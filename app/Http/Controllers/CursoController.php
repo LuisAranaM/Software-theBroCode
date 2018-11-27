@@ -496,6 +496,8 @@ class CursoController extends Controller
 
     public function getCursosByResultado(Request $request){
         $idSemestre = $request->get('idSemestre', null);
-        return eResultado::getCursosByResultado($idSemestre);
+        $idResultado = $request->get('idResultado', null);
+        //dd(Curso::getCursosByResultado($idSemestre, $idResultado));
+        return Curso::getCursosByResultado($idSemestre, $idResultado);
     }
 }

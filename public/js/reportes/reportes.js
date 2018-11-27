@@ -1,5 +1,7 @@
 var graficoResultadoxCiclo;
 var graficoResultadosxCurso;
+var graficoIndicadoresxResultado;
+var graficoCursosxResultado;
 var contResultadosxCiclo = 0;
 var contResultadosxCurso = 0;
 var contIndicadoresxResultado = 0;
@@ -32,13 +34,14 @@ $( document ).ready(function() {
         success: function( result ) {
             $.each(result, function(i, value) {
                 $('.resultados').append("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
+                console.log("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
             });
         }
       });
     // ***************** Combo boxes *****************
     //Cuando cambie el semestre del modal 1
     document.getElementById('ciclos1').onchange = function () {
-        contResultadosxCiclo = 0;
+        //contResultadosxCiclo = 0;
         idSemestre = this.options[this.selectedIndex].value;
         //$(".ruta1").prop("href", "{{route('exportar.reporte1)}}?idSemestre="+idSemestre);
         updategraficoResultadoxCiclo(idSemestre);
@@ -51,7 +54,7 @@ $( document ).ready(function() {
     }
     //Cuando cambie el curso del modal 2
     document.getElementById('cursos2').onchange = function () {
-        contResultadosxCurso = 0;
+        //contResultadosxCurso = 0;
         idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
         
         idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
@@ -91,7 +94,7 @@ $( document ).ready(function() {
 
     //Cuando cambie el resultado del modal 1.2
     document.getElementById('cboResultados').onchange = function () {
-        contIndicadoresxResultado = 0;
+        //contIndicadoresxResultado = 0;
         idResultado = this.options[this.selectedIndex].value;
         idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
         //idResultado = document.getElementById('cboResultados').options[document.getElementById('cboResultados').selectedIndex].value;
@@ -100,12 +103,12 @@ $( document ).ready(function() {
 
     //Cuando cambie el resultado del modal 3
     document.getElementById('cboResultados2').onchange = function () {
-        contCursosxResultado = 0;
+        //contCursosxResultado = 0;
         idResultado = this.options[this.selectedIndex].value;
         idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
-        console.log("" + idSemestre);
+        console.log("" + idSemestre + " " + idResultado);
         //idResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
-        updategraficoCursosxResultado(idSemestre,idCurso);
+        updategraficoCursosxResultado(idSemestre,idResultado);
     }
 
     // ***************** Botones que despliegan el modal *****************
@@ -137,11 +140,11 @@ $( document ).ready(function() {
         //$('#ciclos3 option').last().attr('selected',true);
         idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
         updateCmbResultados(idSemestre);
-        if (typeof document.getElementById('ciclos3').options[0] === "undefined")
-            idCurso=null;
+        if (typeof document.getElementById('cboResultados2').options[0] === "undefined")
+            idResultado=null;
         else
-            idCurso = document.getElementById('ciclos3').options[0].value;
-        updategraficoCursosxResultado(idSemestre,idCurso);
+            idResultado = document.getElementById('cboResultados2').options[0].value;
+        updategraficoCursosxResultado(idSemestre,idResultado);
         $("#modalCxR").modal("show");
     });
 
@@ -258,19 +261,24 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
 		},
 		success: function (result) {
             //Se llena
+            console.log(result);
             resultadosId=[];
             resultadosNombre=[];
             resultadosPorcentaje=[];
+            
             for(var i=0;i<result.length;i++){
                 resultadosId.push(result[i].ID_RESULTADO);
                 resultadosNombre.push(result[i].NOMBRE);
                 resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
             }
+            console.log(resultadosId);
+            console.log(resultadosNombre);
+            console.log(resultadosPorcentaje);
             if (resultadosId.length == 0) {
                 resultadosNombre = ['No se encontraron resultados en el ciclo'];
                 resultadosPorcentaje = [0];
             }
-            if (contResultadosxCurso == 0) {
+            //if (contResultadosxCurso == 0) {
                 graficoResultadosxCurso = new Chart(ctx2, {
                     type: 'bar',
                     data: {
@@ -310,8 +318,8 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                     }
                 });
                 contResultadosxCurso++;
-            }
-            else {
+            },
+            /*else {
                 if (resultadosNombre.length == 0) {
                     graficoResultadosxCurso.data.labels = ['No se encontraron resultados en el curso'];
                     graficoResultadosxCurso.data.datasets.data = [0];
@@ -321,11 +329,12 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                     graficoResultadosxCurso.data.datasets.forEach((dataset) => {
                         dataset.data.pop();
                     });
+                    console.log(resultadosPorcentaje);
                     graficoResultadosxCurso.data.datasets.data = resultadosPorcentaje;
                 }
                 graficoResultadosxCurso.update();
             }
-        },
+        },*/
         error: function (xhr, status, text) {
             event.preventDefault();
             alert('Hubo un error al buscar la información');
@@ -346,9 +355,9 @@ function updategraficoResultadoxCiclo(idSemestre) {
             idSemestre: idSemestre
 		},
 		success: function (result) {
-            resultadosId=[];
-            resultadosNombre=[];
-            resultadosPorcentaje=[];
+            var resultadosId=[];
+            var resultadosNombre=[];
+            var resultadosPorcentaje=[];
             for(var i=0;i<result.length;i++){
                 resultadosId.push(result[i].ID_RESULTADO);
                 resultadosNombre.push(result[i].NOMBRE);
@@ -361,7 +370,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
             }
             console.log(resultadosPorcentaje);
             globResultadosId = resultadosId;
-            if (contResultadosxCiclo == 0) {
+            //if (contResultadosxCiclo == 0) {
                 graficoResultadoxCiclo = new Chart(ctx1, {
                     type: 'bar',
                     data: {
@@ -401,9 +410,9 @@ function updategraficoResultadoxCiclo(idSemestre) {
                     }
                 });
                 contResultadosxCiclo++;
-            }
-            else {
-                if (resultadosNombre.length == 0) {
+            //}
+            //else {
+                /*if (resultadosNombre.length == 0) {
                     graficoResultadoxCiclo.data.labels = ['No se encontraron resultados en el ciclo'];
                     graficoResultadoxCiclo.data.datasets.data = [0];
                 }
@@ -412,10 +421,14 @@ function updategraficoResultadoxCiclo(idSemestre) {
                     graficoResultadoxCiclo.data.datasets.forEach((dataset) => {
                         dataset.data.pop();
                     });
+                    console.log("holi1: " + resultadosPorcentaje);
+                    console.log("holi2: " + graficoResultadoxCiclo.data.datasets.data);
                     graficoResultadoxCiclo.data.datasets.data = resultadosPorcentaje;
-                }
-                graficoResultadoxCiclo.update();
-            }
+                    console.log("holi3: " + graficoResultadoxCiclo.data.datasets.data);
+                    console.log(graficoResultadoxCiclo);
+                }*/
+                //graficoResultadoxCiclo.update();
+            //}
         },
         error: function (xhr, status, text) {
             event.preventDefault();
@@ -452,7 +465,7 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
                 indicadoresNombre = ['No se encontraron resultados en el ciclo'];
                 indicadoresPorcentaje = [0];
             }
-            if (contIndicadoresxResultado == 0) {
+            //if (contIndicadoresxResultado == 0) {
                 graficoIndicadoresxResultado = new Chart(ctx1_2, {
                     type: 'bar',
                     data: {
@@ -492,7 +505,7 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
                     }
                 });
                 contIndicadoresxResultado++;
-            }
+            /*}
             else {
                 if (resultadosNombre.length == 0) {
                     graficoIndicadoresxResultado.data.labels = ['No se encontraron resultados en el ciclo'];
@@ -506,7 +519,7 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
                     graficoIndicadoresxResultado.data.datasets.data = indicadoresPorcentaje;
                     graficoIndicadoresxResultado.update();
                 }
-            }
+            }*/
         },
         error: function (xhr, status, text) {
             event.preventDefault();
@@ -529,26 +542,31 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
 		},
 		success: function (result) {
             console.log(result);
+
             //updateCmbResultados(idSemestre);
             document.getElementById('cboResultados').value = idResultado;
             cursosId=[];
             cursosNombre=[];
             cursosPorcentaje=[];
+            cursosCodigo=[];
+            //console.log(result.length);
             for(var i=0;i<result.length;i++){
                 cursosId.push(result[i].ID_CURSO);
-                cursosNombre.push("" + result[i].NOMBRE);
-                cursosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+                cursosNombre.push("" + result[i].NOMBRE[0]);
+                cursosPorcentaje.push(Math.round(result[i].PROMEDIO_APROBADOS*100));
+                cursosCodigo.push(result[i].CODIGO_CURSO);
             }
-            console.log(cursosID);
+            //console.log(cursosID);
             if (cursosId.length == 0) {
                 cursosNombre = ['No se encontraron resultados en el ciclo'];
                 cursosPorcentaje = [0];
             }
-            if (contCursosxResultado == 0) {
+            
+            //if (contCursosxResultado == 0) {
                 graficoCursosxResultado = new Chart(ctx3, {
                     type: 'bar',
                     data: {
-                        labels: cursosNombre,
+                        labels: cursosCodigo,
                         datasets: [{
                             label: 'Porcentaje',
                             data: cursosPorcentaje,
@@ -572,6 +590,8 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                         }]
                     },
                     options: {
+                        //responsive: true,
+                        //maintainAspectRatio: true,
                         scales: {
                             yAxes: [{
                                 ticks: {
@@ -584,21 +604,21 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                     }
                 });
                 contCursosxResultado++;
-            }
+            /*}
             else {
                 if (resultadosNombre.length == 0) {
                     graficoCursosxResultado.data.labels = ['No se encontraron resultados en el ciclo'];
                     graficoCursosxResultado.data.datasets.data = [0];
                 }
                 else {
-                    graficoCursosxResultado.data.labels = indicadoresNombre;
+                    graficoCursosxResultado.data.labels = cursosNombre;
                     graficoCursosxResultado.data.datasets.forEach((dataset) => {
                         dataset.data.pop();
                     });
-                    graficoCursosxResultado.data.datasets.data = indicadoresPorcentaje;
+                    graficoCursosxResultado.data.datasets.data = cursosPorcentaje;
                 }
                 graficoCursosxResultado.update();
-            }
+            }*/
         },
         error: function (xhr, status, text) {
             event.preventDefault();

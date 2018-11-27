@@ -287,7 +287,7 @@ class Curso extends Eloquent
 
     public function getCursosByResultado($idEspecialidad,$idSemestre,$idResultado){
         $sql=DB::table('CURSOS AS CUR')
-            ->select('CUR.ID_CURSO','CUR.NOMBRE',
+            ->select('CUR.ID_CURSO','CUR.NOMBRE','CUR.CODIGO_CURSO',
             DB::Raw('SUM(CASE WHEN IHAH.ESCALA_CALIFICACION >=3 THEN 1 ELSE 0 END)/COUNT(*) AS PROMEDIO_APROBADOS'))
         ->leftJoin('INDICADORES_HAS_CURSOS AS IHC',function($join){
                     $join->on('IHC.ID_CURSO','=','CUR.ID_CURSO');

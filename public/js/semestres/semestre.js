@@ -43,6 +43,42 @@ $('#semestreAct').on('change', function(e) {
     	}
         e.preventDefault();        
     });
+
+
+
+  $(".eliminarSemestre").on("click", function(e){
+    var filaSemestre=$(this).parent().parent();
+    var idSemestre=filaSemestre.attr('idSemestre');
+    var semestre=filaSemestre.attr('semestre');
+
+    var resp=confirm("¿Estás seguro que deseas eliminar el semestre "+semestre+"?");
+    if (resp == true) {
+      filaSemestre.remove();
+      //eliminarUsuario(idUsuario,nombreUsuario,filaSemestre);            
+    } 
+    e.preventDefault();
+    console.log('HOLI');
+    });
+
+    $(".editarSemestre").on("click", function(e){
+        var filaSemestre=$(this).parent().parent();
+        var idSemestre=filaSemestre.attr('idSemestre');
+        var semestre=filaSemestre.attr('semestre');
+        var anho=filaSemestre.attr('anho');
+        var ciclo=filaSemestre.attr('ciclo');
+        var fInicio=filaSemestre.attr('fInicio');
+        var fFin=filaSemestre.attr('fFin');
+        var fAlerta=filaSemestre.attr('fAlerta');
+        
+        $('#panelEditarUsuario').removeClass('hidden');
+        $('#panelEditarUsuario input[name="anho"]').val(anho);
+        $('#panelEditarUsuario input[name="ciclo"]').val(ciclo);
+        $('#panelEditarUsuario input[name="fInicio"]').val(fInicio);
+        $('#panelEditarUsuario input[name="fFin"]').val(fFin);
+        $('#panelEditarUsuario input[name="fAlerta"]').val(fAlerta);
+        e.preventDefault();
+        console.log('HOLI');
+    });
 		
 	});
 

@@ -34,11 +34,8 @@ class ProyectoController extends Controller
         $fecha = date("Y-m-d H:i:s");
 
         //dd($id_usuario);
-    	#creationg array for data
-    	$data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario,'ESTADO'=>1, 'NOMBRE'=>$name_of_file.'.'.$extension_of_file,'ID_SEMESTRE'=>$semestre_actual,'ID_ESPECIALIDAD'=>$especialidad);
-        $idProyecto = DB::table('PROYECTOS')->insertGetId(
-            $data
-        );
+        #creationg array for data
+        $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario,'ESTADO'=>1, 'NOMBRE'=>$name_of_file.'.'.$extension_of_file,'ID_SEMESTRE'=>$semestre_actual,'ID_ESPECIALIDAD'=>$especialidad);
         //dd($data);
         $idAlumno = DB::table('ALUMNOS')
                      ->select('ID_ALUMNO')
@@ -50,6 +47,9 @@ class ProyectoController extends Controller
                      ->get();
         #ahora insertaré en alumnos_has_horarios los atributos correspondientes para anexar el file subido al alumno en el horario respectivo
 
+        $idProyecto = DB::table('PROYECTOS')->insertGetId(
+            $data
+        );
         $dataAlumnoxHorario = array('ID_ALUMNO'=>$idAlumno[0]->ID_ALUMNO, 'ID_HORARIO'=>$horario, 'ID_PROYECTO'=>$idProyecto, 'ID_SEMESTRE'=>$semestre_actual,'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario,'ESTADO'=>1,'ID_ESPECIALIDAD'=>$especialidad);
 
 
@@ -62,10 +62,12 @@ class ProyectoController extends Controller
             ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$fecha]);
 
 
+        
         $idAlumnoHasHorarios = DB::table('ALUMNOS_HAS_HORARIOS')->insertGetId(
             $dataAlumnoxHorario
         );
-    	flash('Se ha subido el archivo de forma correcta.')->success();
+        //dd($data,$dataAlumnoxHorario);
+        flash('Se ha subido el archivo de forma correcta.')->success();
     	return back();
     }
     public function downfunc(){

@@ -5,6 +5,7 @@
 
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.js') }}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 @stop
@@ -347,7 +348,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <!-- Fin Combo box -->
 
       <!-- Cuerpo del modal -->
-      <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
+      <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px">
         <div class="row">
           <div class="x_content">
             <canvas id="graficoCursosxResultado" width="400" height="400"></canvas>

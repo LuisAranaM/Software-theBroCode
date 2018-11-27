@@ -59,6 +59,7 @@ $( document ).ready(function() {
 
 			},
 			success: function(resultData) {
+				window.location.reload();
 			}
 		});
 	}
@@ -71,7 +72,7 @@ $( document ).ready(function() {
         if (resp == true) {
             eliminarHorarioEvaluar(idHorario,botonHorario);            
 		}
-		//window.location.reload();   
+		  
 	});
 
 	function eliminarHorarioEvaluar(idHorario,botonHorario){
@@ -86,6 +87,7 @@ $( document ).ready(function() {
 			},
 			success: function (result) {
 				botonHorario.hide();
+				window.location.reload(); 
 			},
 			error: function (xhr, status, text) {
 				e.preventDefault();
@@ -110,7 +112,7 @@ $( document ).ready(function() {
 		//Aquí falta el refrescar Horarios
 		$('#modalHorarios').modal('hide');
 		updateHorarios(horariosSeleccionados,estadoAcreditacion);
-		window.location.reload();
+		
 	});
 
 	function updateIndicadores(indicadores,estado,idCurso){
@@ -124,7 +126,11 @@ $( document ).ready(function() {
 				estadoIndicadores: estado,
 				idIndicadores: indicadores,
 				idCurso: idCurso
+			},
+			success: function (result) {
+				window.location.reload();
 			}
+			
 		});
 	}
 	$('#btnCancelarIndicadores').click(function() {
@@ -145,7 +151,7 @@ $( document ).ready(function() {
 		});
 		$('#modalResultados').modal('hide');
 		updateIndicadores(idIndicadores,estadoIndicadores,$(this).attr('idCurso'));
-		window.location.reload();
+		
 	});
 
 });
