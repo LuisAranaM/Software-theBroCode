@@ -148,7 +148,7 @@ class Usuario extends Authenticatable implements Auditable{
         ->leftJoin('ESPECIALIDADES AS ES',function($join){
             $join->on('ES.ID_ESPECIALIDAD','=','UE.ID_ESPECIALIDAD');
         })
-        ->where('US.ESTADO','=',1)
+        ->where('US.ESTADO','=',$filtros['estado'])
         ->orderBy('ROL.NOMBRE','ASC')
         ->orderBy(DB::Raw("CONCAT(US.CORREO,US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO)"),'ASC');
         
@@ -247,6 +247,28 @@ class Usuario extends Authenticatable implements Auditable{
         }
         return $status;
         //dd($sql->get());
+    }
+
+    function activarUsuarios($checks,$usuarioModif){
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+            foreach($checks as $check){
+                //dd($check);
+            DB::table('USUARIOS')
+                ->where('ID_USUARIO','=',$check)
+                ->update(['ESTADO'=>1,
+                        'FECHA_ACTUALIZACION'=>Carbon::now(),
+                        'USUARIO_MODIF'=>$usuarioModif]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
     }
 
     function eliminarCuentaRubrik($idUsuario,$usuarioModif){

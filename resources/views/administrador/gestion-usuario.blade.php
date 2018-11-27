@@ -21,13 +21,13 @@
 	</div>
 	@include('flash::message')
 	<div class="row">
-		<div class="row">
+    <div class="row">
 			<div class=" x_panel tile ">
 				<h4>Filtros:</h4>
 
 			</div>
 		</div>
-
+    
 
 		<div class="row">
 			<div class=" x_panel">
@@ -47,7 +47,7 @@
 					<tbody>
 						@if(count($usuarios)>0)
 						@foreach($usuarios as $usuario)
-						<tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}} ">
+						<tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}">
 							<td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
 							<td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
 							<td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 

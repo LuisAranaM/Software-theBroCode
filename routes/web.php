@@ -30,8 +30,8 @@ Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], 
 /*ACCESO CON GOOGLE*/
 Route::get('login/google', ['as'=>'login.google','uses'=>'LoginController@redirectToProvider']);
 Route::get('login/google/callback', ['as'=>'login.google.callback','uses'=>'LoginController@handleProviderCallback']);
-Route::get('login/google/formulario', ['as'=>'login.google.formulario','uses'=>'LoginController@formularioCuentaRubrikGoogle']);
-Route::post('login/google/crear', ['as'=>'login.google.crear','uses'=>'LoginController@crearCuentaRubrikGoogle']);
+//Route::get('login/google/formulario', ['as'=>'login.google.formulario','uses'=>'LoginController@formularioCuentaRubrikGoogle']);
+//Route::post('login/google/crear', ['as'=>'login.google.crear','uses'=>'LoginController@crearCuentaRubrikGoogle']);
 /**/
 
 Route::get('/', ['as' => 'login.index', 'uses' => 'LoginController@index']);
@@ -130,6 +130,8 @@ Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
 	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
 	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
+	Route::get('/gestionar-usuario/activacion',['as'=>'administrador.usuario.activacion','uses'=>'AdministradorController@activacionUsuarios']);
+	Route::post('/gestionar-usuario/activar',['as'=>'administrador.usuario.activar','uses'=>'AdministradorController@activarUsuarios']);
 	Route::post('/gestionar-usuario/crear',['as'=>'administrador.usuario.crear','uses'=>'AdministradorController@crearCuentaRubrik']);
 	Route::post('/gestionar-usuario/editar',['as'=>'administrador.usuario.editar','uses'=>'AdministradorController@editarCuentaRubrik']);
 	Route::post('/gestionar-usuario/eliminar',['as'=>'administrador.usuario.eliminar','uses'=>'AdministradorController@eliminarCuentaRubrik']);

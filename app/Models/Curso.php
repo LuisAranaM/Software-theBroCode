@@ -82,6 +82,16 @@ class Curso extends Eloquent
 		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
 	}*/
 
+    static function getIdCurso2($codCurso){
+        $ans = DB::table('CURSOS')
+                ->select('*')
+                ->where('CODIGO_CURSO','=',$codCurso)
+                ->get()
+                ->toArray();
+        return $ans[0]->ID_CURSO;
+    }
+
+
     static function trace($cad){
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $output->writeln("<info>".$cad."</info>");
@@ -277,7 +287,7 @@ class Curso extends Eloquent
 
     public function getCursosByResultado($idEspecialidad,$idSemestre,$idResultado){
         $sql=DB::table('CURSOS AS CUR')
-            ->select('CUR.ID_CURSO','CUR.NOMBRE',
+            ->select('CUR.ID_CURSO','CUR.NOMBRE','CUR.CODIGO_CURSO',
             DB::Raw('SUM(CASE WHEN IHAH.ESCALA_CALIFICACION >=3 THEN 1 ELSE 0 END)/COUNT(*) AS PROMEDIO_APROBADOS'))
         ->leftJoin('INDICADORES_HAS_CURSOS AS IHC',function($join){
                     $join->on('IHC.ID_CURSO','=','CUR.ID_CURSO');

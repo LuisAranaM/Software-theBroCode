@@ -41,7 +41,9 @@ class ReunionesController extends Controller
         $idUsuario = Auth::id();
         $nameOfFile = pathinfo(Input::file('archivo')->getClientOriginalName(), PATHINFO_FILENAME);
         $extensionOfFile = pathinfo(Input::file('archivo')->getClientOriginalName(), PATHINFO_EXTENSION);  //Get extension of file
+        //dd($nameOfFile,$extensionOfFile);
         $file->storePubliclyAs('upload', $nameOfFile.'.'.$extensionOfFile, 'public');
+        //dd($file);
         //dd("HOLA");
         $path = base_path() . '\public\upload' . '\\' . $nameOfFile.'.'.$extensionOfFile ;
         $fecha = date("Y-m-d H:i:s");
@@ -62,7 +64,6 @@ class ReunionesController extends Controller
     public function descargarDocumentosReuniones(Request $request){      
         //dd($request->all(),$request->get('botonSubmit',null));  
 
-
         $tipo=$request->get('botonSubmit',null);
         $checks=$request->get('checkDocs',null);
 
@@ -73,6 +74,9 @@ class ReunionesController extends Controller
                 $files = array();
                 $cant = 0;
                 foreach ($checks as $key => $value) {
+                    //dd($value);
+                    //
+                    //dd(public_path());
                     $file= public_path(). "/upload//".$value;
                     /*NO BORRAR esto es para eliminar fisicamente el archivo
 
@@ -87,8 +91,9 @@ class ReunionesController extends Controller
                     */
                     //Esto es para cambiar el estado a cero
                     //dd($file);
+                    //dd("HOLI",$request->all());
                     DB::table('DOCUMENTOS_REUNIONES')
-                    ->where('RUTA', $file)
+                    ->where('NOMBRE', '=',$value)
                     ->update(['ESTADO' => 0]);
                     $cant = $cant + 1;
                 } 
