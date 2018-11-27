@@ -204,11 +204,8 @@ $( document ).ready(function() {
 		var ind = $('#txtIndicador').val();
 		var idCat= $('#modalIndicador').val();
 		var ordenInd= $('#txtOrdenInd').val();
-		ordenInd = ordenInd.replace(/[^\d]+/g,'');
-		if(ordenInd==""){
-			alert("Oops! El código del indicador debe ser numerico. Vuelva a ingresarlo por favor");
-			return;
-		} 
+		
+		
 		var descs = []
 		var descsNom= []
 		var descsOrd= []
@@ -225,6 +222,36 @@ $( document ).ready(function() {
 		$('#filasDesc .descOrd').each(function() {
 			descsOrd.push( $(this).attr("numdesc"));
 		});
+
+		if(ind!="" && ordenInd!="" && descsNom[0]!="" && descs[0]!=""){
+			ordenInd = ordenInd.replace(/[^\d]+/g,'');
+			if(ordenInd==""){
+				alert("Oops! El código del indicador debe ser numerico. Vuelva a ingresarlo por favor");
+				$('#txtOrdenInd').focus();
+				return;
+			}
+			for (i = 0; i <descsOrd.length; i++) {
+				if((descsNom[i]=="" || descs[i]=="")){
+					if(descsNom[i]=="" && descs[i]=="" && i+1==descsOrd.length) continue; 
+					alert("Oops! Ingrese todos los campos de las descripciones");
+					return;
+					//$('#filasDesc .descNom:first').focus();						
+				}
+			}
+		}else if(ordenInd==""){
+			$('#txtOrdenInd').focus();
+			alert("Ingrese todos los campos del Indicador");
+			return;
+			} else if(ind==""){
+				$('#txtIndicador').focus();
+				alert("Ingrese todos los campos del Indicador");
+				return;
+				} else{
+					$('#filasDesc .descNom:first').focus();
+					alert("Ingrese todos los campos de las descripciones");
+					return;
+				}
+
 		//console.log(cat[1]);
 		if ($("#ModalTitle").text()!="Agregar Nuevo Indicador"){
 			var idInd= $("#modalIndicador").attr("idInd");
@@ -232,12 +259,8 @@ $( document ).ready(function() {
 			e.preventDefault();
 		}else{
 			console.log("si llega aca");
-			if(ind!="" && ordenInd!="" && descs[0]!="" && descsNom[0]!="" && descsOrd[0]!=""){
-				insertarIndicadores(idCat,ind,ordenInd,descs,descsNom,descsOrd,res);
-				e.preventDefault();			
-			} else {
-				alert("Ingrese todos los campos del Indicador");
-			}
+			insertarIndicadores(idCat,ind,ordenInd,descs,descsNom,descsOrd,res);
+			e.preventDefault();	
 		}
 		
 	});
@@ -607,19 +630,16 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 			else{
 				for(i=0; i<descs.length;i++){
 					console.log(descs[i]);
-					//si se deja n campo totalmente vacio se elimina o se obvia
+					//si se deja un campo totalmente vacio se elimina 
+					if(descs[i]=="" && descsNom[i]=="" && descsId[i]!="" && i+1==descs.length){
+						borrarDescripcion(descsId[i]);
+						continue;
+					}
+					//o se obvia
 					if(descs[i]=="" && descsNom[i]==""){
-						if(descsId[i]!=""){
-							borrarDescripcion(descsId[i]);
-							continue;
-						}
-						else continue;
+						continue;
 					}
-					//si al menos un campo se deja vacio
-					if(descs[i]=="" || descsNom[i]==""){
-						alert("Para eliminar la descripcion, deje todos los campos en blanco! Si no, complete los datos faltantes");
-						return;
-					}
+					
 					//si tiene todos los campos llenos y un id se actualiza, si no tiene id se inserta
 					if(descsId[i]!=""){
 						console.log("BONI");
@@ -823,6 +843,7 @@ function insertarIndicadores(idCat,ind,ordenInd,descs,descsNom,descsOrd,resultad
 				console.log(descs.length);
 				for(i=0; i<descs.length;i++){
 					console.log(descs[i]);
+					if(descsNom[i]=="") continue;
 					var resp=insertarDescripciones(descs[i],descsNom[i],descsOrd[i], idInd);
 					if (resp==-2){
 						break;						
