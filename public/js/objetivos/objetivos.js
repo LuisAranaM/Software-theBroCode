@@ -4,6 +4,8 @@ $( document ).ready(function() {
 	
 	$(document).on('click', '.elimSo', function(e){
 		console.log('HOLA');
+		e.preventDefault();    
+		e.stopPropagation();
 		var IDSOS=$(this).attr('idSOS');
 		var nombreSOS=$(this).attr('nombreSOS');
 		//var filaAlumno=$(this).parent().parent().parent();
@@ -11,10 +13,11 @@ $( document ).ready(function() {
 		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
 			eliminarSOS(IDSOS,nombreSOS);
-			$(this).parent().parent().remove();          
+			$(this).parent().parent().remove(); 
+			e.preventDefault();          
 			//.css('display','none');
 		} 
-		e.preventDefault();    
+
 		
 	});
 
@@ -32,9 +35,10 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				location.reload();
+				//location.reload();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
+				e.stopPropagation();
 				alert('Hubo un error al registrar la información');           
 			}
 		});
@@ -42,6 +46,8 @@ $( document ).ready(function() {
 
 	$(document).on('click', '.elimEo', function(e){
 		console.log('HOLA');
+		e.preventDefault();    
+		e.stopPropagation();
 		var IDEOS=$(this).attr('idEOS');
 		var nombreEOS=$(this).attr('nombreEOS');
 		//var filaAlumno=$(this).parent().parent().parent();
@@ -49,10 +55,11 @@ $( document ).ready(function() {
 		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
 			eliminarEOS(IDEOS,nombreEOS);   
-			$(this).parent().parent().remove();                
+			$(this).parent().parent().remove();
+			e.preventDefault();                
 			//.css('display','none');
 		} 
-		e.preventDefault();    
+
 		
 	});
 
@@ -70,9 +77,10 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				location.reload();
+				//location.reload();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
+				e.stopPropagation()
 				alert('Hubo un error al registrar la información');           
 			}
 		});
@@ -227,6 +235,7 @@ $( document ).ready(function() {
 						console.log(nombreSOS);
 						editarSOS(IDSOS,nombreSOS); 
 						e.preventDefault();
+						e.stopPropagation();
 					}
 				}
 			}).appendTo( $this.empty() ).focus();
@@ -248,6 +257,7 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
+				e.preventDefault();
 				//location.reload();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
@@ -299,6 +309,7 @@ $( document ).ready(function() {
 			success:function(result)
 			{
 				//location.reload();
+				e.preventDefault();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
 				e.preventDefault();
