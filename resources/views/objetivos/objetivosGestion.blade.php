@@ -24,7 +24,7 @@
 								<thead >
 									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
 										<th class="pText column-title" style="border: none">Objetivos del Estudiante</th>
-										<th class="pText column-title" style="border: none">Seleccionar</th>
+										<th class="pText column-title" style="border: none; text-align: center;">Seleccionar</th>
 									</tr>
 								</thead>
 
@@ -70,7 +70,7 @@
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
 									<th class="pText column-title" style="border: none">Objetivos Educacionales</th>
-									<th class="pText column-title" style="border: none">Seleccionar</th>
+									<th class="pText column-title" style="border: none; text-align: center;">Seleccionar</th>
 
 
 								</tr>

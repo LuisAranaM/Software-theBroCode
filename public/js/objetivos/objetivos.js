@@ -10,7 +10,8 @@ $( document ).ready(function() {
 		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreSOS+"?");
 		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
-			eliminarSOS(IDSOS,nombreSOS);          
+			eliminarSOS(IDSOS,nombreSOS);
+			$(this).parent().parent().remove();          
 			//.css('display','none');
 		} 
 		e.preventDefault();    
@@ -47,7 +48,8 @@ $( document ).ready(function() {
 		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreEOS+"?");
 		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
-			eliminarEOS(IDEOS,nombreEOS);          
+			eliminarEOS(IDEOS,nombreEOS);   
+			$(this).parent().parent().remove();                
 			//.css('display','none');
 		} 
 		e.preventDefault();    
@@ -118,7 +120,7 @@ $( document ).ready(function() {
 		console.log('HOLA2');
 		var textSos=$('#txtSos').val();
 		var myLength = $("#txtSos").val().length
-		if(myLength==null || myLength=='' || myLength < 3 ){
+		if(myLength==null || myLength==''){
 			$('#txtSos').focus();
 			alert("Ingrese la descripción del SOS");
 			//return;
@@ -163,7 +165,7 @@ $( document ).ready(function() {
 		var txtEos=$('#txtEos').val();
 
 		var myLengtheos = $("#txtEos").val().length
-		if(myLengtheos==null || myLengtheos=='' || myLengtheos < 3 ){
+		if(myLengtheos==null || myLengtheos==''){
 			$('#txtEos').focus();
 			alert("Ingrese la descripción del EOS");
 			//return;
@@ -172,7 +174,7 @@ $( document ).ready(function() {
 			agregarEOS(txtEos);   
 		}
 
-		
+
 		//e.preventDefault();      
 		
 	});
