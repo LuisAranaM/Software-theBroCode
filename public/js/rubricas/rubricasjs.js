@@ -204,6 +204,11 @@ $( document ).ready(function() {
 		var ind = $('#txtIndicador').val();
 		var idCat= $('#modalIndicador').val();
 		var ordenInd= $('#txtOrdenInd').val();
+		ordenInd = ordenInd.replace(/[^\d]+/g,'');
+		if(ordenInd==""){
+			alert("Oops! El código del indicador debe ser numerico. Vuelva a ingresarlo por favor");
+			return;
+		} 
 		var descs = []
 		var descsNom= []
 		var descsOrd= []
@@ -778,6 +783,7 @@ function insertarResultados(codRes,descRes,cat){
 	});
 }
 function insertarCategorias(descCat, idRes){
+  
 	$.ajax({
 		type:'POST',
 		headers: {
@@ -789,8 +795,7 @@ function insertarCategorias(descCat, idRes){
 			resultado: idRes,
 		},
 		dataType: "text",
-		success: function(result) {
-		}
+		async: false
 	});
 }
 function insertarIndicadores(idCat,ind,ordenInd,descs,descsNom,descsOrd,resultado){
