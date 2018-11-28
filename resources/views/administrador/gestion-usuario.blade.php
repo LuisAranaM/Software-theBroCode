@@ -17,69 +17,108 @@
 		<div class="col-md-3 col-sm-6">
 			<h1 class="mainTitle">Nuevo Usuario <i id="btnNuevoUsuario" class="fa fa-plus-circle" style="font-size: 30px;cursor:pointer;"></i></h1>
 		</div>
-		 
+
 	</div>
 	@include('flash::message')
-	<div class="row">
+  <form action="{{ route('administrador.usuario') }}" class="form-horizontal">
+   <div class=" x_panel tile ">
     <div class="row">
-			<div class=" x_panel tile ">
-				<h4>Filtros:</h4>
+      <div class="form-group col-md-2">
+        <label for="" class="control-label">Usuario:</label>
+        <input class="form-control" type="text" value="{{ $filtros['usuario'] }}" name="usuarioBuscar">
+      </div>
 
-			</div>
-		</div>
-    
+      <div class="form-group col-md-2">
+        <label for="" class="control-label">E-mail:</label>
+        <input class="form-control" type="text" value="{{ $filtros['email'] }}" name="emailBuscar">
+      </div>
 
-		<div class="row">
-			<div class=" x_panel">
-				<table class="table table-striped jambo_table">
-					<thead>
-						<tr class="headings">
-							<td style="vertical-align:middle;text-align:center">Usuario</td>
-							<td style="vertical-align:middle;text-align:center">E-mail</td>
-							<td style="vertical-align:middle;text-align:center">Nombres y Apellidos</td>
+      <div class="form-group col-md-3">
+        <label for="" class="control-label">Nombres:</label>
+        <input class="form-control" type="text" value="{{ $filtros['nombres'] }}" name="nombreBuscar">
+      </div>
 
-							<td style="vertical-align:middle;text-align:center">Rol</td>
-							<td style="vertical-align:middle;text-align:center">Especialidad</td>
-							<td style="vertical-align:middle;text-align:center"></td>
-							<td style="vertical-align:middle;text-align:center"></td>
-						</tr>
-					</thead>
-					<tbody>
-						@if(count($usuarios)>0)
-						@foreach($usuarios as $usuario)
-						<tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}">
-							<td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
-							<td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
-							<td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 
-								@if($usuario->PERFIL==NULL)
-								<div class="user-profile">
-									<img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil">
-								</div> 
-								@else
-								<div class="user-profile">
-									<img src="{{$usuario->PERFIL}}" alt="perfil"> </div>
-									@endif
-								</td>
+      <div class="form-group col-md-2">
+        <label for="" class="control-label">Roles:</label>
+        <select id="cboRolBuscar" class="form-control" name="rolBuscar">
+          <option value="">Todos</option>
+          @foreach ($roles as  $rol)
+          <option value="{{$rol->ID_ROL}}" {{($rol->ID_ROL == $filtros['rol'])? 'selected="selected"':''}}
+            >{{$rol->NOMBRE}}</option>
+            @endforeach
+          </select>
+        </div>
 
-								<td style="vertical-align:middle;text-align:center">{{$usuario->ROL_USUARIO}}</td>
-								<td style="vertical-align:middle;text-align:center">{{$usuario->ESPECIALIDAD_USUARIO}}</td>
-								<td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarUsuario" style="font-size: 20px;cursor: pointer;"></i></td>
-								<td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarUsuario" style="font-size: 20px;cursor: pointer;"></i></td>
-							</tr>
-							@endforeach
-							@else
-							<tr>
-								<td colspan="10">No se encontraron resultados</td>
-							</tr>
-							@endif
-						</tbody>
-					</table>
+        <div class="form-group col-md-2">
+          <label for="" class="control-label">Especialidad:</label>
+          <select id="cboEspecialidadBuscar" class="form-control" name="especialidadBuscar">
+            <option value="">Todos</option>
+            @foreach ($especialidades as  $especialidad)
+            <option value="{{$especialidad->ID_ESPECIALIDAD}}" {{($especialidad->ID_ESPECIALIDAD == $filtros['especialidad'])? 'selected="selected"':''}}
+              >{{$especialidad->NOMBRE}}</option>
+              @endforeach
+            </select>
+          </div>
 
-					{{$usuarios->appends(array_merge($filtros,$orden))->links()}}
-				</div>
-			</div>
-		</div>
-	</div>
+            <button type="submit" class="btn btn-link" >
+              <span class="fa fa-search fa-lg" style="font-size:25px;margin-top: 25px;"></span>
+            </button>
+        </div>
+      </div>
+    </form>
+
+
+    <div class="row">
+     <div class=" x_panel">
+      <table class="table table-striped jambo_table">
+       <thead>
+        <tr class="headings">
+         <td style="vertical-align:middle;text-align:center">Usuario</td>
+         <td style="vertical-align:middle;text-align:center">E-mail</td>
+         <td style="vertical-align:middle;text-align:center">Nombres y Apellidos</td>
+
+         <td style="vertical-align:middle;text-align:center">Rol</td>
+         <td style="vertical-align:middle;text-align:center">Especialidad</td>
+         <td style="vertical-align:middle;text-align:center"></td>
+         <td style="vertical-align:middle;text-align:center"></td>
+       </tr>
+     </thead>
+     <tbody>
+      @if(count($usuarios)>0)
+      @foreach($usuarios as $usuario)
+      <tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}">
+       <td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
+       <td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
+       <td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 
+        @if($usuario->PERFIL==NULL)
+        <div class="user-profile">
+         <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil">
+       </div> 
+       @else
+       <div class="user-profile">
+         <img src="{{$usuario->PERFIL}}" alt="perfil"> </div>
+         @endif
+       </td>
+
+       <td style="vertical-align:middle;text-align:center">{{$usuario->ROL_USUARIO}}</td>
+       <td style="vertical-align:middle;text-align:center">{{$usuario->ESPECIALIDAD_USUARIO}}</td>
+       <td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarUsuario" style="font-size: 20px;cursor: pointer;"></i></td>
+       <td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarUsuario" style="font-size: 20px;cursor: pointer;"></i></td>
+     </tr>
+     @endforeach
+     @else
+     <tr>
+      <td colspan="10">No se encontraron resultados</td>
+    </tr>
+    @endif
+  </tbody>
+</table>
+
+{{$usuarios->appends(array_merge($filtros,$orden))->links()}}
+</div>
+</div>
+</div>
+</div>
 </div>
 
 </div>
@@ -104,72 +143,72 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   <div class="modal-body">
     <div class="container-fluid text-center">
       <form id="frmNuevoUsuario" method="POST" action="{{ route('administrador.usuario.crear') }}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
-    <div class="form-group">
-        <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input style="margin-bottom: 0px;"  class="form-control" type="hidden" name="perfil" value="">
-        <div class="col-md-6 col-sm-6 col-xs-12"> 
+        <div class="form-group">
+          <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input style="margin-bottom: 0px;"  class="form-control" type="hidden" name="perfil" value="">
+          <div class="col-md-6 col-sm-6 col-xs-12"> 
             <div class="form-group">
-                <label>Usuario</label>
-                <input style="margin-bottom: 0px;"  class="form-control formatInputNumber" placeholder="Código PUCP" type="text" name="usuario" >
+              <label>Usuario</label>
+              <input style="margin-bottom: 0px;"  class="form-control formatInputNumber" placeholder="Código PUCP" type="text" name="usuario" >
             </div>
             <div class="form-group">
-                <label>Nombres</label>
-                <input style="margin-bottom: 0px;"  class="form-control formatInputLetter" placeholder="Nombres" type="text" name="nombres" value="">
+              <label>Nombres</label>
+              <input style="margin-bottom: 0px;"  class="form-control formatInputLetter" placeholder="Nombres" type="text" name="nombres" value="">
             </div>
             <div class="form-group">
-                <label>Apellido Paterno</label>
-                <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Paterno" type="text" name="apellidoPat" value="">
+              <label>Apellido Paterno</label>
+              <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Paterno" type="text" name="apellidoPat" value="">
             </div>
             <div class="form-group">
-                <label>Apellido Materno</label>
-                <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Materno" type="text" name="apellidoMat" value="">
+              <label>Apellido Materno</label>
+              <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Materno" type="text" name="apellidoMat" value="">
             </div>
             <div class="form-group">
-                <label>Correo Electrónico </label>
-                <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
+              <label>Correo Electrónico </label>
+              <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
             </div>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
-                <label>Contraseña</label>
-                <input style="margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="pass">
+              <label>Contraseña</label>
+              <input style="margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="pass">
             </div>
             <div class="form-group">
-                <label>Confirmar Contraseña</label>
-                <input style="
-                margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="passConfirm">
+              <label>Confirmar Contraseña</label>
+              <input style="
+              margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="passConfirm">
             </div>
             <div class="form-group" style="height: 55px">
 
-                <label>Rol</label>
-                <select class="form-control" name="rol" id="cboRol">
-                  <option value="">Selecciona una opción</option>
-                  @foreach($roles as $rol)
-                  <option value="{{$rol->ID_ROL}}">{{$rol->NOMBRE}}</option>
-                  @endforeach
+              <label>Rol</label>
+              <select class="form-control" name="rol" id="cboRol">
+                <option value="">Selecciona una opción</option>
+                @foreach($roles as $rol)
+                <option value="{{$rol->ID_ROL}}">{{$rol->NOMBRE}}</option>
+                @endforeach
               </select>
-          </div>
+            </div>
 
-          <div class="form-group" style="height: 55px">
+            <div class="form-group" style="height: 55px">
               <label>Especialidad</label>
               <select class="form-control" name="especialidad" id="cboEspecialidad" disabled="">
-                  <option value="">Selecciona una opción</option>
-                  @foreach($especialidades as $especialidad)
-                  <option value="{{$especialidad->ID_ESPECIALIDAD}}">{{$especialidad->NOMBRE}}</option>
-                  @endforeach
+                <option value="">Selecciona una opción</option>
+                @foreach($especialidades as $especialidad)
+                <option value="{{$especialidad->ID_ESPECIALIDAD}}">{{$especialidad->NOMBRE}}</option>
+                @endforeach
               </select>
+            </div>
           </div>
-      </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit" style="font-size: 14px;margin-top: 20px">Registrar Usuario</button>
-</div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit" style="font-size: 14px;margin-top: 20px">Registrar Usuario</button>
+        </div>
 
-</form> 
-      </div>
+      </form> 
     </div>
   </div>
-  <!-- /.modal-content -->
+</div>
+<!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>

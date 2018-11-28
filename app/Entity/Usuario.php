@@ -60,7 +60,7 @@ class Usuario extends \App\Entity\Base\Entity {
 
         static function getUsuariosGestion($filtros=[],$orden=[]){
             $model=new mUsuario();
-            $query = $model->getUsuariosGestion($filtros);  
+            $query = $model->getUsuariosGestion($filtros,$orden);  
 
             $totalCount = $query->count();
 

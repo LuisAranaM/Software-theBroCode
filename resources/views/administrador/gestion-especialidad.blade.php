@@ -2,6 +2,8 @@
 
 @section('js-libs')
 
+<script type="text/javascript"  src="{{ URL::asset('js/especialidades/especialidades.js') }}"></script>
+
 
 @stop
 
@@ -29,6 +31,7 @@
 						<thead>
 							<tr class="headings">
 								<td style="vertical-align:middle;text-align:center">Especialidad</td>
+								<td style="vertical-align:middle;text-align:center">Fecha de Creación</td>
 								<td style="vertical-align:middle;text-align:center"></td>
 								<td style="vertical-align:middle;text-align:center"></td>
 							</tr>
@@ -36,10 +39,11 @@
 						<tbody>
 							@if(count($especialidades)>0)
 							@foreach($especialidades as $especialidad)
-							<tr>
+							<tr idEspecialidad="{{$especialidad->ID_ESPECIALIDAD}}" nombEspecialidad="{{$especialidad->NOMBRE}}">
 								<td style="vertical-align:middle;text-align:center">{{$especialidad->NOMBRE}}</td>
-								<td style="vertical-align:middle;text-align:center"><a href="#"><i class="fa fa-edit" style="font-size: 20px"></i></a></td>
-								<td style="vertical-align:middle;text-align:center"><a href="#"><i class="fa fa-trash" style="font-size: 20px"></i></a></td>
+								<td style="vertical-align:middle;text-align:center">{{$especialidad->FECHA_REGISTRO}}</td>
+								<td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarEspecialidad" style="font-size: 20px;cursor: pointer;"></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarEspecialidad" style="font-size: 20px;cursor: pointer;"></td>
 							</tr>
 							@endforeach
 							@else
@@ -79,7 +83,7 @@
 
 				</div>
 			</div>
-			<div class=" x_panel">
+			<div class=" x_panel hidden" id="panelEditarEspecialidad">
 				<div class="x_title">
 					<h2>Editar Especialidad</h2>
 					<div class="clearfix"></div>
@@ -92,7 +96,7 @@
 						</div>
 						<div class="form-group">
 							<label>Especialidad</label>
-							<input style="margin-bottom: 0px;"  class="form-control" placeholder="Especialidad" type="text" name="especialidad" value="">
+							<input style="margin-bottom: 0px;"  class="form-control" placeholder="Especialidad" type="text" name="nombEspecialidad" value="">
 						</div>
 						<div class="form-group">
 							<button class="btn btn-primary" type="submit" style="font-size: 14px">Actualizar</button>

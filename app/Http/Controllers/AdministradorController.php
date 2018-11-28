@@ -92,10 +92,17 @@ class AdministradorController extends Controller
 
 
     public function gestionUsuarios(Request $request){
+        //dd("HOLI");
         $filtros=[
             'page' => $request->get('page',1),
             'estado' => $request->get('estado',1),
+            'rol' => $request->get('rolBuscar',null),
+            'especialidad' => $request->get('especialidadBuscar',null),
+            'usuario' => $request->get('usuarioBuscar',null),
+            'email' => $request->get('emailBuscar',null),
+            'nombres' => $request->get('nombreBuscar',null),
         ];
+        //dd($filtros);
         $orden=[];
         return view('administrador.gestion-usuario')
         ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario'))
@@ -109,7 +116,13 @@ class AdministradorController extends Controller
         $filtros=[
             'page' => $request->get('page',1),
             'estado' => $request->get('estado',0),
+             'rol' => $request->get('rolBuscar',null),
+            'especialidad' => $request->get('especialidadBuscar',null),
+            'usuario' => $request->get('usuarioBuscar',null),
+            'email' => $request->get('emailBuscar',null),
+            'nombres' => $request->get('nombreBuscar',null),
         ];
+
         $orden=[];
         return view('administrador.activacion-usuario')
         ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario'))
@@ -229,7 +242,15 @@ public function gestionEspecialidades(Request $request){
 }
 
 public function crearEspecialidad(Request $request){
+      $especialidad=new Especialidad();
 
+       if($especialidad->crearEspecialidad($request->get('especialidad'),Auth::id())){
+        flash('Se creó la especialidad correctamente')->success();
+            //return back();
+    } else {
+        flash($especialidad->getMessage())->error();
+    }
+    return back();      
 }
 
 public function editarEspecialidad(Request $request){
