@@ -11,6 +11,7 @@ use DB;
 use Log;
 use App\Entity\IndicadoresHasCurso as IndicadoresHasCurso;
 use App\Entity\Descripcion as Descripcion;
+use App\Entity\ProfesoresHasHorario as EProfesoresHasHorario;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -141,8 +142,9 @@ class Curso extends Eloquent
           
             $data["curso"] = $c;
             $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
-            $cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
-          
+            //$cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
+            $indicadoresCurso=IndicadoresHasCurso::getIndicadoresbyIdCurso($c->ID_CURSO);
+            $cantIndicadores=count($indicadoresCurso);
             foreach($horarios as $h){
                 
                 if($usuario->ID_ROL == 4){
@@ -157,8 +159,10 @@ class Curso extends Eloquent
                 
 
                 $horario["horario"] = $h;
-                $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO);
+                $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO,$indicadoresCurso);
                 $tot = Horario::getCantAlumnos($h->ID_HORARIO);
+                $horario["profesor"] = EProfesoresHasHorario::getProfesorHorario($h->ID_HORARIO);
+                //dd($horario["profesor"]);
                 $horario["alumnosTotal"] = $tot;
                 $part = 0;
                 $idAlumnos = array();
@@ -216,6 +220,7 @@ class Curso extends Eloquent
         $ans["progreso"] = $div;
         $ans["cursosCalificados"] = Curso::getCursosCalificados($ans);
         $ans["cantidadCursos"] = Curso::getCantCursos($ans);
+        //dd($ans);
         return $ans;
     }
 

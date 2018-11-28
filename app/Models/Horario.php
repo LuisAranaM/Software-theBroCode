@@ -101,15 +101,17 @@ class Horario extends Eloquent
 		return $ans;
 	}
 
-	// Arana ctm
-	static function getIndicadoresHasAlumnosHasHorarios($idHorario){
+	static function getIndicadoresHasAlumnosHasHorarios($idHorario,$indicadoresCurso=null){
+		$idsIndicadores=array();
+		foreach ($indicadoresCurso as $ind) {
+			//dd($ind->ID_INDICADOR);
+			$idsIndicadores[]=$ind->ID_INDICADOR;
+		}
+		//dd($idsIndicadores);
 		$ans = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH')
-				->select('IHAH.*')
-				->leftJoin('INDICADORES AS IND', function ($join) {
-					$join->on('IND.ID_INDICADOR', '=', 'IHAH.ID_INDICADOR');
-				})
+				->select()
 				->whereRaw('IHAH.ID_HORARIO = ? AND IHAH.ESTADO = 1',[$idHorario])				
-				->where('IND.ESTADO','=',1)			
+				->whereIn('IHAH.ID_INDICADOR',$idsIndicadores)			
 				->get();
 				
 		return $ans;

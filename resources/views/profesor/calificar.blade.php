@@ -48,7 +48,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
           <div class="widget_summary" >
             <div class="w_center w_55" style="width: 100%">
               <div class="progress" style="margin-bottom: 0px">
-                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="100% style="width: {{ $cursos["progreso"]  }} ; background-color: #005b7f !important; border: none !important"  >
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $cursos["progreso"]  }}% ; background-color: #005b7f !important; border: none !important"  >
                   <span class="sr-only"> {{ $cursos["progreso"] }}% Complete</span>
 
                 </div>
@@ -84,10 +84,11 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
 
           <div class="row">
 
-            <div class="col-lg-1 col-md-2 col-xs-12" >
-              <p class="pText" style="margin-bottom: 0px">H-{{$h["horario"]->NOMBRE}}</p>
+            <div class="col-lg-3 col-md-4 col-xs-12" >
+              <p class="pText" style="margin-bottom: 0px;font-weight: bold;">H-{{$h["horario"]->NOMBRE}}</p>
+              <p class="pText" style="margin-bottom: 0px">{{$h["profesor"]}}</p>
             </div>
-            <div class="col-lg-9 col-md-7 col-sm-9 col-xs-7" style="padding-bottom: 0">
+            <div class="col-lg-7 col-md-5 col-sm-9 col-xs-7" style="padding-bottom: 0">
               <div class="widget_summary" >
                 <div class="w_center w_55" style="width: 100%">
                   <div class="progress" style="margin-bottom: 0px">
