@@ -32,7 +32,7 @@
     @if(count($c["horarios"])>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
 
-      <div class="x_panel" style="background-color: #94bfce">
+      <div class="x_panel" style="background-color: #5281a8">
         <h2 style="color: white">Progreso Total</h2>
         <div class="col-sm-1 col-xs-2" >
           <p style="color: white" class="pText" style="margin-bottom: 0px">Cursos</p>
