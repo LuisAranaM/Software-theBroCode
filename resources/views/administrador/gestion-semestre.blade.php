@@ -108,21 +108,21 @@
 								<label>Fecha Inicio</label>
 								<div class="input-group" style="width: 130px;">	        	                     
 									<div class="input-group-addon styleAddOn"><i class="fa fa-calendar"></i></div>
-									<input class="form-control dfecha"  type="text" id="txtFechaInicio" name="fInicio" placeholder="Fecha inicio">
+									<input class="form-control dfecha"  type="text" id="txtFechaInicio" name="fInicio" placeholder="Fecha inicio"  style="padding-right: 10px;">
 								</div>
 							</div>
 							<div class="form-group col-md-4">
 								<label>Fecha Fin</label>
 								<div class="input-group" style="width: 130px;">	        	                     
 									<div class="input-group-addon styleAddOn"><i class="fa fa-calendar"></i></div>
-									<input class="form-control dfecha"  type="text" id="txtFechaFin" name="fFin" placeholder="Fecha fin">
+									<input class="form-control dfecha"  type="text" id="txtFechaFin" name="fFin" placeholder="Fecha fin"  style="padding-right: 10px;">
 								</div>
 							</div>
 							<div class="form-group col-md-4">
 								<label>Fecha Alerta</label>
 								<div class="input-group" style="width: 130px;">	        	                     
 									<div class="input-group-addon styleAddOn"><i class="fa fa-calendar"></i></div>
-									<input class="form-control dfecha"  type="text" id="txtFechaAlerta" name="fAlerta" placeholder="Fecha alerta">
+									<input class="form-control dfecha"  type="text" id="txtFechaAlerta" name="fAlerta" placeholder="Fecha alerta"  style="padding-right: 10px;">
 								</div>
 							</div>
 							<div class="form-group col-md-4">

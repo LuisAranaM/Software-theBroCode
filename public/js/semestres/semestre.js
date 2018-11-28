@@ -84,6 +84,67 @@ $('#semestreAct').on('change', function(e) {
         e.preventDefault();
         console.log('HOLI');
     });
+
+    $('#frmNuevoSemestre').formValidation({
+      framework: 'bootstrap',
+      icon: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+  anho: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
+},
+ciclo: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
+},
+fInicio: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+},
+fFin: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+},
+fAlerta: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+}
+
+
+},
+})
+    .off('success.form.fv');  
 		
 	});
 
