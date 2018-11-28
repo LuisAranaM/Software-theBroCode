@@ -33,7 +33,7 @@ class Usuario extends Authenticatable implements Auditable{
  * @package App\Models
  */
     
-	protected $table = 'USUARIOS';
+    protected $table = 'USUARIOS';
     
     /**
      * The primary key for the model.
@@ -41,37 +41,37 @@ class Usuario extends Authenticatable implements Auditable{
      * @var string
      */
     protected $primaryKey ='ID_USUARIO';
-					        
+
         /**
      * The name of the "created at" column.
      *
      * @var string
      */
-     public $timestamps = false;
-    
-        protected $casts = [
-        'ID_ROL' => 'int',
-        'USUARIO_MODIF' => 'int',
-        'ESTADO' => 'int'
-    ];
+        public $timestamps = false;
 
-    protected $dates = [
-        'FECHA_REGISTRO',
-        'FECHA_ACTUALIZACION'
-    ];
-    
-    protected $fillable = [
-       'USUARIO',
-        'PASS',
-        'CORREO',
-        'FECHA_REGISTRO',
-        'FECHA_ACTUALIZACION',
-        'USUARIO_MODIF',
-        'ESTADO',
-        'NOMBRES',
-        'APELLIDO_PATERNO',
-        'APELLIDO_MATERNO',
+        protected $casts = [
+            'ID_ROL' => 'int',
+            'USUARIO_MODIF' => 'int',
+            'ESTADO' => 'int'
         ];
+
+        protected $dates = [
+            'FECHA_REGISTRO',
+            'FECHA_ACTUALIZACION'
+        ];
+
+        protected $fillable = [
+         'USUARIO',
+         'PASS',
+         'CORREO',
+         'FECHA_REGISTRO',
+         'FECHA_ACTUALIZACION',
+         'USUARIO_MODIF',
+         'ESTADO',
+         'NOMBRES',
+         'APELLIDO_PATERNO',
+         'APELLIDO_MATERNO',
+     ];
     /**
      * The attributes that are mass assignable.
      *
@@ -84,7 +84,7 @@ class Usuario extends Authenticatable implements Auditable{
         'NOMBRES',
         'APELLIDO_PATERNO',
         'APELLIDO_MATERNO'
-        ];
+    ];
     //protected $username = 'REGISTRO';
 
     public function rol()
@@ -105,7 +105,7 @@ class Usuario extends Authenticatable implements Auditable{
     public function getAuthPassword () {
         return $this->PASS;
     }
-        public function getRememberToken()
+    public function getRememberToken()
     {
         if (! empty($this->TOKEN)) {
             return $this->TOKEN;
@@ -128,8 +128,8 @@ class Usuario extends Authenticatable implements Auditable{
     }
     static function getUsuario($usuario){
         $sql=DB::table('USUARIOS')
-                ->select()
-                ->where('USUARIO','=',$usuario);
+        ->select()
+        ->where('USUARIO','=',$usuario);
         //dd($sql);
         return $sql;
     }
@@ -151,26 +151,41 @@ class Usuario extends Authenticatable implements Auditable{
         ->where('US.ESTADO','=',$filtros['estado'])
         ->orderBy('ROL.NOMBRE','ASC')
         ->orderBy(DB::Raw("CONCAT(US.CORREO,US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO)"),'ASC');
-        
+
+        if (isset($filtros['rol'])){
+            $sql = $sql->where('US.ID_ROL','=',$filtros['rol']);
+        }
+        if (isset($filtros['especialidad'])){
+            $sql = $sql->where('UE.ID_ESPECIALIDAD','=',$filtros['especialidad']);
+        }
+        if (isset($filtros['usuario'])){
+            $sql = $sql->where('US.USUARIO','like','%'.$filtros['usuario'].'%');
+        }
+        if (isset($filtros['email'])){
+            $sql = $sql->where('US.CORREO','like','%'.$filtros['email'].'%');
+        }
+        if (isset($filtros['nombres'])){
+            $sql = $sql->where(DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO)"),'like','%'.$filtros['nombres'].'%');
+        }
         //dd($sql);
         return $sql;
     }
 
 
-     static function getCorreo($correo){
+    static function getCorreo($correo){
         $sql=DB::table('USUARIOS')
-                ->select()
-                ->where('CORREO','=',$correo)
-                ->where('ESTADO','=',1);
+        ->select()
+        ->where('CORREO','=',$correo)
+        ->where('ESTADO','=',1);
         //dd($sql);
         return $sql;
     }
 
     static function verificarUsuario($usuario){
         $sql=DB::table('USUARIOS')
-                ->select()
-                ->where('CORREO','=',$usuario['CORREO'])
-                ->where('USUARIO','=',$usuario['USUARIO']);
+        ->select()
+        ->where('CORREO','=',$usuario['CORREO'])
+        ->where('USUARIO','=',$usuario['USUARIO']);
         //dd($sql);
         return $sql->count();
     }
@@ -178,8 +193,8 @@ class Usuario extends Authenticatable implements Auditable{
     static function updateFoto($idUsuario,$usuarioGoogle){
         $hoy=Carbon::now();
         $sql=DB::table('USUARIOS')                
-                ->where('ID_USUARIO','=',$idUsuario)
-                ->update(['PERFIL' => $usuarioGoogle['IMAGEN_PERFIL'],'FECHA_ACTUALIZACION'=>$hoy]);
+        ->where('ID_USUARIO','=',$idUsuario)
+        ->update(['PERFIL' => $usuarioGoogle['IMAGEN_PERFIL'],'FECHA_ACTUALIZACION'=>$hoy]);
         return true;
     }
     static function updateMasive(){
@@ -199,19 +214,19 @@ class Usuario extends Authenticatable implements Auditable{
         //dd("HOLA");
         $hoy=Carbon::now();
         return DB::table('USUARIOS')
-             ->where('CORREO','=',$correo)
-            ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>$hoy]);
+        ->where('CORREO','=',$correo)
+        ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>$hoy]);
     }
     public function actualizarContrasena($idUsuario,$password){
         return DB::table('USUARIOS')
-             ->where('ID_USUARIO','=',$idUsuario)
-            ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>Carbon::now(),'USUARIO_MODIF'=>$idUsuario]);
+        ->where('ID_USUARIO','=',$idUsuario)
+        ->update(['PASS' => Hash::make($password),'FECHA_ACTUALIZACION'=>Carbon::now(),'USUARIO_MODIF'=>$idUsuario]);
     }
     public function verificarContrasena($idUsuario,$apassword){
         $sql = DB::table('USUARIOS AS US')
-               ->where('ID_USUARIO', '=', $idUsuario)
-               ->where('ESTADO','=','1');
-         
+        ->where('ID_USUARIO', '=', $idUsuario)
+        ->where('ESTADO','=','1');
+
         //El usuario encontrado es la primera coincidencia (usuario es unico)     
         $usuario = $sql->first();
         //La función Hash::check() se encarga de confirmar si dos cadenas encriptadas son iguales
@@ -222,7 +237,8 @@ class Usuario extends Authenticatable implements Auditable{
         $sql = DB::table('USUARIOS')
                 ->select('ID_USUARIO')
                 ->where('USUARIO','=',$codUsuario)
-                ->where('CORREO','=',$correo);
+                ->orWhere('CORREO','=',$correo);
+
         return $sql;
 
     }
@@ -231,7 +247,7 @@ class Usuario extends Authenticatable implements Auditable{
         //dd(Carbon::now());    
         DB::beginTransaction();
         $status = true;
-       
+
         try {
             $idUsuario=DB::table('USUARIOS')->insertGetId($usuario);
             $usuarioEspecialidad['ID_USUARIO']=$idUsuario;
@@ -252,15 +268,15 @@ class Usuario extends Authenticatable implements Auditable{
     function activarUsuarios($checks,$usuarioModif){
         DB::beginTransaction();
         $status = true;
-       
+
         try {
             foreach($checks as $check){
                 //dd($check);
-            DB::table('USUARIOS')
+                DB::table('USUARIOS')
                 ->where('ID_USUARIO','=',$check)
                 ->update(['ESTADO'=>1,
-                        'FECHA_ACTUALIZACION'=>Carbon::now(),
-                        'USUARIO_MODIF'=>$usuarioModif]);
+                    'FECHA_ACTUALIZACION'=>Carbon::now(),
+                    'USUARIO_MODIF'=>$usuarioModif]);
             }
             DB::commit();
         } catch (\Exception $e) {
@@ -275,13 +291,13 @@ class Usuario extends Authenticatable implements Auditable{
         //dd(Carbon::now());    
         DB::beginTransaction();
         $status = true;
-       
+
         try {
             DB::table('USUARIOS')
-                ->where('ID_USUARIO','=',$idUsuario)
-                ->update(['ESTADO'=>0,
-                        'FECHA_ACTUALIZACION'=>Carbon::now(),
-                        'USUARIO_MODIF'=>$usuarioModif]);
+            ->where('ID_USUARIO','=',$idUsuario)
+            ->update(['ESTADO'=>0,
+                'FECHA_ACTUALIZACION'=>Carbon::now(),
+                'USUARIO_MODIF'=>$usuarioModif]);
             DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());

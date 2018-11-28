@@ -17,7 +17,7 @@
         <input class="form-control" style="margin-bottom: 5px; margin-left: 100px;width: 300px" placeholder="Contraseña" type="password" required="" name="pass" onKeyPress=" capLock(event) ">
         <div id="caplock" style=" visibility:hidden ">El bloqueo de mayúsculas está activado</div>    
     </div>
-    <div class="col-md-2"></div><div class="col-md-8">@include('flash::message')</div><div class="col-md-2"></div>
+    @include('flash::message')
     <div class="form-group">
         <button class="btn btn-primary" type="submit" style="font-size: 14px; width: 300px">Ingresar</button>
     </div>

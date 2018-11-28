@@ -172,6 +172,14 @@
   margin-top: 10px;
 }
 
+.customButtonLarge2 {
+  height: 35px;
+  background-color: #005b7f;
+  border-color:#005b7f;
+  margin-right: 0px;
+  width: 150px !important;
+}
+
 button:hover {
   background-color: #CCCCCC !important;
   border-color: #CCCCCC !important;
@@ -446,18 +454,44 @@ li {
   } 
 
 
-.customInputDocsReunionesModal {
-  border-radius: 4px;
-  height: 20px;
-}
+  .customInputDocsReunionesModal {
+    border-radius: 4px;
+    height: 20px;
+  }
 
-.customInputDocsReuniones {
-  border-radius: 4px;
-  height: 25px;
-}
+  .customInputDocsReuniones {
+    border-radius: 4px;
+    height: 25px;
+  }
+
+  .userName {
+    display: inline-block;
+  }
+
+   .modalResultados {
+    width: 500px !important; 
+    height: 300px;
+    display: inline-block; 
+    vertical-align: middle; 
+  }
+
+  @media screen and (max-width: 500px) {
+    .userName {
+      display: block;
+    }
+  }
+
+ 
+
+  @media screen and (max-width: 500px) {
+    .modalResultados {
+    width: 90% !important; 
+    height: 300px;
+  }
+  }
 
 
-/*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
+  /*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
 /*.modalCargando {
     display:    none;
     position:   fixed;

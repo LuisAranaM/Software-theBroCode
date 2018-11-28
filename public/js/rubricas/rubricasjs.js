@@ -53,7 +53,7 @@ $( document ).ready(function() {
 	$(document).on("click",".resultTrash", function(e){
 		//var codigoCurso=$(this).attr('codigoCurso');
         //var nombreCurso=$(this).attr('nombreCurso');
-        var resp=confirm("¿Estás seguro de que deseas eliminar este indicador?");
+        var resp=confirm("¿Estás seguro de que deseas eliminar este resultado?");
         //var botonCurso=$(this).closest('div').closest('div');
         if (resp == true) {
             //eliminarCursoAcreditar(codigoCurso,botonCurso);  
