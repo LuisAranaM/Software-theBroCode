@@ -393,8 +393,8 @@ class Indicador extends \App\Entity\Base\Entity {
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
         $semestre=self::getSemestre();
         $nombreExcel='Reporte_Consolidado_'.$nombreEspecialidad.'_'.$semestre;
-
-        $reporte=$model->getReporteCursosResultado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        //dd($semestre);
+        $reporte=$model->getReporteConsolidado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
         //dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
@@ -429,6 +429,40 @@ class Indicador extends \App\Entity\Base\Entity {
                 $codResultado="";
                 $filaInicial=3;
                 $filaFinal=3;
+                $ciclo = "";
+                $columnaInicio = 'I';
+                $calculoMenor = 99999999;
+                $anhoMenor = 0;
+                $cicloMenor = 0;
+
+                foreach ($reporte as $key => $fila) {
+                    if($calculoMenor > $fila->ANHO*10 + $fila->CICLO){
+                        $calculoMenor = $fila->ANHO;
+                        $anhoMenor = $fila->ANHO;
+                        $cicloMenor = $fila->CICLO;
+                    }
+                }
+                //$anhoActual = substr($semestre, 0, 4);
+                $anhoActual = (int)str_replace(' ', '', substr($semestre, 0, 4));
+                //dd($anhoActual);
+                
+                $cicloActual = (int)str_replace(' ', '', substr($semestre, 5,2));
+                //dd($anhoMenor);
+                $anhoDif = 2*($anhoActual - $anhoMenor);
+                //$cicloDif = int(substr($semes, 5,2)) - $cicloMenor;
+                $columnaFin = $columnaInicio;
+                
+                if($cicloActual == 1 and $cicloMenor == 2){
+                    $columnaFin = chr(ord($columnaFin)+$anhoDif - 1);
+                }
+                elseif ($cicloActual == 2 and $cicloMenor == 1) {
+                    $columnaFin = chr(ord($columnaFin)+$anhoDif + 1);
+                }
+                else{
+                    $columnaFin = chr(ord($columnaFin)+$anhoDif);
+                    //dd($columnaFin);    
+                }
+                
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
@@ -438,21 +472,55 @@ class Indicador extends \App\Entity\Base\Entity {
                             $i++;
                         }
                         $sheet->row($i++, array("Código","Resultado","Categoría", "Indicador",
-                            "Curso","Promedio","Aprobados %"));
+                            "Cursos Evaluados","Medida","Meta %", "Óptimo", "2019-2", "2019-1", "2018-2"
+                        , "2018-1", "2017-2", "2017-1"));
                         $filaInicial=$i;
                     }
+                    $ciclo = $fila->ID_SEMESTRE;
                     $sheet->row($i, array($fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
-                            $fila->NOMBRE_CURSO,$fila->PROMEDIO_CALIF,$fila->PORCENTAJE_APROBADOS));
+                            $fila->NOMBRE_CURSO, '%', '70%', '100%'));
+                    //$sheet->cell('I'.$filaInicial, $fila->ANHO.$fila->CICLO);
+                    $aux = $columnaInicio;
+                
+                    $anhoDif = 2*($anhoActual - $fila->ANHO); 
+                    //dd($anhoDif);
+                    $aux = chr(ord($aux)+$anhoDif);
+
+                    if($fila->CICLO == 2){
+                        $cant = ord($columnaFin) - ord($columnaInicio);
+                        $columnRellenar = $columnaInicio;
+                        for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
+                            $sheet->cell($columnRellenar.$i, 'NA');
+                            $columnRellenar++;
+                        }
+                        
+                        $sheet->cell($aux.$i, $fila->PORCENTAJE_APROBADOS);
+                        //$sheet->cell($aux.$filaInicial, $fila->ANHO.$fila->CICLO);
+                    }    
+                    else{
+                        $cant = ord($columnaFin) - ord($columnaInicio);
+                        $columnRellenar = $columnaInicio;
+                        for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
+                            $sheet->cell($columnRellenar.$i, 'NA');
+                            $columnRellenar++;
+                        }
+
+                        $aux2 = $aux++;
+                        $sheet->cell($aux2.$i, $fila->PORCENTAJE_APROBADOS);
+                        //$sheet->cell($aux2.$filaInicial, $fila->ANHO.$fila->CICLO);
+                    }
+                    
+                    
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
                     $filaFinal=$i;
-                }  
+                }  /*
                 if(!empty($reporte)){
                     $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));    
-                }
+                }*/ 
                 //Centrado
                 $sheet->cells('A2:G1000', function($cells) {   
                             $cells->setAlignment('center');
