@@ -452,7 +452,7 @@ class Indicador extends \App\Entity\Base\Entity {
                 //$cicloDif = int(substr($semes, 5,2)) - $cicloMenor;
                 $columnaFin = $columnaInicio;
                 
-                if($cicloActual == 1 and $cicloMenor == 2){
+                if($cicloActual == 1 and $cicloMenor == 2 or ($cicloActual == 0 and $cicloMenor == 2) ){
                     $columnaFin = chr(ord($columnaFin)+$anhoDif - 1);
                 }
                 elseif ($cicloActual == 2 and $cicloMenor == 1) {
@@ -462,55 +462,113 @@ class Indicador extends \App\Entity\Base\Entity {
                     $columnaFin = chr(ord($columnaFin)+$anhoDif);
                     //dd($columnaFin);    
                 }
-                
+                //dd($columnaFin);
+                $filaEncabezados = 2;
                 foreach ($reporte as $fila) {
-                    if($codResultado!=$fila->COD_RESULTADO){
+                    if($codResultado!=$fila->COD_RESULTADO ){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
-                        if($i!=2){
-                            $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
-                            $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
-                            $i++;
+                        if($anhoActual < $fila->ANHO){
+                            //$sheet->setHeight($i, 45);
+                            //$i++;
+                            $codResultado=$fila->COD_RESULTADO;
+                            //$filaFinal=$i;
+                            //$filaInicial=$i;
+                            break;
                         }
-                        $sheet->row($i++, array("Código","Resultado","Categoría", "Indicador",
-                            "Cursos Evaluados","Medida","Meta %", "Óptimo", "2019-2", "2019-1", "2018-2"
-                        , "2018-1", "2017-2", "2017-1"));
-                        $filaInicial=$i;
+                        elseif($anhoActual == $fila->ANHO and $cicloActual < $fila->CICLO){
+                            //$sheet->setHeight($i, 45);
+                            //$i++;
+                            $codResultado=$fila->COD_RESULTADO;
+                            //$filaFinal=$i;
+                            //$filaInicial=$i;
+                            break;
+                        }
+                        else{
+                            if($i!=2){
+                                $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
+                                $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                                $i++;
+                            }
+                            $sheet->row($i++, array("Código","Resultado","Categoría", "Indicador",
+                                "Cursos Evaluados","Medida","Meta %", "Óptimo"));
+                            $filaInicial=$i;
+                            $filaEncabezados = $filaInicial - 1;
+                        }
+                        
+                    }
+                    if($anhoActual < $fila->ANHO){
+                        $sheet->setHeight($i, 45);
+                        $i++;
+                        $codResultado=$fila->COD_RESULTADO;
+                        $filaFinal=$i;
+                        continue;
+                    }
+                    elseif($anhoActual == $fila->ANHO and $cicloActual < $fila->CICLO){
+                        $sheet->setHeight($i, 45);
+                        $i++;
+                        $codResultado=$fila->COD_RESULTADO;
+                        $filaFinal=$i;
+                        continue;
+                    }
+                    else{
+
                     }
                     $ciclo = $fila->ID_SEMESTRE;
                     $sheet->row($i, array($fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
                             $fila->NOMBRE_CURSO, '%', '70%', '100%'));
                     //$sheet->cell('I'.$filaInicial, $fila->ANHO.$fila->CICLO);
                     $aux = $columnaInicio;
-                
+                    
                     $anhoDif = 2*($anhoActual - $fila->ANHO); 
-                    //dd($anhoDif);
+                    
                     $aux = chr(ord($aux)+$anhoDif);
-
+                    
+                    $anhoAux = $anhoActual;
+                    $cicloAux = $cicloActual;
+                    
                     if($fila->CICLO == 2){
-                        $cant = ord($columnaFin) - ord($columnaInicio);
+                        if($cicloActual == 0 or $cicloActual == 1)
+                            $aux = chr(ord($aux) - 1);
+                        $cant = ord($columnaFin) - ord($columnaInicio) + 1;
+                        
                         $columnRellenar = $columnaInicio;
+                        
                         for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
                             $sheet->cell($columnRellenar.$i, 'NA');
+                            
+                            $sheet->cell($columnRellenar.$filaEncabezados, $anhoAux.'-'.$cicloAux);
+                            if($cicloAux == 1 or $cicloAux == 0){
+                                $cicloAux = 2;
+                                $anhoAux = $anhoAux - 1;
+                            }
+                            else{
+                                $cicloAux = 1;
+                            }
                             $columnRellenar++;
                         }
-                        
-                        $sheet->cell($aux.$i, $fila->PORCENTAJE_APROBADOS);
-                        //$sheet->cell($aux.$filaInicial, $fila->ANHO.$fila->CICLO);
+                        $sheet->cell($aux.$i, ($fila->PORCENTAJE_APROBADOS * 100).'%');
                     }    
                     else{
-                        $cant = ord($columnaFin) - ord($columnaInicio);
+                        if($cicloActual == 0 or $cicloActual == 1)
+                            $aux = chr(ord($aux) - 1);
+                        $cant = ord($columnaFin) - ord($columnaInicio) + 1;
                         $columnRellenar = $columnaInicio;
                         for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
                             $sheet->cell($columnRellenar.$i, 'NA');
+                            
+                            $sheet->cell($columnRellenar.$filaEncabezados, $anhoAux.'-'.$cicloAux);
+                            if($cicloAux == 1 or $cicloAux == 0){
+                                $cicloAux = 2;
+                                $anhoAux = $anhoAux - 1;
+                            }
+                            else{
+                                $cicloAux = 1;
+                            }
                             $columnRellenar++;
                         }
-
                         $aux2 = $aux++;
-                        $sheet->cell($aux2.$i, $fila->PORCENTAJE_APROBADOS);
-                        //$sheet->cell($aux2.$filaInicial, $fila->ANHO.$fila->CICLO);
+                        $sheet->cell($aux2.$i, ($fila->PORCENTAJE_APROBADOS * 100).'%');
                     }
-                    
-                    
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
