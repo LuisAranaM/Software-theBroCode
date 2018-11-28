@@ -5,12 +5,23 @@
 <script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
 @stop
 
+
+<?php
+  $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+?>
+
 <div class="customBody">
+
+  @if($modoProfesor)
   <input type="text" id="ultimoAviso" value="<?php 
   $desc='';
-  if($ultimoAviso!=NULL) $desc=$ultimoAviso->DESCRIPCION;
+  if($ultimoAviso!=NULL) 
+  foreach ($ultimoAviso as $a) {
+    $desc = $a->DESCRIPCION. '-' . $desc;
+  }
   echo ($desc);
   ?>" hidden>
+  @endif
   <div class="row">
     <div class="col-md-8 col-sm-6">
       <h1 class="mainTitle"> Seleccione horario a calificar</h1>
@@ -34,10 +45,10 @@
 
       <div class="x_panel" style="background-color: #5281a8">
         <h2 style="color: white">Progreso Total</h2>
-        <div class="col-sm-1 col-xs-2" >
+        <div class="col-lg-1 col-md-2 col-xs-12" >
           <p style="color: white" class="pText" style="margin-bottom: 0px">Cursos</p>
         </div>
-        <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
+        <div class="col-lg-9 col-md-7 col-sm-9 col-xs-7" style="padding-bottom: 0">
           <div class="widget_summary" >
             <div class="w_center w_55" style="width: 100%">
               <div class="progress" style="margin-bottom: 0px">
@@ -73,10 +84,10 @@
 
           <div class="row">
 
-            <div class="col-sm-1 col-xs-2" >
+            <div class="col-lg-1 col-md-2 col-xs-12" >
               <p class="pText" style="margin-bottom: 0px">H-{{$h["horario"]->NOMBRE}}</p>
             </div>
-            <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
+            <div class="col-lg-9 col-md-7 col-sm-9 col-xs-7" style="padding-bottom: 0">
               <div class="widget_summary" >
                 <div class="w_center w_55" style="width: 100%">
                   <div class="progress" style="margin-bottom: 0px">
@@ -88,14 +99,14 @@
               </div>
               <div class="no-padding">
                 @if ($h["alumnosTotal"] > 0)
-                <p class="barText pText">{{ $h["avance"] }}% de avance - {{ $h["alumnosCalif"] }}/{{ $h["alumnosTotal"] }} alumnos calificados</p>
+                <p class="barText pText">{{ $h["avance"] }}% de avance -  {{ $h["alumnosCalif"] }}/{{ $h["alumnosTotal"] }} alumnos calificados</p>
                 @endif
                 @if ($h["alumnosTotal"] == 0)
                 <p class="barText pText">No hay alumnos cargados</p>
                 @endif
               </div>
             </div>
-            <div class="col-sm-2 col-xs-3 text-right">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5 text-right">
               @if($h["alumnosTotal"] == 0)
               <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
                 <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
@@ -194,9 +205,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   //PNotify
   $( document ).ready(function() {
     var variableText=$('#ultimoAviso').val();
-    if (variableText!=''){(new PNotify({
+    var avisos = variableText.split('-');
+
+    for (i = 0; i < avisos.length; i++) {
+          console.log(avisos[i]);
+    if (avisos[i]!=''){(new PNotify({
       title: 'Aviso',
-      text: variableText,
+      text: avisos[i],
       hide: true,
       sticker: false,
       nonblock: {
@@ -205,6 +220,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       styling: 'bootstrap3',
       addclass: 'pnotify-center' //dark
     }));}
+    }
   });
 </script>
 
