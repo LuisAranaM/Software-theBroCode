@@ -4,16 +4,20 @@ $( document ).ready(function() {
 	
 	$(document).on('click', '.elimSo', function(e){
 		console.log('HOLA');
+		e.preventDefault();    
+		e.stopPropagation();
 		var IDSOS=$(this).attr('idSOS');
 		var nombreSOS=$(this).attr('nombreSOS');
 		//var filaAlumno=$(this).parent().parent().parent();
 		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreSOS+"?");
 		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
-			eliminarSOS(IDSOS,nombreSOS);          
+			eliminarSOS(IDSOS,nombreSOS);
+			$(this).parent().parent().remove(); 
+			e.preventDefault();          
 			//.css('display','none');
 		} 
-		e.preventDefault();    
+
 		
 	});
 
@@ -31,9 +35,10 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				location.reload();
+				//location.reload();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
+				e.stopPropagation();
 				alert('Hubo un error al registrar la información');           
 			}
 		});
@@ -41,16 +46,20 @@ $( document ).ready(function() {
 
 	$(document).on('click', '.elimEo', function(e){
 		console.log('HOLA');
+		e.preventDefault();    
+		e.stopPropagation();
 		var IDEOS=$(this).attr('idEOS');
 		var nombreEOS=$(this).attr('nombreEOS');
 		//var filaAlumno=$(this).parent().parent().parent();
 		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreEOS+"?");
 		//var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
-			eliminarEOS(IDEOS,nombreEOS);          
+			eliminarEOS(IDEOS,nombreEOS);   
+			$(this).parent().parent().remove();
+			e.preventDefault();                
 			//.css('display','none');
 		} 
-		e.preventDefault();    
+
 		
 	});
 
@@ -68,9 +77,10 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				location.reload();
+				//location.reload();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
+				e.stopPropagation()
 				alert('Hubo un error al registrar la información');           
 			}
 		});
@@ -117,8 +127,15 @@ $( document ).ready(function() {
 	$("#btnAgregarSosModal").on("click", function(){
 		console.log('HOLA2');
 		var textSos=$('#txtSos').val();
-		console.log(textSos);
-		agregarSOS(textSos);             
+		var myLength = $("#txtSos").val().length
+		if(myLength==null || myLength==''){
+			$('#txtSos').focus();
+			alert("Ingrese la descripción del SOS");
+			//return;
+		}else{
+			agregarSOS(textSos);             
+			
+		}
 		
 	});
 
@@ -154,8 +171,18 @@ $( document ).ready(function() {
 	$("#btnAgregarEosModal").on("click", function(e){
 		console.log('HOLA3');
 		var txtEos=$('#txtEos').val();
-		console.log(txtEos);
-		agregarEOS(txtEos);       
+
+		var myLengtheos = $("#txtEos").val().length
+		if(myLengtheos==null || myLengtheos==''){
+			$('#txtEos').focus();
+			alert("Ingrese la descripción del EOS");
+			//return;
+		}else{
+			console.log(txtEos);
+			agregarEOS(txtEos);   
+		}
+
+
 		//e.preventDefault();      
 		
 	});
@@ -208,6 +235,7 @@ $( document ).ready(function() {
 						console.log(nombreSOS);
 						editarSOS(IDSOS,nombreSOS); 
 						e.preventDefault();
+						e.stopPropagation();
 					}
 				}
 			}).appendTo( $this.empty() ).focus();
@@ -229,6 +257,7 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
+				e.preventDefault();
 				//location.reload();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
@@ -239,29 +268,29 @@ $( document ).ready(function() {
 	}
 
 
-		$(document).on('click', '.editEo', function(){
-			var $this = $(this);
-			var nombreAtributo=$this.attr('nombreEOS');
-			var $input = $('<input>', {
-				value: nombreAtributo,
-				width: '350px',
-				blur: function() {
-					$this.attr('nombreEOS',this.value);
-					$this.text(this.value);
-				},
-				keyup: function(e) {
-					if (e.which === 13) {
-						$input.blur();
-						var IDEOS=$this.attr('idEOS');
-						var nombreEOS=$this.attr('nombreEOS');
-						console.log(IDEOS);
-						console.log(nombreEOS);
-						editarEOS(IDEOS,nombreEOS); 
-						e.preventDefault();
-					}
+	$(document).on('click', '.editEo', function(){
+		var $this = $(this);
+		var nombreAtributo=$this.attr('nombreEOS');
+		var $input = $('<input>', {
+			value: nombreAtributo,
+			width: '350px',
+			blur: function() {
+				$this.attr('nombreEOS',this.value);
+				$this.text(this.value);
+			},
+			keyup: function(e) {
+				if (e.which === 13) {
+					$input.blur();
+					var IDEOS=$this.attr('idEOS');
+					var nombreEOS=$this.attr('nombreEOS');
+					console.log(IDEOS);
+					console.log(nombreEOS);
+					editarEOS(IDEOS,nombreEOS); 
+					e.preventDefault();
 				}
-			}).appendTo( $this.empty() ).focus();
-		});
+			}
+		}).appendTo( $this.empty() ).focus();
+	});
 
 
 	function editarEOS(IDEOS,nombreEOS)	{
@@ -280,6 +309,7 @@ $( document ).ready(function() {
 			success:function(result)
 			{
 				//location.reload();
+				e.preventDefault();
 				//filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
 				e.preventDefault();
@@ -288,4 +318,4 @@ $( document ).ready(function() {
 		});
 	}
 
-	});
+});

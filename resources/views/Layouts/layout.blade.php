@@ -98,7 +98,7 @@
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
-              <ul class="nav side-menu">
+              <ul class="nav side-menu" id="menuLateral">
                 
                 <li class="pText" ><a href="#" style="color:#72777a;font-weight: bold;cursor: default;color:black" id="semestreSistema"><i class="fa fa-calendar"></i>Semestre: {{$semestreActual}}</a>
                 </li>
