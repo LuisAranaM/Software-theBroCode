@@ -29,6 +29,10 @@ $( document ).ready(function() {
         }
     });
 
+	$(".closeModal").on("click", function(){
+      $("#modalCargarAlumnos2").modal("hide");
+    });
+
 	$('#btnCancelarHorarios').click(function() {
 		$('#modalHorarios').modal('hide');
 	});

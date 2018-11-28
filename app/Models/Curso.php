@@ -97,6 +97,22 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
     }
 
+    static function getCantCursos(&$sql){
+        $ans = 0;
+        foreach($sql["cursos"] as $c)
+            if(count($c["horarios"]) > 0) $ans++;
+        return $ans;
+    }
+
+    static function getCursosCalificados($sql){
+        $ans = 0;
+        foreach($sql["cursos"] as $c){
+            foreach($c["horarios"] as $h)
+                if($h["avance"] > 99.99999) $ans++;
+        }
+        return $ans;
+    }
+
     static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
         $cursos = DB::table('CURSOS')
                     ->select('*')
@@ -186,8 +202,10 @@ class Curso extends Eloquent
             $ans["cursos"][] = $data;
         }
         $div = 0;
-        if($tot != 0) $div = round($numerador*100/$denominador,2);
-        $ans["progreso"] = $div; 
+        if($denominador != 0) $div = round($numerador*100/(double)$denominador,2);
+        $ans["progreso"] = $div;
+        $ans["cursosCalificados"] = Curso::getCursosCalificados($ans);
+        $ans["cantidadCursos"] = Curso::getCantCursos($ans);
         return $ans;
     }
 

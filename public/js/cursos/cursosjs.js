@@ -12,7 +12,7 @@ $( document ).ready(function() {
     }
     $("#modalCursos").modal("show");
 
-});
+    });
 
     $("#modalCargarAlumnos").on('show',function(e){
         var link = e.relatedTarget();
@@ -32,17 +32,21 @@ $( document ).ready(function() {
     $("#btnCargarAlumnos").on("click", function(){
       console.log("btn accionado");
       $("#modalCargarAlumnos").modal("show");
-  });
+    });
+
+    $(".closeModal").on("click", function(){
+      $("#modalCargarAlumnos").modal("hide");
+    });
 
     $("#btnCargarHorario").on("click", function(){
       console.log("btn accionado");
       $("#modalCargarHorarios").modal("show");
-  });
+    });
 
     $("#btnCargarCursos").on("click", function(){
       console.log("btn accionado");
       $("#modalCargarCursos").modal("show");
-  });
+    });
 
 
     //Funciones y activadores de búsqueda
@@ -67,7 +71,7 @@ $( document ).ready(function() {
        e.preventDefault();
        return false;
    }
-});
+    });
 
 
     /*('#frmAgregarCursos').on('submit', function(e) {
@@ -128,7 +132,6 @@ $( document ).ready(function() {
     });
 
 });
-
 
 function eliminarCursoAcreditar(codigoCurso,botonCurso){
     //console.log("Necesitamos agregar cursos");
