@@ -456,6 +456,16 @@ li {
   height: 25px;
 }
 
+.userName {
+  display: inline-block;
+}
+
+@media screen and (max-width: 500px) {
+  .userName {
+  display: block;
+}
+}
+
 
 /*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
 /*.modalCargando {

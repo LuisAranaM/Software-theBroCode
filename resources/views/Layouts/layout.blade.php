@@ -193,13 +193,18 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <span class="userName">
                   @if(Auth::user()->PERFIL==NULL)
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
                   @else
                   <img src="{{Auth::user()->PERFIL}}" alt="perfil"> 
                   @endif
                   <span style="font-family: segoe UI">
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - {{$nombreRol}} de
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
+                  </span>
+                </span>
+                  <span style="font-family: segoe UI">
+                  {{$nombreRol}} de
                   {{$nombreEspecialidad}}
                   </span>
                   <span class=" fa fa-angle-down"></span>
