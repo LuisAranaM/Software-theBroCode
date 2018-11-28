@@ -154,7 +154,6 @@ class LoginController extends Controller {
                 ->with('usuarioGoogle',$request->get('usuarioGoogle',null))
                 ->with('roles',Rol::getRoles())
                 ->with('especialidades',Especialidad::getEspecialidades());
-
     }
 
 

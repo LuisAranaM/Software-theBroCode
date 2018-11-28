@@ -22,6 +22,9 @@ class Curso extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getIdCurso2($codCurso){
+        return mCurso::getIdCurso2($codCurso);
+    }
 
     static function getCursosYHorarios($usuario=null){
         return mCurso::getCursosYHorarios(self::getEspecialidadUsuario(),self::getIdSemestre(),$usuario);
@@ -92,7 +95,7 @@ class Curso extends \App\Entity\Base\Entity {
             return $model->getIdCurso($codCurso,self::getIdSemestre(),self::getEspecialidadUsuario())->first();
     }
 
-    public function getCursosByResultado($idSemestre,$idResultado){
+    static function getCursosByResultado($idSemestre,$idResultado){
         //Para gráfico de Ronie 
         $model = new mCurso();
         return $model->getCursosByResultado(self::getEspecialidadUsuario(),$idSemestre,$idResultado)->get();

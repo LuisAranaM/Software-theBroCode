@@ -63,22 +63,22 @@ class Usuario extends \App\Entity\Base\Entity {
             $query = $model->getUsuariosGestion($filtros);  
 
             $totalCount = $query->count();
-           
+
             $results = $query
-                    ->take(self::ITEMS_PER_PAGE)
-                    ->skip(self::ITEMS_PER_PAGE * ($filtros['page'] - 1))
-                    ->get();
-                     
+            ->take(self::ITEMS_PER_PAGE)
+            ->skip(self::ITEMS_PER_PAGE * ($filtros['page'] - 1))
+            ->get();
+
             $paginator = new Paginator($results, $totalCount, self::ITEMS_PER_PAGE, $filtros['page']);
         //dd("Hola");
 
-        return $paginator;   
+            return $paginator;   
         }
         static function redirectRol($rol) {
         //dd($rol);
             $urlAdmin = 'administrador.usuario';
-            $urlCoordinador = 'cursos.gestion';
-            $urlAsistente = 'cursos.gestion';
+            $urlCoordinador = 'profesor.calificar';
+            $urlAsistente = 'profesor.calificar';
             $urlProfesor = 'profesor.calificar';
 
             switch ($rol) {
@@ -165,8 +165,8 @@ class Usuario extends \App\Entity\Base\Entity {
             'FECHA_ACTUALIZACION'=>$hoy,
             'USUARIO_MODIF' =>NULL,     
             'ESTADO'=>1
-            ];
-        }
+        ];
+    }
     //Verificar que usuario y correo no estén registrados
     if($model->verificarUsuario($usuario)){
         //dd("HOLA");
@@ -184,19 +184,33 @@ class Usuario extends \App\Entity\Base\Entity {
 
 }
 
+
+function activarUsuarios($checks,$idUsuario){
+
+    $model= new mUsuario();
+    
+    if ($model->activarUsuarios($checks,$idUsuario)){
+        return true;
+    }else{
+        $this->setMessage('Hubo un error en el servidor de base de datos');
+        return false;
+    }
+
+}
+
 function editarCuentaRubrik($datosCuenta){
 
 }
 
 function eliminarCuentaRubrik($idUsuario,$usuarioModif){
     $model= new mUsuario();
-        
-        if ($model->eliminarCuentaRubrik($idUsuario,$usuarioModif)){
-            return true;
-        }else{
-            $this->setMessage('Hubo un error en el servidor de base de datos');
-            return false;
-        }
+
+    if ($model->eliminarCuentaRubrik($idUsuario,$usuarioModif)){
+        return true;
+    }else{
+        $this->setMessage('Hubo un error en el servidor de base de datos');
+        return false;
+    }
 
 }
 
