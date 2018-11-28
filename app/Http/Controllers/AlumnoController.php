@@ -111,7 +111,7 @@ class AlumnoController extends Controller
                 $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
                 
                 /*Testando que esta bien */
-                /*Aparentemente lo esta */
+                /*Aparentemente esta bien */
                 $this->trace('alumnosNuevos');
                 foreach($alumnosNuevos as $x){
                 	$this->trace($x["NOMBRES"]);
@@ -158,7 +158,7 @@ class AlumnoController extends Controller
                 $data = \Excel::load($path)->get();
                 $fecha = date("Y-m-d H:i:s");
                 $usuario = Auth::user();
-                $especialidad = Entity::getEspecialidadUsuario();
+                $idEspecialidad = Entity::getEspecialidadUsuario();
                 $id_usuario = Auth::id();
                 $semestre_actual = Entity::getIdSemestre();
                 $idHorario = $request->input('codigoHorario'); 
@@ -166,13 +166,12 @@ class AlumnoController extends Controller
                 $nombreHorario = $this->fix($nombreHorario);
                 $idProyecto = 1; 
                 $cont = 0;
-                //$especialidad = Entity::getEspecialidadUsuario();
+                //$idEspecialidad = Entity::getEspecialidadUsuario();
                 if($data->count()){
                     //dd($data);
                     $this->trace('Data count');
                     foreach ($data as $key => $value) {
                         // verificar si alumno ya existe en la BD
-                        
                         if($value->horario != $nombreHorario) continue;
                         $cont++;
                         $nombre = $this->getNombre($value->nombre);
@@ -190,10 +189,12 @@ class AlumnoController extends Controller
                                  'FECHA_REGISTRO' => $fecha,
                                  'FECHA_ACTUALIZACION' => $fecha,
                                  'ID_SEMESTRE'=>$semestre_actual,
-                                 'ID_ESPECIALIDAD'=>$especialidad,
+                                 'ID_ESPECIALIDAD'=>$idEspecialidad,
                                  'USUARIO_MODIF' => $usuario['ID_USUARIO'],
                                  'ESTADO' => 1
                                 ]);
+                        }else if( ( DB::table('ALUMNOS')->select('ESTADO')->where('CODIGO',$value->alumno)->get()->toArray() )[0]->ESTADO == 0){
+                            DB::table('ALUMNOS')->where('CODIGO',$value->alumno)->update(['ESTADO' => 1]);
                         }
                                            
                         $q = DB::table('ALUMNOS')
@@ -202,8 +203,8 @@ class AlumnoController extends Controller
                         //$this->trace('HOLIS2');
                         $idAlumno = (int)($q[0]->ID_ALUMNO);
                         $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
-                        whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ?',
-                            [$idAlumno,$idHorario,$idProyecto,$semestre_actual])->doesntExist();
+                        whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ? AND ID_ESPECIALIDAD',
+                            [$idAlumno,$idHorario,$idProyecto,$semestre_actual,$idEspecialidad])->doesntExist();
 
                         if($cond){
                             $lista[] = ['ID_ALUMNO' => $idAlumno,
@@ -212,10 +213,28 @@ class AlumnoController extends Controller
                                         'ID_SEMESTRE' => $semestre_actual,
                                         'FECHA_REGISTRO' => $fecha,
                                         'ID_SEMESTRE'=>$semestre_actual,
-                                        'ID_ESPECIALIDAD'=>$especialidad,
+                                        'ID_ESPECIALIDAD'=>$idEspecialidad,
                                         'FECHA_ACTUALIZACION' => $fecha,
                                         'USUARIO_MODIF' => $usuario['ID_USUARIO'],
                                         'ESTADO' => 1];
+                        }else if(1){
+                            $sql = DB::table('ALUMNOS_HAS_HORARIOS')
+                                    ->select('ESTADO')
+                                    ->where('ID_ALUMNO','=',$idAlumno)
+                                    ->where('ID_HORARIO','=',$idHorario)
+                                    ->where('ID_SEMESTRE','=',$semestre_actual)
+                                    ->where('ID_PROYECTO','=',$idProyecto)
+                                    ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                                    ->get()->toArray();
+                            if($sql[0]->ESTADO == 0){
+                                DB::table('ALUMNOS_HAS_HORARIOS')
+                                    ->where('ID_ALUMNO','=',$idAlumno)
+                                    ->where('ID_HORARIO','=',$idHorario)
+                                    ->where('ID_SEMESTRE','=',$semestre_actual)
+                                    ->where('ID_PROYECTO','=',$idProyecto)
+                                    ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                                    ->update(['ESTADO' => 1]);
+                            }
                         }
                     }
                     if($cont > 0 && !empty($lista))

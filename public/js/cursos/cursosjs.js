@@ -1,5 +1,17 @@
 $( document ).ready(function() {
 
+
+
+    $(document).on({
+        mouseenter: function () {
+            console.log("HOLI");
+            $( this ).find("i.fa-trash").show();
+        },
+        mouseleave: function () {
+            $( this ).find("i.fa-trash").hide();
+        }
+    }, '.courseButton');
+
     console.log("inicio");
     
     $("#CargarCurso").on("click", function(){
@@ -12,7 +24,7 @@ $( document ).ready(function() {
     }
     $("#modalCursos").modal("show");
 
-});
+    });
 
     $("#modalCargarAlumnos").on('show',function(e){
         var link = e.relatedTarget();
@@ -32,17 +44,21 @@ $( document ).ready(function() {
     $("#btnCargarAlumnos").on("click", function(){
       console.log("btn accionado");
       $("#modalCargarAlumnos").modal("show");
-  });
+    });
+
+    $(".closeModal").on("click", function(){
+      $("#modalCargarAlumnos").modal("hide");
+    });
 
     $("#btnCargarHorario").on("click", function(){
       console.log("btn accionado");
       $("#modalCargarHorarios").modal("show");
-  });
+    });
 
     $("#btnCargarCursos").on("click", function(){
       console.log("btn accionado");
       $("#modalCargarCursos").modal("show");
-  });
+    });
 
 
     //Funciones y activadores de búsqueda
@@ -64,10 +80,11 @@ $( document ).ready(function() {
     $('#frmAgregarCursos').on('keyup keypress', function(e) {
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) { 
-       e.preventDefault();
-       return false;
-   }
-});
+         e.preventDefault();
+         return false;
+     }
+ });
+
 
 
     /*('#frmAgregarCursos').on('submit', function(e) {
@@ -128,7 +145,6 @@ $( document ).ready(function() {
     });
 
 });
-
 
 function eliminarCursoAcreditar(codigoCurso,botonCurso){
     //console.log("Necesitamos agregar cursos");

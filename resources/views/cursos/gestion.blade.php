@@ -68,7 +68,7 @@
           <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
             <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
 
-              <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">×</span>
+              <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true"><i class="fas fa-trash" style="color: #005b7f;display:none" ></i></span>
 
               </button>
               <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
