@@ -8,7 +8,10 @@
 <div class="customBody">
   <input type="text" id="ultimoAviso" value="<?php 
   $desc='';
-  if($ultimoAviso!=NULL) $desc=$ultimoAviso->DESCRIPCION;
+  if($ultimoAviso!=NULL) 
+  foreach ($ultimoAviso as $a) {
+    $desc = $a->DESCRIPCION. '-' . $desc;
+  }
   echo ($desc);
   ?>" hidden>
   <div class="row">
@@ -194,9 +197,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   //PNotify
   $( document ).ready(function() {
     var variableText=$('#ultimoAviso').val();
-    if (variableText!=''){(new PNotify({
+    var avisos = variableText.split('-');
+
+    for (i = 0; i < avisos.length; i++) {
+          console.log(avisos[i]);
+    if (avisos[i]!=''){(new PNotify({
       title: 'Aviso',
-      text: variableText,
+      text: avisos[i],
       hide: true,
       sticker: false,
       nonblock: {
@@ -205,6 +212,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
       styling: 'bootstrap3',
       addclass: 'pnotify-center' //dark
     }));}
+    }
   });
 </script>
 
