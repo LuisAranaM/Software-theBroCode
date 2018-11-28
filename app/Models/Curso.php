@@ -255,6 +255,7 @@ class Curso extends Eloquent
 
     function eliminarAcreditar($idSemestre,$codigo,$usuario){
         //dd(Carbon::now());    
+        
         DB::beginTransaction();
         $status = true;
        

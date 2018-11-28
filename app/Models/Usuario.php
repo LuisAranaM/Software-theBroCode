@@ -235,9 +235,10 @@ class Usuario extends Authenticatable implements Auditable{
 
     public function getIdUsuario($codUsuario,$correo){
         $sql = DB::table('USUARIOS')
-        ->select('ID_USUARIO')
-        ->where('USUARIO','=',$codUsuario)
-        ->where('CORREO','=',$correo);
+                ->select('ID_USUARIO')
+                ->where('USUARIO','=',$codUsuario)
+                ->orWhere('CORREO','=',$correo);
+
         return $sql;
 
     }
