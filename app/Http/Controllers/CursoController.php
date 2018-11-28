@@ -244,7 +244,7 @@ class CursoController extends Controller
 
     }
     public function store(Request $request){
-        //dd($request->all);
+        //dd($request->all());
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();
@@ -320,7 +320,14 @@ class CursoController extends Controller
                             }//si existe
                             else{
                                 $idProf=$idProfesor;
-                                array_push($listaProfesoresMantenidos,$nombres,$aPaterno);                                                                
+                                array_push($listaProfesoresMantenidos,$nombres,$aPaterno);
+                                //relacionamos los profesores con sus horarios
+                                foreach ($lista_horarios as $val) {
+                                    $prof_hor = [];
+                                    $prof_hor = ['ID_USUARIO'=>$idProf, 'ID_HORARIO'=>$val, 'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
+                                                 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
+                                    DB::table('PROFESORES_HAS_HORARIOS')->insert($prof_hor);
+                                }                                                                
                             }  
                             
                         }//entramos aca si existe
@@ -383,7 +390,14 @@ class CursoController extends Controller
                             }//si existe
                             else{
                                 $idProf=$idProfesor;
-                                array_push($listaProfesoresMantenidos,$nombres,$aPaterno);                                                                
+                                array_push($listaProfesoresMantenidos,$nombres,$aPaterno);
+                                 //relacionamos los profesores con sus horarios
+                                foreach ($listaHorariosNuevos as $val) {
+                                    $prof_hor = [];
+                                    $prof_hor = ['ID_USUARIO'=>$idProf, 'ID_HORARIO'=>$val, 'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
+                                                 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
+                                    DB::table('PROFESORES_HAS_HORARIOS')->insert($prof_hor);
+                                }                                                              
                             }  
                         }
                     

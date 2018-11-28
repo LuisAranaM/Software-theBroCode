@@ -48,11 +48,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 	
 		
 
-          <form id="upload_form" action = "{{url('/subir-excels/upload')}}" class="dropzone"  method = "post" enctype = "multipart/form-data">
+          <form id="upload_form" action = "{{url('/subir-excels/upload')}}" class="dropzone"  method = "post" >
             {{csrf_field()}}
             <div class = "form-group">
-              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
-            </div>
+              <input type = "file" name = "upload-file" multiple class="form-control image" style="border-color: white">
+            </div>>
+            
+            <!--input type="file" name="file"-->
             <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
                 <input id="btnCargarCursosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
