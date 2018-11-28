@@ -6,28 +6,28 @@
  *     // code here
  * });
  */
-(function($,sr){
+ (function($,sr){
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
     var debounce = function (func, threshold, execAsap) {
       var timeout;
 
-        return function debounced () {
-            var obj = this, args = arguments;
-            function delayed () {
-                if (!execAsap)
-                    func.apply(obj, args); 
-                timeout = null; 
-            }
+      return function debounced () {
+        var obj = this, args = arguments;
+        function delayed () {
+            if (!execAsap)
+                func.apply(obj, args); 
+            timeout = null; 
+        }
 
-            if (timeout)
-                clearTimeout(timeout);
-            else if (execAsap)
-                func.apply(obj, args);
+        if (timeout)
+            clearTimeout(timeout);
+        else if (execAsap)
+            func.apply(obj, args);
 
-            timeout = setTimeout(delayed, threshold || 100); 
-        };
+        timeout = setTimeout(delayed, threshold || 100); 
     };
+};
 
     // smartresize 
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
@@ -39,7 +39,7 @@
  * and open the template in the editor.
  */
 
-var  $BODY = $('body');
+ var  $BODY = $('body');
 // Sidebar
 $(document).ready(function() {
     var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -58,8 +58,8 @@ $(document).ready(function() {
         $RIGHT_COL.css('min-height', $(window).height());
         //$LEFT_COL.css('min-height', $(window).height());
         var bodyHeight = $BODY.outerHeight(),
-            leftColHeight = $LEFT_COL.height(),
-            contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+        leftColHeight = $LEFT_COL.height(),
+        contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
         // normalize content
         //contentHeight -= $NAV_MENU.height();        
         console.log(contentHeight);
@@ -110,31 +110,33 @@ $(document).ready(function() {
         setContentHeight();
     });
     */
-   
-   var $SIDEBAR_MENU = $('#sidebar-menu');
+    
+    var $SIDEBAR_MENU = $('#sidebar-menu');
 
-  $("#menu_toggle").click(function(){
-    console.log("Activamos");
-    console.log($("BODY"));
-    console.log($(".left_col"));
-    console.log($("SIDEBAR_MENU"));
-    if ($("BODY").hasClass('nav-md')) {
-      $('.left_col').css('width','85px');
-        $('#imagenRubrik').attr("src",APP_URL+'/img/logo.png');
-        $('#menuLateral').addClass('achicar');
-      $("SIDEBAR_MENU").find('li.active ul').hide();
-      $("SIDEBAR_MENU").find('li.active').addClass('active-sm').removeClass('active');
-    } 
-    else {
+    $("#menu_toggle").click(function(){
+        console.log("Activamos");
+        console.log($("BODY"));
+        console.log($(".left_col"));
+        console.log($("SIDEBAR_MENU"));
+        if ($("BODY").hasClass('nav-md')) {
+          $('.left_col').css('width','85px');
+          $('#imagenRubrik').attr("src",APP_URL+'/img/logo.png');
+          $('#menuLateral').addClass('achicar');
+          $('#barraSuperior').css('margin-left','15px');
+          $("SIDEBAR_MENU").find('li.active ul').hide();
+          $("SIDEBAR_MENU").find('li.active').addClass('active-sm').removeClass('active');
+      } 
+      else {
         $('#imagenRubrik').attr("src",APP_URL+'/img/logo2.png')
-      $('.left_col').css('width','250px');
-      $('#menuLateral').removeClass('achicar');
-      $("SIDEBAR_MENU").find('li.active-sm ul').show();
-      $("SIDEBAR_MENU").find('li.active-sm').addClass('active').removeClass('active-sm');
+        $('.left_col').css('width','250px');
+        $('#menuLateral').removeClass('achicar');
+        $('#barraSuperior').css('margin-left','0px');
+        $("SIDEBAR_MENU").find('li.active-sm ul').show();
+        $("SIDEBAR_MENU").find('li.active-sm').addClass('active').removeClass('active-sm');
     }
 
     $("BODY").toggleClass('nav-md nav-sm');
-  });  
+});  
 
 
     // check active menu
@@ -170,8 +172,8 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.collapse-link').on('click', function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
-            $ICON = $(this).find('i'),
-            $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+        $ICON = $(this).find('i'),
+        $BOX_CONTENT = $BOX_PANEL.find('.x_content');
         
         // fix for some div with hardcoded fix class
         if ($BOX_PANEL.attr('style')) {
@@ -294,9 +296,9 @@ function capLock(e){
     kc=e.keyCode?e.keyCode:e.which;
     sk=e.shiftKey?e.shiftKey:((kc==16)?true:false);
     if(((kc>=65&&kc<=90)&&!sk)||((kc>=97&&kc<=122)&&sk ))
-    document.getElementById('caplock').style.visibility = 'visible';
+        document.getElementById('caplock').style.visibility = 'visible';
     else document.getElementById('caplock').style.visibility = 'hidden';
-    }
+}
 
 // Accordion
 $(document).ready(function() {
