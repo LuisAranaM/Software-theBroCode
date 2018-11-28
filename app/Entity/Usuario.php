@@ -138,7 +138,7 @@ class Usuario extends \App\Entity\Base\Entity {
             }
             else{
                 //dd("holis");
-                dd($codUsuario,$correo);
+                //dd($codUsuario,$correo);
                 return $model->getIdUsuario($codUsuario,$correo)->first();
             }
         }
