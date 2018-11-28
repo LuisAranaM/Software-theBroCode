@@ -34,6 +34,34 @@
     @foreach($cursos as $c)
     @if(count($c["horarios"])>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
+
+      <div class="x_panel" style="background-color: #5281a8">
+        <h2 style="color: white">Progreso Total</h2>
+        <div class="col-sm-1 col-xs-2" >
+          <p style="color: white" class="pText" style="margin-bottom: 0px">Cursos</p>
+        </div>
+        <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
+          <div class="widget_summary" >
+            <div class="w_center w_55" style="width: 100%">
+              <div class="progress" style="margin-bottom: 0px">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="100%; background-color: #005b7f !important; border: none !important">
+                  <span class="sr-only">60% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="no-padding">
+            @if (4 > 0)
+            <p style="color: white" class="barText pText">4% de avance - 4/10 cursos calificados</p>
+            @endif
+            @if (10 == 0)
+            <p style="color: white" class="barText pText">No hay cursos cargados</p>
+            @endif
+          </div>
+
+        </div>
+      </div>
+
       <div class="x_panel">
         <div class="x_title">
           <h2>{{$c["curso"]->NOMBRE}}</h2>
