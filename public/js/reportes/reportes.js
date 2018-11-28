@@ -4,6 +4,8 @@ var graficoIndicadoresxResultado;
 var graficoCursosxResultado;
 var contResultadosxCiclo = 0;
 var contResultadosxCurso = 0;
+var contIndicadoresxCurso = 0;
+
 var contIndicadoresxResultado = 0;
 var contCursosxResultado = 0;
 
@@ -269,7 +271,8 @@ var globColors = [
     'rgba(153, 102, 255, 0.6)',
     'rgba(255, 159, 64, 0.6)'
 ];
-
+var resultadosCursoId = [];
+var resultadosCursoNombre = [];
 function updateGraficoResultadosxCurso(idSemestre,idCurso) {
 
     //Grafico de barras
@@ -283,6 +286,7 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
 		},
 		success: function (result) {
             //Se llena
+            console.log("exito");
             console.log(result);
             resultadosId=[];
             resultadosNombre=[];
@@ -300,6 +304,8 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                 resultadosNombre = ['No se encontraron resultados en el curso'];
                 resultadosPorcentaje = [0];
             }
+            resultadosCursoId = resultadosId;
+            resultadosCursoNombre = resultadosNombre;
             if (contResultadosxCurso != 0) {
                 graficoResultadosxCurso.destroy();
             }
@@ -381,6 +387,237 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
         }
     });
 }
+
+//Gráfico 2.2
+function updategraficoIndicadoresxCurso(idSemestre,idCurso,idResultado,nombreResultado) {
+    //Grafico de barras
+    ctx2 = document.getElementById("graficoIndicadoresxCurso").getContext('2d');
+    $.ajax({
+		url: APP_URL + '/graficoIndicadoresCurso',
+		type: 'GET',
+		data: {
+            idSemestre: idSemestre,
+            idCurso: idCurso,
+            idResultado: idResultado,
+		},
+		success: function (result) {
+            //Se llena
+            console.log("holaaa");
+            console.log(result);
+            console.log("bais");
+            indicadoresId=[];
+            indicadoresNombre=[];
+            indicadoresPorcentaje=[];
+            
+            for(var i=0;i<result.length;i++){
+                indicadoresId.push(result[i].ID_INDICADOR);
+                indicadoresNombre.push(nombreResultado+result[i].VALORIZACION);
+                indicadoresPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+            }
+            console.log(indicadoresId);
+            console.log(indicadoresNombre);
+            console.log(indicadoresPorcentaje);
+            if (indicadoresId.length == 0) {
+                indicadoresNombre = ['No se encontraron resultados en el curso'];
+                indicadoresPorcentaje = [0];
+            }
+            if (contIndicadoresxCurso != 0) {
+                graficoIndicadoresxCurso.destroy();
+            }
+            graficoIndicadoresxCurso = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: indicadoresNombre,
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: indicadoresPorcentaje,
+                        backgroundColor: globColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    legendCallback: function(chart) {
+                        var text = [];
+                        text.push('<ul>');
+                        for (var i = 0; i < chart.data.datasets[0].data.length; i++) {
+                          text.push('<span class="chartjs-legend-li-span label-default" style="margin-right: 30px; '+ 
+                          'padding-left: 20px; padding-right: 20px; ' +
+                          'background-color:' + 
+                          chart.data.datasets[0].backgroundColor[i] + '">');
+                            if (chart.data.labels[i]) {
+                            text.push(chart.data.labels[i]);
+                          }
+                          text.push('</span>');
+                        }
+                        text.push('</ul>');
+                        return text.join("");
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Porcentaje de Indicadores en el curso'
+                            },
+                            ticks: {
+                                beginAtZero:true,
+                                max: 100
+                            }
+                        }],
+                        xAxes: [{
+                            maxBarThickness: 100,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Indicadores'
+                            }
+                        }]
+                    },
+                    //onClick: graficoResultadoxCursoClickEvent,
+                    //onHover: cambiarCursor,
+                    annotation: {
+                        annotations: [{
+                          type: 'line',
+                          mode: 'horizontal',
+                          scaleID: 'y-axis-0',
+                          value: 70,
+                          borderColor: '#ADF6B1',
+                          borderWidth: 1,
+                          label: {
+                            enabled: false,
+                            content: 'Test label'
+                          }
+                        }]
+                    }
+                }
+            });
+            contIndicadoresxCurso++;
+            $("#chartjs-legend22").html(graficoIndicadoresxCurso.generateLegend());
+        },
+        error: function (xhr, status, text) {
+            event.preventDefault();
+            alert('Hubo un error al buscar la información');
+            item.removeClass('hidden').prev().addClass('hidden');
+        }
+    });
+}
+
+//Gráfico 3.2
+function updategraficoHorariosxResultado(idSemestre,idCurso,idResultado,nombreResultado) {
+    //Grafico de barras
+    ctx2 = document.getElementById("graficoHorariosxResultado").getContext('2d');
+    $.ajax({
+		url: APP_URL + '/graficoHorariosResultado',
+		type: 'GET',
+		data: {
+            idSemestre: idSemestre,
+            idCurso: idCurso,
+            idResultado: idResultado,
+		},
+		success: function (result) {
+            //Se llena
+            console.log("holaaa");
+            console.log(result);
+            console.log("bais");
+            horarioId=[];
+            horarioNombre=[];
+            horarioPorcentaje=[];
+            
+            for(var i=0;i<result.length;i++){
+                horarioId.push(result[i].ID_INDICADOR);
+                horarioNombre.push(nombreResultado+result[i].VALORIZACION);
+                horarioPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
+            }
+            console.log(indicadoresId);
+            console.log(indicadoresNombre);
+            console.log(indicadoresPorcentaje);
+            if (horarioId.length == 0) {
+                horarioNombre = ['No se encontraron resultados en el curso'];
+                horarioPorcentaje = [0];
+            }
+            if (contHorariosxResultado != 0) {
+                graficoHorariosxResultado.destroy();
+            }
+            graficoHorariosxResultado = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: horariosNombre,
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: horariosPorcentaje,
+                        backgroundColor: globColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    legendCallback: function(chart) {
+                        var text = [];
+                        text.push('<ul>');
+                        for (var i = 0; i < chart.data.datasets[0].data.length; i++) {
+                          text.push('<span class="chartjs-legend-li-span label-default" style="margin-right: 30px; '+ 
+                          'padding-left: 20px; padding-right: 20px; ' +
+                          'background-color:' + 
+                          chart.data.datasets[0].backgroundColor[i] + '">');
+                            if (chart.data.labels[i]) {
+                            text.push(chart.data.labels[i]);
+                          }
+                          text.push('</span>');
+                        }
+                        text.push('</ul>');
+                        return text.join("");
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Porcentaje del Resultado en el horario'
+                            },
+                            ticks: {
+                                beginAtZero:true,
+                                max: 100
+                            }
+                        }],
+                        xAxes: [{
+                            maxBarThickness: 100,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Horarios'
+                            }
+                        }]
+                    },
+                    //onClick: graficoResultadoxCursoClickEvent,
+                    //onHover: cambiarCursor,
+                    annotation: {
+                        annotations: [{
+                          type: 'line',
+                          mode: 'horizontal',
+                          scaleID: 'y-axis-0',
+                          value: 70,
+                          borderColor: '#ADF6B1',
+                          borderWidth: 1,
+                          label: {
+                            enabled: false,
+                            content: 'Test label'
+                          }
+                        }]
+                    }
+                }
+            });
+            contHorariosxResultado++;
+            $("#chartjs-legend22").html(graficoHorariosxResultado.generateLegend());
+        },
+        error: function (xhr, status, text) {
+            event.preventDefault();
+            alert('Hubo un error al buscar la información');
+            item.removeClass('hidden').prev().addClass('hidden');
+        }
+    });
+}
+
 
 var globResultadosId = [];
 
@@ -603,7 +840,8 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
         }
     });
 }
-
+var globCursosId = [];
+var globCursosNombre = [];
 function updategraficoCursosxResultado(idSemestre, idResultado) {
     console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
     //Grafico de barras
@@ -631,6 +869,8 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
             }
             //console.log(cursosID);
             console.log(cursosId.length);
+            globCursosId = cursosId;
+            globCursosNombre = cursosNombre;
             if (cursosId.length == 0) {
                 cursosCodigo = ['No se encontraron cursos con el resultado seleccionado'];
                 cursosPorcentaje = [0];
@@ -703,9 +943,9 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                             content: 'Test label'
                           }
                         }]
-                    }//,
-                    //onClick: graficoResultadoxCicloClickEvent,
-                    //onHover: cambiarCursor
+                    },
+                    onClick: graficoCursosxResultadoClickEvent,
+                    onHover: cambiarCursor
                 }
             });
             contCursosxResultado++;
@@ -751,8 +991,58 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         var label = data.datasets[datasetIndex].label;
         var value = data.datasets[datasetIndex].data[activePoint._index];
         console.log(labels, label, value);
+
+        var idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
+        var idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
+        updategraficoIndicadoresxCurso(idSemestre, idCurso,resultadosCursoId[activePoint._index],resultadosCursoNombre[activePoint._index]);
+        
+
+        var nombreSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
+        var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
+        var nombreResultado = resultadosCursoNombre[activePoint._index];     
+        document.getElementById("detalleModal22Semestre").textContent="Semestre: "+nombreSemestre;
+        document.getElementById("detalleModal22Curso").textContent="Curso: "+nombreCurso;
+        document.getElementById("detalleModal22Resultado").textContent="Resultado: "+nombreResultado;
+        
+        $("#modalIndicadoresCurso").modal("show");
+
+        // Se oculta el modal de Resultados x Curso
+        $('#modalResultadosCurso').modal('hide');
     }
     
+ };
+
+ function graficoCursosxResultadoClickEvent(evt, chartElement){
+    var activePoint = graficoCursosxResultado.getElementAtEvent(evt)[0];
+    if (activePoint !== undefined) {
+        var data = activePoint._chart.data;
+        var datasetIndex = activePoint._datasetIndex;
+        var labels = data.labels[activePoint._index];
+        var label = data.datasets[datasetIndex].label;
+        var value = data.datasets[datasetIndex].data[activePoint._index];
+        // Los dos ultimos parametros globResultadosId y activePoint._index
+        // son el array de IDs de resultados y el indice del resultado que se selecciono
+        console.log(labels, label, value, globResultadosId, activePoint._index);
+        
+        // Se muestra el modal de Indicadores x Resultado
+        //$('#ciclos1 option').last().prop('selected',true);
+        var idSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].value;
+        var idResultado= document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
+        
+
+        var nombreSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].text;
+        var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos').selectedIndex].text;
+        var nombreResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;     
+        document.getElementById("detalleModal32Semestre").textContent="Semestre: "+nombreSemestre;
+        document.getElementById("detalleModal32Curso").textContent="Curso: "+nombreCurso;
+        document.getElementById("detalleModal32Resultado").textContent="Resultado: "+nombreResultado;
+        
+        updategraficoHorariosxResultado(idSemestre, idResultado, globCursosId[activePoint._index]);
+        $("#modalHorariosResultado").modal("show");
+
+        // Se oculta el modal de 3.1 Cursos x Resultado
+        $('#modalCxR').modal('hide');
+    }
  };
 
  function cambiarCursor(evt, chartElement) {

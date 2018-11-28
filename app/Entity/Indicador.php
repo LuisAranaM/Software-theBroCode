@@ -70,10 +70,15 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model->getDataGraficoIndicadoresResultado($idSemestre,$idResultado,self::getEspecialidadUsuario())->get();   
     }
-
+    //Grafico 2.1
     static function graficoReporteResultadosCurso($idSemestre,$idCurso){
         $model =new mIndicador();
         return $model->getDataGraficoResultadosxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario())->get();
+    }
+    //Grafico 2.2
+    static function graficoReporteIndicadoresCurso($idSemestre,$idCurso, $idResultado){
+        $model =new mIndicador();
+        return $model->getDataGraficoIndicadoresxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario(),$idResultado)->get();
     }
 
     static function getReporteResultadosCiclo($filtros, $idSemestre){
@@ -193,7 +198,7 @@ class Indicador extends \App\Entity\Base\Entity {
                     $nIndicadores++;
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
                 }
-                if(!empty($reporte)){
+                if(count($reporte)>0){
                     $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                     $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                     $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
@@ -213,14 +218,15 @@ class Indicador extends \App\Entity\Base\Entity {
             });
         })->download('xlsx');
     }
-
-    static function getReporteCursosResultado($filtros){
+    //Reporte 2
+    static function getReporteCursosResultado($filtros, $idSemestre){
         $model =new mIndicador();
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
-        $semestre=self::getSemestre();
+        $semestre=self::getSemestreByIdSemestre($idSemestre);
+        
         $nombreExcel='Reporte_Cursos_Resultado_'.$nombreEspecialidad.'_'.$semestre;
 
-        $reporte=$model->getReporteCursosResultado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        $reporte=$model->getReporteCursosResultado($filtros,$idSemestre,self::getEspecialidadUsuario())->get();
         //dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
@@ -257,7 +263,7 @@ class Indicador extends \App\Entity\Base\Entity {
                             $cells->setValignment('center');
                 });
                 
-
+                
                 $codResultado="";
                 $filaInicial=3;
                 $filaFinal=3;
@@ -267,7 +273,7 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaInicialInd=3;
                 $filaFinalInd=3;
                 $nombreInd="";
-
+                
                 $style = array('font' => array('size' => 15,'bold' => true));
                 $promedioResultado=0;
                 $contadorAlumnos=0;
@@ -352,7 +358,8 @@ class Indicador extends \App\Entity\Base\Entity {
                     $filaFinalCat=$i;
                     $filaFinalInd=$i;
                 }  
-                if(!empty($reporte)){
+                //dd($reporte);
+                if(count($reporte)>0){
                     $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
                     $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
@@ -448,7 +455,7 @@ class Indicador extends \App\Entity\Base\Entity {
                     $codResultado=$fila->COD_RESULTADO;
                     $filaFinal=$i;
                 }  
-                if(!empty($reporte)){
+                if(count($reporte)>0){
                     $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));    

@@ -123,7 +123,7 @@
 
 <!-- ******* 1. Modal Resultados x Ciclo ******* -->
 <div id = "modalRxC" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="modal-dialog modal-lg" style="width: 1000px;">
 
@@ -185,7 +185,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 <!-- ******* 1.2. Modal Indicadores x Resultado ******* -->
 <div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="modal-dialog modal-lg" style="width: 1000px;">
 
@@ -255,7 +255,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 <!-- ******* 2. Modal Resultados x Curso ******* -->
 <div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="modal-dialog modal-lg" style="width: 1000px">
 
@@ -272,13 +272,14 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     <!-- Fin Cabeza del modal -->
     
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-
+    
+    <form class="form2" action="{{route('exportar.reporte2')}}">
     <!-- Combo box -->
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
       <!--<div class="col-xs-offset-2 col-xs-12">-->
         <span class="col-xs-offset-1">
         Ciclo:
-        <select id="ciclos2" style="width: 100px" class="ciclos">
+        <select id="ciclos2"  name="idSemestre2" style="width: 100px" class="ciclos">
         </select>
         </span>
         <span class="col-xs-offset-1">
@@ -317,12 +318,97 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         <a id="btnDescargarGraficos2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
       </div>
       <div class="col-md-4 text-left">
-        <a href="{{route('exportar.reporte2')}}">
-          <button id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-        </a>
+        <button type="submit" id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
       </div>
     </div>
     <!-- Fin Botones inferiores del modal -->
+  </form>
+  </div>
+  <!-- Fin Contenido del modal -->
+</div>
+</div>
+<!-- Fin Modal Curso x Resultado -->
+
+<!-- ******* 2.2 Modal Indicadores x Curso ******* -->
+<div id = "modalIndicadoresCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+data-keyboard="false" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 1000px">
+
+  <!-- Contenido del modal -->
+  <div class="modal-content">
+    <!-- Cabeza del modal -->
+    <div class="modal-header">
+      <a href="#modalResultadosCurso" data-toggle="modal" data-dismiss="modal"><i id="btnAtrasIxR" class="fa fa-chevron-left left"></i></a>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    
+    <!-- Fin Cabeza del modal -->
+    
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    
+    <form class="form2" action="{{route('exportar.reporte2')}}">
+    <!-- Combo box -->
+     <!-- 
+    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <span class="col-xs-offset-1">
+        Ciclo:
+        <select id="ciclos2"  name="idSemestre2" style="width: 100px" class="ciclos">
+        </select>
+        </span>
+        <span class="col-xs-offset-1">
+        Cursos:
+        <select id="cursos2" style="width: 200px" class="cursos">
+        </select>
+        </span>
+    </div>
+    -->
+    <!-- nombre curso y Resultado -->
+    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Indicadores por Resultado</h4>
+      <h5 id="detalleModal22Semestre" class="reportsTitle" style="padding-top: 10px"></h5>
+      <h5 id="detalleModal22Curso" class="reportsTitle" style="padding-top: 10px"></h5>
+      <h5 id="detalleModal22Resultado" class="reportsTitle" style="padding-top: 10px"></h5>
+      
+    </div>
+    <!-- Fin Combo box -->
+
+    <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <div class="col-xs-offset-8 col-xs-3">
+        <p>Curso:</p>
+        <select id="cursos2" class="cursos form-control">
+        </select>
+      </div>
+    </div>-->
+    <!-- Fin Combo box -->
+
+    <!-- Cuerpo del modal -->
+    <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
+      <div class="row">
+        <div id="chartjs-legend22" style="padding-top: 25px" class="noselect"></div>
+        <div class="x_content">
+          <canvas id="graficoIndicadoresxCurso" width="1000" height="400"></canvas>
+        </div> 
+      </div>
+    </div>
+    <!-- Fin Cuerpo del modal -->
+
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+    <!-- Botones inferiores del modal -->
+    <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+      <div class="col-md-4 text-right">
+        <a id="btnDescargarGraficos2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+      </div>
+      <div class="col-md-4 text-left">
+        <button type="submit" id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+      </div>
+    </div>
+    <!-- Fin Botones inferiores del modal -->
+  </form>
   </div>
   <!-- Fin Contenido del modal -->
 </div>
@@ -331,7 +417,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 <!-- ******* 3. Modal Indicadores x Resultado ******* -->
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="modal-dialog modal-lg" style="width: 1000px;">
 
@@ -390,11 +476,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         <div class="col-md-4 text-right">
           <button id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
         </div>
-        <div class="col-md-4 text-left">
-          <a href="{{route('exportar.reporte1')}}">
-            <button id="btnDescargarReportes3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-          </a>
-        </div>
       </div>
       <!-- Fin Botones inferiores del modal -->
     </div>
@@ -403,9 +484,88 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 </div>
 <!-- Fin Modal Indicadores x Resultado -->
 
+<!-- ******* 3.2 Modal Horarios x Resultado ******* -->
+<div id = "modalHorariosResultado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+<div class="modal-dialog modal-lg" style="width: 1000px">
+
+  <!-- Contenido del modal -->
+  <div class="modal-content">
+    <!-- Cabeza del modal -->
+    <div class="modal-header">
+      <a href="#modalCxR" data-toggle="modal" data-dismiss="modal"><i id="btnAtrasHxR" class="fa fa-chevron-left left"></i></a>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    
+    <!-- Fin Cabeza del modal -->
+    
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+    
+    <!-- Combo box -->
+     <!-- 
+    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+        <span class="col-xs-offset-1">
+        Ciclo:
+        <select id="ciclos2"  name="idSemestre2" style="width: 100px" class="ciclos">
+        </select>
+        </span>
+        <span class="col-xs-offset-1">
+        Cursos:
+        <select id="cursos2" style="width: 200px" class="cursos">
+        </select>
+        </span>
+    </div>
+    -->
+    <!-- nombre curso y Resultado -->
+    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Horarios por Resultado</h4>
+      <h5 id="detalleModal32Semestre" class="reportsTitle" style="padding-top: 10px"></h5>
+      <h5 id="detalleModal32Curso" class="reportsTitle" style="padding-top: 10px"></h5>
+      <h5 id="detalleModal32Resultado" class="reportsTitle" style="padding-top: 10px"></h5>
+    </div>
+    <!-- Fin Combo box -->
+
+    <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
+      <div class="col-xs-offset-8 col-xs-3">
+        <p>Curso:</p>
+        <select id="cursos2" class="cursos form-control">
+        </select>
+      </div>
+    </div>-->
+    <!-- Fin Combo box -->
+
+    <!-- Cuerpo del modal -->
+    <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
+      <div class="row">
+        <div id="chartjs-legend32" style="padding-top: 25px" class="noselect"></div>
+        <div class="x_content">
+          <canvas id="graficoHorariosxResultado" width="1000" height="400"></canvas>
+        </div> 
+      </div>
+    </div>
+    <!-- Fin Cuerpo del modal -->
+
+    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+
+    <!-- Botones inferiores del modal -->
+    <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+      <div class="col-md-4 text-right">
+        <a id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+      </div>
+    </div>
+    <!-- Fin Botones inferiores del modal -->
+  </div>
+  <!-- Fin Contenido del modal -->
+</div>
+</div>
+<!-- Fin Modal Curso x Resultado -->
+
 <!-- ******* 4. Modal Consolidado Historico ******* -->
 <div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCursos" data-keyboard="false" data-backdrop="static"
+data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="modal-dialog modal-lg" style="width: 1000px">
 
