@@ -20,6 +20,12 @@ class Avisos extends \App\Entity\Base\Entity {
         return mAvisos::getAvisos(self::getIdSemestre(),self::getEspecialidadUsuario());
     }
 
+    static function getAvisosActuales() {
+        $model = new mAvisos();
+        //dd($model->getAvisosActuales(self::getIdSemestre(),self::getEspecialidadUsuario()));
+        return $model->getAvisosActuales(self::getIdSemestre(),self::getEspecialidadUsuario());
+    }
+
     static function insertAvisos($desc,$fechaIni,$fechaFin){
         $model = new mAvisos();
         return $model->insertAviso($desc,$fechaIni,$fechaFin, self::getIdSemestre(), self::getEspecialidadUsuario());

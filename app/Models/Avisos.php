@@ -46,6 +46,23 @@ class Avisos extends Eloquent
 
 	}
 
+    static function getAvisosActuales($idSem,$idEsp) {
+        //dd($idSem);
+        $sql = DB::table('AVISOS')
+                //->select('DESCRIPCION', DB::Raw('CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO'), DB::Raw('CONVERT(FECHA_FIN,DATE) AS FECHA_FIN'))
+                ->select('ID_AVISO', 'DESCRIPCION', DB::Raw('DATE_FORMAT(FECHA_INICIO, "%m/%d/%Y") AS FECHA_INICIO'), DB::Raw('DATE_FORMAT(FECHA_FIN, "%m/%d/%Y") AS FECHA_FIN'))
+                ->where('ESTADO','=',1)
+                ->where('ID_SEMESTRE','=',$idSem)
+                ->where('ID_ESPECIALIDAD','=',$idEsp)
+                ->where('FECHA_INICIO', '<=', now())
+                ->where('FECHA_FIN', '>=', now())
+                ->orderBy('ID_AVISO', 'desc')
+                ->get();
+        //dd($sql->get());
+        return $sql;
+
+    }
+
 	public function insertAviso($desc,$fechaIni,$fechaFin, $idSem, $idEsp){
 		DB::beginTransaction();
         $id=-1;
