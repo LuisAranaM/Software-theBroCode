@@ -203,7 +203,7 @@
 	display:none
 }
 .nav-sm .nav.side-menu li a i {
-	font-size:25px!important;
+	font-size:15px!important;
 	text-align:center;
 	width:100%!important;
 	margin-bottom:5px
@@ -624,6 +624,10 @@ a {
 .nav.side-menu>li>a {
 	margin-bottom:6px
 }
+.nav.side-menu.achicar>li>a {
+	margin-bottom:0px
+}
+
 .nav.side-menu>li>a:hover {
 	color:#F2F5F7!important
 }

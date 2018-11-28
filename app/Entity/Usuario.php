@@ -77,8 +77,8 @@ class Usuario extends \App\Entity\Base\Entity {
         static function redirectRol($rol) {
         //dd($rol);
             $urlAdmin = 'administrador.usuario';
-            $urlCoordinador = 'cursos.gestion';
-            $urlAsistente = 'cursos.gestion';
+            $urlCoordinador = 'profesor.calificar';
+            $urlAsistente = 'profesor.calificar';
             $urlProfesor = 'profesor.calificar';
 
             switch ($rol) {
