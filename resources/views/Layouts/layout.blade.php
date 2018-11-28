@@ -185,7 +185,7 @@
       </div>
 
       <div class="top_nav">
-        <div class="nav_menu" style="background-color: white; border-color: #E6E9ED">
+        <div id="barraSuperior" class="nav_menu" style="background-color: white; border-color: #E6E9ED">
           <nav>
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
