@@ -7,7 +7,7 @@
 
 
 <?php
-  $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+$modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
 ?>
 
 <div class="customBody">
@@ -38,38 +38,37 @@
   </div>
   @include('flash::message')
   <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel" style="background-color: #5281a8">
         <h2 style="color: white">Progreso Total</h2>
-        <div class="col-lg-1 col-md-2 col-xs-12" >
+        <div class="col-sm-1 col-xs-2" >
           <p style="color: white" class="pText" style="margin-bottom: 0px">Cursos</p>
         </div>
-        <div class="col-lg-9 col-md-7 col-sm-9 col-xs-7" style="padding-bottom: 0">
+        <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
           <div class="widget_summary" >
             <div class="w_center w_55" style="width: 100%">
               <div class="progress" style="margin-bottom: 0px">
-                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="100%; background-color: #005b7f !important; border: none !important">
-                  <span class="sr-only">60% Complete</span>
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="100% style="width: {{ $cursos["progreso"]  }} ; background-color: #005b7f !important; border: none !important"  >
+                  <span class="sr-only"> {{ $cursos["progreso"] }}% Complete</span>
+
                 </div>
               </div>
             </div>
           </div>
           <div class="no-padding">
-            @if (4 > 0)
-            <p style="color: white" class="barText pText">4% de avance - 4/10 cursos calificados</p>
-            @endif
-            @if (10 == 0)
+            @if ($cursos["cantidadCursos"] > 0)
+            <p style="color: white" class="barText pText"> {{ $cursos["progreso"] }}% de avance - 
+            {{ $cursos["cursosCalificados"] }} / {{ $cursos["cantidadCursos"] }} cursos calificados </p>
+            @else
             <p style="color: white" class="barText pText">No hay cursos cargados</p>
             @endif
           </div>
-
         </div>
       </div>
     </div>
-    @foreach($cursos as $c)
+
+    @foreach($cursos["cursos"] as $c)
     @if(count($c["horarios"])>0)
-
-
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
@@ -150,8 +149,8 @@
 <!-- Modal de Cargar Alumnos  -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+id="modalCargarAlumnos" data-keyboard="true" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" tabindex='-1'>
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30%">
     <div class="modal-header">
@@ -181,7 +180,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
             </div>
             <div class="col-md-4">
-              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
             </div>
 
           </div>
@@ -209,16 +208,16 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
     var avisos = variableText.split('-');
 
     for (i = 0; i < avisos.length; i++) {
-          console.log(avisos[i]);
-    if (avisos[i]!=''){(new PNotify({
-      title: 'Aviso',
-      text: avisos[i],
-      hide: true,
-      sticker: false,
-      nonblock: {
-        nonblock: true
-      },
-      styling: 'bootstrap3',
+      console.log(avisos[i]);
+      if (avisos[i]!=''){(new PNotify({
+        title: 'Aviso',
+        text: avisos[i],
+        hide: true,
+        sticker: false,
+        nonblock: {
+          nonblock: true
+        },
+        styling: 'bootstrap3',
       addclass: 'pnotify-center' //dark
     }));}
     }
