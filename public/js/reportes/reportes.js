@@ -5,6 +5,7 @@ var graficoCursosxResultado;
 var contResultadosxCiclo = 0;
 var contResultadosxCurso = 0;
 var contIndicadoresxCurso = 0;
+var contHorariosxResultado = 0;
 
 var contIndicadoresxResultado = 0;
 var contCursosxResultado = 0;
@@ -517,9 +518,9 @@ function updategraficoHorariosxResultado(idSemestre,idCurso,idResultado,nombreRe
 		},
 		success: function (result) {
             //Se llena
-            console.log("holaaa");
-            console.log(result);
-            console.log("bais");
+            //console.log("holaaa");
+            //console.log(result);
+            //console.log("bais");
             horarioId=[];
             horarioNombre=[];
             horarioPorcentaje=[];
@@ -529,9 +530,9 @@ function updategraficoHorariosxResultado(idSemestre,idCurso,idResultado,nombreRe
                 horarioNombre.push(nombreResultado+result[i].VALORIZACION);
                 horarioPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
             }
-            console.log(indicadoresId);
-            console.log(indicadoresNombre);
-            console.log(indicadoresPorcentaje);
+            //console.log(indicadoresId);
+            //console.log(indicadoresNombre);
+            //console.log(indicadoresPorcentaje);
             if (horarioId.length == 0) {
                 horarioNombre = ['No se encontraron resultados en el curso'];
                 horarioPorcentaje = [0];
@@ -542,10 +543,10 @@ function updategraficoHorariosxResultado(idSemestre,idCurso,idResultado,nombreRe
             graficoHorariosxResultado = new Chart(ctx2, {
                 type: 'bar',
                 data: {
-                    labels: horariosNombre,
+                    labels: horarioNombre,
                     datasets: [{
                         label: 'Porcentaje',
-                        data: horariosPorcentaje,
+                        data: horarioPorcentaje,
                         backgroundColor: globColors,
                         borderWidth: 0
                     }]
@@ -1031,11 +1032,12 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         
 
         var nombreSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].text;
-        var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos').selectedIndex].text;
-        var nombreResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;     
-        document.getElementById("detalleModal32Semestre").textContent="Semestre: "+nombreSemestre;
-        document.getElementById("detalleModal32Curso").textContent="Curso: "+nombreCurso;
-        document.getElementById("detalleModal32Resultado").textContent="Resultado: "+nombreResultado;
+        //var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
+        var nombreCurso = data.labels[activePoint._index];
+        var nombreResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;
+        document.getElementById("detalleModal32Semestre").textContent="Semestre: " + nombreSemestre;
+        document.getElementById("detalleModal32Curso").textContent="Curso: " + nombreCurso;
+        document.getElementById("detalleModal32Resultado").textContent="Resultado: " + nombreResultado;
         
         updategraficoHorariosxResultado(idSemestre, idResultado, globCursosId[activePoint._index]);
         $("#modalHorariosResultado").modal("show");
