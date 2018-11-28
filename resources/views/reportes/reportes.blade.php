@@ -238,12 +238,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
         <!-- Botones inferiores del modal -->
         <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-          <div class="col-md-4 text-right">
             <a id="btnDescargarGraficos12" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
-          </div>
-          <div class="col-md-4 text-left">
-            <button type="submit" id="btnDescargarReportes1" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-          </div>
         </div>
         <!-- Fin Botones inferiores del modal -->
       </form>
@@ -314,13 +309,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
     <!-- Botones inferiores del modal -->
     <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
-        <a id="btnDescargarGraficos2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+        <div class="col-md-4 text-left">
+          <a id="btnDescargarGraficos2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+        </div>
+        <div class="col-md-4 text-right">
+          <button type="submit" id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+        </div>
       </div>
-      <div class="col-md-4 text-left">
-        <button type="submit" id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-      </div>
-    </div>
     <!-- Fin Botones inferiores del modal -->
   </form>
   </div>
@@ -343,9 +338,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
+      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Indicadores por Resultado en el Curso</h4>
     </div>
-    
-    
     <!-- Fin Cabeza del modal -->
     
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
@@ -367,13 +361,17 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     </div>
     -->
     <!-- nombre curso y Resultado -->
-    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Indicadores por Resultado</h4>
-      <h5 id="detalleModal22Semestre" class="reportsTitle" style="padding-top: 10px"></h5>
-      <h5 id="detalleModal22Curso" class="reportsTitle" style="padding-top: 10px"></h5>
-      <h5 id="detalleModal22Resultado" class="reportsTitle" style="padding-top: 10px"></h5>
-      
+    
+    <div class="row" style="margin-left: -30px; padding-top: 10px; color: #9A9A9A">
+      <p id="detalleModal22Semestre" style="font-weight: bold; margin-bottom: -1px;"></p>
+      <p id="detalleModal22Curso" style="font-weight: bold; margin-bottom: -1px;"></p>
+      <p id="detalleModal22Resultado" style="font-weight: bold; margin-bottom: -1px;"></p>
     </div>
+    <!--<div class="row" style="padding-top: 10px; padding-bottom: -10px">
+      <p id="detalleModal22Semestre" style=""></p>
+      <p id="detalleModal22Curso" style=""></p>
+      <p id="detalleModal22Resultado" style=""></p>
+    </div>-->
     <!-- Fin Combo box -->
 
     <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
@@ -400,12 +398,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
     <!-- Botones inferiores del modal -->
     <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
-        <a id="btnDescargarGraficos2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
-      </div>
-      <div class="col-md-4 text-left">
-        <button type="submit" id="btnDescargarReportes2" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-      </div>
+      <a id="btnDescargarGraficos22" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
     </div>
     <!-- Fin Botones inferiores del modal -->
   </form>
@@ -473,8 +466,11 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
+        <div class="col-md-4 text-left">
+          <a id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
+        </div>
         <div class="col-md-4 text-right">
-          <button id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
+          <button type="submit" id="btnDescargarReportes3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
         </div>
       </div>
       <!-- Fin Botones inferiores del modal -->
@@ -497,6 +493,7 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
+      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Horarios por Resultado</h4>
     </div>
     
     
@@ -520,11 +517,10 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
     </div>
     -->
     <!-- nombre curso y Resultado -->
-    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Horarios por Resultado</h4>
-      <h5 id="detalleModal32Semestre" class="reportsTitle" style="padding-top: 10px"></h5>
-      <h5 id="detalleModal32Curso" class="reportsTitle" style="padding-top: 10px"></h5>
-      <h5 id="detalleModal32Resultado" class="reportsTitle" style="padding-top: 10px"></h5>
+    <div class="row" style="margin-left: -30px; padding-top: 10px; color: #9A9A9A">
+      <p id="detalleModal32Semestre" style="font-weight: bold; margin-bottom: -1px;"></p>
+      <p id="detalleModal32Curso" style="font-weight: bold; margin-bottom: -1px;"></p>
+      <p id="detalleModal32Resultado" style="font-weight: bold; margin-bottom: -1px;"></p>
     </div>
     <!-- Fin Combo box -->
 
@@ -552,9 +548,7 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
 
     <!-- Botones inferiores del modal -->
     <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
         <a id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
-      </div>
     </div>
     <!-- Fin Botones inferiores del modal -->
   </div>

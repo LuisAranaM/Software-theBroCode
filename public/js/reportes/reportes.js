@@ -6,7 +6,6 @@ var contResultadosxCiclo = 0;
 var contResultadosxCurso = 0;
 var contIndicadoresxCurso = 0;
 var contHorariosxResultado = 0;
-
 var contIndicadoresxResultado = 0;
 var contCursosxResultado = 0;
 
@@ -160,6 +159,8 @@ $( document ).ready(function() {
         $("#modalConsolidado").modal("show")
     });
 
+    var semestre = "";
+    var curso = "";
     $('#btnDescargarGraficos1').click(function(event) {
         var canvas = document.querySelector('#graficoResultadoxCiclo');
         var dataURL = canvas.toDataURL();
@@ -190,6 +191,18 @@ $( document ).ready(function() {
         curso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
         pdf.text('Resultados\nCurso '+curso+'\nCiclo '+semestre, 10, 25);
         pdf.save('Grafico_Resultados_Curso_' + curso + '_Ciclo_'+semestre+".pdf");
+      });
+
+      $('#btnDescargarGraficos22').click(function(event) {       
+        var canvas = document.querySelector('#graficoIndicadoresxCurso');
+        var dataURL = canvas.toDataURL();
+        var pdf = new jsPDF('l');
+        pdf.addImage(dataURL, 'PNG', 0, 50);
+        //semestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
+        //curso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
+        console.log(semestre, curso);
+        pdf.text('Resultados\nCurso '+curso+'\nCiclo '+semestre, 10, 25);
+        pdf.save('Grafico_Indicadores_Curso_' + curso + '_Ciclo_'+semestre+".pdf");
       });
 
       $('#btnDescargarGraficos3').click(function(event) {       
@@ -262,7 +275,9 @@ function updateCmbResultados(idSemestre) {
 var ctx;
 var ctx1_2;
 var ctx2;
+var ctx2_2;
 var ctx3;
+var ctx3_2;
 
 var globColors = [
     'rgba(255, 99, 132, 0.6)',
@@ -392,7 +407,7 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
 //Gráfico 2.2
 function updategraficoIndicadoresxCurso(idSemestre,idCurso,idResultado,nombreResultado) {
     //Grafico de barras
-    ctx2 = document.getElementById("graficoIndicadoresxCurso").getContext('2d');
+    ctx2_2 = document.getElementById("graficoIndicadoresxCurso").getContext('2d');
     $.ajax({
 		url: APP_URL + '/graficoIndicadoresCurso',
 		type: 'GET',
@@ -425,7 +440,7 @@ function updategraficoIndicadoresxCurso(idSemestre,idCurso,idResultado,nombreRes
             if (contIndicadoresxCurso != 0) {
                 graficoIndicadoresxCurso.destroy();
             }
-            graficoIndicadoresxCurso = new Chart(ctx2, {
+            graficoIndicadoresxCurso = new Chart(ctx2_2, {
                 type: 'bar',
                 data: {
                     labels: indicadoresNombre,
@@ -507,7 +522,7 @@ function updategraficoIndicadoresxCurso(idSemestre,idCurso,idResultado,nombreRes
 //Gráfico 3.2
 function updategraficoHorariosxResultado(idSemestre,idCurso,idResultado,nombreResultado) {
     //Grafico de barras
-    ctx2 = document.getElementById("graficoHorariosxResultado").getContext('2d');
+    ctx3_2 = document.getElementById("graficoHorariosxResultado").getContext('2d');
     $.ajax({
 		url: APP_URL + '/graficoHorariosResultado',
 		type: 'GET',
@@ -540,7 +555,7 @@ function updategraficoHorariosxResultado(idSemestre,idCurso,idResultado,nombreRe
             if (contHorariosxResultado != 0) {
                 graficoHorariosxResultado.destroy();
             }
-            graficoHorariosxResultado = new Chart(ctx2, {
+            graficoHorariosxResultado = new Chart(ctx3_2, {
                 type: 'bar',
                 data: {
                     labels: horarioNombre,
@@ -999,7 +1014,9 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         
 
         var nombreSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
+        semestre = nombreSemestre;
         var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
+        curso = nombreCurso;
         var nombreResultado = resultadosCursoNombre[activePoint._index];     
         document.getElementById("detalleModal22Semestre").textContent="Semestre: "+nombreSemestre;
         document.getElementById("detalleModal22Curso").textContent="Curso: "+nombreCurso;
@@ -1033,7 +1050,9 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
 
         var nombreSemestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].text;
         //var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
+        semestre = nombreSemestre;
         var nombreCurso = data.labels[activePoint._index];
+        curso =nombreCurso;
         var nombreResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;
         document.getElementById("detalleModal32Semestre").textContent="Semestre: " + nombreSemestre;
         document.getElementById("detalleModal32Curso").textContent="Curso: " + nombreCurso;
