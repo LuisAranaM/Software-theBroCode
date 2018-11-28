@@ -1,5 +1,17 @@
 $( document ).ready(function() {
 
+
+
+    $(document).on({
+        mouseenter: function () {
+            console.log("HOLI");
+            $( this ).find("i.fa-trash").show();
+        },
+        mouseleave: function () {
+            $( this ).find("i.fa-trash").hide();
+        }
+    }, '.courseButton');
+
     console.log("inicio");
     
     $("#CargarCurso").on("click", function(){
@@ -64,10 +76,10 @@ $( document ).ready(function() {
     $('#frmAgregarCursos').on('keyup keypress', function(e) {
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) { 
-       e.preventDefault();
-       return false;
-   }
-});
+         e.preventDefault();
+         return false;
+     }
+ });
 
 
     /*('#frmAgregarCursos').on('submit', function(e) {

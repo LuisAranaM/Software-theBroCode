@@ -38,11 +38,7 @@
   </div>
   @include('flash::message')
   <div class="row">
-
-    @foreach($cursos as $c)
-    @if(count($c["horarios"])>0)
-    <div class="col-md-12 col-sm-12 col-xs-12">
-
+      <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel" style="background-color: #5281a8">
         <h2 style="color: white">Progreso Total</h2>
         <div class="col-lg-1 col-md-2 col-xs-12" >
@@ -69,7 +65,12 @@
 
         </div>
       </div>
+    </div>
+    @foreach($cursos as $c)
+    @if(count($c["horarios"])>0)
 
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
           <h2>{{$c["curso"]->NOMBRE}}</h2>
