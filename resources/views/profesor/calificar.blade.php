@@ -18,7 +18,7 @@
 
     <div class="col-md-4 col-sm-6 form-group top_search" >
       <div class="input-group">
-        <input type="text" class="form-control searchText" placeholder="Curso...">
+        <input id="busquedaCurso" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
           <button class="btn btn-default searchButton" type="button">Buscar</button>
         </span>
