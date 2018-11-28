@@ -77,8 +77,8 @@ class Usuario extends \App\Entity\Base\Entity {
         static function redirectRol($rol) {
         //dd($rol);
             $urlAdmin = 'administrador.usuario';
-            $urlCoordinador = 'cursos.gestion';
-            $urlAsistente = 'cursos.gestion';
+            $urlCoordinador = 'profesor.calificar';
+            $urlAsistente = 'profesor.calificar';
             $urlProfesor = 'profesor.calificar';
 
             switch ($rol) {
@@ -131,10 +131,16 @@ class Usuario extends \App\Entity\Base\Entity {
 
         public function getIdUsuario($codUsuario,$correo){
             $model = new mUsuario();
-            if($model->getIdUsuario($codUsuario,$correo)->first())
+            //dd($codUsuario,$correo);
+            if($model->getIdUsuario($codUsuario,$correo)->first()){
+                //dd($codUsuario,$correo);
                 return $model->getIdUsuario($codUsuario,$correo)->first()->ID_USUARIO;
-            else
+            }
+            else{
+                //dd("holis");
+                //dd($codUsuario,$correo);
                 return $model->getIdUsuario($codUsuario,$correo)->first();
+            }
         }
 
         function crearCuentaRubrik($datosCuenta){

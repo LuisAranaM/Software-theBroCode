@@ -26,6 +26,7 @@
 <link href="{{ URL::asset('css/daterangepicker.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
 
+<link href="{{ URL::asset('css/dropzone.css') }}" rel="stylesheet" type="text/css">
   <!--JS-->
   <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
   <script type="text/javascript"  src="{{ URL::asset('js/jquery-1.12.4.min.js') }}"></script>
@@ -50,6 +51,11 @@
 <script type="text/javascript" src="{{ URL::asset('js/formvalidation/formValidation.popular.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/formvalidation/language/es_CL.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
+
+<!--DRAG AND DROP-->
+<script type="text/javascript" src="{{ URL::asset('js/dropzone.js') }}"></script>
+
+
 
   @yield('js-libs')
 
@@ -98,7 +104,7 @@
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color: white; padding-left: 10px">
             <div class="menu_section" >
-              <ul class="nav side-menu">
+              <ul class="nav side-menu" id="menuLateral">
                 
                 <li class="pText" ><a href="#" style="color:#72777a;font-weight: bold;cursor: default;color:black" id="semestreSistema"><i class="fa fa-calendar"></i>Semestre: {{$semestreActual}}</a>
                 </li>
@@ -179,7 +185,7 @@
       </div>
 
       <div class="top_nav">
-        <div class="nav_menu" style="background-color: white; border-color: #E6E9ED">
+        <div id="barraSuperior" class="nav_menu" style="background-color: white; border-color: #E6E9ED">
           <nav>
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>

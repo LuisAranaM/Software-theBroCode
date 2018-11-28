@@ -222,7 +222,7 @@ class Usuario extends Authenticatable implements Auditable{
         $sql = DB::table('USUARIOS')
                 ->select('ID_USUARIO')
                 ->where('USUARIO','=',$codUsuario)
-                ->where('CORREO','=',$correo);
+                ->orWhere('CORREO','=',$correo);
         return $sql;
 
     }
