@@ -28,7 +28,7 @@
 @include('flash::message')
   <div class="row">
 
-    @foreach($cursos as $c)
+    @foreach($cursos["cursos"] as $c)
     @if(count($c["horarios"])>0)
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
