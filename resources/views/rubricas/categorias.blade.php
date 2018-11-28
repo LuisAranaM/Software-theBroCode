@@ -28,10 +28,10 @@
 					<div id="{{$categoria->ID_CATEGORIA}}rem">				
 						@foreach ($indicadoresTodos[$categoria->ID_CATEGORIA] as $indicador) 
 						<div class="indicadorBox row" style="background-color: white; padding: 10px; border-radius: 5px; margin-bottom: 10px; box-shadow: 1px 2px #a9aaaa">
-							<div class="col-xs-9">
+							<div class="col-sm-9 col-xs-8">
 								<p class="pText" value="{{$indicador->VALORIZACION}}" style="font-weight: bold; color: #72777a">{{$resultado}}.{{$indicador->VALORIZACION}}</p>
 							</div>
-							<div class="col-xs-3" style="text-align: right">
+							<div class="col-sm-3 col-xs-4" style="text-align: right">
 								<i id="{{$indicador->ID_INDICADOR}}" class="indicadorEdit fas fa-pen fa-md" style="color: #72777a; cursor: pointer; opacity: 0.7; display: none" id ="EditarIndicador"></i>
 								<i id="{{$indicador->ID_INDICADOR}}" class="indicadorTrash fas fa-trash fa-md" style="color: #72777a; padding-left: 6px; cursor: pointer; opacity: 0.7; display: none"></i>
 							</div>

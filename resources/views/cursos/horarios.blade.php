@@ -42,9 +42,9 @@
 
         <div class="col-sm-6 col-xs-6 text-right">
             <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+                <button type="button" class="btn btn-success btn-lg pText customButtonLarge2 btnCargarAlumnos2"
                  data-id = "{{ $codCurso }}" 
-                 > Cargar Alumnos</button>
+                 > Cargar Alumnos <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
             </a>
         </div>  
       </div>
@@ -249,7 +249,7 @@
 </div>
 
 @endif
-<a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
+
 
 
 </div>

@@ -14,29 +14,28 @@
 	</div>
 	@include('flash::message')
 	<div class="row">
-		<div class="x_panel" >
-			<div class="row" style="padding-top: 20px;">
-				<div class="col-sm-6 col-xs-12" >
-					<form action="" method="">
-						{{ csrf_field() }}
-						<div class="table-responsive" style="min-height: 100px; max-height: 300px;  overflow:auto;">
-							<table class="table table-striped jambo_table bulk_action">
-								<thead >
-									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI	">
-										<th class="pText column-title" style="border: none">Objetivos del Estudiante</th>
-										<th class="pText column-title" style="border: none; text-align: center;">Seleccionar</th>
-									</tr>
-								</thead>
+		<div class="col-sm-6 col-xs-12">
+			<div class="x_panel" style="padding: 20px" >
+				<form action="" method="">
+					{{ csrf_field() }}
+					<div class="table-responsive" style="min-height: 100px; max-height: 300px;  overflow:auto;">
+						<table class="table table-striped jambo_table bulk_action">
+							<thead >
+								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI	">
+									<th class="pText column-title" style="border: none">Objetivos del Estudiante</th>
+									<th class="pText column-title" style="border: none; text-align: center;">Seleccionar</th>
+								</tr>
+							</thead>
 
 
-								<tbody class="text-left" id="listaSOS">
-									@foreach($objetivosEstudiante as $so)
-									<tr class="even pointer" id="columnaX">
-										<td class="pText editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
+							<tbody class="text-left" id="listaSOS">
+								@foreach($objetivosEstudiante as $so)
+								<tr class="even pointer" id="columnaX">
+									<td class="pText editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
 
-										<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
-											<i id="editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
-											<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="elimSo far fa-trash-alt fa-md" style=" cursor: pointer"></i>
+									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
+										<i id="editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
+										<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="elimSo fas fa-trash fa-md" style=" cursor: pointer"></i>
 
 											<!--<label>
 												<input type="checkbox" class="form-check-input checkSo" 
@@ -50,9 +49,15 @@
 						</div>
 
 					</form>
+					<div id="btnsGuardar" class="text-center" style="border-color: transparent">
+						<!--<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>-->
+						<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> del Estudiante</button>
+					</div>
 				</div>
+			</div>
 
-				<div class="col-sm-6 col-xs-12" >
+			<div class="col-sm-6 col-xs-12" >
+				<div class="x_panel" style="padding: 20px">
 
 
 					<div class="table-responsive" style="min-height:100px; max-height: 300px; overflow:auto;">
@@ -74,7 +79,7 @@
 
 									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;" >
 										<i id="editEo" idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" ></i>
-										<i idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" class="elimEo far fa-trash-alt fa-md" style=" cursor: pointer"</i>
+										<i idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" class="elimEo fas fa-trash fa-md" style=" cursor: pointer"</i>
 											<!--<label>
 												<input type="checkbox" class="form-check-input checkSo" 
 												name="checkSelectso[]" value="{{$eo->ID_EOS}}" style="text-align: center;"><span class="pText label-text "></span>
@@ -87,19 +92,10 @@
 							</table>
 
 						</div>
-						
+						<div id="btnsGuardar" class="text-center" style="border-color: transparent">
+							<button id="btnAgregarEos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> Educacional</button>
+						</div>
 					</div>
-
-				</div>
-				<div class="row text-center">
-					<div id="btnsGuardar" class="col-xs-6" style="border-color: transparent">
-							<!--<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>-->
-							<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> del Estudiante</button>
-					</div>
-					<div id="btnsGuardar" class="col-xs-6" style="border-color: transparent">
-						<button id="btnAgregarEos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> Educacional</button>
-					</div>
-					
 				</div>
 
 
