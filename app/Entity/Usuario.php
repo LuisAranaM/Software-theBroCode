@@ -131,10 +131,16 @@ class Usuario extends \App\Entity\Base\Entity {
 
         public function getIdUsuario($codUsuario,$correo){
             $model = new mUsuario();
-            if($model->getIdUsuario($codUsuario,$correo)->first())
+            //dd($codUsuario,$correo);
+            if($model->getIdUsuario($codUsuario,$correo)->first()){
+                //dd($codUsuario,$correo);
                 return $model->getIdUsuario($codUsuario,$correo)->first()->ID_USUARIO;
-            else
+            }
+            else{
+                //dd("holis");
+                dd($codUsuario,$correo);
                 return $model->getIdUsuario($codUsuario,$correo)->first();
+            }
         }
 
         function crearCuentaRubrik($datosCuenta){
