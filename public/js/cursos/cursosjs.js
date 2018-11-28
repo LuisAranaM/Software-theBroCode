@@ -81,6 +81,7 @@ $( document ).ready(function() {
         var resp=confirm("¿Estás seguro que deseas dejar de acreditar "+nombreCurso+"?");
         var botonCurso=$(this).closest('div').closest('div');
         if (resp == true) {
+            //console.log("LOl");
             eliminarCursoAcreditar(codigoCurso,botonCurso);            
         } 
         e.preventDefault();        
