@@ -132,7 +132,7 @@
                 </li>
                 @endif
                 @if($modoCoordinador or $modoAsistente)
-                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Obj. Educacionales <span class="fa fa-chevron-down"></span></a>
+                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Objetivos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>
                       <li class="pText"><a href="{{route('objetivos')}}" style="color:#72777a">Mapear Objetivos</a></li>
@@ -165,9 +165,9 @@
                 <li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx" style="color:#72777a">
-                        <i class="fa fa-book"></i>Carga de Cursos</a></li>
+                        Carga de Cursos</a></li>
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx" style="color:#72777a">
-                        <i class="fa fa-users"></i>Carga de Alumnos</a></li>
+                        Carga de Alumnos</a></li>
                     </ul>
                   </li>
 

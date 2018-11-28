@@ -14,10 +14,10 @@
 	</div>
 	@include('flash::message')
 	<?php 
-		$contEos=count($objetivosEducacionales);
-	 ?>
+	$contEos=count($objetivosEducacionales);
+	?>
 	<div class="row">
-		<div class="x_panel">
+		<div class="x_panel" style="padding: 20px">
 			<form action="{{ route('objetivos.guardar') }}" method="POST">
 				{{ csrf_field() }}
 				<div class="table-responsive">
@@ -37,7 +37,7 @@
 						<tbody class="text-left" id="listaSOS">
 							@foreach($objetivosEstudiante as $so)
 							<tr class="even pointer" id="columnaX">
-								<td class="pText" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;">{{$so->NOMBRE}}</td>
+								<td class="pText" style="background-color: white;color: #72777a;text-align: center;vertical-align: center;">{{$so->NOMBRE}}</td>
 								@foreach($objetivosEducacionales as $eo)								
 								<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
 									<label>
@@ -45,14 +45,14 @@
 										name="checkSosHasEos[]" value="{{$so->ID_SOS}}-{{$eo->ID_EOS}}" style="text-align: center;" 
 										<?php 
 										$attr='';
-											foreach ($casillasChecks as $casilla) {
-												if($casilla->ID_SOS==$so->ID_SOS){
-													if($casilla->ID_EOS==$eo->ID_EOS){
-														$attr='checked';
-													}
+										foreach ($casillasChecks as $casilla) {
+											if($casilla->ID_SOS==$so->ID_SOS){
+												if($casilla->ID_EOS==$eo->ID_EOS){
+													$attr='checked';
 												}
-
 											}
+
+										}
 
 										echo($attr);?>
 										>
@@ -67,11 +67,9 @@
 					</table>
 
 				</div>
-				<div id="btnsGuardar" class="modal-footer" style="border-color: transparent; padding-top: 20px;">
-					<div class="row" style="text-align: center; padding-top: 10px">
-						<div class="col-md-12">
-							<button id="btnGuardarSosEos" class="btn btn-success pText customButtonThin" >Actualizar</button>
-						</div>
+				<div id="btnsGuardar" style="border-color: transparent">
+					<div class="row text-center">
+						<button id="btnGuardarSosEos" class="btn btn-success pText customButton" >Actualizar <i class="fas fa-sync-alt" style="padding-left: 6px"> </i></button>
 					</div>
 
 				</div>
