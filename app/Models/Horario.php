@@ -103,10 +103,15 @@ class Horario extends Eloquent
 
 	// Arana ctm
 	static function getIndicadoresHasAlumnosHasHorarios($idHorario){
-		$ans = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS')
-				->select('*')
-				->whereRaw('ID_HORARIO = ? AND ESTADO = 1',[$idHorario])
+		$ans = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH')
+				->select('IHAH.*')
+				->leftJoin('INDICADORES AS IND', function ($join) {
+					$join->on('IND.ID_INDICADOR', '=', 'IHAH.ID_INDICADOR');
+				})
+				->whereRaw('IHAH.ID_HORARIO = ? AND IHAH.ESTADO = 1',[$idHorario])				
+				->where('IND.ESTADO','=',1)			
 				->get();
+				
 		return $ans;
 	}
 

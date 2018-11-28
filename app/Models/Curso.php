@@ -162,7 +162,10 @@ class Curso extends Eloquent
                 $horario["alumnosTotal"] = $tot;
                 $part = 0;
                 $idAlumnos = array();
+                //Recorro todos los puntajes para los alumnos
+                //Obtengo un arreglo con los alumnos
                 foreach($results as $x){
+                    //dd($x);
                     if($x->ESTADO == 0)
                         continue;
                     $id = $x->ID_ALUMNO;
@@ -178,7 +181,10 @@ class Curso extends Eloquent
                         $idAlumnos[] = $id;
                     }
                 }
-                $tot = $tot * $cantValorizacion * $cantIndicadores;
+                //El total de indicadores es erroneo por la cantValorizacion
+                //$tot = $tot * $cantValorizacion * $cantIndicadores; //Antes
+                $tot = $tot * $cantIndicadores;
+
                 $res = 0;
                 if($tot != 0) $res = round($part*100/$tot,2);
                 $horario["avance"] = $res;
@@ -187,12 +193,16 @@ class Curso extends Eloquent
                 $denominador += $tot;
 
                 $res = 0;
+                //dd($idAlumnos);
                 foreach($idAlumnos as $x){
+                    //dd($idAlumnos);
                     $cont = 0;
                     foreach($results as $y){
                         if($y->ID_ALUMNO == $x) $cont++;
                     }
-                    if($cont == $cantValorizacion * $cantIndicadores) $res++;
+                    //dd($cont,$cantIndicadores);
+                    //if($cont == $cantValorizacion * $cantIndicadores) $res++;
+                    if($cont == $cantIndicadores) $res++;
                 }
                 $horario["alumnosCalif"] = $res;
                 $info[] = $horario;
