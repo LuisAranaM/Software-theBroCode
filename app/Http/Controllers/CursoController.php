@@ -434,8 +434,8 @@ class CursoController extends Controller
 
         }
         //dd($listaCursosNuevos,$listaCursosMantenidos,$listaHorariosNuevos,$listaHorariosMantenidos,$listaProfesoresNuevos,$listaProfesoresMantenidos);
-        
-        dd($horariosNuevos,$listaProfesoresNuevos);
+        //Arana en estos dos arreglos comentados abajo esta toda la data que necesitas
+        //dd($horariosNuevos,$listaProfesoresNuevos);
 
     }
 
