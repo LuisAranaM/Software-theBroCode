@@ -26,8 +26,8 @@
             var nombEspecialidad=filaEspecialidad.attr('nombEspecialidad');
 
 
-            $('#panelEditarEspecialidad').removeClass('hidden');
-            $('#panelEditarEspecialidad input[name="nombEspecialidad"]').val(nombEspecialidad);
+            $('#modalEditarEspecialidad').modal('show');
+            $('#frmEditarEspecialidad input[name="nombEspecialidadEditar"]').val(nombEspecialidad);
             e.preventDefault();
             console.log('HOLI');
         });
