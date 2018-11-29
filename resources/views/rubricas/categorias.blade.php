@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Categorías')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>

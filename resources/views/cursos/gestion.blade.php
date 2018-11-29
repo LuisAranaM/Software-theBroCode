@@ -54,6 +54,7 @@
         </div>  -->
       </div>
 
+        <div class="col-md-12 col-xs-12">
       <div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
         <div id ="CargarCurso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
           <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
@@ -61,14 +62,15 @@
           <p class="pText"> Agregar Nuevo Curso a Evaluar</p>
         </div>
       </div>
-
+</div>
       <div id="listaCursos">        
         @foreach($cursos as $curso)
+        <div class="col-md-6 col-xs-12">
         <div class="x_content bs-example-popovers courseContainer" >
           <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
-            <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
+            <div class="courseButton alert fade in courseButton" role="alert">
 
-              <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true"><i class="fas fa-trash" style="color: #005b7f;display:none" ></i></span>
+              <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true"><i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
 
               </button>
               <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
@@ -77,6 +79,7 @@
           </a>
 
         </div>
+      </div>
         @endforeach
       </div>
     </div>

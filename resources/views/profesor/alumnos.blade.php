@@ -93,17 +93,17 @@ body.loading .modalCargando {
     <table class="table table-striped jambo_table bulk_action">
      <thead >
       <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-       <th class="pText column-title" style="border: none"> Código</th>
-       <th class="pText column-title" style="border: none">Nombre</th>
-       <th class="pText column-title" style="border: none;width: 5%">Proyecto</th>
+       <th class="pText column-title" style=""> Código</th>
+       <th class="pText column-title" style="">Nombre</th>
+       <th class="pText column-title" style=";width: 5%">Proyecto</th>
 
-       <!--<th class="pText column-title" style="border: none"> </th>-->
-       <th class="pText column-title" style="border: none"> </th>
+       <!--<th class="pText column-title" style=""> </th>-->
+       <th class="pText column-title" style=""> </th>
        <!--para cada resultado-->
        @foreach($resultados as $resultado)
-       <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
+       <th class="pText column-title" style="">{{$resultado->NOMBRE}}</th>
        @endforeach 
-       <th class="pText column-title" style="border: none"> </th>
+       <th class="pText column-title" style=""> </th>
 
      </tr>
    </thead>
@@ -142,7 +142,7 @@ body.loading .modalCargando {
     <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idHorario="{{$horario[0]->ID_HORARIO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
       <i class="fa fa-edit"></i></td>
       @endforeach
-      <td>  <div class="ocultarTachito"><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer"></i></div></td>
+      <td>  <div class="ocultarTachito" style="margin-top: 10px"><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer"></i></div></td>
     </tr>
 
 

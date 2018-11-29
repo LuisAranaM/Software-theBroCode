@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Generar Avisos')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/avisos/avisos.js') }}"></script>
