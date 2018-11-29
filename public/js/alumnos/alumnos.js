@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 	console.log("inicio");
 
+	$( "#calificar" ).css("border-right", "5px solid #005b7f");
 	
 
 	$(".fileToUpload").on('change', function() {

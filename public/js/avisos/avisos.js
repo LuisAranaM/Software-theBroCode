@@ -1,6 +1,6 @@
 $( document ).ready(function() {
-	console.log("inicioAvisos");
 
+	console.log("inicioAvisos");
 
 	$("#CargarAviso").on("click", function(){
 		$("#modalAvisos").modal("show");
