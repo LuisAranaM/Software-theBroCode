@@ -183,6 +183,8 @@ class Alumno extends Eloquent
                 
                 if(Alumno::horarioValido($horariosValidos,$value->horario)){
                     // alumno sera agregado a este horario
+                    Alumno::trace('HORARIO VALIDO');
+                    Alumno::trace($value->horario);
                     foreach($alumnosPorHorario as $it){
                         if($it["codigoHorario"] == $value->horario){
                             $it["alumnos"][] = $alumno;

@@ -99,6 +99,7 @@ class Curso extends Eloquent
     }
 
     static function getCantCursos(&$sql){
+        if(!array_key_exists("cursos", $sql)) return 0;
         $ans = 0;
         foreach($sql["cursos"] as $c)
             if(count($c["horarios"]) > 0) $ans++;
@@ -106,6 +107,7 @@ class Curso extends Eloquent
     }
 
     static function getCursosCalificados($sql){
+        if(!array_key_exists("cursos", $sql)) return 0;
         $ans = 0;
         foreach($sql["cursos"] as $c){
             foreach($c["horarios"] as $h)
