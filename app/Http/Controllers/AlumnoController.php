@@ -92,9 +92,29 @@ class AlumnoController extends Controller
         return $ans;
     }
 
+    private function validFile($x){
+        $i = 0; $point = false;
+        for(; $i < strlen($x); $i++)
+            if($x[$i] == '.'){
+                $point = true;
+                break;
+            }
+        if(!$point) return false;
+        $ext = "";
+        for($i++; $i < strlen($x); $i++)
+            $ext .= $x[$i];
+        return ($ext == 'csv') || ($ext == 'xlsx');
+    }
+
     public function uploadAlumnosDeCurso(Request $request){
         if($request -> hasFile('upload-file')){
             try{
+                /*Archivo debe ser valido*/
+                if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
+                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+                    return Redirect::back();
+                }
+                // Archivo valido
                 $path = $request->file('upload-file')->getRealPath();
                 $data = \Excel::load($path)->get();
                 $codCurso = $request->input('codigoCurso');
@@ -110,6 +130,12 @@ class AlumnoController extends Controller
 	            // 2. Un arreglo de alumnos
                 $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
                 
+                if($val == 2){
+                    // LOS HORARIOS DEBEN SER NUMERICOS
+                    flash('Los horarios deben ser datos numericos.')->error();
+                    return Redirect::back();
+                }
+
                 /*Testando que esta bien */
                 /*Aparentemente esta bien */
                 $this->trace('alumnosNuevos');
