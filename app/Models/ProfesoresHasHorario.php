@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use DB;
 
 /**
  * Class ProfesoresHasHorario
@@ -56,5 +57,18 @@ class ProfesoresHasHorario extends Eloquent
     public function horario()
     {
         return $this->belongsTo(\App\Models\Horario::class, 'ID_HORARIO');
+    }
+
+    static function getProfesorHorario($idHorario){
+        $sql=DB::Table('PROFESORES_HAS_HORARIOS AS PH')
+        ->select(DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO) 
+            AS NOMBRES_COMPLETOS"))
+        ->leftJoin('USUARIOS AS US',function($join){
+            $join->on('US.ID_USUARIO','=','PH.ID_USUARIO');
+        })
+        ->where('PH.ID_HORARIO','=',$idHorario)
+        ->where('PH.ESTADO','=',1);
+        //dd($sql->first()->NOMBRES_COMPLETOS);
+        return $sql;
     }
 }

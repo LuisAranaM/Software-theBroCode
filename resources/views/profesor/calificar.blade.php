@@ -5,12 +5,23 @@
 <script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
 @stop
 
+
+<?php
+$modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+?>
+
 <div class="customBody">
+
+  @if($modoProfesor)
   <input type="text" id="ultimoAviso" value="<?php 
   $desc='';
-  if($ultimoAviso!=NULL) $desc=$ultimoAviso->DESCRIPCION;
+  if($ultimoAviso!=NULL) 
+  foreach ($ultimoAviso as $a) {
+    $desc = $a->DESCRIPCION. '-' . $desc;
+  }
   echo ($desc);
   ?>" hidden>
+  @endif
   <div class="row">
     <div class="col-md-8 col-sm-6">
       <h1 class="mainTitle"> Seleccione horario a calificar</h1>
@@ -18,7 +29,7 @@
 
     <div class="col-md-4 col-sm-6 form-group top_search" >
       <div class="input-group">
-        <input type="text" class="form-control searchText" placeholder="Curso...">
+        <input id="busquedaCurso" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
           <button class="btn btn-default searchButton" type="button">Buscar</button>
         </span>
@@ -27,11 +38,8 @@
   </div>
   @include('flash::message')
   <div class="row">
-
-    @foreach($cursos as $c)
-    @if(count($c["horarios"])>0)
+    @if(count($cursos)>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
-
       <div class="x_panel" style="background-color: #5281a8">
         <h2 style="color: white">Progreso Total</h2>
         <div class="col-sm-1 col-xs-2" >
@@ -41,24 +49,29 @@
           <div class="widget_summary" >
             <div class="w_center w_55" style="width: 100%">
               <div class="progress" style="margin-bottom: 0px">
-                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="100%; background-color: #005b7f !important; border: none !important">
-                  <span class="sr-only">60% Complete</span>
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $cursos["progreso"]  }}% ; background-color: #005b7f !important; border: none !important"  >
+                  <span class="sr-only"> {{ $cursos["progreso"] }}% Complete</span>
+
                 </div>
               </div>
             </div>
           </div>
           <div class="no-padding">
-            @if (4 > 0)
-            <p style="color: white" class="barText pText">4% de avance - 4/10 cursos calificados</p>
-            @endif
-            @if (10 == 0)
+            @if ($cursos["cantidadCursos"] > 0)
+            <p style="color: white" class="barText pText"> {{ $cursos["progreso"] }}% de avance - 
+            {{ $cursos["cursosCalificados"] }} / {{ $cursos["cantidadCursos"] }} cursos calificados </p>
+            @else
             <p style="color: white" class="barText pText">No hay cursos cargados</p>
             @endif
           </div>
-
         </div>
       </div>
-
+    </div>
+    @endif
+        @if(count($cursos)>0)
+    @foreach($cursos["cursos"] as $c)
+    @if(count($c["horarios"])>0)
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
           <h2>{{$c["curso"]->NOMBRE}}</h2>
@@ -73,10 +86,11 @@
 
           <div class="row">
 
-            <div class="col-sm-1 col-xs-2" >
-              <p class="pText" style="margin-bottom: 0px">H-{{$h["horario"]->NOMBRE}}</p>
+            <div class="col-lg-3 col-md-4 col-xs-12" >
+              <p class="pText" style="margin-bottom: 0px;font-weight: bold;">H-{{$h["horario"]->NOMBRE}}</p>
+              <p class="pText" style="margin-bottom: 0px">{{$h["profesor"]}}</p>
             </div>
-            <div class="col-sm-9 col-xs-7" style="padding-bottom: 0">
+            <div class="col-lg-7 col-md-5 col-sm-9 col-xs-7" style="padding-bottom: 0">
               <div class="widget_summary" >
                 <div class="w_center w_55" style="width: 100%">
                   <div class="progress" style="margin-bottom: 0px">
@@ -88,14 +102,14 @@
               </div>
               <div class="no-padding">
                 @if ($h["alumnosTotal"] > 0)
-                <p class="barText pText">{{ $h["avance"] }}% de avance - {{ $h["alumnosCalif"] }}/{{ $h["alumnosTotal"] }} alumnos calificados</p>
+                <p class="barText pText">{{ $h["avance"] }}% de avance -  {{ $h["alumnosCalif"] }}/{{ $h["alumnosTotal"] }} alumnos calificados</p>
                 @endif
                 @if ($h["alumnosTotal"] == 0)
                 <p class="barText pText">No hay alumnos cargados</p>
                 @endif
               </div>
             </div>
-            <div class="col-sm-2 col-xs-3 text-right">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5 text-right">
               @if($h["alumnosTotal"] == 0)
               <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
                 <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
@@ -125,7 +139,7 @@
   </div>
   @endif
   @endforeach
-  
+  @endif
 
 
 
@@ -138,8 +152,8 @@
 <!-- Modal de Cargar Alumnos  -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargarAlumnos" data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+id="modalCargarAlumnos" data-keyboard="true" data-backdrop="static"
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" tabindex='-1'>
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30%">
     <div class="modal-header">
@@ -169,7 +183,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
             </div>
             <div class="col-md-4">
-              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
             </div>
 
           </div>
@@ -194,17 +208,22 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   //PNotify
   $( document ).ready(function() {
     var variableText=$('#ultimoAviso').val();
-    if (variableText!=''){(new PNotify({
-      title: 'Aviso',
-      text: variableText,
-      hide: true,
-      sticker: false,
-      nonblock: {
-        nonblock: true
-      },
-      styling: 'bootstrap3',
+    var avisos = variableText.split('-');
+
+    for (i = 0; i < avisos.length; i++) {
+      console.log(avisos[i]);
+      if (avisos[i]!=''){(new PNotify({
+        title: 'Aviso',
+        text: avisos[i],
+        hide: true,
+        sticker: false,
+        nonblock: {
+          nonblock: true
+        },
+        styling: 'bootstrap3',
       addclass: 'pnotify-center' //dark
     }));}
+    }
   });
 </script>
 

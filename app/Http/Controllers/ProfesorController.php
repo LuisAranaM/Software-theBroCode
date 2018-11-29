@@ -85,8 +85,9 @@ class ProfesorController extends Controller
         //return view('profesor.calificar');
         //dd(Curso::getCursosYHorarios());
         //dd(Auth::user()->ID_ROL);
+        //dd(eAvisos::getAvisosActuales());
         return view('profesor.calificar')
-        ->with('ultimoAviso',eAvisos::getAvisos()->first())
+        ->with('ultimoAviso',eAvisos::getAvisosActuales())
         ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
     }
 
@@ -214,7 +215,7 @@ class ProfesorController extends Controller
               foreach ($infoResultado as $indicador) {
                 $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
 
-                <div class="row"><div class="col-xs-3"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-9"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<br></div></div></div></a>';
+                <div class="row"><div class="col-xs-2"><div class="text-left"><p class="pText" style="font-weight:bold;padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-10"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<i class="fa fa-chevron-down" style="    margin-left: 10px;"></i><br></div></div></div></a>';
 
 
                 $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
@@ -274,15 +275,13 @@ class ProfesorController extends Controller
                $nombreNext='Resultado '.$next->NOMBRE;
            }
            $html .= '
-           <br /><br />
+           <br />
            <div align="center">';
            if($if_previous_disable == '')
                $html.='<a style="color:black;margin-right: 30px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
            if($if_next_disable == '')
                $html.='<a style="color:black;margin-left: 30px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
-           </div>
-           <br /><br />
-           ';
+           </div></br>';
        }
        return $html;
 

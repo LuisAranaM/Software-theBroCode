@@ -26,7 +26,7 @@
 <link href="{{ URL::asset('css/daterangepicker.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/formValidation.min.css') }}" rel="stylesheet" type="text/css" > 
 
-<link href="{{ URL::asset('css/dropzone.css') }}" rel="stylesheet" type="text/css">
+<!--<link href="{{ URL::asset('css/dropzone.css') }}" rel="stylesheet" type="text/css">-->
   <!--JS-->
   <!--<script type="text/javascript"  src="{{ URL::asset('js/custom.min.js') }}"></script>-->
   <script type="text/javascript"  src="{{ URL::asset('js/jquery-1.12.4.min.js') }}"></script>
@@ -53,7 +53,7 @@
 <script type="text/javascript" src="{{ URL::asset('js/formvalidation/framework/bootstrap.min.js') }}"></script>
 
 <!--DRAG AND DROP-->
-<script type="text/javascript" src="{{ URL::asset('js/dropzone.js') }}"></script>
+<!--<script type="text/javascript" src="{{ URL::asset('js/dropzone.js') }}"></script>-->
 
 
 
@@ -132,7 +132,7 @@
                 </li>
                 @endif
                 @if($modoCoordinador or $modoAsistente)
-                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Obj. Educacionales <span class="fa fa-chevron-down"></span></a>
+                  <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Objetivos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>
                       <li class="pText"><a href="{{route('objetivos')}}" style="color:#72777a">Mapear Objetivos</a></li>
@@ -165,9 +165,9 @@
                 <li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx" style="color:#72777a">
-                        <i class="fa fa-book"></i>Carga de Cursos</a></li>
+                        Carga de Cursos</a></li>
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx" style="color:#72777a">
-                        <i class="fa fa-users"></i>Carga de Alumnos</a></li>
+                        Carga de Alumnos</a></li>
                     </ul>
                   </li>
 
@@ -193,13 +193,18 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <span class="userName">
                   @if(Auth::user()->PERFIL==NULL)
                   <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil"> 
                   @else
                   <img src="{{Auth::user()->PERFIL}}" alt="perfil"> 
                   @endif
                   <span style="font-family: segoe UI">
-                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - {{$nombreRol}} de
+                  {{Auth::user()->NOMBRES .' '. Auth::user()->APELLIDO_PATERNO .' '. Auth::user()->APELLIDO_MATERNO}} - 
+                  </span>
+                </span>
+                  <span style="font-family: segoe UI">
+                  {{$nombreRol}} de
                   {{$nombreEspecialidad}}
                   </span>
                   <span class=" fa fa-angle-down"></span>

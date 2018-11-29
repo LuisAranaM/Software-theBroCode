@@ -7,6 +7,7 @@
 
 namespace App\Models;
 use DB;
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -92,10 +93,34 @@ class Especialidad extends Eloquent
 	public function getEspecialidades()
 	{	
 		$sql=DB::table('ESPECIALIDADES')
-				->select()
-				->where('ESTADO','=',1);
+				->select('ID_ESPECIALIDAD','NOMBRE',DB::Raw("CONVERT(FECHA_REGISTRO,DATE) AS FECHA_REGISTRO"))
+				->where('ESTADO','=',1)
+				->orderBy('NOMBRE','ASC');
 		return $sql;
 	}	
+
+	public function buscarEspecialidad($nombEspecialidad)
+	{	
+		$sql=DB::table('ESPECIALIDADES')
+				->select()
+				->where('NOMBRE','=',$nombEspecialidad)
+				->where('ESTADO','=',1)->count();
+		
+		return $sql;
+	}	
+
+	public function crearEspecialidad($especialidad){
+		DB::beginTransaction();
+        $id=-1;
+        try {
+            $id = DB::table('ESPECIALIDADES')->insertGetId($especialidad);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }
+		return $id;
+	}
 
 	public function actas()
 	{

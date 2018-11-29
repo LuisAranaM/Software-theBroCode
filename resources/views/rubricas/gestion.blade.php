@@ -17,7 +17,7 @@
 
       @if(count($resultados)==0)
       <div class="col-md-4 col-xs-6" style="text-align: right">
-        <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" id="btnCopiarConfiguracion" style="background-color: #1ABB9C; border-color: transparent"> Copiar Configuración</button>
+        <button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracion" style="border-color: transparent"> Copiar Configuración</button>
       </div>
   <!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
 @endif
@@ -33,7 +33,7 @@
     @include('flash::message')
     <!-- RESULTADOS -->
 
-    <div class="col-md-3 col-xs-4">
+    <div class="col-md-3 col-sm-4 col-xs-6">
       <div class="resultContainer no-padding x_panel tile coursesBox" style="background-color: #DFE3E6">
         <div class="outer">
           <div class="middle">
@@ -50,7 +50,7 @@
 
     <div id="resultados">
       @foreach ($resultados as $resultado) 
-      <div class="col-md-3 col-xs-4">
+      <div class="col-md-3 col-sm-4 col-xs-6">
         <div class="resultContainer x_panel tile coursesBox resultadoBox">
           <div class="bs-example-popovers">
             
@@ -78,7 +78,7 @@
 
     <!--MODAL-->
     <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarResultado" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-      <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+      <div class="modalResultados modal-dialog " >
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"
@@ -151,7 +151,7 @@
 
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracion" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-  <div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+  <div class="modalResultados customModal modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"

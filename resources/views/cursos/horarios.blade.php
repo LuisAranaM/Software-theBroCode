@@ -42,9 +42,9 @@
 
         <div class="col-sm-6 col-xs-6 text-right">
             <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+                <button type="button" class="btn btn-success btn-lg pText customButtonLarge2 btnCargarAlumnos2"
                  data-id = "{{ $codCurso }}" 
-                 > Cargar Alumnos</button>
+                 > Cargar Alumnos <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
             </a>
         </div>  
       </div>
@@ -249,7 +249,7 @@
 </div>
 
 @endif
-<a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
+
 
 
 </div>
@@ -257,7 +257,7 @@
 <!-- Modal de Cargar Alumnos  -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargarAlumnos2" data-keyboard="false" data-backdrop="static"
+id="modalCargarAlumnos2" data-keyboard="true" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30%">
@@ -287,11 +287,9 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
                 style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
               </div>
               <div class="col-md-4">
-                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
               </div>
-
             </div>
-            
           </form>
         </div>
       </div>
