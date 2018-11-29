@@ -3,7 +3,10 @@ $( document ).ready(function() {
 
 	
 
-	
+	$(".fileToUpload").on('change', function() {
+         ///// Your code
+         console.log("HOLI");
+});
 
 	$("#buscarAlumno").on("keyup", function() {
 		console.log("HOLI");

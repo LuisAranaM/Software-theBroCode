@@ -31,8 +31,8 @@ class ProfesorController extends Controller
     
 
     public function getRubricaDeCurso($idCurso){
-        $rubricaDeCurso = [];
-        $rubricaDeCurso = json_decode(json_encode(eResultado::getResultadosbyIdCurso($idCurso),true));
+      $rubricaDeCurso = [];
+      $rubricaDeCurso = json_decode(json_encode(eResultado::getResultadosbyIdCurso($idCurso),true));
         $cantResultados = 0;/*
         foreach ($rubricaDeCurso as $resultado){            
             $cantResultados++;
@@ -43,11 +43,11 @@ class ProfesorController extends Controller
         }
         return $rubricaDeCurso;*/
 
-    }
+      }
 
 
-    public function index(Request $request)
-    {
+      public function index(Request $request)
+      {
         //dd($request->all());
         $idHorario=$request->get('idHorario',null); 
         $idCurso=$request->get('idCurso',null); 
@@ -77,10 +77,10 @@ class ProfesorController extends Controller
         ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
         ->with('todoIndicadores',eIndicador::getIndicadores())
         ->with('rubricaDeCurso',$this->getRubricaDeCurso($idCurso));  
-    }
+      }
 
-    public function profesorCalificar()
-    {
+      public function profesorCalificar()
+      {
         //dd(Curso::getCursosYHorarios());
         //return view('profesor.calificar');
         //dd(Curso::getCursosYHorarios());
@@ -89,10 +89,10 @@ class ProfesorController extends Controller
         return view('profesor.calificar')
         ->with('ultimoAviso',eAvisos::getAvisosActuales())
         ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
-    }
+      }
 
 
-    
+
 
 
     /**
@@ -114,30 +114,30 @@ class ProfesorController extends Controller
     public function store(Request $request)
     {
 
-        if($request->hasFile('upload-file')){
-            $path = $request->file('upload-file')->getRealPath();
-            $data = \Excel::load($path)->get();
-            $fecha = date("Y-m-d H:i:s");
-            $usuario = Auth::user();
-            $id_usuario = Auth::id();
-            $semestre_actual = Entity::getIdSemestre();
-            $especialidad = Entity::getEspecialidadUsuario();
-            if($data->count()){
-                foreach ($data as $key => $value) {
-                    $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
-                    'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
-                }
-                if(!empty($lista_cursos)){
+      if($request->hasFile('upload-file')){
+        $path = $request->file('upload-file')->getRealPath();
+        $data = \Excel::load($path)->get();
+        $fecha = date("Y-m-d H:i:s");
+        $usuario = Auth::user();
+        $id_usuario = Auth::id();
+        $semestre_actual = Entity::getIdSemestre();
+        $especialidad = Entity::getEspecialidadUsuario();
+        if($data->count()){
+          foreach ($data as $key => $value) {
+            $lista_cursos[] = ['CODIGO_CURSO'=>$value->clave, 'NOMBRE'=>$value->curso, 'ID_ESPECIALIDAD'=>$especialidad, 'ID_SEMESTRE'=>$semestre_actual, 'FECHA_REGISTRO'=> $fecha,
+            'FECHA_ACTUALIZACION'=> $fecha,'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1, 'ESTADO_ACREDITACION'=>0];
+          }
+          if(!empty($lista_cursos)){
                     #Curso::insert($lista_cursos);
-                    DB::table('CURSOS')->insert($lista_cursos);
-                    \Session::flash('Éxito', '¡Excel importado con éxito, cursos actualizados!');
-                }
-            }
+            DB::table('CURSOS')->insert($lista_cursos);
+            \Session::flash('Éxito', '¡Excel importado con éxito, cursos actualizados!');
+          }
         }
-        else{
-            \Session::flash('Error', 'No existe archivo excel para ser importado');
-        }
-        return Redirect::back();
+      }
+      else{
+        \Session::flash('Error', 'No existe archivo excel para ser importado');
+      }
+      return Redirect::back();
 
     }
 
@@ -188,47 +188,60 @@ class ProfesorController extends Controller
 
     public function fetchResultados(Request $request){
         //Debemos de traer el ID_Alumno o el ID_Horario a futuro
-        $idCurso=$request->get('idCurso',null);
-        $idHorario=$request->get('idHorario',null);
-        $idResultado=$request->get('idResultado',null);
-        $idAlumno=$request->get('idAlumno',null);
+      $idCurso=$request->get('idCurso',null);
+      $idHorario=$request->get('idHorario',null);
+      $idResultado=$request->get('idResultado',null);
+      $idAlumno=$request->get('idAlumno',null);
         //dd($resultado);
-        if($idResultado!=NULL){
-           $output = '';
-           $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
-           $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
-           $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
-           $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario);
+      if($idResultado!=NULL){
+       $output = '';
+       $resultado=eResultado::getResultadosbyIdCurso($idCurso,$idResultado);
+       $previous = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'desc');
+       $next = eResultado::getResultadosbyIdCurso($idCurso,$idResultado,'asc');
+       $infoResultado=eIndicador::getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario);
 
-           //dd($infoResultado);
-            //Falta armar el esquema con el de Yoluana
-              /*$output .= '
-              <h2>'.$resultado->NOMBRE.'</h2>
-              <p><label>Author By - '.$resultado->NOMBRE.'</label></p>
-              <p>'.$resultado->DESCRIPCION.'</p>
-              ';*/
-              $html='';
-              $html.='<label> Resultado: '.$resultado->NOMBRE.'</label><br>';
-              $html.='<label>'.$resultado->DESCRIPCION.'</label>';
+       $if_previous_disable = '';
+       $if_next_disable = '';
+       $idPrevious = '';
+       $nombrePrevious = 'Anterior';
+       $idNext = '';
+       $nombreNext = 'Siguiente';
+       if($previous==NULL)              
+        $if_previous_disable = 'disabled';
+      else{
+        $idPrevious = $previous->ID_RESULTADO;
+        $nombrePrevious='Resultado '.$previous->NOMBRE;
 
-              $html.='<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">';
-              foreach ($infoResultado as $indicador) {
-                $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
+      }
 
-                <div class="row"><div class="col-xs-2"><div class="text-left"><p class="pText" style="font-weight:bold;padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-10"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<i class="fa fa-chevron-down" style="    margin-left: 10px;"></i><br></div></div></div></a>';
+      if($next == NULL)            
+       $if_next_disable = 'disabled';
+     else{
+       $idNext = $next->ID_RESULTADO;
+       $nombreNext='Resultado '.$next->NOMBRE;
+     }
+     $html='';
+     $html.='<label> Resultado: '.$resultado->NOMBRE.'</label><br>';
+     $html.='<label>'.$resultado->DESCRIPCION.'</label>';
+
+     $html.='<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">';
+     foreach ($infoResultado as $indicador) {
+      $html.='<div class="panel"><a class="panel-heading collapsed" role="tab" id="heading'.$indicador['ID_INDICADOR'].'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$indicador['ID_INDICADOR'].'" aria-expanded="false" aria-controls="collapse'.$indicador['ID_INDICADOR'].'">
+
+      <div class="row"><div class="col-xs-2"><div class="text-left"><p class="pText" style="font-weight:bold;padding-left:15px; padding-right: 15px; padding-top: 8px">'.$resultado->NOMBRE.$indicador['VALORIZACION_INDICADOR'].'<br></div></div><div class="col-xs-10"><div class="text-left"><p class="pText" style="padding-left:15px; padding-right: 15px; padding-top: 8px">'.$indicador['NOMBRE_INDICADOR'].'<i class="fa fa-chevron-down" style="    margin-left: 10px;"></i><br></div></div></div></a>';
 
 
-                $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
+      $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
                 /*foreach($indicador['DESCRIPCIONES'] as $descripcion){
                     $html.='<p class="smallText"> - '.$descripcion['NOMBRE_VALORIZACION'].': '.$descripcion['NOMBRE_DESCRIPCION'].'</p>';
-                }*/
-                $html.='<div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
-                foreach($indicador['DESCRIPCIONES'] as $descripcion){
+                  }*/
+                  $html.='<div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
+                  foreach($indicador['DESCRIPCIONES'] as $descripcion){
                     $checked='';
                     $active='';
                     if($descripcion['ESCALA_CALIFICACION']!=NULL){
-                        $checked='checked';
-                        $active='active';
+                      $checked='checked';
+                      $active='active';
                     }
                     $html.='<label class="btnCriteria btn btn-primary '.$active.'" ';
                     $html.=' idAlumno="'.$idAlumno.'" ';
@@ -249,64 +262,49 @@ class ProfesorController extends Controller
                       <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">'.$descripcion['NOMBRE_VALORIZACION'].'</span></label>';
 
 
+                    }
+                    $html.='</div></div></div></div></div>';
                   }
-                  $html.='</div></div></div></div></div>';
+                  $html.='</div>';
+
+
+                  $html .= '
+                  <br />
+                  <div align="center">';
+                  if($if_previous_disable == '')
+                   $html.='<a style="color:black;margin-right: 150px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
+                 else
+                   $html.='<a style="color:black;margin-right: 200px;"></a>';
+                 if($if_next_disable == '')
+                   $html.='<a style="color:black;margin-left: 150px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
+                 </div></br>';
+                 else
+                  $html.='<a style="color:black;margin-left: 200px;"></a></br></br>';
+               }
+               return $html;
+
+             }
+             public function calificarAlumnos(Request $request){
+              $alumno=new eAlumno();
+
+              if($alumno->calificarAlumnos($request->all(),Auth::id())){
+                flash('Se registró la nota correctamente')->success();
+              } else {
+                flash('Hubo un error')->error();
               }
-              $html.='</div>';
-
-              $if_previous_disable = '';
-              $if_next_disable = '';
-              $idPrevious = '';
-              $nombrePrevious = 'Anterior';
-              $idNext = '';
-              $nombreNext = 'Siguiente';
-              if($previous==NULL)              
-                $if_previous_disable = 'disabled';
-            else{
-                $idPrevious = $previous->ID_RESULTADO;
-                $nombrePrevious='Resultado '.$previous->NOMBRE;
-
+              return back();
             }
 
-            if($next == NULL)            
-               $if_next_disable = 'disabled';
-           else{
-               $idNext = $next->ID_RESULTADO;
-               $nombreNext='Resultado '.$next->NOMBRE;
-           }
-           $html .= '
-           <br />
-           <div align="center">';
-           if($if_previous_disable == '')
-               $html.='<a style="color:black;margin-right: 30px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
-           if($if_next_disable == '')
-               $html.='<a style="color:black;margin-left: 30px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
-           </div></br>';
-       }
-       return $html;
 
-   }
-   public function calificarAlumnos(Request $request){
-    $alumno=new eAlumno();
-    
-    if($alumno->calificarAlumnos($request->all(),Auth::id())){
-        flash('Se registró la nota correctamente')->success();
-    } else {
-        flash('Hubo un error')->error();
-    }
-    return back();
-}
+            public function eliminarAlumnoHorario(Request $request){
+              $alumno=new eAlumno();
 
+              if($alumno->eliminarAlumnoHorario($request->all(),Auth::id())){
+                flash('Se eliminó al alumno correctamente')->success();
+              } else {
+                flash('Hubo un error')->error();
+              }
+              return back();
+            }
 
-public function eliminarAlumnoHorario(Request $request){
-    $alumno=new eAlumno();
-
-    if($alumno->eliminarAlumnoHorario($request->all(),Auth::id())){
-        flash('Se eliminó al alumno correctamente')->success();
-    } else {
-        flash('Hubo un error')->error();
-    }
-    return back();
-}
-
-}
+          }
