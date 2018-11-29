@@ -1,4 +1,37 @@
 
+.modalObjetivos {
+  width: 500px;
+  height: 300px;
+  display: inline-block; 
+  vertical-align: middle; 
+}        
+
+.modalCategorias {
+  width: 700px; 
+  height: 300px;
+  display: inline-block; 
+  vertical-align: middle; 
+}       
+
+.modalHorarios {
+  width: 400px;
+  display: inline-block; 
+  vertical-align: middle; 
+}     
+
+.modalReportes {
+  width: 600px;
+  display: inline-block; 
+  vertical-align: middle; 
+}
+
+.modalAlumnos {
+  width: 600px; 
+  height: 300px;
+  display: inline-block; 
+  vertical-align: middle; 
+}
+
 .nav.side-menu>li.active {
   border-right: 5px solid #005b7f;
 }
@@ -391,7 +424,7 @@ li {
 }
 
 .resultContainer {
-  height: 150px;
+  height: 180px;
   padding-left: 20px;
   padding-right: 10px;
   padding-top: 10px;
@@ -399,9 +432,16 @@ li {
   border-radius: 6px !important;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 1200px) {
   .resultContainer {
-    height: 180px;
+    height: 215px;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  .resultContainer {
+    height: 215px;
   }
 }
 
@@ -477,12 +517,14 @@ li {
     display: inline-block;
   }
 
-   .modalResultados {
+  .modalResultados {
     width: 500px !important; 
     height: 300px;
     display: inline-block; 
     vertical-align: middle; 
   }
+
+
 
 
 
@@ -492,17 +534,32 @@ li {
     }
   }
 
- 
+
 
   @media screen and (max-width: 500px) {
     .modalResultados {
-    width: 90% !important; 
-    height: 300px;
+      width: 90% !important; 
+      height: 300px;
+    }
+    .modalObjetivos {
+      width: 90%; 
+      height: 300px;
+    }
+    .modalCategorias {
+      width: 90%;
+    }
+
+    .modalHorarios {
+      width: 90% !important;
+    }
+    .modalReportes {
+      width: 90%;
+    }
+    .modalAlumnos {
+      width: 90% !important;
+    }
+
   }
-  }
-
-
-
 
   /*PARA CUANDO SE EJECUTE UN AJAX Y ESTÉ CARGANDO*/
 /*.modalCargando {

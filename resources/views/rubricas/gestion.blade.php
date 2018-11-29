@@ -33,7 +33,7 @@
     @include('flash::message')
     <!-- RESULTADOS -->
 
-    <div class="col-md-3 col-sm-4 col-xs-6">
+    <div class="col-lg-3 col-md-4 col-xs-6">
       <div class="resultContainer no-padding x_panel tile coursesBox" style="background-color: #DFE3E6">
         <div class="outer">
           <div class="middle">
@@ -50,7 +50,7 @@
 
     <div id="resultados">
       @foreach ($resultados as $resultado) 
-      <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-lg-3 col-md-4 col-xs-6">
         <div class="resultContainer x_panel tile coursesBox resultadoBox">
           <div class="bs-example-popovers">
             
