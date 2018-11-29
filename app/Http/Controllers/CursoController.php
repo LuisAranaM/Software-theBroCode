@@ -435,7 +435,7 @@ class CursoController extends Controller
         }
         //dd($listaCursosNuevos,$listaCursosMantenidos,$listaHorariosNuevos,$listaHorariosMantenidos,$listaProfesoresNuevos,$listaProfesoresMantenidos);
         
-        //dd($horariosNuevos,$listaProfesoresNuevos);
+        dd($horariosNuevos,$listaProfesoresNuevos);
 
     }
 
