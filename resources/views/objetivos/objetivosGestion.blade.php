@@ -103,7 +103,7 @@
 		</div>
 		<!--MODAL SOS-->
 		<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarObjetivosSOS" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-			<div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+			<div class="modalObjetivos modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
@@ -154,7 +154,7 @@
 
 	<!--MODAL EOS-->
 	<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalAgregarObjetivosEOS" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-		<div class="customModal modal-dialog modal-lg" style="width: 500px; height: 300px" >
+		<div class="modalObjetivos modal-dialog" >
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"

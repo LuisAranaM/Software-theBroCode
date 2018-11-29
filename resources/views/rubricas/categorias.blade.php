@@ -62,7 +62,7 @@
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalIndicador" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
-<div class="customModal modal-dialog modal-lg" style="width: 700px; height: 300px" >
+<div class="modalCategorias modal-dialog modal-lg" >
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -109,10 +109,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 					</div>
 					
 				</div>
-				<div id="removeAgregar" class="col-lg-6 col-xs-5 text-left" style="padding-top: 15px">
+				<div id="removeAgregar" class="col-lg-6 col-sm-5 col-xs-7 text-left" style="padding-top: 15px">
 					<p class="pText">Agregar nueva valorizacion</p>
 				</div>
-				<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">
+				<div id="agregarFilaIcono" class="col-md-2 col-sm-2 col-xs-2 text-left" style="padding-top: 10px; margin-left: -40px">
 					<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
 				</div>				
 			</div>

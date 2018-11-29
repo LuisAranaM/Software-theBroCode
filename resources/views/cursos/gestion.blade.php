@@ -8,7 +8,7 @@
 <div class="customBody">
 
   <div class="row">
-    <div class="col-md-8 col-sm-6">
+    <div class="col-xs-12">
       <h1 class="mainTitle"> Gestionar Cursos </h1>
     </div>
 
