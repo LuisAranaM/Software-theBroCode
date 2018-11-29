@@ -15,6 +15,19 @@ $( document ).ready(function() {
 
   });
 
+    $(".editarUsuario").on("click", function(e){
+    /*console.log("Nuevo Usuario");
+    $('#frmNuevoUsuario').trigger("reset");           
+
+
+
+    $('#frmNuevoUsuario input[type="text"]').val('');     
+    $('#frmNuevoUsuario').formValidation('destroy', true);
+    initializeFormUsuario();*/
+    $("#modalEditarUsuario").modal("show");
+
+  });
+
   $(".eliminarUsuario").on("click", function(e){
     var filaUsuario=$(this).parent().parent();
     var idUsuario=filaUsuario.attr('idUsuario');

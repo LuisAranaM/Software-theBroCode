@@ -38,6 +38,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
   </div>
   @include('flash::message')
   <div class="row">
+    @if(count($cursos)>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel" style="background-color: #5281a8">
         <h2 style="color: white">Progreso Total</h2>
@@ -66,7 +67,8 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
         </div>
       </div>
     </div>
-
+    @endif
+        @if(count($cursos)>0)
     @foreach($cursos["cursos"] as $c)
     @if(count($c["horarios"])>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -137,7 +139,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
   </div>
   @endif
   @endforeach
-  
+  @endif
 
 
 

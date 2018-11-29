@@ -20,7 +20,7 @@
 	</div>
 	@include('flash::message')
 	<div class="row">
-		<div class="col-md-6 col-sm-6">			
+		<div class="col-md-6 col-sm-6 col-xs-12">			
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>Especialidades</h2>
@@ -42,8 +42,8 @@
 							<tr idEspecialidad="{{$especialidad->ID_ESPECIALIDAD}}" nombEspecialidad="{{$especialidad->NOMBRE}}">
 								<td style="vertical-align:middle;text-align:center">{{$especialidad->NOMBRE}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$especialidad->FECHA_REGISTRO}}</td>
-								<td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarEspecialidad" style="font-size: 20px;cursor: pointer;"></td>
-								<td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarEspecialidad" style="font-size: 20px;cursor: pointer;"></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fas fa-pen editarEspecialidad" style="font-size: 16px;cursor: pointer;"></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fas fa-trash eliminarEspecialidad" style="font-size: 16px;cursor: pointer;"></td>
 							</tr>
 							@endforeach
 							@else
@@ -59,14 +59,14 @@
 			</div>
 		</div>
 
-		<div class="col-md-6 col-sm-6">
+		<div class="col-md-6 col-sm-6 col-xs-12">
 			<div class=" x_panel">
 				<div class="x_title">
 					<h2>Nueva Especialidad</h2>
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<form id="frmNuevaEspecialidad" method="POST" action="{{route('administrador.especialidad.crear')}}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
+					<form id="frmNuevaEspecialidad" method="POST" action="{{route('administrador.especialidad.crear')}}" autocomplete="off">
 						<div class="form-group">
 							<input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
 						</div>
@@ -83,34 +83,48 @@
 
 				</div>
 			</div>
-			<div class=" x_panel hidden" id="panelEditarEspecialidad">
-				<div class="x_title">
-					<h2>Editar Especialidad</h2>
-					<div class="clearfix"></div>
-				</div>
-				<div class="x_content">
+		</div>
+	</div>
 
-					<form id="frmNuevaEspecialidad" method="POST" action="{{route('administrador.especialidad.editar')}}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
+</div>
+
+
+<!--Editar Semestre-->
+	<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
+	id="modalEditarEspecialidad" data-keyboard="false" data-backdrop="static"
+	aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
+	<div class="customModal modal-dialog modal-lg ">
+		<div class="modal-content" style="top: 20%;width: 500px;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Editar Semestre</h4>
+		</div>
+		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+		<div class="modal-body">
+			<div class="container-fluid text-center">
+				<form id="frmEditarEspecialidad" method="POST" action="{{route('administrador.especialidad.editar')}}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
 						<div class="form-group">
 							<input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
 						</div>
 						<div class="form-group">
 							<label>Especialidad</label>
-							<input style="margin-bottom: 0px;"  class="form-control" placeholder="Especialidad" type="text" name="nombEspecialidad" value="">
+							<input style="margin-bottom: 0px;"  class="form-control" placeholder="Especialidad" type="text" name="nombEspecialidadEditar" value="">
 						</div>
 						<div class="form-group">
 							<button class="btn btn-primary" type="submit" style="font-size: 14px">Actualizar</button>
 						</div>
 
 					</form>
-
-				</div>
 			</div>
 		</div>
 	</div>
-
+	<!-- /.modal-content -->
 </div>
-
+<!-- /.modal-dialog -->
+</div>
 @stop
 
 @section('js-scripts')
