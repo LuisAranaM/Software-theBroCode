@@ -4,7 +4,22 @@
   height: 300px;
   display: inline-block; 
   vertical-align: middle; 
+}       
+
+
+.modalUsuario {
+  width: 700px;
+  height: 300px;
+  display: inline-block; 
+  vertical-align: middle; 
 }        
+
+
+.modalSemestre {
+  width: 500px;
+  display: inline-block; 
+  vertical-align: middle; 
+}
 
 .modalCategorias {
   width: 700px; 
@@ -557,6 +572,12 @@ li {
     }
     .modalAlumnos {
       width: 90% !important;
+    }
+    .modalUsuario {
+      width: 90%;
+    }
+    .modalSemestre {
+      width: 90%;
     }
 
   }

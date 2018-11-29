@@ -143,8 +143,8 @@
 	<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 	id="modalEditarSemestre" data-keyboard="false" data-backdrop="static"
 	aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
-	<div class="customModal modal-dialog modal-lg ">
-		<div class="modal-content" style="top: 20%;width: 500px;">
+	<div class="modalSemestre modal-dialog modal-lg ">
+		<div class="modal-content" style="top: 20%">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 				aria-label="Close">

@@ -134,8 +134,8 @@
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 id="modalNuevoUsuario" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
-<div class="customModal modal-dialog modal-lg ">
-  <div class="modal-content" style="top: 20%;width: 700px;left: -150px">
+<div class="modalUsuario modal-dialog modal-lg ">
+  <div class="modal-content" style="top: 20%;">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
       aria-label="Close">
@@ -150,7 +150,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <div class="form-group">
           <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
           <input style="margin-bottom: 0px;"  class="form-control" type="hidden" name="perfil" value="">
-          <div class="col-md-6 col-sm-6 col-xs-12"> 
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left"> 
             <div class="form-group">
               <label>Usuario</label>
               <input style="margin-bottom: 0px;"  class="form-control formatInputNumber" placeholder="Código PUCP" type="text" name="usuario" >
@@ -172,7 +172,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
             </div>
           </div>
-          <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group">
               <label>Contraseña</label>
               <input style="margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="pass">
