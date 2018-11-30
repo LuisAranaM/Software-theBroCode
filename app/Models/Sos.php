@@ -80,6 +80,54 @@ class Sos extends Eloquent
 		return $objetivosEstudiante;
 	}
 
+	static function getObjetivosTotales($idSem,$idEsp) {
+		//dd($idSem);
+		$sql = DB::table('SOS')
+		->select('ID_SOS', 'NOMBRE')
+		->where('ESTADO','=',1)
+		->where('ID_SEMESTRE','=',$idSem)
+		->where('ID_ESPECIALIDAD','=',$idEsp);
+
+        //dd($sql->get());
+		return $sql;
+
+	}
+	static function getinformacionObj($idSemestre,$idEspecialidad){
+		/*$sql=DB::table(DB::Raw("(SELECT 
+			ID_ESPECIALIDAD,ID_SEMESTRE,
+			NOMBRE
+			FROM SOS
+			WHERE ESTADO=1
+			UNION
+			SELECT 
+			ID_ESPECIALIDAD,ID_SEMESTRE,
+			NOMBRE
+			FROM EOS
+			WHERE ESTADO=1
+			
+
+		)"));*/
+		$first = DB::table('SOS')
+		->select('ID_SOS', 'NOMBRE')
+		->where('ESTADO','=',1)
+		->where('ID_SEMESTRE','=',$idSemestre)
+		->where('ID_ESPECIALIDAD','=',$idEspecialidad);
+		
+		$second= DB::table('EOS')
+            ->select('ID_EOS', 'NOMBRE')
+			->where('ESTADO','=',1)
+			->where('ID_SEMESTRE','=',$idSemestre)
+			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+			->union($first)
+            ->get();
+		
+		dd($second);
+		//return   $second;
+
+		//$equis = "hola";
+		//return $equis;
+	}
+
 	function eliminarSos($registro){
         //dd($registro);    
 		DB::beginTransaction();
