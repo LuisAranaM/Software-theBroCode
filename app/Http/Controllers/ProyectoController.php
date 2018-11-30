@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Entity\Base\Entity;
+use App\Entity\Proyecto as eProyecto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -75,6 +76,20 @@ class ProyectoController extends Controller
             
         }
         
+    }
+
+
+        public function storeMasivo(Request $request){
+        
+        $proyectos=new eProyecto();
+
+         if($proyectos->agregarMasivo($request->all(),Auth::id())){
+            flash('Los proyectos se registraron correctamente.')->success();
+        } else {
+            flash('Hubo un error al registrar los proyectos')->error();
+        }
+        return back();
+
     }
     public function downfunc(){
     	$downloads = DB::table('PROYECTOS')->get();

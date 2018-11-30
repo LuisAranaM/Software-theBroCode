@@ -17,7 +17,7 @@
 
   </div>
   @include('flash::message')
-<form action="{{ route('administrador.usuario.activacion') }}" class="form-horizontal">
+  <form action="{{ route('administrador.usuario.activacion') }}" class="form-horizontal">
    <div class=" x_panel tile ">
     <div class="row">
       <div class="form-group col-md-2">
@@ -57,77 +57,80 @@
             </select>
           </div>
 
-            <button type="submit" class="btn btn-link" >
-              <span class="fa fa-search fa-lg" style="font-size:25px;margin-top: 25px;"></span>
-            </button>
+          <button type="submit" class="btn btn-link" >
+            <span class="fa fa-search fa-lg" style="font-size:25px;margin-top: 25px;"></span>
+          </button>
         </div>
       </div>
     </form>
-  
 
-  <div class="row">
-   <div class=" x_panel">
+
     <form id="frmActivarUsuarios" method="POST" action="{{route('administrador.usuario.activar')}}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
-      <div class="form-group">
-        <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="form-group">
-          <button class="btn btn-primary" type="submit" style="font-size: 14px">Activar</button>
-        </div>
-      </div>
-      <table class="table table-striped jambo_table">
-       <thead>
-        <tr class="headings">
-         <td style="vertical-align:middle;text-align:center">Usuario</td>
-         <td style="vertical-align:middle;text-align:center">E-mail</td>
-         <td style="vertical-align:middle;text-align:center">Nombres y Apellidos</td>
+      <div class="row">
+       <div class=" x_panel">
+        <div class="table-responsive">
+          <div class="form-group">
+            <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
+          </div>
 
-         <td style="vertical-align:middle;text-align:center">Rol</td>
-         <td style="vertical-align:middle;text-align:center">Especialidad</td>
-         <td style="vertical-align:middle;text-align:center"></td>
-       </tr>
-     </thead>
-     <tbody>
-      @if(count($usuarios)>0)
-      @foreach($usuarios as $usuario)
-      <tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}">
-       <td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
-       <td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
-       <td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 
-        @if($usuario->PERFIL==NULL)
-        <div class="user-profile">
-         <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil">
-       </div> 
-       @else
-       <div class="user-profile">
-         <img src="{{$usuario->PERFIL}}" alt="perfil"> </div>
-         @endif
-       </td>
+          <table class="table table-striped jambo_table">
+           <thead>
+            <tr class="headings">
+             <td style="vertical-align:middle;text-align:center">Usuario</td>
+             <td style="vertical-align:middle;text-align:center">E-mail</td>
+             <td style="vertical-align:middle;text-align:center">Nombres y Apellidos</td>
 
-       <td style="vertical-align:middle;text-align:center">{{$usuario->ROL_USUARIO}}</td>
-       <td style="vertical-align:middle;text-align:center">{{$usuario->ESPECIALIDAD_USUARIO}}</td>
-       <td style="vertical-align:middle;text-align:center">
-        <label>
-          <input type="checkbox" class="form-check-input checkActivar" 
-          name="checkActivar[]" value="{{$usuario->ID_USUARIO}}" style="text-align: center;" >
-          <span class="pText label-text "></span>
-        </label>        
-      </td>
-    </tr>
-    @endforeach
-    @else
-    <tr>
-      <td colspan="10">No se encontraron resultados</td>
-    </tr>
-    @endif
-  </tbody>
-</table>
+             <td style="vertical-align:middle;text-align:center">Rol</td>
+             <td style="vertical-align:middle;text-align:center">Especialidad</td>
+             <td style="vertical-align:middle;text-align:center"></td>
+           </tr>
+         </thead>
+         <tbody>
+          @if(count($usuarios)>0)
+          @foreach($usuarios as $usuario)
+          <tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}">
+           <td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
+           <td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
+           <td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 
+            @if($usuario->PERFIL==NULL)
+            <div class="user-profile">
+             <img src="{{ URL::asset('img/profile.jpg') }}" alt="perfil">
+           </div> 
+           @else
+           <div class="user-profile">
+             <img src="{{$usuario->PERFIL}}" alt="perfil"> </div>
+             @endif
+           </td>
 
-{{$usuarios->appends(array_merge($filtros,$orden))->links()}}
+           <td style="vertical-align:middle;text-align:center">{{$usuario->ROL_USUARIO}}</td>
+           <td style="vertical-align:middle;text-align:center">{{$usuario->ESPECIALIDAD_USUARIO}}</td>
+           <td style="vertical-align:middle;text-align:center">
+            <label>
+              <input type="checkbox" class="form-check-input checkActivar" 
+              name="checkActivar[]" value="{{$usuario->ID_USUARIO}}" style="text-align: center;" >
+              <span class="pText label-text "></span>
+            </label>        
+          </td>
+        </tr>
+        @endforeach
+        @else
+        <tr>
+          <td colspan="10">No se encontraron resultados</td>
+        </tr>
+        @endif
+      </tbody>
+    </table>
+
+    {{$usuarios->appends(array_merge($filtros,$orden))->links()}}
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit" style="font-size: 14px">Activar</button>
+    </div>
+  </div>
+</div>
+</div>
 </form>
-</div>
-</div>
 </div>
 </div>
 </div>

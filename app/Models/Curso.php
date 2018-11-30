@@ -99,6 +99,7 @@ class Curso extends Eloquent
     }
 
     static function getCantCursos(&$sql){
+        if(!array_key_exists("cursos", $sql)) return 0;
         $ans = 0;
         foreach($sql["cursos"] as $c)
             if(count($c["horarios"]) > 0) $ans++;
@@ -106,6 +107,7 @@ class Curso extends Eloquent
     }
 
     static function getCursosCalificados($sql){
+        if(!array_key_exists("cursos", $sql)) return 0;
         $ans = 0;
         foreach($sql["cursos"] as $c){
             foreach($c["horarios"] as $h)
@@ -215,11 +217,13 @@ class Curso extends Eloquent
             $info = array();
             $ans["cursos"][] = $data;
         }
+        if(count($cursos)>0){
         $div = 0;
         if($denominador != 0) $div = round($numerador*100/(double)$denominador,2);
         $ans["progreso"] = $div;
         $ans["cursosCalificados"] = Curso::getCursosCalificados($ans);
         $ans["cantidadCursos"] = Curso::getCantCursos($ans);
+        }
         //dd($ans);
         return $ans;
     }

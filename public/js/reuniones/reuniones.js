@@ -3,9 +3,11 @@ $( document ).ready(function() {
 
 	function myFunction(x) {
 	    if (x.matches) { // If media query matches
-	        $('#rangoSemestres').toggleClass("col-xs-12", true);
+	 
+	        $('.semLabel').css("display", "block");
 	    } else {
-	    	$('#rangoSemestres').toggleClass("col-xs-12", false);
+	    
+	    	$('.semLabel').css("display", "inline-block");
 	    }
 	}
 

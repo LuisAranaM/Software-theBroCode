@@ -1,9 +1,13 @@
 $( document ).ready(function() {
 	console.log("inicio");
 
+	$( "#calificar" ).css("border-right", "5px solid #005b7f");
 	
 
-	
+	$(".fileToUpload").on('change', function() {
+         ///// Your code
+         console.log("HOLI");
+});
 
 	$("#buscarAlumno").on("keyup", function() {
 		console.log("HOLI");

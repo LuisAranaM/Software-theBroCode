@@ -29,7 +29,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<div class="col-md-9 col-sm-9 col-xs-12">
+					<div class="col-md-6 col-sm-6 col-xs-12">
 						<select class="form-control" id="semestreAct">
 
 
@@ -68,8 +68,8 @@
 								<td style="vertical-align:middle;text-align:center">{{$semestre->FECHA_INICIO}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$semestre->FECHA_FIN}}</td>
 								<td style="vertical-align:middle;text-align:center">{{$semestre->FECHA_ALERTA}}</td>
-								<td style="vertical-align:middle;text-align:center"><i class="fa fa-edit editarSemestre" style="font-size: 20px;cursor: pointer;"></td>
-									<td style="vertical-align:middle;text-align:center"><i class="fa fa-trash eliminarSemestre" style="font-size: 20px;cursor: pointer;"></i></td>
+								<td style="vertical-align:middle;text-align:center"><i class="fas fa-pen editarSemestre" style="font-size: 16px;cursor: pointer;"></td>
+									<td style="vertical-align:middle;text-align:center"><i class="fas fa-trash eliminarSemestre" style="font-size: 16px;cursor: pointer;"></i></td>
 								</tr>
 								@endforeach
 								@else
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 col-sm-6">
+			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class=" x_panel">
 					<div class="x_title">
 						<h2>Nuevo Semestre</h2>
@@ -143,8 +143,8 @@
 	<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 	id="modalEditarSemestre" data-keyboard="false" data-backdrop="static"
 	aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
-	<div class="customModal modal-dialog modal-lg ">
-		<div class="modal-content" style="top: 20%;width: 500px;">
+	<div class="modalSemestre modal-dialog modal-lg ">
+		<div class="modal-content" style="top: 20%">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 				aria-label="Close">
