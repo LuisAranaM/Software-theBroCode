@@ -127,11 +127,11 @@
                 <li class="pText"><a href="{{route('administrador.especialidad')}}" style="color:#72777a"><i class="fa fa-graduation-cap"></i>Gestionar Especialidad</a>
                 </li>
                 @endif
-                @if($modoCoordinador or $modoAsistente or $modoProfesor)
+                @if($modoCoordinador or $modoAsistente or $modoProfesor or $modoAdministrador)
                 <li id="calificar" class="pText"><a href="{{route('profesor.calificar')}}" style="color:#72777a"><i class="fa fa-bar-chart-o"></i>Calificar Alumnos</a>
                 </li>
                 @endif
-                @if($modoCoordinador or $modoAsistente)
+                @if($modoCoordinador or $modoAsistente or $modoAdministrador)
                   <li id="objetivos" class="pText"><a style="color:#72777a"><i class="fa fa-mortar-board"></i> Objetivos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li class="pText"><a href="{{route('objetivosGestion')}}" style="color:#72777a">Gestionar Objetivos</a></li>

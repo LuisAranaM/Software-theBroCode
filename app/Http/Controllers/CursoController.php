@@ -245,6 +245,7 @@ class CursoController extends Controller
     }
 
     public function visualizarData(Request $request){
+        //dd($request->all());
         $path = $request->file('upload-file')->getRealPath();
         $data = \Excel::load($path)->get();
         $fecha = date("Y-m-d H:i:s");
@@ -435,13 +436,13 @@ class CursoController extends Controller
         }
         //dd($listaCursosNuevos,$listaCursosMantenidos,$listaHorariosNuevos,$listaHorariosMantenidos,$listaProfesoresNuevos,$listaProfesoresMantenidos);
         //Arana en estos dos arreglos comentados abajo esta toda la data que necesitas
-        //dd($horariosNuevos,$listaProfesoresNuevos);
+        dd($horariosNuevos,$listaProfesoresNuevos);
 
     }
 
     public function store(Request $request){
         //dd($request->all());
-        $this->visualizarData($request);
+        //$this->visualizarData($request);
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();

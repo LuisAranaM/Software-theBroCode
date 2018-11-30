@@ -1,5 +1,15 @@
 $( document ).ready(function() {
 
+  $(document).on({
+        mouseenter: function () {
+            console.log("HOLI");
+            $( this ).find("i.fa-trash").show();
+        },
+        mouseleave: function () {
+            $( this ).find("i.fa-trash").hide();
+        }
+    }, '.courseButton');
+
 	console.log("inicioAvisos");
 
 	$("#CargarAviso").on("click", function(){
@@ -80,7 +90,6 @@ $( document ).ready(function() {
         if (resp == true) {
             eliminarAviso(idAviso, botonAviso);            
         }
-        botonAviso.hide();
         e.preventDefault();        
     });
 

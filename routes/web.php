@@ -99,7 +99,9 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 //pruebas excel
 #Route::get('upload', 'CursoController@showForm');
 
-Route::post('/subir-excels/upload', 'CursoController@store');
+
+Route::get('/mostrar-cursos-cargar', ['as'=>'mostrar.cursos.cargar','uses'=>'CursoController@visualizarData','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/subir-excels/upload', 'CursoController@store'); //Carga de cursos de Chaggy
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
 Route::post('/subir-excels/uploadAlumnosDeCurso', 'AlumnoController@uploadAlumnosDeCurso');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');

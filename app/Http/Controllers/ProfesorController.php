@@ -272,14 +272,14 @@ class ProfesorController extends Controller
                   <br />
                   <div align="center">';
                   if($if_previous_disable == '')
-                   $html.='<a style="color:black;margin-right: 150px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
-                 else
-                   $html.='<a style="color:black;margin-right: 200px;"></a>';
+                   $html.='<a style="color:black;margin-right: 50px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
+                 /*else
+                   $html.='<a style="color:black;margin-right: 200px;"></a>';*/
                  if($if_next_disable == '')
-                   $html.='<a style="color:black;margin-left: 150px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
+                   $html.='<a style="color:black;margin-left: 50px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
                  </div></br>';
                  else
-                  $html.='<a style="color:black;margin-left: 200px;"></a></br></br>';
+                  $html.='</br></br>';
                }
                return $html;
 

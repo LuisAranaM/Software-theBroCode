@@ -29,7 +29,7 @@
 				@foreach ($avisos as $a) 
 				<div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
 					<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-						<button type="button" class="closeaviso close" data-dismiss="alert" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" idAviso="{{$a->ID_AVISO}}"><span aria-hidden="true">×</span>
+						<button type="button" class="closeaviso close" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" idAviso="{{$a->ID_AVISO}}"><span aria-hidden="true"><i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
 						</button>
 						<p class="pText">{{$a->FECHA_INICIO}} a {{$a->FECHA_FIN}} : {{$a->DESCRIPCION}}</p>
 					</div>

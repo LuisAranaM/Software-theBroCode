@@ -22,9 +22,9 @@ class Semestre extends \App\Entity\Base\Entity {
         ]);
     }
 
-    static function getSemestres($tipo=null)
+    static function getSemestres($tipo=null,$vistaResultado=null)
     {
-        return mSemestre::getSemestres($tipo)->get();
+        return mSemestre::getSemestres($tipo,self::getIdSemestre(),$vistaResultado)->get();
     }
 
     function actualizarSemestreSistema($idSemestre,$idUsuario){

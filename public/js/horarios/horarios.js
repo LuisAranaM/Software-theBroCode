@@ -1,4 +1,16 @@
 $( document ).ready(function() {
+
+    $(document).on({
+        mouseenter: function () {
+            console.log("HOLI");
+            $( this ).find("i.fa-trash").show();
+        },
+        mouseleave: function () {
+            $( this ).find("i.fa-trash").hide();
+        }
+    }, '.courseButton');
+
+
 	$('#home-tabM1').tab('show');
 	$('.primero1').tab('show');
 
@@ -76,7 +88,7 @@ $( document ).ready(function() {
         if (resp == true) {
             eliminarHorarioEvaluar(idHorario,botonHorario);            
 		}
-		  
+		e.preventDefault();
 	});
 
 	function eliminarHorarioEvaluar(idHorario,botonHorario){
@@ -91,12 +103,12 @@ $( document ).ready(function() {
 			},
 			success: function (result) {
 				botonHorario.hide();
-				window.location.reload(); 
+				//window.location.reload(); 
 			},
 			error: function (xhr, status, text) {
 				e.preventDefault();
 				alert('Hubo un error al registrar la información');
-				item.removeClass('hidden').prev().addClass('hidden');
+				//item.removeClass('hidden').prev().addClass('hidden');
 			}
 		});
 	}

@@ -117,73 +117,91 @@ class Semestre extends Eloquent
 
 	static function getCiclo($idSemestre){
 		$sql=DB::table('SEMESTRES')
-				->select('*',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
-				->where('ID_SEMESTRE','=',$idSemestre);
+		->select('*',DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'))
+		->where('ID_SEMESTRE','=',$idSemestre);
 		return $sql;
 	}
 
-	static function getSemestres($tipo=null){
+	static function getSemestres($tipo=null,$idSemestreActual=null,$vistaResultado=null){
 		$sql=DB::table('SEMESTRES')
-				->select('ID_SEMESTRE',DB::Raw("CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO"),
-					DB::Raw("CONVERT(FECHA_FIN,DATE) AS FECHA_FIN"),
-					DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
-					DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
+		->select('ID_SEMESTRE',DB::Raw("CONVERT(FECHA_INICIO,DATE) AS FECHA_INICIO"),
+			DB::Raw("CONVERT(FECHA_FIN,DATE) AS FECHA_FIN"),
+			DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
+			DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
 				//->where('ESTADO','>=',1)
-				->orderBy('ANHO','DESC')
-				->orderBy('CICLO','DESC');
+		->orderBy('ANHO','DESC')
+		->orderBy('CICLO','DESC');
+
+		$anho=self::getCiclo($idSemestreActual)->first()->ANHO;
+		$ciclo=self::getCiclo($idSemestreActual)->first()->CICLO;
 		if($tipo)
 			$sql=$sql->where('ESTADO','<>',0);
-		else
+		else{
 			$sql=$sql->where('ESTADO','>=',1);
+
+			if($ciclo==1)
+				$sql=$sql->where('ANHO','<=',$anho)
+						->where(DB::Raw('CONCAT(ANHO,CICLO)'),'<>',$anho.'2');
+			else if ($ciclo==2)
+				$sql=$sql->where('ANHO','<=',$anho);
+
+			if($vistaResultado){
+				$sql=$sql->where(DB::Raw('CONCAT(ANHO,CICLO)'),'<>',$anho.$ciclo);
+			}
+		}
+
+					//->where();
+		
+
 		return $sql;
 	}
 
 	static function getIdSemestre(){
 		$sql=DB::table('SEMESTRES')
-				->select('ID_SEMESTRE')
-				->where('ESTADO','=',2);
+		->select('ID_SEMESTRE')
+		->where('ESTADO','=',2);
 		return $sql->first()->ID_SEMESTRE;
 	}
 
 	function actualizarSemestreSistema($idSemestre,$idUsuario){
 		//dd(Carbon::now());    
-        DB::beginTransaction();
-        $status = true;
-       
-        try {
+		DB::beginTransaction();
+		$status = true;
 
-        	DB::table('SEMESTRES')                
-                ->where('ESTADO','=',2)
-                ->update(['ESTADO'=>1,
-                        'FECHA_ACTUALIZACION'=>Carbon::now(),
-                        'USUARIO_MODIF'=>$idUsuario]);
+		try {
 
-            DB::table('SEMESTRES')                
-                ->where('ID_SEMESTRE','=',$idSemestre)
-                ->update(['ESTADO'=>2,
-                        'FECHA_ACTUALIZACION'=>Carbon::now(),
-                        'USUARIO_MODIF'=>$idUsuario]);
+			DB::table('SEMESTRES')                
+			->where('ESTADO','=',2)
+			->update(['ESTADO'=>1,
+				'FECHA_ACTUALIZACION'=>Carbon::now(),
+				'USUARIO_MODIF'=>$idUsuario]);
 
-            DB::commit();
-        } catch (\Exception $e) {
-            Log::error('BASE_DE_DATOS|' . $e->getMessage());
-            $status = false;
-            DB::rollback();
-        }
-        return $status;
+			DB::table('SEMESTRES')                
+			->where('ID_SEMESTRE','=',$idSemestre)
+			->update(['ESTADO'=>2,
+				'FECHA_ACTUALIZACION'=>Carbon::now(),
+				'USUARIO_MODIF'=>$idUsuario]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+		return $status;
         //dd($sql->get());
 	}
 
 	public function crearSemestre($semestre){
 		DB::beginTransaction();
-        $id=-1;
-        try {
-            $id = DB::table('SEMESTRES')->insertGetId($semestre);
+		$id=-1;
+		try {
+			$id = DB::table('SEMESTRES')->insertGetId($semestre);
 			DB::commit();
-        } catch (\Exception $e) {
-            Log::error('BASE_DE_DATOS|' . $e->getMessage());
-            DB::rollback();
-        }
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}
 		return $id;
 	}
 

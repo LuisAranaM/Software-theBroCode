@@ -48,30 +48,32 @@
           </a>
         </div>  
       </div>
+      <div class="col-md-12 col-xs-12">
+        <div class="x_content bs-example-popovers courseContainer">
 
-      <div class="x_content bs-example-popovers courseContainer">
+          <div id="btnAgregarHorario" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert"  style="cursor:pointer">
 
-        <div id="btnAgregarHorario" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert"  style="cursor:pointer">
-
-          <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
-          </button>
-          <p class="pText"> Agregar Nuevo Horario a Evaluar</p>
+            <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+            </button>
+            <p class="pText"> Agregar Nuevo Horario a Evaluar</p>
+          </div>
         </div>
       </div>
       <div id="listHorarios">
         @foreach($horarios as $h)
         @if($h->ESTADO===1)
-        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
-          <div class="x_content bs-example-popovers courseContainer">
-            <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-              <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
+        <div class="col-md-6 col-xs-12">
+          <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
+            <div class="x_content bs-example-popovers courseContainer">
+              <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="closeHorario close" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true"><i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
 
-              </button>
-              <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+                </button>
+                <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+              </div>
             </div>
-          </div>
-        </a>
-
+          </a>
+        </div>
         @endif
         @endforeach
       </div>
@@ -346,61 +348,61 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 id="modalHorarios" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <div class="modal-dialog modal-lg" style="width: 400px;  
-  vertical-align: middle; ">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 class="reportsTitle mainTitle modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
-  </div>
-  <div class="modal-body">
-    <div class="container-fluid">
-      <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
-      <form id="frmCursosModal">
-        <div class="table-responsive" >
-          <table class="table table-striped jambo_table bulk_action" style="margin-bottom: 0px">
-            <thead >
-              <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-                <th class="pText column-title" style="border: none"></th>
-                <th class="pText column-title" style="border: none">Horario</th>
-                <th class="pText column-title" style="border: none">Profesor</th>
-                <th class="pText bulk-actions" colspan="7">
-                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                </th>
-              </tr>
-            </thead>
-            @foreach($horarios as $horario)
-            <tbody class="text-left">
-              <tr class="even pointer">
-                <td class="a-center"  style="background-color: white; padding-right: 0px">
-                 <div class="form-check" style="padding-left: 10px; width: 20px">
-                  <label>
-                    <input value="{{$horario->ID_HORARIO}}" class="get_value" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
-                  </label>
-                </div>
-              </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
+vertical-align: middle; ">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"
+    aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="reportsTitle mainTitle modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
+    <form id="frmCursosModal">
+      <div class="table-responsive" >
+        <table class="table table-striped jambo_table bulk_action" style="margin-bottom: 0px">
+          <thead >
+            <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
+              <th class="pText column-title" style="border: none"></th>
+              <th class="pText column-title" style="border: none">Horario</th>
+              <th class="pText column-title" style="border: none">Profesor</th>
+              <th class="pText bulk-actions" colspan="7">
+                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+              </th>
+            </tr>
+          </thead>
+          @foreach($horarios as $horario)
+          <tbody class="text-left">
+            <tr class="even pointer">
+              <td class="a-center"  style="background-color: white; padding-right: 0px">
+               <div class="form-check" style="padding-left: 10px; width: 20px">
+                <label>
+                  <input value="{{$horario->ID_HORARIO}}" class="get_value" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
+                </label>
+              </div>
             </td>
-            @endforeach
-          </tr>
-        </tbody>
-      </table>
+            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
+            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
+          </td>
+          @endforeach
+        </tr>
+      </tbody>
+    </table>
 
-    </div> 
-  </form>
-  <div class="text-center modal-footer" style="padding-right: 0px; padding-left: 0px; border-color: transparent">
-    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4">
-        <button id="btnActualizarHorarios" class="btn btn-success pText customButtonThin">Actualizar</button>
-      </div>
-      <div class="col-md-4">
-        <button id="btnCancelarHorarios" class="btn btn-success pText customButtonThin">Cancelar</button> 
-      </div>
-    </div>    
-  </div>
+  </div> 
+</form>
+<div class="text-center modal-footer" style="padding-right: 0px; padding-left: 0px; border-color: transparent">
+  <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+    <div class="col-md-4">
+      <button id="btnActualizarHorarios" class="btn btn-success pText customButtonThin">Actualizar</button>
+    </div>
+    <div class="col-md-4">
+      <button id="btnCancelarHorarios" class="btn btn-success pText customButtonThin">Cancelar</button> 
+    </div>
+  </div>    
+</div>
 
 </div>
 </div>

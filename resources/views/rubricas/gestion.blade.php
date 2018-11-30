@@ -229,7 +229,7 @@
           <div class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <button id="btnAceptarCopia" class = "btn btn-success pText customButton btn-lg" type="submit" style="width: 160px !important" >Copiar Configuración</button>
+                <input id="btnAceptarCopia" type ="button" onclick="preguntaConfirmacion()" class = "btn btn-success pText customButton btn-lg"  style="width: 160px !important" value="Copiar Configuración">
               </div>
 
             </div>
