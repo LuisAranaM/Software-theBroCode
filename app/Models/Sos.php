@@ -113,16 +113,16 @@ class Sos extends Eloquent
 		->where('ID_SEMESTRE','=',$idSemestre)
 		->where('ID_ESPECIALIDAD','=',$idEspecialidad);
 		
-		$second= DB::table('EOS')
+		/*$second= DB::table('EOS')
             ->select('ID_EOS', 'NOMBRE')
 			->where('ESTADO','=',1)
 			->where('ID_SEMESTRE','=',$idSemestre)
 			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
 			->union($first)
             ->get();
-
+		*/
 		//dd($sql->get());
-		return   $second;
+		return   $first;
 
 		//$equis = "hola";
 		//return $equis;
