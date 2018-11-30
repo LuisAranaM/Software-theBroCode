@@ -74,8 +74,8 @@
 
     $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
     
-    if($nombreEspecialidad=='')
-      $nombreEspecialidad='RubriK';
+    if($modoAdministrador)
+      $nombreEspecialidad='Ingeniería';
 
     $nombreRol=App\Entity\Rol::getRolUsuario();
     //dd($nombreRol);
