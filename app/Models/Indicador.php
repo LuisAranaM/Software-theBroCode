@@ -364,6 +364,10 @@ class Indicador extends Eloquent
     }
 
     static function getReporteConsolidado($filtros,$idSemestre,$idEspecialidad){
+		$sql0=DB::table('SEMESTRES AS SEM')
+		->select(DB::Raw('SEM.ANHO*10+SEM.CICLO AS SEMESTRE'))
+		->where('SEM.ID_SEMESTRE','=',$idSemestre);
+		$semestre = $sql0->get()[0]->SEMESTRE;
     	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
     	->select('RES.NOMBRE AS COD_RESULTADO','RES.ID_RESULTADO', 'IHC.ID_SEMESTRE', 'RES.ID_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO','CAT.ID_CATEGORIA',
     			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.VALORIZACION','IND.NOMBRE AS NOMBRE_INDICADOR','CUR.ID_CURSO',
@@ -398,8 +402,7 @@ class Indicador extends Eloquent
 		})
 		->leftJoin('SEMESTRES',function($join){
 			$join->on('SEMESTRES.ID_SEMESTRE','=','IHC.ID_SEMESTRE');
-		})
-		//->where('IHC.ID_SEMESTRE','=',$idSemestre)  
+		}) 
 		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
 		->where('CUR.ESTADO_ACREDITACION','=',1)  
 		->where('IHC.ESTADO','=',1)  
@@ -408,6 +411,8 @@ class Indicador extends Eloquent
 		->where('CAT.ESTADO','=',1)  
 		->where('HOR.ESTADO','=',1)
 		->where('ALU.ESTADO','=',1)
+		->where('AHH.ESTADO','=',1)
+		->where(DB::Raw('SEMESTRES.ANHO*10+SEMESTRES.CICLO'),'<=',$semestre)
 		->where('AHH.ESTADO','=',1)
 		->groupBy('RES.NOMBRE', 'RES.ID_RESULTADO', 'IHC.ID_SEMESTRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
 		'IND.ID_INDICADOR','IND.NOMBRE','CUR.ID_CURSO','CUR.CODIGO_CURSO','CUR.NOMBRE','IHAH.ID_INDICADOR');

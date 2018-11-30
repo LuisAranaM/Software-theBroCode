@@ -409,9 +409,11 @@ class Indicador extends \App\Entity\Base\Entity {
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
                 //Consideraciones previas
                 //$sheet->setAutoSize(true);
-                $sheet->mergeCells('A1:G1');
+                $sheet->mergeCells('A2:K2');
+                $sheet->mergeCells('A3:K3');
+                
                 $sheet->setColumnFormat(array('G' => '0%'));
-                $i=1;
+                $i=2;
                 $sheet->setWidth(array(
                                         'A'     =>  15,
                                         'B'     =>  30,
@@ -423,25 +425,41 @@ class Indicador extends \App\Entity\Base\Entity {
                                     ));
 
 
-                $sheet->row($i++, array('Reporte Consolidado del semestre '.$semestre));
-                $sheet->cells('A1:G1', function($cells) {    // manipulate the cell
-                            $cells->setBackground('#EDFC00');
-                            $cells->setFontSize(20);
+                //$sheet->row($i++, array('Reporte Consolidado del semestre '.$semestre));
+                $sheet->setHeight($i, 30);
+                $sheet->row($i++, array('PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ'));
+                $sheet->setHeight($i, 30);
+                $sheet->row($i++, array('CONSOLIDACIÓN DE RESULTADO DE LOS INDICADORES DE GESTIÓN'));
+                
+                $sheet->cells('A2:K2', function($cells) {    // manipulate the cell
+                            $cells->setFontSize(13);
                             $cells->setFontWeight('bold');
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
-
                 });
+                $sheet->cells('A3:K3', function($cells) {    // manipulate the cell
+                    $cells->setFontSize(13);
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
 
+                 });
+                $i++;
                 $codResultado="";
-                $filaInicial=3;
-                $filaFinal=3;
+                $constanteFila = $i-2;
+                $filaInicial=$constanteFila + 3;
+                $filaFinal=$constanteFila + 3;
                 $ciclo = "";
                 $columnaInicio = 'I';
                 $calculoMenor = 99999999;
                 $anhoMenor = 0;
                 $cicloMenor = 0;
-
+                $filaInicialCat=$constanteFila + 3;
+                $filaFinalCat=$constanteFila + 3;
+                $nombreCategoria="";
+                $filaInicialInd=$constanteFila + 3;
+                $filaFinalInd=$constanteFila + 3;
+                $nombreInd="";
+                
                 foreach ($reporte as $key => $fila) {
                     if($calculoMenor > $fila->ANHO*10 + $fila->CICLO){
                         $calculoMenor = $fila->ANHO;
@@ -470,7 +488,7 @@ class Indicador extends \App\Entity\Base\Entity {
                     //dd($columnaFin);    
                 }
                 //dd($columnaFin);
-                $filaEncabezados = 2;
+                $filaEncabezados = $constanteFila + 2;
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO ){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
@@ -491,17 +509,42 @@ class Indicador extends \App\Entity\Base\Entity {
                             break;
                         }
                         else{
-                            if($i!=2){
+                            if($i!=$constanteFila + 2){
                                 $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                                 $i++;
                             }
-                            $sheet->row($i++, array("Código","Resultado","Categoría", "Indicador",
-                                "Cursos Evaluados","Medida","Meta %", "Óptimo"));
+                            $sheet->cells('A'.$i.':H'.$i, function($cells) {    // manipulate the cell
+                                //$cells->setFontSize(13);
+                                $cells->setAlignment('center');
+                                $cells->setValignment('center');
+                                $cells->setBackground('#334185');
+                                $cells->setFontColor('#FFFFFF');
+    
+                            });
+                            $sheet->row($i++, array("CÓDIGO","RESULTADO","CATEGORÍA", "INDICADOR",
+                                "CURSOS EVALUADOS","MEDIDA","META %", "ÓPTIMO"));
                             $filaInicial=$i;
                             $filaEncabezados = $filaInicial - 1;
                         }
-                        
+                        $filaInicialCat=$i;
+                        $filaInicialInd=$i;
+                    }
+                    else if($nombreCategoria!=$fila->NOMBRE_CATEGORIA){
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        if($i!=$filaInicial){
+                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                            $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
+                        }
+                        $filaInicialCat=$i;
+                        $filaInicialInd=$i;
+                    }
+                    else if($nombreInd!=$fila->NOMBRE_INDICADOR){
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        if($i!=$filaInicialCat){
+                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                        }
+                        $filaInicialInd=$i;
                     }
                     if($anhoActual < $fila->ANHO){
                         $sheet->setHeight($i, 45);
@@ -580,12 +623,16 @@ class Indicador extends \App\Entity\Base\Entity {
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
                     $filaFinal=$i;
+                    $nombreCategoria = $fila->NOMBRE_CATEGORIA;
+                    $nombreInd = $fila->NOMBRE_INDICADOR;
+                    $filaFinalCat=$i;
+                    $filaFinalInd=$i;
                 }  
                 if(count($reporte)>0){
                     $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));    
-                }*/ 
+                }
                 //Centrado
                 $sheet->cells('A2:G1000', function($cells) {   
                             $cells->setAlignment('center');
