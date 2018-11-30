@@ -45,6 +45,19 @@ class ObjetivosEducacionalesController extends Controller
         //return $equis;
     }
 
+
+    public function copiarObj(Request $request){
+        
+        $obj = new eSos();           
+        
+        if($obj->copiarObj($request->get('idSemestreConfirmado'),Auth::id())){
+            flash('Se copió la configuración correctamente')->success();
+        } else {
+            flash('Hubo un error al copiar la configuración')->error();
+        }
+        return back();
+    }
+
     public function objetivosGuardar(Request $request) {  
         //dd($request->all());
 

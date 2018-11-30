@@ -285,7 +285,7 @@
 		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 		<div class="modal-body"> 
 			<div class="container-fluid" style="">
-				<form id="frmCopiarConfiguracion" action="{{route('configuracion.copiar')}}" method="POST">
+				<form id="frmCopiarConfiguracion" action="{{route('configuracionObj.copiar')}}" method="POST">
 					{{ csrf_field() }}
 					<div class="tile coursesModalBox" style="padding-bottom: 20px;" id="interiorConfirmacion">
 

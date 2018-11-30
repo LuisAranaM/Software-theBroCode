@@ -32,6 +32,20 @@ class Sos extends \App\Entity\Base\Entity {
         return mSos::getObjetivosTotales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
 
+
+    function copiarObj($idSemestreCopiar,$idUsuario){
+        $model=new mSos();
+        $objetivos=self::getinformacionObj($idSemestreCopiar);
+
+        if ($model->copiarObj(self::getIdSemestre(),self::getEspecialidadUsuario(),$objetivos,$idUsuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
+    }
+
     public function eliminarSos($IDSOS,$nombreSOS,$usuario){
         //dd($data['idAlumno']);
         $registro=['ID_SOS'=>$IDSOS, 
