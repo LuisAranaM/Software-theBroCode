@@ -26,6 +26,11 @@ class Eos extends \App\Entity\Base\Entity {
         
         return mEos::getObjetivosEducacionales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
+    
+    static function getObjetivosTotales() {
+        $model = new mEos();
+        return mEos::getObjetivosTotales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+    }
 
     public function eliminarEos($IDEOS,$nombreEOS,$usuario){
         //dd($data['idAlumno']);

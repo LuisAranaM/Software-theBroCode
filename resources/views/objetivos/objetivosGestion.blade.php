@@ -3,6 +3,7 @@
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/objetivos/objetivos.js') }}"></script>
+<script type="text/javascript"  src="{{ URL::asset('js/objetivos/configuracion.js') }}"></script>
 @stop
 
 <div class="customBody">
@@ -12,6 +13,17 @@
 			<h1 class="mainTitle"> Gestión de Objetivos </h1>
 		</div>
 	</div>
+
+	@if((count($objetivosSos)!=0) and (count($objetivosEos)!=0))
+	<div class="row">
+		<div class="col-md-12 col-xs-12" style="text-align: right">
+			<button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracionObj" style="border-color: transparent"> Copiar Configuración</button>
+		</div>
+	</div>
+	<!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
+	@endif
+
+
 	@include('flash::message')
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
@@ -202,9 +214,108 @@
 </div>
 <!-- /.modal -->
 
+
+
+
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracionObj" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
+	<div class="modalResultados customModal modal-dialog modal-lg" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Copiar Configuración de Objetivos</h4>
+		</div>
+		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+		<div class="modal-body"> 
+			<div class="container-fluid" style="">
+				<form id="frmAgregarCursos" action="" method="POST">
+					{{ csrf_field() }}
+					<div class="tile coursesModalBox" style="padding-bottom: 20px;">
+
+						<div id="filasCat"class="row">
+							<div class="col-xs-12">
+								<p style="font-size: 16px; font-family: segoe UI semibold; text-align: left; color: black">Selecciona el semestre para copiar la configuración:</p>
+							</div>
+							<div class="col-xs-12">
+								<select class="form-control" id="cboSemestreConfiguracion">
+									<option>Seleccionar una opción</option>
+									@foreach($semestres as $semestre)
+									<option value="{{$semestre->ID_SEMESTRE}}" semestre="{{$semestre->SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+									@endforeach
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+							<div class="col-md-4">
+								<button id="btnMostrarConfiguracionObj" class = "btn btn-success pText customButton btn-lg" type="button" value = "Cargar" name="cargar" style="width:160px !important">Mostrar Configuración</button>
+							</div>
+
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
 </div>
 
 
+<div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1" id="modalConfiguracionMObjostrar" data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-y: scroll;">
+	<div class="customModal modal-dialog modal-lg" style="width: 1200px; height: 300px;" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+
+			<h4 class="mainTitle modal-title" style="padding-top: 10px" id="tituloModalConfirmacion"></h4>
+
+		</div>
+		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
+		<div class="modal-body"> 
+			<div class="container-fluid" style="">
+				<form id="frmCopiarConfiguracion" action="{{route('configuracion.copiar')}}" method="POST">
+					{{ csrf_field() }}
+					<div class="tile coursesModalBox" style="padding-bottom: 20px;" id="interiorConfirmacion">
+
+
+					</div>
+					<input type="hidden" name="idSemestreConfirmado" id="idSemestreConfirmado">
+
+					<div class="modal-footer">
+						<div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+							<div class="col-md-4">
+								<button id="btnAceptarCopiaObj" class = "btn btn-success pText customButton btn-lg" type="submit" style="width: 160px !important" >Copiar Configuración</button>
+							</div>
+
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+
+</div>
+
+</div>
+<?php $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario(); ?>
+<input type="hidden" value="{{$nombreEspecialidad}}" id="nombreEspecialidad">
 @stop
 
 @section('js-scripts')

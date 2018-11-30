@@ -27,6 +27,11 @@ class Sos extends \App\Entity\Base\Entity {
         return mSos::getObjetivosEstudiante(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
 
+    static function getObjetivosTotales() {
+        $model = new mSos();
+        return mSos::getObjetivosTotales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+    }
+
     public function eliminarSos($IDSOS,$nombreSOS,$usuario){
         //dd($data['idAlumno']);
         $registro=['ID_SOS'=>$IDSOS, 
@@ -49,7 +54,21 @@ class Sos extends \App\Entity\Base\Entity {
             return false;
         }
     }
-    
+
+    static function getinformacionObj($idSemestre){
+        $model= new mSos();
+        $infoObj=$model->getinformacionObj($idSemestre,self::getEspecialidadUsuario())->get();
+       /* $resultados=array();
+        $contRes=0;
+        foreach ($info as $fila) {
+            $resultadoNuevo=['NOMBRE_SOS'=>$fila->NOMBRE_SOS,
+            'NOMBRE_EOS'=>$fila->NOMBRE_EOS];
+
+            $resultados[]=$resultadoNuevo;
+            $contRes++;
+        }*/
+        return $infoObj;
+    }
     
     public function editarSos($IDSOS,$nombreSOS,$usuario){
         //dd($data['idAlumno']);

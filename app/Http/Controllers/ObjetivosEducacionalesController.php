@@ -19,12 +19,30 @@ class ObjetivosEducacionalesController extends Controller
         ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
         ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
     }
-     public function objetivosGestionTablas() {    
+     public function objetivosGestionTablas() { 
+
+        $objetivosSos=[];
+        $objetivosSos = eSos::getObjetivosTotales()->toArray();
+        $objetivosEos=[];
+        $objetivosEos = eEos::getObjetivosTotales()->toArray();
+
         //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
         return view('objetivos.objetivosGestion')
         //->with('casillasChecks',SosHasEos::getSosHasEos())
         ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
-        ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
+        ->with('objetivosEducacionales',eEos::getObjetivosEducacionales())
+        ->with('objetivosSos',$objetivosSos)
+        ->with('semestres', Semestre::getSemestres())
+        ->with('objetivosEos',$objetivosEos);
+    }
+    
+    public function informacionObj(Request $request){
+
+        $objsos=eSos::getinformacionObj($request->get('idSemestre'));
+        //dd($objsos);
+        return $objsos;
+        //$equis = "hola";
+        //return $equis;
     }
 
     public function objetivosGuardar(Request $request) {  
