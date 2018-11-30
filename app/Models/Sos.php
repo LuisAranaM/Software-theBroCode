@@ -108,21 +108,21 @@ class Sos extends Eloquent
 
 		)"));*/
 		$first = DB::table('SOS')
-		->select('ID_SOS', 'NOMBRE')
+		->select('ID_SOS', 'NOMBRE',DB::Raw('1 AS TIPO'))
 		->where('ESTADO','=',1)
 		->where('ID_SEMESTRE','=',$idSemestre)
 		->where('ID_ESPECIALIDAD','=',$idEspecialidad);
 		
 		$second= DB::table('EOS')
-            ->select('ID_EOS', 'NOMBRE')
+            ->select('ID_EOS', 'NOMBRE',DB::Raw('0 AS TIPO'))
 			->where('ESTADO','=',1)
 			->where('ID_SEMESTRE','=',$idSemestre)
 			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
 			->union($first)
             ->get();
 		
-		dd($second);
-		//return   $second;
+		//dd($second);
+		return   $second;
 
 		//$equis = "hola";
 		//return $equis;

@@ -57,7 +57,7 @@ class Sos extends \App\Entity\Base\Entity {
 
     static function getinformacionObj($idSemestre){
         $model= new mSos();
-        $infoObj=$model->getinformacionObj($idSemestre,self::getEspecialidadUsuario())->get();
+        $infoObj=$model->getinformacionObj($idSemestre,self::getEspecialidadUsuario());
        /* $resultados=array();
         $contRes=0;
         foreach ($info as $fila) {
