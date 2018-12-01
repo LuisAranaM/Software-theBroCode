@@ -137,8 +137,10 @@ class Usuario extends Authenticatable implements Auditable{
 
     static function getUsuariosGestion($filtros=[]){
         $sql=DB::table('USUARIOS AS US')
-        ->select('US.ID_USUARIO','US.USUARIO','US.CORREO',DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO) 
-            AS NOMBRES_COMPLETOS"),'US.PERFIL','ROL.NOMBRE AS ROL_USUARIO', 'ES.NOMBRE AS ESPECIALIDAD_USUARIO', 'US.ESTADO AS FLG_ACTIVO')    
+        ->select('US.ID_USUARIO','US.USUARIO','US.CORREO',
+            'US.NOMBRES' ,'US.APELLIDO_PATERNO','US.APELLIDO_MATERNO',
+            DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO) 
+            AS NOMBRES_COMPLETOS"),'US.PERFIL','ROL.NOMBRE AS ROL_USUARIO','ROL.ID_ROL','ES.ID_ESPECIALIDAD', 'ES.NOMBRE AS ESPECIALIDAD_USUARIO', 'US.ESTADO AS FLG_ACTIVO')    
         ->leftJoin('ROLES AS ROL',function($join){
             $join->on('US.ID_ROL','=','ROL.ID_ROL');
         })

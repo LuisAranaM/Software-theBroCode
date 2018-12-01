@@ -53,4 +53,6 @@ class Especialidad extends \App\Entity\Base\Entity {
                 return false;
             }
         }
-    }
+
+     
+}

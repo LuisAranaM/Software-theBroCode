@@ -205,7 +205,48 @@ function activarUsuarios($checks,$idUsuario){
 }
 
 function editarCuentaRubrik($datosCuenta){
+    dd($datosCuenta);
+    $hoy=Carbon::now();
+            $model= new mUsuario();
 
+            $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
+            'USUARIO' =>$datosCuenta['usuario'],           
+            'PASS'=>Hash::make($datosCuenta['pass']),               
+            'CORREO' =>$datosCuenta['email'],            
+            'FECHA_REGISTRO'=>$hoy,     
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF'=>NULL,      
+            'ESTADO'=>1,             
+            'NOMBRES' =>$datosCuenta['nombres'],           
+            'APELLIDO_PATERNO'=>$datosCuenta['apellidoPat'],   
+            'APELLIDO_MATERNO' =>$datosCuenta['apellidoMat'],  
+            'PERFIL'=>$datosCuenta['perfil']
+        ];
+
+        $usuarioEspecialidad=[];
+        if($usuario['ID_ROL']!=1){
+            $usuarioEspecialidad=['ID_USUARIO' =>NULL,        
+            'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
+            'FECHA_REGISTRO'=>$hoy,
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF' =>NULL,     
+            'ESTADO'=>1
+        ];
+    }
+    //Verificar que usuario y correo no estén registrados
+    if($model->verificarUsuario($usuario)){
+        //dd("HOLA");
+        $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+        return false;        
+    }
+
+    
+    if ($model->editarCuentaRubrik($usuario,$usuarioEspecialidad)){
+        return true;
+    }else{
+        $this->setMessage('Hubo un error en el servidor de base de datos');
+        return false;
+    }
 }
 
 function eliminarCuentaRubrik($idUsuario,$usuarioModif){

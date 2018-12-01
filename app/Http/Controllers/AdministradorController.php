@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Entity\Usuario as Usuario;
 use App\Entity\Rol as Rol;
 use App\Entity\Especialidad as Especialidad;
+use App\Entity\UsuariosHasEspecialidades as UsuariosEspecialidad;
 use App\Entity\Semestre as Semestre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -116,7 +117,7 @@ class AdministradorController extends Controller
         $filtros=[
             'page' => $request->get('page',1),
             'estado' => $request->get('estado',0),
-             'rol' => $request->get('rolBuscar',null),
+            'rol' => $request->get('rolBuscar',null),
             'especialidad' => $request->get('especialidadBuscar',null),
             'usuario' => $request->get('usuarioBuscar',null),
             'email' => $request->get('emailBuscar',null),
@@ -208,9 +209,9 @@ class AdministradorController extends Controller
     public function crearSemestre(Request $request){
         //dd($request->all());
 
-       $semestre=new Semestre();
+     $semestre=new Semestre();
 
-       if($semestre->crearSemestre($request->all(),Auth::id())){
+     if($semestre->crearSemestre($request->all(),Auth::id())){
         flash('Se creó el semestre correctamente')->success();
             //return back();
     } else {
@@ -242,18 +243,31 @@ public function gestionEspecialidades(Request $request){
 }
 
 public function crearEspecialidad(Request $request){
-      $especialidad=new Especialidad();
+  $especialidad=new Especialidad();
 
-       if($especialidad->crearEspecialidad($request->get('especialidad'),Auth::id())){
-        flash('Se creó la especialidad correctamente')->success();
+  if($especialidad->crearEspecialidad($request->get('especialidad'),Auth::id())){
+    flash('Se creó la especialidad correctamente')->success();
             //return back();
-    } else {
-        flash($especialidad->getMessage())->error();
-    }
-    return back();      
+} else {
+    flash($especialidad->getMessage())->error();
+}
+return back();      
 }
 
 public function editarEspecialidad(Request $request){
 
 }
+
+public function verComoEspecialidad(Request $request){
+
+    $especialidad = new UsuariosEspecialidad();          
+        //dd($request->get('idSemestre'));
+    if($especialidad->verComoEspecialidad($request->get('idEsp'),Auth::id())){
+        flash('Se cambió de especialidad exitosamente')->success();
+    } else {
+        flash('Hubo un error al tratar de cambiar de especialidad')->error();
+    }
+    return back();
+}
+
 }
