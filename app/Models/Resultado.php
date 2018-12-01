@@ -107,6 +107,19 @@ class Resultado extends Eloquent
 		return $sql;
 	}
 	
+	static function getResultadosbyCurso($idCurso,$idSem,$idEsp){
+		$sql = DB::table('INDICADORES_HAS_CURSOS')
+		->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
+		->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'INDICADORES_HAS_CURSOS.ID_RESULTADO')
+		->select('RESULTADOS.ID_RESULTADO', 'RESULTADOS.NOMBRE', 'RESULTADOS.DESCRIPCION')
+		->where('RESULTADOS.ID_SEMESTRE','=',$idSem)
+		->where('RESULTADOS.ID_ESPECIALIDAD','=',$idEsp)
+		->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
+		->distinct();
+		//orden descendente por nombre
+		$sql=$sql->orderBy('RESULTADOS.NOMBRE','ASC');
+		return $sql;
+	}
 
 
 	public function insertResultado($nombre, $desc,$idSem,$idEsp){
