@@ -174,6 +174,11 @@ Route::get('/exportarExcelReporte2', ['as'=>'exportar.reporte2','uses'=>'Reporte
 Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'ReportesController@exportarReporteConsolidado','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 
+
+
+Route::get('/mapeo-indicadores', ['as'=>'mapeo.indicadores','uses'=>'DropzoneController@mapeoDeIndicadores','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
+
 /**AVISOS**/
 Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
 	Route::post('/eliminar-aviso', ['as'=>'eliminar.aviso','uses'=>'AvisosController@eliminarAviso']);

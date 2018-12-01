@@ -47,8 +47,15 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
         <div class="col-xs-7" >
           <h1 class="secondaryTitle mainTitle">Seleccionar Cursos a Evaluar </h1>
         </div>
+
+        <div class="col-xs-3 text-right">
+          <a href="{{route('mapeo.indicadores')}}">
+            <button id="btnCursosIndicadores" type="button" style="width: 180px !important" class="btn btn-success btn-lg pText customButtonLarge2 customButton btnCargarAlumnos2"
+            > Mapeo de Indicadores<i class="fas fa-download" style="padding-left: 6px"> </i></button>
+          </a>
+        </div>
         @if(!$modoSoloLectura)
-        <div class="col-xs-5 text-right">
+        <div class="col-xs-2 text-right">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButtonLarge2 customButton btnCargarAlumnos2"
           > Importar Cursos  <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
         </div>
