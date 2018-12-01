@@ -7,6 +7,7 @@ use App\Entity\Curso as Curso;
 use App\Entity\Horario as Horario;
 use App\Entity\Alumno as eAlumno;
 use App\Entity\Avisos as eAvisos;
+use App\Entity\Usuario;
 use App\Entity\AlumnosHasHorario as eAlumnosHasHorario;
 use App\Entity\Resultado as eResultado;
 use App\Entity\IndicadoresHasCurso as eIndicadoresHasCurso;
@@ -192,6 +193,10 @@ class ProfesorController extends Controller
       $idHorario=$request->get('idHorario',null);
       $idResultado=$request->get('idResultado',null);
       $idAlumno=$request->get('idAlumno',null);
+      $modoSoloLectura=in_array(Auth::user()->ID_ROL,Usuario::getModoLectura());
+      $disabled='';
+      if($modoSoloLectura)
+        $disabled='disabled';
         //dd($resultado);
       if($idResultado!=NULL){
        $output = '';
@@ -243,7 +248,7 @@ class ProfesorController extends Controller
                       $checked='checked';
                       $active='active';
                     }
-                    $html.='<label class="btnCriteria btn btn-primary '.$active.'" ';
+                    $html.='<label '.$disabled.' class="btnCriteria btn btn-primary '.$active.'" ';
                     $html.=' idAlumno="'.$idAlumno.'" ';
                     $html.=' idHorario="'.$idHorario.'" ';
                     $html.=' idIndicador="'.$indicador['ID_INDICADOR'].'" ';
@@ -257,7 +262,7 @@ class ProfesorController extends Controller
                       type: '."'".'info'."'".',
                       styling: '."'".'bootstrap3'."'".'});"';
 
-                      $html.='><input type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
+                      $html.='><input '.$disabled.' type="radio" class="sr-only" id="viewMode'.$descripcion['ID_DESCRIPCION'].'-'.$idAlumno.'" name="viewMode" value="'.$descripcion['VALORIZACION'].'"'.$checked.'>
 
                       <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">'.$descripcion['NOMBRE_VALORIZACION'].'</span></label>';
 

@@ -65,6 +65,7 @@
     var APP_PUBLIC_URL = "<?php echo config('app.url'); ?>";
   </script>
 
+
   <?php
     // Evaluar si este blade lo esta viendo el ejecutivo o un gerente
 
@@ -72,6 +73,8 @@
   $modoCoordinador=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_COORDINADOR?true:false;
   $modoAsistente=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_ASISTENTE?true:false;
   $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+
+  $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
 
   $nombreEspecialidad=App\Entity\Especialidad::getNombreEspecialidadUsuario();
   $especialidades=App\Entity\Especialidad::getEspecialidades();
@@ -82,6 +85,7 @@
     //dd($nombreRol);
   $especialidadActual=App\Entity\Especialidad::getEspecialidadUsuario();
   $semestreActual=App\Entity\Semestre::getSemestre();
+
   ?>
 
 </head>

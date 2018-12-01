@@ -108,6 +108,9 @@ class Usuario extends \App\Entity\Base\Entity {
             return [self::ROL_COORDINADOR, self::ROL_ASISTENTE];
         }
 
+        static function getModoLectura() {
+            return [self::ROL_ADMINISTRADOR, self::ROL_ASISTENTE];
+        }
 
         public function actualizarContrasena($usuario,$apassword,$npassword){
 

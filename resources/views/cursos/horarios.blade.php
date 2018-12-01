@@ -7,6 +7,9 @@
 <script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
 
 @section('pageTitle', 'Horarios y Criterios')
 @section('content')
@@ -39,7 +42,7 @@
         <div class="col-xs-6" >
           <h1 class="secondaryTitle mainTitle">Gestionar Horarios </h1>
         </div>
-
+        @if(!$modoSoloLectura)
         <div class="col-sm-6 col-xs-6 text-right">
           <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
             <button type="button" class="btn btn-success btn-lg pText customButtonLarge2 btnCargarAlumnos2"
@@ -47,7 +50,9 @@
             > Cargar Alumnos <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
           </a>
         </div>  
+        @endif
       </div>
+      @if(!$modoSoloLectura)
       <div class="col-md-12 col-xs-12">
         <div class="x_content bs-example-popovers courseContainer">
 
@@ -59,6 +64,7 @@
           </div>
         </div>
       </div>
+      @endif
       <div id="listHorarios">
         @foreach($horarios as $h)
         @if($h->ESTADO===1)
@@ -66,9 +72,10 @@
           <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
             <div class="x_content bs-example-popovers courseContainer">
               <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+                @if(!$modoSoloLectura)
                 <button type="button" class="closeHorario close" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true"><i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
-
                 </button>
+                @endif
                 <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
               </div>
             </div>
@@ -100,6 +107,7 @@
 
 
       <!-- Boton  -->
+      @if(!$modoSoloLectura)
       <div class="row" style="margin-left: 0px; margin-right: 0px">
         <div id="btnAgregarResultado"  class="x_content bs-example-popovers courseContainer"  style="cursor:pointer">
           <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
@@ -109,6 +117,7 @@
           </div>
         </div>
       </div>
+      @endif
       <!-- Resultados e indicadores -->
       <div class="row" style="margin-left: 0px; margin-right: 0px">
         <!-- start accordion -->
