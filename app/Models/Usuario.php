@@ -329,11 +329,22 @@ class Usuario extends Authenticatable implements Auditable{
         try {
             foreach($checks as $check){
                 //dd($check);
+                $usuario=DB::table('USUARIOS')
+                        ->where('ID_USUARIO','=',$check)->first();
                 DB::table('USUARIOS')
                 ->where('ID_USUARIO','=',$check)
                 ->update(['ESTADO'=>1,
+                    'PASS'=>Hash::make($usuario->USUARIO),
                     'FECHA_ACTUALIZACION'=>Carbon::now(),
                     'USUARIO_MODIF'=>$usuarioModif]);
+                $dataUsuario=[
+                    'NOMBRES'=>$usuario->NOMBRES,
+                    'APELLIDO_PATERNO'=>$usuario->APELLIDO_PATERNO,
+                    'APELLIDO_MATERNO'=>$usuario->APELLIDO_MATERNO,
+                    'CORREO'=>$usuario->CORREO,
+                    'USUARIO'=>$usuario->USUARIO,
+                ];
+                $this->enviarMail($dataUsuario);
             }
             DB::commit();
         } catch (\Exception $e) {
@@ -344,6 +355,18 @@ class Usuario extends Authenticatable implements Auditable{
         return $status;
     }
 
+function enviarMail($usuario){
+    $data=array(
+        'nombresCompletos'=>$usuario['NOMBRES'].' '.$usuario['APELLIDO_PATERNO'].' '.$usuario['APELLIDO_MATERNO'],
+        'email'=>$usuario['CORREO'],
+        'usuario'=>$usuario['USUARIO'],
+        'password'=>$usuario['USUARIO'],
+    );
+    \Mail::send('emails.welcome',$data,function($message)use($data){
+        $message->from('rubrik.pucp@gmail.com','RubriK PUCP');
+        $message->to($data['email'])->subject('Bienvenido a RubriK');
+    });
+}
     function eliminarCuentaRubrik($idUsuario,$usuarioModif){
         //dd(Carbon::now());    
         DB::beginTransaction();

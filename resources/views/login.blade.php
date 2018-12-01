@@ -26,7 +26,7 @@
 
     <div>
         <h4>Pontificia Universidad Católica del Perú</h4>
-        <p>Contacto: soporte@rubrik.inf.pucp.edu.pe</p>
+        <p>Contacto: rubrik-pucp@gmail.com</p>
     </div>
     
 </form>

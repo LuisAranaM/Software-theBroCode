@@ -74,11 +74,6 @@
                 notEmpty: {
                    message: '*Campo obligatorio'
                },
-               stringLength: {
-                message: 'La contraseña debe tener entre 6 y 20 caracteres',
-                min: 6,
-                max: 20
-            }
         }
     },
     passwN: {

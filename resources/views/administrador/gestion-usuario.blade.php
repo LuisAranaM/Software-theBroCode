@@ -175,13 +175,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <label>Apellido Materno</label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Materno" type="text" name="apellidoMat" value="">
             </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group">
               <label>Correo Electrónico </label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
             </div>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
-            <div class="form-group">
+            <!--<div class="form-group">
               <label>Contraseña</label>
               <input style="margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="pass">
             </div>
@@ -190,6 +190,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <input style="
               margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="passConfirm">
             </div>
+          -->
             <div class="form-group" style="height: 55px">
 
               <label>Rol</label>
@@ -268,12 +269,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <label>Apellido Materno</label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Materno" type="text" name="apellidoMat" value="">
             </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group">
               <label>Correo Electrónico </label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
             </div>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group" style="height: 55px">
 
               <label>Rol</label>

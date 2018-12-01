@@ -151,7 +151,7 @@ class Usuario extends \App\Entity\Base\Entity {
 
             $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
             'USUARIO' =>$datosCuenta['usuario'],           
-            'PASS'=>Hash::make($datosCuenta['pass']),               
+            'PASS'=>Hash::make($datosCuenta['usuario']),               
             'CORREO' =>$datosCuenta['email'],            
             'FECHA_REGISTRO'=>$hoy,     
             'FECHA_ACTUALIZACION'=>$hoy,
@@ -185,6 +185,7 @@ class Usuario extends \App\Entity\Base\Entity {
 
     
     if ($model->crearCuentaRubrik($usuario,$usuarioEspecialidad)){
+        $this->enviarMail($usuario);
         return true;
     }else{
         $this->setMessage('Hubo un error en el servidor de base de datos');
@@ -193,7 +194,18 @@ class Usuario extends \App\Entity\Base\Entity {
 
 }
 
-
+function enviarMail($usuario){
+    $data=array(
+        'nombresCompletos'=>$usuario['NOMBRES'].' '.$usuario['APELLIDO_PATERNO'].' '.$usuario['APELLIDO_MATERNO'],
+        'email'=>$usuario['CORREO'],
+        'usuario'=>$usuario['USUARIO'],
+        'password'=>$usuario['USUARIO'],
+    );
+    \Mail::send('emails.welcome',$data,function($message)use($data){
+        $message->from('rubrik.pucp@gmail.com','RubriK PUCP');
+        $message->to($data['email'])->subject('Bienvenido a RubriK');
+    });
+}
 function activarUsuarios($checks,$idUsuario){
 
     $model= new mUsuario();

@@ -222,3 +222,29 @@ Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>
 
 Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
+
+
+
+
+Route::get('sendemail',function(){
+	$data=array(
+		'nombresCompletos'=>"RubriK PUCP",
+		'email'=>"RubriK PUCP",
+		'usuario'=>"RubriK PUCP",
+		'password'=>"RubriK PUCP",
+	);
+	Mail::send('emails.welcome',$data,function($message){
+		$message->from('rubrik.pucp@gmail.com','RubriK PUCP');
+		$message->to('luis.arana@pucp.pe')->subject('Bienvenido a RubriK');
+	});
+	return 'Tu email se envió correctamente';
+});
+
+
+
+
+Route::get('viewmail',function(){
+	
+	return view('emails.welcome');
+});
