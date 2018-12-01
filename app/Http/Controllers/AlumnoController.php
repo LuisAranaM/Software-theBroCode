@@ -115,6 +115,10 @@ class AlumnoController extends Controller
                     return Redirect::back();
                 }
                 // Archivo valido
+                $usuario = Auth::user();
+                $fecha = date("Y-m-d H:i:s");
+                $idSemestre = Entity::getIdSemestre();
+                $idEspecialidad = Entity::getEspecialidadUsuario();
                 $path = $request->file('upload-file')->getRealPath();
                 $data = \Excel::load($path)->get();
                 $codCurso = $request->input('codigoCurso');
@@ -129,12 +133,6 @@ class AlumnoController extends Controller
 	            // 1. Un horario
 	            // 2. Un arreglo de alumnos
                 $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
-                
-                if($val == 2){
-                    // LOS HORARIOS DEBEN SER NUMERICOS
-                    flash('Los horarios deben ser datos numericos.')->error();
-                    return Redirect::back();
-                }
 
                 /*Testando que esta bien */
                 /*Aparentemente esta bien */
@@ -160,6 +158,36 @@ class AlumnoController extends Controller
                 		$this->trace($a["NOMBRES"]);
                 	}
                 }
+
+                /* EN CASO SE INSERTE DIRECTAMENTE SIN MENSAJE DE CONFIRMACION */
+                {
+                    // Meter alumnos
+                    foreach($alumnosNuevos as $a){
+                        DB::table('ALUMNOS')->insert(
+                            ['NOMBRES' => $a->NOMBRES,
+                             'APELLIDO_PATERNO' => $a->APELLIDO_PATERNO,
+                             'APELLIDO_MATERNO' => $a->APELLIDO_MATERNO,
+                             'CODIGO' => $a->CODIGO,
+                             'FECHA_REGISTRO' => $fecha,
+                             'FECHA_ACTUALIZACION' => $fecha,
+                             'ID_SEMESTRE'=>$idSemestre,
+                             'ID_ESPECIALIDAD'=>$idEspecialidad,
+                             'USUARIO_MODIF' => $usuario['ID_USUARIO'],
+                             'ESTADO' => 1
+                            ]);
+                    }
+
+                    foreach($alumnosExistentes as $a){
+                        DB::table('ALUMNOS')
+                            ->where('ID_ALUMNO','=',$a->ID_ALUMNO)
+                            ->where('ID_SEMESTRE','=',$idSemestre)
+                            ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                            ->update(['ESTADO' => 1]);
+                    }
+                    // Meter en alumnos_has_horarios
+                    
+                }
+                /* EN CASO SE COMUNIQUE UN MENSAJE DE CONFIRMACION*/
 
                 if($val == 0)
                     flash('Alumnos cargados correctamente')->success();
