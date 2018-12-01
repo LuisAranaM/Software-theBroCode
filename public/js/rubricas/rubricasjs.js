@@ -64,6 +64,8 @@ $( document ).ready(function() {
         e.preventDefault();
     });
 
+
+	//Agregar indicador
 	$(document).on("click",".agregarIndicador", function(){
 		
 		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
@@ -76,37 +78,39 @@ $( document ).ready(function() {
 		$('#filasDescs').remove();
 		$('#numDescripciones').attr("value", 3);
 		var html='<div id="filasDescs" class="row rowFinal2">'
-		html+='<div class="col-md-6 col-xs-12 no-padding">'
-		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<div class="col-md-6 col-xs-12 no-padding" id="1Contenedor">'
+		html+='<div id="1" class="col-xs-6 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 		html+='<p class="pText descOrd" numdesc="1" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 1</p>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<div id="1" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-12">'
+		html+='<div id="1" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
 		html+='</div>'
 
-		html+='<div class="col-md-6 col-xs-12 no-padding">'
-		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<div class="col-md-6 col-xs-12 no-padding" id="2Contenedor">'
+		html+='<div id="2" class="col-xs-6 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 		html+='<p class="pText descOrd" numdesc="2" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 2</p>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<div id="2" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-12">'
+		html+='<div id="2" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
+		html+='<div id="contenedorAE">'
+		html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
 		html+='</div>'
-
-		html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
-		html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
-		html+='<p class="pText">Agregar nueva valorización</p>'
+		html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
 		html+='</div>'
-		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
-		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
 		html+='</div>'
+		//html+='<div class="text-right">'
+		//html+='<p class="pText">Eliminar...</p>'
+		//html+='</div>'
 		html+='</div>'
 		
 		$('#filasDesc').append(html);
@@ -120,7 +124,7 @@ $( document ).ready(function() {
 		$("#ModalTitle").text("Agregar Nuevo Resultado" );
 		$(".nombreResultado").val("");
 		$(".descripcionResultado").val("");
-		$('#agregarFilaIcono').remove();
+		$('#contenedorAE').remove();
 		$('#filasCats').remove();
 		var html = '<div id="filasCats">';
 		html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
@@ -263,6 +267,7 @@ $( document ).ready(function() {
 		}
 		
 	});
+
 	$(document).on('click','#filasCat .fa-plus-circle ' ,function(e) {
 		$('#agregarFilaIcono').remove();
 		html=''
@@ -292,33 +297,59 @@ $( document ).ready(function() {
 	});
 
 
-
-	//Agregar nueva valorizacion
-	$(document).on('click','#filasDesc .fa-plus-circle ' ,function(e) {
-		var nivel = $('#numDescripciones').attr("value");
-		$('#contenedorAgregar').remove();
-		$('#removeAgregar').remove();
-		$('#agregarFilaIcono').remove();
+	//Eliminar valorizacion
+	$(document).on('click','#contenedorEliminar' ,function(e) {
+		var nivel = $('#numDescripciones').attr("value") -1;
+		if (nivel == 2) {
+			alert("Deben haber al menos dos niveles de valorización.");
+			return;
+		}
+		var nivel2 = $('#numDescripciones').attr("value") -2;
+		$('#' + nivel + 'Contenedor').remove();
 		html=''
-		html+='<div class="col-md-6 col-xs-12 no-padding">'
-		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<div id="contenedorAE">'
+		html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
+		html+='</div>'
+		html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
+		html+='</div>'
+		html+='</div>'
+		$('#'+nivel2+'Contenedor').append(html);
+		 $('#numDescripciones').attr("value", nivel);
+		 borrarDescripcion(descsId[i]);
+	});
+	
+
+
+	//Agregar valorizacion
+	$(document).on('click','#contenedorAgregar' ,function(e) {
+		var nivel = $('#numDescripciones').attr("value");
+		$('#contenedorAE').remove();
+		$('#agregarFilaIcono').remove();
+		$('#contenedorEliminar').remove();
+
+		html=''
+		html+='<div class="col-md-6 col-xs-12 no-padding" id="'+nivel+'Contenedor">'
+		html+='<div id="'+ nivel+ '" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 		html+='<p class="pText descOrd" numdesc="'+nivel+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + nivel + ' </p>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<div id="'+ nivel+ '" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
-		html+='<div id="" class="col-xs-12">'
+		html+='<div id="'+ nivel+ '" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'	  
+		html+='<div id="contenedorAE">'
+		html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
 		html+='</div>'
-		html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
-		html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
-		html+='<p class="pText">Agregar nueva valorización</p>'
-		html+='</div>'
-		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
-		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
+		html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
 		html+='</div>'
 		html+='</div>'
+		html+='</div>'
+
 		$('#filasDescs').append(html);
 		nivel++;
 		$('#numDescripciones').attr("value", nivel);
@@ -447,11 +478,10 @@ function obtenerDescripciones(idInd){
 			result = JSON.parse(result);
 			var descripciones = result;
 			$('#agregarFilaIcono').remove();
-			$('#removeAgregar').remove();
 			$('#filasDescs').remove();
 			var html='<div id="filasDescs" class="row rowFinal2">'
 			for(i=0;i<descripciones.length;i++){
-				html+='<div class="col-md-6 col-xs-12 no-padding">'
+				html+='<div class="col-md-6 col-xs-12 no-padding"  id="'+(i+1)+'Contenedor">'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 				html+='<p class="pText descOrd" numdesc="'+descripciones[i].VALORIZACION+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + descripciones[i].VALORIZACION + '</p>'
 				html+='</div>'
@@ -460,19 +490,22 @@ function obtenerDescripciones(idInd){
 				html+='</div>'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12">'
 				html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE+'</textarea>'
-				html+='</div>'	  
-				html+='</div>'	
+				html+='</div>'
+				if (i<descripciones.length -1) {	  
+					html+='</div>'	
+				}
 			}
 			$('#numDescripciones').attr("value", descripciones.length + 1);
 			console.log($('#numDescripciones').attr("value") );
+			html+='<div id="contenedorAE">'
+			html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+			html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
 			html+='</div>'
-			html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
-			html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
-			html+='<p class="pText">Agregar nueva valorización</p>'
+			html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+			html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
 			html+='</div>'
-			html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
-			html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
 			html+='</div>'
+			html+='</div>'	
 			$('#filasDesc').append(html);
 			$("#modalIndicador").modal("show");
 			$("#modalIndicador").attr("idInd",idInd);

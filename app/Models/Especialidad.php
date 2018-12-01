@@ -9,6 +9,7 @@ namespace App\Models;
 use DB;
 use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Jenssegers\Date\Date as Carbon;
 
 /**
  * Class Especialidade
@@ -99,14 +100,17 @@ class Especialidad extends Eloquent
 		return $sql;
 	}	
 
-	public function buscarEspecialidad($nombEspecialidad)
+	public function buscarEspecialidad($nombEspecialidad,$idEspecialidad=null)
 	{	
 		$sql=DB::table('ESPECIALIDADES')
 				->select()
 				->where('NOMBRE','=',$nombEspecialidad)
-				->where('ESTADO','=',1)->count();
+				->where('ESTADO','=',1);
 		
-		return $sql;
+		if($idEspecialidad)
+			$sql=$sql->where('ID_ESPECIALIDAD','<>',$idEspecialidad);
+		
+		return $sql->count();
 	}	
 
 	public function crearEspecialidad($especialidad){
@@ -117,6 +121,43 @@ class Especialidad extends Eloquent
 			DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }
+		return $id;
+	}
+
+	public function editarEspecialidad($especialidad){
+		DB::beginTransaction();
+        $id=1;
+        try {
+            DB::table('ESPECIALIDADES')
+            ->where('ID_ESPECIALIDAD','=',$especialidad['ID_ESPECIALIDAD'])
+            ->update([
+            'NOMBRE'=> $especialidad['NOMBRE'] ,  
+            'FECHA_ACTUALIZACION'=>$especialidad['FECHA_ACTUALIZACION'],
+            'USUARIO_MODIF'=>$especialidad['USUARIO_MODIF']]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            DB::rollback();
+        }
+		return $id;
+	}
+
+	public function eliminarEspecialidad($idEspecialidad,$idUsuario){
+		DB::beginTransaction();
+        $id=1;
+        try {
+            DB::table('ESPECIALIDADES')
+            ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+            ->update([
+            'ESTADO'=> 0,  
+            'FECHA_ACTUALIZACION'=>Carbon::now(),
+            'USUARIO_MODIF'=>$idUsuario]);
+			DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $id=0;
             DB::rollback();
         }
 		return $id;

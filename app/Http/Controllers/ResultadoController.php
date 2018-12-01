@@ -56,7 +56,7 @@ class ResultadoController extends Controller
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
         ->with('indicadores', $indicadores)
-        ->with('semestres', Semestre::getSemestres())
+        ->with('semestres', Semestre::getSemestres(null,1))
         //->with('escalas', $escalas)
         ->with('descripciones', $descripciones);
     }
@@ -353,8 +353,8 @@ class ResultadoController extends Controller
 
     public function copiarRubrica(Request $request){
         
-        $rubrica = new eResultado();           
-        
+        $rubrica = new eResultado();          
+
         if($rubrica->copiarRubrica($request->get('idSemestreConfirmado'),Auth::id())){
             flash('Se copió la configuración correctamente')->success();
         } else {

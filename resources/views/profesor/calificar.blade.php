@@ -8,6 +8,7 @@
 
 <?php
 $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
 ?>
 
 <div class="customBody">
@@ -123,7 +124,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
             @endif
             @if($h["alumnosTotal"] != 0)
             <a href="{{route('profesor.alumnos')}}?idCurso={{$c['curso']->ID_CURSO}}&idHorario={{$h['horario']->ID_HORARIO}}&vistaProc=calificar">
-              <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+              <button type="button" class="btn btn-success btn-lg pText customButton">      @if(!$modoSoloLectura) Calificar @else Detalle @endif</button>
             </a>
             @endif
           </div>

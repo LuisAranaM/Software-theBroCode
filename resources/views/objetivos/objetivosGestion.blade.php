@@ -1,11 +1,14 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Gestión de Objetivos')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/objetivos/objetivos.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/objetivos/configuracion.js') }}"></script>
 @stop
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
 
+?>
 <div class="customBody">
 
 	<div class="row">
@@ -35,7 +38,7 @@
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI	">
 									<th class="pText column-title" style="border: none">Objetivos del Estudiante</th>
-									<th class="pText column-title" style="border: none; text-align: center;">Seleccionar</th>
+									<th class="pText column-title" style="border: none; text-align: center;"></th>
 								</tr>
 							</thead>
 
@@ -43,12 +46,13 @@
 							<tbody class="text-left" id="listaSOS">
 								@foreach($objetivosEstudiante as $so)
 								<tr class="even pointer" id="columnaX">
-									<td class="pText editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
+									<td class="pText <?php echo (!$modoSoloLectura? 'editSo' :'' );?> " idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
 
 									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
 										<i id="editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
+										@if(!$modoSoloLectura)
 										<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="elimSo fas fa-trash fa-md" style=" cursor: pointer"></i>
-
+										@endif
 											<!--<label>
 												<input type="checkbox" class="form-check-input checkSo" 
 												name="checkSelectso[]" value="{{$so->ID_SOS}}" style="text-align: center;"><span class="pText label-text "></span>
@@ -61,10 +65,12 @@
 						</div>
 
 					</form>
+					@if(!$modoSoloLectura)
 					<div id="btnsGuardar" class="text-center" style="border-color: transparent">
 						<!--<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>-->
 						<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> del Estudiante</button>
 					</div>
+					@endif
 				</div>
 			</div>
 
@@ -77,7 +83,7 @@
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
 									<th class="pText column-title" style="border: none">Objetivos Educacionales</th>
-									<th class="pText column-title" style="border: none; text-align: center;">Seleccionar</th>
+									<th class="pText column-title" style="border: none; text-align: center;"></th>
 
 
 								</tr>
@@ -87,11 +93,13 @@
 							<tbody class="text-left" id="listaSOS">
 								@foreach($objetivosEducacionales as $eo)
 								<tr class="even pointer" id="columnaX">
-									<td class="pText editEo" idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$eo->NOMBRE}}</td>
+									<td class="pText <?php echo (!$modoSoloLectura? 'editEo' :'' );?> " idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$eo->NOMBRE}}</td>
 
 									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;" >
 										<i id="editEo" idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" ></i>
+										@if(!$modoSoloLectura)
 										<i idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" class="elimEo fas fa-trash fa-md" style=" cursor: pointer"</i>
+										@endif
 											<!--<label>
 												<input type="checkbox" class="form-check-input checkSo" 
 												name="checkSelectso[]" value="{{$eo->ID_EOS}}" style="text-align: center;"><span class="pText label-text "></span>
@@ -104,9 +112,11 @@
 							</table>
 
 						</div>
+						@if(!$modoSoloLectura)
 						<div id="btnsGuardar" class="text-center" style="border-color: transparent">
 							<button id="btnAgregarEos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> Educacional</button>
 						</div>
+						@endif
 					</div>
 				</div>
 

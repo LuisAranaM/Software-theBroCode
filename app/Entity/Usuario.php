@@ -108,6 +108,9 @@ class Usuario extends \App\Entity\Base\Entity {
             return [self::ROL_COORDINADOR, self::ROL_ASISTENTE];
         }
 
+        static function getModoLectura() {
+            return [self::ROL_ADMINISTRADOR, self::ROL_ASISTENTE];
+        }
 
         public function actualizarContrasena($usuario,$apassword,$npassword){
 
@@ -151,7 +154,7 @@ class Usuario extends \App\Entity\Base\Entity {
 
             $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
             'USUARIO' =>$datosCuenta['usuario'],           
-            'PASS'=>Hash::make($datosCuenta['pass']),               
+            'PASS'=>Hash::make($datosCuenta['usuario']),               
             'CORREO' =>$datosCuenta['email'],            
             'FECHA_REGISTRO'=>$hoy,     
             'FECHA_ACTUALIZACION'=>$hoy,
@@ -174,14 +177,18 @@ class Usuario extends \App\Entity\Base\Entity {
         ];
     }
     //Verificar que usuario y correo no estén registrados
-    if($model->verificarUsuario($usuario)){
-        //dd("HOLA");
-        $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+    $verificarUsuario=$model->verificarUsuario($usuario);
+    if($verificarUsuario>0){
+        if($verificarUsuario==1)
+            $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+        else
+            $this->setMessage('Ya existe una cuenta para el correo '.$usuario['CORREO']);
         return false;        
     }
 
     
     if ($model->crearCuentaRubrik($usuario,$usuarioEspecialidad)){
+        $this->enviarMail($usuario);
         return true;
     }else{
         $this->setMessage('Hubo un error en el servidor de base de datos');
@@ -190,7 +197,18 @@ class Usuario extends \App\Entity\Base\Entity {
 
 }
 
-
+function enviarMail($usuario){
+    $data=array(
+        'nombresCompletos'=>$usuario['NOMBRES'].' '.$usuario['APELLIDO_PATERNO'].' '.$usuario['APELLIDO_MATERNO'],
+        'email'=>$usuario['CORREO'],
+        'usuario'=>$usuario['USUARIO'],
+        'password'=>$usuario['USUARIO'],
+    );
+    \Mail::send('emails.welcome',$data,function($message)use($data){
+        $message->from('rubrik.pucp@gmail.com','RubriK PUCP');
+        $message->to($data['email'])->subject('Bienvenido a RubriK');
+    });
+}
 function activarUsuarios($checks,$idUsuario){
 
     $model= new mUsuario();
@@ -204,8 +222,47 @@ function activarUsuarios($checks,$idUsuario){
 
 }
 
-function editarCuentaRubrik($datosCuenta){
+function editarCuentaRubrik($datosCuenta,$idUsuarioModif){
+    //dd($datosCuenta);
+    $hoy=Carbon::now();
+            $model= new mUsuario();
 
+            $usuario=[
+            'ID_USUARIO'=>$datosCuenta['idUsuario'],
+            'ID_ROL'=> $datosCuenta['rol'] ,           
+            'USUARIO' =>$datosCuenta['usuario'],           
+            'CORREO' =>$datosCuenta['email'],            
+            'FECHA_REGISTRO'=>$hoy,     
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF'=>$idUsuarioModif,      
+            'ESTADO'=>1,             
+            'NOMBRES' =>$datosCuenta['nombres'],           
+            'APELLIDO_PATERNO'=>$datosCuenta['apellidoPat'],   
+            'APELLIDO_MATERNO' =>$datosCuenta['apellidoMat'],  
+            ];
+
+        $usuarioEspecialidad=[];
+        if($usuario['ID_ROL']!=1){
+            $usuarioEspecialidad=['ID_USUARIO' =>$datosCuenta['idUsuario'],        
+            'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF' =>$idUsuarioModif,
+        ];
+    }
+    //Verificar que usuario y correo no estén registrados
+    if($model->verificarUsuario($usuario,1)){
+        //dd("HOLA");
+        $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+        return false;        
+    }
+
+    
+    if ($model->editarCuentaRubrik($usuario,$usuarioEspecialidad)){
+        return true;
+    }else{
+        $this->setMessage('Hubo un error en el servidor de base de datos');
+        return false;
+    }
 }
 
 function eliminarCuentaRubrik($idUsuario,$usuarioModif){
