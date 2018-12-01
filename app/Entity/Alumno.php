@@ -23,9 +23,9 @@ class Alumno extends \App\Entity\Base\Entity {
     }
 
     static function uploadAlumnosDeCurso(&$data, &$idCurso, &$alumnosNuevos, &$alumnosExistentes, 
-                                            &$alumnosBaneados, &$alumnosPorHorario){
+                                            &$alumnosBaneados, &$alumnosPorHorario, &$msg){
         return mAlumno:: uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, 
-                                            $alumnosBaneados, $alumnosPorHorario);
+                                            $alumnosBaneados, $alumnosPorHorario, $msg);
     }
 
     static function getAlumnosByHorario($idHorario){

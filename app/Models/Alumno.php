@@ -90,9 +90,19 @@ class Alumno extends Eloquent
         return 1;
     }
 
-    static function horarioValido(&$horariosValidos, $horario){
+    static function horarioValido(&$horariosValidos, $horario, &$idHorario){
         foreach($horariosValidos as $x){
-            if($x->NOMBRE == $horario)
+            if($x->NOMBRE == $horario){
+                $idHorario = $x->ID_HORARIO;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static function horarioValidoById(&$horariosValidos, $idHorario){
+        foreach($horariosValidos as $x){
+            if($x->ID_HORARIO == $idHorario)
                 return true;
         }
         return false;
@@ -157,8 +167,63 @@ class Alumno extends Eloquent
         return -1;
     }
 
+    static function getNombreHorario($id, $horarios){
+        foreach($horarios as $h)
+            if($h->ID_HORARIO == $id) return $h->NOMBRE;
+        return 0;
+    }
+
+    static function alumnoEstaEnOtroHorario(&$horarios, &$alumnos_has_horarios, &$alumnosPorHorario, &$alumno, &$idHorario, &$msg){
+        // Revisar en el arreglo de alumnos_has_horarios
+        foreach($alumnos_has_horarios as $a){
+            if($a->ID_ALUMNO == $alumno['ID_ALUMNO'] && $a->ID_HORARIO != $idHorario && $a->ESTADO == 1 ){
+                $msg = 'El alumno con codigo ';
+                $msg .= $alumno['CODIGO']; 
+                $msg .= ' pertenece al horario '; 
+                $msg .= Alumno::getNombreHorario($a->ID_HORARIO,$horarios);
+                $msg .= ' y se intento colocarlo en el horario ';
+                $msg .= Alumno::getNombreHorario($idHorario,$horarios);
+                return true;
+            }
+        }
+        // revisar en el arreglo de alumnosPorHorario
+        foreach($alumnosPorHorario as $h){
+            foreach($h['alumnos'] as $a){
+                if($a['ID_ALUMNO'] == $alumno['ID_ALUMNO'] && $h['idHorario'] != $idHorario){
+                    $msg = 'El alumno con codigo ';
+                    $msg .= $alumno['CODIGO'];
+                    $msg .= ' se quiere insertar en los horarios ';
+                    $msg .= Alumno::getNombreHorario($h['idHorario'],$horarios);
+                    $msg .= ' y ';
+                    $msg .= Alumno::getNombreHorario($idHorario,$horarios);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static function filtro(&$alumnos_has_horarios, &$horariosValidos){
+        $ans = array(); 
+        foreach($alumnos_has_horarios as $a){
+            if(Alumno::horarioValidoById($horariosValidos, $a->ID_HORARIO))
+                $ans[] = $a;
+        }
+        return $ans;
+    }
+
+    static function pertenece($alumno, $nombreHorario, &$alumnos_has_horarios, &$horariosValidos){
+        $idHorario = 0;
+        foreach($alumnos_has_horarios as $x){
+            Alumno::horarioValido($horariosValidos, $nombreHorario, $idHorario);
+            if($x->ID_ALUMNO == $alumno['ID_ALUMNO'] && $x->ID_HORARIO == $idHorario)
+                return true;
+        }
+        return false;
+    }
+
     static function uploadAlumnosDeCurso(&$data, $idCurso, &$alumnosNuevos, &$alumnosExistentes, 
-                                            &$alumnosBaneados, &$alumnosPorHorario){
+                                            &$alumnosBaneados, &$alumnosPorHorario, &$msg){
         try{
             $fecha = date("Y-m-d H:i:s");
             $usuario = Auth::user();
@@ -166,16 +231,21 @@ class Alumno extends Eloquent
             $id_usuario = Auth::id();
             $idSemestre = Entity::getIdSemestre(); 
             $idProyecto = 1;
-            $alumnos_has_horarios = AlumnosHasHorario::getAll($idSemestre);
             $especialidades = Especialidad::getEspecialidadess();
             $nombreEspecialidad = Especialidad::getNombreEspecialidad($idEspecialidad);
             $alumnos = Alumno::getAlumnos($idSemestre, $idEspecialidad);
             $horariosValidos = Horario::getHorariosByCodCurso($idSemestre, $idEspecialidad, $idCurso);
+            $alumnos_has_horarios = AlumnosHasHorario::getAll($idSemestre, $idCurso);
+            $alumnos_has_horarios = Alumno::filtro($alumnos_has_horarios, $horariosValidos);
             $cont = 0;
             Alumno::build($alumnosPorHorario,$horariosValidos);
 
             /* Iterar por cada dato */
             foreach ($data as $key => $value) {
+                if($value->alumno == null) return 1;
+                if($value->nombre == null) return 1;
+                if($value->horario == null) return 1;
+                if($value->especialidad == null) return 1;
                 $alumno = ['ID_SEMESTRE' => $idSemestre,
                             'ID_ESPECIALIDAD' => Alumno::getIdEspecialidad($especialidades,Alumno::fix($value->especialidad)),
                             'NOMBRES' => Alumno::getNombre(Alumno::fix($value->nombre)),
@@ -195,12 +265,18 @@ class Alumno extends Eloquent
                     $alumnosNuevos[] = $alumno;
                 }
                 
-                if(Alumno::horarioValido($horariosValidos,$value->horario)){
+                $idHorario = 0;
+                if(Alumno::horarioValido($horariosValidos,$value->horario, $idHorario)){
                     // alumno sera agregado a este horario
+                    $x = $value->horario;
+                    if(Alumno::isNumeric($x)) $x = (int)$x;
+                    /* Nueva funcionalidad : Verificar que un alumno este en solo un horario de un curso */
+                    if(Alumno::alumnoEstaEnOtroHorario($horariosValidos, $alumnos_has_horarios, $alumnosPorHorario, $alumno, $idHorario, $msg))
+                        return 3;
                     foreach($alumnosPorHorario as $it){
-                        $x = (int)($value->horario);
                         if($it["codigoHorario"] == $x){
-                            $alumnosPorHorario[$x]["alumnos"][] = $alumno;
+                            if(!Alumno::pertenece($alumno,$x, $alumnos_has_horarios, $horariosValidos))
+                                $alumnosPorHorario[$x]["alumnos"][] = $alumno;
                             break;
                         }
                     }
