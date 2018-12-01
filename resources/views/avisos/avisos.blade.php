@@ -1,10 +1,12 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Generar Avisos')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/avisos/avisos.js') }}"></script>
 @stop
-
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
 <div class="customBody">
 
 	<div class="row">
@@ -15,6 +17,7 @@
 
 	<div class="row">
 		<div class=" x_panel tile coursesBox">
+			@if (!$modoSoloLectura)
 			<div class="row">
 				<div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
 					<div id ="CargarAviso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
@@ -24,13 +27,16 @@
 					</div>
 				</div>
 			</div>
+			@endif
 			<div  class="row">
 				<div id="listaAvisos"></div>
 				@foreach ($avisos as $a) 
 				<div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
 					<div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-						<button type="button" class="closeaviso close" data-dismiss="alert" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" idAviso="{{$a->ID_AVISO}}"><span aria-hidden="true">×</span>
+						@if (!$modoSoloLectura)
+						<button type="button" class="closeaviso close" aria-label="Close" codigoaviso="6" fechasaviso="01/25/2018" idAviso="{{$a->ID_AVISO}}"><span aria-hidden="true"><i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
 						</button>
+						@endif
 						<p class="pText">{{$a->FECHA_INICIO}} a {{$a->FECHA_FIN}} : {{$a->DESCRIPCION}}</p>
 					</div>
 				</div>

@@ -110,8 +110,13 @@ class Horario extends Eloquent
 		//dd($idsIndicadores);
 		$ans = DB::table('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH')
 				->select()
+				 ->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH', function ($join) {
+					$join->on('AHH.ID_ALUMNO', '=', 'IHAH.ID_ALUMNO');
+					$join->on('AHH.ID_HORARIO', '=', 'IHAH.ID_HORARIO');
+				})
 				->whereRaw('IHAH.ID_HORARIO = ? AND IHAH.ESTADO = 1',[$idHorario])				
-				->whereIn('IHAH.ID_INDICADOR',$idsIndicadores)			
+				->whereIn('IHAH.ID_INDICADOR',$idsIndicadores)		
+				->where('AHH.ESTADO','=',1)	
 				->get();
 				
 		return $ans;

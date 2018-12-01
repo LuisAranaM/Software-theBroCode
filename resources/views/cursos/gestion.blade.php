@@ -5,14 +5,18 @@
 <script type="text/javascript"  src="{{ URL::asset('js/cursos/cursosjs.js') }}"></script>
 @stop
 
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
+
 <div class="customBody">
 
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
       <h1 class="mainTitle"> Gestionar Cursos </h1>
     </div>
 
-    <div class="col-md-4 col-sm-6 form-group top_search" >
+    <div class="col-md-4 col-xs-6 form-group top_search" style="float: right">
       <div class="input-group">
         <input id="busquedaGeneral" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
@@ -43,39 +47,46 @@
         <div class="col-xs-7" >
           <h1 class="secondaryTitle mainTitle">Seleccionar Cursos a Evaluar </h1>
         </div>
+        @if(!$modoSoloLectura)
         <div class="col-xs-5 text-right">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButtonLarge2 customButton btnCargarAlumnos2"
           > Importar Cursos  <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
         </div>
+        @endif
         <!--<div class="col-xs-6 text-right">
           <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
           <button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
           <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
         </div>  -->
       </div>
-
-      <div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
-        <div id ="CargarCurso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
-          <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
-          </button>
-          <p class="pText"> Agregar Nuevo Curso a Evaluar</p>
+      @if(!$modoSoloLectura)
+      <div class="col-md-12 col-xs-12">
+        <div class="x_content bs-example-popovers courseContainer" style="cursor:pointer">
+          <div id ="CargarCurso" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+            </button>
+            <p class="pText"> Agregar Nuevo Curso a Evaluar</p>
+          </div>
         </div>
       </div>
-
+      @endif
       <div id="listaCursos">        
         @foreach($cursos as $curso)
-        <div class="x_content bs-example-popovers courseContainer" >
-          <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
-            <div class="courseButton alert alert-success alert-dismissible fade in courseButton" role="alert">
+        <div class="col-md-6 col-xs-12">
+          <div class="x_content bs-example-popovers courseContainer" >
+            <a class="" href="{{ route('cursos.horarios') }}?id={{$curso->ID_CURSO}}&nombre={{$curso->NOMBRE}}&codigo={{$curso->CODIGO_CURSO}}">
+              <div class="courseButton alert fade in courseButton" role="alert">
+                @if(!$modoSoloLectura)
+                <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true">   <i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
 
-              <button type="button" class="close closeCurso" aria-label="Close" codigoCurso="{{$curso->CODIGO_CURSO}}" nombreCurso="{{$curso->NOMBRE}}"><span aria-hidden="true"><i class="fas fa-trash" style="color: #005b7f;display:none" ></i></span>
+                </button>
+                @endif
+                <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
+                <label class="pText">{{$curso->NOMBRE}}</label>
+              </div> 
+            </a>
 
-              </button>
-              <label class="pText" style="font-weight: bold;">{{$curso->CODIGO_CURSO}} - </label>           
-              <label class="pText">{{$curso->NOMBRE}}</label>
-            </div> 
-          </a>
-
+          </div>
         </div>
         @endforeach
       </div>

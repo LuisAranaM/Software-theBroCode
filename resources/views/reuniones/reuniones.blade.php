@@ -5,6 +5,10 @@
 <script type="text/javascript"  src="{{ URL::asset('js/reuniones/reuniones.js') }}"></script>
 @stop
 
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
+
 <div class="customBody">
 
 	@include('flash::message')
@@ -54,11 +58,13 @@
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 10px">
 					<div class="col-sm-9">
-						<h1 class="secondaryTitle mainTitle">Seleccione los documentos a descargar o eliminar</h1>
+						<h1 class="secondaryTitle mainTitle">Seleccione los documentos a descargar	@if(!$modoSoloLectura) o eliminar @endif</h1>
 					</div>
+					@if(!$modoSoloLectura)
 					<div class="col-sm-3 text-right">
 						<button  id="ModalCargar" class="customButtonReuniones btn btn-success pText" type="button">Nuevo Documento <i class="fa fa-upload" style="padding-left: 5px"></i></button>
 					</div>
+					@endif
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
@@ -90,7 +96,7 @@
 										<td style="background-color: white; text-align: center;vertical-align: center">
 											<label>
 												<input type="checkbox" class="form-check-input checkDoc" 
-												name="checkDocs[]" value="{{$documento->NOMBRE}}" style="text-align: center;" >
+												name="checkDocs[]" id="documentosChecks" value="{{$documento->NOMBRE}}" style="text-align: center;" >
 												<span class="pText label-text "></span>
 											</label>
 										</td>
@@ -106,7 +112,9 @@
 				</div>
 				<div class="row text-center" style="padding-top: 10px">
 					<button id="btnDescargarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Desc" style="margin-right: 10px">Descargar Documentos</button>
+					@if(!$modoSoloLectura)
 					<button id="btnEliminarDoc" class="customButtonReuniones btn btn-success pText" name="botonSubmit" value="Elim">Eliminar Documentos</button>
+					@endif
 
 				</div>
 			</div>

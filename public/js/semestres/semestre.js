@@ -12,7 +12,11 @@
 			.on('changeDate', function(e) {
         $('#frmEditarSemestre').formValidation('revalidateField', 'fInicio');
         $('#frmEditarSemestre').formValidation('revalidateField', 'fFin');
-        $('#frmEditarSemestre').formValidation('revalidateField', 'fAlerta');
+        $('#frmEditarSemestre').formValidation('revalidateField', 'fAlerta'); 
+
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fInicio');
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fFin');
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fAlerta');
             // Revalidate the date field
             //revalidateFechas();            	
         });
@@ -56,8 +60,8 @@ $('#semestreAct').on('change', function(e) {
 
     var resp=confirm("¿Estás seguro que deseas eliminar el semestre "+semestre+"?");
     if (resp == true) {
-      filaSemestre.remove();
-      //eliminarUsuario(idUsuario,nombreUsuario,filaSemestre);            
+      //filaSemestre.remove();
+      eliminarSemestre(idSemestre,semestre,filaSemestre);            
     } 
     e.preventDefault();
     console.log('HOLI');
@@ -76,6 +80,7 @@ $('#semestreAct').on('change', function(e) {
         $('#frmEditarSemestre').formValidation('destroy', true);
         initializeFormSemestre();
         $('#modalEditarSemestre').modal('show');
+        $('#modalEditarSemestre input[name="idSemestre"]').val(idSemestre);
         $('#modalEditarSemestre input[name="anho"]').val(anho);
         $('#modalEditarSemestre input[name="ciclo"]').val(ciclo);
         $('#modalEditarSemestre input[name="fInicio"]').val(fInicio);
@@ -157,7 +162,7 @@ fAlerta: {
         type: 'POST',        
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+        }, 
         data:{
             idSemestre:idSemestre,
         },
@@ -245,3 +250,28 @@ fAlerta: {
 
 
 
+function eliminarSemestre(idSemestre,semestre,filaSemestre){
+    //console.log("Necesitamos agregar cursos");
+    //filaUsuario.remove();
+      //eliminarUsuario(idUsuario);      
+      $.ajax({
+        url: APP_URL + 'admin/gestionar-semestre/eliminar',
+        //url: "{{route('eliminar.acreditacion')}}",     
+        type: 'POST',        
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{
+          idSemestre:idSemestre,
+        },
+        success: function (result) {
+          filaSemestre.remove();
+          alert('Se eliminó el semestre '+semestre+' correctamente');
+        },
+        error: function (xhr, status, text) {
+          e.preventDefault();
+          alert('Hubo un error al eliminar el usuario');
+        }
+      });
+
+    }

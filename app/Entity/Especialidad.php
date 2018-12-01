@@ -53,4 +53,44 @@ class Especialidad extends \App\Entity\Base\Entity {
                 return false;
             }
         }
-    }
+
+          function editarEspecialidad($dataEspecialidad,$idUsuario){
+        $hoy=Carbon::now();
+        //dd($dataEspecialidad);
+        $model= new mEspecialidad();
+
+        $especialidad=[
+            'ID_ESPECIALIDAD'=>$dataEspecialidad['idEspecialidad'],
+            'NOMBRE'=> $dataEspecialidad['nombEspecialidadEditar'] ,  
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF'=>$idUsuario];
+
+            if($model->buscarEspecialidad($especialidad['NOMBRE'],$especialidad['ID_ESPECIALIDAD'])){
+                $this->setMessage('Ya existe una especialidad llamada '.$especialidad['NOMBRE']);
+                return false;
+            }
+
+            if ($model->editarEspecialidad($especialidad)){
+                return true;
+            }
+            else{
+                $this->setMessage('Hubo un error en el servidor de base de datos');
+                return false;
+            }
+        }
+
+        function eliminarEspecialidad($idEspecialidad,$idUsuario){
+        $hoy=Carbon::now();
+        //dd($dataEspecialidad);
+        $model= new mEspecialidad();
+            
+            if ($model->eliminarEspecialidad($idEspecialidad,$idUsuario)){
+                return true;
+            }
+            else{
+                $this->setMessage('Hubo un error en el servidor de base de datos');
+                return false;
+            }
+        }
+     
+}

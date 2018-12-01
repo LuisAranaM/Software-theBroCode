@@ -214,3 +214,4 @@ Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>
 
 Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+

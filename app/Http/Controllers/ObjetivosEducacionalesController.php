@@ -13,22 +13,53 @@ use Illuminate\Support\Facades\Input;
 class ObjetivosEducacionalesController extends Controller
 {
     public function objetivosGestion() {    
-    	//dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
+        //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
         return view('objetivos.objetivos')
         ->with('casillasChecks',SosHasEos::getSosHasEos())
         ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
         ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
     }
-     public function objetivosGestionTablas() {    
+     public function objetivosGestionTablas() { 
+
+        $objetivosSos=[];
+        $objetivosSos = eSos::getObjetivosTotales()->toArray();
+        $objetivosEos=[];
+        $objetivosEos = eEos::getObjetivosTotales()->toArray();
+
         //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
         return view('objetivos.objetivosGestion')
         //->with('casillasChecks',SosHasEos::getSosHasEos())
         ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
-        ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
+        ->with('objetivosEducacionales',eEos::getObjetivosEducacionales())
+        ->with('objetivosSos',$objetivosSos)
+        ->with('semestres', Semestre::getSemestres())
+        ->with('objetivosEos',$objetivosEos);
+    }
+    
+    public function informacionObj(Request $request){
+
+        $objsos=eSos::getinformacionObj($request->get('idSemestre'));
+        //dd($objsos);
+        return $objsos;
+        //$equis = "hola";
+        //return $equis;
+    }
+
+
+    public function copiarObj(Request $request){
+        
+        $obj = new eSos();           
+        
+        if($obj->copiarObj($request->get('idSemestreConfirmado'),Auth::id())){
+            flash('Se copió la configuración correctamente')->success();
+        } else {
+            flash('Hubo un error al copiar la configuración')->error();
+        }
+        return back();
     }
 
     public function objetivosGuardar(Request $request) {  
-    	//dd($request->all());
+        //dd($request->all());
 
         $checks=$request->get('checkSosHasEos',null);
         

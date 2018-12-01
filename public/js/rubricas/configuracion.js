@@ -14,6 +14,7 @@ $( document ).ready(function() {
 
   });
 
+
   $("#btnMostrarConfiguracion").on("click", function(e){
 
     var idSemestre=$('#cboSemestreConfiguracion').val();
@@ -21,7 +22,7 @@ $( document ).ready(function() {
     options[document.getElementById('cboSemestreConfiguracion').selectedIndex].text;
     var nombreEspecialidad=$('#nombreEspecialidad').val();
 
-    $('#modalConfiguracionMostrar #tituloModalConfirmacion').text('Semestre '+semestre+' - '+nombreEspecialidad);     
+    $('#modalConfiguracionMostrar #tituloModalConfirmacion').text('Rúbrica del Semestre '+semestre+' - '+nombreEspecialidad);     
 
     console.log("Mostramos la configuración en otro modal");
     $("#modalConfiguracion").modal("hide");
@@ -53,6 +54,12 @@ $( document ).ready(function() {
 
 
 });
+
+ function preguntaConfirmacion(){ 
+    if (confirm('¿Seguro que deseas copiar la configuración?')){ 
+       $('#frmCopiarConfiguracion').submit() 
+    } 
+} 
 
 function informacionRubrica(idSemestre){
   console.log("HOLI boli");

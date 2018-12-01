@@ -164,6 +164,8 @@ class Curso extends Eloquent
                 $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO,$indicadoresCurso);
                 $tot = Horario::getCantAlumnos($h->ID_HORARIO);
                 $horario["profesor"] = EProfesoresHasHorario::getProfesorHorario($h->ID_HORARIO);
+                //if($h->ID_HORARIO==5)
+                  //  dd($results);
                 //dd($horario["profesor"]);
                 $horario["alumnosTotal"] = $tot;
                 $part = 0;
@@ -379,7 +381,9 @@ class Curso extends Eloquent
         ->groupBy('HOR.ID_HORARIO','HOR.NOMBRE');
 
         return $sql;
-
+    }
+    static function getCursosByEspecialidadAndSemestre($idEspecialidad,$idSemestre){
+        
     }
 
 }

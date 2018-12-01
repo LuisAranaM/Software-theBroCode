@@ -109,6 +109,7 @@
 						<div class="form-group">
 							<input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
 						</div>
+							<input type="text" name="idEspecialidad" hidden="">
 						<div class="form-group">
 							<label>Especialidad</label>
 							<input style="margin-bottom: 0px;"  class="form-control" placeholder="Especialidad" type="text" name="nombEspecialidadEditar" value="">

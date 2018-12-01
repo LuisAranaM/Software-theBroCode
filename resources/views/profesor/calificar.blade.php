@@ -8,6 +8,7 @@
 
 <?php
 $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
 ?>
 
 <div class="customBody">
@@ -49,7 +50,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
           <div class="widget_summary" >
             <div class="w_center w_55" style="width: 100%">
               <div class="progress" style="margin-bottom: 0px">
-                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $cursos["progreso"]  }}% ; background-color: #005b7f !important; border: none !important"  >
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $cursos["progreso"]  }}% ; background-color: #00b69c !important; @if($cursos["progreso"] == 100) background-color: #005b7f !important;  @endif border: none !important"  >
                   <span class="sr-only"> {{ $cursos["progreso"] }}% Complete</span>
 
                 </div>
@@ -94,7 +95,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
               <div class="widget_summary" >
                 <div class="w_center w_55" style="width: 100%">
                   <div class="progress" style="margin-bottom: 0px">
-                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $h["avance"]  }}%; background-color: #005b7f !important; border: none !important">
+                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $h["avance"]  }}%;  @if(($h["avance"] > 50) and ($h["avance"] < 100)) background-color: #00b69c !important;  @endif @if($h["avance"] == 100) background-color: #005b7f !important;  @endif @if($h["avance"] < 50) background-color: #bd3b3b !important;  @endif border: none !important">
                       <span class="sr-only">60% Complete</span>
                     </div>
                   </div>
@@ -123,7 +124,7 @@ $modoProfesor=Auth::user()->ID_ROL==App\Entity\Usuario::ROL_PROFESOR?true:false;
             @endif
             @if($h["alumnosTotal"] != 0)
             <a href="{{route('profesor.alumnos')}}?idCurso={{$c['curso']->ID_CURSO}}&idHorario={{$h['horario']->ID_HORARIO}}&vistaProc=calificar">
-              <button type="button" class="btn btn-success btn-lg pText customButton">Calificar</button>
+              <button type="button" class="btn btn-success btn-lg pText customButton">      @if(!$modoSoloLectura) Calificar @else Detalle @endif</button>
             </a>
             @endif
           </div>
