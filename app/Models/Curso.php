@@ -359,5 +359,9 @@ class Curso extends Eloquent
 
     }
 
+    static function getCursosByEspecialidadAndSemestre($idEspecialidad,$idSemestre){
+        
+    }
+
 }
 

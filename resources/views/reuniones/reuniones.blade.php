@@ -90,7 +90,7 @@
 										<td style="background-color: white; text-align: center;vertical-align: center">
 											<label>
 												<input type="checkbox" class="form-check-input checkDoc" 
-												name="checkDocs[]" value="{{$documento->NOMBRE}}" style="text-align: center;" >
+												name="checkDocs[]" id="documentosChecks" value="{{$documento->NOMBRE}}" style="text-align: center;" >
 												<span class="pText label-text "></span>
 											</label>
 										</td>

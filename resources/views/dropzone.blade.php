@@ -19,6 +19,10 @@
 	<form action="/upload" class="dropzone"></form>
 	<button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
 
+  <form action="{{route('prueba.cursoInd')}}" type="post">
+    {{csrf_field()}}
+  <button id="btnPrueba" type="submit" class="btn btn-success btn-lg pText customButton">Prueba Cursos</button>
+  </form>
 </div>
 
 
