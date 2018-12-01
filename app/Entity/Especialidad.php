@@ -79,5 +79,18 @@ class Especialidad extends \App\Entity\Base\Entity {
             }
         }
 
+        function eliminarEspecialidad($idEspecialidad,$idUsuario){
+        $hoy=Carbon::now();
+        //dd($dataEspecialidad);
+        $model= new mEspecialidad();
+            
+            if ($model->eliminarEspecialidad($idEspecialidad,$idUsuario)){
+                return true;
+            }
+            else{
+                $this->setMessage('Hubo un error en el servidor de base de datos');
+                return false;
+            }
+        }
      
 }

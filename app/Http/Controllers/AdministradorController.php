@@ -233,6 +233,18 @@ public function editarSemestre(Request $request){
 return back();      
 }    
 
+public function eliminarSemestre(Request $request){
+ $semestre=new Semestre();
+
+ if($semestre->eliminarSemestre($request->get('idSemestre'),Auth::id())){
+    flash('Se eliminó el semestre correctamente')->success();
+            //return back();
+} else {
+    flash($semestre->getMessage())->error();
+}
+return back();      
+}    
+
 public function seleccionarSemestreSistema(Request $request){
         //dd("HOLA");
     $semestre = new Semestre();          
@@ -267,6 +279,19 @@ public function editarEspecialidad(Request $request){
 
     if($especialidad->editarEspecialidad($request->all(),Auth::id())){
         flash('Se editó la especialidad correctamente')->success();
+            //return back();
+    } else {
+        flash($especialidad->getMessage())->error();
+    }
+    return back();      
+
+}
+
+public function eliminarEspecialidad(Request $request){
+    $especialidad=new Especialidad();
+
+    if($especialidad->eliminarEspecialidad($request->get('idEspecialidad'),Auth::id())){
+        flash('Se eliminó a la especialidad correctamente')->success();
             //return back();
     } else {
         flash($especialidad->getMessage())->error();

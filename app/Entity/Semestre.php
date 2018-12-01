@@ -117,4 +117,20 @@ else{
 }
 }
 
+
+
+function eliminarSemestre($idSemestre,$idUsuario){
+
+
+ $model= new mSemestre();
+
+ if ($model->eliminarSemestre($idSemestre,$idUsuario)){
+    return true;
+}
+else{
+    $this->setMessage('Hubo un error en el servidor de base de datos');
+    return false;
+}
+}
+
 }

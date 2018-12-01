@@ -239,4 +239,22 @@ class Semestre extends Eloquent
 		return $sql->count();
 	}
 
+	public function eliminarSemestre($idSemestre,$idUsuario){
+		DB::beginTransaction();
+		$id=1;
+		try {
+			DB::table('SEMESTRES')
+			->where('ID_SEMESTRE','=',$idSemestre)
+			->update(['ESTADO'=>0,
+				'FECHA_ACTUALIZACION'=>Carbon::now(),
+				'USUARIO_MODIF'=>$idUsuario]);
+			DB::commit();
+		} catch (\Exception $e) {
+			$id=0;
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}
+		return $id;
+	}
+
 }
