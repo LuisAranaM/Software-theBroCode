@@ -122,10 +122,7 @@ Route::get('/objetivos-educacionales-gestion', ['as'=>'objetivosGestion','uses'=
 
 
 Route::get('/configuracionSemestreObj',['as'=>'configuracion','uses'=>'ObjetivosEducacionalesController@informacionObj','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-<<<<<<< HEAD
-=======
 Route::post('/configuracionSemestreObj/copiar',['as'=>'configuracionObj.copiar','uses'=>'ObjetivosEducacionalesController@copiarObj','middleware' => ['authBase', 'authRol:1|2|3|4']]);
->>>>>>> 5f2010d9783b9f7dbd225694bf9fd3c88fa421e0
 
 
 Route::post('/eliminar-sos',['as'=>'eliminar.sos','uses'=>'ObjetivosEducacionalesController@eliminarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
