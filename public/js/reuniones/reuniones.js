@@ -49,10 +49,11 @@ $( document ).ready(function() {
 	$("#btnDescargarDoc").on("click", function(e){
 		console.log("Descargando documentos");
 		array = []
-		$("input:checkbox[name=checkDocs]:checked").each(function(){
+		$("input:checkbox[id='documentosChecks']:checked").each(function(){
+			console.log($(this).val());
 			array.push($(this).val());
 		});
-		console.log(array);	
+		console.log(array.length);	
 		if(array.length == 0){
 			alert('Seleccione al menos un documento');
 			e.preventDefault();
@@ -62,7 +63,8 @@ $( document ).ready(function() {
 	$("#btnEliminarDoc").on("click", function(e){
 		console.log("Descargando documentos");
 		array = []
-		$("input:checkbox[name=checkDocs]:checked").each(function(){
+		$("input:checkbox[id='documentosChecks']:checked").each(function(){
+			console.log($(this).val());
 			array.push($(this).val());
 		});
 		console.log(array);	
