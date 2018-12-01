@@ -31,7 +31,7 @@
 
 								<option value=""></option>
 								@foreach($semestres as $semestre)
-									<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+								<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -40,7 +40,16 @@
 							<select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
 								<option value=""></option>
 								@foreach($semestres as $semestre)
-									<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+								<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div id="tipoDocumentos" class="no-padding" style="display: inline-block">
+							<label class="semLabel pText" style="padding-top: 5px; margin-right: 10px" >Tipo Documento:</label>
+							<select name="doctipo" id="doctipo" class="form-control" style="width: 100px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
+								<option value=""></option>
+								@foreach($tipos as $tipo) 
+								<option value="{{$tipo->TIPO_DOCUMENTO}}">{{$tipo->TIPO_DOCUMENTO}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -143,9 +152,9 @@
 					<label class="pText">Semestre de creación</label>
 					<select name="ciclo" class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px">
 						<option value=""></option>
-								@foreach($semestres as $semestre)
-									<option value="{{$semestre->SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
-								@endforeach
+						@foreach($semestres as $semestre)
+						<option value="{{$semestre->SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
+						@endforeach
 					</select>
 				</div>
 				<div class="row" style="padding-bottom: 30px;">

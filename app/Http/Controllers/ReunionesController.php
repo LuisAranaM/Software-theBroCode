@@ -19,13 +19,14 @@ class ReunionesController extends Controller
 
     public function reunionesGestion() {    
         return view('reuniones.reuniones')
+        ->with('tipos',PlanesDeMejora::getTipos())
         ->with('semestres',Semestre::getSemestres())
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
     function resultadosFiltroDocs(Request $request){
 
         //flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
-        return PlanesDeMejora::resultadosFiltroDocs($request->get('anhoInicio'),$request->get('semIni'),$request->get('anhoFin'),$request->get('semFin'));
+        return PlanesDeMejora::resultadosFiltroDocs($request->get('anhoInicio'),$request->get('semIni'),$request->get('anhoFin'),$request->get('semFin'),$request->get('tipo'));
         
     }
     public function store(Request $request){
