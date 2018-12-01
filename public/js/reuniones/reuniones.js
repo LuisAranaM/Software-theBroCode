@@ -46,13 +46,30 @@ $( document ).ready(function() {
 	});
 	
 
-	$("#btnDescargarDoc").on("click", function(){
+	$("#btnDescargarDoc").on("click", function(e){
 		console.log("Descargando documentos");
 		array = []
 		$("input:checkbox[name=checkDocs]:checked").each(function(){
 			array.push($(this).val());
 		});
-		console.log(array);		
+		console.log(array);	
+		if(array.length == 0){
+			alert('Seleccione al menos un documento');
+			e.preventDefault();
+		}
+	});
+
+	$("#btnEliminarDoc").on("click", function(e){
+		console.log("Descargando documentos");
+		array = []
+		$("input:checkbox[name=checkDocs]:checked").each(function(){
+			array.push($(this).val());
+		});
+		console.log(array);	
+		if(array.length == 0){
+			alert('Seleccione al menos un documento');
+			e.preventDefault();
+		}
 	});
 
 	var anhoInicio;
