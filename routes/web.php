@@ -50,7 +50,7 @@ Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 
 /**HORARIOS**/
-Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 });
@@ -62,7 +62,7 @@ Route::post('/subir-proyecto-masivo/guardar', ['as'=>'proyecto.store.masivo','us
 Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@downfunc','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoController@descargarProyecto','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 /*RÚBRICAS*/
-Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'ResultadoController@rubricasGestion']);
 	Route::post('/insertar-resultados', ['as' => 'insertar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
 	Route::post('/insertar-categorias', ['as' => 'insertar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
@@ -82,7 +82,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|
 	Route::get('/obtener-descripciones', ['as' => 'obtener.descripciones', 'uses' => 'ResultadoController@obtenerDescripciones']);
 });
 /****RUTAS PARA CURSOS****/
-Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
 	Route::get('/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
 	Route::get('/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
@@ -99,9 +99,7 @@ Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase
 //pruebas excel
 #Route::get('upload', 'CursoController@showForm');
 
-
-Route::get('/mostrar-cursos-cargar', ['as'=>'mostrar.cursos.cargar','uses'=>'CursoController@visualizarData','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-Route::post('/subir-excels/upload', 'CursoController@store'); //Carga de cursos de Chaggy
+Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
 Route::post('/subir-excels/uploadAlumnosDeCurso', 'AlumnoController@uploadAlumnosDeCurso');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
@@ -121,12 +119,6 @@ Route::get('/resultadosFiltroDocs', ['as'=>'reultadosFiltro.docs','uses'=>'Reuni
 //Rutas para objetivos educacionales
 Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/objetivos-educacionales-gestion', ['as'=>'objetivosGestion','uses'=>'ObjetivosEducacionalesController@objetivosGestionTablas','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
-
-Route::get('/configuracionSemestreObj',['as'=>'configuracion','uses'=>'ObjetivosEducacionalesController@informacionObj','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-Route::post('/configuracionSemestreObj/copiar',['as'=>'configuracionObj.copiar','uses'=>'ObjetivosEducacionalesController@copiarObj','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
-
 Route::post('/eliminar-sos',['as'=>'eliminar.sos','uses'=>'ObjetivosEducacionalesController@eliminarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/eliminar-eos',['as'=>'eliminar.eos','uses'=>'ObjetivosEducacionalesController@eliminarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/editar-sos',['as'=>'editar.sos','uses'=>'ObjetivosEducacionalesController@editarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
@@ -134,7 +126,6 @@ Route::post('/editar-eos',['as'=>'editar.eos','uses'=>'ObjetivosEducacionalesCon
 Route::post('/agregar-sos',['as'=>'agregar.sos','uses'=>'ObjetivosEducacionalesController@agregarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/agregar-eos',['as'=>'agregar.eos','uses'=>'ObjetivosEducacionalesController@agregarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses'=>'ObjetivosEducacionalesController@objetivosGuardar','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
@@ -149,15 +140,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 	Route::post('/gestionar-semestre/crear',['as'=>'administrador.semestre.crear','uses'=>'AdministradorController@crearSemestre']);
 	Route::post('/gestionar-semestre/sistema',['as'=>'administrador.semestre.sistema','uses'=>'AdministradorController@seleccionarSemestreSistema']);
 	Route::post('/gestionar-semestre/editar',['as'=>'administrador.semestre.editar','uses'=>'AdministradorController@editarSemestre']);
-	Route::post('/gestionar-semestre/eliminar',['as'=>'administrador.semestre.eliminar','uses'=>'AdministradorController@eliminarSemestre']);
 	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
 	Route::post('/gestionar-especialidad/crear',['as'=>'administrador.especialidad.crear','uses'=>'AdministradorController@crearEspecialidad']);
 	Route::post('/gestionar-especialidad/editar',['as'=>'administrador.especialidad.editar','uses'=>'AdministradorController@editarEspecialidad']);
-	Route::post('/gestionar-especialidad/eliminar',['as'=>'administrador.especialidad.eliminar','uses'=>'AdministradorController@eliminarEspecialidad']);
-	Route::post('/ver-como',['as'=>'administrador.ver.como','uses'=>'AdministradorController@verComoEspecialidad']);
 });
 /****RUTAS PARA COORDINADOR****/
-Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
+Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
@@ -196,8 +184,6 @@ Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|
 //Drag and Drop prueba
 Route::get('/pruebaDropzone', ['as'=>'prueba.Dropzone','uses'=>'DropzoneController@dropzoneGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
-Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
 
 
 
@@ -225,28 +211,3 @@ Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>
 Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
-
-
-
-
-Route::get('sendemail',function(){
-	$data=array(
-		'nombresCompletos'=>"RubriK PUCP",
-		'email'=>"RubriK PUCP",
-		'usuario'=>"RubriK PUCP",
-		'password'=>"RubriK PUCP",
-	);
-	Mail::send('emails.welcome',$data,function($message){
-		$message->from('rubrik.pucp@gmail.com','RubriK PUCP');
-		$message->to('luis.arana@pucp.pe')->subject('Bienvenido a RubriK');
-	});
-	return 'Tu email se envió correctamente';
-});
-
-
-
-
-Route::get('viewmail',function(){
-	
-	return view('emails.welcome');
-});

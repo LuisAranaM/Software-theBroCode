@@ -12,11 +12,11 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 <div class="customBody">
 
   <div class="row">
-    <div class="col-xs-12 col-md-8">
+    <div class="col-xs-6">
       <h1 class="mainTitle"> Gestionar Cursos </h1>
     </div>
 
-    <div class="col-md-4 col-sm-6 form-group top_search" >
+    <div class="col-md-4 col-xs-6 form-group top_search" style="float: right">
       <div class="input-group">
         <input id="busquedaGeneral" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
