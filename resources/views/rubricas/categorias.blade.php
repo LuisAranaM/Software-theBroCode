@@ -14,6 +14,9 @@
 		<div id="Resultado" value="{{$idRes}}"></div>
 		<div id="ResultadoNombre" value="{{$resultado}}"></div>
 		<div id= "numDescripciones" value="0"> </div>
+		<div id= "uDescripcion" value=""> </div>
+		<div id="uNombre" value=""> </div>
+		<div id="uValorizacion" value=""> </div>
 	</div>
 	@include('flash::message')
 	<div class="row" >

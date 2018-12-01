@@ -72,6 +72,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|
 	Route::post('/actualizar-categoria', ['as' => 'actualizar.categoria', 'uses' => 'ResultadoController@actualizarCategoria']);
 	Route::post('/actualizar-indicador', ['as' => 'actualizar.indicador', 'uses' => 'ResultadoController@actualizarIndicador']);
 	Route::post('/actualizar-descripcion', ['as' => 'actualizar.descripcion', 'uses' => 'ResultadoController@actualizarDescripcion']);
+	Route::post('/eliminar-valorizacion', ['as' => 'eliminar.valorizacion', 'uses' => 'ResultadoController@eliminarValorizacion']);
 	Route::post('/borrar-resultado', ['as' => 'borrar.resultado', 'uses' => 'ResultadoController@borrarResultado']);
 	Route::post('/borrar-categoria', ['as' => 'borrar.categoria', 'uses' => 'ResultadoController@borrarCategoria']);
 	Route::post('/borrar-indicador', ['as' => 'borrar.indicador', 'uses' => 'ResultadoController@borrarIndicador']);
@@ -210,3 +211,4 @@ Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>
 
 Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
