@@ -161,6 +161,7 @@ $( document ).ready(function() {
 
     var semestre = "";
     var curso = "";
+    var horario = "";
     $('#btnDescargarGraficos1').click(function(event) {
         var canvas = document.querySelector('#graficoResultadoxCiclo');
         var dataURL = canvas.toDataURL();
@@ -201,7 +202,7 @@ $( document ).ready(function() {
         //semestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
         //curso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
         console.log(semestre, curso);
-        pdf.text('Resultados\nCurso '+curso+'\nCiclo '+semestre, 10, 25);
+        pdf.text('Indicadores\nCurso '+curso+'\nCiclo '+semestre, 10, 25);
         pdf.save('Grafico_Indicadores_Curso_' + curso + '_Ciclo_'+semestre+".pdf");
       });
 
@@ -214,6 +215,17 @@ $( document ).ready(function() {
         resultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;
         pdf.text('Resultado ' + resultado + '\nCiclo ' + semestre, 10, 25);
         pdf.save('Grafico_Cursos_Resultado_'+ resultado + '_Ciclo_' + semestre + ".pdf");
+      });
+
+      $('#btnDescargarGraficos32').click(function(event) {       
+        var canvas = document.querySelector('#graficoCursosxResultado');
+        var dataURL = canvas.toDataURL();
+        var pdf = new jsPDF('l');
+        pdf.addImage(dataURL, 'PNG', 0, 50);
+        //semestre = document.getElementById('ciclos3').options[document.getElementById('ciclos3').selectedIndex].text;
+        //resultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;
+        pdf.text('Resultados \nCurso ' + curso + '\nHorario ' + horario + '\n Ciclo ' + semestre, 10, 15);
+        pdf.save('Grafico_Resultado_Curso_'+ curso + '_Ciclo_' + semestre + ".pdf");
       });
 });
 
@@ -1052,7 +1064,7 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         //var nombreCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
         semestre = nombreSemestre;
         var nombreCurso = data.labels[activePoint._index];
-        curso =nombreCurso;
+        curso = nombreCurso;
         var nombreResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].text;
         document.getElementById("detalleModal32Semestre").textContent="Semestre: " + nombreSemestre;
         document.getElementById("detalleModal32Curso").textContent="Curso: " + nombreCurso;
