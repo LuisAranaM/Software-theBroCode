@@ -340,7 +340,6 @@ class Indicador extends \App\Entity\Base\Entity {
                         $filaInicialInd=$i;
                     }
                     
-                    
                     $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA,  $fila->COD_RESULTADO.$fila->VALORIZACION.'. '.$fila->NOMBRE_INDICADOR,
                             $fila->NOMBRE_CURSO,round($fila->PROMEDIO_CALIF,2),$fila->PORCENTAJE_APROBADOS));
                     $promedioResultado+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
@@ -402,7 +401,7 @@ class Indicador extends \App\Entity\Base\Entity {
         $nombreExcel='Reporte_Consolidado_'.$nombreEspecialidad.'_'.$semestre;
         //dd($semestre);
         $reporte=$model->getReporteConsolidado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
-        dd($reporte);
+        //dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
             $excel->setTitle('Reporte Consolidado del semestre '.$semestre);
@@ -472,6 +471,7 @@ class Indicador extends \App\Entity\Base\Entity {
                 $anhoActual = (int)str_replace(' ', '', substr($semestre, 0, 4));
                 
                 $cicloActual = (int)str_replace(' ', '', substr($semestre, 5,2));
+                //dd($anhoActual*10 + $cicloActual);
                 $anhoDif = 2*($anhoActual - $anhoMenor);
                 $columnaFin = $columnaInicio;
                 if($cicloActual == 1 and $cicloMenor == 2 or ($cicloActual == 0 and $cicloMenor == 2) )
@@ -485,26 +485,17 @@ class Indicador extends \App\Entity\Base\Entity {
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
-                        if($anhoActual < $fila->ANHO){
-                            //$sheet->setHeight($i, 45);
-                            //$i++;
+                        if(($anhoActual*10+$cicloActual) < ($fila->ANHO*10+$fila->CICLO)){
                             $codResultado=$fila->COD_RESULTADO;
-                            //$filaFinal=$i;
-                            //$filaInicial=$i;
-                            break;
-                        }
-                        elseif($anhoActual == $fila->ANHO and $cicloActual < $fila->CICLO){
-                            //$sheet->setHeight($i, 45);
-                            //$i++;
-                            $codResultado=$fila->COD_RESULTADO;
-                            //$filaFinal=$i;
-                            //$filaInicial=$i;
                             break;
                         }
                         else{
                             if($i!=$constanteFila + 2){
                                 $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                                $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                                $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
+                            
                                 $i++;
                             }
                             $sheet->cells('A'.$i.':H'.$i, function($cells) {    // manipulate the cell
@@ -541,22 +532,13 @@ class Indicador extends \App\Entity\Base\Entity {
                         }
                         $filaInicialInd=$i;
                     }
-                    if($anhoActual < $fila->ANHO){
-                        $sheet->setHeight($i, 45);
-                        $i++;
-                        $codResultado=$fila->COD_RESULTADO;
-                        $filaFinal=$i;
-                        continue;
-                    }
-                    elseif($anhoActual == $fila->ANHO and $cicloActual < $fila->CICLO){
-                        $sheet->setHeight($i, 45);
-                        $i++;
-                        $codResultado=$fila->COD_RESULTADO;
-                        $filaFinal=$i;
-                        continue;
-                    }
-                    else{
 
+                    if(($anhoActual*10+$cicloActual) < ($fila->ANHO*10+$fila->CICLO)){
+                        $sheet->setHeight($i, 45);
+                        $i++;
+                        $codResultado=$fila->COD_RESULTADO;
+                        $filaFinal=$i;
+                        continue;
                     }
                     $ciclo = $fila->ID_SEMESTRE;
                     $sheet->row($i, array($fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
@@ -644,6 +626,8 @@ class Indicador extends \App\Entity\Base\Entity {
                 if(count($reporte)>0){
                     $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                    $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                    $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));    
                 }
                 //Centrado
