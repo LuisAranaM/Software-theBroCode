@@ -47,10 +47,14 @@ $( document ).ready(function() {
 				else{
 					console.log("elseeeee");
 					for (var i = 0; i < result.length; i++) {     
-						html+='<div class="row">';
-						 
-						html+='<label style="font-weight:bold;color:black;text-align:justify">'+result[i].NOMBRE+'</label>';
-
+						html+='<div class="row">';		
+						html+='<label style="font-weight:bold;color:black;text-align:justify">';
+						
+						if(result[i].TIPO==1)
+							html+='SO: ';
+						else
+							html+='EO: ';
+						html+=result[i].NOMBRE+'</label>';
 						html+='</div>';
 					} 
 

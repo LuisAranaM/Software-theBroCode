@@ -108,24 +108,56 @@ class Sos extends Eloquent
 
 		)"));*/
 		$first = DB::table('SOS')
-		->select('ID_SOS', 'NOMBRE')
+		->select('ID_SOS', 'NOMBRE',DB::Raw('1 AS TIPO'))
 		->where('ESTADO','=',1)
 		->where('ID_SEMESTRE','=',$idSemestre)
 		->where('ID_ESPECIALIDAD','=',$idEspecialidad);
 		
 		$second= DB::table('EOS')
-            ->select('ID_EOS', 'NOMBRE')
-			->where('ESTADO','=',1)
-			->where('ID_SEMESTRE','=',$idSemestre)
-			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-			->union($first)
-            ->get();
+		->select('ID_EOS', 'NOMBRE',DB::Raw('0 AS TIPO'))
+		->where('ESTADO','=',1)
+		->where('ID_SEMESTRE','=',$idSemestre)
+		->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+		->union($first)
+		->get();
 		
-		dd($second);
-		//return   $second;
+		//dd($second);
+		return   $second;
 
 		//$equis = "hola";
 		//return $equis;
+	}
+
+	function copiarObj($idSemestre,$idEspecialidad,$objetivos,$idUsuario){
+		DB::beginTransaction();
+		$status=true;
+		$estado=1;
+
+        //dd($rubrica);
+		//dd($resultadoIngresar);
+		try {
+			foreach ($objetivos as $obj) {
+        	//dd($resultado);
+				if($obj.TIPO==1){
+					DB::table('SOS')
+				->insert(['NOMBRE'=>$obj.NOMBRE,'ID_SEMESTRE'=>$idSemestre,'ID_ESPECIALIDAD'=>$idEspecialidad,'FECHA_REGISTRO'=>Carbon::now(),'FECHA_ACTUALIZACION'=>Carbon::now(),'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>$estado]);
+				}
+				if($obj.TIPO==0){
+					DB::table('EOS')
+				->insert(['NOMBRE'=>$obj.NOMBRE,'ID_SEMESTRE'=>$idSemestre,'ID_ESPECIALIDAD'=>$idEspecialidad,'FECHA_REGISTRO'=>Carbon::now(),'FECHA_ACTUALIZACION'=>Carbon::now(),'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>$estado]);
+				}
+				
+
+			}
+
+			DB::commit();
+		} catch (\Exception $e) {
+			$status=false;
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}	
+
+		return $status;
 	}
 
 	function eliminarSos($registro){

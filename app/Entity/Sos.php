@@ -8,7 +8,7 @@ use Jenssegers\Date\Date as Carbon;
 
 class Sos extends \App\Entity\Base\Entity {
 
-	protected $_fechaRegistro;
+    protected $_fechaRegistro;
 
     function setProperties($data) {
         $this->setValues([
@@ -30,6 +30,20 @@ class Sos extends \App\Entity\Base\Entity {
     static function getObjetivosTotales() {
         $model = new mSos();
         return mSos::getObjetivosTotales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+    }
+
+
+    function copiarObj($idSemestreCopiar,$idUsuario){
+        $model=new mSos();
+        $objetivos=self::getinformacionObj($idSemestreCopiar);
+
+        if ($model->copiarObj(self::getIdSemestre(),self::getEspecialidadUsuario(),$objetivos,$idUsuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+
     }
 
     public function eliminarSos($IDSOS,$nombreSOS,$usuario){
@@ -57,7 +71,7 @@ class Sos extends \App\Entity\Base\Entity {
 
     static function getinformacionObj($idSemestre){
         $model= new mSos();
-        $infoObj=$model->getinformacionObj($idSemestre,self::getEspecialidadUsuario())->get();
+        $infoObj=$model->getinformacionObj($idSemestre,self::getEspecialidadUsuario());
        /* $resultados=array();
         $contRes=0;
         foreach ($info as $fila) {

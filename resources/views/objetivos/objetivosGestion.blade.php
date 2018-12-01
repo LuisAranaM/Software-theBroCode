@@ -14,7 +14,8 @@
 		</div>
 	</div>
 
-	@if((count($objetivosSos)!=0) and (count($objetivosEos)!=0))
+	@if((count($objetivosSos)==0) and (count($objetivosEos)==0))
+
 	<div class="row">
 		<div class="col-md-12 col-xs-12" style="text-align: right">
 			<button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracionObj" style="border-color: transparent"> Copiar Configuración</button>
@@ -285,7 +286,8 @@
 		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 		<div class="modal-body"> 
 			<div class="container-fluid" style="">
-				<form id="frmCopiarConfiguracion" action="{{route('configuracion.copiar')}}" method="POST">
+
+				<form id="frmCopiarConfiguracion" action="{{route('configuracionObj.copiar')}}" method="POST">
 					{{ csrf_field() }}
 					<div class="tile coursesModalBox" style="padding-bottom: 20px;" id="interiorConfirmacion">
 
