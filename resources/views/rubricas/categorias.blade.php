@@ -108,13 +108,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 						</div>
 					</div>
 					
-				</div>
-				<div id="removeAgregar" class="col-lg-6 col-sm-5 col-xs-7 text-left" style="padding-top: 15px">
-					<p class="pText">Agregar nueva valorizacion</p>
-				</div>
-				<div id="agregarFilaIcono" class="col-md-2 col-sm-2 col-xs-2 text-left" style="padding-top: 10px; margin-left: -40px">
-					<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
-				</div>				
+				</div>			
 			</div>
 		</div>
 
