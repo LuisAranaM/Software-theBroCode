@@ -61,17 +61,17 @@ class Usuario extends Authenticatable implements Auditable{
         ];
 
         protected $fillable = [
-         'USUARIO',
-         'PASS',
-         'CORREO',
-         'FECHA_REGISTRO',
-         'FECHA_ACTUALIZACION',
-         'USUARIO_MODIF',
-         'ESTADO',
-         'NOMBRES',
-         'APELLIDO_PATERNO',
-         'APELLIDO_MATERNO',
-     ];
+           'USUARIO',
+           'PASS',
+           'CORREO',
+           'FECHA_REGISTRO',
+           'FECHA_ACTUALIZACION',
+           'USUARIO_MODIF',
+           'ESTADO',
+           'NOMBRES',
+           'APELLIDO_PATERNO',
+           'APELLIDO_MATERNO',
+       ];
     /**
      * The attributes that are mass assignable.
      *
@@ -140,7 +140,7 @@ class Usuario extends Authenticatable implements Auditable{
         ->select('US.ID_USUARIO','US.USUARIO','US.CORREO',
             'US.NOMBRES' ,'US.APELLIDO_PATERNO','US.APELLIDO_MATERNO',
             DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO) 
-            AS NOMBRES_COMPLETOS"),'US.PERFIL','ROL.NOMBRE AS ROL_USUARIO','ROL.ID_ROL','ES.ID_ESPECIALIDAD', 'ES.NOMBRE AS ESPECIALIDAD_USUARIO', 'US.ESTADO AS FLG_ACTIVO')    
+                AS NOMBRES_COMPLETOS"),'US.PERFIL','ROL.NOMBRE AS ROL_USUARIO','ROL.ID_ROL','ES.ID_ESPECIALIDAD', 'ES.NOMBRE AS ESPECIALIDAD_USUARIO', 'US.ESTADO AS FLG_ACTIVO')    
         ->leftJoin('ROLES AS ROL',function($join){
             $join->on('US.ID_ROL','=','ROL.ID_ROL');
         })
@@ -183,13 +183,31 @@ class Usuario extends Authenticatable implements Auditable{
         return $sql;
     }
 
-    static function verificarUsuario($usuario){
+    static function verificarUsuario($usuario,$flgEditar=null){
         $sql=DB::table('USUARIOS')
         ->select()
         ->where('CORREO','=',$usuario['CORREO'])
-        ->where('USUARIO','=',$usuario['USUARIO']);
-        //dd($sql);
-        return $sql->count();
+        ->orWhere('USUARIO','=',$usuario['USUARIO']);
+
+        $verificar=0;
+        if($flgEditar){
+            foreach($sql->get() as $fila){
+                if ($fila->ID_USUARIO==$usuario['ID_USUARIO'])
+                    $verificar=1;
+            }
+        //dd($sql->get(),$verificar);
+            if ($verificar) return 0;
+        }
+           
+        //dd($sql->get());
+        if($sql->count()>0){
+            if ($sql->first()->CORREO==$usuario['CORREO'])
+                return 2;
+            else return 1;
+        }
+        else return 0;
+
+        //return $sql->count();
     }
 
     static function updateFoto($idUsuario,$usuarioGoogle){
@@ -237,9 +255,9 @@ class Usuario extends Authenticatable implements Auditable{
 
     public function getIdUsuario($codUsuario,$correo){
         $sql = DB::table('USUARIOS')
-                ->select('ID_USUARIO')
-                ->where('USUARIO','=',$codUsuario)
-                ->orWhere('CORREO','=',$correo);
+        ->select('ID_USUARIO')
+        ->where('USUARIO','=',$codUsuario)
+        ->orWhere('CORREO','=',$correo);
 
         return $sql;
 
@@ -256,6 +274,43 @@ class Usuario extends Authenticatable implements Auditable{
             $usuarioEspecialidad['USUARIO_MODIF']=$idUsuario;
             if($usuario['ID_ROL']!=1){
                 DB::table('USUARIOS_HAS_ESPECIALIDADES')->insert($usuarioEspecialidad);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
+    }
+
+    function editarCuentaRubrik($usuario,$usuarioEspecialidad){
+        //dd(Carbon::now());    
+        DB::beginTransaction();
+        $status = true;
+
+        try {
+            DB::table('USUARIOS')
+            ->where('ID_USUARIO','=',$usuario['ID_USUARIO'])
+            ->update(['ID_ROL'=>$usuario['ID_ROL'],
+                'USUARIO' =>$usuario['USUARIO'],           
+                'CORREO' =>$usuario['CORREO'],            
+                'FECHA_ACTUALIZACION'=>$usuario['FECHA_ACTUALIZACION'],
+                'USUARIO_MODIF'=>$usuario['USUARIO_MODIF'],      
+                'NOMBRES' =>$usuario['NOMBRES'],           
+                'APELLIDO_PATERNO'=>$usuario['APELLIDO_PATERNO'],   
+                'APELLIDO_MATERNO' =>$usuario['APELLIDO_MATERNO']]
+            );
+
+            if($usuario['ID_ROL']!=1){
+                DB::table('USUARIOS_HAS_ESPECIALIDADES')
+                ->where('ID_USUARIO','=',$usuarioEspecialidad['ID_USUARIO'])
+                ->update(
+                    ['ID_ESPECIALIDAD'=>$usuarioEspecialidad['ID_ESPECIALIDAD'],    
+                    'FECHA_ACTUALIZACION'=>$usuarioEspecialidad['FECHA_ACTUALIZACION'],
+                    'USUARIO_MODIF'=>$usuarioEspecialidad['USUARIO_MODIF']]    
+                );
             }
             DB::commit();
         } catch (\Exception $e) {

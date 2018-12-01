@@ -501,7 +501,7 @@ class CursoController extends Controller
                             //si no existe el profesor lo ingresamos
                             if(!$idProfesor){                                
                                 $datos_prof=[];                            
-                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
+                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'PASS'=>Hash::make($codProf), 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
                                 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>0, 'NOMBRES'=>$nombres, 'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
                                 array_push($listaProfesoresNuevos,$nombres,$aPaterno);
                                 $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);                                
@@ -572,7 +572,7 @@ class CursoController extends Controller
                             //si no existe el profesor lo ingresamos
                             if(!$idProfesor){                                
                                 $datos_prof=[];                            
-                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
+                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf,'PASS'=>Hash::make($codProf), 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
                                 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>0, 'NOMBRES'=>$nombres, 'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
                                 array_push($listaProfesoresNuevos,$nombres,$aPaterno);
                                 $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);

@@ -174,9 +174,12 @@ class Usuario extends \App\Entity\Base\Entity {
         ];
     }
     //Verificar que usuario y correo no estén registrados
-    if($model->verificarUsuario($usuario)){
-        //dd("HOLA");
-        $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+    $verificarUsuario=$model->verificarUsuario($usuario);
+    if($verificarUsuario>0){
+        if($verificarUsuario==1)
+            $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
+        else
+            $this->setMessage('Ya existe una cuenta para el correo '.$usuario['CORREO']);
         return false;        
     }
 
@@ -204,37 +207,35 @@ function activarUsuarios($checks,$idUsuario){
 
 }
 
-function editarCuentaRubrik($datosCuenta){
-    dd($datosCuenta);
+function editarCuentaRubrik($datosCuenta,$idUsuarioModif){
+    //dd($datosCuenta);
     $hoy=Carbon::now();
             $model= new mUsuario();
 
-            $usuario=['ID_ROL'=> $datosCuenta['rol'] ,           
+            $usuario=[
+            'ID_USUARIO'=>$datosCuenta['idUsuario'],
+            'ID_ROL'=> $datosCuenta['rol'] ,           
             'USUARIO' =>$datosCuenta['usuario'],           
-            'PASS'=>Hash::make($datosCuenta['pass']),               
             'CORREO' =>$datosCuenta['email'],            
             'FECHA_REGISTRO'=>$hoy,     
             'FECHA_ACTUALIZACION'=>$hoy,
-            'USUARIO_MODIF'=>NULL,      
+            'USUARIO_MODIF'=>$idUsuarioModif,      
             'ESTADO'=>1,             
             'NOMBRES' =>$datosCuenta['nombres'],           
             'APELLIDO_PATERNO'=>$datosCuenta['apellidoPat'],   
             'APELLIDO_MATERNO' =>$datosCuenta['apellidoMat'],  
-            'PERFIL'=>$datosCuenta['perfil']
-        ];
+            ];
 
         $usuarioEspecialidad=[];
         if($usuario['ID_ROL']!=1){
-            $usuarioEspecialidad=['ID_USUARIO' =>NULL,        
+            $usuarioEspecialidad=['ID_USUARIO' =>$datosCuenta['idUsuario'],        
             'ID_ESPECIALIDAD'=>$datosCuenta['especialidad'],    
-            'FECHA_REGISTRO'=>$hoy,
             'FECHA_ACTUALIZACION'=>$hoy,
-            'USUARIO_MODIF' =>NULL,     
-            'ESTADO'=>1
+            'USUARIO_MODIF' =>$idUsuarioModif,
         ];
     }
     //Verificar que usuario y correo no estén registrados
-    if($model->verificarUsuario($usuario)){
+    if($model->verificarUsuario($usuario,1)){
         //dd("HOLA");
         $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
         return false;        

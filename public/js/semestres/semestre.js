@@ -12,7 +12,11 @@
 			.on('changeDate', function(e) {
         $('#frmEditarSemestre').formValidation('revalidateField', 'fInicio');
         $('#frmEditarSemestre').formValidation('revalidateField', 'fFin');
-        $('#frmEditarSemestre').formValidation('revalidateField', 'fAlerta');
+        $('#frmEditarSemestre').formValidation('revalidateField', 'fAlerta'); 
+
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fInicio');
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fFin');
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fAlerta');
             // Revalidate the date field
             //revalidateFechas();            	
         });
@@ -76,6 +80,7 @@ $('#semestreAct').on('change', function(e) {
         $('#frmEditarSemestre').formValidation('destroy', true);
         initializeFormSemestre();
         $('#modalEditarSemestre').modal('show');
+        $('#modalEditarSemestre input[name="idSemestre"]').val(idSemestre);
         $('#modalEditarSemestre input[name="anho"]').val(anho);
         $('#modalEditarSemestre input[name="ciclo"]').val(ciclo);
         $('#modalEditarSemestre input[name="fInicio"]').val(fInicio);

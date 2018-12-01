@@ -28,7 +28,7 @@ class Semestre extends \App\Entity\Base\Entity {
     }
 
     function actualizarSemestreSistema($idSemestre,$idUsuario){
-     
+
        $model= new mSemestre();
 
        if ($model->actualizarSemestreSistema($idSemestre,$idUsuario)){
@@ -40,29 +40,81 @@ class Semestre extends \App\Entity\Base\Entity {
 }
 
 function crearSemestre($dataSemestre,$idUsuario){
-     $hoy=Carbon::now();
+ $hoy=Carbon::now();
 
-            $model= new mSemestre();
+ $model= new mSemestre();
 
-            $semestre=[
-            'FECHA_INICIO'=> $dataSemestre['fInicio'],  
-            'FECHA_FIN'=> $dataSemestre['fFin'],  
-            'FECHA_ALERTA'=> $dataSemestre['fAlerta'] ,  
-            'ANHO'=> $dataSemestre['anho'] ,  
-            'CICLO'=> $dataSemestre['ciclo'] ,  
+ $semestre=[
+    'FECHA_INICIO'=> $dataSemestre['fInicio'],  
+    'FECHA_FIN'=> $dataSemestre['fFin'],  
+    'FECHA_ALERTA'=> $dataSemestre['fAlerta'] ,  
+    'ANHO'=> $dataSemestre['anho'] ,  
+    'CICLO'=> $dataSemestre['ciclo'] ,  
 
-            'FECHA_REGISTRO'=>$hoy,     
-            'FECHA_ACTUALIZACION'=>$hoy,
-            'USUARIO_MODIF'=>$idUsuario,      
-            'ESTADO'=>-1];
+    'FECHA_REGISTRO'=>$hoy,     
+    'FECHA_ACTUALIZACION'=>$hoy,
+    'USUARIO_MODIF'=>$idUsuario,      
+    'ESTADO'=>-1];
 
-    if ($model->crearSemestre($semestre)){
-        return true;
-    }
-    else{
-        $this->setMessage('Hubo un error en el servidor de base de datos');
+    if($semestre['FECHA_INICIO']>$semestre['FECHA_FIN']){
+        $this->setMessage('La fecha de inicio no puede ser después que la fecha de fin');
         return false;
     }
+
+    if(!($semestre['FECHA_ALERTA']>=$semestre['FECHA_INICIO'] and $semestre['FECHA_ALERTA']<=$semestre['FECHA_FIN'])){
+        $this->setMessage('La fecha de alerta debe ser durante el ciclo');
+        return false;
+    }
+    if ($model->verificarSemestre($semestre)){
+     $this->setMessage('Ya existe el semestre '.$semestre['ANHO'].'-'.$semestre['CICLO']. ' en la base de datos');
+     return false;
+ }
+
+ if ($model->crearSemestre($semestre)){
+    return true;
+}
+else{
+    $this->setMessage('Hubo un error en el servidor de base de datos');
+    return false;
+}
+}
+
+function editarSemestre($dataSemestre,$idUsuario){
+ $hoy=Carbon::now();
+
+ $model= new mSemestre();
+
+ $semestre=[
+    'ID_SEMESTRE'=> $dataSemestre['idSemestre'],  
+    'FECHA_INICIO'=> $dataSemestre['fInicio'],  
+    'FECHA_FIN'=> $dataSemestre['fFin'],  
+    'FECHA_ALERTA'=> $dataSemestre['fAlerta'] ,  
+    'ANHO'=> $dataSemestre['anho'] ,  
+    'CICLO'=> $dataSemestre['ciclo'] ,  
+    'FECHA_ACTUALIZACION'=>$hoy,
+    'USUARIO_MODIF'=>$idUsuario];
+
+    if($semestre['FECHA_INICIO']>$semestre['FECHA_FIN']){
+        $this->setMessage('La fecha de inicio no puede ser después que la fecha de fin');
+        return false;
+    }
+
+    if(!($semestre['FECHA_ALERTA']>=$semestre['FECHA_INICIO'] and $semestre['FECHA_ALERTA']<=$semestre['FECHA_FIN'])){
+        $this->setMessage('La fecha de alerta debe ser durante el ciclo');
+        return false;
+    }
+    if ($model->verificarSemestre($semestre,1)){
+     $this->setMessage('Ya existe el semestre '.$semestre['ANHO'].'-'.$semestre['CICLO']. ' en la base de datos');
+     return false;
+ }
+
+ if ($model->editarSemestre($semestre)){
+    return true;
+}
+else{
+    $this->setMessage('Hubo un error en el servidor de base de datos');
+    return false;
+}
 }
 
 }

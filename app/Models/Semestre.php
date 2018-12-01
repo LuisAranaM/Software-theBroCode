@@ -141,7 +141,7 @@ class Semestre extends Eloquent
 
 			if($ciclo==1)
 				$sql=$sql->where('ANHO','<=',$anho)
-						->where(DB::Raw('CONCAT(ANHO,CICLO)'),'<>',$anho.'2');
+			->where(DB::Raw('CONCAT(ANHO,CICLO)'),'<>',$anho.'2');
 			else if ($ciclo==2)
 				$sql=$sql->where('ANHO','<=',$anho);
 
@@ -203,6 +203,40 @@ class Semestre extends Eloquent
 			DB::rollback();
 		}
 		return $id;
+	}
+
+	public function editarSemestre($semestre){
+		DB::beginTransaction();
+		$id=1;
+		try {
+			DB::table('SEMESTRES')
+			->where('ID_SEMESTRE','=',$semestre['ID_SEMESTRE'])
+			->update(['FECHA_INICIO'=> $semestre['FECHA_INICIO'],  
+				'FECHA_FIN'=> $semestre['FECHA_FIN'],  
+				'FECHA_ALERTA'=> $semestre['FECHA_ALERTA'] ,  
+				'ANHO'=> $semestre['ANHO'] ,  
+				'CICLO'=> $semestre['CICLO'] ,  
+				'FECHA_ACTUALIZACION'=>$semestre['FECHA_ACTUALIZACION'],
+				'USUARIO_MODIF'=>$semestre['USUARIO_MODIF']]);
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			DB::rollback();
+		}
+		return $id;
+	}
+
+	static function verificarSemestre($semestre,$flgEditar=null){
+		$sql=DB::table('SEMESTRES')
+		->select()
+		->where('ANHO','=',$semestre['ANHO'])
+		->where('CICLO','=',$semestre['CICLO'])
+		->where('ESTADO','<>',0);
+
+		if($flgEditar)
+			$sql=$sql->where('ID_SEMESTRE','<>',$semestre['ID_SEMESTRE']);
+
+		return $sql->count();
 	}
 
 }

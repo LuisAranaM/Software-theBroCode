@@ -173,7 +173,7 @@ class AdministradorController extends Controller
         //En construcción
         $usuario=new Usuario();
 
-        if($usuario->editarCuentaRubrik($request->all())){
+        if($usuario->editarCuentaRubrik($request->all(),Auth::id())){
             flash('Se editó el usuario correctamente')->success();
             //return back();
         } else {
@@ -222,7 +222,15 @@ class AdministradorController extends Controller
 }
 
 public function editarSemestre(Request $request){
+ $semestre=new Semestre();
 
+ if($semestre->editarSemestre($request->all(),Auth::id())){
+    flash('Se editó el semestre correctamente')->success();
+            //return back();
+} else {
+    flash($semestre->getMessage())->error();
+}
+return back();      
 }    
 
 public function seleccionarSemestreSistema(Request $request){
@@ -255,6 +263,15 @@ return back();
 }
 
 public function editarEspecialidad(Request $request){
+    $especialidad=new Especialidad();
+
+    if($especialidad->editarEspecialidad($request->all(),Auth::id())){
+        flash('Se editó la especialidad correctamente')->success();
+            //return back();
+    } else {
+        flash($especialidad->getMessage())->error();
+    }
+    return back();      
 
 }
 
