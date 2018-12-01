@@ -145,7 +145,7 @@ class Alumno extends Eloquent
             if(Alumno::isNumeric($x->NOMBRE)) $nombreHorario = (int)($x->NOMBRE);
             else $nombreHorario = $x->NOMBRE;
             $alumnosPorHorario[$nombreHorario] = array();
-            $alumnosPorHorario[$nombreHorario]["idHorario"] = $nombreHorario;
+            $alumnosPorHorario[$nombreHorario]["idHorario"] = $x->ID_HORARIO;
             $alumnosPorHorario[$nombreHorario]["codigoHorario"] = $nombreHorario;
             $alumnosPorHorario[$nombreHorario]["alumnos"] = array();
         }
