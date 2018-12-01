@@ -8,7 +8,7 @@ use Jenssegers\Date\Date as Carbon;
 
 class Eos extends \App\Entity\Base\Entity {
 
-	protected $_fechaRegistro;
+    protected $_fechaRegistro;
     
     function setProperties($data) {
         $this->setValues([
@@ -26,10 +26,6 @@ class Eos extends \App\Entity\Base\Entity {
         
         return mEos::getObjetivosEducacionales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> 5f2010d9783b9f7dbd225694bf9fd3c88fa421e0
     static function getObjetivosTotales() {
         $model = new mEos();
         return mEos::getObjetivosTotales(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
