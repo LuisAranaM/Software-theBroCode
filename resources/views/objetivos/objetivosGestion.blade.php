@@ -14,7 +14,7 @@
 		</div>
 	</div>
 
-	@if((count($objetivosSos)==0) and (count($objetivosEos)==0))
+	@if((count($objetivosSos)!=0) and (count($objetivosEos)!=0))
 	<div class="row">
 		<div class="col-md-12 col-xs-12" style="text-align: right">
 			<button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracionObj" style="border-color: transparent"> Copiar Configuración</button>
