@@ -16,7 +16,7 @@
 
 <div class="customBody">
   <div class="row">
-    <div class="col-md-8 col-sm-6">
+    <div class="col-xs-12">
       @if($codCurso===null)
       <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > Horarios y Criterios</h1>
       @else
@@ -24,7 +24,7 @@
       @endif
     </div>
   </div>
-@include('flash::message')
+  @include('flash::message')
   <div class="row">
 
     @if($codCurso===null)
@@ -41,11 +41,11 @@
         </div>
 
         <div class="col-sm-6 col-xs-6 text-right">
-            <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButtonLarge2 btnCargarAlumnos2"
-                 data-id = "{{ $codCurso }}" 
-                 > Cargar Alumnos <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
-            </a>
+          <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
+            <button type="button" class="btn btn-success btn-lg pText customButtonLarge2 btnCargarAlumnos2"
+            data-id = "{{ $codCurso }}" 
+            > Cargar Alumnos <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
+          </a>
         </div>  
       </div>
 
@@ -161,7 +161,7 @@
       <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
       id="modalResultados" data-keyboard="false" data-backdrop="static"
       aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-      <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+      <div class="modalHorarios modal-dialog" style="width: 600px; height: 300px" >
        <div class="modal-content" style="top: 40%">
         <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
@@ -276,26 +276,26 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <p class="pText">Arrastra y suelta un archivo <br> o <br> 
           <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnosDeCurso')}}"
           method = "post" enctype = "multipart/form-data">
-            {{csrf_field()}}
-            <div class = "form-group">
-              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+          {{csrf_field()}}
+          <div class = "form-group">
+            <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+          </div>
+          <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+            <div class="col-md-4">
+              <input id="codCurso" name="codigoCurso" type="hidden">
+              <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
+              style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
             </div>
-            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
-              <div class="col-md-4">
-                <input id="codCurso" name="codigoCurso" type="hidden">
-                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
-                style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
-              </div>
-              <div class="col-md-4">
-                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
-              </div>
+            <div class="col-md-4">
+              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <!-- /.modal-content -->
+</div>
+<!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>
@@ -345,7 +345,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
 id="modalHorarios" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 400px;">
+<div class="modal-dialog modal-lg" style="width: 400px;  
+  vertical-align: middle; ">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
@@ -400,7 +401,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       </div>
     </div>    
   </div>
-
 
 </div>
 </div>

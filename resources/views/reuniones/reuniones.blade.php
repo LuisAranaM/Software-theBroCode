@@ -26,8 +26,8 @@
 					</div>
 					<div class="col-xs-12">  
 						<div id="rangoSemestres" class="no-padding" style="display: inline-block">
-							<label class="pText" style="padding-top: 5px">Semestre inicial:</label>
-							<select name="semIni" id="semIni"  class="form-control" style="width: 100px; margin-left: 10px; display: inline-block; font-size: 14px; margin-right: 20px; padding-top: 5px">
+							<label class="semLabel pText" style="padding-top: 5px; margin-right: 10px">Semestre inicial:</label>
+							<select name="semIni" id="semIni"  class="form-control" style="width: 100px; display: inline-block; font-size: 14px; margin-right: 20px; padding-top: 5px">
 
 								<option value=""></option>
 								@foreach($semestres as $semestre)
@@ -36,8 +36,8 @@
 							</select>
 						</div>
 						<div id="rangoSemestres" class="no-padding" style="display: inline-block">
-							<label class="pText" style="padding-top: 5px" >Semestre final:</label>
-							<select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-left: 10px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
+							<label class="semLabel pText" style="padding-top: 5px; margin-right: 10px" >Semestre final:</label>
+							<select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
 								<option value=""></option>
 								@foreach($semestres as $semestre)
 									<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
@@ -90,7 +90,7 @@
 										<td style="background-color: white; text-align: center;vertical-align: center">
 											<label>
 												<input type="checkbox" class="form-check-input checkDoc" 
-												name="checkDocs[]" value="{{$documento->NOMBRE}}" style="text-align: center;" >
+												name="checkDocs[]" id="documentosChecks" value="{{$documento->NOMBRE}}" style="text-align: center;" >
 												<span class="pText label-text "></span>
 											</label>
 										</td>

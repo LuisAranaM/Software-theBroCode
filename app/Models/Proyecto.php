@@ -7,6 +7,7 @@
 
 namespace App\Models;
 use DB;
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -55,11 +56,45 @@ class Proyecto extends Eloquent
     }
     static public function getRutaProyectos($idHorario){
         $ans = DB::table('PROYECTOS')
-            ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS_HAS_HORARIOS.ID_PROYECTO', '=', 'PROYECTOS.ID_PROYECTO')
-            ->select('PROYECTOS.*')
-            ->orderBy('FECHA_ACTUALIZACION', 'desc')
+        ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS_HAS_HORARIOS.ID_PROYECTO', '=', 'PROYECTOS.ID_PROYECTO')
+        ->select('PROYECTOS.*')
+        ->orderBy('FECHA_ACTUALIZACION', 'desc')
             #->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
-            ->get()->toArray();
+        ->get()->toArray();
         return $ans;
+    }
+
+    function agregarMasivo($dataSubir){
+
+        DB::beginTransaction();
+        $status = true;
+
+        try {
+
+            foreach ($dataSubir as $data) {
+                $proyecto=$data['PROYECTO'];
+                $alumno=$data['ALUMNO'];
+
+                $idProyecto = DB::table('PROYECTOS')->insertGetId($proyecto);
+                $alumno['ID_PROYECTO']=$idProyecto;
+            //Update
+                DB::table('ALUMNOS_HAS_HORARIOS')
+                ->where('ID_ALUMNO','=',$alumno['ID_ALUMNO'])
+                ->where('ID_SEMESTRE','=',$alumno['ID_SEMESTRE'])
+                ->where('ID_ESPECIALIDAD','=',$alumno['ID_ESPECIALIDAD'])
+                ->where('ID_HORARIO','=',$alumno['ID_HORARIO'])
+                ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$alumno['FECHA_ACTUALIZACION']]);
+                //dd($proyecto,$alumno);
+                DB::table('ALUMNOS_HAS_HORARIOS')->insert($alumno);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
     }
 }

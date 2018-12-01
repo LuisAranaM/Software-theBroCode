@@ -1,6 +1,5 @@
 $( document ).ready(function() {
 	console.log("inicioR");
-	$( "#rubricas" ).css("border-right", "5px solid #1ABB9C");
 
 	$(document).on({
 		mouseenter: function () {

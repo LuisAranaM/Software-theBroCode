@@ -3,9 +3,11 @@ $( document ).ready(function() {
 
 	function myFunction(x) {
 	    if (x.matches) { // If media query matches
-	        $('#rangoSemestres').toggleClass("col-xs-12", true);
+	 
+	        $('.semLabel').css("display", "block");
 	    } else {
-	    	$('#rangoSemestres').toggleClass("col-xs-12", false);
+	    
+	    	$('.semLabel').css("display", "inline-block");
 	    }
 	}
 
@@ -44,13 +46,32 @@ $( document ).ready(function() {
 	});
 	
 
-	$("#btnDescargarDoc").on("click", function(){
+	$("#btnDescargarDoc").on("click", function(e){
 		console.log("Descargando documentos");
 		array = []
-		$("input:checkbox[name=checkDocs]:checked").each(function(){
+		$("input:checkbox[id='documentosChecks']:checked").each(function(){
+			console.log($(this).val());
 			array.push($(this).val());
 		});
-		console.log(array);		
+		console.log(array.length);	
+		if(array.length == 0){
+			alert('Seleccione al menos un documento');
+			e.preventDefault();
+		}
+	});
+
+	$("#btnEliminarDoc").on("click", function(e){
+		console.log("Descargando documentos");
+		array = []
+		$("input:checkbox[id='documentosChecks']:checked").each(function(){
+			console.log($(this).val());
+			array.push($(this).val());
+		});
+		console.log(array);	
+		if(array.length == 0){
+			alert('Seleccione al menos un documento');
+			e.preventDefault();
+		}
 	});
 
 	var anhoInicio;
