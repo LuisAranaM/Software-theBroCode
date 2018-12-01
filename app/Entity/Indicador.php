@@ -402,15 +402,19 @@ class Indicador extends \App\Entity\Base\Entity {
         $nombreExcel='Reporte_Consolidado_'.$nombreEspecialidad.'_'.$semestre;
         //dd($semestre);
         $reporte=$model->getReporteConsolidado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
-        //dd($reporte);
+        dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
             $excel->setTitle('Reporte Consolidado del semestre '.$semestre);
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
                 //Consideraciones previas
                 //$sheet->setAutoSize(true);
+                $sheet->setColumnFormat(array('G' => '0%','H' => '0%','I' => '0%','J' => '0%','K' => '0%','L' => '0%','M' => '0%','N' => '0%','O' => '0%','P' => '0%','Q' => '0%'));
+                $sheet->getStyle('A2:Z1000')->getAlignment()->setWrapText(true);
+
                 $sheet->mergeCells('A2:K2');
                 $sheet->mergeCells('A3:K3');
+                $style = array('font' => array('size' => 15,'bold' => true));
                 
                 $sheet->setColumnFormat(array('G' => '0%'));
                 $i=2;
@@ -420,8 +424,6 @@ class Indicador extends \App\Entity\Base\Entity {
                                         'C'     =>  30,
                                         'D'     =>  30,
                                         'E'     =>  30,
-                                        'F'     =>  15,
-                                        'G'     =>  15
                                     ));
 
 
@@ -460,37 +462,28 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaFinalInd=$constanteFila + 3;
                 $nombreInd="";
                 
-                foreach ($reporte as $key => $fila) {
-                    if($calculoMenor > $fila->ANHO*10 + $fila->CICLO){
-                        $calculoMenor = $fila->ANHO;
+                foreach ($reporte as $fila) {
+                    if($calculoMenor > ($fila->ANHO*10 + $fila->CICLO)){
+                        $calculoMenor = ($fila->ANHO*10 + $fila->CICLO);
                         $anhoMenor = $fila->ANHO;
                         $cicloMenor = $fila->CICLO;
                     }
                 }
-                //$anhoActual = substr($semestre, 0, 4);
                 $anhoActual = (int)str_replace(' ', '', substr($semestre, 0, 4));
-                //dd($anhoActual);
                 
                 $cicloActual = (int)str_replace(' ', '', substr($semestre, 5,2));
-                //dd($anhoMenor);
                 $anhoDif = 2*($anhoActual - $anhoMenor);
-                //$cicloDif = int(substr($semes, 5,2)) - $cicloMenor;
                 $columnaFin = $columnaInicio;
-                
-                if($cicloActual == 1 and $cicloMenor == 2 or ($cicloActual == 0 and $cicloMenor == 2) ){
+                if($cicloActual == 1 and $cicloMenor == 2 or ($cicloActual == 0 and $cicloMenor == 2) )
                     $columnaFin = chr(ord($columnaFin)+$anhoDif - 1);
-                }
-                elseif ($cicloActual == 2 and $cicloMenor == 1) {
+                elseif ($cicloActual == 2 and $cicloMenor == 1) 
                     $columnaFin = chr(ord($columnaFin)+$anhoDif + 1);
-                }
-                else{
+                else
                     $columnaFin = chr(ord($columnaFin)+$anhoDif);
-                    //dd($columnaFin);    
-                }
                 //dd($columnaFin);
                 $filaEncabezados = $constanteFila + 2;
                 foreach ($reporte as $fila) {
-                    if($codResultado!=$fila->COD_RESULTADO ){
+                    if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
                         if($anhoActual < $fila->ANHO){
                             //$sheet->setHeight($i, 45);
@@ -533,8 +526,10 @@ class Indicador extends \App\Entity\Base\Entity {
                     else if($nombreCategoria!=$fila->NOMBRE_CATEGORIA){
                         //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
                         if($i!=$filaInicial){
-                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
-                            $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
+                            $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
+                            $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                            //$sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                            //$sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                         }
                         $filaInicialCat=$i;
                         $filaInicialInd=$i;
@@ -542,7 +537,7 @@ class Indicador extends \App\Entity\Base\Entity {
                     else if($nombreInd!=$fila->NOMBRE_INDICADOR){
                         //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
                         if($i!=$filaInicialCat){
-                            $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
+                            $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
                         }
                         $filaInicialInd=$i;
                     }
@@ -565,7 +560,11 @@ class Indicador extends \App\Entity\Base\Entity {
                     }
                     $ciclo = $fila->ID_SEMESTRE;
                     $sheet->row($i, array($fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
-                            $fila->NOMBRE_CURSO, '%', '70%', '100%'));
+                            $fila->NOMBRE_CURSO, '%', '0.7', '1.0'));
+                    $sheet->cell('H'.$i.':Z'.$i, function($cells) {    // manipulate the cell
+                        $cells->setAlignment('center');
+                        $cells->setValignment('center');
+                    });
                     //$sheet->cell('I'.$filaInicial, $fila->ANHO.$fila->CICLO);
                     $aux = $columnaInicio;
                     
@@ -585,8 +584,16 @@ class Indicador extends \App\Entity\Base\Entity {
                         
                         for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
                             $sheet->cell($columnRellenar.$i, 'NA');
-                            
+                            //Llenando los encabezados de ciclo
                             $sheet->cell($columnRellenar.$filaEncabezados, $anhoAux.'-'.$cicloAux);
+                            $sheet->cell($columnRellenar.$filaEncabezados, function($cells) {    // manipulate the cell
+                                //$cells->setFontSize(13);
+                                $cells->setAlignment('center');
+                                $cells->setValignment('center');
+                                $cells->setBackground('#334185');
+                                $cells->setFontColor('#FFFFFF');
+    
+                            });
                             if($cicloAux == 1 or $cicloAux == 0){
                                 $cicloAux = 2;
                                 $anhoAux = $anhoAux - 1;
@@ -596,7 +603,12 @@ class Indicador extends \App\Entity\Base\Entity {
                             }
                             $columnRellenar++;
                         }
-                        $sheet->cell($aux.$i, ($fila->PORCENTAJE_APROBADOS * 100).'%');
+                        $sheet->cell($aux.$i, $fila->PORCENTAJE_APROBADOS);
+                        $sheet->cell($aux.$i, function($cells) {    // manipulate the cell
+                            //$cells->setFontSize(13);
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                        });
                     }    
                     else{
                         if($cicloActual == 0 or $cicloActual == 1)
@@ -617,7 +629,8 @@ class Indicador extends \App\Entity\Base\Entity {
                             $columnRellenar++;
                         }
                         $aux2 = $aux++;
-                        $sheet->cell($aux2.$i, ($fila->PORCENTAJE_APROBADOS * 100).'%');
+                        $sheet->cell($aux2.$i, $fila->PORCENTAJE_APROBADOS);
+                        $sheet->getStyle($aux2.$filaInicial.':'.$aux2.$i)->applyFromArray($style);
                     }
                     $sheet->setHeight($i, 45);
                     $i++;

@@ -368,6 +368,7 @@ class Indicador extends Eloquent
 		->select(DB::Raw('SEM.ANHO*10+SEM.CICLO AS SEMESTRE'))
 		->where('SEM.ID_SEMESTRE','=',$idSemestre);
 		$semestre = $sql0->get()[0]->SEMESTRE;
+		//dd($semestre);
     	$sql=DB::table('INDICADORES_HAS_CURSOS AS IHC')
     	->select('RES.NOMBRE AS COD_RESULTADO','RES.ID_RESULTADO', 'IHC.ID_SEMESTRE', 'RES.ID_RESULTADO','RES.DESCRIPCION AS NOMBRE_RESULTADO','CAT.ID_CATEGORIA',
     			'CAT.NOMBRE AS NOMBRE_CATEGORIA','IND.ID_INDICADOR','IND.VALORIZACION','IND.NOMBRE AS NOMBRE_INDICADOR','CUR.ID_CURSO',
@@ -414,8 +415,14 @@ class Indicador extends Eloquent
 		->where('AHH.ESTADO','=',1)
 		->where(DB::Raw('SEMESTRES.ANHO*10+SEMESTRES.CICLO'),'<=',$semestre)
 		->where('AHH.ESTADO','=',1)
-		->groupBy('RES.NOMBRE', 'RES.ID_RESULTADO', 'IHC.ID_SEMESTRE','RES.DESCRIPCION','CAT.ID_CATEGORIA','CAT.NOMBRE' ,
-		'IND.ID_INDICADOR','IND.NOMBRE','CUR.ID_CURSO','CUR.CODIGO_CURSO','CUR.NOMBRE','IHAH.ID_INDICADOR');
+		->orderBy('RES.NOMBRE', 'asc')
+		->orderBy('CAT.NOMBRE', 'asc')
+		->orderBy('IND.VALORIZACION')
+		->orderBy('CUR.CODIGO_CURSO')
+		->orderBy('IHC.ID_SEMESTRE')
+		->groupBy('RES.NOMBRE','CAT.NOMBRE' ,'IND.NOMBRE','CUR.CODIGO_CURSO','IHC.ID_SEMESTRE');
+		
+		//dd($sql->get());
 		return $sql;
     }
 
