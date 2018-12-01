@@ -79,6 +79,19 @@ class Eos extends Eloquent
 	}
 
 
+	static function getObjetivosTotales($idSem,$idEsp) {
+		//dd($idSem);
+		$sql = DB::table('SOS')
+		->select('ID_SOS', 'NOMBRE')
+		->where('ESTADO','=',1)
+		->where('ID_SEMESTRE','=',$idSem)
+		->where('ID_ESPECIALIDAD','=',$idEsp);
+
+        //dd($sql->get());
+		return $sql;
+
+	}
+
 	function eliminarEos($registro){
         //dd($registro);    
 		DB::beginTransaction();

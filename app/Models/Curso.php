@@ -11,6 +11,7 @@ use DB;
 use Log;
 use App\Entity\IndicadoresHasCurso as IndicadoresHasCurso;
 use App\Entity\Descripcion as Descripcion;
+use App\Entity\ProfesoresHasHorario as EProfesoresHasHorario;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date as Carbon;
 
@@ -97,89 +98,137 @@ class Curso extends Eloquent
         $output->writeln("<info>".$cad."</info>");
     }
 
-  static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
-    $cursos = DB::table('CURSOS')
-                ->select('*')
-                ->where('ESTADO_ACREDITACION','=',1)
-                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-                ->where('ID_SEMESTRE','=',$idSemestre)
-                ->get();
-    
-    $ans = array();
-    $cantValorizacion = Descripcion::getValorizacionMaxima();
+    static function getCantCursos(&$sql){
+        if(!array_key_exists("cursos", $sql)) return 0;
+        $ans = 0;
+        foreach($sql["cursos"] as $c)
+            if(count($c["horarios"]) > 0) $ans++;
+        return $ans;
+    }
 
-    $horariosProf = DB::table('CURSOS')
+    static function getCursosCalificados($sql){
+        if(!array_key_exists("cursos", $sql)) return 0;
+        $ans = 0;
+        foreach($sql["cursos"] as $c){
+            foreach($c["horarios"] as $h)
+                if($h["avance"] > 99.99999) $ans++;
+        }
+        return $ans;
+    }
+
+    static function getCursosYHorarios($idEspecialidad,$idSemestre,$usuario){
+        $cursos = DB::table('CURSOS')
                     ->select('*')
-                    ->where('ID_SEMESTRE','=',-1)
+                    ->where('ESTADO_ACREDITACION','=',1)
+                    ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                    ->where('ID_SEMESTRE','=',$idSemestre)
                     ->get();
-
-    $info = array();
-    if($usuario->ID_ROL==4){        
-        $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
-    }
-
-    foreach($cursos as $c){
-      
-        $data["curso"] = $c;
-        $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
-        $cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
-      
-        foreach($horarios as $h){
-            
-        if($usuario->ID_ROL == 4){
-            // filtrar cursos
-            $esta = false;
-            foreach($horariosProf as $x){
-                if($h->ID_HORARIO == $x->ID_HORARIO)
-                    $esta = true;
-            }
-            if(!$esta) continue;
-        }
         
+        $ans = array();
+        $cantValorizacion = Descripcion::getValorizacionMaxima();
 
-        $horario["horario"] = $h;
-        $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO);
-        $tot = Horario::getCantAlumnos($h->ID_HORARIO);
-        $horario["alumnosTotal"] = $tot;
-        $part = 0;
-        $idAlumnos = array();
-        foreach($results as $x){
-            if($x->ESTADO == 0)
-                continue;
-            $id = $x->ID_ALUMNO;
-            $part++;
-            $has = false;
-            foreach($idAlumnos as $a){
-                if($a == $id){
-                    $has = true;
-                    break;
+        $horariosProf = DB::table('CURSOS')
+                        ->select('*')
+                        ->where('ID_SEMESTRE','=',-1)
+                        ->get();
+
+        $numerador = 0;
+        $denominador = 0;
+
+        $info = array();
+        if($usuario->ID_ROL==4){        
+            $horariosProf=Horario::getHorariosProfesor($idSemestre,$idEspecialidad,$usuario->ID_USUARIO);
+        }
+
+        foreach($cursos as $c){
+          
+            $data["curso"] = $c;
+            $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
+            //$cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
+            $indicadoresCurso=IndicadoresHasCurso::getIndicadoresbyIdCurso($c->ID_CURSO);
+            $cantIndicadores=count($indicadoresCurso);
+            foreach($horarios as $h){
+                
+                if($usuario->ID_ROL == 4){
+                    // filtrar cursos
+                    $esta = false;
+                    foreach($horariosProf as $x){
+                        if($h->ID_HORARIO == $x->ID_HORARIO)
+                            $esta = true;
+                    }
+                    if(!$esta) continue;
                 }
+                
+
+                $horario["horario"] = $h;
+                $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO,$indicadoresCurso);
+                $tot = Horario::getCantAlumnos($h->ID_HORARIO);
+                $horario["profesor"] = EProfesoresHasHorario::getProfesorHorario($h->ID_HORARIO);
+                //if($h->ID_HORARIO==5)
+                  //  dd($results);
+                //dd($horario["profesor"]);
+                $horario["alumnosTotal"] = $tot;
+                $part = 0;
+                $idAlumnos = array();
+                //Recorro todos los puntajes para los alumnos
+                //Obtengo un arreglo con los alumnos
+                foreach($results as $x){
+                    //dd($x);
+                    if($x->ESTADO == 0)
+                        continue;
+                    $id = $x->ID_ALUMNO;
+                    $part++;
+                    $has = false;
+                    foreach($idAlumnos as $a){
+                        if($a == $id){
+                            $has = true;
+                            break;
+                        }
+                    }
+                    if($has == false){
+                        $idAlumnos[] = $id;
+                    }
+                }
+                //El total de indicadores es erroneo por la cantValorizacion
+                //$tot = $tot * $cantValorizacion * $cantIndicadores; //Antes
+                $tot = $tot * $cantIndicadores;
+
+                $res = 0;
+                if($tot != 0) $res = round($part*100/$tot,2);
+                $horario["avance"] = $res;
+
+                $numerador += $part;
+                $denominador += $tot;
+
+                $res = 0;
+                //dd($idAlumnos);
+                foreach($idAlumnos as $x){
+                    //dd($idAlumnos);
+                    $cont = 0;
+                    foreach($results as $y){
+                        if($y->ID_ALUMNO == $x) $cont++;
+                    }
+                    //dd($cont,$cantIndicadores);
+                    //if($cont == $cantValorizacion * $cantIndicadores) $res++;
+                    if($cont == $cantIndicadores) $res++;
+                }
+                $horario["alumnosCalif"] = $res;
+                $info[] = $horario;
             }
-            if($has == false){
-                $idAlumnos[] = $id;
-            }
+            $data["horarios"] = $info;
+            $info = array();
+            $ans["cursos"][] = $data;
         }
-        $tot = $tot * $cantValorizacion * $cantIndicadores;
-        $res = 0;
-        if($tot != 0) $res = round($part*100/$tot,2);
-        $horario["avance"] = $res;
-        $res = 0;
-        foreach($idAlumnos as $x){
-            $cont = 0;
-            foreach($results as $y){
-                if($y->ID_ALUMNO == $x) $cont++;
-            }
-            if($cont == $cantValorizacion * $cantIndicadores) $res++;
+        if(count($cursos)>0){
+        $div = 0;
+        if($denominador != 0) $div = round($numerador*100/(double)$denominador,2);
+        $ans["progreso"] = $div;
+        $ans["cursosCalificados"] = Curso::getCursosCalificados($ans);
+        $ans["cantidadCursos"] = Curso::getCantCursos($ans);
         }
-        $horario["alumnosCalif"] = $res;
-        $info[] = $horario;
-      }
-      $data["horarios"] = $info;
-      $info = array();
-      $ans[] = $data;
+        //dd($ans);
+        return $ans;
     }
-    return $ans;
-  }
 
 	static function getCursoByIdHorario($idHorario) {
         $sql = DB::table('CURSOS AS CURSOS')
@@ -310,6 +359,7 @@ class Curso extends Eloquent
 
     }
 
+<<<<<<< HEAD
     public function getDatagraficoHorariosxResultado($idSemestre, $idResultado, $idCurso){
         $sql=DB::table('CURSOS AS CUR')
             ->select('HOR.ID_CURSO','HOR.NOMBRE',
@@ -333,6 +383,10 @@ class Curso extends Eloquent
 
         return $sql;
 
+=======
+    static function getCursosByEspecialidadAndSemestre($idEspecialidad,$idSemestre){
+        
+>>>>>>> 3b0d03d52d1ccfcb1be0a31d9bee00a356d5c2af
     }
 
 }

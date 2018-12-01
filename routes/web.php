@@ -58,6 +58,7 @@ Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3|
 //Pruebas de André
 Route::get('/subir-proyecto', ['as'=>'subir.proyecto','uses'=>'ProyectoController@index','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/subir-proyecto/guardar', ['as'=>'proyecto.store','uses'=>'ProyectoController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/subir-proyecto-masivo/guardar', ['as'=>'proyecto.store.masivo','uses'=>'ProyectoController@storeMasivo','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@downfunc','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoController@descargarProyecto','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 /*RÚBRICAS*/
@@ -213,3 +214,4 @@ Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>
 
 Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+

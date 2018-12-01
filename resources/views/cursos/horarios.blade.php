@@ -7,6 +7,9 @@
 <script type="text/javascript"  src="{{ URL::asset('js/horarios/horarios.js') }}"></script>
 
 @stop
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
 
 @section('pageTitle', 'Horarios y Criterios')
 @section('content')
@@ -16,7 +19,7 @@
 
 <div class="customBody">
   <div class="row">
-    <div class="col-md-8 col-sm-6">
+    <div class="col-xs-12">
       @if($codCurso===null)
       <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > Horarios y Criterios</h1>
       @else
@@ -24,7 +27,7 @@
       @endif
     </div>
   </div>
-@include('flash::message')
+  @include('flash::message')
   <div class="row">
 
     @if($codCurso===null)
@@ -39,39 +42,45 @@
         <div class="col-xs-6" >
           <h1 class="secondaryTitle mainTitle">Gestionar Horarios </h1>
         </div>
-
+        @if(!$modoSoloLectura)
         <div class="col-sm-6 col-xs-6 text-right">
-            <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
-                 data-id = "{{ $codCurso }}" 
-                 > Cargar Alumnos</button>
-            </a>
+          <a href="#" data-target="modalCargarAlumnos2" data-toggle="modal" >
+            <button type="button" class="btn btn-success btn-lg pText customButtonLarge2 btnCargarAlumnos2"
+            data-id = "{{ $codCurso }}" 
+            > Cargar Alumnos <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
+          </a>
         </div>  
+        @endif
       </div>
+      @if(!$modoSoloLectura)
+      <div class="col-md-12 col-xs-12">
+        <div class="x_content bs-example-popovers courseContainer">
 
-      <div class="x_content bs-example-popovers courseContainer">
+          <div id="btnAgregarHorario" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert"  style="cursor:pointer">
 
-        <div id="btnAgregarHorario" class="addCourseButton alert alert-success alert-dismissible fade in" role="alert"  style="cursor:pointer">
-
-          <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
-          </button>
-          <p class="pText"> Agregar Nuevo Horario a Evaluar</p>
+            <button id="btnAgregarHorario" type="button" class="close" aria-label="Close"><span aria-hidden="true">+</span>
+            </button>
+            <p class="pText"> Agregar Nuevo Horario a Evaluar</p>
+          </div>
         </div>
       </div>
+      @endif
       <div id="listHorarios">
         @foreach($horarios as $h)
         @if($h->ESTADO===1)
-        <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
-          <div class="x_content bs-example-popovers courseContainer">
-            <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
-              <button type="button" class="closeHorario close" data-dismiss="alert" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true">×</span>
-
-              </button>
-              <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+        <div class="col-md-6 col-xs-12">
+          <a class="" href="{{ route('profesor.alumnos') }}?idCurso={{$idCurso}}&idHorario={{$h->ID_HORARIO}}&vistaProc=horarios">
+            <div class="x_content bs-example-popovers courseContainer">
+              <div class="courseButton alert alert-success alert-dismissible fade in" role="alert">
+                @if(!$modoSoloLectura)
+                <button type="button" class="closeHorario close" aria-label="Close" idHorario="{{$h->ID_HORARIO}}" nombreHorario="{{$h->NOMBRE_HORARIO}}"><span aria-hidden="true"><i class="fas fa-trash" style="color:black;display:none;font-size: 16px" ></i></span>
+                </button>
+                @endif
+                <p class="pText">{{$h->NOMBRE_HORARIO}} - {{$h->NOMBRE_PROFESOR}}</p>
+              </div>
             </div>
-          </div>
-        </a>
-
+          </a>
+        </div>
         @endif
         @endforeach
       </div>
@@ -98,6 +107,7 @@
 
 
       <!-- Boton  -->
+      @if(!$modoSoloLectura)
       <div class="row" style="margin-left: 0px; margin-right: 0px">
         <div id="btnAgregarResultado"  class="x_content bs-example-popovers courseContainer"  style="cursor:pointer">
           <div class="addCourseButton alert alert-success alert-dismissible fade in" role="alert">
@@ -107,6 +117,7 @@
           </div>
         </div>
       </div>
+      @endif
       <!-- Resultados e indicadores -->
       <div class="row" style="margin-left: 0px; margin-right: 0px">
         <!-- start accordion -->
@@ -161,7 +172,7 @@
       <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
       id="modalResultados" data-keyboard="false" data-backdrop="static"
       aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-      <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+      <div class="modalHorarios modal-dialog" style="width: 600px; height: 300px" >
        <div class="modal-content" style="top: 40%">
         <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
@@ -249,7 +260,7 @@
 </div>
 
 @endif
-<a href="{{route('cursos.gestion')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la gestión de cursos</a>
+
 
 
 </div>
@@ -257,7 +268,7 @@
 <!-- Modal de Cargar Alumnos  -->
 
 <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-id="modalCargarAlumnos2" data-keyboard="false" data-backdrop="static"
+id="modalCargarAlumnos2" data-keyboard="true" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="customModal modal-dialog modal-lg ">
   <div class="modal-content" style="top: 30%">
@@ -276,28 +287,26 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
         <p class="pText">Arrastra y suelta un archivo <br> o <br> 
           <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnosDeCurso')}}"
           method = "post" enctype = "multipart/form-data">
-            {{csrf_field()}}
-            <div class = "form-group">
-              <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+          {{csrf_field()}}
+          <div class = "form-group">
+            <input type = "file" name = "upload-file" class="form-control image" style="border-color: white">
+          </div>
+          <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
+            <div class="col-md-4">
+              <input id="codCurso" name="codigoCurso" type="hidden">
+              <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
+              style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
             </div>
-            <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
-              <div class="col-md-4">
-                <input id="codCurso" name="codigoCurso" type="hidden">
-                <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
-                style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
-              </div>
-              <div class="col-md-4">
-                <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
-              </div>
-
+            <div class="col-md-4">
+              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
             </div>
-            
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <!-- /.modal-content -->
+</div>
+<!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
 </div>
@@ -347,62 +356,62 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 <div class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1"
 id="modalHorarios" data-keyboard="false" data-backdrop="static"
 aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 400px;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-      aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 class="reportsTitle mainTitle modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
-  </div>
-  <div class="modal-body">
-    <div class="container-fluid">
-      <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
-      <form id="frmCursosModal">
-        <div class="table-responsive" >
-          <table class="table table-striped jambo_table bulk_action" style="margin-bottom: 0px">
-            <thead >
-              <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-                <th class="pText column-title" style="border: none"></th>
-                <th class="pText column-title" style="border: none">Horario</th>
-                <th class="pText column-title" style="border: none">Profesor</th>
-                <th class="pText bulk-actions" colspan="7">
-                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                </th>
-              </tr>
-            </thead>
-            @foreach($horarios as $horario)
-            <tbody class="text-left">
-              <tr class="even pointer">
-                <td class="a-center"  style="background-color: white; padding-right: 0px">
-                 <div class="form-check" style="padding-left: 10px; width: 20px">
-                  <label>
-                    <input value="{{$horario->ID_HORARIO}}" class="get_value" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
-                  </label>
-                </div>
-              </td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
-              <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
+<div class="modal-dialog modal-lg" style="width: 400px;  
+vertical-align: middle; ">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"
+    aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="reportsTitle mainTitle modal-title" id="gridSystemModalLabel">Seleccionar Horarios</h4>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <h6 class="reportsTitle mainTitle modal-title">{{$codCurso}} {{$nombreCurso}}</h6>
+    <form id="frmCursosModal">
+      <div class="table-responsive" >
+        <table class="table table-striped jambo_table bulk_action" style="margin-bottom: 0px">
+          <thead >
+            <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
+              <th class="pText column-title" style="border: none"></th>
+              <th class="pText column-title" style="border: none">Horario</th>
+              <th class="pText column-title" style="border: none">Profesor</th>
+              <th class="pText bulk-actions" colspan="7">
+                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+              </th>
+            </tr>
+          </thead>
+          @foreach($horarios as $horario)
+          <tbody class="text-left">
+            <tr class="even pointer">
+              <td class="a-center"  style="background-color: white; padding-right: 0px">
+               <div class="form-check" style="padding-left: 10px; width: 20px">
+                <label>
+                  <input value="{{$horario->ID_HORARIO}}" class="get_value" type="checkbox" @if($horario->ESTADO===1) checked=checked @endif> <span class="pText label-text "></span>
+                </label>
+              </div>
             </td>
-            @endforeach
-          </tr>
-        </tbody>
-      </table>
+            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;">{{$horario->NOMBRE_HORARIO}}</td>
+            <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">{{$horario->NOMBRE_PROFESOR}}</td>
+          </td>
+          @endforeach
+        </tr>
+      </tbody>
+    </table>
 
-    </div> 
-  </form>
-  <div class="text-center modal-footer" style="padding-right: 0px; padding-left: 0px; border-color: transparent">
-    <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4">
-        <button id="btnActualizarHorarios" class="btn btn-success pText customButtonThin">Actualizar</button>
-      </div>
-      <div class="col-md-4">
-        <button id="btnCancelarHorarios" class="btn btn-success pText customButtonThin">Cancelar</button> 
-      </div>
-    </div>    
-  </div>
-
+  </div> 
+</form>
+<div class="text-center modal-footer" style="padding-right: 0px; padding-left: 0px; border-color: transparent">
+  <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
+    <div class="col-md-4">
+      <button id="btnActualizarHorarios" class="btn btn-success pText customButtonThin">Actualizar</button>
+    </div>
+    <div class="col-md-4">
+      <button id="btnCancelarHorarios" class="btn btn-success pText customButtonThin">Cancelar</button> 
+    </div>
+  </div>    
+</div>
 
 </div>
 </div>

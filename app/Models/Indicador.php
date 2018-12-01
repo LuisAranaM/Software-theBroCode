@@ -100,6 +100,19 @@ class Indicador extends Eloquent
                 ->where('CATEGORIAS.ID_RESULTADO','=', $idRes);
         return $sql;
 	}
+
+	static function getIndicadoresbyResultadoOrdenado($idResultado,$idSemestre,$idEspecialidad){
+		$sql = DB::table('INDICADORES')
+                ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')
+                ->select('INDICADORES.*')
+                ->where('INDICADORES.ESTADO','=', 1)
+                ->where('CATEGORIAS.ID_RESULTADO','=', $idResultado)
+                ->where('INDICADORES.ID_SEMESTRE','=',$idSemestre)
+                ->where('INDICADORES.ID_ESPECIALIDAD','=',$idEspecialidad);
+        $sql = $sql->orderBy('INDICADORES.VALORIZACION','ASC');
+        return $sql;	
+	}
+
     static function getIndicador() {
         $sql = DB::table('INDICADORES')
                 ->join('CATEGORIAS', 'INDICADORES.ID_CATEGORIA', '=', 'CATEGORIAS.ID_CATEGORIA')

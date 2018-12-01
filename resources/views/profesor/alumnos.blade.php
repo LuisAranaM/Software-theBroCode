@@ -47,7 +47,9 @@ body.loading .modalCargando {
 </style>
 
 @stop
-
+<?php 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
 @php ($idInd = array())
 @php ($i = 0)
 @foreach($indicadores as $indicador)
@@ -88,20 +90,26 @@ body.loading .modalCargando {
   </div>
 
   <div class="row">
+     <form action="{{ route('proyecto.store.masivo') }}" method="post" enctype="multipart/form-data">
    <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
      <thead >
       <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-       <th class="pText column-title" style="border: none"> Código</th>
-       <th class="pText column-title" style="border: none">Nombre</th>
-       <th class="pText column-title" style="border: none">Proyecto</th>
+       <th class="pText column-title" style=""> Código</th>
+       <th class="pText column-title" style="">Nombre</th>
+       @if(!$modoSoloLectura)
+       <th class="pText column-title" style=";width: 5%">Proyecto</th>
+       @endif
 
-       <th class="pText column-title" style="border: none"> </th>
-       <th class="pText column-title" style="border: none"> </th>
+       <!--<th class="pText column-title" style=""> </th>-->
+       <th class="pText column-title" style=""> </th>
        <!--para cada resultado-->
        @foreach($resultados as $resultado)
-       <th class="pText column-title" style="border: none">{{$resultado->NOMBRE}}</th>
+       <th class="pText column-title" style="">{{$resultado->NOMBRE}}</th>
        @endforeach 
+       @if(!$modoSoloLectura)
+       <th class="pText column-title" style=""> </th>
+       @endif
 
      </tr>
    </thead>
@@ -110,22 +118,21 @@ body.loading .modalCargando {
    <tbody class="text-left" id="listaAlumnos">
     @foreach($alumnos as $alumno)
 
-    <tr class="even pointer" id="columnaX">
-     <form action="{{ route('proyecto.store') }}" method="post" enctype="multipart/form-data">
+    <tr class="even pointer" id="ocultarTachito">
       {{ csrf_field() }}
       <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
-      <td class="pText" id="ocultarTachito" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
-        <div class="ocultarTachito"><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fa fa-trash fa-lg" id="1" style="color: #005b7f; padding-left: 2px; cursor: pointer"></i></div>
+      <td class="pText" id="" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
+      
       </td>
-      <input type="text" name="codAlumno" value="{{$alumno->CODIGO}}" hidden>
+      <input type="text" name="codAlumnos[]" value="{{$alumno->CODIGO}}" hidden>
       <input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>
+      @if(!$modoSoloLectura)
+      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivos[{{$alumno->ID_ALUMNO}}]" id = "file" class="fileToUpload"></td>    
+      @endif
 
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivo" id = "file"></td>    
-
-
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
+      <!--<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
         <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
-      </td>
+      </td>-->
       @foreach($projects as $project)                        
 
       @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
@@ -137,12 +144,13 @@ body.loading .modalCargando {
       @endif
 
       @endforeach
-    </form>
     @foreach($resultados as $resultado)
     <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idHorario="{{$horario[0]->ID_HORARIO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
-      <i class="fa fa-edit"></i>
-
+      <i class="fa fa-edit"></i></td>
       @endforeach
+      @if(!$modoSoloLectura)
+      <td>  <div class="ocultarTachito" style="margin-top: 10px"><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer"></i></div></td>
+      @endif
     </tr>
 
 
@@ -151,6 +159,10 @@ body.loading .modalCargando {
 </table>
 
 </div>
+@if(!$modoSoloLectura)
+       <button type = "submit" class = "btn btn-success btn-lg pText customButton">Subir<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+       @endif
+    </form>
 
 </div>
 </div>
@@ -168,7 +180,7 @@ body.loading .modalCargando {
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
  id="modalCalificacion" data-keyboard="false" data-backdrop="static"
  aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="z-index: 2000;position: fixed;">
- <div class="customModal modal-dialog modal-lg" style="width: 600px; height: 300px" >
+ <div class="modalAlumnos modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"

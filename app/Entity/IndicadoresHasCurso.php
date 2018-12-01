@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use App\Models\IndicadoresHasCurso as mIndicadoresHasCurso;
+use App\Models\Curso as mCurso;
+use App\Models\Resultado as mResultado;
+use App\Models\Indicador as mIndicador;
 use Jenssegers\Date\Date as Carbon;
 
 class IndicadoresHasCurso extends \App\Entity\Base\Entity {
@@ -45,6 +48,44 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
             //$this->setMessage('Hubo un error en el servidor de base de datos');
             return false;
         }
+    }
+
+    static function getResultadosByIndicadores(){
+        $final = [];
+        $cursos = mCurso::getCursos(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        //dd($cursos);
+        foreach ($cursos as $curso){
+            $cursoTemp= [];
+            //dd($curso->ID_CURSO);
+            array_push($cursoTemp, $curso->CODIGO_CURSO, $curso->NOMBRE);
+            $resultadosTemp = [];
+            $resultadosTemp = mResultado::getResultadosByCurso($curso->ID_CURSO,self::getIdSemestre(),self::getEspecialidadUsuario())->get();            
+            $resultados = [];
+            foreach($resultadosTemp as $resultado){
+                $resultadoTemp = [];
+                array_push($resultadoTemp,$resultado->NOMBRE,$resultado->DESCRIPCION);
+                
+                $indicadoresTemp = [];
+                $indicadoresTemp = mIndicador::getIndicadoresbyResultadoOrdenado($resultado->ID_RESULTADO,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+                $indicadores = [];
+                foreach ($indicadoresTemp as $indicador) {
+                    $indicadorTemp = [];
+                    array_push($indicadorTemp,$indicador->VALORIZACION,$indicador->NOMBRE);
+                    $existe = mIndicadoresHasCurso::getindicadorbyIdCurso($indicador->ID_INDICADOR,$curso->ID_CURSO,self::getIdSemestre(),self::getEspecialidadUsuario())->first();
+                    if(!$existe) array_push($indicadorTemp,0);
+                    else array_push($indicadorTemp,1);
+
+                    array_push($indicadores,$indicadorTemp);
+                }
+                array_push($resultadoTemp,$indicadores);
+
+
+                array_push($resultados,$resultadoTemp);
+            }
+            array_push($cursoTemp,$resultados);
+            array_push($final,$cursoTemp);
+        }
+        dd($final);
     }
     
 }

@@ -164,4 +164,15 @@ class IndicadoresHasCurso extends Eloquent
 					->where('indicadores.ID_ESPECIALIDAD', '=', 'indicadores_has_cursos.ID_ESPECIALIDAD')
 					->where('indicadores.ID_SEMESTRE', '=', 'indicadores_has_cursos.ID_SEMESTRE');
 	}
+
+	static function getindicadorbyIdCurso($idIndicador,$idCurso,$idSemestre,$idEspecialidad){
+		$sql = DB::table('INDICADORES_HAS_CURSOS')
+				->select('*')		
+				->where('ID_CURSO','=',$idCurso)
+				->where('ID_INDICADOR','=',$idIndicador)
+				->where('ID_SEMESTRE','=',$idSemestre)
+				->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+				->where('ESTADo','=',1);
+		return $sql;
+	}
 }

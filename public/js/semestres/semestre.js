@@ -10,6 +10,13 @@
 				format: "yyyy-mm-dd",
 			})
 			.on('changeDate', function(e) {
+        $('#frmEditarSemestre').formValidation('revalidateField', 'fInicio');
+        $('#frmEditarSemestre').formValidation('revalidateField', 'fFin');
+        $('#frmEditarSemestre').formValidation('revalidateField', 'fAlerta'); 
+
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fInicio');
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fFin');
+        $('#frmNuevoSemestre').formValidation('revalidateField', 'fAlerta');
             // Revalidate the date field
             //revalidateFechas();            	
         });
@@ -53,8 +60,8 @@ $('#semestreAct').on('change', function(e) {
 
     var resp=confirm("¿Estás seguro que deseas eliminar el semestre "+semestre+"?");
     if (resp == true) {
-      filaSemestre.remove();
-      //eliminarUsuario(idUsuario,nombreUsuario,filaSemestre);            
+      //filaSemestre.remove();
+      eliminarSemestre(idSemestre,semestre,filaSemestre);            
     } 
     e.preventDefault();
     console.log('HOLI');
@@ -69,16 +76,80 @@ $('#semestreAct').on('change', function(e) {
         var fInicio=filaSemestre.attr('fInicio');
         var fFin=filaSemestre.attr('fFin');
         var fAlerta=filaSemestre.attr('fAlerta');
-        
-        $('#panelEditarUsuario').removeClass('hidden');
-        $('#panelEditarUsuario input[name="anho"]').val(anho);
-        $('#panelEditarUsuario input[name="ciclo"]').val(ciclo);
-        $('#panelEditarUsuario input[name="fInicio"]').val(fInicio);
-        $('#panelEditarUsuario input[name="fFin"]').val(fFin);
-        $('#panelEditarUsuario input[name="fAlerta"]').val(fAlerta);
+
+        $('#frmEditarSemestre').formValidation('destroy', true);
+        initializeFormSemestre();
+        $('#modalEditarSemestre').modal('show');
+        $('#modalEditarSemestre input[name="idSemestre"]').val(idSemestre);
+        $('#modalEditarSemestre input[name="anho"]').val(anho);
+        $('#modalEditarSemestre input[name="ciclo"]').val(ciclo);
+        $('#modalEditarSemestre input[name="fInicio"]').val(fInicio);
+        $('#modalEditarSemestre input[name="fFin"]').val(fFin);
+        $('#modalEditarSemestre input[name="fAlerta"]').val(fAlerta);
         e.preventDefault();
         console.log('HOLI');
     });
+
+    $('#frmNuevoSemestre').formValidation({
+      framework: 'bootstrap',
+      icon: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+  anho: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
+},
+ciclo: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
+},
+fInicio: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+},
+fFin: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+},
+fAlerta: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+}
+
+
+},
+})
+    .off('success.form.fv');  
 		
 	});
 
@@ -91,7 +162,7 @@ $('#semestreAct').on('change', function(e) {
         type: 'POST',        
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+        }, 
         data:{
             idSemestre:idSemestre,
         },
@@ -106,3 +177,101 @@ $('#semestreAct').on('change', function(e) {
     });
 
 }
+
+
+
+
+
+function initializeFormSemestre() {
+    //console.log('Ingresamos al form validation');
+    
+    return $('#frmEditarSemestre').formValidation({
+      framework: 'bootstrap',
+      icon: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+  anho: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
+},
+ciclo: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+ }
+},
+fInicio: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+},
+fFin: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+},
+fAlerta: {
+  validators: {
+    notEmpty: {
+     message: '*Campo obligatorio'
+   },
+   date: {
+      format: 'YYYY-MM-DD',
+      message: 'Ingrese una fecha válida',
+    }
+ }
+}
+
+
+},
+})
+    .off('success.form.fv');  
+
+  }
+
+
+
+function eliminarSemestre(idSemestre,semestre,filaSemestre){
+    //console.log("Necesitamos agregar cursos");
+    //filaUsuario.remove();
+      //eliminarUsuario(idUsuario);      
+      $.ajax({
+        url: APP_URL + 'admin/gestionar-semestre/eliminar',
+        //url: "{{route('eliminar.acreditacion')}}",     
+        type: 'POST',        
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{
+          idSemestre:idSemestre,
+        },
+        success: function (result) {
+          filaSemestre.remove();
+          alert('Se eliminó el semestre '+semestre+' correctamente');
+        },
+        error: function (xhr, status, text) {
+          e.preventDefault();
+          alert('Hubo un error al eliminar el usuario');
+        }
+      });
+
+    }

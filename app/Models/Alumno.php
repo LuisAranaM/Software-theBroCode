@@ -134,13 +134,18 @@ class Alumno extends Eloquent
         return $ans;
     }
 
-    static function build(&$alumnosPorHorario, &$horariosValidos){
-        foreach($horariosValidos as $x){
-            $nombreHorario = $x->NOMBRE;
-            $alumnosPorHorario[$nombreHorario] = array();
-            $alumnosPorHorario[$nombreHorario]["idHorario"] = $x->ID_HORARIO;
-            $alumnosPorHorario[$nombreHorario]["codigoHorario"] = $nombreHorario;
-            $alumnosPorHorario[$nombreHorario]["alumnos"] = array();
+    static function build(&$alumnosPorHorario, &$horariosValidos, &$valid){
+        try{
+            foreach($horariosValidos as $x){
+                $nombreHorario = (int)($x->NOMBRE);
+                $alumnosPorHorario[$nombreHorario] = array();
+                $alumnosPorHorario[$nombreHorario]["idHorario"] = $nombreHorario;
+                $alumnosPorHorario[$nombreHorario]["codigoHorario"] = $nombreHorario;
+                $alumnosPorHorario[$nombreHorario]["alumnos"] = array();
+            }
+            $valid = true;
+        }catch(Exception $e){
+            $valid = false;
         }
     }
 
@@ -159,9 +164,10 @@ class Alumno extends Eloquent
             $alumnos = Alumno::getAlumnos($idSemestre, $idEspecialidad);
             $horariosValidos = Horario::getHorariosByCodCurso($idSemestre, $idEspecialidad, $idCurso);
             $cont = 0;
-            
-            Alumno::build($alumnosPorHorario,$horariosValidos);
+            $valid = 0;
+            Alumno::build($alumnosPorHorario,$horariosValidos, $valid);
 
+            if(!$valid) return 2;
             /* Iterar por cada dato */
             foreach ($data as $key => $value) {
                 $alumno = ['ID_SEMESTRE' => $idSemestre,
@@ -184,8 +190,9 @@ class Alumno extends Eloquent
                 if(Alumno::horarioValido($horariosValidos,$value->horario)){
                     // alumno sera agregado a este horario
                     foreach($alumnosPorHorario as $it){
-                        if($it["codigoHorario"] == $value->horario){
-                            $it["alumnos"][] = $alumno;
+                        $x = (int)($value->horario);
+                        if($it["codigoHorario"] == $x){
+                            $alumnosPorHorario[$x]["alumnos"][] = $alumno;
                             break;
                         }
                     }

@@ -6,7 +6,8 @@
  */
 
 namespace App\Models;
-
+use DB;
+use Log;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -56,5 +57,30 @@ class UsuariosHasEspecialidades extends Eloquent
 	public function especialidad()
 	{
 		return $this->belongsTo(\App\Models\Especialidad::class, 'ID_ESPECIALIDAD');
+	}
+
+	function verComoEspecialidad($data){
+		//dd(Carbon::now());    
+		DB::beginTransaction();
+		$status = true;
+
+		try {
+
+			DB::table('USUARIOS_HAS_ESPECIALIDADES')                
+			->where('ID_USUARIO','=',$data['ID_USUARIO'])
+			->where('ESTADO','=',1)
+			->delete();
+
+			DB::table('USUARIOS_HAS_ESPECIALIDADES')                
+			->insert($data);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			Log::error('BASE_DE_DATOS|' . $e->getMessage());
+			$status = false;
+			DB::rollback();
+		}
+		return $status;
+        //dd($sql->get());
 	}
 }

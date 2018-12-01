@@ -22,5 +22,10 @@ class ProfesoresHasHorario extends \App\Entity\Base\Entity {
         ]);
     }
 
+    static function getProfesorHorario($idHorario){
+        $model=new mProfesoresHasHorario();
+        return $model->getProfesorHorario($idHorario)->first()->NOMBRES_COMPLETOS;
+    }
+
     
 }

@@ -15,6 +15,8 @@ $( document ).ready(function() {
 
   });
 
+
+
   $(".eliminarUsuario").on("click", function(e){
     var filaUsuario=$(this).parent().parent();
     var idUsuario=filaUsuario.attr('idUsuario');
@@ -27,35 +29,62 @@ $( document ).ready(function() {
       eliminarUsuario(idUsuario,nombreUsuario,filaUsuario);            
     } 
     e.preventDefault();
-    });
+  });
 
-   $(".editarUsuario").on("click", function(e){
+  $(".editarUsuario").on("click", function(e){
     var filaUsuario=$(this).parent().parent();
     var idUsuario=filaUsuario.attr('idUsuario');
     var nombreUsuario=filaUsuario.attr('nombreUsuario');
-      console.log("Vamos a editar a "+nombreUsuario+ ' con el id '+idUsuario);
-    });
+    var usuario=filaUsuario.attr('usuario');
+    var nombres=filaUsuario.attr('nombres');
+    var apellidoPat=filaUsuario.attr('apellidoPat');
+    var apellidoMat=filaUsuario.attr('apellidoMat');
+    var correo=filaUsuario.attr('correo');
+    var rol=filaUsuario.attr('rol');
+    var especialidad=filaUsuario.attr('especialidad');
+    console.log("Vamos a editar a "+nombreUsuario+ ' con el id '+idUsuario);
+
+
+    $('#frmEditarUsuario').formValidation('destroy', true);
+    initializeFormUsuario();
+    $('#modalEditarUsuario').modal('show');
+
+    if(rol!=1){
+      $('.cboEspecialidad').removeAttr('disabled');
+      }
+
+    $('#modalEditarUsuario input[name="idUsuario"]').val(idUsuario);
+    $('#modalEditarUsuario input[name="usuario"]').val(usuario);
+    $('#modalEditarUsuario input[name="nombres"]').val(nombres);
+    $('#modalEditarUsuario input[name="apellidoPat"]').val(apellidoPat);
+    $('#modalEditarUsuario input[name="apellidoMat"]').val(apellidoMat);
+    $('#modalEditarUsuario input[name="email"]').val(correo);
+    $('#modalEditarUsuario select[name="rol"]').val(rol);
+    $('#modalEditarUsuario select[name="especialidad"]').val(especialidad);
+    e.preventDefault();
+    console.log('HOLI');
+  });
 
 
   /*$('.formatInputNumber').keyup(function () {
     this.value = (this.value + '').replace(/[^0-9]/g, '');
-  });
-
+  });*/
+/*
     $('.formatInputLetter').keyup(function () {
     this.value = (this.value + '').replace(/^[a-zA-ZñÑáéíóúü ]/g, '');
   });*/
 
 
-  $( "#cboRol" ).change(function() {
+  $( ".cboRol" ).change(function() {
       //alert( "Handler for .change() called." );
       var idRol=$(this).val();
 
       if(idRol==1){
-        $('#cboEspecialidad').val('');
-        $('#cboEspecialidad').attr('disabled',true);
+        $('.cboEspecialidad').val('');
+        $('.cboEspecialidad').attr('disabled',true);
       }
       else{
-        $('#cboEspecialidad').removeAttr('disabled');
+        $('.cboEspecialidad').removeAttr('disabled');
       }
     });
 
@@ -66,32 +95,32 @@ function eliminarUsuario(idUsuario,nombreUsuario,filaUsuario){
     //console.log("Necesitamos agregar cursos");
     //filaUsuario.remove();
       //eliminarUsuario(idUsuario);      
-    $.ajax({
+      $.ajax({
         url: APP_URL + 'admin/gestionar-usuario/eliminar',
         //url: "{{route('eliminar.acreditacion')}}",     
         type: 'POST',        
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data:{
-            idUsuario:idUsuario,
+          idUsuario:idUsuario,
         },
         success: function (result) {
-            filaUsuario.remove();
-            alert('Se eliminó al usuario '+nombreUsuario+' correctamente');
+          filaUsuario.remove();
+          alert('Se eliminó al usuario '+nombreUsuario+' correctamente');
         },
         error: function (xhr, status, text) {
-            e.preventDefault();
-            alert('Hubo un error al eliminar el usuario');
+          e.preventDefault();
+          alert('Hubo un error al eliminar el usuario');
         }
-    });
+      });
 
-}
+    }
 
-function initializeFormUsuario() {
+    function initializeFormUsuario() {
     //console.log('Ingresamos al form validation');
     
-    return $('#frmNuevoUsuario').formValidation({
+    return $('.frmUsuario').formValidation({
       framework: 'bootstrap',
       icon: {
         valid: 'glyphicon glyphicon-ok',
@@ -104,10 +133,10 @@ function initializeFormUsuario() {
             notEmpty: {
              message: '*Campo obligatorio'
            },
-           regexp: {
+           /*regexp: {
             regexp: /^[0-9]+$/,
             message: 'El código debe ser numérico'
-          },
+          },*/
           stringLength: {
             message: 'El usuario debe tener como máximo 8 caracteres',
             max: 8
