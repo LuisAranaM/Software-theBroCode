@@ -95,6 +95,7 @@ class Entity {
 
    public static function getSemestre(){
         $model= new mSemestre();
+        if($model->getCiclo(self::getIdSemestre())->count()==0) return "";
         return $model->getCiclo(self::getIdSemestre())->first()->SEMESTRE;
     }
 
