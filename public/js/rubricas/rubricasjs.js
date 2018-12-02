@@ -1,6 +1,6 @@
 $( document ).ready(function() {
-	console.log("inicioR");
-
+¡
+	//muestra y oculta los iconos de "eliminar y editar" de los Indicadores
 	$(document).on({
 		mouseenter: function () {
 			$( this ).find("i.fa-trash").show();
@@ -12,7 +12,8 @@ $( document ).ready(function() {
 		}
 	}, '.indicadorBox');
 
-		$(document).on({
+	//muestra y oculta los iconos de "eliminar y editar" de los Resultados
+	$(document).on({
 		mouseenter: function () {
 			$( this ).find("i.fa-trash").show();
 			$( this ).find("i.fa-pen").show();
@@ -23,17 +24,7 @@ $( document ).ready(function() {
 		}
 	}, '.resultadoBox');
 
-
-	$("#abrir").on("click", function(){
-		$("#modalIndicador").modal("show");
-	})
-
-	$(".btnCargarAlumnos2").on("click", function(){
-		var cod = $(this).data('id');
-		$(".modal-body #bookId").val( cod );
-		$("#modalCargarAlumnos").modal("show");
-	})
-
+	//Elimina un indicador
 	$(document).on("click",".indicadorTrash", function(e){
 
 		//var codigoCurso=$(this).attr('codigoCurso');
@@ -49,6 +40,7 @@ $( document ).ready(function() {
         e.preventDefault();
     });
 
+	//Elimina un resultado 
 	$(document).on("click",".resultTrash", function(e){
 		//var codigoCurso=$(this).attr('codigoCurso');
         //var nombreCurso=$(this).attr('nombreCurso');
@@ -64,63 +56,13 @@ $( document ).ready(function() {
         e.preventDefault();
     });
 
-	$(document).on("click",".agregarIndicador", function(){
-		
-		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
-		$(".ordenIndicador").val("");
-		$(".descripcionIndicador").val("");
-		$(".descNom").val("");
-		$(".desc").val("");
-		$('#agregarFilaIcono').remove();
-		$('#removeAgregar').remove();
-		$('#filasDescs').remove();
-		$('#numDescripciones').attr("value", 3);
-		var html='<div id="filasDescs" class="row rowFinal2">'
-		html+='<div class="col-md-6 col-xs-12 no-padding">'
-		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
-		html+='<p class="pText descOrd" numdesc="1" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 1</p>'
-		html+='</div>'
-		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
-		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
-		html+='</div>'
-		html+='<div id="" class="col-xs-12">'
-		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
-		html+='</div>'
-		html+='</div>'
-
-		html+='<div class="col-md-6 col-xs-12 no-padding">'
-		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
-		html+='<p class="pText descOrd" numdesc="2" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 2</p>'
-		html+='</div>'
-		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
-		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
-		html+='</div>'
-		html+='<div id="" class="col-xs-12">'
-		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
-		html+='</div>'
-		html+='</div>'
-
-		html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
-		html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
-		html+='<p class="pText">Agregar nueva valorización</p>'
-		html+='</div>'
-		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
-		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
-		html+='</div>'
-		html+='</div>'
-		
-		$('#filasDesc').append(html);
-		$("#modalIndicador").modal("show");
-		$("#modalIndicador").val($(this).attr('id'));
-
-	});
-
+	//Muestra el Modal de Agregar Resultado
 	$("#AgregarResultado").on("click", function(e){
 		
 		$("#ModalTitle").text("Agregar Nuevo Resultado" );
 		$(".nombreResultado").val("");
 		$(".descripcionResultado").val("");
-		$('#agregarFilaIcono').remove();
+		$('#contenedorAE').remove();
 		$('#filasCats').remove();
 		var html = '<div id="filasCats">';
 		html+='<div id="" class="col-xs-11" style="padding-bottom: 6px">'
@@ -136,6 +78,60 @@ $( document ).ready(function() {
 		e.preventDefault();
 	});
 
+	//Muestra el Modal de Agregar Indicador
+	$(document).on("click",".agregarIndicador", function(){
+		
+		$("#ModalTitle").text( "Agregar Nuevo Indicador" );
+		$(".ordenIndicador").val("");
+		$(".descripcionIndicador").val("");
+		$(".descNom").val("");
+		$(".desc").val("");
+		$('#agregarFilaIcono').remove();
+		$('#removeAgregar').remove();
+		$('#filasDescs').remove();
+		$('#numDescripciones').attr("value", 3);
+		var html='<div id="filasDescs" class="row rowFinal2">'
+		html+='<div class="col-md-6 col-xs-12 no-padding" id="1Contenedor">'
+		html+='<div id="1" class="col-xs-6 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<p class="pText descOrd" numdesc="1" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 1</p>'
+		html+='</div>'
+		html+='<div id="1" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='<div id="1" class="col-xs-12">'
+		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='</div>'
+
+		html+='<div class="col-md-6 col-xs-12 no-padding" id="2Contenedor">'
+		html+='<div id="2" class="col-xs-6 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<p class="pText descOrd" numdesc="2" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel 2</p>'
+		html+='</div>'
+		html+='<div id="2" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='<div id="2" class="col-xs-12">'
+		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
+		html+='</div>'
+		html+='<div id="contenedorAE">'
+		html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
+		html+='</div>'
+		html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
+		html+='</div>'
+		html+='</div>'
+		//html+='<div class="text-right">'
+		//html+='<p class="pText">Eliminar...</p>'
+		//html+='</div>'
+		html+='</div>'
+		
+		$('#filasDesc').append(html);
+		$("#modalIndicador").modal("show");
+		$("#modalIndicador").val($(this).attr('id'));
+	});
+
+	//Muestra el Modal de Editar Resultado
 	$(document).on("click",".resultadoEdit", function(){
 		var codigo= $(this).parent().prev('div').find('p').text();
 		var descripcion=$(this).parent().next('a').find('p').text();
@@ -149,6 +145,7 @@ $( document ).ready(function() {
 		obtenerCategorias($(this).parent().attr("value"));
 	});
 
+	//Muestra el Modal de Editar Indicador
 	$(document).on("click",".indicadorEdit", function(){
 		var codigo= $(this).parent().prev('div').find('p').attr("value");
 		var descripcion=$(this).parent().next('div').find('p').text();
@@ -164,13 +161,7 @@ $( document ).ready(function() {
 		obtenerDescripciones($(this).attr("id"));
 	});
 
-
-	$("#CargarResultado").on("click", function(){
-		//console.log("Cargando Resultados");
-		$("#modalResultados").modal("show");
-	});
-
-
+	//Confirmar Agregar Resultado o Editar Resultado
 	$('#btnAgregarResultado').on('click',function(e) {
 		var codRes = $('#txtCodigoResultado').val();
 		var descRes = $('#txtResultado').val();
@@ -188,7 +179,7 @@ $( document ).ready(function() {
 			//console.log(cat[1]);
 			console.log("si llega aca");
 			if(codRes!="" && descRes!="" && cat[0]!=""){
-				insertarResultados(codRes,descRes,cat);
+				insertarResultado(codRes,descRes,cat);
 				e.preventDefault();			
 			} else {
 				alert("Ingrese todos los campos del Resultado");
@@ -196,7 +187,7 @@ $( document ).ready(function() {
 		}	
 	});
 
-
+	//Confrimar Agregar Indicador o Editar Indicador
 	$('#btnAgregarIndicador').on('click', function(e) {
 
 		var res= $('#Resultado').attr("value");
@@ -231,7 +222,6 @@ $( document ).ready(function() {
 			}
 			for (i = 0; i <descsOrd.length; i++) {
 				if((descsNom[i]=="" || descs[i]=="")){
-					if(descsNom[i]=="" && descs[i]=="" && i+1==descsOrd.length) continue; 
 					alert("Oops! Ingrese todos los campos de las descripciones");
 					return;
 					//$('#filasDesc .descNom:first').focus();						
@@ -254,15 +244,20 @@ $( document ).ready(function() {
 		//console.log(cat[1]);
 		if ($("#ModalTitle").text()!="Agregar Nuevo Indicador"){
 			var idInd= $("#modalIndicador").attr("idInd");
+			console.log(idInd);
+			console.log(ind);
+			console.log(ordenInd);
+			console.log(res);
 			actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat);
 			e.preventDefault();
 		}else{
 			console.log("si llega aca");
-			insertarIndicadores(idCat,ind,ordenInd,descs,descsNom,descsOrd,res);
+			insertarIndicador(idCat,ind,ordenInd,descs,descsNom,descsOrd,res);
 			e.preventDefault();	
 		}
-		
 	});
+
+	//Agregar una fila de Categoria en el Modal de Resultado
 	$(document).on('click','#filasCat .fa-plus-circle ' ,function(e) {
 		$('#agregarFilaIcono').remove();
 		html=''
@@ -280,27 +275,15 @@ $( document ).ready(function() {
 		e.preventDefault();
 	});
 
-	$(document).on('click','#filasCat .fa-trash-add' ,function(e) {
-		$(this).parent().prev('div').remove();
-		$(this).parent().remove();
-		e.preventDefault();
-	});
-	$(document).on('click','#filasCat .fa-trash-edit' ,function(e) {
-		$(this).parent().prev('div').remove();
-		$(this).parent().remove();
-		e.preventDefault();
-	});
-
-
-
-	//Agregar nueva valorizacion
-	$(document).on('click','#filasDesc .fa-plus-circle ' ,function(e) {
+	//Agregar una fila de Descripcion en el Modal de Indicador
+	$(document).on('click','#contenedorAgregar' ,function(e) {
 		var nivel = $('#numDescripciones').attr("value");
-		$('#contenedorAgregar').remove();
-		$('#removeAgregar').remove();
+		$('#contenedorAE').remove();
 		$('#agregarFilaIcono').remove();
+		$('#contenedorEliminar').remove();
+
 		html=''
-		html+='<div class="col-md-6 col-xs-12 no-padding">'
+		html+='<div class="col-md-6 col-xs-12 no-padding" id="'+nivel+'Contenedor">'
 		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 		html+='<p class="pText descOrd" numdesc="'+nivel+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + nivel + ' </p>'
 		html+='</div>'
@@ -310,31 +293,163 @@ $( document ).ready(function() {
 		html+='<div id="" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'	  
+		html+='<div id="contenedorAE">'
+		html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
 		html+='</div>'
-		html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
-		html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
-		html+='<p class="pText">Agregar nueva valorización</p>'
-		html+='</div>'
-		html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
-		html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
+		html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
 		html+='</div>'
 		html+='</div>'
+		html+='</div>'
+
 		$('#filasDescs').append(html);
 		nivel++;
 		$('#numDescripciones').attr("value", nivel);
 	});
 
+	//Eliminar una fila de Categoria en el Modal de Agregar Resultado
+	$(document).on('click','#filasCat .fa-trash-add' ,function(e) {
+		$(this).parent().prev('div').remove();
+		$(this).parent().remove();
+		e.preventDefault();
+	});
+
+	//Eliminar una fila de Categoria en el Modal de Editar Resultado
+	$(document).on('click','#filasCat .fa-trash-edit' ,function(e) {
+		$(this).parent().prev('div').remove();
+		$(this).parent().remove();
+		e.preventDefault();
+	});
+
+	//Eliminar Descripcion en el Modal de Indicador
+	$(document).on('click','#contenedorEliminar' ,function(e) {
+		var nivel = $('#numDescripciones').attr("value") -1;
+		if (nivel == 2) {
+			alert("Deben haber al menos dos niveles de valorización.");
+			return;
+		}
+		var nivel2 = $('#numDescripciones').attr("value") -2;
+		$('#' + nivel + 'Contenedor').remove();
+		html=''
+		html+='<div id="contenedorAE">'
+		html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
+		html+='</div>'
+		html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+		html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
+		html+='</div>'
+		html+='</div>'
+		$('#'+nivel2+'Contenedor').append(html);
+		 $('#numDescripciones').attr("value", nivel);
+	});
+
+	
+
 });
 
 
-
-function insertarDescripciones(desc,descNom, descOrd, idInd){
+//Inserta un Resultado y refresca la pagina de Resultados
+function insertarResultado(codRes,descRes,cat){
 	$.ajax({
 		type:'POST',
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: APP_URL + '/rubricas/insertar-descripciones',
+		url: APP_URL + '/rubricas/insertar-resultado',
+		data: {
+			_codRes: codRes,
+			_descRes: descRes,
+		},
+		dataType: "text",
+		success: function(result) {
+			result = JSON.parse(result);
+			var idRes= result;	
+			for(i=0; i<cat.length;i++){
+				console.log(cat[i]);
+				if(cat[i]=="") continue;
+				insertarCategoria(cat[i], idRes);
+			}
+			window.location = APP_URL + "/rubricas/gestion";			
+		},
+		error: function (xhr, status, text,e) {
+			e.preventDefault();
+			alert('Hubo un error al registrar la información');
+		}
+	});
+}
+
+//Inserta una Categoria
+function insertarCategoria(descCat, idRes){
+  
+	$.ajax({
+		type:'POST',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/insertar-categoria',
+		data: {
+			_descCat: descCat,
+			resultado: idRes,
+		},
+		dataType: "text",
+		async: false
+	});
+}
+
+//Inserta un Indicador y refresca los Indicadores con Ajax
+function insertarIndicador(idCat,ind,ordenInd,descs,descsNom,descsOrd,resultado){
+	$.ajax({
+		type:'POST',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/insertar-indicador',
+		data: {
+			_idCat: idCat,
+			_idRes: resultado,
+			_ind: ind,
+			_orden: ordenInd,
+		},
+		dataType: "text",
+		success: function(result) {
+			result = JSON.parse(result);
+			var idInd= result;
+			if(idInd== -2){
+				alert("Oops! Ya existe un indicador con este orden. Ingrese otro orden por favor");
+			}
+			else{
+				console.log(idInd);
+				console.log(descs.length);
+				for(i=0; i<descs.length;i++){
+					console.log(descs[i]);
+					if(descsNom[i]=="") continue;
+					var resp=insertarDescripcion(descs[i],descsNom[i],descsOrd[i], idInd);
+					if (resp==-2){
+						break;						
+					} 
+				}
+				var res = $('#ResultadoNombre').attr("value");
+				refrescarIndicadores(idCat,res);
+			}
+
+			//window.location = APP_URL + "/rubricas/categorias?idRes=" + idRes +"&resultado="+res;			
+		},
+		error: function (xhr, status, text) {
+
+			alert('Hubo un error al registrar la información');
+		}
+	});
+}
+
+//Inserta una Descripcion
+function insertarDescripcion(desc,descNom, descOrd, idInd){
+	$.ajax({
+		type:'POST',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: APP_URL + '/rubricas/insertar-descripcion',
 		data: {
 			_desc: desc,
 			_descNom: descNom,
@@ -356,6 +471,8 @@ function insertarDescripciones(desc,descNom, descOrd, idInd){
 
 	});
 }
+
+//Obtiene las Categorias de un Id de Resultado y Muestra el Modal de Editar Resultado
 function obtenerCategorias(idRes){
 	$.ajax({
 		url: APP_URL + '/rubricas/obtener-categorias',
@@ -399,40 +516,8 @@ function obtenerCategorias(idRes){
 	});
 }
 
-const http = {
-	get: function({
-		path,
-		data,
-		success,
-		error,
-
-	}) {
-		return $.ajax({
-			url: APP_URL + path,
-			type: 'GET',
-			headers: {},
-			data: data,
-			success: success,
-			error: error,
-			dataType: 'text'
-		})
-	}
-}
-
-
+//Obtiene las Descripciones de un Id de Indicador y Muestra el Modal de Editar Indicador
 function obtenerDescripciones(idInd){
-	/*http.get({
-		path: '/rubricas/obtener-descripciones',
-		data: {
-			_idInd: idInd
-		},
-		success: result => {
-
-		},
-		error: (xhr, status, text) => {
-
-		}
-	})*/
 	$.ajax({
 		url: APP_URL + '/rubricas/obtener-descripciones',
 		type:'GET',
@@ -447,11 +532,10 @@ function obtenerDescripciones(idInd){
 			result = JSON.parse(result);
 			var descripciones = result;
 			$('#agregarFilaIcono').remove();
-			$('#removeAgregar').remove();
 			$('#filasDescs').remove();
 			var html='<div id="filasDescs" class="row rowFinal2">'
 			for(i=0;i<descripciones.length;i++){
-				html+='<div class="col-md-6 col-xs-12 no-padding">'
+				html+='<div class="col-md-6 col-xs-12 no-padding"  id="'+(i+1)+'Contenedor">'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 				html+='<p class="pText descOrd" numdesc="'+descripciones[i].VALORIZACION+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + descripciones[i].VALORIZACION + '</p>'
 				html+='</div>'
@@ -460,19 +544,22 @@ function obtenerDescripciones(idInd){
 				html+='</div>'
 				html+='<div id="'+descripciones[i].ID_DESCRIPCION+'" class="col-xs-12">'
 				html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" >'+descripciones[i].NOMBRE+'</textarea>'
-				html+='</div>'	  
-				html+='</div>'	
+				html+='</div>'
+				if (i<descripciones.length -1) {	  
+					html+='</div>'	
+				}
 			}
 			$('#numDescripciones').attr("value", descripciones.length + 1);
 			console.log($('#numDescripciones').attr("value") );
+			html+='<div id="contenedorAE">'
+			html+='<div id="contenedorAgregar" class="col-xs-7 text-left" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+			html+='<p class="pText">Agregar Valorizacion <i class="fas fa-plus fa-sm" style="padding-left: 2px"> </i></p>'
 			html+='</div>'
-			html+='<div id="contenedorAgregar" class="col-xs-12 no-padding">'
-			html+='<div id="removeAgregar" class="col-lg-5 col-xs-4 text-left" style="padding-top: 15px">'
-			html+='<p class="pText">Agregar nueva valorización</p>'
+			html+='<div id="contenedorEliminar" class="col-xs-5 text-right" style="padding-botom: 4px; padding-right: 12px; padding-top: 12px; cursor: pointer">'
+			html+='<p class="pText">Eliminar <i class="fas fa-trash fa-sm" style="padding-left: 2px"> </i></p>'
 			html+='</div>'
-			html+='<div id="agregarFilaIcono" class="col-md-2 col-sm-2 text-left" style="padding-top: 10px; margin-left: -40px">'
-			html+='<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>'
 			html+='</div>'
+			html+='</div>'	
 			$('#filasDesc').append(html);
 			$("#modalIndicador").modal("show");
 			$("#modalIndicador").attr("idInd",idInd);
@@ -482,6 +569,8 @@ function obtenerDescripciones(idInd){
 		}
 	});
 }
+
+//Refresca los Indicadores de la Pagina una vez confirmado el Modal de Editar o Agregar Indicador
 function refrescarIndicadores(idCat,resultado){
 	$.ajax({
 		url: APP_URL + '/rubricas/refrescar-indicadores',
@@ -528,6 +617,8 @@ function refrescarIndicadores(idCat,resultado){
 		}		
 	});
 }
+
+//Actualiza un Resultado una vez confirmado el Modal de Editar Resultado
 function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 	$.ajax({
 		type:'POST',
@@ -574,7 +665,7 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 					if(catIds[i]=="") continue;
 					else alert('No puedes dejar en blanco el nombre de una categoria');
 				else{
-					if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
+					if(catIds[i]=="") insertarCategoria(cat[i],idRes); //inserta una categoria
 					else actualizarCategoria(catIds[i],cat[i]);
 				}
 			}
@@ -586,6 +677,8 @@ function actualizarResultado(idRes,codRes,descRes,cat,catIds){
 		}
 	})
 }
+
+//Actualiza una Categoria
 function actualizarCategoria(idCat,cat){
 	$.ajax({
 		type:'POST',
@@ -606,6 +699,8 @@ function actualizarCategoria(idCat,cat){
 		} 
 	})
 }
+
+////Actualiza un Indicador una vez confirmado el Modal de Editar Indicador y refresca la pagina con ajax
 function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat){
 	$.ajax({
 		type:'POST',
@@ -622,30 +717,54 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 		dataType: "text",
 		success: function(result){
 			result = JSON.parse(result);
-			if(result== -2){
+			if(result[0]== -2){
 				alert("Oops! Ya existe un indicador con este orden. Ingrese otro orden por favor");
 				return;
 			}
 			else{
+				var descripciones = result[1];
+				var descEliminados=[];
+				var countEliminados=0;
+				for(j=0; j<descripciones.length;j++){
+					var idDescExistente= descripciones[j].ID_DESCRIPCION;
+					var eliminado =1 ;
+					for(i=0; i<descsId.length;i++){
+						var idDescNoEliminado= descsId[i]
+						if(idDescExistente==idDescNoEliminado){
+							eliminado=0;
+							break;
+						}
+					}
+					if(eliminado==1){
+						descEliminados[countEliminados]=idDescExistente;
+						countEliminados++;
+					}
+				}
+
+				if(countEliminados==descripciones.length){
+					alert('No puedes eliminar todas las descripciones!');
+					return;
+				}
+				for(k=0;k<countEliminados;k++){
+					borrarDescripcion(descEliminados[k]);
+				}
+
 				for(i=0; i<descs.length;i++){
 					console.log(descs[i]);
-					//si se deja un campo totalmente vacio se elimina 
-					if(descs[i]=="" && descsNom[i]=="" && descsId[i]!="" && i+1==descs.length){
-						borrarDescripcion(descsId[i]);
-						continue;
-					}
-					//o se obvia
-					if(descs[i]=="" && descsNom[i]==""){
-						continue;
+					if(descs[i]=="" || descsNom[i]==""){
+						if(descsId[i]="") continue;
+						else{
+							alert('No puedes dejar en blanco un descripcion');
+							return;
+						}
 					}
 					
 					//si tiene todos los campos llenos y un id se actualiza, si no tiene id se inserta
 					if(descsId[i]!=""){
-						console.log("BONI");
 						var resp =actualizarDescripcion(descsId[i],descs[i],descsNom[i],descsOrd[i],idInd);
 						if(resp==-2) break;							
 					} else {
-						var resp =insertarDescripciones(descs[i],descsNom[i], descsOrd[i], idInd);
+						var resp =insertarDescripcion(descs[i],descsNom[i], descsOrd[i], idInd);
 						if(resp==-2) break;
 					}
 					
@@ -658,10 +777,12 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 			//refrescarIndicadores(idCat,res);
 		},
 		error: function (xhr, status, text) {
-			alert('Hubo un error al actualizar el resultado');
+			alert('Hubo un error al actualizar el indicador');
 		}
 	})
 }
+
+//Actualiza una Descripcion
 function actualizarDescripcion(idDesc,desc,descNom,descOrd,idInd){
 	$.ajax({
 		type:'POST',
@@ -691,6 +812,8 @@ function actualizarDescripcion(idDesc,desc,descNom,descOrd,idInd){
 		} 
 	})
 }
+
+//Borra un Resultado
 function borrarResultado(id){
 	$.ajax({
 		type:'POST',
@@ -711,6 +834,8 @@ function borrarResultado(id){
 		}
 	});
 }
+
+//Borra una Categoria
 function borrarCategoria(id){
 	$.ajax({
 		type:'POST',
@@ -731,6 +856,8 @@ function borrarCategoria(id){
 		}
 	});
 }
+
+//Borra un Indicador
 function borrarIndicador(id){
 	$.ajax({
 		type:'POST',
@@ -752,6 +879,8 @@ function borrarIndicador(id){
 		}
 	});
 }
+
+//Borra una Descripcion
 function borrarDescripcion(id){
 	$.ajax({
 		type:'POST',
@@ -772,92 +901,4 @@ function borrarDescripcion(id){
 			alert('Hubo un error al eliminar una de las descripciones');
 		}
 	});
-}
-function insertarResultados(codRes,descRes,cat){
-	$.ajax({
-		type:'POST',
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url: APP_URL + '/rubricas/insertar-resultados',
-		data: {
-			_codRes: codRes,
-			_descRes: descRes,
-		},
-		dataType: "text",
-		success: function(result) {
-			result = JSON.parse(result);
-			var idRes= result;	
-			for(i=0; i<cat.length;i++){
-				console.log(cat[i]);
-				if(cat[i]=="") continue;
-				insertarCategorias(cat[i], idRes);
-			}
-			window.location = APP_URL + "/rubricas/gestion";			
-		},
-		error: function (xhr, status, text,e) {
-			e.preventDefault();
-			alert('Hubo un error al registrar la información');
-		}
-	});
-}
-function insertarCategorias(descCat, idRes){
-  
-	$.ajax({
-		type:'POST',
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url: APP_URL + '/rubricas/insertar-categorias',
-		data: {
-			_descCat: descCat,
-			resultado: idRes,
-		},
-		dataType: "text",
-		async: false
-	});
-}
-function insertarIndicadores(idCat,ind,ordenInd,descs,descsNom,descsOrd,resultado){
-	$.ajax({
-		type:'POST',
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url: APP_URL + '/rubricas/insertar-indicadores',
-		data: {
-			_idCat: idCat,
-			_idRes: resultado,
-			_ind: ind,
-			_orden: ordenInd,
-		},
-		dataType: "text",
-		success: function(result) {
-			result = JSON.parse(result);
-			var idInd= result;
-			if(idInd== -2){
-				alert("Oops! Ya existe un indicador con este orden. Ingrese otro orden por favor");
-			}
-			else{
-				console.log(idInd);
-				console.log(descs.length);
-				for(i=0; i<descs.length;i++){
-					console.log(descs[i]);
-					if(descsNom[i]=="") continue;
-					var resp=insertarDescripciones(descs[i],descsNom[i],descsOrd[i], idInd);
-					if (resp==-2){
-						break;						
-					} 
-				}
-				var res = $('#ResultadoNombre').attr("value");
-				refrescarIndicadores(idCat,res);
-			}
-
-			//window.location = APP_URL + "/rubricas/categorias?idRes=" + idRes +"&resultado="+res;			
-		},
-		error: function (xhr, status, text) {
-
-			alert('Hubo un error al registrar la información');
-		}
-	});
-	
 }

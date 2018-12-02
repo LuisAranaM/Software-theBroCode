@@ -89,7 +89,15 @@
        <tbody>
         @if(count($usuarios)>0)
         @foreach($usuarios as $usuario)
-        <tr idUsuario="{{$usuario->ID_USUARIO}}" nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}">
+        <tr idUsuario="{{$usuario->ID_USUARIO}}" 
+          nombreUsuario="{{$usuario->NOMBRES_COMPLETOS}}"
+          nombres="{{$usuario->NOMBRES}}"
+          apellidoPat="{{$usuario->APELLIDO_PATERNO}}"
+          apellidoMat="{{$usuario->APELLIDO_MATERNO}}"
+          usuario="{{$usuario->USUARIO}}"
+          correo="{{$usuario->CORREO}}"
+          rol="{{$usuario->ID_ROL}}"
+          especialidad="{{$usuario->ID_ESPECIALIDAD}}">
          <td style="vertical-align:middle;text-align:center">{{$usuario->USUARIO}}</td>
          <td style="vertical-align:middle;text-align:center">{{$usuario->CORREO}}</td>
          <td style="vertical-align:middle;text-align:center">{{$usuario->NOMBRES_COMPLETOS}} 
@@ -146,7 +154,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   <div class="modal-body">
     <div class="container-fluid text-center">
-      <form id="frmNuevoUsuario" method="POST" action="{{ route('administrador.usuario.crear') }}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
+      <form id="frmNuevoUsuario" class="frmUsuario" method="POST" action="{{ route('administrador.usuario.crear') }}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
         <div class="form-group">
           <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
           <input style="margin-bottom: 0px;"  class="form-control" type="hidden" name="perfil" value="">
@@ -167,13 +175,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <label>Apellido Materno</label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Materno" type="text" name="apellidoMat" value="">
             </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group">
               <label>Correo Electrónico </label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
             </div>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
-            <div class="form-group">
+            <!--<div class="form-group">
               <label>Contraseña</label>
               <input style="margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="pass">
             </div>
@@ -182,10 +190,11 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <input style="
               margin-bottom: 0px;" class="form-control" placeholder="Contraseña" type="password" name="passConfirm">
             </div>
+          -->
             <div class="form-group" style="height: 55px">
 
               <label>Rol</label>
-              <select class="form-control" name="rol" id="cboRol">
+              <select class="form-control cboRol" name="rol" id="cboRol">
                 <option value="">Selecciona una opción</option>
                 @foreach($roles as $rol)
                 <option value="{{$rol->ID_ROL}}">{{$rol->NOMBRE}}</option>
@@ -193,7 +202,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               </select>
             </div>
 
-            <div class="form-group" style="height: 55px">
+            <div class="form-group cboEspecialidad" style="height: 55px">
               <label>Especialidad</label>
               <select class="form-control" name="especialidad" id="cboEspecialidad" disabled="">
                 <option value="">Selecciona una opción</option>
@@ -236,11 +245,14 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   <div class="modal-body">
     <div class="container-fluid text-center">
-      <form id="frmEditarUsuario" method="POST" action="{{ route('administrador.usuario.editar') }}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
+      <form id="frmEditarUsuario" class="frmUsuario" method="POST" action="{{ route('administrador.usuario.editar') }}" style="margin-top: 10px;margin-bottom: 10px;" autocomplete="off">
         <div class="form-group">
           <input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
           <input style="margin-bottom: 0px;"  class="form-control" type="hidden" name="perfil" value="">
           <div class="col-md-6 col-sm-6 col-xs-12 text-left"> 
+            <div class="form-group" >
+              <input type="text" name="idUsuario" hidden="" >
+            </div>
             <div class="form-group">
               <label>Usuario</label>
               <input style="margin-bottom: 0px;"  class="form-control formatInputNumber" placeholder="Código PUCP" type="text" name="usuario" >
@@ -257,16 +269,16 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               <label>Apellido Materno</label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Apellido Materno" type="text" name="apellidoMat" value="">
             </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group">
               <label>Correo Electrónico </label>
               <input style="margin-bottom: 0px;"  class="form-control" placeholder="Correo Electrónico" type="text" name="email" value="">
             </div>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-12 text-left">
             <div class="form-group" style="height: 55px">
 
               <label>Rol</label>
-              <select class="form-control" name="rol" id="cboRol">
+              <select class="form-control cboRol" name="rol" id="cboRolEditar">
                 <option value="">Selecciona una opción</option>
                 @foreach($roles as $rol)
                 <option value="{{$rol->ID_ROL}}">{{$rol->NOMBRE}}</option>
@@ -276,7 +288,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
 
             <div class="form-group" style="height: 55px">
               <label>Especialidad</label>
-              <select class="form-control" name="especialidad" id="cboEspecialidad" disabled="">
+              <select class="form-control cboEspecialidad" name="especialidad" id="cboEspecialidadEditar" disabled="">
                 <option value="">Selecciona una opción</option>
                 @foreach($especialidades as $especialidad)
                 <option value="{{$especialidad->ID_ESPECIALIDAD}}">{{$especialidad->NOMBRE}}</option>

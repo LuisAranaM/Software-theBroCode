@@ -1,10 +1,14 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Categorías')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/rubricas/rubricasjs.js') }}"></script>
 @stop
 
+<?php 
+
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+?>
 <div class="customBody">
 
 	<div class="row">
@@ -14,6 +18,9 @@
 		<div id="Resultado" value="{{$idRes}}"></div>
 		<div id="ResultadoNombre" value="{{$resultado}}"></div>
 		<div id= "numDescripciones" value="0"> </div>
+		<div id= "uDescripcion" value=""> </div>
+		<div id="uNombre" value=""> </div>
+		<div id="uValorizacion" value=""> </div>
 	</div>
 	@include('flash::message')
 	<div class="row" >
@@ -31,19 +38,22 @@
 							<div class="col-sm-9 col-xs-8">
 								<p class="pText" value="{{$indicador->VALORIZACION}}" style="font-weight: bold; color: #72777a">{{$resultado}}.{{$indicador->VALORIZACION}}</p>
 							</div>
+							  @if(!$modoSoloLectura)
 							<div class="col-sm-3 col-xs-4" style="text-align: right">
 								<i id="{{$indicador->ID_INDICADOR}}" class="indicadorEdit fas fa-pen fa-md" style="color: #72777a; cursor: pointer; opacity: 0.7; display: none" id ="EditarIndicador"></i>
 								<i id="{{$indicador->ID_INDICADOR}}" class="indicadorTrash fas fa-trash fa-md" style="color: #72777a; padding-left: 6px; cursor: pointer; opacity: 0.7; display: none"></i>
 							</div>
+							@endif
 							<div class="col-xs-12">
 								<p class="pText">{{$indicador->NOMBRE}}</p>
 							</div>
 						</div>
 						@endforeach
-
+						
 						<div class="row text-left" style="padding-top: 5px">
-
+							@if(!$modoSoloLectura)
 							<p id="{{$categoria->ID_CATEGORIA}}" class="pText agregarIndicador" style="color: #72777a; opacity: 0.8; cursor: pointer; font-size: 16px"><i class="fas fa-plus"></i> Agregar nuevo indicador</p>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -108,13 +118,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" idInd="">
 						</div>
 					</div>
 					
-				</div>
-				<div id="removeAgregar" class="col-lg-6 col-sm-5 col-xs-7 text-left" style="padding-top: 15px">
-					<p class="pText">Agregar nueva valorizacion</p>
-				</div>
-				<div id="agregarFilaIcono" class="col-md-2 col-sm-2 col-xs-2 text-left" style="padding-top: 10px; margin-left: -40px">
-					<i class="fa fa-plus-circle fa-2x" style="color: #005b7f; padding-top: 2px"></i>
-				</div>				
+				</div>			
 			</div>
 		</div>
 

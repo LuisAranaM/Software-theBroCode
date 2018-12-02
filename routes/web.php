@@ -64,10 +64,11 @@ Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoC
 /*RÚBRICAS*/
 Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'ResultadoController@rubricasGestion']);
-	Route::post('/insertar-resultados', ['as' => 'insertar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
-	Route::post('/insertar-categorias', ['as' => 'insertar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
-	Route::post('/insertar-indicadores', ['as' => 'insertar.indicadores', 'uses' => 'ResultadoController@insertarIndicador']);
-	Route::post('/insertar-descripciones', ['as' => 'insertar.descripciones', 'uses' => 'ResultadoController@insertarDescripcion']);
+	
+	Route::post('/insertar-resultado', ['as' => 'insertar.resultado', 'uses' => 'ResultadoController@insertarResultado']);
+	Route::post('/insertar-categoria', ['as' => 'insertar.categoria', 'uses' => 'ResultadoController@insertarCategoria']);
+	Route::post('/insertar-indicador', ['as' => 'insertar.indicador', 'uses' => 'ResultadoController@insertarIndicador']);
+	Route::post('/insertar-descripcion', ['as' => 'insertar.descripcion', 'uses' => 'ResultadoController@insertarDescripcion']);
 	Route::post('/actualizar-resultado', ['as' => 'actualizar.resultado', 'uses' => 'ResultadoController@actualizarResultado']);
 	Route::post('/actualizar-categoria', ['as' => 'actualizar.categoria', 'uses' => 'ResultadoController@actualizarCategoria']);
 	Route::post('/actualizar-indicador', ['as' => 'actualizar.indicador', 'uses' => 'ResultadoController@actualizarIndicador']);
@@ -78,9 +79,11 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|
 	Route::post('/borrar-descripcion', ['as' => 'borrar.descripcion', 'uses' => 'ResultadoController@borrarDescripcion']);
 
 	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'ResultadoController@refrescarIndicadores']);
+
 	Route::get('/obtener-categorias', ['as' => 'obtener.categorias', 'uses' => 'ResultadoController@obtenerCategorias']);
 	Route::get('/obtener-descripciones', ['as' => 'obtener.descripciones', 'uses' => 'ResultadoController@obtenerDescripciones']);
 });
+
 /****RUTAS PARA CURSOS****/
 Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
@@ -119,12 +122,6 @@ Route::get('/resultadosFiltroDocs', ['as'=>'reultadosFiltro.docs','uses'=>'Reuni
 //Rutas para objetivos educacionales
 Route::get('/objetivos-educacionales', ['as'=>'objetivos','uses'=>'ObjetivosEducacionalesController@objetivosGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/objetivos-educacionales-gestion', ['as'=>'objetivosGestion','uses'=>'ObjetivosEducacionalesController@objetivosGestionTablas','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
-
-Route::get('/configuracionSemestreObj',['as'=>'configuracion','uses'=>'ObjetivosEducacionalesController@informacionObj','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-Route::post('/configuracionSemestreObj/copiar',['as'=>'configuracionObj.copiar','uses'=>'ObjetivosEducacionalesController@copiarObj','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
-
 Route::post('/eliminar-sos',['as'=>'eliminar.sos','uses'=>'ObjetivosEducacionalesController@eliminarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/eliminar-eos',['as'=>'eliminar.eos','uses'=>'ObjetivosEducacionalesController@eliminarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/editar-sos',['as'=>'editar.sos','uses'=>'ObjetivosEducacionalesController@editarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
@@ -132,7 +129,6 @@ Route::post('/editar-eos',['as'=>'editar.eos','uses'=>'ObjetivosEducacionalesCon
 Route::post('/agregar-sos',['as'=>'agregar.sos','uses'=>'ObjetivosEducacionalesController@agregarSos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/agregar-eos',['as'=>'agregar.eos','uses'=>'ObjetivosEducacionalesController@agregarEos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses'=>'ObjetivosEducacionalesController@objetivosGuardar','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
@@ -198,12 +194,16 @@ Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesCont
 Route::get('/getSemestres', ['as'=>'get.ciclos','uses'=>'SemestreController@getSemestres','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/getCursosbyIdSemestre', ['as'=>'get.cursos','uses'=>'CursoController@getCursosbyIdSemestre','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/resultadosCurso', ['as'=>'resultados.curso','uses'=>'ReportesController@graficoResultadosxCurso','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/graficoIndicadoresCurso', ['as'=>'grafico.indicadores.curso','uses'=>'ReportesController@graficoIndicadoresCurso','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
+
 
 Route::get('/indicadoresResultado', ['as'=>'grafico.indicadoresResultado','uses'=>'ReportesController@graficoIndicadoresResultado']);
 
 Route::get('/getResultadosCbo', ['as'=>'resultados.cbo','uses'=>'ResultadoController@getResultadosCbo']);
 
 Route::get('/getCursosByResultado', ['as'=>'get.cursosResultado','uses'=>'CursoController@getCursosByResultado','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/graficoHorariosResultado', ['as'=>'grafico.horarios.resultado','uses'=>'CursoController@graficoHorariosxResultado','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 
 
@@ -217,3 +217,4 @@ Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>
 
 Route::get('/configuracionSemestre',['as'=>'configuracion','uses'=>'ResultadoController@informacionRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/configuracionSemestre/copiar',['as'=>'configuracion.copiar','uses'=>'ResultadoController@copiarRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+

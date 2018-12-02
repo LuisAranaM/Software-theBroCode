@@ -159,6 +159,9 @@
 					<div class="form-group">
 						<input style="margin-bottom: 0px;" type="hidden" name="_token" value="{{ csrf_token() }}">
 					</div>
+					
+					<input type="text" name="idSemestre" hidden>
+
 					<div class="form-group col-md-4">
 						<label>Año</label>
 						<input style="margin-bottom: 0px;"  class="form-control formatInputNumber" placeholder="Año" type="text" name="anho" value="">

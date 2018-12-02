@@ -245,6 +245,7 @@ class CursoController extends Controller
     }
 
     public function visualizarData(Request $request){
+        //dd($request->all());
         $path = $request->file('upload-file')->getRealPath();
         $data = \Excel::load($path)->get();
         $fecha = date("Y-m-d H:i:s");
@@ -435,13 +436,13 @@ class CursoController extends Controller
         }
         //dd($listaCursosNuevos,$listaCursosMantenidos,$listaHorariosNuevos,$listaHorariosMantenidos,$listaProfesoresNuevos,$listaProfesoresMantenidos);
         //Arana en estos dos arreglos comentados abajo esta toda la data que necesitas
-        //dd($horariosNuevos,$listaProfesoresNuevos);
+        dd($horariosNuevos,$listaProfesoresNuevos);
 
     }
 
     public function store(Request $request){
         //dd($request->all());
-        $this->visualizarData($request);
+        //$this->visualizarData($request);
         if($request->hasFile('upload-file')){
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();
@@ -500,7 +501,7 @@ class CursoController extends Controller
                             //si no existe el profesor lo ingresamos
                             if(!$idProfesor){                                
                                 $datos_prof=[];                            
-                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
+                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'PASS'=>Hash::make($codProf), 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
                                 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>0, 'NOMBRES'=>$nombres, 'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
                                 array_push($listaProfesoresNuevos,$nombres,$aPaterno);
                                 $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);                                
@@ -571,7 +572,7 @@ class CursoController extends Controller
                             //si no existe el profesor lo ingresamos
                             if(!$idProfesor){                                
                                 $datos_prof=[];                            
-                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf, 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
+                                $datos_prof= ['ID_ROL'=>4, 'USUARIO'=>$codProf,'PASS'=>Hash::make($codProf), 'CORREO'=>$value->correo, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha,
                                 'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>0, 'NOMBRES'=>$nombres, 'APELLIDO_PATERNO'=>$aPaterno, 'APELLIDO_MATERNO'=>$aMaterno];
                                 array_push($listaProfesoresNuevos,$nombres,$aPaterno);
                                 $idProf = DB::table('USUARIOS')->insertGetId($datos_prof);
@@ -725,4 +726,12 @@ class CursoController extends Controller
         //dd(Curso::getCursosByResultado($idSemestre, $idResultado));
         return Curso::getCursosByResultado($idSemestre, $idResultado);
     }
+    public function graficoHorariosxResultado(Request $request){
+        $idSemestre = $request->get('idSemestre', null);
+        $idResultado = $request->get('idResultado', null);
+        $idCurso= $request->get('idCurso', null);
+        //dd(Curso::getCursosByResultado($idSemestre, $idResultado));
+        return Curso::graficoHorariosxResultado($idSemestre, $idResultado, $idCurso);
+    }
+    
 }

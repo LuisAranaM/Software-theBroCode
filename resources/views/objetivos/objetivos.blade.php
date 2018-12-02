@@ -1,10 +1,15 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Mapeo de Objetivos')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/avisos/avisos.js') }}"></script>
 @stop
+<?php 
+$contEos=count($objetivosEducacionales);
 
+$modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+
+?>
 <div class="customBody">
 
 	<div class="row">
@@ -13,9 +18,7 @@
 		</div>
 	</div>
 	@include('flash::message')
-	<?php 
-	$contEos=count($objetivosEducacionales);
-	?>
+	@if(count($objetivosEducacionales)>0)
 	<div class="row">
 		<div class="x_panel" style="padding: 20px">
 			<form action="{{ route('objetivos.guardar') }}" method="POST">
@@ -41,7 +44,7 @@
 								@foreach($objetivosEducacionales as $eo)								
 								<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
 									<label>
-										<input type="checkbox" class="form-check-input checkSosHasEos" 
+										<input <?php echo($modoSoloLectura? 'disabled' :'');?> type="checkbox" class="form-check-input checkSosHasEos" 
 										name="checkSosHasEos[]" value="{{$so->ID_SOS}}-{{$eo->ID_EOS}}" style="text-align: center;" 
 										<?php 
 										$attr='';
@@ -67,16 +70,19 @@
 					</table>
 
 				</div>
+				@if(!$modoSoloLectura)
 				<div id="btnsGuardar" style="border-color: transparent">
 					<div class="row text-center">
 						<button id="btnGuardarSosEos" class="btn btn-success pText customButton" >Actualizar <i class="fas fa-sync-alt" style="padding-left: 6px"> </i></button>
 					</div>
 
 				</div>
+				@endif
 			</form>
 
 		</div>
 	</div>
+	@endif
 	
 	
 

@@ -39,13 +39,13 @@ class ProyectoController extends Controller
         $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$id_usuario,'ESTADO'=>1, 'NOMBRE'=>$name_of_file.'.'.$extension_of_file,'ID_SEMESTRE'=>$semestre_actual,'ID_ESPECIALIDAD'=>$especialidad);
         //dd($data);
         $idAlumno = DB::table('ALUMNOS')
-                     ->select('ID_ALUMNO')
-                     ->where('CODIGO', '=', $codigo)
-                     ->get();
+        ->select('ID_ALUMNO')
+        ->where('CODIGO', '=', $codigo)
+        ->get();
         $idHorario = DB::table('HORARIOS')
-                     ->select('ID_HORARIO')
-                     ->where('NOMBRE', '=', $horario)
-                     ->get();
+        ->select('ID_HORARIO')
+        ->where('NOMBRE', '=', $horario)
+        ->get();
         #ahora insertaré en alumnos_has_horarios los atributos correspondientes para anexar el file subido al alumno en el horario respectivo
 
         $idProyecto = DB::table('PROYECTOS')->insertGetId(
@@ -56,11 +56,11 @@ class ProyectoController extends Controller
 
         //Update todos los proyectos para ese alumno en ese semestre y en este horario
         DB::table('ALUMNOS_HAS_HORARIOS')
-            ->where('ID_ALUMNO','=',$idAlumno[0]->ID_ALUMNO)
-            ->where('ID_SEMESTRE','=',$semestre_actual)
-            ->where('ID_ESPECIALIDAD','=',$especialidad)
-            ->where('ID_HORARIO','=',$horario)
-            ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$fecha]);
+        ->where('ID_ALUMNO','=',$idAlumno[0]->ID_ALUMNO)
+        ->where('ID_SEMESTRE','=',$semestre_actual)
+        ->where('ID_ESPECIALIDAD','=',$especialidad)
+        ->where('ID_HORARIO','=',$horario)
+        ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$fecha]);
 
 
         
@@ -69,15 +69,19 @@ class ProyectoController extends Controller
         );
         //dd($data,$dataAlumnoxHorario);
         flash('Se ha subido el archivo de forma correcta.')->success();
-    	return back();
+        return back();
     }
 
 
-        public function storeMasivo(Request $request){
+    public function storeMasivo(Request $request){
         
         $proyectos=new eProyecto();
-
-         if($proyectos->agregarMasivo($request->all(),Auth::id())){
+        if($request->file('archivos')==NULL){
+            flash('No se seleccionaron archivos para subir')->error();
+            return back();
+        }
+        
+        if($proyectos->agregarMasivo($request->all(),Auth::id())){
             flash('Los proyectos se registraron correctamente.')->success();
         } else {
             flash('Hubo un error al registrar los proyectos')->error();

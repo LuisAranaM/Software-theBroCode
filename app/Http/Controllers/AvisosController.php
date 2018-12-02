@@ -107,6 +107,7 @@ class AvisosController extends Controller
 
     public function gestionAvisos() {    
         $avisos = eAvisos::getAvisos()->get();
+        //dd($avisos);
         return view('avisos.avisos')
         ->with('avisos',$avisos);
     }

@@ -164,6 +164,8 @@ class Curso extends Eloquent
                 $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO,$indicadoresCurso);
                 $tot = Horario::getCantAlumnos($h->ID_HORARIO);
                 $horario["profesor"] = EProfesoresHasHorario::getProfesorHorario($h->ID_HORARIO);
+                //if($h->ID_HORARIO==5)
+                  //  dd($results);
                 //dd($horario["profesor"]);
                 $horario["alumnosTotal"] = $tot;
                 $part = 0;
@@ -355,6 +357,33 @@ class Curso extends Eloquent
 
         return $sql;
 
+    }
+
+    public function getDatagraficoHorariosxResultado($idSemestre, $idResultado, $idCurso){
+        $sql=DB::table('CURSOS AS CUR')
+            ->select('HOR.ID_CURSO','HOR.NOMBRE',
+            DB::Raw('SUM(CASE WHEN IHAH.ESCALA_CALIFICACION >=3 THEN 1 ELSE 0 END)/COUNT(*) AS PROMEDIO'))
+        ->leftJoin('INDICADORES_HAS_CURSOS AS IHC',function($join){
+                    $join->on('IHC.ID_CURSO','=','CUR.ID_CURSO');
+                })
+        ->leftJoin('HORARIOS AS HOR',function($join){
+                    $join->on('HOR.ID_CURSO','=','CUR.ID_CURSO');
+                })
+        ->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
+                    $join->on('IHAH.ID_INDICADOR','=','IHC.ID_INDICADOR');
+                    $join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
+                })
+        ->where('IHC.ID_RESULTADO','=',$idResultado) 
+        ->where('CUR.ESTADO_ACREDITACION','=',1)
+        ->where('CUR.ID_CURSO','=',$idCurso)
+        ->where('HOR.ESTADO','=',1) 
+        ->where('IHC.ESTADO','=',1)
+        ->groupBy('HOR.ID_HORARIO','HOR.NOMBRE');
+
+        return $sql;
+    }
+    static function getCursosByEspecialidadAndSemestre($idEspecialidad,$idSemestre){
+        
     }
 
 }

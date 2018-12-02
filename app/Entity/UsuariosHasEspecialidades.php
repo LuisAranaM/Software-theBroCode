@@ -22,5 +22,27 @@ class UsuariosHasEspecialidades extends \App\Entity\Base\Entity {
         ]);
     }
 
+       function verComoEspecialidad($idEspecialidad,$idUsuario){
+
+         $model= new mUsuariosHasEspecialidades();
+         $hoy=Carbon::now();
+         $dataEspecialidadUsuario=array();
+         $dataEspecialidadUsuario=[
+            'ID_USUARIO'=>$idUsuario,
+            'ID_ESPECIALIDAD'=>$idEspecialidad,
+            'FECHA_REGISTRO'=>$hoy,
+            'FECHA_ACTUALIZACION'=>$hoy,
+            'USUARIO_MODIF'=>$idUsuario,
+            'ESTADO'=>1,
+         ];
+         //dd($dataEspecialidadUsuario);
+
+         if ($model->verComoEspecialidad($dataEspecialidadUsuario)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+    }
     
 }
