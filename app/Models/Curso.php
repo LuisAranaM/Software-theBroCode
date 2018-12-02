@@ -359,8 +359,6 @@ class Curso extends Eloquent
 
     }
 
-<<<<<<< HEAD
-=======
     public function getDatagraficoHorariosxResultado($idSemestre, $idResultado, $idCurso){
         $sql=DB::table('CURSOS AS CUR')
             ->select('HOR.ID_CURSO','HOR.NOMBRE',
@@ -384,7 +382,6 @@ class Curso extends Eloquent
 
         return $sql;
     }
->>>>>>> 856d9a6d2d159d973061093426d891f63823cd9d
     static function getCursosByEspecialidadAndSemestre($idEspecialidad,$idSemestre){
         
     }
