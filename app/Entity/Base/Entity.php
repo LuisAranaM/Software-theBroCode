@@ -100,7 +100,7 @@ class Entity {
 
     public static function getSemestreByIdSemestre($idSemestre){
         $model= new mSemestre();
-        if( $model->getCiclo($idSemestre)->first()==NULL) return "";
+        if( $model->getCiclo($idSemestre)->count()==0) return "";
         return $model->getCiclo($idSemestre)->first()->SEMESTRE;
     }
 
