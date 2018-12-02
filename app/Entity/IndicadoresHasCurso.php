@@ -64,10 +64,12 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
             $resultados = [];
             foreach($resultadosTemp as $resultado){
                 $resultadoTemp = [];
-                array_push($resultadoTemp,$resultado->NOMBRE,$resultado->DESCRIPCION);
-                
                 $indicadoresTemp = [];
                 $indicadoresTemp = mIndicador::getIndicadoresbyResultadoOrdenado($resultado->ID_RESULTADO,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+                //Countamos los indicadores
+                $numIndicadores=count($indicadoresTemp);
+                array_push($resultadoTemp,$resultado->NOMBRE,$resultado->DESCRIPCION,$numIndicadores);
+                
                 $indicadores = [];
                 foreach ($indicadoresTemp as $indicador) {
                     $indicadorTemp = [];
@@ -92,11 +94,12 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
     static function generarExcelIndicadoresByCurso(){
         //dd("HOLI");
         $cursos=self::getIndicadoresByCursos();
+        //$cursos=[];
         //dd($cursos);
-        /*foreach ($cursos as $curso) {
+        foreach ($cursos as $curso) {
             dd($curso);
             # code...
-        }*/
+        }
 
 
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
@@ -107,6 +110,13 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
             
             $excel->setTitle('Mapeo de indicadores');
             $excel->sheet('CURSOS VS INDICADORES', function($sheet) use ($cursos){
+                $i=1;
+                //foreach($cursos as $curso)
+                if($i==1){
+                    $sheet->row($i++,array("","RESULTADO A","","RESULTADO B"));
+                    $sheet->row($i,array("","A1","A1","B1"));
+                }
+
                 /*$sheet->setColumnFormat(array('D' => '0%','E' => '0%'));
                 $sheet->getStyle('A2:H1000')->getAlignment()->setWrapText(true);
                 $sheet->cells('A2:H1000', function($cells) {

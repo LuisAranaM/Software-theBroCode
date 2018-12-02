@@ -281,7 +281,7 @@ img {
                         <td>
                           <div class='contentEditableContainer contentTextEditable'>
                             <div class='contentEditable' style='text-align: center;'>
-                              <h2 style="font-size: 20px;">¡Bienvenido@ {{$nombresCompletos}}!</h2>
+                              <h2 style="font-size: 20px;">¡Bienvenid@ {{$nombresCompletos}}!</h2>
                               <br>
                               <p>Nos sentimos contentos de tenerte con nosotros. A continuación te brindaremos tus credenciales para ingresar al sistema.</p>
                             </div>

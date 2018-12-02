@@ -13,7 +13,7 @@
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 @stop
 
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Reportes')
 
 @section('content')
 <div class="customBody">

@@ -50,7 +50,7 @@ Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
 Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
 
 /**HORARIOS**/
-Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
+Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 });
@@ -62,7 +62,7 @@ Route::post('/subir-proyecto-masivo/guardar', ['as'=>'proyecto.store.masivo','us
 Route::get('/verProyectos', ['as'=>'ver.proyectos','uses'=>'ProyectoController@downfunc','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoController@descargarProyecto','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 /*RÚBRICAS*/
-Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
+Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'rubricas.gestion','uses'=>'ResultadoController@rubricasGestion']);
 	Route::post('/insertar-resultados', ['as' => 'insertar.resultados', 'uses' => 'ResultadoController@insertarResultado']);
 	Route::post('/insertar-categorias', ['as' => 'insertar.categorias', 'uses' => 'ResultadoController@insertarCategoria']);
@@ -82,7 +82,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:2|3|
 	Route::get('/obtener-descripciones', ['as' => 'obtener.descripciones', 'uses' => 'ResultadoController@obtenerDescripciones']);
 });
 /****RUTAS PARA CURSOS****/
-Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
+Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
 	Route::get('/gestion', ['as'=>'cursos.gestion','uses'=>'CursoController@index']);
 	Route::get('/horarios', ['as'=>'cursos.horarios','uses'=>'HorarioController@index']);
 	Route::get('/progreso', ['as'=>'cursos.progreso','uses'=>'CursoController@progresoGestion']);
@@ -145,7 +145,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 	Route::post('/gestionar-especialidad/editar',['as'=>'administrador.especialidad.editar','uses'=>'AdministradorController@editarEspecialidad']);
 });
 /****RUTAS PARA COORDINADOR****/
-Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:2|3|4']], function() {
+Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
 	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
