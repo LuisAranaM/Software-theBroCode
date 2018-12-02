@@ -160,6 +160,7 @@ class Semestre extends Eloquent
 		$sql=DB::table('SEMESTRES')
 		->select('ID_SEMESTRE')
 		->where('ESTADO','=',2);
+		if($sql->count()==0) return null;
 		return $sql->first()->ID_SEMESTRE;
 	}
 
