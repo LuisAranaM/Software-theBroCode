@@ -317,7 +317,7 @@ $( document ).ready(function() {
 		html+='</div>'
 		$('#'+nivel2+'Contenedor').append(html);
 		 $('#numDescripciones').attr("value", nivel);
-		 borrarDescripcion(descsId[i]);
+
 	});
 	
 
@@ -331,13 +331,13 @@ $( document ).ready(function() {
 
 		html=''
 		html+='<div class="col-md-6 col-xs-12 no-padding" id="'+nivel+'Contenedor">'
-		html+='<div id="'+ nivel+ '" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
+		html+='<div id="" class="col-xs-12 text-left" style="padding-botom: 6px; padding-right: 5px; padding-top: 8px">'
 		html+='<p class="pText descOrd" numdesc="'+nivel+'" style="font-size: 16px; font-family: segoe UI semibold; color: black">Nivel ' + nivel + ' </p>'
 		html+='</div>'
-		html+='<div id="'+ nivel+ '" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
+		html+='<div id="" class="col-xs-12" style="padding-bottom: 6px; padding-left: 10px">'
 		html+='<textarea type="text" id="txt" class="descNom form-control pText customInput" name="nombre" placeholder="Código" rows="1" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'
-		html+='<div id="'+ nivel+ '" class="col-xs-12">'
+		html+='<div id="" class="col-xs-12">'
 		html+='<textarea type="text" id="txtDescripcion" class="desc form-control pText customInput" name="nombre" placeholder="Descripción" rows="3" cols="30" style="resize: none;" ></textarea>'
 		html+='</div>'	  
 		html+='<div id="contenedorAE">'
@@ -655,11 +655,49 @@ function actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,
 		dataType: "text",
 		success: function(result){
 			result = JSON.parse(result);
-			if(result== -2){
+			if(result[0]== -2){
 				alert("Oops! Ya existe un indicador con este orden. Ingrese otro orden por favor");
 				return;
 			}
 			else{
+				var descripciones = result[1];
+				var descEliminados=[];
+				var countEliminados=0;
+				for(j=0; j<descripciones.length;j++){
+					var idDescExistente= descripciones[j].ID_DESCRIPCION;
+					var eliminado =1 ;
+					for(i=0; i<descsId.length;i++){
+						var idDescNoEliminado= catIds[i]
+						if(idCatExistente==idDescNoEliminado){
+							eliminado=0;
+							break;
+						}
+					}
+					if(eliminado==1){
+						descEliminados[countEliminados]=idDescExistente;
+						countEliminados++;
+					} 
+				}
+
+				if(countEliminados==categorias.length){
+					alert('No puedes eliminar todas las categorias!');
+					return;
+				}
+				for(k=0;k<countEliminados;k++){
+					borrarCategoria(catEliminados[k]);
+				}
+
+				/*for(i=0; i<cat.length;i++){
+					console.log(cat[i]);
+					if(cat[i]=="") 
+						if(catIds[i]=="") continue;
+						else alert('No puedes dejar en blanco el nombre de una categoria');
+					else{
+						if(catIds[i]=="") insertarCategorias(cat[i],idRes); //inserta una categoria
+						else actualizarCategoria(catIds[i],cat[i]);
+					}
+				}*/
+
 				for(i=0; i<descs.length;i++){
 					console.log(descs[i]);
 					//si se deja un campo totalmente vacio se elimina 
