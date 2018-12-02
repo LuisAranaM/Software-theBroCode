@@ -10,9 +10,449 @@ var contIndicadoresxResultado = 0;
 var contCursosxResultado = 0;
 
 $( document ).ready(function() {
-    //init_charts();
-    //Obtener los cursos
-    //Inicializamos valores de los combobox de semestre
+    // ******* Graficos de la vista *********
+    setInterval(function(){
+        randomizeData();
+        randomizeData2();
+        randomizeData3();
+        randomizeData4();
+    },7000);
+
+    var option = {
+        //responsive: true,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 100,
+                    stepSize: 20
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Porcentaje de Resultados'
+                },
+                //display: false,
+                gridLines: {
+                    display: false,
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Resultados del Ciclo'
+                },
+                //display: false,
+                gridLines: {
+                    display: false,
+                },
+            }]
+        },
+        plugins: {
+            datalabels: {
+               // hide datalabels for all datasets
+               display: false
+            }
+        }
+    };
+
+    var option2 = {
+        //responsive: true,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 100,
+                    stepSize: 20
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Porcentaje de Resultados'
+                },
+                //display: false,
+                gridLines: {
+                    display: false,
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Resultados del Curso'
+                },
+                //display: false,
+                gridLines: {
+                    display: false,
+                },
+            }]
+        },
+        plugins: {
+            datalabels: {
+               // hide datalabels for all datasets
+               display: false
+            }
+        }
+    };
+
+    var option3 = {
+        //responsive: true,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 100,
+                    stepSize: 20
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Porcentaje de un Resultado'
+                },
+                //display: false,
+                gridLines: {
+                    display: false,
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Cursos del ciclo'
+                },
+                //display: false,
+                gridLines: {
+                    display: false,
+                },
+            }]
+        },
+        plugins: {
+            datalabels: {
+               // hide datalabels for all datasets
+               display: false
+            }
+        }
+    };
+
+    var option4 = {
+        //responsive: true,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 100,
+                    stepSize: 20
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Y'
+                },
+                display: false,
+                gridLines: {
+                    display: false,
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 100,
+                    stepSize: 20
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'X'
+                },
+                display: false,
+                gridLines: {
+                    display: false,
+                },
+            }]
+        },
+        plugins: {
+            datalabels: {
+               // hide datalabels for all datasets
+               display: false
+            }
+        }
+    };
+
+    let dataBaby = [1, 10, 5, 2, 20, 30, 45];
+    //let moreDataBaby = [20, 30, 15, 12, 21, 30, 40];
+    myData = {
+            labels: ["A", "B", "C", "D", "E", "F", "G"],
+            datasets: [
+            {
+                label: "Data, baby!",
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(190, 99, 255)',
+                data: dataBaby
+            }/*,
+                {
+                label: "More data, baby!",
+                fill: true,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(255, 99, 132)',
+                data: moreDataBaby,
+            }*/]
+    };
+
+    let dataBaby2 = [1, 10, 5, 2, 20, 30, 45];
+    //let moreDataBaby2 = [20, 30, 15, 12, 21, 30, 40];
+    myData2 = {
+            labels: ["A", "B", "C", "D", "E", "F", "G"],
+            datasets: [
+            {
+                label: "Data, baby!",
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(190, 99, 255)',
+                data: dataBaby2
+            }/*,
+                {
+                label: "More data, baby!",
+                fill: true,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(255, 99, 132)',
+                data: moreDataBaby2,
+            }*/]
+    };
+
+    let dataBaby3 = [1, 10, 5, 2, 20, 30, 45];
+    //let moreDataBaby2 = [20, 30, 15, 12, 21, 30, 40];
+    myData3 = {
+            labels: ["Curso1", "Curso2", "Curso3", "Curso4", "Curso5", "Curso6", "Curso7"],
+            datasets: [
+            {
+                label: "Data, baby!",
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(190, 99, 255)',
+                data: dataBaby3
+            }/*,
+                {
+                label: "More data, baby!",
+                fill: true,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(255, 99, 132)',
+                data: moreDataBaby2,
+            }*/]
+    };
+
+    let dataBaby4 = [{
+        x: 100,
+        y: 0,
+        r: 10
+      }, {
+        x: 60,
+        y: 30,
+        r: 20
+      }, {
+        x: 40,
+        y: 60,
+        r: 25
+      }, {
+        x: 80,
+        y: 80,
+        r: 50
+      }, {
+        x: 20,
+        y: 30,
+        r: 25
+      }, {
+        x: 0,
+        y: 100,
+        r: 5
+      }, {
+        x: 20,
+        y: 20,
+        r: 10
+      }];
+    //let moreDataBaby2 = [20, 30, 15, 12, 21, 30, 40];
+    myData4 = {
+            labels: ["R1", "R2", "R3", "R4", "R5", "R6", "R7"],
+            datasets: [
+            {
+                label: "Data, baby!",
+                //sfill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(153, 194, 77, 0.9)',
+                ],
+                borderColor: 'rgb(190, 99, 255)',
+                data: dataBaby4
+            }]
+    };
+
+    // Default chart defined with type: 'line'
+    Chart.defaults.global.defaultFontFamily = "Segoe UI";
+    var xxx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(xxx, {
+        type: 'bar',
+        data: myData,
+        options: option
+    });
+
+    var xxx2 = document.getElementById('myChart2').getContext('2d');
+    var myChart2 = new Chart(xxx2, {
+        type: 'bar',
+        data: myData2,
+        options: option2
+    });
+
+    var xxx3 = document.getElementById('myChart3').getContext('2d');
+    var myChart3 = new Chart(xxx3, {
+        type: 'bar',
+        data: myData3,
+        options: option3
+    });
+
+    var xxx4 = document.getElementById('myChart4').getContext('2d');
+    var myChart4 = new Chart(xxx4, {
+        type: 'bubble',
+        data: myData4,
+        options: option4
+    });
+
+    // Randomize data button function
+    function randomizeData() {
+        let newDataBaby = dataBaby.map(x=> Math.floor(Math.random() * 100));
+        //let newMoreDataBaby = moreDataBaby.map(x => Math.floor(Math.random() * 40));
+        myData.datasets[0].data = newDataBaby;
+        //myData.datasets[1].data = newMoreDataBaby;
+        myChart.update();
+        //console.log(newDataBaby);
+    };
+
+    function randomizeData2() {
+        let newDataBaby2 = dataBaby2.map(x => Math.floor(Math.random() * 100));
+        //let newMoreDataBaby = moreDataBaby.map(x => Math.floor(Math.random() * 40));
+        myData2.datasets[0].data = newDataBaby2;
+        //myData.datasets[1].data = newMoreDataBaby;
+        myChart2.update();
+        //console.log(newDataBaby2);
+    };
+
+    function randomizeData3() {
+        let newDataBaby3 = dataBaby3.map(x => Math.floor(Math.random() * 100));
+        //let newMoreDataBaby = moreDataBaby.map(x => Math.floor(Math.random() * 40));
+        myData3.datasets[0].data = newDataBaby3;
+        //myData.datasets[1].data = newMoreDataBaby;
+        myChart3.update();
+        //console.log(newDataBaby3);
+    };
+
+    function randomizeData4() {
+        //let newDataBaby4 = dataBaby4.map(x => Math.floor(Math.random() * 100));
+        let newDataBaby4 = [{
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }, {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }, {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }, {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }, {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }, {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }, {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100),
+            r: Math.floor(Math.random() * 30)
+          }];
+        //let newMoreDataBaby = moreDataBaby.map(x => Math.floor(Math.random() * 40));
+        myData4.datasets[0].data = newDataBaby4;
+        //myData.datasets[1].data = newMoreDataBaby;
+        myChart4.update();
+        //console.log(newDataBaby3);
+    };
+
+    // ********************************
     $.ajax({
         url: APP_URL + '/getSemestres',
 		type: 'GET',
@@ -36,7 +476,7 @@ $( document ).ready(function() {
         success: function( result ) {
             $.each(result, function(i, value) {
                 $('.resultados').append("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
-                console.log("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
+                //console.log("<option value="+value.ID_RESULTADO+">"+value.NOMBRE+"</option>'");
             });
         }
       });
@@ -121,7 +561,7 @@ $( document ).ready(function() {
     $('#btnGraficoRxC').click(function() {
         //$('#ciclos1 option').last().prop('selected',true);
         idSemestre = document.getElementById('ciclos1').options[document.getElementById('ciclos1').selectedIndex].value;
-        console.log("" + idSemestre);
+        //console.log("" + idSemestre);
         //$("#ruta1").prop("href", "{{route('exportar.reporte1')}}");
         updategraficoResultadoxCiclo(idSemestre);
         $("#modalRxC").modal("show");
@@ -156,7 +596,7 @@ $( document ).ready(function() {
     //Boton para ingresar al Modal 4
     $('#btnGraficoConsolidado').click(function() {
         //$('#ciclos4 option').last().prop('selected',true);
-        $("#modalConsolidado").modal("show")
+        //$("#modalConsolidado").modal("show")
     });
 
     var semestre = "";
@@ -201,7 +641,7 @@ $( document ).ready(function() {
         pdf.addImage(dataURL, 'PNG', 0, 50);
         //semestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].text;
         //curso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].text;
-        console.log(semestre, curso);
+        //console.log(semestre, curso);
         pdf.text('Indicadores\nCurso '+curso+'\nCiclo '+semestre, 10, 25);
         pdf.save('Grafico_Indicadores_Curso_' + curso + '_Ciclo_'+semestre+".pdf");
       });
@@ -228,6 +668,47 @@ $( document ).ready(function() {
         pdf.save('Grafico_Resultado_Curso_'+ curso + '_Ciclo_' + semestre + ".pdf");
       });
 });
+
+function randomGraph() {
+    var ctxV1 = document.getElementById("graf1").getContext('2d');
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var myChart1 = new Chart(ctxV1, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+                yAxes: [{
+                    display: false,
+                    gridLines: {
+                        display: false,
+                    },
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    display: false,
+                    gridLines: {
+                    display: false,
+                    },
+                }]
+            }
+        }
+    });
+}
 
 function callback(data) {   
     for (var i = 0; i < data.dps.length; i++) {
@@ -314,8 +795,8 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
 		},
 		success: function (result) {
             //Se llena
-            console.log("exito");
-            console.log(result);
+            //console.log("exito");
+            //console.log(result);
             resultadosId=[];
             resultadosNombre=[];
             resultadosPorcentaje=[];
@@ -325,9 +806,9 @@ function updateGraficoResultadosxCurso(idSemestre,idCurso) {
                 resultadosNombre.push(result[i].NOMBRE);
                 resultadosPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
             }
-            console.log(resultadosId);
-            console.log(resultadosNombre);
-            console.log(resultadosPorcentaje);
+            //console.log(resultadosId);
+            //console.log(resultadosNombre);
+            //console.log(resultadosPorcentaje);
             if (resultadosId.length == 0) {
                 resultadosNombre = ['No se encontraron resultados en el curso'];
                 resultadosPorcentaje = [0];
@@ -430,9 +911,9 @@ function updategraficoIndicadoresxCurso(idSemestre,idCurso,idResultado,nombreRes
 		},
 		success: function (result) {
             //Se llena
-            console.log("holaaa");
-            console.log(result);
-            console.log("bais");
+            //console.log("holaaa");
+            //console.log(result);
+            //console.log("bais");
             indicadoresId=[];
             indicadoresNombre=[];
             indicadoresPorcentaje=[];
@@ -442,9 +923,9 @@ function updategraficoIndicadoresxCurso(idSemestre,idCurso,idResultado,nombreRes
                 indicadoresNombre.push(nombreResultado+result[i].VALORIZACION);
                 indicadoresPorcentaje.push(Math.round(result[i].PORCENTAJE*100));
             }
-            console.log(indicadoresId);
-            console.log(indicadoresNombre);
-            console.log(indicadoresPorcentaje);
+            //console.log(indicadoresId);
+            //console.log(indicadoresNombre);
+            //console.log(indicadoresPorcentaje);
             if (indicadoresId.length == 0) {
                 indicadoresNombre = ['No se encontraron resultados en el curso'];
                 indicadoresPorcentaje = [0];
@@ -761,7 +1242,7 @@ function updategraficoResultadoxCiclo(idSemestre) {
 }
 
 function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
-    console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
+    //console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
     //Grafico de barras
     ctx1_2 = document.getElementById("graficoIndicadoresxResultado").getContext('2d');
     $.ajax({
@@ -772,7 +1253,7 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
             idResultado: idResultado
 		},
 		success: function (result) {
-            console.log(result);
+            //console.log(result);
             updateCmbResultados(idSemestre);
             document.getElementById('cboResultados').value = idResultado;
             indicadoresId=[];
@@ -871,7 +1352,7 @@ function updategraficoIndicadoresxResultado(idSemestre, idResultado) {
 var globCursosId = [];
 var globCursosNombre = [];
 function updategraficoCursosxResultado(idSemestre, idResultado) {
-    console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
+    //console.log('Se obtuvo el idSemestre: ', idSemestre, 'y el idResultado: ', idResultado);
     //Grafico de barras
     ctx3 = document.getElementById("graficoCursosxResultado").getContext('2d');
     $.ajax({
@@ -896,7 +1377,7 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
                 cursosCodigo.push(result[i].CODIGO_CURSO);
             }
             //console.log(cursosID);
-            console.log(cursosId.length);
+            //console.log(cursosId.length);
             globCursosId = cursosId;
             globCursosNombre = cursosNombre;
             if (cursosId.length == 0) {
@@ -997,7 +1478,7 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         var value = data.datasets[datasetIndex].data[activePoint._index];
         // Los dos ultimos parametros globResultadosId y activePoint._index
         // son el array de IDs de resultados y el indice del resultado que se selecciono
-        console.log(labels, label, value, globResultadosId, activePoint._index);
+        //console.log(labels, label, value, globResultadosId, activePoint._index);
         
         // Se muestra el modal de Indicadores x Resultado
         //$('#ciclos1 option').last().prop('selected',true);
@@ -1018,7 +1499,7 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         var labels = data.labels[activePoint._index];
         var label = data.datasets[datasetIndex].label;
         var value = data.datasets[datasetIndex].data[activePoint._index];
-        console.log(labels, label, value);
+        //console.log(labels, label, value);
 
         var idSemestre = document.getElementById('ciclos2').options[document.getElementById('ciclos2').selectedIndex].value;
         var idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
@@ -1052,7 +1533,7 @@ function graficoResultadoxCicloClickEvent(evt, chartElement){
         var value = data.datasets[datasetIndex].data[activePoint._index];
         // Los dos ultimos parametros globResultadosId y activePoint._index
         // son el array de IDs de resultados y el indice del resultado que se selecciono
-        console.log(labels, label, value, globResultadosId, activePoint._index);
+        //console.log(labels, label, value, globResultadosId, activePoint._index);
         
         // Se muestra el modal de Indicadores x Resultado
         //$('#ciclos1 option').last().prop('selected',true);

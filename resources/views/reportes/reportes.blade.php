@@ -30,22 +30,20 @@
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+            <canvas id="myChart" width="100" height="100"></canvas>
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Resultados x Ciclo </h1>
-            <div class="row"><!--
-              <div class="groupBoxOptions">
-                <div class="form-check">
-                  <label>
-                    <input type="checkbox" checked=""> <span class="pText label-text ">Comparar con semestre anterior</span>
-                  </label>
-                </div>
-              </div>-->
-              <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-
-                <button id="btnGraficoRxC" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
-              </div>
+          </div>
+          <div class="col-xs-6" style="margin-top: 10px">
+            <p>
+              Gráfico que muestra el porcentaje de aprobados de todos los resultados
+              en un ciclo.
+            </p>
+          </div>
+          <div class="col-xs-6 text-center">
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+              <button id="btnGraficoRxC" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -56,23 +54,21 @@
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
         <div class="row">
-          <div class="col-xs-6">
-            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+        <div class="col-xs-6">
+            <canvas id="myChart2" width="100" height="100"></canvas>
           </div>
           <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle"> Resultados x Curso </h1>
-            <div class="row"><!--
-              <div class="groupBoxOptions">
-                <div class="form-check">
-                  <label>
-                    <input type="checkbox" checked=""> <span class="pText label-text">Comparar con semestre anterior</span>
-                  </label>
-                </div>
-              </div>-->
-              <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-
-                <button id="btnGraficoResultadosCurso" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
-              </div>
+            <h1 class="reportsTitle mainTitle">Resultados x Curso </h1>
+          </div>
+          <div class="col-xs-6" style="margin-top: 10px">
+            <p>
+              Gráfico que muestra el porcentaje de aprobados de todos los resultados
+              en un curso.
+            </p>
+          </div>
+          <div class="col-xs-6 text-center">
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+              <button id="btnGraficoResultadosCurso" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
           </div>
         </div>
@@ -86,10 +82,18 @@
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+            <canvas id="myChart3" width="100" height="100"></canvas>
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Cursos x Resultado </h1>
+          </div>
+          <div class="col-xs-6" style="margin-top: 10px">
+            <p>
+              Gráfico que muestra el porcentaje de aprobados de un resultado
+              de todos los cursos en un ciclo.
+            </p>
+          </div>
+          <div class="col-xs-6 text-center">
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
               <button id="btnGraficoIndicadoresResultado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
             </div>
@@ -103,12 +107,20 @@
       <div class=" x_panel tile coursesBox">
         <div class="row">
           <div class="col-xs-6">
-            <img class= "imageBox" src= "{{ URL::asset('img/report1.PNG') }}" >
+            <canvas id="myChart4" width="100" height="100"></canvas>
           </div>
           <div class="col-xs-6 text-center">
             <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
+          </div>
+          <div class="col-xs-6" style="margin-top: 10px">
+            <p>
+              Muestra una hoja de cálculo que contiene el reporte de la evaluación total
+              de cada ciclo con su rúbrica respectiva.
+            </p>
+          </div>
+          <div class="col-xs-6 text-center">
             <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-              <button id="btnGraficoConsolidado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Generar Gráfico  </button>
+              <button id="btnGraficoConsolidado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Descargar</button>
             </div>
           </div>
         </div>
@@ -558,62 +570,6 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
 <!-- Fin Modal Curso x Resultado -->
 
 <!-- ******* 4. Modal Consolidado Historico ******* -->
-<div id = "modalConsolidado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px">
-
-  <!-- Contenido del modal -->
-  <div class="modal-content">
-    <!-- Cabeza del modal -->
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px">Resultados en el Ciclo</h4>
-    </div>
-    <!-- Fin Cabeza del modal -->
-    
-    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-
-    <!-- Combo box -->
-    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <div id="ciclos4" class="col-xs-offset-8 col-xs-3">
-        <p>Ciclo:</p>
-        <select class="ciclos form-control" required>
-        </select>
-      </div>
-    </div>
-    <!-- Fin Combo box -->
-
-    <!-- Cuerpo del modal -->
-    <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px">
-      <div class="row">
-        <div class="x_content">
-          <img class="imageBox" src= "{{ URL::asset('img/report1.PNG') }}" style="width: 450px">
-        </div> 
-      </div>
-    </div>
-    <!-- Fin Cuerpo del modal -->
-
-    <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
-
-    <!-- Botones inferiores del modal -->
-    <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-      <div class="col-md-4 text-right">
-        <button id="btnDescargarGraficos" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</button>
-      </div>
-      <div class="col-md-4 text-left">
-        <a href="{{route('exportar.reporte4')}}">
-          <button id="btnDescargarReportes4" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-        </a>
-      </div>
-    </div>
-    <!-- Fin Botones inferiores del modal -->
-  </div>
-  <!-- Fin Contenido del modal -->
-</div>
-</div>
 <!-- Fin Modal Consolidado Historico -->
 
 @stop
