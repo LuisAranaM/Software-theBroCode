@@ -105,25 +105,27 @@
     <!-- Seccion 4: Consolidado historico -->
     <div class="col-md-6">
       <div class=" x_panel tile coursesBox">
-        <div class="row">
-          <div class="col-xs-6">
-            <canvas id="myChart4" width="100" height="100"></canvas>
-          </div>
-          <div class="col-xs-6 text-center">
-            <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
-          </div>
-          <div class="col-xs-6" style="margin-top: 10px">
-            <p>
-              Muestra una hoja de cálculo que contiene el reporte de la evaluación total
-              de cada ciclo con su rúbrica respectiva.
-            </p>
-          </div>
-          <div class="col-xs-6 text-center">
-            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-              <button id="btnGraficoConsolidado" type="button" class="btn btn-success btn-lg pText customButton" style="width: 120px">Descargar</button>
+        <form class="form2" action="{{route('exportar.reporte4')}}">
+          <div class="row">
+            <div class="col-xs-6">
+              <canvas id="myChart4" width="100" height="100"></canvas>
+            </div>
+            <div class="col-xs-6 text-center">
+              <h1 class="reportsTitle mainTitle">Consolidado Histórico </h1>
+            </div>
+            <div class="col-xs-6" style="margin-top: 10px">
+              <p>
+                Muestra una hoja de cálculo que contiene el reporte de la evaluación total
+                de cada ciclo con su rúbrica respectiva.
+              </p>
+            </div>
+            <div class="col-xs-6 text-center">
+              <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+                <button type="submit" id="btnDescargarReportes4" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
 
@@ -356,7 +358,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
     
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
     
-    <form class="form2" action="{{route('exportar.reporte2')}}">
+    <!--<form class="form2" action="{{route('exportar.reporte2')}}">-->
     <!-- Combo box -->
      <!-- 
     <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
@@ -413,7 +415,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <a id="btnDescargarGraficos22" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
     </div>
     <!-- Fin Botones inferiores del modal -->
-  </form>
+  <!--</form>-->
   </div>
   <!-- Fin Contenido del modal -->
 </div>

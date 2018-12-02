@@ -493,7 +493,12 @@ $( document ).ready(function() {
     document.getElementById('ciclos2').onchange = function () {
         idSemestre = this.options[this.selectedIndex].value
         updateCmbCursos(idSemestre);
-        idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
+        try {
+            idCurso = document.getElementById('cursos2').options[document.getElementById('cursos2').selectedIndex].value;
+        }
+        catch (err) {
+            contResultadosxCurso++;
+        }
         updateGraficoResultadosxCurso(idSemestre,idCurso);
     }
     //Cuando cambie el curso del modal 2
@@ -509,7 +514,12 @@ $( document ).ready(function() {
     document.getElementById('ciclos3').onchange = function () {
         idSemestre = this.options[this.selectedIndex].value
         updateCmbResultados(idSemestre);
-        idResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
+        try {
+            idResultado = document.getElementById('cboResultados2').options[document.getElementById('cboResultados2').selectedIndex].value;
+        }
+        catch (err) {
+            contCursosxResultado++;
+        }
         updategraficoCursosxResultado(idSemestre,idResultado);
     }
 
@@ -533,11 +543,11 @@ $( document ).ready(function() {
     });
 
      $('#btnDescargarReportes2').click(function() {
-        $('#modalResultadosCurso').modal('hide');
+        //$('#modalResultadosCurso').modal('hide');
     });
 
      $('#btnDescargarReportes4').click(function() {
-        $('#modalConsolidado').modal('hide');
+        //$('#modalConsolidado').modal('hide');
     });
 
     
@@ -668,47 +678,6 @@ $( document ).ready(function() {
         pdf.save('Grafico_Resultado_Curso_'+ curso + '_Ciclo_' + semestre + ".pdf");
       });
 });
-
-function randomGraph() {
-    var ctxV1 = document.getElementById("graf1").getContext('2d');
-    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-    var myChart1 = new Chart(ctxV1, {
-        type: 'bar',
-        data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            tooltips: {
-                enabled: false
-            },
-            scales: {
-                yAxes: [{
-                    display: false,
-                    gridLines: {
-                        display: false,
-                    },
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }],
-                xAxes: [{
-                    display: false,
-                    gridLines: {
-                    display: false,
-                    },
-                }]
-            }
-        }
-    });
-}
 
 function callback(data) {   
     for (var i = 0; i < data.dps.length; i++) {
@@ -1364,7 +1333,8 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
 		},
 		success: function (result) {
             //updateCmbResultados(idSemestre);
-            document.getElementById('cboResultados').value = idResultado;
+            //console.log(idSemestre);
+            //document.getElementById('cboResultados').value = idResultado;
             cursosId=[];
             cursosNombre=[];
             cursosPorcentaje=[];
@@ -1380,8 +1350,10 @@ function updategraficoCursosxResultado(idSemestre, idResultado) {
             //console.log(cursosId.length);
             globCursosId = cursosId;
             globCursosNombre = cursosNombre;
+            //console.log(cursosId.length);
+            //console.log(contCursosxResultado);
             if (cursosId.length == 0) {
-                cursosCodigo = ['No se encontraron cursos con el resultado seleccionado'];
+                cursosNombre = ['No se encontraron cursos con el resultado seleccionado'];
                 cursosPorcentaje = [0];
             }
             if (contCursosxResultado != 0) {
