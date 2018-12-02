@@ -196,12 +196,16 @@ Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesCont
 Route::get('/getSemestres', ['as'=>'get.ciclos','uses'=>'SemestreController@getSemestres','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/getCursosbyIdSemestre', ['as'=>'get.cursos','uses'=>'CursoController@getCursosbyIdSemestre','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/resultadosCurso', ['as'=>'resultados.curso','uses'=>'ReportesController@graficoResultadosxCurso','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/graficoIndicadoresCurso', ['as'=>'grafico.indicadores.curso','uses'=>'ReportesController@graficoIndicadoresCurso','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+
+
 
 Route::get('/indicadoresResultado', ['as'=>'grafico.indicadoresResultado','uses'=>'ReportesController@graficoIndicadoresResultado']);
 
 Route::get('/getResultadosCbo', ['as'=>'resultados.cbo','uses'=>'ResultadoController@getResultadosCbo']);
 
 Route::get('/getCursosByResultado', ['as'=>'get.cursosResultado','uses'=>'CursoController@getCursosByResultado','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/graficoHorariosResultado', ['as'=>'grafico.horarios.resultado','uses'=>'CursoController@graficoHorariosxResultado','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 
 
