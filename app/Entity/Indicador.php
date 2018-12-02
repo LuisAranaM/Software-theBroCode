@@ -144,9 +144,9 @@ class Indicador extends \App\Entity\Base\Entity {
                             $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                             $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
                             $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                            if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                            else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
-                            else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');});
+                            if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#fc3232');});
+                            else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#ffe74d');});
+                            else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#13d604');});
                             $i++;
                         }
                         $nIndicadores = 0;
@@ -203,9 +203,9 @@ class Indicador extends \App\Entity\Base\Entity {
                     $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                     $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                     $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
-                    if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                    else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');}); 
+                    if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#fc3232');});
+                    else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#ffe74d');});
+                    else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#13d604');}); 
                     $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');   
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
@@ -289,9 +289,9 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->getStyle("G".$filaInicial.":H".($filaFinal))->applyFromArray($style);
                             if($contadorAlumnos!=0){
                                 $sheet->row($i, array("","","","", "","",$promedioResultado/($contadorAlumnos),""));
-                                if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.($i), function($color){$color->setBackground('#FF0000');});
-                                else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.($i), function($color){$color->setBackground('#FFFF00');});
-                                else $sheet->cell('G'.($i), function($color){$color->setBackground('#00FF00');});
+                                if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.($i), function($color){$color->setBackground('#fc3232');});
+                                else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.($i), function($color){$color->setBackground('#ffe74d');});
+                                else $sheet->cell('G'.($i), function($color){$color->setBackground('#13d604');});
                                 
                             }
                             $promedioResultado=0;
@@ -345,9 +345,9 @@ class Indicador extends \App\Entity\Base\Entity {
                     $promedioResultado+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
                     $contadorAlumnos+=$fila->COUNT;
                     $sheet->setHeight($i, 45);
-                    if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#FF0000');});
-                    else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('H'.$i, function($color){$color->setBackground('#00FF00');});
+                    if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#fc3232');});
+                    else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#ffe74d');});
+                    else $sheet->cell('H'.$i, function($color){$color->setBackground('#13d604');});
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
@@ -367,9 +367,9 @@ class Indicador extends \App\Entity\Base\Entity {
                     $sheet->getStyle("G".$filaInicial.":H".($filaFinal))->applyFromArray($style);
                     if($contadorAlumnos!=0){
                         $sheet->row($i, array("","","","", "","",$promedioResultado/($contadorAlumnos),""));
-                        if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#FF0000');});
-                    else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('G'.$i, function($color){$color->setBackground('#00FF00');});
+                        if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#fc3232');});
+                        else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#ffe74d');});
+                        else $sheet->cell('G'.$i, function($color){$color->setBackground('#13d604');});
                     
                     }
                     $promedioResultado=0;
@@ -460,7 +460,8 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaInicialInd=$constanteFila + 3;
                 $filaFinalInd=$constanteFila + 3;
                 $nombreInd="";
-                
+
+                //$=[];
                 foreach ($reporte as $fila) {
                     if($calculoMenor > ($fila->ANHO*10 + $fila->CICLO)){
                         $calculoMenor = ($fila->ANHO*10 + $fila->CICLO);
@@ -482,6 +483,15 @@ class Indicador extends \App\Entity\Base\Entity {
                     $columnaFin = chr(ord($columnaFin)+$anhoDif);
                 //dd($columnaFin);
                 $filaEncabezados = $constanteFila + 2;
+                $porcentajeList = [];
+                $alumnosList = [];
+                $contAux = 0;
+                while($contAux<(ord($columnaFin)-ord($columnaInicio)+1)){
+                    $porcentajeList[$contAux] = 0;
+                    $alumnosList[$contAux] = 0;
+                    $contAux++;
+                }
+                
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
@@ -495,9 +505,22 @@ class Indicador extends \App\Entity\Base\Entity {
                                 $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                                 $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
                                 $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
-                            
+                                for($c=ord($columnaInicio);$c<=ord($columnaFin);$c++){
+                                    if($alumnosList[$c-ord($columnaInicio)] == 0)
+                                        $sheet->cell(chr($c).$i, 'NA');
+                                    else
+                                        $sheet->cell(chr($c).$i, $porcentajeList[$c-ord($columnaInicio)]/$alumnosList[$c-ord($columnaInicio)]);
+                                }
+                                $sheet->setHeight($i, 20);
+                                $sheet->cells('A'.$i.':'.$columnaFin.$i, function($cells) {    // manipulate the cell
+                                    //$cells->setFontSize(13);
+                                    $cells->setAlignment('center');
+                                    $cells->setValignment('center');
+                                    $cells->setBackground('#c8c8c8');
+                                });
                                 $i++;
                             }
+                            
                             $sheet->cells('A'.$i.':H'.$i, function($cells) {    // manipulate the cell
                                 //$cells->setFontSize(13);
                                 $cells->setAlignment('center');
@@ -508,6 +531,12 @@ class Indicador extends \App\Entity\Base\Entity {
                             });
                             $sheet->row($i++, array("CÓDIGO","RESULTADO","CATEGORÍA", "INDICADOR",
                                 "CURSOS EVALUADOS","MEDIDA","META %", "ÓPTIMO"));
+                            $contAux = 0;
+                            while($contAux<(ord($columnaFin)-ord($columnaInicio)+1)){
+                                $porcentajeList[$contAux] = 0;
+                                $alumnosList[$contAux] = 0;
+                                $contAux++;
+                            }
                             $filaInicial=$i;
                             $filaEncabezados = $filaInicial - 1;
                         }
@@ -519,8 +548,6 @@ class Indicador extends \App\Entity\Base\Entity {
                         if($i!=$filaInicial){
                             $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
                             $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
-                            //$sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
-                            //$sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                         }
                         $filaInicialCat=$i;
                         $filaInicialInd=$i;
@@ -586,8 +613,16 @@ class Indicador extends \App\Entity\Base\Entity {
                             $columnRellenar++;
                         }
                         $sheet->cell($aux.$i, $fila->PORCENTAJE_APROBADOS);
+                        if($fila->COUNT!=0){
+                            if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell($aux.$i, function($color){$color->setBackground('#fc3232');});
+                            else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell($aux.$i, function($color){$color->setBackground('#ffe74d');});
+                            else $sheet->cell($aux.$i, function($color){$color->setBackground('#13d604');});
+                        
+                        }
+                        $porcentajeList[ord($aux)-ord($columnaInicio)]+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
+                        $alumnosList[ord($aux)-ord($columnaInicio)]+=$fila->COUNT;
+                        
                         $sheet->cell($aux.$i, function($cells) {    // manipulate the cell
-                            //$cells->setFontSize(13);
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
                         });
@@ -612,6 +647,14 @@ class Indicador extends \App\Entity\Base\Entity {
                         }
                         $aux2 = $aux++;
                         $sheet->cell($aux2.$i, $fila->PORCENTAJE_APROBADOS);
+                        if($fila->COUNT!=0){
+                            if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell($aux2.$i, function($color){$color->setBackground('#fc3232');});
+                            else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell($aux2.$i, function($color){$color->setBackground('#ffe74d');});
+                            else $sheet->cell($aux2.$i, function($color){$color->setBackground('#13d604');});
+                        
+                        }
+                        $porcentajeList[ord($aux2)-ord($columnaInicio)]+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
+                        $alumnosList[ord($aux2)-ord($columnaInicio)]+=$fila->COUNT;
                         $sheet->getStyle($aux2.$filaInicial.':'.$aux2.$i)->applyFromArray($style);
                     }
                     $sheet->setHeight($i, 45);
@@ -628,6 +671,20 @@ class Indicador extends \App\Entity\Base\Entity {
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
                     $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
                     $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
+                    for($c=ord($columnaInicio);$c<=ord($columnaFin);$c++){
+                        if($alumnosList[$c-ord($columnaInicio)] == 0)
+                            $sheet->cell(chr($c).$i, 'NA');
+                        else
+                            $sheet->cell(chr($c).$i, $porcentajeList[$c-ord($columnaInicio)]/$alumnosList[$c-ord($columnaInicio)]);
+                    }
+                    $sheet->setHeight($i, 20);
+                    $sheet->cells('A'.$i.':'.$columnaFin.$i, function($cells) {    // manipulate the cell
+                        //$cells->setFontSize(13);
+                        $cells->setAlignment('center');
+                        $cells->setValignment('center');
+                        $cells->setBackground('#c8c8c8');
+                    });
+                    $sheet->setBorder('A5:'.$columnaFin.$i, 'thin');
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));    
                 }
                 //Centrado
