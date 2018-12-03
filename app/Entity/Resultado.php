@@ -5,6 +5,7 @@ namespace App\Entity;
 use \Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Jenssegers\Date\Date as Carbon;
 use App\Models\Resultado as mResultado;
+use App\Models\Semestre as mSemestre;
 
 class Resultado extends \App\Entity\Base\Entity {
 
@@ -57,6 +58,7 @@ class Resultado extends \App\Entity\Base\Entity {
     }
 
     static function getInformacionRubrica($idSemestre){
+        
         $model= new mResultado();
         $infoRubrica=$model->getInformacionRubrica($idSemestre,self::getEspecialidadUsuario())->get();
         $resultados=array();
@@ -147,6 +149,7 @@ class Resultado extends \App\Entity\Base\Entity {
             $resultadoNuevo['CATEGORIAS'][]=$categoriaNueva;
             $resultados[]=$resultadoNuevo;
         }
+
         return $resultados;
     }
 
@@ -162,4 +165,99 @@ class Resultado extends \App\Entity\Base\Entity {
         }
 
     }
+
+
+   
+    static function cambiosRubricas(){
+        $rubSemActual = self::getInformacionRubrica(self::getIdSemestre());
+        //dd($rubSemActual);
+        $anho = mSemestre::getAnhoCiclo(self::getIdSemestre())->first()->ANHO;
+        $ciclo = mSemestre::getAnhoCiclo(self::getIdSemestre())->first()->CICLO;
+        //dd($anho,$ciclo);
+    
+        //dd($semestres);
+        if ($ciclo == 1) {
+            $anho -= 1;
+            $ciclo = 2;
+        }
+        else{
+            $ciclo -=1;
+        }
+        //dd($anho,$ciclo);
+        $idSemestreAnterior = mSemestre::getIdSemestre2($anho,$ciclo)->first()->ID_SEMESTRE;
+        //dd($idSemestreAnterior);
+        $rubSemAnterior = self::getInformacionRubrica($idSemestreAnterior);
+        //dd($rubSemAnterior);
+        $resultadosNuevos = [];
+        $resultadosMantenidos = [];
+        $resultadoEliminados = [];
+
+        //dd($rubSemAnterior,$rubSemActual);
+        $resultadosSemAnterior = [];
+        $resultadosSemActual = [];
+
+        foreach ($rubSemActual as $key ) {
+            $dataResultado = [];
+            $dataResultado['RESULTADO'] = $key['RESULTADO'];
+            $dataResultado['DESCRIPCION'] = $key['DESCRIPCION'];
+            array_push(($resultadosSemActual),$dataResultado);
+        }
+
+        foreach ($rubSemAnterior as $key ) {
+            $dataResultado = array();
+            $dataResultado['RESULTADO'] = $key['RESULTADO'];
+            $dataResultado['DESCRIPCION'] = $key['DESCRIPCION'];
+            array_push(($resultadosSemAnterior),$dataResultado);
+        }
+
+        //dd($resultadosSemAnterior, $resultadosSemActual);
+        
+        foreach($rubSemAnterior as $resultadosAnterior){
+            foreach ($rubSemActual as $resultadosActual) {
+                $dataResultado = [];
+                //$res=$resultadosActual['DESCRIPCION'] != $resultadosAnterior['DESCRIPCION'];
+                //dd($res);
+                //los que no camiban
+                if($resultadosActual['DESCRIPCION'] == $resultadosAnterior['DESCRIPCION']){
+                    $dataResultado['RESULTADO'] = $resultadosActual['RESULTADO'];
+                    $dataResultado['DESCRIPCION'] = $resultadosActual['DESCRIPCION'];
+                    array_push($resultadosMantenidos,$dataResultado);
+                    break;                    
+                }
+            }
+        }
+
+        
+        foreach($rubSemActual as $resultadosActual){
+            foreach ($resultadosMantenidos as $resultadoMantenido) {
+                if($resultadosActual['RESULTADO'] == $resultadoMantenido['RESULTADO']){
+                    //dd("holis");
+                    $resultadosActual['RESULTADO'] = "0";
+                    //dd($resultadosActual);
+                    
+                }
+            }
+        }
+        dd($rubSemActual);
+
+        foreach($rubSemActual as $resultadosActual){
+            $dataResultado = [];
+            if($resultadosActual['RESULTADO'] != "0"){
+                $dataResultado['RESULTADO'] = $resultadosActual['RESULTADO'];
+                $dataResultado['DESCRIPCION'] = $resultadosActual['DESCRIPCION'];
+                array_push($resultadosNuevos,$dataResultado);
+
+            }
+        }
+
+
+
+        dd($resultadosMantenidos,$resultadosNuevos);
+
+
+        
+
+    }
+
+
 }

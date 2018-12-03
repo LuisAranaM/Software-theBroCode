@@ -156,6 +156,34 @@ class Semestre extends Eloquent
 		return $sql;
 	}
 
+
+	static function getAllSemestres(){
+
+		$sql=DB::table('SEMESTRES')
+		->select('ID_SEMESTRE','ANHO','CICLO')
+		->where('ESTADO','=',1)
+		->orderBy('ANHO','DESC')
+		->orderBy('CICLO','DESC');
+		return $sql;
+	}
+
+	static function getAnhoCiclo($idSemestre){
+		$sql=DB::table('SEMESTRES')
+		->select('ANHO','CICLO')
+		->where('ID_SEMESTRE','=',$idSemestre)
+		->where('ESTADO','>=',1);
+		return $sql;
+	}
+
+	static function getIdSemestre2($anho,$ciclo){
+		$sql=DB::table('SEMESTRES')
+		->select('ID_SEMESTRE')
+		->where('ANHO','=',$anho)
+		->where('CICLO','=',$ciclo)
+		->where('ESTADO','>=',1);
+		return $sql;
+	}
+
 	static function getIdSemestre(){
 		$sql=DB::table('SEMESTRES')
 		->select('ID_SEMESTRE')
