@@ -736,4 +736,12 @@ class CursoController extends Controller
         //dd(Curso::getCursosByResultado($idSemestre, $idResultado));
         return Curso::getCursosByResultado($idSemestre, $idResultado);
     }
+    public function graficoHorariosxResultado(Request $request){
+        $idSemestre = $request->get('idSemestre', null);
+        $idResultado = $request->get('idResultado', null);
+        $idCurso= $request->get('idCurso', null);
+        //dd(Curso::getCursosByResultado($idSemestre, $idResultado));
+        return Curso::graficoHorariosxResultado($idSemestre, $idResultado, $idCurso);
+    }
+    
 }
