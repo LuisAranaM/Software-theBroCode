@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-¡
 	//muestra y oculta los iconos de "eliminar y editar" de los Indicadores
 	$(document).on({
 		mouseenter: function () {
