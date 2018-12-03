@@ -88,18 +88,20 @@ class Entity {
 
     public static function getIdSemestre(){
         $model= new mSemestre();
-        //return $model->getIdSemestre();
-        return env('ID_SEMESTRE');
+        return $model->getIdSemestre();
+        //return env('ID_SEMESTRE');
     }
 
 
    public static function getSemestre(){
         $model= new mSemestre();
+        if($model->getCiclo(self::getIdSemestre())->count()==0) return "";
         return $model->getCiclo(self::getIdSemestre())->first()->SEMESTRE;
     }
 
     public static function getSemestreByIdSemestre($idSemestre){
         $model= new mSemestre();
+        if( $model->getCiclo($idSemestre)->count()==0) return "";
         return $model->getCiclo($idSemestre)->first()->SEMESTRE;
     }
 

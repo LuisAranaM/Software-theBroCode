@@ -63,27 +63,86 @@ class PlanesDeMejora extends Eloquent
     }
     static function buscarDocumentos($idEspecialidad) {
         $sql = DB::table('DOCUMENTOS_REUNIONES')
-                ->orderBy('DOCUMENTO_ANHO','DESC')
-                ->orderBy('DOCUMENTO_SEMESTRE','DESC')
-                ->where('ESTADO','=',1)
-                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-                ->get()->toArray();
+        ->orderBy('DOCUMENTO_ANHO','DESC')
+        ->orderBy('DOCUMENTO_SEMESTRE','DESC')
+        ->where('ESTADO','=',1)
+        ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+        ->get()->toArray();
         //dd($acreditacion);
         //dd($sql);
         return $sql;
     }
 
-    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,$idEspecialidad){
-        
+    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,$tipo,$idEspecialidad){
+        if($tipo != null){
+            if($anhoFin !=null){
+                $sql = DB::table('DOCUMENTOS_REUNIONES')
+                ->select()
+                ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
+                ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'<=',$anhoFin*10 + $semFin)
+                ->where('ESTADO','=',1)
+                ->where('TIPO_DOCUMENTO','=',$tipo)
+                ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+                ->get();
+                $ans=$sql->toArray();
+            }
+            if($anhoFin ==null){
+             $sql = DB::table('DOCUMENTOS_REUNIONES')
+             ->select()
+             ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
+             ->where('ESTADO','=',1)
+             ->where('TIPO_DOCUMENTO','=',$tipo)
+             ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+             ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+             ->get();
+             $ans=$sql->toArray();
+         }
+         if($anhoInicio ==null){
+            if($anhoFin !=null){
+             $sql = DB::table('DOCUMENTOS_REUNIONES')
+             ->select()
+             ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'<=',$anhoFin*10 + $semFin)
+             ->where('ESTADO','=',1)
+             ->where('TIPO_DOCUMENTO','=',$tipo)
+             ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+             ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+             ->get();
+             $ans=$sql->toArray();
+         }
+     }
+ }else{
+    if($anhoFin !=null){
         $sql = DB::table('DOCUMENTOS_REUNIONES')
-            ->select()
-            ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
-            ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'<=',$anhoFin*10 + $semFin)
-            ->where('ESTADO','=',1)
-            ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
-            ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
-            ->get();
+        ->select()
+        ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
+        ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'<=',$anhoFin*10 + $semFin)
+        ->where('ESTADO','=',1)
+        ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+        ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+        ->get();
         $ans=$sql->toArray();
-        return $ans;
+    }else{
+        $sql = DB::table('DOCUMENTOS_REUNIONES')
+        ->select()
+        ->where(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'),'>=',$anhoInicio*10 + $semIni)
+        ->where('ESTADO','=',1)
+        ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+        ->orderBy(DB::Raw('DOCUMENTO_ANHO*10 + DOCUMENTO_SEMESTRE'), 'desc')
+        ->get();
+        $ans=$sql->toArray();
     }
+
+}
+return $ans;
+}
+static function getTipos(){
+    $sql=DB::table('DOCUMENTOS_REUNIONES')
+    ->select('TIPO_DOCUMENTO')
+    ->distinct()
+    ->where('ESTADO','=',1)
+    ->get()->toArray();
+
+    return $sql;
+}
 }

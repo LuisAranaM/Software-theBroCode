@@ -142,7 +142,10 @@ class ResultadoController extends Controller
             }
         }
         if($ordenRepetido==1) return -2; //-2 significa que el orden ya esta repetido y no puede insertarlo!>:C
-        return eIndicador::updateIndicador($id, $nombre, $orden);
+        $result=[];
+        $result[0]=eIndicador::updateIndicador($id, $nombre, $orden);
+        $result[1]=eDescripcion::getDescripcionesId($id)->toArray();
+        return $result;
     }
     public function actualizarDescripcion(Request $request){
         $id = $request->get('_id',null);
