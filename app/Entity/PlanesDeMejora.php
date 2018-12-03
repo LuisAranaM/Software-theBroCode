@@ -24,9 +24,13 @@ class PlanesDeMejora extends \App\Entity\Base\Entity {
     static function buscarDocumentos(){
         return mPlanesDeMejora::buscarDocumentos(self::getEspecialidadUsuario());
     }
-    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin){
+    static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin, $tipo){
         $model =new mPlanesDeMejora();
-        return $model->resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,self::getEspecialidadUsuario());   
+        return $model->resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin, $tipo, self::getEspecialidadUsuario());   
+    }
+     static function getTipos($tipo=null)
+    {
+        return mPlanesDeMejora::getTipos();
     }
     
 }

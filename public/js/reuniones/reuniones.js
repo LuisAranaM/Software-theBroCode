@@ -87,15 +87,15 @@ $( document ).ready(function() {
 		semFin = document.getElementById('semFin').options[document.getElementById('semFin').selectedIndex].text;
 		cicloIni = semIni.split("-");
 		cicloFin = semFin.split("-");
-
-		filtrarDocumentosReuniones(cicloIni[0],cicloIni[1],cicloFin[0],cicloFin[1]);
+		tipo = document.getElementById('doctipo').options[document.getElementById('doctipo').selectedIndex].text;
+		filtrarDocumentosReuniones(cicloIni[0],cicloIni[1],cicloFin[0],cicloFin[1],tipo);
 		e.preventDefault();
 	});
 
 
 
-	function filtrarDocumentosReuniones(anhoInicio,semIni,anhoFin,semFin) {
-		console.log(anhoInicio,semIni,anhoFin,semFin);
+	function filtrarDocumentosReuniones(anhoInicio,semIni,anhoFin,semFin,tipo) {
+		console.log(anhoInicio,semIni,anhoFin,semFin,tipo);
 		$.ajax({
 			url: APP_URL + '/resultadosFiltroDocs',
 			type: 'GET',
@@ -104,7 +104,8 @@ $( document ).ready(function() {
 				anhoInicio:anhoInicio,
 				semIni:semIni,
 				anhoFin:anhoFin,
-				semFin:semFin
+				semFin:semFin,
+				tipo:tipo
 			},
 			success: function (result) {
 
@@ -128,7 +129,7 @@ $( document ).ready(function() {
 					html+='center;vertical-align: center;"><a href="'+APP_URL+'/upload/'+result[i].NOMBRE+'"';
 					html+=' download="'+result[i].NOMBRE+'" style="text-decoration: underline;">'+result[i].NOMBRE;
 					html+='<i class="fa fa-download" style="padding-left: 5px"></i> </a></td> ';
-					html+='<td style="background-color: white; text-align: center;vertical-align: center"><label><input type="checkbox" class="form-check-input checkDoc" name="checkDocs[]" value="'+result[i].NOMBRE;
+					html+='<td style="background-color: white; text-align: center;vertical-align: center"><label><input type="checkbox" class="form-check-input checkDoc" name="checkDocs[]" id="documentosChecks"  value="'+result[i].NOMBRE;
 					html+='style="text-align: center;" ><span class="pText label-text "></span></label></td>';
 
 					html+='</tr>';
