@@ -555,6 +555,7 @@ class CursoController extends Controller
                                 else{
                                     $id_horario=$idHorario;
                                     array_push($listaCursosMantenidos,$value->curso,$val);
+                                    array_push($listaHorariosMantenidos,$idHorario);
                                 }        
                                 array_push($lista_horarios,$id_horario);//guardamos en una array los horarios para luego poder hacer match con el profesor
                             }
@@ -594,13 +595,22 @@ class CursoController extends Controller
                                 $idProf=$idProfesor;
                                 array_push($listaProfesoresMantenidos,$nombres,$aPaterno);
                                  //relacionamos los profesores con sus horarios
+                                 
                                 foreach ($listaHorariosNuevos as $val) {
                                     $prof_hor = [];
                                     $prof_hor = ['ID_USUARIO'=>$idProf, 'ID_HORARIO'=>$val, 'FECHA_REGISTRO'=> $fecha, 'FECHA_ACTUALIZACION'=> $fecha,
                                     'USUARIO_MODIF'=>$id_usuario, 'ESTADO'=>1];
                                     DB::table('PROFESORES_HAS_HORARIOS')->insert($prof_hor);
                                 }                                                              
-                            }  
+                            }
+                            //romper la relacion logicamente entre el profesor antiguo de los cursos antiguos
+                            if($listaHorariosMantenidos != null){
+                                foreach($horario as $listaHorariosMantenidos){
+                                    DB::table('PROFESORES_HAS_HORARIOS')
+                                    ->where('ID_HORARIO','=',$horario)
+                                    ->update('ESTADO_ACREDITACION','=',0);
+                                }
+                            } 
                         }
                         
                     }                    

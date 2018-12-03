@@ -134,19 +134,27 @@ class Alumno extends Eloquent
         return $ans;
     }
 
-    static function build(&$alumnosPorHorario, &$horariosValidos, &$valid){
-        try{
-            foreach($horariosValidos as $x){
-                $nombreHorario = (int)($x->NOMBRE);
-                $alumnosPorHorario[$nombreHorario] = array();
-                $alumnosPorHorario[$nombreHorario]["idHorario"] = $nombreHorario;
-                $alumnosPorHorario[$nombreHorario]["codigoHorario"] = $nombreHorario;
-                $alumnosPorHorario[$nombreHorario]["alumnos"] = array();
-            }
-            $valid = true;
-        }catch(Exception $e){
-            $valid = false;
+    static function isNumeric($x){
+        for($i = 0; $i < strlen($x); $i++)
+            if(!is_numeric($x[$i])) return false;
+        return true;
+    }
+
+    static function build(&$alumnosPorHorario, &$horariosValidos){
+        foreach($horariosValidos as $x){
+            if(Alumno::isNumeric($x->NOMBRE)) $nombreHorario = (int)($x->NOMBRE);
+            else $nombreHorario = $x->NOMBRE;
+            $alumnosPorHorario[$nombreHorario] = array();
+            $alumnosPorHorario[$nombreHorario]["idHorario"] = $x->ID_HORARIO;
+            $alumnosPorHorario[$nombreHorario]["codigoHorario"] = $nombreHorario;
+            $alumnosPorHorario[$nombreHorario]["alumnos"] = array();
         }
+    }
+
+    static function getIdAlumno($codigo, &$alumnos){
+        foreach($alumnos as $x)
+            if($x->CODIGO == $codigo) return $x->ID_ALUMNO;
+        return -1;
     }
 
     static function uploadAlumnosDeCurso(&$data, $idCurso, &$alumnosNuevos, &$alumnosExistentes, 
@@ -164,10 +172,8 @@ class Alumno extends Eloquent
             $alumnos = Alumno::getAlumnos($idSemestre, $idEspecialidad);
             $horariosValidos = Horario::getHorariosByCodCurso($idSemestre, $idEspecialidad, $idCurso);
             $cont = 0;
-            $valid = 0;
-            Alumno::build($alumnosPorHorario,$horariosValidos, $valid);
+            Alumno::build($alumnosPorHorario,$horariosValidos);
 
-            if(!$valid) return 2;
             /* Iterar por cada dato */
             foreach ($data as $key => $value) {
                 $alumno = ['ID_SEMESTRE' => $idSemestre,
@@ -179,7 +185,9 @@ class Alumno extends Eloquent
                             'FECHA_REGISTRO' => $fecha,
                             'FECHA_ACTUALIZACION' => $fecha,
                             'USUARIO_MODIF' => $usuario,
-                            'ESTADO' => 1];
+                            'ESTADO' => 1,
+                            'ID_ALUMNO' => Alumno::getIdAlumno($value->alumno, $alumnos)];
+
                 // verificar si alumno ya existe
                 if(Alumno::existeAlumno($value->alumno,$alumnos)){
                     $alumnosExistentes[] = $alumno;
@@ -199,58 +207,7 @@ class Alumno extends Eloquent
                 }else{
                     $alumnosBaneados[] = $alumno;
                 }
-
-                /* otra parte, esto sirve como referencia xd*/
-                /*
-                if($value->horario != $nombreHorario) continue;
-                $cont++;
-                $nombre = $this->getNombre($value->nombre);
-                $apellidoPaterno = $this->getApellidoPaterno($value->nombre);
-                $apellidoMaterno = $this->getApellidoMaterno($value->nombre);
-                $codigo = $value->alumno;
-                if(DB::table('ALUMNOS')->where('CODIGO', $value->alumno)->doesntExist()){
-                    // insertar alumno en la bd
-                    DB::table('ALUMNOS')->insert(
-                        ['NOMBRES' => $nombre,
-                         'APELLIDO_PATERNO' => $apellidoPaterno,
-                         'APELLIDO_MATERNO' => $apellidoMaterno,
-                         'CODIGO' => $codigo,
-                         'FECHA_REGISTRO' => $fecha,
-                         'FECHA_ACTUALIZACION' => $fecha,
-                         'ID_SEMESTRE'=>$semestre_actual,
-                         'ID_ESPECIALIDAD'=>$especialidad,
-                         'USUARIO_MODIF' => $usuario['ID_USUARIO'],
-                         'ESTADO' => 1
-                        ]);
-                }
-                                   
-                $q = DB::table('ALUMNOS')
-                            ->select('ID_ALUMNO')
-                            ->where('CODIGO', '=', $codigo )->get()->toArray();
-                //$this->trace('HOLIS2');
-                $idAlumno = (int)($q[0]->ID_ALUMNO);
-                $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
-                whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ?',
-                    [$idAlumno,$idHorario,$idProyecto,$semestre_actual])->doesntExist();
-
-                if($cond){
-                    $lista[] = ['ID_ALUMNO' => $idAlumno,
-                                'ID_HORARIO' => $idHorario,
-                                'ID_PROYECTO' => $idProyecto,
-                                'ID_SEMESTRE' => $semestre_actual,
-                                'FECHA_REGISTRO' => $fecha,
-                                'ID_SEMESTRE'=>$semestre_actual,
-                                'ID_ESPECIALIDAD'=>$especialidad,
-                                'FECHA_ACTUALIZACION' => $fecha,
-                                'USUARIO_MODIF' => $usuario['ID_USUARIO'],
-                                'ESTADO' => 1];
-                }
-                */
             }
-            /*
-            if(!empty($lista))
-                DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
-            */
         }catch(Exception $e){
                 return 1;
         }

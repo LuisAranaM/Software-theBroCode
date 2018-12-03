@@ -115,6 +115,10 @@ class AlumnoController extends Controller
                     return Redirect::back();
                 }
                 // Archivo valido
+                $usuario = Auth::user();
+                $fecha = date("Y-m-d H:i:s");
+                $idSemestre = Entity::getIdSemestre();
+                $idEspecialidad = Entity::getEspecialidadUsuario();
                 $path = $request->file('upload-file')->getRealPath();
                 $data = \Excel::load($path)->get();
                 $codCurso = $request->input('codigoCurso');
@@ -129,37 +133,52 @@ class AlumnoController extends Controller
 	            // 1. Un horario
 	            // 2. Un arreglo de alumnos
                 $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
-                
-                if($val == 2){
-                    // LOS HORARIOS DEBEN SER NUMERICOS
-                    flash('Los horarios deben ser datos numericos.')->error();
-                    return Redirect::back();
-                }
 
-                /*Testando que esta bien */
-                /*Aparentemente esta bien */
-                $this->trace('alumnosNuevos');
-                foreach($alumnosNuevos as $x){
-                	$this->trace($x["NOMBRES"]);
+                /* EN CASO SE INSERTE DIRECTAMENTE SIN MENSAJE DE CONFIRMACION */
+                {
+                	$lista = array();
+                    // Meter alumnos nuevos
+                    foreach($alumnosNuevos as $a){
+                    	$lista[] = ['NOMBRES' => $a->NOMBRES,
+		                             'APELLIDO_PATERNO' => $a->APELLIDO_PATERNO,
+		                             'APELLIDO_MATERNO' => $a->APELLIDO_MATERNO,
+		                             'CODIGO' => $a->CODIGO,
+		                             'FECHA_REGISTRO' => $fecha,
+		                             'FECHA_ACTUALIZACION' => $fecha,
+		                             'ID_SEMESTRE'=>$idSemestre,
+		                             'ID_ESPECIALIDAD'=>$idEspecialidad,
+		                             'USUARIO_MODIF' => $usuario['ID_USUARIO'],
+		                             'ESTADO' => 1
+		                            ];
+                    }
+                    DB::table('ALUMNOS')->insert($lista);
+                    // Meter alumnos existentes
+                    foreach($alumnosExistentes as $a){
+                    	$idAlumnos[] = $a['ID_ALUMNO'];
+                    }
+                    DB::table('ALUMNOS')
+                    		->wherein('ID_ALUMNO',$idAlumnos)
+                    		->where('ID_SEMESTRE','=',$idSemestre)
+                    		->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                    		->update(['ESTADO' => 1]);
+                    // Meter en alumnos_has_horarios
+					$lista = array();
+					foreach($alumnosPorHorario as $h){
+						foreach($h['alumnos'] as $x){
+							$lista[] = ['ID_ALUMNO' => $x['ID_ALUMNO'],
+                                        'ID_HORARIO' => $h['idHorario'],
+                                        'ID_PROYECTO' => 1,
+                                        'ID_SEMESTRE' => $idSemestre,
+                                        'FECHA_REGISTRO' => $fecha,
+                                        'ID_ESPECIALIDAD'=>$idEspecialidad,
+                                        'FECHA_ACTUALIZACION' => $fecha,
+                                        'USUARIO_MODIF' => $usuario['ID_USUARIO'],
+                                        'ESTADO' => 1];
+						}
+					}
+					DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
                 }
-
-                $this->trace('alumnosExistentes');
-                foreach($alumnosExistentes as $x){
-                	$this->trace($x["NOMBRES"]);
-                }
-
-                $this->trace('alumnosBaneados');
-                foreach($alumnosBaneados as $x){
-                	$this->trace($x["NOMBRES"]);
-                }
-                
-                $this->trace('alumnosPorHorario');
-                foreach($alumnosPorHorario as $x){
-                	$this->trace($x["codigoHorario"]);
-                	foreach($x["alumnos"] as $a){
-                		$this->trace($a["NOMBRES"]);
-                	}
-                }
+                /* EN CASO SE COMUNIQUE UN MENSAJE DE CONFIRMACION*/
 
                 if($val == 0)
                     flash('Alumnos cargados correctamente')->success();
@@ -243,7 +262,7 @@ class AlumnoController extends Controller
                                         'FECHA_ACTUALIZACION' => $fecha,
                                         'USUARIO_MODIF' => $usuario['ID_USUARIO'],
                                         'ESTADO' => 1];
-                        }else if(1){
+                        }else{
                             $sql = DB::table('ALUMNOS_HAS_HORARIOS')
                                     ->select('ESTADO')
                                     ->where('ID_ALUMNO','=',$idAlumno)
