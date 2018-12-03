@@ -176,7 +176,7 @@ Route::get('/exportarExcelReporte4', ['as'=>'exportar.reporte4','uses'=>'Reporte
 
 
 
-Route::get('/mapeo-indicadores', ['as'=>'mapeo.indicadores','uses'=>'DropzoneController@mapeoDeIndicadores','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::get('/mapeo-indicadores', ['as'=>'mapeo.indicadores','uses'=>'ResultadoController@mapeoDeIndicadores','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 
 
 /**AVISOS**/

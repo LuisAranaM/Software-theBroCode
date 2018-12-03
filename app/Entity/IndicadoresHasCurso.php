@@ -97,8 +97,22 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
         //$cursos=[];
         //dd($cursos);
         foreach ($cursos as $curso) {
-            dd($curso);
-            # code...
+            $codigo=$curso[0];
+            $nombreCurso=$curso[1];
+            $resultados=$curso[2];
+            foreach ($resultados as $resultado) {
+                $nombreResultado=$resultado[0];
+                $descripcionResultado=$resultado[1];
+                $numIndicadores=$resultado[2];
+                $indicadores=$resultado[3];
+                foreach ($indicadores as $indicador) {
+                    $valorizacion=$indicador[0];
+                    $nombreIndicador=$indicador[1];
+                    $tieneIndicador=$indicador[2];
+                    dd($tieneIndicador);
+                }
+            }
+            break;
         }
 
 
@@ -115,6 +129,25 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
                 if($i==1){
                     $sheet->row($i++,array("","RESULTADO A","","RESULTADO B"));
                     $sheet->row($i,array("","A1","A1","B1"));
+                }
+                
+                foreach ($cursos as $curso) {
+                    $codigo=$curso[0];
+                    $nombreCurso=$curso[1];
+                    $resultados=$curso[2];
+                    foreach ($resultados as $resultado) {
+                        $nombreResultado=$resultado[0];
+                        $descripcionResultado=$resultado[1];
+                        $numIndicadores=$resultado[2];
+                        $indicadores=$resultado[3];
+                        foreach ($indicadores as $indicador) {
+                            $valorizacion=$indicador[0];
+                            $nombreIndicador=$indicador[1];
+                            $tieneIndicador=$indicador[2];
+                            dd($tieneIndicador);
+                        }
+                    }
+                    break;
                 }
 
                 /*$sheet->setColumnFormat(array('D' => '0%','E' => '0%'));
