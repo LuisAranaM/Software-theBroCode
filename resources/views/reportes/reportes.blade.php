@@ -138,8 +138,8 @@
 <!-- ******* 1. Modal Resultados x Ciclo ******* -->
 <div id = "modalRxC" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px;">
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x: scroll">
+<div class="modal-dialog modal-lg" style="width: 800px;">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -200,8 +200,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <!-- ******* 1.2. Modal Indicadores x Resultado ******* -->
 <div id = "modalIxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px;">
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x: scroll">
+<div class="modal-dialog modal-lg" style="width: 800px;">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -265,8 +265,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <!-- ******* 2. Modal Resultados x Curso ******* -->
 <div id = "modalResultadosCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px">
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x: scroll">
+<div class="modal-dialog modal-lg" style="width: 800px">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -341,8 +341,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <!-- ******* 2.2 Modal Indicadores x Curso ******* -->
 <div id = "modalIndicadoresCurso" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px">
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x: scroll">
+<div class="modal-dialog modal-lg" style="width: 800px">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -425,8 +425,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 <!-- ******* 3. Modal Indicadores x Resultado ******* -->
 <div id = "modalCxR" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
 data-keyboard="false" data-backdrop="static"
-aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px;">
+aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x: scroll">
+<div class="modal-dialog modal-lg" style="width: 800px;">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
@@ -496,8 +496,8 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
 
 <!-- ******* 3.2 Modal Horarios x Resultado ******* -->
 <div id = "modalHorariosResultado" class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
-data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
-<div class="modal-dialog modal-lg" style="width: 1000px">
+data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x: scroll">
+<div class="modal-dialog modal-lg" style="width: 800px">
 
   <!-- Contenido del modal -->
   <div class="modal-content">
