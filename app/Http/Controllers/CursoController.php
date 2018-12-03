@@ -440,10 +440,71 @@ class CursoController extends Controller
 
     }
 
+    private function getNombre($x){
+        $ans = '';
+        $valid = false;
+        for($i = 0; $i < strlen($x); $i++){
+            if($valid) $ans .= $x[$i];
+            if($x[$i] == ','){
+                $i++;
+                $valid = true;
+            }
+        }
+        return $ans;
+    }
+
+    private function getApellidoPaterno($x){
+        $ans = '';
+        for($i = 0; $i < strlen($x); $i++){
+            if($x[$i] == ' ') break;
+            $ans .= $x[$i];
+        }
+        return $ans;
+    }
+
+    private function getApellidoMaterno($x){
+        $ans = '';
+        $valid = false;
+        for($i = 0; $i < strlen($x); $i++){
+            if($x[$i] == ',') break;
+            if($valid) $ans .= $x[$i];
+            if($x[$i] == ' ') $valid = true;
+        }
+        return $ans;
+    }
+
+    private function fix($cad){
+        $ans = '';
+        $i = 0;
+        if($cad[0] == '0') $i++;
+        for(; $i < strlen($cad); $i++)
+            $ans .= $cad[$i];
+        return $ans;
+    }
+
+    private function validFile($x){
+        $i = 0; $point = false;
+        for(; $i < strlen($x); $i++)
+            if($x[$i] == '.'){
+                $point = true;
+                break;
+            }
+        if(!$point) return false;
+        $ext = "";
+        for($i++; $i < strlen($x); $i++)
+            $ext .= $x[$i];
+        return ($ext == 'csv') || ($ext == 'xlsx');
+    }
+
     public function store(Request $request){
         //dd($request->all());
         //$this->visualizarData($request);
         if($request->hasFile('upload-file')){
+            if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
+                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de cursos')->error();
+                    return Redirect::back();
+            }
+
             $path = $request->file('upload-file')->getRealPath();
             $data = \Excel::load($path)->get();
             $fecha = date("Y-m-d H:i:s");
@@ -492,12 +553,12 @@ class CursoController extends Controller
                             //buscamos si existe el profesor
                             $auxProfesor = new Usuario();
                             $idProfesor = $auxProfesor->getIdUsuario($codProf,$value->correo);
-                            $auxNombProfe = explode(",",$value->profesor);
-                            $auxApellidos = $auxNombProfe[0];
-                            $apellidos = explode(" ",$auxApellidos);
-                            $aPaterno = $apellidos[0];
-                            $aMaterno = $apellidos[1];
-                            $nombres = $auxNombProfe[1]; 
+                            //$auxNombProfe = $this->getNombre($value->profesor);
+                            //$auxApellidos = $auxNombProfe[0];
+                            //$apellidos = explode(" ",$auxApellidos);
+                            $aPaterno = $this->getApellidoPaterno($value->profesor);
+                            $aMaterno = $this->getApellidoMaterno($value->profesor);
+                            $nombres = $this->getNombre($value->profesor); 
                             //si no existe el profesor lo ingresamos
                             if(!$idProfesor){                                
                                 $datos_prof=[];                            
@@ -564,12 +625,12 @@ class CursoController extends Controller
                             //buscamos si existe el profesor
                             $auxProfesor = new Usuario();
                             $idProfesor = $auxProfesor->getIdUsuario($codProf,$value->correo);
-                            $auxNombProfe = explode(",",$value->profesor);
-                            $auxApellidos = $auxNombProfe[0];
-                            $apellidos = explode(" ",$auxApellidos);
-                            $aPaterno = $apellidos[0];
-                            $aMaterno = $apellidos[1];
-                            $nombres = $auxNombProfe[1]; 
+                            //$auxNombProfe = explode(",",$value->profesor);
+                            //$auxApellidos = $auxNombProfe[0];
+                            //$apellidos = explode(" ",$auxApellidos);
+                            $aPaterno = $this->getApellidoPaterno($value->profesor);
+                            $aMaterno = $this->getApellidoMaterno($value->profesor);
+                            $nombres = $this->getNombre($value->profesor);  
                             //si no existe el profesor lo ingresamos
                             if(!$idProfesor){                                
                                 $datos_prof=[];                            
@@ -605,10 +666,11 @@ class CursoController extends Controller
                             }
                             //romper la relacion logicamente entre el profesor antiguo de los cursos antiguos
                             if($listaHorariosMantenidos != null){
-                                foreach($horario as $listaHorariosMantenidos){
+                                foreach($listaHorariosMantenidos as $horario){
                                     DB::table('PROFESORES_HAS_HORARIOS')
                                     ->where('ID_HORARIO','=',$horario)
-                                    ->update('ESTADO_ACREDITACION','=',0);
+                                    ->where('ID_USUARIO','!=',$idProf)
+                                    ->update(['ESTADO'=>0]);
                                 }
                             } 
                         }
