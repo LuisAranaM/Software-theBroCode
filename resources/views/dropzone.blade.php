@@ -23,6 +23,12 @@
     {{csrf_field()}}
   <button id="btnPrueba" type="submit" class="btn btn-success btn-lg pText customButton">Prueba Cursos</button>
   </form>
+
+  <form action="{{route('prueba.logRubrica')}}" type="post">
+    {{csrf_field()}}
+  <button id="btnLogRubricas" type="submit" class="btn btn-success btn-lg pText customButton">Prueba Log Rubrica</button>
+  </form>
+
 </div>
 
 
