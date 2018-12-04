@@ -17,11 +17,11 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 		</div>
 	</div>
 
-	@if((count($objetivosSos)!=0) and (count($objetivosEos)!=0))
+	@if((count($objetivosSos)==0) and (count($objetivosEos)==0))
 	<div class="row">
 		<div class="col-md-12 col-xs-12" style="text-align: right">
 			<button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracionObj" style="border-color: transparent"> Copiar Configuración</button>
-		</div>
+		</div>	
 	</div>
 	<!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
 	@endif

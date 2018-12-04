@@ -213,6 +213,11 @@ class Indicador extends Eloquent
 		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
 			$join->on('IHAH.ID_INDICADOR','=','IHC.ID_INDICADOR');
 		})
+		->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH',function($join){
+			$join->on('AHH.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+			$join->on('AHH.ID_HORARIO','=','IHAH.ID_HORARIO');
+		})
+		->where('AHH.ESTADO','=',1)
 		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
 		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
 		->where('CUR.ESTADO_ACREDITACION','=',1)  
@@ -226,7 +231,7 @@ class Indicador extends Eloquent
 					->select('RESULTADOS.ID_RESULTADO','RESULTADOS.NOMBRE','RESULTADOS.DESCRIPCION',
 					DB::Raw('IFNULL(SUM(indicadores.PORCENTAJE_PONDERADO)/(CASE WHEN COUNT(indicadores.PORCENTAJE_PONDERADO)=0 THEN 1 ELSE COUNT(indicadores.PORCENTAJE_PONDERADO) END),0) AS PORCENTAJE'))
 					->groupBy('indicadores.ID_RESULTADO');
-		//dd($sql->get());
+		
 		return $sql;
 	}
 	
@@ -261,6 +266,7 @@ class Indicador extends Eloquent
 		})
 		->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH',function($join){
 			$join->on('AHH.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+			$join->on('AHH.ID_HORARIO','=','IHAH.ID_HORARIO');
 		})
 		->where('RES.ID_RESULTADO','=',$idResultado)
 		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
@@ -516,6 +522,11 @@ class Indicador extends Eloquent
 		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
 			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
 		})
+		->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH',function($join){
+			$join->on('AHH.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+			$join->on('AHH.ID_HORARIO','=','IHAH.ID_HORARIO');
+		})
+		->where('AHH.ESTADO','=',1)
 		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
 		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
 		->where('CUR.ESTADO_ACREDITACION','=',1)  
@@ -555,6 +566,11 @@ class Indicador extends Eloquent
 		->leftJoin('INDICADORES_HAS_ALUMNOS_HAS_HORARIOS AS IHAH',function($join){
 			$join->on('IND.ID_INDICADOR','=','IHAH.ID_INDICADOR');
 		})
+		->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH',function($join){
+			$join->on('AHH.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+			$join->on('AHH.ID_HORARIO','=','IHAH.ID_HORARIO');
+		})
+		->where('AHH.ESTADO','=',1)
 		->where('IHC.ID_SEMESTRE','=',$idSemestre)  
 		->where('IHC.ID_ESPECIALIDAD','=',$idEspecialidad)  
 		->where('CUR.ESTADO_ACREDITACION','=',1)  

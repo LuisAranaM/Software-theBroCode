@@ -349,6 +349,11 @@ class Curso extends Eloquent
                     $join->on('IHAH.ID_INDICADOR','=','IHC.ID_INDICADOR');
                     $join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
                 })
+                ->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH',function($join){
+            $join->on('AHH.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+            $join->on('AHH.ID_HORARIO','=','IHAH.ID_HORARIO');
+        })
+        ->where('AHH.ESTADO','=',1)
         ->where('IHC.ID_RESULTADO','=',$idResultado) 
         ->where('CUR.ESTADO_ACREDITACION','=',1)
         ->where('HOR.ESTADO','=',1) 
@@ -373,6 +378,11 @@ class Curso extends Eloquent
                     $join->on('IHAH.ID_INDICADOR','=','IHC.ID_INDICADOR');
                     $join->on('IHAH.ID_HORARIO','=','HOR.ID_HORARIO');
                 })
+                ->leftJoin('ALUMNOS_HAS_HORARIOS AS AHH',function($join){
+            $join->on('AHH.ID_ALUMNO','=','IHAH.ID_ALUMNO');
+            $join->on('AHH.ID_HORARIO','=','IHAH.ID_HORARIO');
+        })
+        ->where('AHH.ESTADO','=',1)
         ->where('IHC.ID_RESULTADO','=',$idResultado) 
         ->where('CUR.ESTADO_ACREDITACION','=',1)
         ->where('CUR.ID_CURSO','=',$idCurso)

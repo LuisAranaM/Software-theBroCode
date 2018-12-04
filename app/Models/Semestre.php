@@ -132,8 +132,14 @@ class Semestre extends Eloquent
 		->orderBy('ANHO','DESC')
 		->orderBy('CICLO','DESC');
 		if($sql->count()==0) return $sql;
-		$anho=self::getCiclo($idSemestreActual)->first()->ANHO;
-		$ciclo=self::getCiclo($idSemestreActual)->first()->CICLO;
+		$getCiclo=self::getCiclo($idSemestreActual)->first();
+		$anho=null;
+		$ciclo=null;
+		if($getCiclo!=NULL){
+			$anho=$getCiclo->ANHO;
+			$ciclo=$getCiclo->CICLO;
+			}
+
 		if($tipo)
 			$sql=$sql->where('ESTADO','<>',0);
 		else{

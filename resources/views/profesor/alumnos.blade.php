@@ -70,6 +70,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
     </div>
 </div>
 @include('flash::message')
+@if(count($alumnos)>0)
 <div class="row">
 
   <!--BLOQUE IZQUIERDA-->
@@ -91,6 +92,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
   <div class="row">
      <form action="{{ route('proyecto.store.masivo') }}" method="post" enctype="multipart/form-data">
+      {{ csrf_field() }}
    <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
      <thead >
@@ -119,7 +121,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
     @foreach($alumnos as $alumno)
 
     <tr class="even pointer" id="ocultarTachito">
-      {{ csrf_field() }}
       <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->CODIGO}} </td>
       <td class="pText" id="" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
       
@@ -149,7 +150,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
       <i class="fa fa-edit"></i></td>
       @endforeach
       @if(!$modoSoloLectura)
-      <td>  <div class="ocultarTachito" style="margin-top: 10px"><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer"></i></div></td>
+      <td>  <center><div class="" style=""><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer;text-align:center;vertical-align: middle;"></i></div></center></td>
       @endif
     </tr>
 
@@ -168,6 +169,8 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 </div>
 </div>
 </div>
+
+@endif
  <!-- <div class="row">
    <a href="{{route('profesor.calificar')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la vista de cursos</a>
  </div>

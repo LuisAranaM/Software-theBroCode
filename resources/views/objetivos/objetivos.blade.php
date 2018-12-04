@@ -8,6 +8,7 @@
 $contEos=count($objetivosEducacionales);
 
 $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectura());
+$numEo=1;
 
 ?>
 <div class="customBody">
@@ -19,6 +20,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 	</div>
 	@include('flash::message')
 	@if(count($objetivosEducacionales)>0)
+
 	<div class="row">
 		<div class="x_panel" style="padding: 20px">
 			<form action="{{ route('objetivos.guardar') }}" method="POST">
@@ -29,7 +31,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 							<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
 								<th class="pText column-title" style="border: none;text-align:center; width: 60%">SO</th>
 								@foreach($objetivosEducacionales as $eo)
-								<th class="pText column-title" style="border: none;text-align:center;width:40/{{$contEos}}% ">EO{{$eo->ID_EOS}}</th>
+								<th class="pText column-title" style="border: none;text-align:center;width:40/{{$contEos}}% ">EO{{$numEo++}}</th>
 								@endforeach
 
 

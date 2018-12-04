@@ -78,7 +78,7 @@ $( document ).ready(function() {
   $( ".cboRol" ).change(function() {
       //alert( "Handler for .change() called." );
       var idRol=$(this).val();
-
+      console.log(idRol);
       if(idRol==1){
         $('.cboEspecialidad').val('');
         $('.cboEspecialidad').attr('disabled',true);
