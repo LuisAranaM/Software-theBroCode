@@ -120,8 +120,8 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
     <tr class="even pointer" id="ocultarTachito">
       {{ csrf_field() }}
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->CODIGO}} </td>
-      <td class="pText" id="" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
+      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->CODIGO}} </td>
+      <td class="pText" id="" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
       
       </td>
       <input type="text" name="codAlumnos[]" value="{{$alumno->CODIGO}}" hidden>
