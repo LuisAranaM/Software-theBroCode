@@ -121,6 +121,25 @@ class Resultado extends Eloquent
 		return $sql;
 	}
 
+	static function getResultadosbyCursoExcel($idCurso,$idSem,$idEsp){
+
+
+		$sql=DB::table('RESULTADOS AS RES')
+		->select('RES.ID_RESULTADO', 'RES.NOMBRE', 'RES.DESCRIPCION',DB::Raw('CASE WHEN IHC.ID_CURSO IS NULL THEN 0 ELSE 1 END AS FLG_INDICADOR'))
+		->leftJoin('INDICADORES_HAS_CURSOS AS IHC',function($join) use($idCurso){
+            $join->on('IHC.ID_RESULTADO','=','RES.ID_RESULTADO');
+            $join->on('IHC.ESTADO','=',DB::Raw(1));
+            $join->on('IHC.ID_CURSO','=',DB::Raw($idCurso));
+        })
+		->where('RES.ID_SEMESTRE','=',$idSem)
+		->where('RES.ID_ESPECIALIDAD','=',$idEsp)
+		->where('RES.ESTADO','=',1)
+		->distinct();
+		//orden descendente por nombre
+		$sql=$sql->orderBy('RES.NOMBRE','ASC');
+		//dd($sql->get());
+		return $sql;
+	}
 
 	public function insertResultado($nombre, $desc,$idSem,$idEsp){
 		DB::beginTransaction();

@@ -13,7 +13,7 @@ use Excel;
 class IndicadoresHasCurso extends \App\Entity\Base\Entity {
 
 	protected $_fechaRegistro;
-    
+
     function setProperties($data) {
         $this->setValues([
             '_fechaRegistro' => $data->FECHA_REGISTRO,
@@ -54,13 +54,14 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
     static function getIndicadoresByCursos(){
         $final = [];
         $cursos = mCurso::getCursos(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        //dd(self::getIdSemestre());
         //dd($cursos);
         foreach ($cursos as $curso){
             $cursoTemp= [];
             //dd($curso->ID_CURSO);
             array_push($cursoTemp, $curso->CODIGO_CURSO, $curso->NOMBRE);
             $resultadosTemp = [];
-            $resultadosTemp = mResultado::getResultadosByCurso($curso->ID_CURSO,self::getIdSemestre(),self::getEspecialidadUsuario())->get();            
+            $resultadosTemp = mResultado::getResultadosByCursoExcel($curso->ID_CURSO,self::getIdSemestre(),self::getEspecialidadUsuario())->get();            
             $resultados = [];
             foreach($resultadosTemp as $resultado){
                 $resultadoTemp = [];
@@ -91,15 +92,29 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
         return $final;
     }
 
+    static function getColumnaExcel($numCol){
+        $caracterIni='A';
+        $caracter=$caracterIni;
+
+        for($i=1;$i<$numCol;$i++){
+            $caracter++;
+            if($i==26) $caracter='A';
+        }
+        if($i>26) $caracter=$caracterIni.$caracter;
+        return $caracter;
+    }
     static function generarExcelIndicadoresByCurso(){
         //dd("HOLI");
+        //dd(self::getColumnaExcel(30));
         $cursos=self::getIndicadoresByCursos();
+        //dd($cursos);
         //$cursos=[];
         //dd($cursos);
-        foreach ($cursos as $curso) {
+        /*foreach ($cursos as $curso) {
             $codigo=$curso[0];
             $nombreCurso=$curso[1];
             $resultados=$curso[2];
+            //dd($resultados);
             foreach ($resultados as $resultado) {
                 $nombreResultado=$resultado[0];
                 $descripcionResultado=$resultado[1];
@@ -109,11 +124,11 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
                     $valorizacion=$indicador[0];
                     $nombreIndicador=$indicador[1];
                     $tieneIndicador=$indicador[2];
-                    dd($tieneIndicador);
+                    //dd($tieneIndicador);
                 }
             }
             break;
-        }
+        }*/
 
 
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
@@ -121,45 +136,92 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
         $nombreExcel='Mapeo_Cursos_'.$nombreEspecialidad.'_'.$semestre;
 
         Excel::create($nombreExcel, function($excel) use ($nombreEspecialidad,$semestre,$cursos){
-            
+
             $excel->setTitle('Mapeo de indicadores');
             $excel->sheet('CURSOS VS INDICADORES', function($sheet) use ($cursos){
+            $sheet->setAutoSize(true);
                 $i=1;
-                //foreach($cursos as $curso)
-                if($i==1){
-                    $sheet->row($i++,array("","RESULTADO A","","RESULTADO B"));
-                    $sheet->row($i,array("","A1","A1","B1"));
-                }
                 
+                $resultados=[];
+                $indicadores=[];
+                $longitudIndicadores=[];
                 foreach ($cursos as $curso) {
-                    $codigo=$curso[0];
-                    $nombreCurso=$curso[1];
                     $resultados=$curso[2];
                     foreach ($resultados as $resultado) {
                         $nombreResultado=$resultado[0];
                         $descripcionResultado=$resultado[1];
                         $numIndicadores=$resultado[2];
+                        $longitudIndicadores[]=$numIndicadores;
                         $indicadores=$resultado[3];
                         foreach ($indicadores as $indicador) {
                             $valorizacion=$indicador[0];
-                            $nombreIndicador=$indicador[1];
-                            $tieneIndicador=$indicador[2];
-                            dd($tieneIndicador);
+                            $resultadosImprimir['CODIGO'][]=$nombreResultado;
+                            $resultadosImprimir['DESCRIPCION'][]=$descripcionResultado;
+                            $indicadoresImprimir[]=$nombreResultado.$valorizacion;                            
                         }
                     }
                     break;
                 }
+                $columnaMerge=2;
+
+
+                //dd($resultadosImprimir,$indicadoresImprimir);
+                $sheet->row($i++,array_merge(["Curso/Resultado"],$resultadosImprimir['CODIGO']));
+                $sheet->row($i++,array_merge([""],$resultadosImprimir['DESCRIPCION']));
+                $sheet->row($i++,array_merge([""],$indicadoresImprimir));
+                //dd($longitudIndicadores);
+                foreach ($longitudIndicadores as $longitud){       
+                    $sheet->mergeCells(self::getColumnaExcel($columnaMerge).'1:'.self::getColumnaExcel($columnaMerge+$longitud-1).'1');
+                    $sheet->mergeCells(self::getColumnaExcel($columnaMerge).'2:'.self::getColumnaExcel($columnaMerge+$longitud-1).'2');
+                    $columnaMerge=$columnaMerge+$longitud;
+                }
+                for ($j=1;$j<=$columnaMerge;$j++){
+                    $sheet->setWidth(self::getColumnaExcel($j), 5);
+                }
+
+                //Columnas y Filas Fijas
+                    $sheet->mergeCells('A1:A3');
+                $sheet->setWidth('A',60);
+                $sheet->setHeight(2,90);
+
+                foreach ($cursos as $curso) {
+                    $filaCurso=[];
+                    $filaCurso[]=$curso[0].'-'.$curso[1]; //Nombre y código
+                    $resultados=$curso[2];
+                    //dd($resultados);
+                    foreach ($resultados as $resultado) {
+                        $indicadores=$resultado[3];
+                        foreach ($indicadores as $indicador) {
+                            $tieneIndicador=$indicador[2];
+                            if($tieneIndicador)
+                                $filaCurso[]="X";
+                            else
+                                $filaCurso[]="";
+                        }
+                    }
+                    $sheet->row($i++,$filaCurso);
+                }
+
+                $sheet->getStyle('B2:AZ2')->getAlignment()->setWrapText(true);
+                 $sheet->cells('A1:'.self::getColumnaExcel($columnaMerge-1).'3', function($cells) {    // manipulate the cell
+                    $cells->setFontSize(12);
+                    $cells->setBackground('#FFBE3C');
+
+                });
+
+                $sheet->cells('A1:A100', function($cells) {    // manipulate the cell
+                    $cells->setFontSize(12);                 
+                });
+
+                $sheet->setBorder('A1:'.self::getColumnaExcel($columnaMerge-1).($i-1), 'thin');
 
                 /*$sheet->setColumnFormat(array('D' => '0%','E' => '0%'));
-                $sheet->getStyle('A2:H1000')->getAlignment()->setWrapText(true);
                 $sheet->cells('A2:H1000', function($cells) {
                     $cells->setFontFamily('Arial');
                     $cells->setFontSize(11);
 
                 });
                 //Consideraciones previas
-                //$sheet->setAutoSize(true);
-                $sheet->mergeCells('B2:E2');
                 
                 $i=2;
                 $sheet->setWidth(array(
@@ -177,7 +239,6 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
                             $cells->setFontWeight('bold');
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
-
                 });
 
                 $codResultado = "";
@@ -268,14 +329,15 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
                     $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
                     //Centrado 
                 }
-                $sheet->cells('A2:E1000', function($cells) {   
+                */
+                $sheet->cells('B1:AZ1000', function($cells) {   
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
-                });*/
+                });
             });
-        })->download('xlsx');
-    }
+})->download('xlsx');
+}
 
 
-    
+
 }
