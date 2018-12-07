@@ -148,10 +148,10 @@ class AlumnoController extends Controller
                 	$lista = array();
                     // Meter alumnos nuevos
                     foreach($alumnosNuevos as $a){
-                    	$lista[] = ['NOMBRES' => $a->NOMBRES,
-		                             'APELLIDO_PATERNO' => $a->APELLIDO_PATERNO,
-		                             'APELLIDO_MATERNO' => $a->APELLIDO_MATERNO,
-		                             'CODIGO' => $a->CODIGO,
+                    	$lista[] = ['NOMBRES' => $a['NOMBRES'],
+		                             'APELLIDO_PATERNO' => $a['APELLIDO_PATERNO'],
+		                             'APELLIDO_MATERNO' => $a['APELLIDO_MATERNO'],
+		                             'CODIGO' => $a['CODIGO'],
 		                             'FECHA_REGISTRO' => $fecha,
 		                             'FECHA_ACTUALIZACION' => $fecha,
 		                             'ID_SEMESTRE'=>$idSemestre,
@@ -162,6 +162,7 @@ class AlumnoController extends Controller
                     }
                     DB::table('ALUMNOS')->insert($lista);
                     // Meter alumnos existentes
+                    $idAlumnos = array();
                     foreach($alumnosExistentes as $a){
                     	$idAlumnos[] = $a['ID_ALUMNO'];
                     }
