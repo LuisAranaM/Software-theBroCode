@@ -456,7 +456,7 @@ class CursoController extends Controller
     private function getApellidoPaterno($x){
         $ans = '';
         for($i = 0; $i < strlen($x); $i++){
-            if($x[$i] == ' ') break;
+            if( ($x[$i] == ' ') || ($x[$i] == ',') ) break;
             $ans .= $x[$i];
         }
         return $ans;

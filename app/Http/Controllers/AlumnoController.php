@@ -66,7 +66,7 @@ class AlumnoController extends Controller
     private function getApellidoPaterno($x){
         $ans = '';
         for($i = 0; $i < strlen($x); $i++){
-            if($x[$i] == ' ') break;
+            if($x[$i] == ' ' || $x[$i] == ',') break;
             $ans .= $x[$i];
         }
         return $ans;
@@ -111,7 +111,8 @@ class AlumnoController extends Controller
             try{
                 /*Archivo debe ser valido*/
                 if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
-                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+                    flash('Extension de archivo incorrecta. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                        inferior del menu lateral.')->error();
                     return Redirect::back();
                 }
                 // Archivo valido
@@ -132,8 +133,16 @@ class AlumnoController extends Controller
 	            // Cada elemento de esto es una estructura que tiene 
 	            // 1. Un horario
 	            // 2. Un arreglo de alumnos
-                $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario);
-
+                $msg = ''; 
+                $val = Alumno::uploadAlumnosDeCurso($data, $idCurso, $alumnosNuevos, $alumnosExistentes, $alumnosBaneados, $alumnosPorHorario, $msg);
+                if($val == 1){
+                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                        inferior del menu lateral.')->error();
+                    return Redirect::back();
+                }else if($val == 3){
+                    flash($msg);
+                    return Redirect::back();
+                }
                 /* EN CASO SE INSERTE DIRECTAMENTE SIN MENSAJE DE CONFIRMACION */
                 {
                 	$lista = array();
@@ -183,10 +192,12 @@ class AlumnoController extends Controller
                 if($val == 0)
                     flash('Alumnos cargados correctamente')->success();
                 else
-                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+                    flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                        inferior del menu lateral.')->error();
             }catch(Exception $e){
                 $this->trace($e);
-                flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos.')->error();
+                flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                        inferior del menu lateral.')->error();
             } 
         }else{
             flash('No se selecciono un archivo')->error();
