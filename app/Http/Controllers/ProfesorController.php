@@ -87,6 +87,7 @@ class ProfesorController extends Controller
         //dd(Curso::getCursosYHorarios());
         //dd(Auth::user()->ID_ROL);
         //dd(eAvisos::getAvisosActuales());
+
         return view('profesor.calificar')
         ->with('ultimoAviso',eAvisos::getAvisosActuales())
         ->with('cursos',Curso::getCursosYHorarios(Auth::user()));

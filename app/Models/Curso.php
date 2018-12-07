@@ -141,7 +141,6 @@ class Curso extends Eloquent
         }
 
         foreach($cursos as $c){
-          
             $data["curso"] = $c;
             $horarios = Horario::getHorariosCompleto($c->ID_CURSO,$idSemestre); //MODELO
             //$cantIndicadores = IndicadoresHasCurso::getCantIndicadoresByCurso($c->ID_CURSO, $idSemestre);
@@ -164,9 +163,7 @@ class Curso extends Eloquent
                 $results = Horario::getIndicadoresHasAlumnosHasHorarios($h->ID_HORARIO,$indicadoresCurso);
                 $tot = Horario::getCantAlumnos($h->ID_HORARIO);
                 $horario["profesor"] = EProfesoresHasHorario::getProfesorHorario($h->ID_HORARIO);
-                //if($h->ID_HORARIO==5)
-                  //  dd($results);
-                //dd($horario["profesor"]);
+            
                 $horario["alumnosTotal"] = $tot;
                 $part = 0;
                 $idAlumnos = array();
@@ -226,7 +223,7 @@ class Curso extends Eloquent
         $ans["cursosCalificados"] = Curso::getCursosCalificados($ans);
         $ans["cantidadCursos"] = Curso::getCantCursos($ans);
         }
-        //dd($ans);
+
         return $ans;
     }
 

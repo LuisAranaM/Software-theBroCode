@@ -29,9 +29,9 @@ $numEo=1;
 					<table class="table table-striped jambo_table bulk_action">
 						<thead >
 							<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-								<th class="pText column-title" style="border: none;text-align:center; width: 60%">SO</th>
+								<th class="pText column-title" style="border: none;text-align:center; width: 60%">Resultados del Estudiante</th>
 								@foreach($objetivosEducacionales as $eo)
-								<th class="pText column-title" style="border: none;text-align:center;width:40/{{$contEos}}% ">EO{{$numEo++}}</th>
+								<th class="pText column-title" style="border: none;text-align:center;width:40/{{$contEos}}% ">OE{{$numEo++}}</th>
 								@endforeach
 
 
@@ -42,7 +42,7 @@ $numEo=1;
 						<tbody class="text-left" id="listaSOS">
 							@foreach($objetivosEstudiante as $so)
 							<tr class="even pointer" id="columnaX">
-								<td class="pText" style="background-color: white;color: #72777a;text-align: center;vertical-align: center;">{{$so->DESCRIPCION}}</td>
+								<td class="pText" style="background-color: white;color: #72777a;vertical-align: center;">{{$so->DESCRIPCION}}</td>
 								@foreach($objetivosEducacionales as $eo)								
 								<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
 									<label>

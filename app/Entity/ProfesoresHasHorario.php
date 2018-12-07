@@ -24,7 +24,9 @@ class ProfesoresHasHorario extends \App\Entity\Base\Entity {
 
     static function getProfesorHorario($idHorario){
         $model=new mProfesoresHasHorario();
-        return $model->getProfesorHorario($idHorario)->first()->NOMBRES_COMPLETOS;
+        $profesor=$model->getProfesorHorario($idHorario)->first();
+        if($profesor!=NULL) return $profesor->NOMBRES_COMPLETOS;
+        else return NULL;
     }
 
     
