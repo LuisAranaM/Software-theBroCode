@@ -68,6 +68,7 @@ class ProfesoresHasHorario extends Eloquent
         })
         ->where('PH.ID_HORARIO','=',$idHorario)
         ->where('PH.ESTADO','=',1);
+        //dd($idHorario,$sql->get());
         //dd($sql->first()->NOMBRES_COMPLETOS);
         return $sql;
     }
