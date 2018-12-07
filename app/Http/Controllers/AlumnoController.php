@@ -92,6 +92,8 @@ class AlumnoController extends Controller
         return $ans;
     }
 
+    // Ez pushhhhh
+
     private function validFile($x){
         $i = 0; $point = false;
         for(; $i < strlen($x); $i++)
