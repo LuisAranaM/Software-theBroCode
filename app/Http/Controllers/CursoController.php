@@ -665,7 +665,7 @@ class CursoController extends Controller
                                 }                                                              
                             }
                             //romper la relacion logicamente entre el profesor antiguo de los cursos antiguos
-                            if($listaHorariosMantenidos != null){
+                            if($listaHorariosMantenidos != null && $listaHorariosNuevos != null){
                                 foreach($listaHorariosMantenidos as $horario){
                                     DB::table('PROFESORES_HAS_HORARIOS')
                                     ->where('ID_HORARIO','=',$horario)
