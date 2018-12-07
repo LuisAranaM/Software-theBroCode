@@ -126,7 +126,7 @@ class AdministradorController extends Controller
 
         $orden=[];
         return view('administrador.activacion-usuario')
-        ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario'))
+        ->with('usuarios',Usuario::getUsuariosGestion($filtros,$orden)->setPath(config('app.url').'admin/gestionar-usuario/activacion'))
         ->with('filtros',$filtros)
         ->with('orden',$orden)
         ->with('roles',Rol::getRoles())
