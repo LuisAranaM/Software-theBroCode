@@ -17,6 +17,7 @@ class Avisos extends \App\Entity\Base\Entity {
 
     static function getAvisos() {
         $model = new mAvisos();
+        
         return mAvisos::getAvisos(self::getIdSemestre(),self::getEspecialidadUsuario());
     }
 

@@ -70,10 +70,15 @@ class Indicador extends \App\Entity\Base\Entity {
         $model =new mIndicador();
         return $model->getDataGraficoIndicadoresResultado($idSemestre,$idResultado,self::getEspecialidadUsuario())->get();   
     }
-
+    //Grafico 2.1
     static function graficoReporteResultadosCurso($idSemestre,$idCurso){
         $model =new mIndicador();
         return $model->getDataGraficoResultadosxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario())->get();
+    }
+    //Grafico 2.2
+    static function graficoReporteIndicadoresCurso($idSemestre,$idCurso, $idResultado){
+        $model =new mIndicador();
+        return $model->getDataGraficoIndicadoresxCurso($idSemestre,$idCurso,self::getEspecialidadUsuario(),$idResultado)->get();
     }
 
     static function getReporteResultadosCiclo($filtros, $idSemestre){
@@ -139,9 +144,9 @@ class Indicador extends \App\Entity\Base\Entity {
                             $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                             $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
                             $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                            if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                            else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
-                            else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');});
+                            if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#fc3232');});
+                            else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#ffe74d');});
+                            else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#13d604');});
                             $i++;
                         }
                         $nIndicadores = 0;
@@ -193,14 +198,14 @@ class Indicador extends \App\Entity\Base\Entity {
                     $nIndicadores++;
                     $porcentajeAcumulado += $fila->PORCENTAJE_PONDERADO;
                 }
-                if(!empty($reporte)){
+                if(count($reporte)>0){
                     $sheet->mergeCells('B'.$filaInicialCat.':B'.($filaFinalCat-1));
                     $sheet->mergeCells('E'.$filaInicial.':E'.($filaFinal-1));
                     $porcentajetotal=round($porcentajeAcumulado/$nIndicadores,4);
                     $sheet->setCellValue('E'.$filaInicial,$porcentajetotal);
-                    if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FF0000');});
-                    else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#00FF00');}); 
+                    if($porcentajetotal<0.70) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#fc3232');});
+                    else if($porcentajetotal<0.85) $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#ffe74d');});
+                    else $sheet->cell('E'.$filaInicial, function($color){$color->setBackground('#13d604');}); 
                     $sheet->setBorder('B'.($filaInicial-3).':E'.($filaFinal-1), 'thin');   
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->getStyle("D".$filaInicial.":G".($filaFinal-1))->applyFromArray($style);
@@ -213,14 +218,15 @@ class Indicador extends \App\Entity\Base\Entity {
             });
         })->download('xlsx');
     }
-
-    static function getReporteCursosResultado($filtros){
+    //Reporte 2
+    static function getReporteCursosResultado($filtros, $idSemestre){
         $model =new mIndicador();
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
-        $semestre=self::getSemestre();
+        $semestre=self::getSemestreByIdSemestre($idSemestre);
+        
         $nombreExcel='Reporte_Cursos_Resultado_'.$nombreEspecialidad.'_'.$semestre;
 
-        $reporte=$model->getReporteCursosResultado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        $reporte=$model->getReporteCursosResultado($filtros,$idSemestre,self::getEspecialidadUsuario())->get();
         //dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
@@ -257,7 +263,7 @@ class Indicador extends \App\Entity\Base\Entity {
                             $cells->setValignment('center');
                 });
                 
-
+                
                 $codResultado="";
                 $filaInicial=3;
                 $filaFinal=3;
@@ -267,7 +273,7 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaInicialInd=3;
                 $filaFinalInd=3;
                 $nombreInd="";
-
+                
                 $style = array('font' => array('size' => 15,'bold' => true));
                 $promedioResultado=0;
                 $contadorAlumnos=0;
@@ -283,9 +289,9 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->getStyle("G".$filaInicial.":H".($filaFinal))->applyFromArray($style);
                             if($contadorAlumnos!=0){
                                 $sheet->row($i, array("","","","", "","",$promedioResultado/($contadorAlumnos),""));
-                                if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.($i), function($color){$color->setBackground('#FF0000');});
-                                else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.($i), function($color){$color->setBackground('#FFFF00');});
-                                else $sheet->cell('G'.($i), function($color){$color->setBackground('#00FF00');});
+                                if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.($i), function($color){$color->setBackground('#fc3232');});
+                                else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.($i), function($color){$color->setBackground('#ffe74d');});
+                                else $sheet->cell('G'.($i), function($color){$color->setBackground('#13d604');});
                                 
                             }
                             $promedioResultado=0;
@@ -334,15 +340,14 @@ class Indicador extends \App\Entity\Base\Entity {
                         $filaInicialInd=$i;
                     }
                     
-                    
                     $sheet->row($i, array("",$fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA,  $fila->COD_RESULTADO.$fila->VALORIZACION.'. '.$fila->NOMBRE_INDICADOR,
                             $fila->NOMBRE_CURSO,round($fila->PROMEDIO_CALIF,2),$fila->PORCENTAJE_APROBADOS));
                     $promedioResultado+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
                     $contadorAlumnos+=$fila->COUNT;
                     $sheet->setHeight($i, 45);
-                    if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#FF0000');});
-                    else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('H'.$i, function($color){$color->setBackground('#00FF00');});
+                    if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell('H'.$i, function($color){$color->setBackground('#fc3232');});
+                    else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell('H'.$i, function($color){$color->setBackground('#ffe74d');});
+                    else $sheet->cell('H'.$i, function($color){$color->setBackground('#13d604');});
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
@@ -352,7 +357,8 @@ class Indicador extends \App\Entity\Base\Entity {
                     $filaFinalCat=$i;
                     $filaFinalInd=$i;
                 }  
-                if(!empty($reporte)){
+                //dd($reporte);
+                if(count($reporte)>0){
                     $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
                     $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
@@ -361,9 +367,9 @@ class Indicador extends \App\Entity\Base\Entity {
                     $sheet->getStyle("G".$filaInicial.":H".($filaFinal))->applyFromArray($style);
                     if($contadorAlumnos!=0){
                         $sheet->row($i, array("","","","", "","",$promedioResultado/($contadorAlumnos),""));
-                        if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#FF0000');});
-                    else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#FFFF00');});
-                    else $sheet->cell('G'.$i, function($color){$color->setBackground('#00FF00');});
+                        if($promedioResultado/($contadorAlumnos)<0.70) $sheet->cell('G'.$i, function($color){$color->setBackground('#fc3232');});
+                        else if($promedioResultado/($contadorAlumnos)<0.85) $sheet->cell('G'.$i, function($color){$color->setBackground('#ffe74d');});
+                        else $sheet->cell('G'.$i, function($color){$color->setBackground('#13d604');});
                     
                     }
                     $promedioResultado=0;
@@ -393,8 +399,8 @@ class Indicador extends \App\Entity\Base\Entity {
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
         $semestre=self::getSemestre();
         $nombreExcel='Reporte_Consolidado_'.$nombreEspecialidad.'_'.$semestre;
-
-        $reporte=$model->getReporteCursosResultado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
+        //dd($semestre);
+        $reporte=$model->getReporteConsolidado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
         //dd($reporte);
         //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
@@ -402,55 +408,283 @@ class Indicador extends \App\Entity\Base\Entity {
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
                 //Consideraciones previas
                 //$sheet->setAutoSize(true);
-                $sheet->mergeCells('A1:G1');
+                $sheet->setColumnFormat(array('G' => '0%','H' => '0%','I' => '0%','J' => '0%','K' => '0%','L' => '0%','M' => '0%','N' => '0%','O' => '0%','P' => '0%','Q' => '0%'));
+                $sheet->getStyle('A2:Z1000')->getAlignment()->setWrapText(true);
+
+                $sheet->mergeCells('A2:K2');
+                $sheet->mergeCells('A3:K3');
+                $style = array('font' => array('size' => 15,'bold' => true));
+                
                 $sheet->setColumnFormat(array('G' => '0%'));
-                $i=1;
+                $i=2;
                 $sheet->setWidth(array(
                                         'A'     =>  15,
                                         'B'     =>  30,
                                         'C'     =>  30,
                                         'D'     =>  30,
                                         'E'     =>  30,
-                                        'F'     =>  15,
-                                        'G'     =>  15
                                     ));
 
 
-                $sheet->row($i++, array('Reporte Consolidado del semestre '.$semestre));
-                $sheet->cells('A1:G1', function($cells) {    // manipulate the cell
-                            $cells->setBackground('#EDFC00');
-                            $cells->setFontSize(20);
+                //$sheet->row($i++, array('Reporte Consolidado del semestre '.$semestre));
+                $sheet->setHeight($i, 30);
+                $sheet->row($i++, array('PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ'));
+                $sheet->setHeight($i, 30);
+                $sheet->row($i++, array('CONSOLIDACIÓN DE RESULTADO DE LOS INDICADORES DE GESTIÓN'));
+                
+                $sheet->cells('A2:K2', function($cells) {    // manipulate the cell
+                            $cells->setFontSize(13);
                             $cells->setFontWeight('bold');
                             $cells->setAlignment('center');
                             $cells->setValignment('center');
-
                 });
+                $sheet->cells('A3:K3', function($cells) {    // manipulate the cell
+                    $cells->setFontSize(13);
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
 
+                 });
+                $i++;
                 $codResultado="";
-                $filaInicial=3;
-                $filaFinal=3;
+                $constanteFila = $i-2;
+                $filaInicial=$constanteFila + 3;
+                $filaFinal=$constanteFila + 3;
+                $ciclo = "";
+                $columnaInicio = 'I';
+                $calculoMenor = 99999999;
+                $anhoMenor = 0;
+                $cicloMenor = 0;
+                $filaInicialCat=$constanteFila + 3;
+                $filaFinalCat=$constanteFila + 3;
+                $nombreCategoria="";
+                $filaInicialInd=$constanteFila + 3;
+                $filaFinalInd=$constanteFila + 3;
+                $nombreInd="";
+
+                //$=[];
+                foreach ($reporte as $fila) {
+                    if($calculoMenor > ($fila->ANHO*10 + $fila->CICLO)){
+                        $calculoMenor = ($fila->ANHO*10 + $fila->CICLO);
+                        $anhoMenor = $fila->ANHO;
+                        $cicloMenor = $fila->CICLO;
+                    }
+                }
+                $anhoActual = (int)str_replace(' ', '', substr($semestre, 0, 4));
+                
+                $cicloActual = (int)str_replace(' ', '', substr($semestre, 5,2));
+                //dd($anhoActual*10 + $cicloActual);
+                $anhoDif = 2*($anhoActual - $anhoMenor);
+                $columnaFin = $columnaInicio;
+                if($cicloActual == 1 and $cicloMenor == 2 or ($cicloActual == 0 and $cicloMenor == 2) )
+                    $columnaFin = chr(ord($columnaFin)+$anhoDif - 1);
+                elseif ($cicloActual == 2 and $cicloMenor == 1) 
+                    $columnaFin = chr(ord($columnaFin)+$anhoDif + 1);
+                else
+                    $columnaFin = chr(ord($columnaFin)+$anhoDif);
+                //dd($columnaFin);
+                $filaEncabezados = $constanteFila + 2;
+                $porcentajeList = [];
+                $alumnosList = [];
+                $contAux = 0;
+                while($contAux<(ord($columnaFin)-ord($columnaInicio)+1)){
+                    $porcentajeList[$contAux] = 0;
+                    $alumnosList[$contAux] = 0;
+                    $contAux++;
+                }
+                
                 foreach ($reporte as $fila) {
                     if($codResultado!=$fila->COD_RESULTADO){
                         //dd($fila,'A'.$filaInicial.':A'.$filaFinal);
-                        if($i!=2){
-                            $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
-                            $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
-                            $i++;
+                        if(($anhoActual*10+$cicloActual) < ($fila->ANHO*10+$fila->CICLO)){
+                            $codResultado=$fila->COD_RESULTADO;
+                            break;
                         }
-                        $sheet->row($i++, array("Código","Resultado","Categoría", "Indicador",
-                            "Curso","Promedio","Aprobados %"));
-                        $filaInicial=$i;
+                        else{
+                            if($i!=$constanteFila + 2){
+                                $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
+                                $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                                $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                                $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
+                                for($c=ord($columnaInicio);$c<=ord($columnaFin);$c++){
+                                    if($alumnosList[$c-ord($columnaInicio)] == 0)
+                                        $sheet->cell(chr($c).$i, 'NA');
+                                    else
+                                        $sheet->cell(chr($c).$i, $porcentajeList[$c-ord($columnaInicio)]/$alumnosList[$c-ord($columnaInicio)]);
+                                }
+                                $sheet->setHeight($i, 20);
+                                $sheet->cells('A'.$i.':'.$columnaFin.$i, function($cells) {    // manipulate the cell
+                                    //$cells->setFontSize(13);
+                                    $cells->setAlignment('center');
+                                    $cells->setValignment('center');
+                                    $cells->setBackground('#c8c8c8');
+                                });
+                                $i++;
+                            }
+                            
+                            $sheet->cells('A'.$i.':H'.$i, function($cells) {    // manipulate the cell
+                                //$cells->setFontSize(13);
+                                $cells->setAlignment('center');
+                                $cells->setValignment('center');
+                                $cells->setBackground('#334185');
+                                $cells->setFontColor('#FFFFFF');
+    
+                            });
+                            $sheet->row($i++, array("CÓDIGO","RESULTADO","CATEGORÍA", "INDICADOR",
+                                "CURSOS EVALUADOS","MEDIDA","META %", "ÓPTIMO"));
+                            $contAux = 0;
+                            while($contAux<(ord($columnaFin)-ord($columnaInicio)+1)){
+                                $porcentajeList[$contAux] = 0;
+                                $alumnosList[$contAux] = 0;
+                                $contAux++;
+                            }
+                            $filaInicial=$i;
+                            $filaEncabezados = $filaInicial - 1;
+                        }
+                        $filaInicialCat=$i;
+                        $filaInicialInd=$i;
                     }
+                    else if($nombreCategoria!=$fila->NOMBRE_CATEGORIA){
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        if($i!=$filaInicial){
+                            $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
+                            $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                        }
+                        $filaInicialCat=$i;
+                        $filaInicialInd=$i;
+                    }
+                    else if($nombreInd!=$fila->NOMBRE_INDICADOR){
+                        //solo la primera fila del resultado no lo hará, las siguientes verificarán si el 
+                        if($i!=$filaInicialCat){
+                            $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                        }
+                        $filaInicialInd=$i;
+                    }
+
+                    if(($anhoActual*10+$cicloActual) < ($fila->ANHO*10+$fila->CICLO)){
+                        $sheet->setHeight($i, 45);
+                        $i++;
+                        $codResultado=$fila->COD_RESULTADO;
+                        $filaFinal=$i;
+                        continue;
+                    }
+                    $ciclo = $fila->ID_SEMESTRE;
                     $sheet->row($i, array($fila->COD_RESULTADO,$fila->NOMBRE_RESULTADO,$fila->NOMBRE_CATEGORIA, $fila->NOMBRE_INDICADOR,
-                            $fila->NOMBRE_CURSO,$fila->PROMEDIO_CALIF,$fila->PORCENTAJE_APROBADOS));
+                            $fila->NOMBRE_CURSO, '%', '0.7', '1.0'));
+                    $sheet->cell('H'.$i.':Z'.$i, function($cells) {    // manipulate the cell
+                        $cells->setAlignment('center');
+                        $cells->setValignment('center');
+                    });
+                    //$sheet->cell('I'.$filaInicial, $fila->ANHO.$fila->CICLO);
+                    $aux = $columnaInicio;
+                    
+                    $anhoDif = 2*($anhoActual - $fila->ANHO); 
+                    
+                    $aux = chr(ord($aux)+$anhoDif);
+                    
+                    $anhoAux = $anhoActual;
+                    $cicloAux = $cicloActual;
+                    
+                    if($fila->CICLO == 2){
+                        if($cicloActual == 0 or $cicloActual == 1)
+                            $aux = chr(ord($aux) - 1);
+                        $cant = ord($columnaFin) - ord($columnaInicio) + 1;
+                        
+                        $columnRellenar = $columnaInicio;
+                        
+                        for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
+                            $sheet->cell($columnRellenar.$i, 'NA');
+                            //Llenando los encabezados de ciclo
+                            $sheet->cell($columnRellenar.$filaEncabezados, $anhoAux.'-'.$cicloAux);
+                            $sheet->cell($columnRellenar.$filaEncabezados, function($cells) {    // manipulate the cell
+                                //$cells->setFontSize(13);
+                                $cells->setAlignment('center');
+                                $cells->setValignment('center');
+                                $cells->setBackground('#334185');
+                                $cells->setFontColor('#FFFFFF');
+    
+                            });
+                            if($cicloAux == 1 or $cicloAux == 0){
+                                $cicloAux = 2;
+                                $anhoAux = $anhoAux - 1;
+                            }
+                            else{
+                                $cicloAux = 1;
+                            }
+                            $columnRellenar++;
+                        }
+                        $sheet->cell($aux.$i, $fila->PORCENTAJE_APROBADOS);
+                        if($fila->COUNT!=0){
+                            if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell($aux.$i, function($color){$color->setBackground('#fc3232');});
+                            else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell($aux.$i, function($color){$color->setBackground('#ffe74d');});
+                            else $sheet->cell($aux.$i, function($color){$color->setBackground('#13d604');});
+                        
+                        }
+                        $porcentajeList[ord($aux)-ord($columnaInicio)]+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
+                        $alumnosList[ord($aux)-ord($columnaInicio)]+=$fila->COUNT;
+                        
+                        $sheet->cell($aux.$i, function($cells) {    // manipulate the cell
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                        });
+                    }    
+                    else{
+                        if($cicloActual == 0 or $cicloActual == 1)
+                            $aux = chr(ord($aux) - 1);
+                        $cant = ord($columnaFin) - ord($columnaInicio) + 1;
+                        $columnRellenar = $columnaInicio;
+                        for ($itercolum=0; $itercolum < $cant ; $itercolum++) { 
+                            $sheet->cell($columnRellenar.$i, 'NA');
+                            
+                            $sheet->cell($columnRellenar.$filaEncabezados, $anhoAux.'-'.$cicloAux);
+                            if($cicloAux == 1 or $cicloAux == 0){
+                                $cicloAux = 2;
+                                $anhoAux = $anhoAux - 1;
+                            }
+                            else{
+                                $cicloAux = 1;
+                            }
+                            $columnRellenar++;
+                        }
+                        $aux2 = $aux++;
+                        $sheet->cell($aux2.$i, $fila->PORCENTAJE_APROBADOS);
+                        if($fila->COUNT!=0){
+                            if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell($aux2.$i, function($color){$color->setBackground('#fc3232');});
+                            else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell($aux2.$i, function($color){$color->setBackground('#ffe74d');});
+                            else $sheet->cell($aux2.$i, function($color){$color->setBackground('#13d604');});
+                        
+                        }
+                        $porcentajeList[ord($aux2)-ord($columnaInicio)]+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
+                        $alumnosList[ord($aux2)-ord($columnaInicio)]+=$fila->COUNT;
+                        $sheet->getStyle($aux2.$filaInicial.':'.$aux2.$i)->applyFromArray($style);
+                    }
                     $sheet->setHeight($i, 45);
                     $i++;
                     $codResultado=$fila->COD_RESULTADO;
                     $filaFinal=$i;
+                    $nombreCategoria = $fila->NOMBRE_CATEGORIA;
+                    $nombreInd = $fila->NOMBRE_INDICADOR;
+                    $filaFinalCat=$i;
+                    $filaFinalInd=$i;
                 }  
-                if(!empty($reporte)){
+                if(count($reporte)>0){
                     $sheet->mergeCells('A'.$filaInicial.':A'.($filaFinal-1));
                     $sheet->mergeCells('B'.$filaInicial.':B'.($filaFinal-1));
+                    $sheet->mergeCells('D'.$filaInicialInd.':D'.($filaFinalInd-1));
+                    $sheet->mergeCells('C'.$filaInicialCat.':C'.($filaFinalCat-1));
+                    for($c=ord($columnaInicio);$c<=ord($columnaFin);$c++){
+                        if($alumnosList[$c-ord($columnaInicio)] == 0)
+                            $sheet->cell(chr($c).$i, 'NA');
+                        else
+                            $sheet->cell(chr($c).$i, $porcentajeList[$c-ord($columnaInicio)]/$alumnosList[$c-ord($columnaInicio)]);
+                    }
+                    $sheet->setHeight($i, 20);
+                    $sheet->cells('A'.$i.':'.$columnaFin.$i, function($cells) {    // manipulate the cell
+                        //$cells->setFontSize(13);
+                        $cells->setAlignment('center');
+                        $cells->setValignment('center');
+                        $cells->setBackground('#c8c8c8');
+                    });
+                    $sheet->setBorder('A5:'.$columnaFin.$i, 'thin');
                     //dd('A'.$filaInicial.':A'.($filaFinal-1));    
                 }
                 //Centrado

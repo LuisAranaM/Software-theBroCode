@@ -96,7 +96,7 @@ $( document ).ready(function() {
 		var nombreAlumno=$(this).attr('nombreAlumno');
 		var idHorario=$(this).attr('idHorario');
 		var filaAlumno=$(this).parent().parent().parent();
-		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreAlumno+"?");
+		var resp=confirm("Si borras a este alumno, no sera considerado en la calificacion. Deseas borrar a "+nombreAlumno+"?");
         var botonCurso=$(this).closest('div').closest('div');
         if (resp == true) {
             eliminarAlumno(idAlumno,idHorario,filaAlumno);          

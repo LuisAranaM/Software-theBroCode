@@ -53,7 +53,7 @@
 
         <div class="form-group col-md-2">
           <label for="" class="control-label">Especialidad:</label>
-          <select id="cboEspecialidadBuscar" class="form-control" name="especialidadBuscar">
+          <select id="cboEspecialidadBuscar" class="form-control cboEspecialidad" name="especialidadBuscar">
             <option value="">Todos</option>
             @foreach ($especialidades as  $especialidad)
             <option value="{{$especialidad->ID_ESPECIALIDAD}}" {{($especialidad->ID_ESPECIALIDAD == $filtros['especialidad'])? 'selected="selected"':''}}
@@ -202,9 +202,9 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               </select>
             </div>
 
-            <div class="form-group cboEspecialidad" style="height: 55px">
+            <div class="form-group" style="height: 55px">
               <label>Especialidad</label>
-              <select class="form-control" name="especialidad" id="cboEspecialidad" disabled="">
+              <select class="form-control cboEspecialidad" name="especialidad" id="cboEspecialidad" disabled="">
                 <option value="">Selecciona una opción</option>
                 @foreach($especialidades as $especialidad)
                 <option value="{{$especialidad->ID_ESPECIALIDAD}}">{{$especialidad->NOMBRE}}</option>
@@ -286,7 +286,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
               </select>
             </div>
 
-            <div class="form-group" style="height: 55px">
+            <div class="form-group cboEspecialidad" style="height: 55px">
               <label>Especialidad</label>
               <select class="form-control cboEspecialidad" name="especialidad" id="cboEspecialidadEditar" disabled="">
                 <option value="">Selecciona una opción</option>

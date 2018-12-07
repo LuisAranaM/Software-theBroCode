@@ -6,6 +6,7 @@ use App\Entity\Sos as eSos;
 use App\Entity\Eos as eEos;
 use App\Entity\SosHasEos;
 use App\Entity\Semestre;
+use App\Entity\Resultado as eResultado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -14,9 +15,11 @@ class ObjetivosEducacionalesController extends Controller
 {
     public function objetivosGestion() {    
         //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
+        $resultados = eResultado::getResultados()->toArray();
         return view('objetivos.objetivos')
         ->with('casillasChecks',SosHasEos::getSosHasEos())
-        ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
+        //->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
+        ->with('objetivosEstudiante',$resultados)
         ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
     }
      public function objetivosGestionTablas() { 

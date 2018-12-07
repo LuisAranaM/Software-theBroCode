@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use App\Entity\IndicadoresHasCurso as IhC;
+use App\Entity\IndicadoresHasCurso;
+use App\Entity\Resultado as Resultado;
 
 class DropzoneController extends Controller
 {
@@ -13,9 +14,14 @@ class DropzoneController extends Controller
 		return view('dropzone');
 	}	
 
-	public function getcursosxind(Request $request){
+	public function mapeoDeIndicadores(Request $request){
 		//dd("holis");
-		Ihc::getResultadosByIndicadores();
+		IndicadoresHasCurso::generarExcelIndicadoresByCurso();
 
+	}
+
+	public function logRubrica(Request $request){
+		$rubrica=Resultado::cambiosRubricas();
+        return $rubrica;
 	}
 }

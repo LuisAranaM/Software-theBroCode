@@ -152,6 +152,7 @@ class Sos extends Eloquent
 
 			DB::commit();
 		} catch (\Exception $e) {
+			dd($e->getMessage());
 			$status=false;
 			Log::error('BASE_DE_DATOS|' . $e->getMessage());
 			DB::rollback();

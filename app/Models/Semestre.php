@@ -128,12 +128,18 @@ class Semestre extends Eloquent
 			DB::Raw("CONVERT(FECHA_FIN,DATE) AS FECHA_FIN"),
 			DB::Raw("CONVERT(FECHA_ALERTA,DATE) AS FECHA_ALERTA"),
 			DB::raw('CONCAT(ANHO, "-", CICLO) AS SEMESTRE'),'ANHO','CICLO')
-				//->where('ESTADO','>=',1)
+				->where('ESTADO','<>',0)
 		->orderBy('ANHO','DESC')
 		->orderBy('CICLO','DESC');
+		if($sql->count()==0) return $sql;
+		$getCiclo=self::getCiclo($idSemestreActual)->first();
+		$anho=null;
+		$ciclo=null;
+		if($getCiclo!=NULL){
+			$anho=$getCiclo->ANHO;
+			$ciclo=$getCiclo->CICLO;
+			}
 
-		$anho=self::getCiclo($idSemestreActual)->first()->ANHO;
-		$ciclo=self::getCiclo($idSemestreActual)->first()->CICLO;
 		if($tipo)
 			$sql=$sql->where('ESTADO','<>',0);
 		else{
@@ -156,10 +162,39 @@ class Semestre extends Eloquent
 		return $sql;
 	}
 
+
+	static function getAllSemestres(){
+
+		$sql=DB::table('SEMESTRES')
+		->select('ID_SEMESTRE','ANHO','CICLO')
+		->where('ESTADO','=',1)
+		->orderBy('ANHO','DESC')
+		->orderBy('CICLO','DESC');
+		return $sql;
+	}
+
+	static function getAnhoCiclo($idSemestre){
+		$sql=DB::table('SEMESTRES')
+		->select('ANHO','CICLO')
+		->where('ID_SEMESTRE','=',$idSemestre)
+		->where('ESTADO','>=',1);
+		return $sql;
+	}
+
+	static function getIdSemestre2($anho,$ciclo){
+		$sql=DB::table('SEMESTRES')
+		->select('ID_SEMESTRE')
+		->where('ANHO','=',$anho)
+		->where('CICLO','=',$ciclo)
+		->where('ESTADO','>=',1);
+		return $sql;
+	}
+
 	static function getIdSemestre(){
 		$sql=DB::table('SEMESTRES')
 		->select('ID_SEMESTRE')
 		->where('ESTADO','=',2);
+		if($sql->count()==0) return null;
 		return $sql->first()->ID_SEMESTRE;
 	}
 

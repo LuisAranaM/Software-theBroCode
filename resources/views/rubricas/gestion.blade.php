@@ -131,7 +131,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
           <div id="btnsResultado" class="modal-footer">
             <div class="row" style="padding-top: 5px; text-align: center; display: flex;justify-content: center;">
               <div class="col-md-4">
-                <button id="btnAgregarResultado" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Cargar</button>
+                <button id="btnAgregarResultado" class = "btn btn-success pText customButton" type="button" value = "Cargar" name="cargar">Guardar</button>
               </div>
               <div class="col-md-4">
                 <button type="reset" class="btn btn-success pText customButton" data-dismiss="modal"

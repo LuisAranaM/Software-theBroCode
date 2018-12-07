@@ -39,7 +39,7 @@ class RequestLog {
         $status = $response->getStatusCode();
         $fecha = Carbon::now()->toDateTimeString();
         $system = $this->parse_user_agent($request->header('User-Agent'));
-        $usuario = $this->auth->user()? $this->auth->user()->REGISTRO: 'guest';
+        $usuario = $this->auth->user()? $this->auth->user()->USUARIO: 'guest';
         $format = $request->getRequestFormat();
         $params = json_encode($request->all());
         $logtext = "$usuario|$ip|".$system['platform'].'|'.$system['platform_version'].'|'.$system['browser'].'|'.$system['version']."|$fecha|$status|$method|$url|$params";

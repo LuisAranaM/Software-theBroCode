@@ -17,11 +17,11 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 		</div>
 	</div>
 
-	@if((count($objetivosSos)==0) and (count($objetivosEos)!=0))
+	@if((count($objetivosSos)==0) and (count($objetivosEos)==0))
 	<div class="row">
 		<div class="col-md-12 col-xs-12" style="text-align: right">
 			<button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracionObj" style="border-color: transparent"> Copiar Configuración</button>
-		</div>
+		</div>	
 	</div>
 	<!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
 	@endif
@@ -29,52 +29,8 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
 	@include('flash::message')
 	<div class="row">
-		<div class="col-sm-6 col-xs-12">
-			<div class="x_panel" style="padding: 20px" >
-				<form action="" method="">
-					{{ csrf_field() }}
-					<div class="table-responsive" style="min-height: 100px; max-height: 300px;  overflow:auto;">
-						<table class="table table-striped jambo_table bulk_action">
-							<thead >
-								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI	">
-									<th class="pText column-title" style="border: none">Objetivos del Estudiante</th>
-									<th class="pText column-title" style="border: none; text-align: center;"></th>
-								</tr>
-							</thead>
 
-
-							<tbody class="text-left" id="listaSOS">
-								@foreach($objetivosEstudiante as $so)
-								<tr class="even pointer" id="columnaX">
-									<td class="pText <?php echo (!$modoSoloLectura? 'editSo' :'' );?> " idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" style="background-color: white;color: #72777a;text-align: left;vertical-align: center;cursor: pointer">{{$so->NOMBRE}}</td>
-
-									<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
-										<i id="editSo" idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" ></i>
-										@if(!$modoSoloLectura)
-										<i idSOS="{{$so->ID_SOS}}" nombreSOS="{{$so->NOMBRE}}" class="elimSo fas fa-trash fa-md" style=" cursor: pointer"></i>
-										@endif
-											<!--<label>
-												<input type="checkbox" class="form-check-input checkSo" 
-												name="checkSelectso[]" value="{{$so->ID_SOS}}" style="text-align: center;"><span class="pText label-text "></span>
-											</label>-->
-										</td>
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
-						</div>
-
-					</form>
-					@if(!$modoSoloLectura)
-					<div id="btnsGuardar" class="text-center" style="border-color: transparent">
-						<!--<button id="btnAgregarSos" class="btn btn-success pText customButtonThin" >Agregar</button>-->
-						<button type="button" id="btnAgregarSos" class=" btn pText customButtonThin" style="color: white; width: 150px; height: 50px; font-size: 13px">Agregar Objetivo <br> del Estudiante</button>
-					</div>
-					@endif
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-xs-12" >
+			<div class="col-sm-12 col-xs-12" >
 				<div class="x_panel" style="padding: 20px">
 
 
@@ -82,7 +38,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 						<table class="table table-striped jambo_table bulk_action">
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-									<th class="pText column-title" style="border: none">Objetivos Educacionales</th>
+									<th class="pText column-title" style="border: none;text-align:center;">Objetivos Educacionales</th>
 									<th class="pText column-title" style="border: none; text-align: center;"></th>
 
 
@@ -295,7 +251,8 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 		<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 		<div class="modal-body"> 
 			<div class="container-fluid" style="">
-				<form id="frmCopiarConfiguracion" action="{{route('configuracionObj.copiar')}}" method="POST">
+				<form id="frmCopiarConfiguracion" action="" method="POST">
+				<!--<form id="frmCopiarConfiguracion" action="configuracionObj.copiar" method="POST">-->
 					{{ csrf_field() }}
 					<div class="tile coursesModalBox" style="padding-bottom: 20px;" id="interiorConfirmacion">
 

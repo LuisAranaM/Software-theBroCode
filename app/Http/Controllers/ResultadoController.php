@@ -7,6 +7,7 @@ use App\Entity\Indicador as eIndicador;
 use App\Entity\Descripcion as eDescripcion;
 use App\Entity\Semestre;
 use App\Entity\EscalaCalificacion as eEscala;
+use App\Entity\IndicadoresHasCurso;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -141,7 +142,10 @@ class ResultadoController extends Controller
             }
         }
         if($ordenRepetido==1) return -2; //-2 significa que el orden ya esta repetido y no puede insertarlo!>:C
-        return eIndicador::updateIndicador($id, $nombre, $orden);
+        $result=[];
+        $result[0]=eIndicador::updateIndicador($id, $nombre, $orden);
+        $result[1]=eDescripcion::getDescripcionesId($id)->toArray();
+        return $result;
     }
     public function actualizarDescripcion(Request $request){
         $id = $request->get('_id',null);
@@ -361,6 +365,12 @@ class ResultadoController extends Controller
             flash('Hubo un error al copiar la configuración')->error();
         }
         return back();
+    }
+
+    public function mapeoDeIndicadores(Request $request){
+        //dd("holis");
+        IndicadoresHasCurso::generarExcelIndicadoresByCurso();
+
     }
 
 }

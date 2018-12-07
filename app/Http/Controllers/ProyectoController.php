@@ -74,7 +74,7 @@ class ProyectoController extends Controller
 
 
     public function storeMasivo(Request $request){
-        
+        //dd("HOLA");
         $proyectos=new eProyecto();
         if($request->file('archivos')==NULL){
             flash('No se seleccionaron archivos para subir')->error();
@@ -95,7 +95,7 @@ class ProyectoController extends Controller
     }
 
     public function descargarProyecto(Request $request){
-        dd("holi");
+        //dd("holi");
     }
 
 }
