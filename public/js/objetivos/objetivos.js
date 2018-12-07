@@ -273,7 +273,7 @@ $( document ).ready(function() {
 		var nombreAtributo=$this.attr('nombreEOS');
 		var $input = $('<input>', {
 			value: nombreAtributo,
-			width: '350px',
+			width: '750px',
 			blur: function() {
 				$this.attr('nombreEOS',this.value);
 				$this.text(this.value);

@@ -27,6 +27,7 @@ class Curso extends \App\Entity\Base\Entity {
     }
 
     static function getCursosYHorarios($usuario=null){
+        //dd(Carbon::now());
         return mCurso::getCursosYHorarios(self::getEspecialidadUsuario(),self::getIdSemestre(),$usuario);
     }
 

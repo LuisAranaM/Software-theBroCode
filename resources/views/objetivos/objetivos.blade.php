@@ -42,16 +42,16 @@ $numEo=1;
 						<tbody class="text-left" id="listaSOS">
 							@foreach($objetivosEstudiante as $so)
 							<tr class="even pointer" id="columnaX">
-								<td class="pText" style="background-color: white;color: #72777a;text-align: center;vertical-align: center;">{{$so->NOMBRE}}</td>
+								<td class="pText" style="background-color: white;color: #72777a;text-align: center;vertical-align: center;">{{$so->DESCRIPCION}}</td>
 								@foreach($objetivosEducacionales as $eo)								
 								<td class="pText" style="background-color: white; color: #72777a;text-align: center;vertical-align: center;">
 									<label>
 										<input <?php echo($modoSoloLectura? 'disabled' :'');?> type="checkbox" class="form-check-input checkSosHasEos" 
-										name="checkSosHasEos[]" value="{{$so->ID_SOS}}-{{$eo->ID_EOS}}" style="text-align: center;" 
+										name="checkSosHasEos[]" value="{{$so->ID_RESULTADO}}-{{$eo->ID_EOS}}" style="text-align: center;" 
 										<?php 
 										$attr='';
 										foreach ($casillasChecks as $casilla) {
-											if($casilla->ID_SOS==$so->ID_SOS){
+											if($casilla->ID_SOS==$so->ID_RESULTADO){
 												if($casilla->ID_EOS==$eo->ID_EOS){
 													$attr='checked';
 												}
