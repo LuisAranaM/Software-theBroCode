@@ -143,9 +143,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 	Route::post('/gestionar-semestre/crear',['as'=>'administrador.semestre.crear','uses'=>'AdministradorController@crearSemestre']);
 	Route::post('/gestionar-semestre/sistema',['as'=>'administrador.semestre.sistema','uses'=>'AdministradorController@seleccionarSemestreSistema']);
 	Route::post('/gestionar-semestre/editar',['as'=>'administrador.semestre.editar','uses'=>'AdministradorController@editarSemestre']);
+	Route::post('/gestionar-semestre/eliminar',['as'=>'administrador.semestre.eliminar','uses'=>'AdministradorController@eliminarSemestre']);
 	Route::get('/gestionar-especialidad',['as'=>'administrador.especialidad','uses'=>'AdministradorController@gestionEspecialidades']);
 	Route::post('/gestionar-especialidad/crear',['as'=>'administrador.especialidad.crear','uses'=>'AdministradorController@crearEspecialidad']);
 	Route::post('/gestionar-especialidad/editar',['as'=>'administrador.especialidad.editar','uses'=>'AdministradorController@editarEspecialidad']);
+	Route::post('/gestionar-especialidad/eliminar',['as'=>'administrador.especialidad.eliminar','uses'=>'AdministradorController@eliminarEspecialidad']);
+	Route::post('/ver-como',['as'=>'administrador.ver.como','uses'=>'AdministradorController@verComoEspecialidad']);
 });
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
