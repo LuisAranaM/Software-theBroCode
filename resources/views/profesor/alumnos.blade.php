@@ -98,16 +98,15 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
      <thead >
       <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
        <th class="pText column-title" style=""> Código</th>
-       <th class="pText column-title" style="">Nombre</th>
+       <th class="pText column-title" style="width: 40%">Nombre</th>
        @if(!$modoSoloLectura)
-       <th class="pText column-title" style=";width: 5%">Proyecto</th>
+       <th class="pText column-title" style="width: 5%">Proyecto</th>
        @endif
 
        <!--<th class="pText column-title" style=""> </th>-->
-       <th class="pText column-title" style=""> </th>
        <!--para cada resultado-->
        @foreach($resultados as $resultado)
-       <th class="pText column-title" style="">{{$resultado->NOMBRE}}</th>
+       <th class="pText column-title" style="text-align:center;">{{$resultado->NOMBRE}}</th>
        @endforeach 
        @if(!$modoSoloLectura)
        <th class="pText column-title" style=""> </th>

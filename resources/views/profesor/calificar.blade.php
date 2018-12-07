@@ -114,7 +114,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
               @if($h["alumnosTotal"] == 0)
               @if(!$modoSoloLectura) 
               <a href="#" data-target="modalCargarAlumnos" data-toggle="modal" >
-                <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
+                <button type="button" style="background-color: #26b99a;border-color: #26b99a" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2"
                 data-id = "{{$h["horario"]->ID_HORARIO}}" 
                 data-horario ="{{$h["horario"]->NOMBRE}}"
                 > Cargar Alumnos</button>
