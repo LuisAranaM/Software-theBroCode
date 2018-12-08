@@ -109,6 +109,13 @@ class AlumnoController extends Controller
     }
 
     public function uploadAlumnosDeCurso(Request $request){
+
+        $file = $request->file('upload-file');
+        if($file==null){
+                flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
+                return back();
+            }
+            
         if($request -> hasFile('upload-file')){
             try{
                 /*Archivo debe ser valido*/

@@ -130,8 +130,8 @@ $( document ).ready(function() {
 					html+='center;vertical-align: center;"><a href="'+APP_URL+'/upload/'+result[i].NOMBRE+'"';
 					html+=' download="'+result[i].NOMBRE+'" style="text-decoration: underline;">'+result[i].NOMBRE;
 					html+='<i class="fa fa-download" style="padding-left: 5px"></i> </a></td> ';
-					html+='<td style="background-color: white; text-align: center;vertical-align: center"><label><input type="checkbox" class="form-check-input checkDoc" name="checkDocs[]" id="documentosChecks"  value="'+result[i].NOMBRE;
-					html+='style="text-align: center;" ><span class="pText label-text "></span></label></td>';
+					html+='<td style="background-color: white; text-align: center;vertical-align: center"><label><input type="checkbox" class="form-check-input checkDoc" name="checkDocs[]" id="documentosChecks"  value="'+result[i].NOMBRE+'" ';
+					html+=' style="text-align: center;" ><span class="pText label-text "></span></label></td>';
 
 					html+='</tr>';
 				}			

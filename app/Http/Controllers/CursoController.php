@@ -499,6 +499,12 @@ class CursoController extends Controller
     public function store(Request $request){
         //dd($request->all());
         //$this->visualizarData($request);
+        //
+        $file = $request->file('upload-file');
+        if($file==null){
+                flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
+                return back();
+            }
         if($request->hasFile('upload-file')){
             if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
                     flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de cursos')->error();

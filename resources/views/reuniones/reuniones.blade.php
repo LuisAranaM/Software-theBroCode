@@ -11,7 +11,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
 <div class="customBody">
 
-	@include('flash::message')
 	<div class="row">
 		<div class="col-md-8 col-sm-6">
 			<h1 class="mainTitle"> Gestionar Histórico de Documentos de Reuniones</h1>
@@ -41,7 +40,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 						<div id="rangoSemestres" class="no-padding" style="display: inline-block">
 							<label class="semLabel pText" style="padding-top: 5px; margin-right: 10px" >Semestre final:</label>
 							<select name="semFin" id="semFin" class="form-control" style="width: 100px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
-
 								@foreach($semestres as $semestre)
 								<option value="{{$semestre->ID_SEMESTRE}}">{{$semestre->SEMESTRE}}</option>
 								@endforeach
@@ -49,7 +47,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 						</div>
 						<div id="tipoDocumentos" class="no-padding" style="display: inline-block">
 							<label class="semLabel pText" style="padding-top: 5px; margin-right: 10px" >Tipo Documento:</label>
-							<select name="doctipo" id="doctipo" class="form-control" style="width: 100px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
+							<select name="doctipo" id="doctipo" class="form-control" style="width: 140px; margin-right: 20px; display: inline-block; font-size: 14px; padding-top: 5px">
 								<option value="Todo">Todos</option>
 								@foreach($tipos as $tipo) 
 								<option value="{{$tipo}}">{{$tipo}}</option>
@@ -76,7 +74,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="table-responsive"  style="height:300px;overflow:auto; position: relative">
+						<div class="table-responsive"  style="max-height:300px;overflow:auto; position: relative">
 							<table class="table table-striped jambo_table bulk_action">
 								<thead >
 									<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">

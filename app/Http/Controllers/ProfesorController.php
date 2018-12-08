@@ -54,7 +54,6 @@ class ProfesorController extends Controller
         $idCurso=$request->get('idCurso',null); 
         $vistaProc=$request->get('vistaProc',null); 
         
-
         return view('profesor.alumnos')
         ->with('vistaProc',$vistaProc)
         ->with('curso',Curso::getCursoByIdHorario($idHorario))

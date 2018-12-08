@@ -35,6 +35,10 @@ class ReunionesController extends Controller
             $ciclo = $request->get('ciclo', null);
             $semestre = explode( '-', $ciclo );
             $file = $request->file('archivo');
+            if($file==null){
+                flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
+                return back();
+            }
             #$semestre_actual = Entity::getIdSemestre();
             $semestreActual = Entity::getIdSemestre();
             $especialidad = Entity::getEspecialidadUsuario();
@@ -69,7 +73,6 @@ class ReunionesController extends Controller
 
     public function descargarDocumentosReuniones(Request $request){      
         //dd($request->all(),$request->get('botonSubmit',null));  
-
         $tipo=$request->get('botonSubmit',null);
         $checks=$request->get('checkDocs',null);
 
@@ -113,17 +116,14 @@ class ReunionesController extends Controller
             }else{
                 //dd('Desc');
                 try{
-
                     $dirHandle = opendir(public_path(). "/upload//");
                     $dir = public_path(). "/upload//";
                     $valueComprimido = public_path(). "/upload/comprimido.zip";
                     while ($file = readdir($dirHandle)) {
                         if($file=="comprimido.zip") {
-                            //dd("Elimina el comprimido");
                             unlink($dir.'//'.$file);
                         }
                     }
-                    //dd($aux);
                     closedir($dirHandle);
                 }catch(Exception $e){
 
@@ -132,14 +132,10 @@ class ReunionesController extends Controller
                 $files = array();
                 foreach ($checks as $key => $value) {
                     $file= public_path(). "/upload/".$value;
-                    //dd($file);
                     array_push($files, $file);
                 } 
+
                 //dd($files);
-                //$files = glob(public_path('js/*'));
-
-                
-
                 \Zipper::make(public_path('/upload/comprimido.zip'))->add($files)->close();
                 return response()->download(public_path('/upload/comprimido.zip'));
             }
@@ -149,16 +145,6 @@ class ReunionesController extends Controller
             //flash('No se ha seleccionado ningún documento para descargar.')->success();
             return back();
         }
-        /*$checks=$request->get('checkDocumentos',null);
-        
-        $doc = new PlanesDeMejora();           
-        
-        if($doc->agregarAcreditar($checks,Auth::id())){
-            flash('Las cursos a acreditar se registraron correctamente.')->success();
-        } else {
-            flash('Hubo un error al registrar los cursos a acreditar.')->error();
-        }
-        return back();
-*/
+       
     }
 }

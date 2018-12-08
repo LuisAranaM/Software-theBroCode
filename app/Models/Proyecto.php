@@ -58,8 +58,8 @@ class Proyecto extends Eloquent
         $ans = DB::table('PROYECTOS')
         ->join('ALUMNOS_HAS_HORARIOS', 'ALUMNOS_HAS_HORARIOS.ID_PROYECTO', '=', 'PROYECTOS.ID_PROYECTO')
         ->select('PROYECTOS.*')
+        ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
         ->orderBy('FECHA_ACTUALIZACION', 'desc')
-            #->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
         ->get()->toArray();
         return $ans;
     }
