@@ -74,6 +74,13 @@ class PlanesDeMejora extends Eloquent
     }
 
     static function resultadosFiltroDocs($anhoInicio,$semIni,$anhoFin,$semFin,$tipo,$idEspecialidad){
+        if ($tipo=='Acta de Reunión')
+            $tipo='acta';
+        else if ($tipo=='Plan de Mejora')
+            $tipo='plan';
+        else 
+            $tipo=null;
+
         if($tipo != null){
             if($anhoFin !=null){
                 $sql = DB::table('DOCUMENTOS_REUNIONES')

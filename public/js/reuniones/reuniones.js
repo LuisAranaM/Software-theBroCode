@@ -88,6 +88,7 @@ $( document ).ready(function() {
 		cicloIni = semIni.split("-");
 		cicloFin = semFin.split("-");
 		tipo = document.getElementById('doctipo').options[document.getElementById('doctipo').selectedIndex].text;
+		console.log(tipo);
 		filtrarDocumentosReuniones(cicloIni[0],cicloIni[1],cicloFin[0],cicloFin[1],tipo);
 		e.preventDefault();
 	});

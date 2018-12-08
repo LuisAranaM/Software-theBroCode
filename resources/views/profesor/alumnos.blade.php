@@ -68,101 +68,109 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
       <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href="{{ route('cursos.horarios') }}?id={{$curso[0]->ID_CURSO}}&nombre={{$curso[0]->NOMBRE}}&codigo={{$curso[0]->CODIGO_CURSO}}">{{$curso[0]->CODIGO_CURSO}} -{{$curso[0]->NOMBRE}}</a> > <a href=""> {{$horario[0]->NOMBRE}}</a></h1>
       @endif
     </div>
-</div>
-@include('flash::message')
-@if(count($alumnos)>0)
-<div class="row">
+  </div>
+  @include('flash::message')
+  @if(count($alumnos)>0)
+  <div class="row">
 
-  <!--BLOQUE IZQUIERDA-->
-  <div class="x_panel tile coursesBox ">
-   <div class="row rowFinal">
-    <div class="row" style="padding-bottom: 10px">
-     <div class="col-xs-9 col-md-8" >
-      <h1 class="secondaryTitle mainTitle">Seleccione un alumno a calificar</h1>
-    </div>
-    <div class="col-md-4 col-sm-6 form-group top_search" >
-      <div class="input-group">
-        <input id="buscarAlumno" type="text" class="form-control searchText" placeholder="Alumno...">
-        <span class="input-group-btn">
-          <button class="btn btn-default searchButton" type="button">Buscar</button>
-        </span>
+    <!--BLOQUE IZQUIERDA-->
+    <div class="x_panel tile coursesBox ">
+     <div class="row rowFinal">
+      <div class="row" style="padding-bottom: 10px">
+       <div class="col-xs-9 col-md-8" >
+        <h1 class="secondaryTitle mainTitle">Seleccione un alumno a calificar</h1>
+      </div>
+      <div class="col-md-4 col-sm-6 form-group top_search" >
+        <div class="input-group">
+          <input id="buscarAlumno" type="text" class="form-control searchText" placeholder="Alumno...">
+          <span class="input-group-btn">
+            <button class="btn btn-default searchButton" type="button">Buscar</button>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
+    <div class="row">
      <form action="{{ route('proyecto.store.masivo') }}" method="post" enctype="multipart/form-data">
       {{ csrf_field() }}
-   <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
-     <thead >
-      <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-       <th class="pText column-title" style=""> Código</th>
-       <th class="pText column-title" style="width: 40%">Nombre</th>
-       @if(!$modoSoloLectura)
-       <th class="pText column-title" style="width: 5%">Proyecto</th>
-       @endif
+      <div class="table-responsive">
+        <table class="table table-striped jambo_table bulk_action">
+         <thead >
+          <tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
+           <th class="pText column-title" style=""> Código</th>
+           <th class="pText column-title" style="">Nombre</th>
+           @if(!$modoSoloLectura)
+           <th class="pText column-title" style="">Proyecto</th>
+           @endif
+           @if(count($projects)>0)
+           <td></td>  
+           @endif
+           <!--<th class="pText column-title" style=""> </th>-->
+           <!--para cada resultado-->
+           @foreach($resultados as $resultado)
+           <th class="pText column-title" style="text-align:center;">{{$resultado->NOMBRE}}</th>
+           @endforeach 
+           @if(!$modoSoloLectura)
+           <th class="pText column-title" style=""> </th>
+           @endif
 
-       <!--<th class="pText column-title" style=""> </th>-->
-       <!--para cada resultado-->
-       @foreach($resultados as $resultado)
-       <th class="pText column-title" style="text-align:center;">{{$resultado->NOMBRE}}</th>
-       @endforeach 
-       @if(!$modoSoloLectura)
-       <th class="pText column-title" style=""> </th>
-       @endif
+         </tr>
+       </thead>
+       <!--CargarCurso-->
 
-     </tr>
-   </thead>
-   <!--CargarCurso-->
+       <tbody class="text-left" id="listaAlumnos">
+        @foreach($alumnos as $alumno)
 
-   <tbody class="text-left" id="listaAlumnos">
-    @foreach($alumnos as $alumno)
+        <tr class="even pointer" id="ocultarTachito">
+          <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->CODIGO}} </td>
+          <td class="pText" id="" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
 
-    <tr class="even pointer" id="ocultarTachito">
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->CODIGO}} </td>
-      <td class="pText" id="" style="background-color: white; padding-top: 12px; color: #72777a;vertical-align: center;">{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}
-      
-      </td>
-      <input type="text" name="codAlumnos[]" value="{{$alumno->CODIGO}}" hidden>
-      <input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>
-      @if(!$modoSoloLectura)
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivos[{{$alumno->ID_ALUMNO}}]" id = "file" class="fileToUpload"></td>    
-      @endif
+          </td>
+          <input type="text" name="codAlumnos[]" value="{{$alumno->CODIGO}}" hidden>
+          <input type="text" name="horario" value="{{$horario[0]->ID_HORARIO}}" hidden>
+          @if(!$modoSoloLectura)
+          <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivos[{{$alumno->ID_ALUMNO}}]" id = "file" class="fileToUpload"></td>    
+          @endif
 
       <!--<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
         <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
       </td>-->
-      @foreach($projects as $project)                        
+      @if(count($projects)>0)
+      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
+        @foreach($projects as $project)                        
 
-      @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
+        @if($project->ID_PROYECTO == $alumno->ID_PROYECTO2)
 
-      <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">
-        @if($project->ID_PROYECTO!=1){{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> @endif</a></td>
-      @break
+        <a href="{{URL::asset('upload/'.$project->NOMBRE)}}" download="{{$project->NOMBRE}}" style="text-decoration: underline;">
+          @if($project->ID_PROYECTO!=1){{$project->NOMBRE}}<i class="fa fa-download" style="padding-left: 5px"></i> @endif</a>
+          @break
 
-      @endif
+          @endif
 
-      @endforeach
-    @foreach($resultados as $resultado)
-    <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idHorario="{{$horario[0]->ID_HORARIO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
-      <i class="fa fa-edit"></i></td>
-      @endforeach
-      @if(!$modoSoloLectura)
-      <td>  <center><div class="" style=""><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer;text-align:center;vertical-align: middle;"></i></div></center></td>
-      @endif
-    </tr>
+          @endforeach
+        </td>
+        @endif
 
 
-    @endforeach
-  </tbody>
-</table>
+        @foreach($resultados as $resultado)
+        <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idHorario="{{$horario[0]->ID_HORARIO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
+          <i class="fa fa-edit"></i></td>
+          @endforeach
+          @if(!$modoSoloLectura)
+          <td>  <center><div class="" style=""><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer;text-align:center;vertical-align: middle;"></i></div></center></td>
+          @endif
+        </tr>
 
-</div>
-@if(!$modoSoloLectura)
-       <button type = "submit" class = "btn btn-success btn-lg pText customButton">Subir<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
-       @endif
-    </form>
+
+        @endforeach
+      </tbody>
+    </table>
+
+  </div>
+  @if(!$modoSoloLectura)
+  <button type = "submit" class = "btn btn-success btn-lg pText customButton">Subir<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+  @endif
+</form>
 
 </div>
 </div>
@@ -244,7 +252,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
   PNotify.prototype.options.delay ? (function() {
     PNotify.prototype.options.delay -= 500;
     update_timer_display();
-}()) : (alert('Timer is already at zero.'))
+  }()) : (alert('Timer is already at zero.'))
 </script>
 
 @stop

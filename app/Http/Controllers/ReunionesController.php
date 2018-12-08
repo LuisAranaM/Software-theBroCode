@@ -19,7 +19,7 @@ class ReunionesController extends Controller
 
     public function reunionesGestion() {    
         return view('reuniones.reuniones')
-        ->with('tipos',PlanesDeMejora::getTipos())
+        ->with('tipos',['Acta de Reunión','Plan de Mejora'])
         ->with('semestres',Semestre::getSemestres())
         ->with('documentos',PlanesDeMejora::buscarDocumentos());
     }
