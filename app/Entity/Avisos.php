@@ -41,5 +41,6 @@ class Avisos extends \App\Entity\Base\Entity {
             return false;
         }
     }
+
     
 }

@@ -11,6 +11,7 @@ $( document ).ready(function() {
         });
         informacionExcel(data);
     });
+
     $(document).on({
         mouseenter: function () {
             console.log("HOLI");
@@ -70,22 +71,6 @@ $( document ).ready(function() {
   });
 
 
-    //Funciones y activadores de búsqueda
-	/*$('#btnBuscarCurso').click(function (e) {
-        //console.log("HOLI CLICK");        
-        var cursoBuscar=$('#txtCursoBuscar').val();
-        buscarCursos(cursoBuscar);
-    });*/
-
-    /*$('#txtCursoBuscar').keypress(function (e) {
-        //Búsqueda con Enter
-        //console.log("HOLI ENTER");
-        var cursoBuscar=$('#txtCursoBuscar').val();
-    	if (e.which == 13) {
-    		buscarCursos(cursoBuscar);
-    	}
-    });*/
-
     $('#frmAgregarCursos').on('keyup keypress', function(e) {
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) { 
@@ -95,11 +80,6 @@ $( document ).ready(function() {
  });
 
 
-
-    /*('#frmAgregarCursos').on('submit', function(e) {
-        e.preventDefault();        
-        agregarCursosAcreditar();     
-    });*/
 
     $('.closeCurso').on('click', function(e) {
         var codigoCurso=$(this).attr('codigoCurso');
@@ -113,15 +93,6 @@ $( document ).ready(function() {
         e.preventDefault();        
     });
 
-    /*autocompleteCursos();  
-
-    $('.twitter-typeahead').removeAttr('style');
-
-    //BUSCAR COMO MEJORAR EL Z-INDEX
-    $('.tt-menu').css('z-index',3000000);
-    $('.tt-menu').css('position','relative');
-    $('.tt-menu').css('margin-top','35px');*/
-
 
     $("#txtCursoBuscar").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -130,6 +101,14 @@ $( document ).ready(function() {
       });
     });
 
+        $("#calificarBuscar").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $(".panelCurso").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+        
     $('.checkCurso').change(function(){      
         if($(this).attr('checked')!=undefined){
             $(this).removeAttr('checked');               
@@ -186,17 +165,6 @@ function agregarCursosAcreditar(){
         url: APP_URL + 'cursos/agregar-acreditacion',
         type: 'GET',        
         success: function (result) {
-                //$('#frmNuevaAccionComercial .modal-footer').removeClass('hidden');
-
-                /*$('#listaCursos').removeClass('hidden');                        
-                $('#listaCursos .cargando-resultados').addClass('hidden');
-
-                if (result.length!=0) {
-                   
-
-                } else {
-                   
-                }  */                  
 
             },
             error: function (xhr, status, text) {

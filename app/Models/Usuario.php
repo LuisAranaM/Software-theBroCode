@@ -320,7 +320,7 @@ class Usuario extends Authenticatable implements Auditable{
         try {
             DB::table('USUARIOS')
             ->where('CORREO','=',$correo)
-            ->update(['PASS'=>$pass]);
+            ->update(['PASS'=>Hash::make($pass)]);
             DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());

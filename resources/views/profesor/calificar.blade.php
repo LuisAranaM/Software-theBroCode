@@ -30,7 +30,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
     <div class="col-md-4 col-sm-6 form-group top_search" >
       <div class="input-group">
-        <input id="busquedaCurso" type="text" class="form-control searchText" placeholder="Curso...">
+        <input id="calificarBuscar" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
           <button class="btn btn-default searchButton" type="button">Buscar</button>
         </span>
@@ -73,7 +73,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
     @foreach($cursos["cursos"] as $c)
     @if(count($c["horarios"])>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_panel">
+      <div class="x_panel panelCurso">
         <div class="x_title">
           <h2>{{$c["curso"]->NOMBRE}}</h2>
           <ul class="nav navbar-right panel_toolbox">
@@ -89,7 +89,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
             <div class="col-lg-3 col-md-4 col-xs-12" >
               <p class="pText" style="margin-bottom: 0px;font-weight: bold;">H-{{$h["horario"]->NOMBRE}}</p>
-              <p class="pText" style="margin-bottom: 0px">{{$h["profesor"]}}</p>
+              @if(!$modoProfesor)<p class="pText" style="margin-bottom: 0px">{{$h["profesor"]}}</p>@endif
             </div>
             <div class="col-lg-7 col-md-5 col-sm-9 col-xs-7" style="padding-bottom: 0">
               <div class="widget_summary" >
