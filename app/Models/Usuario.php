@@ -183,6 +183,34 @@ class Usuario extends Authenticatable implements Auditable{
         return $sql;
     }
 
+    static function verificarCuentaRecuperar($usuarioCorreo){
+        $sql=DB::table('USUARIOS')
+            ->select()
+            ->where('ESTADO','=',1);
+        if(strpos($usuarioCorreo,"@")==false){
+            $sql=$sql->where('USUARIO','=',$usuarioCorreo);
+        }
+        else{
+            $sql=$sql->where('CORREO','=',$usuarioCorreo);
+        }
+
+        return $sql->count();
+    } 
+
+    static function obtenerCorreoUsuario($usuarioCorreo){
+        $sql=DB::table('USUARIOS')
+            ->select()
+            ->where('ESTADO','=',1);
+        if(strpos($usuarioCorreo,"@")==false){
+            $sql=$sql->where('USUARIO','=',$usuarioCorreo);
+        }
+        else{
+            $sql=$sql->where('CORREO','=',$usuarioCorreo);
+        }
+
+        return $sql->first()->CORREO;
+    } 
+    
     static function verificarUsuario($usuario,$flgEditar=null){
         $sql=DB::table('USUARIOS')
         ->select()
@@ -275,6 +303,24 @@ class Usuario extends Authenticatable implements Auditable{
             if($usuario['ID_ROL']!=1){
                 DB::table('USUARIOS_HAS_ESPECIALIDADES')->insert($usuarioEspecialidad);
             }
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        return $status;
+        //dd($sql->get());
+    }
+    function recuperarContrasena($correo,$pass){
+        //dd(Carbon::now());    
+        DB::beginTransaction();
+        $status = true;
+
+        try {
+            DB::table('USUARIOS')
+            ->where('CORREO','=',$correo)
+            ->update(['PASS'=>$pass]);
             DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());

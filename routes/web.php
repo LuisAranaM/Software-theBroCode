@@ -43,6 +43,8 @@ Route::post('/login', ['as' => 'login.attempt', 'uses' => 'LoginController@attem
 Route::get('/pass-gen', ['as' => 'pass.gen', 'uses' => 'PassController@gen']);
 Route::get('/pass-update', ['as' => 'pass.update', 'uses' => 'PassController@formularioNuevaContrasena']);
 Route::post('/pass-update-post',['as'=>'pass.update.post','uses'=>'PassController@actualizarContrasena']);
+Route::get('/pass-reset',['as'=>'pass.reset','uses'=>'PassController@recuperarContrasena']);
+Route::post('/pass-reset/post',['as'=>'pass.reset.post','uses'=>'PassController@recuperarContrasenaCorreo']);
 Route::post('/pass-save', ['as' => 'pass.save', 'uses' => 'PassController@save']);
 Route::get('/extra-login', ['as' => 'pass.login', 'uses' => 'PassController@login']);
 Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController@attempt']);

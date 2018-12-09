@@ -60,6 +60,30 @@ class PassController extends Controller {
         return view('passUpdate');
     }
 
+    function recuperarContrasena(){
+        return view('resetPassword');
+    }
+
+    function recuperarContrasenaCorreo(Request $request){
+        //dd($request->all());
+        //dd($usuarioGoogle);
+        $usuario = $request->get('usuario', null);
+        $eUsuario=new Usuario();
+            
+        if(!$eUsuario->verificarCuenta($usuario)){
+            flash('No existe una cuenta asociada a este usuario o correo')->error();
+            return back();            
+        }        
+        $correo=$eUsuario->obtenerCorreoUsuario($usuario);
+        //Generamos pass aleatoria
+        $passRandom=self::generateRandomString();
+        if($eUsuario->recuperarContrasena($correo,$passRandom)){
+            flash('Se te ha enviado un correo a '.$correo.'')->success();
+            return redirect()->route('login.index');            
+        }
+        //return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
+    }
+
      function actualizarContrasena(Request $request){
         /*
             Mediante esta función lograremos actualizar en la base de datos
