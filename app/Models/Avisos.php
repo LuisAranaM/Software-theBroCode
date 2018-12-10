@@ -83,8 +83,8 @@ class Avisos extends Eloquent
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
             DB::rollback();
         }
-        //if($id>0)
-            //$this->enviarMailAvisos($aviso,Auth::user(),$idEsp);
+        if($id>0)
+            $this->enviarMailAvisos($aviso,Auth::user(),$idEsp);
 		return $id;
 	}
 
@@ -98,7 +98,7 @@ function enviarMailAvisos($aviso,$coordinador,$idEspecialidad){
         ->where('UHE.ID_ESPECIALIDAD','=',$idEspecialidad)
         ->where('US.ID_ROL','=',4)
         ->where('US.ESTADO','=',1)->get();
-    //dd($usuarios);
+    dd($usuarios);
     foreach ($usuarios as $usuario) {
         
         $data=array(
