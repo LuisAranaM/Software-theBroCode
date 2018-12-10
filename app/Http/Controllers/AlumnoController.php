@@ -216,7 +216,7 @@ class AlumnoController extends Controller
     }
 
     public function store(Request $request){
-
+        dd($request->all());
         if($request->hasFile('upload-file')){
             $this->trace('Request paso');
             try{

@@ -14,6 +14,11 @@ class DropzoneController extends Controller
 		return view('dropzone');
 	}	
 
+
+	public function store(Request $request){
+		dd($request->all());
+	}
+
 	public function mapeoDeIndicadores(Request $request){
 		//dd("holis");
 		IndicadoresHasCurso::generarExcelIndicadoresByCurso();

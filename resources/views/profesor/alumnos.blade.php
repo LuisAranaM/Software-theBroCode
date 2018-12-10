@@ -168,7 +168,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
   </div>
   @if(!$modoSoloLectura)
-  <button type = "submit" class = "btn btn-success btn-lg pText customButton">Subir<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+  <button type = "submit" class = "btn btn-success btn-lg pText customButton" style="width:130px !important">Subir Archivos<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
   @endif
 </form>
 

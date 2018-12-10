@@ -196,6 +196,7 @@ Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|
 
 //Drag and Drop prueba
 Route::get('/pruebaDropzone', ['as'=>'prueba.Dropzone','uses'=>'DropzoneController@dropzoneGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/pruebaDropzone-post', ['as'=>'prueba.Dropzone.post','uses'=>'DropzoneController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //prueba log Rubricas

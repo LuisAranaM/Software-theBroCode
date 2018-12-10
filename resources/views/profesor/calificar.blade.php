@@ -119,9 +119,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
                 data-horario ="{{$h["horario"]->NOMBRE}}"
                 > Cargar Alumnos</button>
               </a>
-              <!--
-              <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
-            -->@endif
+              @endif
             @endif
             @if($h["alumnosTotal"] != 0)
             <a href="{{route('profesor.alumnos')}}?idCurso={{$c['curso']->ID_CURSO}}&idHorario={{$h['horario']->ID_HORARIO}}&vistaProc=calificar">
@@ -170,7 +168,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" tabindex='-1'>
     <div class="container-fluid text-center">
       <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
         <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+        <p class="pText"><br>Selecciona un archivo para cargar<br> 
           <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnos')}}"
           method = "post" enctype = "multipart/form-data">
           {{csrf_field()}}

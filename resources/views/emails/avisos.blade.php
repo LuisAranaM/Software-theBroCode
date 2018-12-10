@@ -281,9 +281,9 @@ img {
                         <td>
                           <div class='contentEditableContainer contentTextEditable'>
                             <div class='contentEditable' style='text-align: center;'>
-                              <h2 style="font-size: 20px;">¡Bienvenid@ {{$nombresCompletos}}!</h2>
+                              <h2 style="font-size: 20px;">¡{{$nombresCompletos}}!</h2>
                               <br>
-                              <p>Nos sentimos contentos de tenerte con nosotros. A continuación te brindaremos tus credenciales para ingresar al sistema.</p>
+                              <p>El coordinador {{$nombreCoordinador}} ha registrado el siguiente anuncio:</p>
                             </div>
                           </div>
                         </td>
@@ -320,11 +320,11 @@ img {
                         <td>
                           <div class='contentEditableContainer contentTextEditable'>
                             <div class='contentEditable' style='text-align: center;'>
-                              <h2 style="font-size: 20px;">Credenciales</h2>
+                              <h2 style="font-size: 20px;">Anuncio</h2>
                               <br>
-                              <p>Usuario: {{$usuario}} o {{$email}}<br>
-                              	Contraseña: {{$password}}<br>
-								(*) Recuerda que debes cambiar tu contraseña en el panel de configuración
+                              <p>{{$descripcion}}<br>
+                                Fecha de Inicio:{{$fechaInicio}}<br>
+                              	Fecha de Fin:{{$fechaFin}}<br>
                               </p>
                               <br><br>
                               <a target='_blank' href="http://rubrik.inf.pucp.edu.pe/" class='link2' style='color:#ffffff;'>Ingresar a RubriK</a>
