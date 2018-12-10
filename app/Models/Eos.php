@@ -80,20 +80,17 @@ class Eos extends Eloquent
 
 
 	static function getObjetivosTotales($idSem,$idEsp) {
-		//dd($idSem);
 		$sql = DB::table('SOS')
 		->select('ID_SOS', 'NOMBRE')
 		->where('ESTADO','=',1)
 		->where('ID_SEMESTRE','=',$idSem)
 		->where('ID_ESPECIALIDAD','=',$idEsp);
 
-        //dd($sql->get());
 		return $sql;
 
 	}
 
 	function eliminarEos($registro){
-        //dd($registro);    
 		DB::beginTransaction();
 		$status = true;
 
@@ -111,17 +108,13 @@ class Eos extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-        //dd($status);
 		return $status;
-        //dd($sql->get());
 	}
 
 
 	function editarEos($registro){
-        //dd($registro);    
 		DB::beginTransaction();
 		$status = true;
-		//dd($registro);
 		try {
 			DB::table('EOS')
 			->where('ID_EOS','=',$registro['ID_EOS'])
@@ -135,13 +128,10 @@ class Eos extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-        //dd($status);
 		return $status;
-        //dd($sql->get());
 	}
 
 	function agregarEos($registro){
-        //dd($registro);    
 		DB::beginTransaction();
 		$status = true;
 
@@ -155,9 +145,7 @@ class Eos extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-        //dd($status);
 		return $status;
-        //dd($sql->get());
 	}
 
 }

@@ -89,7 +89,6 @@ class IndicadoresHasCurso extends Eloquent
 				->distinct()
 				->orderBy('RESULTADOS.NOMBRE', 'ASC')
 				->orderBy('INDICADORES.VALORIZACION', 'ASC');
-        //dd($sql->get());
         return $sql;
 	}
 
@@ -108,11 +107,9 @@ class IndicadoresHasCurso extends Eloquent
 	static function actualizarIndicadoresCurso($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$esp,$sem){
 		DB::beginTransaction();
 		$status = true;
-		//dd($idIndicadores,$estadoIndicadores,$idCurso, $usuario,$esp,$sem);
 		try {
 			foreach(array_combine($idIndicadores,$estadoIndicadores) as  $idIndicador => $estado ){
 				//Si no existe el registro
-				//dd($idIndicador,$estado,$idCurso, $usuario,$esp,$sem);
 				if(DB::table('INDICADORES_HAS_CURSOS')->where('ID_CURSO', (int)$idCurso)->where('ID_INDICADOR', (int)$idIndicador)->where('ID_SEMESTRE', (int)$sem)->doesntExist()){
 					//Se inserta
 					$idCategoria = DB::table('INDICADORES')

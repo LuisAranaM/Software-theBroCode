@@ -77,11 +77,6 @@ class AlumnosHasHorario extends Eloquent
 		return $this->belongsTo(\App\Models\Semestre::class, 'ID_SEMESTRE');
 	}
 
-	/*public function subcriterios()
-	{
-		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_alumnos_has_horarios', 'ID_ALUMNO', 'ID_SUBCRITERIO')
-					->withPivot('ID_CRITERIO', 'ID_ESPECIALIDAD', 'ID_SEMESTRE', 'ID_HORARIO', 'ID_ESCALA', 'ID_SEMESTRE', 'FECHA_REGISTRO', 'FECHA_ACTUALIZACION', 'USUARIO_MODIF', 'ESTADO');
-	}*/
 
 
 	static public function getAll($idSemestre){
@@ -94,13 +89,6 @@ class AlumnosHasHorario extends Eloquent
 	}
 
 	static public function getAlumnosByIdHorario($idHorario){
-		/*
-		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
-            ->join('ALUMNOS', 'ALUMNOS.ID_ALUMNO', '=', 'ALUMNOS_HAS_HORARIOS.ID_ALUMNO')
-            ->select('ALUMNOS.*')
-            ->where('ALUMNOS_HAS_HORARIOS.ID_HORARIO','=',$idHorario)
-            ->get()->toArray();
-          */  
             
         $ans = DB::select("SELECT *, MAX(a1.ID_PROYECTO) as ID_PROYECTO2 from ALUMNOS_HAS_HORARIOS a1
 			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )

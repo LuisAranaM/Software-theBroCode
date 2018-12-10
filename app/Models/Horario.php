@@ -193,17 +193,14 @@ class Horario extends Eloquent
 				})
 				->where('H.ID_CURSO', '=', $idCurso)
 				->where('H.ID_SEMESTRE','=',$idSemestre);
-        //dd($sql->get());
         return $sql;
 	}
 
 	static function getHorarioByIdHorario($idHorario){
-		//dd($idCurso);
-        $sql = DB::table('HORARIOS AS H')
+       $sql = DB::table('HORARIOS AS H')
 				->select('H.*')
 				->where('H.ID_HORARIO', '=', $idHorario);
 
-        //dd($sql->get());
         return $sql;
 
 	}
@@ -211,7 +208,6 @@ class Horario extends Eloquent
 	
 	function actualizarHorarios($idHorarios,$estadoEv,$usuario){
 		DB::beginTransaction();
-		//dd($idHorarios,$estadoEv,$usuario);
         $status = true;
 		try {
 			foreach(array_combine($idHorarios,$estadoEv) as  $idHorario => $estado ){
@@ -227,7 +223,6 @@ class Horario extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-		dd($idHorario,$estadoEv);
 		
 		return $status;
     }

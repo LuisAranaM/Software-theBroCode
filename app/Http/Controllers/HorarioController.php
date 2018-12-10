@@ -34,9 +34,7 @@ class HorarioController extends Controller
 
         $nombreCurso=$request->get('nombre',null);
         $codCurso=$request->get('codigo',null);
-        //$infoCurso=Prueba::getInformacionCurso($idCurso);
-        //$infoCurso trae la información principal del curso en un arreglo  
-        //dd(eResultado::getResultadosbyIdCurso($idCurso),eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso));
+       
         return view('cursos.horarios')
         ->with('nombreCurso',$nombreCurso)
         ->with('codCurso',$codCurso)

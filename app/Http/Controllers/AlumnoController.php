@@ -292,7 +292,6 @@ class AlumnoController extends Controller
                         $q = DB::table('ALUMNOS')
                                     ->select('ID_ALUMNO')
                                     ->where('CODIGO', '=', $codigo )->get()->toArray();
-                        //$this->trace('HOLIS2');
                         $idAlumno = (int)($q[0]->ID_ALUMNO);
                         $cond = DB::table('ALUMNOS_HAS_HORARIOS')->
                         whereRaw('ID_ALUMNO = ? AND ID_HORARIO = ? AND ID_PROYECTO = ? AND ID_SEMESTRE = ? AND ID_ESPECIALIDAD',

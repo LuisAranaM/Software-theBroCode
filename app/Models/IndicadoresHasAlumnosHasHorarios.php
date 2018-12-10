@@ -100,9 +100,7 @@ class IndicadoresHasAlumnosHasHorarios extends Eloquent
 		->where('ID_SEMESTRE', '=', $idSem)
 		->where('ID_ESPECIALIDAD', '=', $idEsp)
 		->where('ESTADO', '=', 1)->count();
-		//dd($sql->get());
-		//dd($valores);		
-        return $valores;
+	    return $valores;
 	}
 
 }

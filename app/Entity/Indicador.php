@@ -87,8 +87,6 @@ class Indicador extends \App\Entity\Base\Entity {
         $semestre=self::getSemestreByIdSemestre($idSemestre);
         $nombreExcel='Reporte_Resultados_Ciclo_'.$nombreEspecialidad.'_'.$semestre;
         $reporte=$model->exportarReporteResultadosCiclo($filtros,$idSemestre,self::getEspecialidadUsuario())->get();
-        //dd($reporte);
-        //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
             
             $excel->setTitle('Reporte Resultados del semestre '.$semestre);
@@ -101,7 +99,6 @@ class Indicador extends \App\Entity\Base\Entity {
 
                 });
                 //Consideraciones previas
-                //$sheet->setAutoSize(true);
                 $sheet->mergeCells('B2:E2');
                 
                 $i=2;
@@ -227,8 +224,7 @@ class Indicador extends \App\Entity\Base\Entity {
         $nombreExcel='Reporte_Cursos_Resultado_'.$nombreEspecialidad.'_'.$semestre;
 
         $reporte=$model->getReporteCursosResultado($filtros,$idSemestre,self::getEspecialidadUsuario())->get();
-        //dd($reporte);
-        //dd($nombreExcel);
+        
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
             $excel->setTitle('Reporte Resultados por Curso del semestre '.$semestre);
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
@@ -357,7 +353,6 @@ class Indicador extends \App\Entity\Base\Entity {
                     $filaFinalCat=$i;
                     $filaFinalInd=$i;
                 }  
-                //dd($reporte);
                 if(count($reporte)>0){
                     $sheet->mergeCells('E'.$filaInicialInd.':E'.($filaFinalInd-1));
                     $sheet->mergeCells('D'.$filaInicialCat.':D'.($filaFinalCat-1));
@@ -390,8 +385,6 @@ class Indicador extends \App\Entity\Base\Entity {
                 });
             });
         })->download('xlsx');
-        //flash('El reporte se generó correctamente')->success();
-        //return back();
     }
 
      static function getReporteConsolidado($filtros){
@@ -399,15 +392,11 @@ class Indicador extends \App\Entity\Base\Entity {
         $nombreEspecialidad=self::getNombreEspecialidadUsuario();
         $semestre=self::getSemestre();
         $nombreExcel='Reporte_Consolidado_'.$nombreEspecialidad.'_'.$semestre;
-        //dd($semestre);
         $reporte=$model->getReporteConsolidado($filtros,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
-        //dd($reporte);
-        //dd($nombreExcel);
         Excel::create($nombreExcel, function($excel) use ($semestre,$reporte){
             $excel->setTitle('Reporte Consolidado del semestre '.$semestre);
             $excel->sheet('Reporte Resultados del Semestre', function($sheet) use ($semestre,$reporte){
                 //Consideraciones previas
-                //$sheet->setAutoSize(true);
                 $sheet->setColumnFormat(array('G' => '0%','H' => '0%','I' => '0%','J' => '0%','K' => '0%','L' => '0%','M' => '0%','N' => '0%','O' => '0%','P' => '0%','Q' => '0%'));
                 $sheet->getStyle('A2:Z1000')->getAlignment()->setWrapText(true);
 
@@ -424,7 +413,6 @@ class Indicador extends \App\Entity\Base\Entity {
                                         'D'     =>  30,
                                         'E'     =>  30,
                                     ));
-
 
                 //$sheet->row($i++, array('Reporte Consolidado del semestre '.$semestre));
                 $sheet->setHeight($i, 30);
@@ -461,7 +449,6 @@ class Indicador extends \App\Entity\Base\Entity {
                 $filaFinalInd=$constanteFila + 3;
                 $nombreInd="";
 
-                //$=[];
                 foreach ($reporte as $fila) {
                     if($calculoMenor > ($fila->ANHO*10 + $fila->CICLO)){
                         $calculoMenor = ($fila->ANHO*10 + $fila->CICLO);
@@ -472,7 +459,6 @@ class Indicador extends \App\Entity\Base\Entity {
                 $anhoActual = (int)str_replace(' ', '', substr($semestre, 0, 4));
                 
                 $cicloActual = (int)str_replace(' ', '', substr($semestre, 5,2));
-                //dd($anhoActual*10 + $cicloActual);
                 $anhoDif = 2*($anhoActual - $anhoMenor);
                 $columnaFin = $columnaInicio;
                 if($cicloActual == 1 and $cicloMenor == 2 or ($cicloActual == 0 and $cicloMenor == 2) )
@@ -481,7 +467,6 @@ class Indicador extends \App\Entity\Base\Entity {
                     $columnaFin = chr(ord($columnaFin)+$anhoDif + 1);
                 else
                     $columnaFin = chr(ord($columnaFin)+$anhoDif);
-                //dd($columnaFin);
                 $filaEncabezados = $constanteFila + 2;
                 $porcentajeList = [];
                 $alumnosList = [];
@@ -695,14 +680,11 @@ class Indicador extends \App\Entity\Base\Entity {
                 });
             });
         })->download('xlsx');
-        //flash('El reporte se generó correctamente')->success();
-        //return back();
     }
 
     static function getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario){
         $model =new mIndicador();
         $reporte=$model->getInfoResultadoAlumno($idResultado,$idCurso,$idAlumno,$idHorario,self::getIdSemestre(),self::getEspecialidadUsuario())->get();
-        //dd($reporte);
         //Debemos armar un arreglo de indicadores y dentro de cada indicador colocar sus descripciones
         $i=0;
         $idIndicador=null;

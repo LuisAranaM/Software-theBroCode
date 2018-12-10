@@ -143,7 +143,6 @@ class AdministradorController extends Controller
             return back();
         if($usuario->activarUsuarios($checks,Auth::id())){
             flash('Se activaron los usuarios correctamente')->success();
-            //return back();
         } else {
             flash($usuario->getMessage())->error();
         }
@@ -151,14 +150,10 @@ class AdministradorController extends Controller
     }
 
     public function crearCuentaRubrik(Request $request){
-        //dd($request->all());
-
-
         $usuario=new Usuario();
 
         if($usuario->crearCuentaRubrik($request->all())){
             flash('Se registró el usuario correctamente')->success();
-            //return back();
         } else {
             flash($usuario->getMessage())->error();
         }
@@ -169,30 +164,22 @@ class AdministradorController extends Controller
 
 
     public function editarCuentaRubrik(Request $request){
-        //dd($request->all());
-        //En construcción
         $usuario=new Usuario();
 
         if($usuario->editarCuentaRubrik($request->all(),Auth::id())){
             flash('Se editó el usuario correctamente')->success();
-            //return back();
         } else {
             flash($usuario->getMessage())->error();
         }
-        return back();      
-        
-
+        return back();              
     }
 
 
     public function eliminarCuentaRubrik(Request $request){
-        //dd($request->all());
-        //En construcción
         $usuario=new Usuario();
 
         if($usuario->eliminarCuentaRubrik($request->get('idUsuario'),Auth::id())){
             flash('Se eliminó el usuario correctamente')->success();
-            //return back();
         } else {
             flash($usuario->getMessage())->error();
         }
@@ -207,13 +194,12 @@ class AdministradorController extends Controller
     }
 
     public function crearSemestre(Request $request){
-        //dd($request->all());
 
      $semestre=new Semestre();
 
      if($semestre->crearSemestre($request->all(),Auth::id())){
         flash('Se creó el semestre correctamente')->success();
-            //return back();
+            
     } else {
         flash($semestre->getMessage())->error();
     }
@@ -226,7 +212,7 @@ public function editarSemestre(Request $request){
 
  if($semestre->editarSemestre($request->all(),Auth::id())){
     flash('Se editó el semestre correctamente')->success();
-            //return back();
+            
 } else {
     flash($semestre->getMessage())->error();
 }
@@ -238,7 +224,7 @@ public function eliminarSemestre(Request $request){
 
  if($semestre->eliminarSemestre($request->get('idSemestre'),Auth::id())){
     flash('Se eliminó el semestre correctamente')->success();
-            //return back();
+            
 } else {
     flash($semestre->getMessage())->error();
 }
@@ -246,9 +232,9 @@ return back();
 }    
 
 public function seleccionarSemestreSistema(Request $request){
-        //dd("HOLA");
+        
     $semestre = new Semestre();          
-        //dd($request->get('idSemestre'));
+        
     if($semestre->actualizarSemestreSistema($request->get('idSemestre'),Auth::id())){
         flash('Se cambió de semestre exitosamente')->success();
     } else {
@@ -267,7 +253,7 @@ public function crearEspecialidad(Request $request){
 
   if($especialidad->crearEspecialidad($request->get('especialidad'),Auth::id())){
     flash('Se creó la especialidad correctamente')->success();
-            //return back();
+            
 } else {
     flash($especialidad->getMessage())->error();
 }
@@ -279,7 +265,7 @@ public function editarEspecialidad(Request $request){
 
     if($especialidad->editarEspecialidad($request->all(),Auth::id())){
         flash('Se editó la especialidad correctamente')->success();
-            //return back();
+            
     } else {
         flash($especialidad->getMessage())->error();
     }
@@ -292,7 +278,7 @@ public function eliminarEspecialidad(Request $request){
 
     if($especialidad->eliminarEspecialidad($request->get('idEspecialidad'),Auth::id())){
         flash('Se eliminó a la especialidad correctamente')->success();
-            //return back();
+            
     } else {
         flash($especialidad->getMessage())->error();
     }
@@ -303,7 +289,7 @@ public function eliminarEspecialidad(Request $request){
 public function verComoEspecialidad(Request $request){
 
     $especialidad = new UsuariosEspecialidad();          
-        //dd($request->get('idSemestre'));
+        
     if($especialidad->verComoEspecialidad($request->get('idEsp'),Auth::id())){
         flash('Se cambió de especialidad exitosamente')->success();
     } else {

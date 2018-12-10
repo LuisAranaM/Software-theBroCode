@@ -12,18 +12,7 @@
 Route::get('/welcome', function () {
     return view('welcome');
 });
-/* EJEMPLO DE RUTAS:
-Route::get('/cursos/gestion', ['as'=>'cursos.gestion','uses'=>'PruebaController@cursosGestion']);
-Route::post('/cursos/calificar', ['as'=>'cursos.calificar','uses'=>'PruebaController@calificar']);
-Composición=>(ruta,[alias,controladorUsar@metodo])
-GRUPOS
-Route::group(['prefix' => 'cursos', 'middleware' => ['authBase', 'authRol:1']], function() {
-	***AQUÍ SE COLOCAN TODAS LAS RUTAS QUE CONFORMEN EL GRUPO****
-	*prefix es la ruta previa a la ruta absoluta definida por cada una en el grupo
-	*middleware permitirá el acceso de acuerdo al rol del usuario
-	*Administrador=1, Coordinador=2, Asistente=3, Profesor=4
-});
- */
+
 /****RUTAS GENERALES****/
 /* Rutas públicas */
 
@@ -48,8 +37,7 @@ Route::post('/pass-reset/post',['as'=>'pass.reset.post','uses'=>'PassController@
 Route::post('/pass-save', ['as' => 'pass.save', 'uses' => 'PassController@save']);
 Route::get('/extra-login', ['as' => 'pass.login', 'uses' => 'PassController@login']);
 Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController@attempt']);
-Route::get('/prueba', ['as'=>'prueba','uses'=>'PruebaController@index']);
-Route::get('/reportes', ['as'=>'reportes','uses'=>'PruebaController@reportesGestion']);
+Route::get('/reportes', ['as'=>'reportes','uses'=>'ReportesController@reportesGestion']);
 
 /**HORARIOS**/
 Route::group(['prefix' => 'horarios', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
@@ -79,9 +67,7 @@ Route::group(['prefix' => 'rubricas', 'middleware' => ['authBase', 'authRol:1|2|
 	Route::post('/borrar-categoria', ['as' => 'borrar.categoria', 'uses' => 'ResultadoController@borrarCategoria']);
 	Route::post('/borrar-indicador', ['as' => 'borrar.indicador', 'uses' => 'ResultadoController@borrarIndicador']);
 	Route::post('/borrar-descripcion', ['as' => 'borrar.descripcion', 'uses' => 'ResultadoController@borrarDescripcion']);
-
 	Route::get('/refrescar-indicadores', ['as' => 'refrescar.indicadores', 'uses' => 'ResultadoController@refrescarIndicadores']);
-
 	Route::get('/obtener-categorias', ['as' => 'obtener.categorias', 'uses' => 'ResultadoController@obtenerCategorias']);
 	Route::get('/obtener-descripciones', ['as' => 'obtener.descripciones', 'uses' => 'ResultadoController@obtenerDescripciones']);
 });
@@ -102,17 +88,12 @@ Route::get('ExportClients',['uses'=>'CursoController@ExportClients','middleware'
 Route::post('ImportClients',['as'=>'import.excel','uses'=>'CursoController@ImportClients','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('upload',['uses'=>'CursoController@upload','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //pruebas excel
-#Route::get('upload', 'CursoController@showForm');
 
 Route::post('/subir-excels/upload', 'CursoController@store');
 Route::post('/subir-excels/uploadAlumnos', 'AlumnoController@store');
 Route::post('/subir-excels/uploadAlumnosDeCurso', 'AlumnoController@uploadAlumnosDeCurso');
 Route::post('/subir-excels/uploadHorarios', 'HorarioController@guardarHorarios');
 
-
-
-/***GENERAR AVISOS***/
-//Route::get('/avisos', ['as'=>'avisos','uses'=>'PruebaController@avisosGestion']);
 
 /***GESTIONAR MANEJO DE ACTAS Y PLANES***/
 Route::get('/reuniones', ['as'=>'reuniones','uses'=>'ReunionesController@reunionesGestion']);
@@ -134,7 +115,6 @@ Route::post('/objetivos-educacionales/guardar', ['as'=>'objetivos.guardar','uses
 
 /****RUTAS PARA ADMINISTRADOR****/
 Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], function() {
-	Route::get('/principal',['as'=>'administrador.principal','uses'=>'PruebaController@administrador']);
 	Route::get('/gestionar-usuario',['as'=>'administrador.usuario','uses'=>'AdministradorController@gestionUsuarios']);
 	Route::get('/gestionar-usuario/activacion',['as'=>'administrador.usuario.activacion','uses'=>'AdministradorController@activacionUsuarios']);
 	Route::post('/gestionar-usuario/activar',['as'=>'administrador.usuario.activar','uses'=>'AdministradorController@activarUsuarios']);
@@ -154,20 +134,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['authBase', 'authRol:1']], f
 });
 /****RUTAS PARA COORDINADOR****/
 Route::group(['prefix' => 'coord', 'middleware' => ['authBase', 'authRol:1|2|3|4']], function() {
-	Route::get('/principal',['as'=>'coordinador.principal','uses'=>'PruebaController@coordinador']);
 	Route::post('/actualizar-horarios', ['as'=>'actualizar.horarios','uses'=>'HorarioController@actualizarHorarios']);
 	Route::post('/eliminar-evaluacion-horario', ['as'=>'eliminar.horarios','uses'=>'HorarioController@eliminarEvaluacionHorarios']);
 	Route::get('/profesor/alumnos', ['as'=>'profesor.alumnos','uses'=>'ProfesorController@index']);
 	Route::get('/descargar-Proyecto', ['as'=>'descargar.proyecto','uses'=>'ProyectoController@descargarProyecto']);
 });
-/****RUTAS PARA ASISTENTE****/
-Route::group(['prefix' => 'asis', 'middleware' => ['authBase', 'authRol:3']], function() {
-	Route::get('/principal',['as'=>'asistente.principal','uses'=>'PruebaController@asistente']);
-});
-/****RUTAS PARA PROFESORES****/
-Route::group(['prefix' => 'prof', 'middleware' => ['authBase', 'authRol:4']], function() {
-	Route::get('/principal',['as'=>'profesor.principal','uses'=>'PruebaController@profesor']);
-});
+
 /* RUTAS DE PROFESOR */
 Route::get('/profesor/calificar', ['as'=>'profesor.calificar','uses'=>'ProfesorController@profesorCalificar','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/rubricas/categorias', ['as'=>'rubricas.categorias','uses'=>'ResultadoController@categorias','middleware' => ['authBase', 'authRol:1|2|3|4']]);
@@ -194,22 +166,11 @@ Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|
 	Route::get('/avisos', ['as'=>'avisos','uses'=>'AvisosController@gestionAvisos']);
 });
 
-//Drag and Drop prueba
-Route::get('/pruebaDropzone', ['as'=>'prueba.Dropzone','uses'=>'DropzoneController@dropzoneGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-Route::post('/pruebaDropzone-post', ['as'=>'prueba.Dropzone.post','uses'=>'DropzoneController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-//Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-//prueba log Rubricas
-Route::get('/showLogRubrica', ['as'=>'prueba.logRubrica','uses'=>'DropzoneController@logRubrica','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
-
-
 Route::get('/resultadosCiclo', ['as'=>'grafico.resultados','uses'=>'ReportesController@graficoReporteResultadosCiclo','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/getSemestres', ['as'=>'get.ciclos','uses'=>'SemestreController@getSemestres','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/getCursosbyIdSemestre', ['as'=>'get.cursos','uses'=>'CursoController@getCursosbyIdSemestre','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/resultadosCurso', ['as'=>'resultados.curso','uses'=>'ReportesController@graficoResultadosxCurso','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/graficoIndicadoresCurso', ['as'=>'grafico.indicadores.curso','uses'=>'ReportesController@graficoIndicadoresCurso','middleware' => ['authBase', 'authRol:1|2|3|4']]);
-
 
 
 Route::get('/indicadoresResultado', ['as'=>'grafico.indicadoresResultado','uses'=>'ReportesController@graficoIndicadoresResultado']);

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Entity\Indicador as Indicador;
 class ReportesController extends Controller
 {
+	public function reportesGestion() {    
+        return view('reportes.reportes');
+    }
 	//Grafico1.1
 	function graficoReporteResultadosCiclo(Request $request){
 		//flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();

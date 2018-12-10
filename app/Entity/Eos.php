@@ -32,7 +32,6 @@ class Eos extends \App\Entity\Base\Entity {
     }
 
     public function eliminarEos($IDEOS,$nombreEOS,$usuario){
-        //dd($data['idAlumno']);
         $registro=['ID_EOS'=>$IDEOS, 
         'NOMBREEOS'=>$nombreEOS,          
         'ID_SEMESTRE'=>self::getIdSemestre(),
@@ -41,9 +40,8 @@ class Eos extends \App\Entity\Base\Entity {
         'FECHA_ACTUALIZACION'=>Carbon::now(),
         'USUARIO_MODIF'=>$usuario,
         'ESTADO'=>1];
-        //dd($registro);
+        
         //Armamos lo que vamos a insertar
-        //dd("HOLI");
         $model= new mEos();
 
         if ($model->eliminarEos($registro)){
@@ -65,9 +63,8 @@ class Eos extends \App\Entity\Base\Entity {
         'FECHA_ACTUALIZACION'=>Carbon::now(),
         'USUARIO_MODIF'=>$usuario,
         'ESTADO'=>1];
-        //dd($registro);
+
         //Armamos lo que vamos a insertar
-        //dd("HOLI");
         $model= new mEos();
 
         if ($model->editarEos($registro)){
@@ -88,11 +85,9 @@ class Eos extends \App\Entity\Base\Entity {
         'FECHA_ACTUALIZACION'=>Carbon::now(),
         'USUARIO_MODIF'=>$usuario,
         'ESTADO'=>1];
-        //dd($registro);
+
         //Armamos lo que vamos a insertar
-        //dd("HOLI");
         $model= new mEos();
-            //dd($registro);
         if ($model->agregarEos($registro)){
             return true;
         }else{

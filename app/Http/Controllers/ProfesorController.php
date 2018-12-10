@@ -34,22 +34,12 @@ class ProfesorController extends Controller
     public function getRubricaDeCurso($idCurso){
       $rubricaDeCurso = [];
       $rubricaDeCurso = json_decode(json_encode(eResultado::getResultadosbyIdCurso($idCurso),true));
-        $cantResultados = 0;/*
-        foreach ($rubricaDeCurso as $resultado){            
-            $cantResultados++;
-            $idResultado = $resultado->ID_RESULTADO;
-            $indicadoresxResultado = [];
-            $indicadoresxResultado = eCategoria::getCategoriaDeResultado($idResultado);
-            $rubricaDeCurso[$cantResultados][]=$indicadoresxResultado;
-        }
-        return $rubricaDeCurso;*/
-
+        $cantResultados = 0; 
       }
 
 
       public function index(Request $request)
       {
-        //dd($request->all());
         $idHorario=$request->get('idHorario',null); 
         $idCurso=$request->get('idCurso',null); 
         $vistaProc=$request->get('vistaProc',null); 
@@ -59,7 +49,6 @@ class ProfesorController extends Controller
         ->with('curso',Curso::getCursoByIdHorario($idHorario))
         ->with('horario',Horario::getHorarioByIdHorario($idHorario))
         ->with('alumnos',eAlumnosHasHorario::getAlumnosByIdHorario($idHorario))
-       // ->with('alumnosxhorario',eAlumnosHasHorario::getAlumnoXHorario($idHorario)); //revisar
         ->with('projects',Proyecto::getRutaProyectos($idHorario))
         ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
         ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
@@ -69,12 +58,6 @@ class ProfesorController extends Controller
 
       public function profesorCalificar()
       {
-        //dd(Curso::getCursosYHorarios());
-        //return view('profesor.calificar');
-        //dd(Curso::getCursosYHorarios());
-        //dd(Auth::user()->ID_ROL);
-        //dd(eAvisos::getAvisosActuales());
-
         return view('profesor.calificar')
         ->with('ultimoAviso',eAvisos::getAvisosActuales())
         ->with('cursos',Curso::getCursosYHorarios(Auth::user()));
@@ -225,9 +208,6 @@ class ProfesorController extends Controller
 
 
       $html.='<div id="collapse'.$indicador['ID_INDICADOR'].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$indicador['ID_INDICADOR'].'" aria-expanded="false" style="height: 0px;"><div class="panel-body">';
-                /*foreach($indicador['DESCRIPCIONES'] as $descripcion){
-                    $html.='<p class="smallText"> - '.$descripcion['NOMBRE_VALORIZACION'].': '.$descripcion['NOMBRE_DESCRIPCION'].'</p>';
-                  }*/
                   $html.='<div class="row" style="padding-top: 10px; padding-bottom: 10px;"><div class="btn-group btn-group-justified" data-toggle="buttons">';
                   foreach($indicador['DESCRIPCIONES'] as $descripcion){
                     $checked='';
@@ -266,8 +246,7 @@ class ProfesorController extends Controller
                   <div align="center">';
                   if($if_previous_disable == '')
                    $html.='<a style="color:black;margin-right: 50px;font-size: 16px;cursor:pointer"  name="previous" class="previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
-                 /*else
-                   $html.='<a style="color:black;margin-right: 200px;"></a>';*/
+
                  if($if_next_disable == '')
                    $html.='<a style="color:black;margin-left: 50px;font-size: 16px;cursor:pointer" name="next" class="next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
                  </div></br>';

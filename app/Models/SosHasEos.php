@@ -90,10 +90,7 @@ class SosHasEos extends Eloquent
 			->where('ID_ESPECIALIDAD','=',$idEspecialidad)
 			->where('ID_SEMESTRE','=',$idSemestre)
 			->delete();
-			/*->update(['ESTADO'=>0,
-				'FECHA_ACTUALIZACION'=>Carbon::now(),
-				'USUARIO_MODIF'=>$idUsuario]);*/
-
+		
 			DB::table('SOS_HAS_EOS')->insert($checks);
 			DB::commit();
 		} catch (\Exception $e) {

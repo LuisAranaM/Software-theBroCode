@@ -39,7 +39,6 @@ class Resultado extends \App\Entity\Base\Entity {
     
     static function getResultadosbyIdCurso($idCurso,$idResultado=null,$orden=null) {
         $model = new mResultado();
-        //dd(self::getIdSemestre(),self::getEspecialidadUsuario());
         return mResultado::getResultadosbyIdCurso($idCurso,self::getIdSemestre(),self::getEspecialidadUsuario(),$idResultado,$orden);
     }
 
@@ -173,9 +172,7 @@ class Resultado extends \App\Entity\Base\Entity {
         //dd($rubSemActual);
         $anho = mSemestre::getAnhoCiclo(self::getIdSemestre())->first()->ANHO;
         $ciclo = mSemestre::getAnhoCiclo(self::getIdSemestre())->first()->CICLO;
-        //dd($anho,$ciclo);
-    
-        //dd($semestres);
+
         if ($ciclo == 1) {
             $anho -= 1;
             $ciclo = 2;
@@ -183,16 +180,12 @@ class Resultado extends \App\Entity\Base\Entity {
         else{
             $ciclo -=1;
         }
-        //dd($anho,$ciclo);
         $idSemestreAnterior = mSemestre::getIdSemestre2($anho,$ciclo)->first()->ID_SEMESTRE;
-        //dd($idSemestreAnterior);
         $rubSemAnterior = self::getInformacionRubrica($idSemestreAnterior);
-        //dd($rubSemAnterior);
         $resultadosNuevos = [];
         $resultadosMantenidos = [];
         $resultadoEliminados = [];
 
-        //dd($rubSemAnterior,$rubSemActual);
         $resultadosSemAnterior = [];
         $resultadosSemActual = [];
 
@@ -215,8 +208,7 @@ class Resultado extends \App\Entity\Base\Entity {
         foreach($rubSemAnterior as $resultadosAnterior){
             foreach ($rubSemActual as $resultadosActual) {
                 $dataResultado = [];
-                //$res=$resultadosActual['DESCRIPCION'] != $resultadosAnterior['DESCRIPCION'];
-                //dd($res);
+
                 //los que no camiban
                 if($resultadosActual['DESCRIPCION'] == $resultadosAnterior['DESCRIPCION']){
                     $dataResultado['RESULTADO'] = $resultadosActual['RESULTADO'];
@@ -238,8 +230,7 @@ class Resultado extends \App\Entity\Base\Entity {
                 }
             }
         }
-        dd($rubSemActual);
-
+    
         foreach($rubSemActual as $resultadosActual){
             $dataResultado = [];
             if($resultadosActual['RESULTADO'] != "0"){
@@ -250,12 +241,6 @@ class Resultado extends \App\Entity\Base\Entity {
             }
         }
 
-
-
-        dd($resultadosMantenidos,$resultadosNuevos);
-
-
-        
 
     }
 

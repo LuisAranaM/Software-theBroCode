@@ -56,9 +56,7 @@ class Sos extends \App\Entity\Base\Entity {
         'FECHA_ACTUALIZACION'=>Carbon::now(),
         'USUARIO_MODIF'=>$usuario,
         'ESTADO'=>1];
-        //dd($registro);
-        //Armamos lo que vamos a insertar
-        //dd("HOLI");
+
         $model= new mSos();
 
         if ($model->eliminarSos($registro)){
@@ -72,20 +70,11 @@ class Sos extends \App\Entity\Base\Entity {
     static function getinformacionObj($idSemestre){
         $model= new mSos();
         $infoObj=$model->getinformacionObj($idSemestre,self::getEspecialidadUsuario());
-       /* $resultados=array();
-        $contRes=0;
-        foreach ($info as $fila) {
-            $resultadoNuevo=['NOMBRE_SOS'=>$fila->NOMBRE_SOS,
-            'NOMBRE_EOS'=>$fila->NOMBRE_EOS];
-
-            $resultados[]=$resultadoNuevo;
-            $contRes++;
-        }*/
+       
         return $infoObj;
     }
     
     public function editarSos($IDSOS,$nombreSOS,$usuario){
-        //dd($data['idAlumno']);
         $registro=['ID_SOS'=>$IDSOS, 
         'NOMBRE'=>$nombreSOS,          
         'ID_SEMESTRE'=>self::getIdSemestre(),
@@ -94,9 +83,7 @@ class Sos extends \App\Entity\Base\Entity {
         'FECHA_ACTUALIZACION'=>Carbon::now(),
         'USUARIO_MODIF'=>$usuario,
         'ESTADO'=>1];
-        //dd($registro);
-        //Armamos lo que vamos a insertar
-        //dd("HOLI");
+        
         $model= new mSos();
 
         if ($model->editarSos($registro)){
@@ -108,7 +95,6 @@ class Sos extends \App\Entity\Base\Entity {
     }
 
     public function agregarSos($textSos,$usuario){
-        //dd($data['textSos']);
         $registro=['NOMBRESOS'=>$textSos,        
         'ID_SEMESTRE'=>self::getIdSemestre(),
         'ID_ESPECIALIDAD'=>self::getEspecialidadUsuario(),            
@@ -116,9 +102,7 @@ class Sos extends \App\Entity\Base\Entity {
         'FECHA_ACTUALIZACION'=>Carbon::now(),
         'USUARIO_MODIF'=>$usuario,
         'ESTADO'=>1];
-        //dd($registro);
-        //Armamos lo que vamos a insertar
-        //dd("HOLI");
+      
         $model= new mSos();
 
         if ($model->agregarSos($registro)){

@@ -79,10 +79,6 @@ class Semestre extends Eloquent
 		return $this->hasMany(\App\Models\AlumnosHasHorario::class, 'ID_SEMESTRE');
 	}
 
-	/*public function criterios()
-	{
-		return $this->hasMany(\App\Models\Criterio::class, 'ID_SEMESTRE', 'id_semestre');
-	}*/
 
 	public function cursos()
 	{

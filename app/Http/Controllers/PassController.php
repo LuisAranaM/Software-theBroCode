@@ -10,7 +10,6 @@ use Validator;
 class PassController extends Controller {
 
     public function gen() {     
-        //Usuario::updateMasive();   
         return view('pass-gen')
                 ->with('pass', $this->generateRandomString(6));
     }
@@ -65,8 +64,6 @@ class PassController extends Controller {
     }
 
     function recuperarContrasenaCorreo(Request $request){
-        //dd($request->all());
-        //dd($usuarioGoogle);
         $usuario = $request->get('usuario', null);
         $eUsuario=new Usuario();
             
@@ -81,7 +78,6 @@ class PassController extends Controller {
             flash('Se te ha enviado un correo a '.$correo.'')->success();
             return redirect()->route('login.index');            
         }
-        //return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
     }
 
      function actualizarContrasena(Request $request){

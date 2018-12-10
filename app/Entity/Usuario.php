@@ -284,7 +284,6 @@ function editarCuentaRubrik($datosCuenta,$idUsuarioModif){
 }
     //Verificar que usuario y correo no estén registrados
 if($model->verificarUsuario($usuario,1)){
-        //dd("HOLA");
     $this->setMessage('Ya existe una cuenta para el usuario '.$usuario['USUARIO']);
     return false;        
 }
