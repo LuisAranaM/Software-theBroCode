@@ -630,16 +630,20 @@ class Indicador extends \App\Entity\Base\Entity {
                             }
                             $columnRellenar++;
                         }
+                        
                         $aux2 = $aux++;
+                        $aux2++;
                         $sheet->cell($aux2.$i, $fila->PORCENTAJE_APROBADOS);
                         if($fila->COUNT!=0){
                             if($fila->PORCENTAJE_APROBADOS<0.70) $sheet->cell($aux2.$i, function($color){$color->setBackground('#fc3232');});
                             else if($fila->PORCENTAJE_APROBADOS<0.85) $sheet->cell($aux2.$i, function($color){$color->setBackground('#ffe74d');});
                             else $sheet->cell($aux2.$i, function($color){$color->setBackground('#13d604');});
-                        
+                            //modificación reciente
+                            $porcentajeList[ord($aux2)-ord($columnaInicio)]+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
+                            $alumnosList[ord($aux2)-ord($columnaInicio)]+=$fila->COUNT;
+                            //esto estaba abajo
                         }
-                        $porcentajeList[ord($aux2)-ord($columnaInicio)]+=$fila->PORCENTAJE_APROBADOS*$fila->COUNT;
-                        $alumnosList[ord($aux2)-ord($columnaInicio)]+=$fila->COUNT;
+                        
                         $sheet->getStyle($aux2.$filaInicial.':'.$aux2.$i)->applyFromArray($style);
                     }
                     $sheet->setHeight($i, 45);
