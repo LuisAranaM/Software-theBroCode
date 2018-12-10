@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date as Carbon;
 
 use Closure;
-
+use DB;
 class RequestLog {
 
     protected $auth;
@@ -44,6 +44,20 @@ class RequestLog {
         $params = json_encode($request->all());
         $logtext = "$usuario|$ip|".$system['platform'].'|'.$system['platform_version'].'|'.$system['browser'].'|'.$system['version']."|$fecha|$status|$method|$url|$params";
 
+        $logElement=[
+            'USUARIO'=>$usuario,
+            'IP'=>$ip,
+            'SO'=>$system['platform'],
+            'NAVEGADOR'=>$system['browser'],
+            'FECHA'=>$fecha,
+            'STATUS'=>$status,
+            'METODO'=>$method,
+            'URL'=>$url,
+            'PARAMETROS'=>$params,
+        ];
+
+        if(strpos($logElement['URL'],'rubrik.inf.pucp')==true)
+            DB::table('REQUEST_LOG')->insert($logElement);
         Storage::append($this->_file, $logtext);
     }
 
