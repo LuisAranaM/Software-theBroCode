@@ -506,13 +506,12 @@ class Indicador extends \App\Entity\Base\Entity {
                                 $i++;
                             }
                             
-                            $sheet->cells('A'.$i.':H'.$i, function($cells) {    // manipulate the cell
+                            $sheet->cells('A'.$i.':'.$columnaFin.$i, function($cells) {    // manipulate the cell
                                 //$cells->setFontSize(13);
                                 $cells->setAlignment('center');
                                 $cells->setValignment('center');
                                 $cells->setBackground('#334185');
                                 $cells->setFontColor('#FFFFFF');
-    
                             });
                             $sheet->row($i++, array("CÓDIGO","RESULTADO","CATEGORÍA", "INDICADOR",
                                 "CURSOS EVALUADOS","MEDIDA","META %", "ÓPTIMO"));
@@ -580,14 +579,12 @@ class Indicador extends \App\Entity\Base\Entity {
                             $sheet->cell($columnRellenar.$i, 'NA');
                             //Llenando los encabezados de ciclo
                             $sheet->cell($columnRellenar.$filaEncabezados, $anhoAux.'-'.$cicloAux);
-                            $sheet->cell($columnRellenar.$filaEncabezados, function($cells) {    // manipulate the cell
-                                //$cells->setFontSize(13);
+                            /*$sheet->cell($columnRellenar.$filaEncabezados, function($cells) {    // manipulate the cell
                                 $cells->setAlignment('center');
                                 $cells->setValignment('center');
                                 $cells->setBackground('#334185');
                                 $cells->setFontColor('#FFFFFF');
-    
-                            });
+                            });*/
                             if($cicloAux == 1 or $cicloAux == 0){
                                 $cicloAux = 2;
                                 $anhoAux = $anhoAux - 1;
