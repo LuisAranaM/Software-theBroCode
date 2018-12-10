@@ -38,12 +38,9 @@ $('#semestreAct').on('change', function(e) {
         var resp=confirm("¿Estás seguro que deseas cambiar al semestre "+semestre+"?");
         //var botonCurso=$(this).closest('div').closest('div');
         if (resp == true) {
-        	console.log('Se cambia');
         	$('#semestreSistema').text('');
         	$('#semestreSistema').append('<i class="fa fa-calendar"></i>Semestre: '+semestre);
-        	//console.log(semestre);
-        	//console.log(idSemestre);
-            actualizarSemestreSistema(idSemestre);            
+        	  actualizarSemestreSistema(idSemestre);            
         } 
         else{
         	ultimoSelec.prop("selected", true);
@@ -64,7 +61,7 @@ $('#semestreAct').on('change', function(e) {
       eliminarSemestre(idSemestre,semestre,filaSemestre);            
     } 
     e.preventDefault();
-    console.log('HOLI');
+
     });
 
     $(".editarSemestre").on("click", function(e){
@@ -87,7 +84,6 @@ $('#semestreAct').on('change', function(e) {
         $('#modalEditarSemestre input[name="fFin"]').val(fFin);
         $('#modalEditarSemestre input[name="fAlerta"]').val(fAlerta);
         e.preventDefault();
-        console.log('HOLI');
     });
 
     $('#frmNuevoSemestre').formValidation({
@@ -167,7 +163,6 @@ fAlerta: {
             idSemestre:idSemestre,
         },
         success: function (result) {
-            console.log("LOL");
         },
         error: function (xhr, status, text) {
             e.preventDefault();
@@ -178,13 +173,8 @@ fAlerta: {
 
 }
 
-
-
-
-
 function initializeFormSemestre() {
-    //console.log('Ingresamos al form validation');
-    
+
     return $('#frmEditarSemestre').formValidation({
       framework: 'bootstrap',
       icon: {
@@ -251,12 +241,9 @@ fAlerta: {
 
 
 function eliminarSemestre(idSemestre,semestre,filaSemestre){
-    //console.log("Necesitamos agregar cursos");
-    //filaUsuario.remove();
-      //eliminarUsuario(idUsuario);      
+
       $.ajax({
         url: APP_URL + 'admin/gestionar-semestre/eliminar',
-        //url: "{{route('eliminar.acreditacion')}}",     
         type: 'POST',        
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -14,7 +14,6 @@ $( document ).ready(function() {
 
     $(document).on({
         mouseenter: function () {
-            console.log("HOLI");
             $( this ).find("i.fa-trash").show();
         },
         mouseleave: function () {
@@ -87,7 +86,6 @@ $( document ).ready(function() {
         var resp=confirm("¿Estás seguro que deseas dejar de acreditar "+nombreCurso+"?");
         var botonCurso=$(this).closest('div').closest('div');
         if (resp == true) {
-            //console.log("LOl");
             eliminarCursoAcreditar(codigoCurso,botonCurso);            
         } 
         e.preventDefault();        
@@ -135,10 +133,8 @@ $( document ).ready(function() {
 });
 
 function eliminarCursoAcreditar(codigoCurso,botonCurso){
-    //console.log("Necesitamos agregar cursos");
     $.ajax({
         url: APP_URL + 'cursos/eliminar-acreditacion',
-        //url: "{{route('eliminar.acreditacion')}}",     
         type: 'POST',        
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -179,8 +175,6 @@ function agregarCursosAcreditar(){
 
 
 function informacionExcel(data){
-  console.log("HOLI boli");
-  //console.log(archivo);
   $.ajax({
     url: APP_URL + '/mostrar-cursos-cargar',
     type: 'GET',        

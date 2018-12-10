@@ -37,7 +37,6 @@ function actualizarEspecialidadCoordinador(idEsp){
       },
       success: function (result) {
           location.reload();
-        console.log("LOL");
       },
       error: function (xhr, status, text) {
         e.preventDefault();

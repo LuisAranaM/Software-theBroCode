@@ -2,7 +2,6 @@ $( document ).ready(function() {
 
     $(document).on({
         mouseenter: function () {
-            console.log("HOLI");
             $( this ).find("i.fa-trash").show();
         },
         mouseleave: function () {

@@ -176,7 +176,7 @@ $( document ).ready(function() {
 			e.preventDefault();	
 		}else{    		
 			//console.log(cat[1]);
-			console.log("si llega aca");
+
 			if(codRes!="" && descRes!="" && cat[0]!=""){
 				insertarResultado(codRes,descRes,cat);
 				e.preventDefault();			
@@ -250,7 +250,6 @@ $( document ).ready(function() {
 			actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat);
 			e.preventDefault();
 		}else{
-			console.log("si llega aca");
 			insertarIndicador(idCat,ind,ordenInd,descs,descsNom,descsOrd,res);
 			e.preventDefault();	
 		}
@@ -584,7 +583,6 @@ function refrescarIndicadores(idCat,resultado){
 		success: function(result) {
 			result = JSON.parse(result);
 			var indicadores = result;
-			console.log("llega justo antes");
 			$('#'+idCat+'rem').remove();
 			var s = indicadores[0];
 			console.log(indicadores.length);

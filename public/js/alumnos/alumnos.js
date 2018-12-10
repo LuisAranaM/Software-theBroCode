@@ -5,12 +5,9 @@ $( document ).ready(function() {
 	
 
 	$(".fileToUpload").on('change', function() {
-         ///// Your code
-         console.log("HOLI");
      });
 
 	$("#buscarAlumno").on("keyup", function() {
-		console.log("HOLI");
 		var value = $(this).val().toLowerCase();
 		$("#listaAlumnos tr").filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -39,7 +36,6 @@ $( document ).ready(function() {
 			},
 			success:function(data)
 			{
-				console.log("Holas");
 				PNotify.removeAll();
 				$('#modalCalificacion').modal('show');
 				$('#detalleModal').html(data);
@@ -56,7 +52,6 @@ $( document ).ready(function() {
 		var nombAlumno = $(this).attr('nombreAlumno');
 		var codAlumno = $(this).attr('codAlumno');
 		$('#alumnoACalificar').text(codAlumno + " - " + nombAlumno);
-		//console.log(idResultado);
 		fetchResultados(idResultado,idCurso,idAlumno,idHorario);
 	});
 
@@ -81,7 +76,6 @@ $( document ).ready(function() {
 	});
 
 	$(document).on('click', '.btnCriteria', function(){
-		//console.log('HOLA');
 		$(this).find('input').attr('checked','true');
 
 		var idAlumno = $(this).attr('idAlumno');
@@ -97,7 +91,6 @@ $( document ).ready(function() {
 	});
 
 	$(document).on('click', '.elimAlumno', function(){
-		//console.log('HOLA');
 		var idAlumno=$(this).attr('idAlumno');
 		var nombreAlumno=$(this).attr('nombreAlumno');
 		var idHorario=$(this).attr('idHorario');
