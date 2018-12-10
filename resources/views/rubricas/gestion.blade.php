@@ -56,7 +56,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
           <div class="row" value="{{$resultado->ID_RESULTADO}}">
             <div id="{{$resultado->ID_RESULTADO}}" class="col-md-3 resultButton alert-success alert-dismissible fade in" role="alert" style="display: inline-block; padding-left: 10px">
-              <p class="pText" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
+              <p class="pText valRes" nombre="{{$resultado->NOMBRE}}" style="font-weight: bold; font-size: 30px; color: black">{{$resultado->NOMBRE}}</p>
             </div>
             <div  class="col-md-9" value="{{$resultado->ID_RESULTADO}}" style="text-align: right; display: inline-block; padding-right: 25px; padding-top: 15px">
               @if(!$modoSoloLectura)

@@ -166,6 +166,16 @@ $( document ).ready(function() {
 		var descRes = $('#txtResultado').val();
 		var cat = [];
 		var catIds= [];
+		var valRes= [];
+		$('.valRes').each(function() {
+			valRes.push( $(this).attr("nombre"));
+		});
+		for(i=0;i<valRes.length;i++){
+			if(valRes[i] == codRes){
+				alert("Este código ya existe! Ingrese otro Código de Resultado");
+				return;
+			};
+		}
 		$('#filasCats .cat').each(function() {
 			cat.push( $(this).val());
 			catIds.push($(this).parent().attr("id"));
