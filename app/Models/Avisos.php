@@ -98,7 +98,7 @@ function enviarMailAvisos($aviso,$coordinador,$idEspecialidad){
         ->where('UHE.ID_ESPECIALIDAD','=',$idEspecialidad)
         ->where('US.ID_ROL','=',4)
         ->where('US.ESTADO','=',1)->get();
-    dd($usuarios);
+    //dd($usuarios);
     foreach ($usuarios as $usuario) {
         
         $data=array(
