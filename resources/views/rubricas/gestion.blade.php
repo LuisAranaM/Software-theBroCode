@@ -24,16 +24,10 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
       <div class="col-md-4 col-xs-6" style="text-align: right">
         <button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracion" style="border-color: transparent"> Copiar Configuración</button>
       </div>
-      <!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
       @endif
       @endif
 
-      <!--
-      <div class="col-md-4 col-xs-6" style="text-align: right">
-        <button type="submit" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="guardar_button" value="guardar" style="background-color: #1ABB9C; border-color: transparent"> Guardar Rúbrica </button>
-        <button type="button" class="btn btn-success btn-lg pText customButtonLarge customButtonRubr" name="descargar_button" value="descargar" style="background-color: #1ABB9C; border-color:   transparent"> Descargar Rúbrica </button>
-      </div>
-    -->
+      
   </div>
 
   @include('flash::message')
@@ -150,9 +144,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-
-
 
 </div>
 </form>

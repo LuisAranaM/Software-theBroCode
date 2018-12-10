@@ -26,7 +26,6 @@
   width:      100%;
   opacity: 0.7;
   background: #FFFFFF/*rgba( 255, 255, 255, .6 ) */
-  /*url('https://1.bp.blogspot.com/-tF9yshvZFJA/V7hCVvgU_VI/AAAAAAAAAmw/UP4HfIHN9dos1J8BHsxLLsQyayx8P_7qACLcB/s1600/jean-claude-van%2Bdamme-gif-transparente-vagonettas.gif') */
   url('http://i.stack.imgur.com/FhHRx.gif') 
   50% 50% 
   no-repeat;
@@ -56,7 +55,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 @php ($idInd[$i] = $indicador->ID_INDICADOR)
 @php ($i = $i + 1)
 @endforeach
-<!--La variable $indicadores contiene 'ID_RESULTADO', 'NOMBRE','ID_INDICADOR' -->
+
 <div class="customBody">
 
 
@@ -105,7 +104,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
            @if(count($projects)>0)
            <td></td>  
            @endif
-           <!--<th class="pText column-title" style=""> </th>-->
            <!--para cada resultado-->
            @foreach($resultados as $resultado)
            <th class="pText column-title" style="text-align:center;">{{$resultado->NOMBRE}}</th>
@@ -132,9 +130,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
           <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><input type="file" name="archivos[{{$alumno->ID_ALUMNO}}]" id = "file" class="fileToUpload"></td>    
           @endif
 
-      <!--<td class="pText" style="background-color: white; padding-top: 12px; color: #72777a">
-        <button type = "submit" class = "btn btn-success btn-lg pText customButton">Cargar <i class="fa fa-upload" style="padding-left: 5px"></i> </button>
-      </td>-->
       @if(count($projects)>0)
       <td class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;">
         @foreach($projects as $project)                        
@@ -178,13 +173,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 </div>
 
 @endif
- <!-- <div class="row">
-   <a href="{{route('profesor.calificar')}}" class="pText"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retornar a la vista de cursos</a>
- </div>
- <-->
-
-
-
  <!-- Modal Alumno a Evaluar-->
 
  <div class="modal fade bs-example-modal-lg text-center" role="dialog" tabindex="-1"
@@ -202,31 +190,8 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
   </div>
   <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
   
-  <!--<div class="row" style="padding-top: 20px;margin: 10px;">
-
-   <div class="col-xs-6 text-left">
-    <i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Resultado A</span></i> 
-  </div>
-
-  <div class="col-xs-6 text-right">
-    <span class="pText">Resultado B</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
-  </div>
-</div>-->
-
 <div class="modal-body" id="detalleModal">
 
-<!--SE REFRESCA CON AJAX
-<div class="row" style="padding-top: 20px;margin: 10px;">
-
- <div class="col-xs-6 text-left">
-  <i class="fa fa-angle-left" style="padding-right: 5px"> <span class="pText">Anterior Alumno</span></i> 
-</div>
-
-<div class="col-xs-6 text-right">
-  <span class="pText">Siguiente Alumno</span><i class="fa fa-angle-right" style="padding-left: 5px"></i>
-</div>
-</div>
--->
 </div>
 </div>
 
