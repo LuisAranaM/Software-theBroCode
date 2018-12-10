@@ -16,7 +16,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 			<h1 class="mainTitle"> Gestión de Objetivos </h1>
 		</div>
 	</div>
-
+	<!--
 	@if((count($objetivosSos)==0) and (count($objetivosEos)==0))
 	<div class="row">
 		<div class="col-md-12 col-xs-12" style="text-align: right">
@@ -25,7 +25,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 	</div>
 
 	@endif
-
+	-->
 
 	@include('flash::message')
 	<div class="row">
@@ -38,7 +38,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 						<table class="table table-striped jambo_table bulk_action">
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-									<th class="pText column-title" style="border: none;text-align:center;">Objetivos Educacionales</th>
+									<th class="pText column-title" style="border: none; text-align:center;">Objetivos Educacionales</th>
 									<th class="pText column-title" style="border: none; text-align: center;"></th>
 
 
