@@ -223,7 +223,6 @@ class AlumnoController extends Controller
                 return back();
             }
 
-
         if($request->hasFile('upload-file')){
             $this->trace('Request paso');
             try{

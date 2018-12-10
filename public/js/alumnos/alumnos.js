@@ -7,7 +7,7 @@ $( document ).ready(function() {
 	$(".fileToUpload").on('change', function() {
          ///// Your code
          console.log("HOLI");
-});
+     });
 
 	$("#buscarAlumno").on("keyup", function() {
 		console.log("HOLI");
@@ -15,6 +15,11 @@ $( document ).ready(function() {
 		$("#listaAlumnos tr").filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
+	});	
+
+
+	$("#closeCalificar").on("click", function() {
+		PNotify.removeAll();
 	});	
 
 
@@ -35,6 +40,7 @@ $( document ).ready(function() {
 			success:function(data)
 			{
 				console.log("Holas");
+				PNotify.removeAll();
 				$('#modalCalificacion').modal('show');
 				$('#detalleModal').html(data);
 			}
@@ -97,12 +103,12 @@ $( document ).ready(function() {
 		var idHorario=$(this).attr('idHorario');
 		var filaAlumno=$(this).parent().parent().parent();
 		var resp=confirm("Si borras a este alumno, no sera considerado en la calificacion. Deseas borrar a "+nombreAlumno+"?");
-        var botonCurso=$(this).closest('div').closest('div');
-        if (resp == true) {
-            eliminarAlumno(idAlumno,idHorario,filaAlumno);          
+		var botonCurso=$(this).closest('div').closest('div');
+		if (resp == true) {
+			eliminarAlumno(idAlumno,idHorario,filaAlumno);          
 			//.css('display','none');
-        } 
-        e.preventDefault();    
+		} 
+		e.preventDefault();    
 		
 	});
 
@@ -121,9 +127,9 @@ $( document ).ready(function() {
 			{
 				filaAlumno.css('display','none');
 			},error: function (xhr, status, text) {
-            e.preventDefault();
-            alert('Hubo un error al registrar la información');           
-        }
+				e.preventDefault();
+				alert('Hubo un error al registrar la información');           
+			}
 		});
 	}
 
@@ -148,24 +154,24 @@ $( document ).ready(function() {
 			{
 				console.log("Se agregó correctamente");
 			},error: function (xhr, status, text) {
-            e.preventDefault();
-            alert('Hubo un error al registrar la información');           
-        }
+				e.preventDefault();
+				alert('Hubo un error al registrar la información');           
+			}
 		});
 	}
 
 	$body = $("body");
 
-$(document).on({
-    ajaxStart: function() { 
-    	$('#modalCalificacion').css('z-index',1000);
-    	$body.addClass("loading");    
-    },
-     ajaxStop: function() { 
-    	$('#modalCalificacion').css('z-index',2000);
-     	$body.removeClass("loading");
-     	 }    
-});
+	$(document).on({
+		ajaxStart: function() { 
+			$('#modalCalificacion').css('z-index',1000);
+			$body.addClass("loading");    
+		},
+		ajaxStop: function() { 
+			$('#modalCalificacion').css('z-index',2000);
+			$body.removeClass("loading");
+		}    
+	});
 });
 
 

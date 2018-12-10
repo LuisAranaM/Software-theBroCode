@@ -245,7 +245,7 @@ class ProfesorController extends Controller
                     $html.=' idDescripcion="'.$descripcion['ID_DESCRIPCION'].'" ';
                     $html.=' escalaCalif="'.$descripcion['VALORIZACION'].'" ';
                     $html.=' onclick="new PNotify({
-                      title:'."'".'Condición para '. $indicador['ID_INDICADOR'].'-'.$descripcion['VALORIZACION']."'".',
+                      title:'."'".'Indicador '.$resultado->NOMBRE . $indicador['VALORIZACION_INDICADOR'].' - '.$descripcion['NOMBRE_VALORIZACION']."'".',
                       text: '."'".$descripcion['NOMBRE_DESCRIPCION']."'".',
                       type: '."'".'info'."'".',
                       styling: '."'".'bootstrap3'."'".'});"';
@@ -265,11 +265,11 @@ class ProfesorController extends Controller
                   <br />
                   <div align="center">';
                   if($if_previous_disable == '')
-                   $html.='<a style="color:black;margin-right: 50px;font-size: 16px;cursor:pointer"  name="previous" class=" previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
+                   $html.='<a style="color:black;margin-right: 50px;font-size: 16px;cursor:pointer"  name="previous" class="previous" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idPrevious.'" '.$if_previous_disable.'><i class="fa fa-arrow-circle-left"></i> '.$nombrePrevious.'</a>';
                  /*else
                    $html.='<a style="color:black;margin-right: 200px;"></a>';*/
                  if($if_next_disable == '')
-                   $html.='<a style="color:black;margin-left: 50px;font-size: 16px;cursor:pointer" name="next" class=" next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
+                   $html.='<a style="color:black;margin-left: 50px;font-size: 16px;cursor:pointer" name="next" class="next" idCurso="'.$idCurso.'" idHorario="'.$idHorario.'" idAlumno="'.$idAlumno.'" id="'.$idNext.'" '.$if_next_disable.'>'.$nombreNext.' <i class="fa fa-arrow-circle-right"></i></a>
                  </div></br>';
                  else
                   $html.='</br></br>';

@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('pageTitle', 'Principal')
+@section('pageTitle', 'Reuniones')
 @section('content')
 @section('js-libs')
 <script type="text/javascript"  src="{{ URL::asset('js/reuniones/reuniones.js') }}"></script>
@@ -165,7 +165,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 					<div class="container-fluid text-center">
 						<div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
 							<i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-							<p class="pText">Arrastra y suelta un archivo <br> o <br> 
+							<p class="pText"><br>Selecciona un archivo para cargar<br> 
 
 								<div class = "form-group">
 									<input type="file" name="archivo" id = "file" class="form-control image" style="border-color: white">

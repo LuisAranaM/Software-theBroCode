@@ -67,23 +67,55 @@ class Avisos extends Eloquent
 		DB::beginTransaction();
         $id=-1;
         try {
+            $aviso=['DESCRIPCION' => $desc,
+                'FECHA_INICIO' => $fechaIni,
+                'FECHA_FIN' => $fechaFin,
+                'ID_SEMESTRE' => $idSem,
+                'ID_ESPECIALIDAD' => $idEsp,
+                'FECHA_REGISTRO' => Carbon::now(),
+                'FECHA_ACTUALIZACION' => Carbon::now(),     
+                'USUARIO_MODIF' => Auth::id(),      
+                 'ESTADO' => 1];
             $id = DB::table('AVISOS')->insertGetId(
-		    	['DESCRIPCION' => $desc,
-		     	'FECHA_INICIO' => $fechaIni,
-		     	'FECHA_FIN' => $fechaFin,
-		     	'ID_SEMESTRE' => $idSem,
-		     	'ID_ESPECIALIDAD' => $idEsp,
-		     	'FECHA_REGISTRO' => Carbon::now(),
-		     	'FECHA_ACTUALIZACION' => Carbon::now(),		
-		     	'USUARIO_MODIF' => Auth::id(),     	
-				 'ESTADO' => 1]);
-			DB::commit();
+		    	$aviso);
+            DB::commit();
         } catch (\Exception $e) {
             Log::error('BASE_DE_DATOS|' . $e->getMessage());
             DB::rollback();
         }
+        if($id>0)
+            $this->enviarMailAvisos($aviso,Auth::user(),$idEsp);
 		return $id;
 	}
+
+function enviarMailAvisos($aviso,$coordinador,$idEspecialidad){
+    $usuarios=DB::Table('USUARIOS AS US')
+        ->select(DB::Raw("CONCAT(US.NOMBRES ,' ',US.APELLIDO_PATERNO,' ',US.APELLIDO_MATERNO) 
+                AS NOMBRES_COMPLETOS"),'US.CORREO')
+        ->leftJoin('USUARIOS_HAS_ESPECIALIDADES AS UHE',function($join){
+            $join->on('UHE.ID_USUARIO','=','US.ID_USUARIO');
+        })
+        ->where('UHE.ID_ESPECIALIDAD','=',$idEspecialidad)
+        ->where('US.ID_ROL','=',4)
+        ->where('US.ESTADO','=',1)->get();
+    dd($usuarios);
+    foreach ($usuarios as $usuario) {
+        
+        $data=array(
+            'nombresCompletos'=>$usuario->NOMBRES_COMPLETOS,
+            'nombreCoordinador'=>$coordinador->NOMBRES.' '.$coordinador->APELLIDO_PATERNO.' '.$coordinador->APELLIDO_MATERNO,
+            'descripcion'=>$aviso['DESCRIPCION'],
+            'fechaInicio'=>$aviso['FECHA_INICIO'],
+            'fechaFin'=>$aviso['FECHA_FIN'],
+            'email'=>$usuario->CORREO,
+        );
+
+        \Mail::send('emails.avisos',$data,function($message)use($data){
+            $message->from('rubrik.pucp@gmail.com','RubriK PUCP');
+            $message->to($data['email'])->subject('Se ha registrado un anuncio');
+        });
+    }
+}
 
 	public function eliminarAviso($idAviso){
 		//dd("DEBUG");

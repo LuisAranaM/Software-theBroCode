@@ -223,7 +223,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
         <div class="container-fluid text-center">
           <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
             <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-            <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+            <p class="pText"><br>Selecciona un archivo para cargar<br> 
 
               <form id="upload_form" action = "{{url('/subir-excels/upload')}}" method = "post" enctype = "multipart/form-data">
                 {{csrf_field()}}
