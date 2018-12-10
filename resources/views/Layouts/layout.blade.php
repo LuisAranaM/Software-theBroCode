@@ -158,21 +158,12 @@
 
                 </li>
                 <li id="cursos" class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a"><i class="fa fa-edit"></i> Gestionar Cursos 
-                  <!--<span class="fa fa-chevron-down"> </span>-->
                 </a>
-                    <!--<ul class="nav child_menu">
-                      <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
-                      <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
-                    </ul>-->
+                 
                   </li>
-                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
-                  </li>-->
+               
                   <li id="reportes" class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes y Gráficos</a>
                   </li>
-                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                  </li>-->
-                  <!--<li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
-                  </li>-->
                   <li id="reuniones" class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
                   <li id="avisos" class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>

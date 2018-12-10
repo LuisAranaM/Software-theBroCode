@@ -49,33 +49,6 @@ class CursoController extends Controller
         ->with('cursos',Curso::getCursosAcreditacion());
     }
 
-    public function subirExcels(){
-        return view('subirExcels');
-    }
-
-    public function upload(){
-        return view('upload');
-    }
-
-    public function ExportClients(){
-        Excel::create('clients',function($excel){
-            $excel->sheet('clients',function($sheet){
-                // argumento -> blade
-                $sheet->loadView('ExportClients');
-            });
-        })->export('xlsx');
-    }
-
-    public function ImportClients(){
-        $file = Input::file('file');
-        $file_name = $file->getClientOriginalName();
-        $file->move('files',$file_name);
-        $results = Excel::load('files/'.$file_name, function($reader){
-            $reader->all();
-        })->get();
-        return view('clients',['clients' => $results]);
-    }
-
     public function buscarCursos(Request $request){
 
         return Curso::buscarCursos($request->get('termino',$request->get('cursoBuscar',null)));
@@ -479,11 +452,6 @@ class CursoController extends Controller
                 }
                 //flash('Las cursos a acreditar se registraron correctamente.')->success();
                 flash('¡Excel importado con éxito, cursos actualizados!')->success();
-                /*if(!empty($lista_cursos)){
-                    #Curso::insert($lista_cursos);
-                    DB::table('CURSOS')->insert($lista_cursos);
-                    
-                }*/
             }
         }
         else{
