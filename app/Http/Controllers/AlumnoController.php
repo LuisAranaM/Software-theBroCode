@@ -217,9 +217,23 @@ class AlumnoController extends Controller
 
     public function store(Request $request){
 
+        $file = $request->file('upload-file');
+        if($file==null){
+                flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
+                return back();
+            }
+
+
         if($request->hasFile('upload-file')){
             $this->trace('Request paso');
             try{
+                /*Archivo debe ser valido*/
+                if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
+                    flash('Extension de archivo incorrecta. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                        inferior del menu lateral.')->error();
+                    return Redirect::back();
+                }
+                // Archivo valido
                 $path = $request->file('upload-file')->getRealPath();
                 $data = \Excel::load($path)->get();
                 $fecha = date("Y-m-d H:i:s");
@@ -237,6 +251,19 @@ class AlumnoController extends Controller
                     //dd($data);
                     $this->trace('Data count');
                     foreach ($data as $key => $value) {
+                        
+                        $goBack = false;
+                        if($value->alumno == null) $goBack = true;
+                        if($value->nombre == null) $goBack = true;
+                        if($value->horario == null) $goBack = true;
+                        if($value->especialidad == null) $goBack = true;
+                        if($goBack){
+                            flash('Formato de archivo incorrecto. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                                inferior del menu lateral.')->error();
+                            return Redirect::back();
+                        }
+
+
                         // verificar si alumno ya existe en la BD
                         if($value->horario != $nombreHorario) continue;
                         $cont++;

@@ -162,8 +162,13 @@ class Alumno extends Eloquent
     }
 
     static function getIdAlumno($codigo, &$alumnos){
-        foreach($alumnos as $x)
+        Alumno::trace('CODIGO');
+        Alumno::trace($codigo);
+        foreach($alumnos as $x){
+            Alumno::trace($x->CODIGO);
             if($x->CODIGO == $codigo) return $x->ID_ALUMNO;
+        }
+        Alumno::trace('NOT FOUND');
         return -1;
     }
 
@@ -175,8 +180,17 @@ class Alumno extends Eloquent
 
     static function alumnoEstaEnOtroHorario(&$horarios, &$alumnos_has_horarios, &$alumnosPorHorario, &$alumno, &$idHorario, &$msg){
         // Revisar en el arreglo de alumnos_has_horarios
+        Alumno::trace('ID DEL ALUMNO EN CUESTION');
+        Alumno::trace($alumno['ID_ALUMNO']);
+        Alumno::trace('HORARIO DEL ALUMNO EN CUESTION');
+        Alumno::trace($idHorario);
         foreach($alumnos_has_horarios as $a){
+            Alumno::trace('ID_ALUMNO');
+            Alumno::trace($a->ID_ALUMNO);
+            Alumno::trace('ID_HORARIO');
+            Alumno::trace($a->ID_HORARIO);
             if($a->ID_ALUMNO == $alumno['ID_ALUMNO'] && $a->ID_HORARIO != $idHorario && $a->ESTADO == 1 ){
+                Alumno::trace('FAIL');
                 $msg = 'El alumno con codigo ';
                 $msg .= $alumno['CODIGO']; 
                 $msg .= ' pertenece al horario '; 
@@ -189,7 +203,12 @@ class Alumno extends Eloquent
         // revisar en el arreglo de alumnosPorHorario
         foreach($alumnosPorHorario as $h){
             foreach($h['alumnos'] as $a){
+                Alumno::trace('ID_ALUMNO');
+                Alumno::trace($a['ID_ALUMNO']);
+                Alumno::trace('ID_HORARIO');
+                Alumno::trace($h['idHorario']);
                 if($a['ID_ALUMNO'] == $alumno['ID_ALUMNO'] && $h['idHorario'] != $idHorario){
+                    Alumno::trace('FAIL');
                     $msg = 'El alumno con codigo ';
                     $msg .= $alumno['CODIGO'];
                     $msg .= ' se quiere insertar en los horarios ';
@@ -294,7 +313,6 @@ class Alumno extends Eloquent
         $ans = DB::table('ALUMNOS')
                 ->select('*')
                 ->where('ID_SEMESTRE','=',$idSemestre)
-                ->where('ID_ESPECIALIDAD','=', $idEspecialidad)
                 ->where('ESTADO','=',1)
                 ->get();
         return $ans;
