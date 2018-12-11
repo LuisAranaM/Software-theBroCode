@@ -152,11 +152,15 @@ class AlumnoController extends Controller
                     flash($msg);
                     return Redirect::back();
                 }
+                $aux = 10;
+
                 /* EN CASO SE INSERTE DIRECTAMENTE SIN MENSAJE DE CONFIRMACION */
                 {
                 	$lista = array();
                     // Meter alumnos nuevos
                     foreach($alumnosNuevos as $a){
+                        Alumno::trace('ALUMNO NUEVO');
+                        Alumno::trace($a['NOMBRES']);
                     	$lista[] = ['NOMBRES' => $a['NOMBRES'],
 		                             'APELLIDO_PATERNO' => $a['APELLIDO_PATERNO'],
 		                             'APELLIDO_MATERNO' => $a['APELLIDO_MATERNO'],
