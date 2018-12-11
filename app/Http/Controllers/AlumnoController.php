@@ -112,7 +112,7 @@ class AlumnoController extends Controller
 
         $file = $request->file('upload-file');
         if($file==null){
-                flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
+                flash('No ha seleccionado un archivo, inténtelo nuevamente.')->error();
                 return back();
             }
             
@@ -120,7 +120,7 @@ class AlumnoController extends Controller
             try{
                 /*Archivo debe ser valido*/
                 if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
-                    flash('Extension de archivo incorrecta. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                    flash('Extensión de archivo incorrecta, solo es válida la extensión ".xlsx". Revise el formato de archivo adecuado para la carga de alumnos en la parte 
                         inferior del menu lateral.')->error();
                     return Redirect::back();
                 }
@@ -159,9 +159,7 @@ class AlumnoController extends Controller
                 	$lista = array();
                     // Meter alumnos nuevos
                     foreach($alumnosNuevos as $a){
-                        Alumno::trace('ALUMNO NUEVO');
-                        Alumno::trace($a['NOMBRES']);
-                    	$lista[] = ['NOMBRES' => $a['NOMBRES'],
+                        $lista[] = ['NOMBRES' => $a['NOMBRES'],
 		                             'APELLIDO_PATERNO' => $a['APELLIDO_PATERNO'],
 		                             'APELLIDO_MATERNO' => $a['APELLIDO_MATERNO'],
 		                             'CODIGO' => $a['CODIGO'],
@@ -223,7 +221,7 @@ class AlumnoController extends Controller
 
         $file = $request->file('upload-file');
         if($file==null){
-                flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
+                flash('No ha seleccionado un archivo, inténtelo nuevamente.')->error();
                 return back();
             }
 
@@ -232,7 +230,7 @@ class AlumnoController extends Controller
             try{
                 /*Archivo debe ser valido*/
                 if(!$this->validFile($request->file('upload-file')->getClientOriginalName())){
-                    flash('Extension de archivo incorrecta. Revise el formato de archivo adecuado para la carga de alumnos en la parte 
+                    flash('Extensión de archivo incorrecta, solo es válida la extensión ".xlsx". Revise el formato de archivo adecuado para la carga de alumnos en la parte 
                         inferior del menu lateral.')->error();
                     return Redirect::back();
                 }
@@ -335,13 +333,13 @@ class AlumnoController extends Controller
                     if($cont > 0 && !empty($lista))
                         DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
                     if($cont > 0)
-                        flash('Alumnos cargados correctamente')->success();
+                        flash('Alumnos cargados correctamente.')->success();
                 }
 
                 if($cont == 0){
                     $this->trace('No se subio nada');
                     // se subio un archivo donde todos los alumnos no estan en el horario seleccionado
-                    flash('Los alumnos del archivo no pertenecen al horario seleccionado o se subio un formato de archivo incorrecto.')->error();
+                    flash('Los alumnos del archivo no pertenecen al horario seleccionado o se subió un formato de archivo incorrecto.')->error();
                     $this->trace('Holis');
                     return Redirect::back();
                 }
@@ -351,7 +349,7 @@ class AlumnoController extends Controller
                 return Redirect::back();
             }
         }else{
-            flash('No se selecciono un archivo')->error();
+            flash('No se seleccionó un archivo')->error();
         }
         return Redirect::back();
 
