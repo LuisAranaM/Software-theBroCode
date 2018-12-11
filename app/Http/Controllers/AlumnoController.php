@@ -105,7 +105,7 @@ class AlumnoController extends Controller
         $ext = "";
         for($i++; $i < strlen($x); $i++)
             $ext .= $x[$i];
-        return ($ext == 'csv') || ($ext == 'xlsx');
+        return ($ext == 'csv') || ($ext == 'xlsx') || ($ext == 'xls');
     }
 
     public function uploadAlumnosDeCurso(Request $request){
