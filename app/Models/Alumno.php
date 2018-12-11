@@ -162,13 +162,9 @@ class Alumno extends Eloquent
     }
 
     static function getIdAlumno($codigo, &$alumnos){
-        Alumno::trace('CODIGO');
-        Alumno::trace($codigo);
         foreach($alumnos as $x){
-            Alumno::trace($x->CODIGO);
             if($x->CODIGO == $codigo) return $x->ID_ALUMNO;
         }
-        Alumno::trace('NOT FOUND');
         return -1;
     }
 
@@ -180,17 +176,8 @@ class Alumno extends Eloquent
 
     static function alumnoEstaEnOtroHorario(&$horarios, &$alumnos_has_horarios, &$alumnosPorHorario, &$alumno, &$idHorario, &$msg){
         // Revisar en el arreglo de alumnos_has_horarios
-        Alumno::trace('ID DEL ALUMNO EN CUESTION');
-        Alumno::trace($alumno['ID_ALUMNO']);
-        Alumno::trace('HORARIO DEL ALUMNO EN CUESTION');
-        Alumno::trace($idHorario);
         foreach($alumnos_has_horarios as $a){
-            Alumno::trace('ID_ALUMNO');
-            Alumno::trace($a->ID_ALUMNO);
-            Alumno::trace('ID_HORARIO');
-            Alumno::trace($a->ID_HORARIO);
             if($a->ID_ALUMNO == $alumno['ID_ALUMNO'] && $a->ID_HORARIO != $idHorario && $a->ESTADO == 1 ){
-                Alumno::trace('FAIL');
                 $msg = 'El alumno con codigo ';
                 $msg .= $alumno['CODIGO']; 
                 $msg .= ' pertenece al horario '; 
@@ -203,10 +190,6 @@ class Alumno extends Eloquent
         // revisar en el arreglo de alumnosPorHorario
         foreach($alumnosPorHorario as $h){
             foreach($h['alumnos'] as $a){
-                Alumno::trace('ID_ALUMNO');
-                Alumno::trace($a['ID_ALUMNO']);
-                Alumno::trace('ID_HORARIO');
-                Alumno::trace($h['idHorario']);
                 if($a['ID_ALUMNO'] == $alumno['ID_ALUMNO'] && $h['idHorario'] != $idHorario){
                     Alumno::trace('FAIL');
                     $msg = 'El alumno con codigo ';
@@ -231,11 +214,28 @@ class Alumno extends Eloquent
         return $ans;
     }
 
-    static function pertenece($alumno, $nombreHorario, &$alumnos_has_horarios, &$horariosValidos){
+    static function getIdHorariosValidos(&$horariosValidos){
+        $ans = array();
+        foreach($horariosValidos as $x)
+            $ans[] = $x->ID_HORARIO;
+        return $ans;
+    }
+
+    static function pertenece($alumno, $nombreHorario, &$alumnos_has_horarios, &$horariosValidos, $idSemestre, $idEspecialidad){
         $idHorario = 0;
         foreach($alumnos_has_horarios as $x){
             Alumno::horarioValido($horariosValidos, $nombreHorario, $idHorario);
-            if($x->ID_ALUMNO == $alumno['ID_ALUMNO'] && $x->ID_HORARIO == $idHorario)
+            if($x->ID_ALUMNO == $alumno['ID_ALUMNO'] && $x->ID_HORARIO == $idHorario 
+                && $x->ID_SEMESTRE == $idSemestre && $x->ID_ESPECIALIDAD == $idEspecialidad)
+                return true;
+        }
+        return false;
+    }
+
+    static function estadoCero(&$alumno, &$idHorario, &$alumnos_has_horarios, $idEspecialidad, $idSemestre){
+        foreach($alumnos_has_horarios as $x){
+            if($x->ID_ALUMNO == $alumno['ID_ALUMNO'] && $x->ID_HORARIO == $idHorario 
+                && $x->ID_SEMESTRE == $idSemestre && $x->ID_ESPECIALIDAD == $idEspecialidad && $x->ESTADO == 0)
                 return true;
         }
         return false;
@@ -256,6 +256,7 @@ class Alumno extends Eloquent
             $horariosValidos = Horario::getHorariosByCodCurso($idSemestre, $idEspecialidad, $idCurso);
             $alumnos_has_horarios = AlumnosHasHorario::getAll($idSemestre, $idCurso);
             $alumnos_has_horarios = Alumno::filtro($alumnos_has_horarios, $horariosValidos);
+            $alumnos_has_horariosFull = AlumnoHasHorario::getFull($idSemestre, $idCurso);
             $cont = 0;
             Alumno::build($alumnosPorHorario,$horariosValidos);
 
@@ -285,6 +286,7 @@ class Alumno extends Eloquent
                 }
                 
                 $idHorario = 0;
+                $alumnosDevuelta = array();
                 if(Alumno::horarioValido($horariosValidos,$value->horario, $idHorario)){
                     // alumno sera agregado a este horario
                     $x = $value->horario;
@@ -294,14 +296,25 @@ class Alumno extends Eloquent
                         return 3;
                     foreach($alumnosPorHorario as $it){
                         if($it["codigoHorario"] == $x){
-                            if(!Alumno::pertenece($alumno,$x, $alumnos_has_horarios, $horariosValidos))
-                                $alumnosPorHorario[$x]["alumnos"][] = $alumno;
+                            if(!Alumno::pertenece($alumno,$x, $alumnos_has_horarios, $horariosValidos, $idSemestre, $idEspecialidad)){
+                                if(Alumno::estadoCero($alumno,$idHorario,$alumnos_has_horariosFull, $idEspecialidad, $idSemestre)) 
+                                    $alumnosDevuelta[] = $alumno['ID_ALUMNO'];
+                                else $alumnosPorHorario[$x]["alumnos"][] = $alumno;
+                            }
                             break;
                         }
                     }
                 }else{
                     $alumnosBaneados[] = $alumno;
                 }
+                $idHorariosValidos = Alumno::getIdHorariosValidos($horariosValidos);
+                // Reinsertar aquellos que regresan
+                DB::table('ALUMNOS_HAS_HORARIOS')
+                    ->wherein('ID_ALUMNO',$alumnosDevuelta)
+                    ->where('ID_SEMESTRE','=',$idSemestre)
+                    ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
+                    ->wherein('ID_HORARIO',$idHorariosValidos)
+                    ->update(['ESTADO' => 1]);
             }
         }catch(Exception $e){
                 return 1;
