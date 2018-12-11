@@ -128,7 +128,7 @@ class AlumnosHasHorario extends Eloquent
 			->select('AHH.ID_ALUMNO','RES.ID_RESULTADO','RES.CUENTA_TOTAL',DB::raw('IFNULL(IND.CUENTA_ALUMNO,0) AS CUENTA_ALUMNO'))
 		->leftJoin(DB::Raw("(
 			SELECT ID_CURSO,ID_RESULTADO,COUNT(ID_INDICADOR) CUENTA_TOTAL
-			FROM indicadores_has_cursos 
+			FROM INDICADORES_HAS_CURSOS 
 			WHERE ESTADO=1
 			GROUP BY ID_CURSO,ID_RESULTADO
 		) AS RES"), function ($join){
@@ -136,7 +136,7 @@ class AlumnosHasHorario extends Eloquent
 		})
 		->leftJoin(DB::Raw("(
 			SELECT ID_HORARIO,ID_ALUMNO,ID_RESULTADO,COUNT(ID_INDICADOR) CUENTA_ALUMNO
-			FROM desarrollo.indicadores_has_alumnos_has_horarios
+			FROM INDICADORES_HAS_ALUMNOS_HAS_HORARIOS
 			GROUP BY ID_HORARIO,ID_ALUMNO,ID_RESULTADO
 		) AS IND"), function ($join){
 			$join->on('IND.ID_ALUMNO','=','AHH.ID_ALUMNO');
