@@ -279,4 +279,38 @@ class ProfesorController extends Controller
               return back();
             }
 
+            function obtenerIdAlumno($cadena){
+              $aux=explode('=',$cadena);
+              return $aux[1];
+            }
+
+            public function eliminarAlumnoHorarioMasivo(Request $request){
+              $alumno=new eAlumno();
+
+              $idAlumnos=[];
+              $checks=$request->get('checks');
+              if(strlen($checks)>0){
+                if(strpos($checks,'&')==false){
+                  //Solo es un alumno
+                  $idAlumnos[]=self::obtenerIdAlumno($checks);
+                }
+                else{
+                  $aux=explode('&',$checks);
+                  foreach($aux as $elem){
+                    $idAlumnos[]=self::obtenerIdAlumno($elem);
+                  }
+                }
+
+              }
+              else{
+                return back();
+              }
+
+              if($alumno->eliminarAlumnosHorario($idAlumnos,$request->get('idHorario'),Auth::id())){
+                flash('Se eliminaron los alumnos correctamente')->success();
+              } else {
+                flash('Hubo un error')->error();
+              }
+              return back();
+            }
           }

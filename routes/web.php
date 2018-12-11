@@ -152,6 +152,7 @@ Route::post('/modal-calificar-fetch-resultados',['as'=>'fetch.resultados','uses'
 Route::post('/modal-calificar-fetch-alumnos',['as'=>'fetch.alumnos','uses'=>'ProfesorController@fetchAlumnos','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::post('/agregar-calificacion-alumno',['as'=>'agregar.calificacion.alumnos','uses'=>'ProfesorController@calificarAlumnos','middleware' => ['authBase', 'authRol:2|4']]);
 Route::post('/eliminar-alumno-horario',['as'=>'eliminar.alumno.horario','uses'=>'ProfesorController@eliminarAlumnoHorario','middleware' => ['authBase', 'authRol:2|4']]);
+Route::post('/eliminar-alumno-horario/masivo',['as'=>'eliminar.alumno.horario.masivo','uses'=>'ProfesorController@eliminarAlumnoHorarioMasivo','middleware' => ['authBase', 'authRol:2|4']]);
 
 
 /*REPORTES*/

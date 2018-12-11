@@ -399,5 +399,28 @@ class Alumno extends Eloquent
         //dd($sql->get());
     }
 
+    function eliminarAlumnosHorario($registro,$checks){
+        //dd($registro);    
+        DB::beginTransaction();
+        $status = true;
+       
+        try {
+           DB::table('ALUMNOS_HAS_HORARIOS')
+            ->whereIn('ID_ALUMNO',$checks)
+            ->where('ID_SEMESTRE','=',$registro['ID_SEMESTRE'])
+            ->where('ID_ESPECIALIDAD','=',$registro['ID_ESPECIALIDAD'])
+            ->where('ID_HORARIO','=',$registro['ID_HORARIO'])
+            ->update(['ESTADO'=>0,'FECHA_ACTUALIZACION'=>$registro['FECHA_ACTUALIZACION']]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error('BASE_DE_DATOS|' . $e->getMessage());
+            $status = false;
+            DB::rollback();
+        }
+        //dd($status);
+        return $status;
+        //dd($sql->get());
+    }
 
 }

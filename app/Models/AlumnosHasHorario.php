@@ -89,7 +89,7 @@ class AlumnosHasHorario extends Eloquent
 	}
 
 	static public function getAlumnosByIdHorario($idHorario){
-            
+          
         $ans = DB::select("SELECT *, MAX(a1.ID_PROYECTO) as ID_PROYECTO2 from ALUMNOS_HAS_HORARIOS a1
 			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )
 
@@ -98,6 +98,17 @@ class AlumnosHasHorario extends Eloquent
 			group by a1.ID_ALUMNO
 			order by CODIGO asc;");
 		//dd($ans);
+        
+        /*$sql=DB::Table('ALUMNOS_HAS_HORARIOS AS A1')
+        	->select('A1.*','A2.*',DB::Raw('MAX(A1.ID_PROYECTO) AS ID_PROYECTO2'))
+	        ->leftJoin('ALUMNOS AS A2',function($join){
+            $join->on('A1.ID_ALUMNO','=','A2.ID_ALUMNO');
+        })
+	    ->where('A1.ID_HORARIO','=',$idHorario)
+	    ->where('A1.ESTADO','=',1)
+	    ->groupBy('A1.ID_ALUMNO')
+	    ->orderBy('CODIGO');*/
+	    
         return $ans;
 	}
 	static public function getAlumnoXHorario($idHorario){
