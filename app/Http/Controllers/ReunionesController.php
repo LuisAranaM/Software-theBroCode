@@ -73,8 +73,9 @@ class ReunionesController extends Controller
                 try{
                     $files = array();
                     $cant = 0;
-                    foreach ($checks as $key => $value) {
-                        $file= public_path(). "/upload//".$value;
+                    foreach ($checks as $value) {
+                        $arreglo=explode('@',$value);
+                        $file= public_path(). "/upload//".$arreglo[0];
                         /*NO BORRAR esto es para eliminar fisicamente el archivo
 
                         $dirHandle = opendir(public_path(). "/upload/");
@@ -88,7 +89,7 @@ class ReunionesController extends Controller
                         */
                         //Esto es para cambiar el estado a cero
                         DB::table('DOCUMENTOS_REUNIONES')
-                        ->where('NOMBRE', '=',$value)
+                        ->where('ID_DOCUMENTO', '=',$arreglo[1])
                         ->update(['ESTADO' => 0]);
                         $cant = $cant + 1;
                     } 
@@ -114,8 +115,9 @@ class ReunionesController extends Controller
                 }
 
                 $files = array();
-                foreach ($checks as $key => $value) {
-                    $file= public_path(). "/upload/".$value;
+                foreach ($checks as $value) {
+                    $arreglo=explode('@',$value);
+                    $file= public_path(). "/upload/".$arreglo[0];
                     array_push($files, $file);
                 } 
 

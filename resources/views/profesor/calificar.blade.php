@@ -177,13 +177,13 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" tabindex='-1'>
           </div>
           <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
             <div class="col-md-4">
+              <a class="btn btn-success pText customButtonThin"  href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx"  style="padding-right: 5px; padding-left: 5px;color:white"><i class="fa fa-download"></i> Formato</a>              
+            </div>
+            <div class="col-md-4">
               <input id="bookId" name="codigoHorario" type="hidden">
               <input id="horario" name="horario" type="hidden">
               <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
               style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
-            </div>
-            <div class="col-md-4">
-              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
             </div>
 
           </div>

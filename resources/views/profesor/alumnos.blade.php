@@ -171,7 +171,11 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 </div>
 </div>
 </div>
-
+@else
+ <div class=" x_panel tile coursesBox">
+      <h1 class="messageText no-padding">No hay alumnos cargados</h1>
+      <h1 class="messageText no-padding"><a href="{{ route('cursos.horarios') }}?id={{$curso[0]->ID_CURSO}}&nombre={{$curso[0]->NOMBRE}}&codigo={{$curso[0]->CODIGO_CURSO}}"><i class="fa fa-arrow-circle-left"></i> Regresar</a></h1>
+    </div> 
 @endif
  <!-- Modal Alumno a Evaluar-->
 

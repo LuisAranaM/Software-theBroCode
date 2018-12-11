@@ -213,10 +213,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
                 </div>
                 <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
                   <div class="col-md-4">
-                    <input id="btnCargarCursosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                    <a class="btn btn-success pText customButtonThin"  href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx"  style="padding-right: 5px; padding-left: 5px;color:white"><i class="fa fa-download"></i> Formato</a>              
                   </div>
                   <div class="col-md-4">
-                    <button type="reset" id="btnCancelarModalCursos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+                    <input id="btnCargarCursosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
                   </div>
                 </div>
               </form>
