@@ -334,13 +334,13 @@ class AlumnoController extends Controller
                     if($cont > 0 && !empty($lista))
                         DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
                     if($cont > 0)
-                        flash('Alumnos cargados correctamente')->success();
+                        flash('Alumnos cargados correctamente.')->success();
                 }
 
                 if($cont == 0){
                     $this->trace('No se subio nada');
                     // se subio un archivo donde todos los alumnos no estan en el horario seleccionado
-                    flash('Los alumnos del archivo no pertenecen al horario seleccionado o se subio un formato de archivo incorrecto.')->error();
+                    flash('Los alumnos del archivo no pertenecen al horario seleccionado o se subió un formato de archivo incorrecto.')->error();
                     $this->trace('Holis');
                     return Redirect::back();
                 }
@@ -350,7 +350,7 @@ class AlumnoController extends Controller
                 return Redirect::back();
             }
         }else{
-            flash('No se selecciono un archivo')->error();
+            flash('No se seleccionó un archivo')->error();
         }
         return Redirect::back();
 
