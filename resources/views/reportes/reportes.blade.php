@@ -483,9 +483,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
         <div class="col-md-4 text-left">
           <a id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
         </div>
-        <div class="col-md-4 text-right">
-          <button type="submit" id="btnDescargarReportes3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Reporte</button>
-        </div>
+
       </div>
       <!-- Fin Botones inferiores del modal -->
     </div>

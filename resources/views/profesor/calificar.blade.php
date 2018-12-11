@@ -30,7 +30,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
     <div class="col-md-4 col-sm-6 form-group top_search" >
       <div class="input-group">
-        <input id="busquedaCurso" type="text" class="form-control searchText" placeholder="Curso...">
+        <input id="calificarBuscar" type="text" class="form-control searchText" placeholder="Curso...">
         <span class="input-group-btn">
           <button class="btn btn-default searchButton" type="button">Buscar</button>
         </span>
@@ -73,7 +73,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
     @foreach($cursos["cursos"] as $c)
     @if(count($c["horarios"])>0)
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_panel">
+      <div class="x_panel panelCurso">
         <div class="x_title">
           <h2>{{$c["curso"]->NOMBRE}}</h2>
           <ul class="nav navbar-right panel_toolbox">
@@ -89,7 +89,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
             <div class="col-lg-3 col-md-4 col-xs-12" >
               <p class="pText" style="margin-bottom: 0px;font-weight: bold;">H-{{$h["horario"]->NOMBRE}}</p>
-              <p class="pText" style="margin-bottom: 0px">{{$h["profesor"]}}</p>
+              @if(!$modoProfesor)<p class="pText" style="margin-bottom: 0px">{{$h["profesor"]}}</p>@endif
             </div>
             <div class="col-lg-7 col-md-5 col-sm-9 col-xs-7" style="padding-bottom: 0">
               <div class="widget_summary" >
@@ -119,9 +119,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
                 data-horario ="{{$h["horario"]->NOMBRE}}"
                 > Cargar Alumnos</button>
               </a>
-              <!--
-              <button type="button" class="btn btn-success btn-lg pText customButton btnCargarAlumnos2">Cargar Alumnos</button>
-            -->@endif
+              @endif
             @endif
             @if($h["alumnosTotal"] != 0)
             <a href="{{route('profesor.alumnos')}}?idCurso={{$c['curso']->ID_CURSO}}&idHorario={{$h['horario']->ID_HORARIO}}&vistaProc=calificar">
@@ -170,7 +168,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" tabindex='-1'>
     <div class="container-fluid text-center">
       <div class="dropzone" style="min-height: 100px; height: 190px; width: 350px; border: 2px dashed #ccc; display: inline-block; background-color: white; margin-top: 10px; margin-bottom: 10px">
         <i class="fa fa-5x fa-cloud-upload" style="color: #ccc; height: 100px; padding: 10px"></i>
-        <p class="pText">Arrastra y suelta un archivo <br> o <br> 
+        <p class="pText"><br>Selecciona un archivo para cargar<br> 
           <form id="upload_form" action = "{{url('/subir-excels/uploadAlumnos')}}"
           method = "post" enctype = "multipart/form-data">
           {{csrf_field()}}

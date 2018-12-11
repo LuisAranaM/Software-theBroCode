@@ -63,7 +63,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
       @if($vistaProc=='calificar')
-      <h1 class="mainTitle" ><a href="{{route('profesor.calificar')}}"> Calificar Alumnos </a> > <a href=""> {{$curso[0]->CODIGO_CURSO}} - {{$horario[0]->NOMBRE}}</a></h1>
+      <h1 class="mainTitle" ><a href="{{route('profesor.calificar')}}"> Calificar Alumnos </a> > <a href=""> {{$curso[0]->NOMBRE}} - {{$horario[0]->NOMBRE}}</a></h1>
       @elseif($vistaProc=='horarios')
       <h1 class="mainTitle" ><a href="{{route('cursos.gestion')}}"> Gestionar Cursos </a> > <a href="{{ route('cursos.horarios') }}?id={{$curso[0]->ID_CURSO}}&nombre={{$curso[0]->NOMBRE}}&codigo={{$curso[0]->CODIGO_CURSO}}">{{$curso[0]->CODIGO_CURSO}} -{{$curso[0]->NOMBRE}}</a> > <a href=""> {{$horario[0]->NOMBRE}}</a></h1>
       @endif
@@ -168,7 +168,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 
   </div>
   @if(!$modoSoloLectura)
-  <button type = "submit" class = "btn btn-success btn-lg pText customButton">Subir<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+  <button type = "submit" class = "btn btn-success btn-lg pText customButton" style="width:130px !important">Subir Archivos<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
   @endif
 </form>
 
@@ -193,7 +193,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
  <div class="modalAlumnos modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
+      <button id="closeCalificar" type="button" class="close" data-dismiss="modal"
       aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

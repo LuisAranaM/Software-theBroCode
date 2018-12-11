@@ -43,6 +43,8 @@ Route::post('/login', ['as' => 'login.attempt', 'uses' => 'LoginController@attem
 Route::get('/pass-gen', ['as' => 'pass.gen', 'uses' => 'PassController@gen']);
 Route::get('/pass-update', ['as' => 'pass.update', 'uses' => 'PassController@formularioNuevaContrasena']);
 Route::post('/pass-update-post',['as'=>'pass.update.post','uses'=>'PassController@actualizarContrasena']);
+Route::get('/pass-reset',['as'=>'pass.reset','uses'=>'PassController@recuperarContrasena']);
+Route::post('/pass-reset/post',['as'=>'pass.reset.post','uses'=>'PassController@recuperarContrasenaCorreo']);
 Route::post('/pass-save', ['as' => 'pass.save', 'uses' => 'PassController@save']);
 Route::get('/extra-login', ['as' => 'pass.login', 'uses' => 'PassController@login']);
 Route::post('/extra-attempt', ['as' => 'pass.attempt', 'uses' => 'PassController@attempt']);
@@ -194,6 +196,7 @@ Route::group(['prefix' => 'avisos', 'middleware' => ['authBase', 'authRol:1|2|3|
 
 //Drag and Drop prueba
 Route::get('/pruebaDropzone', ['as'=>'prueba.Dropzone','uses'=>'DropzoneController@dropzoneGestion','middleware' => ['authBase', 'authRol:1|2|3|4']]);
+Route::post('/pruebaDropzone-post', ['as'=>'prueba.Dropzone.post','uses'=>'DropzoneController@store','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 Route::get('/getcursosxindicador', ['as'=>'prueba.cursoInd','uses'=>'DropzoneController@getcursosxind','middleware' => ['authBase', 'authRol:1|2|3|4']]);
 //prueba log Rubricas

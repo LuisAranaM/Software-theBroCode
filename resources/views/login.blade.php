@@ -15,6 +15,7 @@
         <div class="righthr"><hr style="margin-top: -21px; margin-bottom: 15px; margin-left: -130px;width: 130px"></div>
         <input  class="form-control" placeholder="Usuario o Correo Electrónico" type="text" required="" name="usuario" style="margin-left: 100px; width: 300px">
         <input class="form-control" style="margin-bottom: 5px; margin-left: 100px;width: 300px" placeholder="Contraseña" type="password" required="" name="pass" onKeyPress=" capLock(event) ">
+        <div><a href="{{route('pass.reset')}}" style="cursor: pointer;font-size: 12px">¿Olvidó su contraseña?</a></div>    
         <div id="caplock" style=" visibility:hidden ">El bloqueo de mayúsculas está activado</div>    
     </div>
     @include('flash::message')
