@@ -93,6 +93,14 @@ class AlumnosHasHorario extends Eloquent
 		return $ans;
 	}
 
+	static public function getFull($idSemestre){
+		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->where('ID_SEMESTRE','=',$idSemestre)
+				->get();
+		return $ans;
+	}
+
 	static public function getAlumnosByIdHorario($idHorario){
 		/*
 		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
