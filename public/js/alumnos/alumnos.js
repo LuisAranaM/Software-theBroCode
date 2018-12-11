@@ -3,6 +3,10 @@ $( document ).ready(function() {
 
 	$( "#calificar" ).css("border-right", "5px solid #005b7f");
 	
+	$('.noCalificar').on('click',function(){
+		var nombreAlumno=$(this).attr('nombreAlumno');
+		alert('Debes subir un proyecto para poder calificar a '+nombreAlumno);
+	});
 
 	$(".fileToUpload").on('change', function() {
 	});

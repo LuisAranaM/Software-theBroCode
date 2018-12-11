@@ -167,8 +167,8 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
                 }
               }
               ?>
-              <!--<i class="fas fa-check-circle"></i>-->
-              <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idHorario="{{$horario[0]->ID_HORARIO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
+              @if($alumno->ID_PROYECTO2!=1)
+              <td id="{{$resultado->ID_RESULTADO}}" idCurso="{{$curso[0]->ID_CURSO}}" idHorario="{{$horario[0]->ID_HORARIO}}" idResultado="{{$resultado->ID_RESULTADO}}" idAlumno="{{$alumno->ID_ALUMNO}}" codAlumno ="{{$alumno->CODIGO}}" class="pText AbrirCalificacion view" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;">
                 @if($cuentaAlumno==0)
                 <i class="fa fa-edit" style="font-size: 16px"></i>
                 @elseif($cuentaAlumno>0 and $cuentaAlumno<$cuentaTotal)
@@ -177,30 +177,33 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
                 <i class="fas fa-check-circle" style="font-size: 16px;color: green"></i>
                 @endif
               </td>
-                @endforeach
-                @if(!$modoSoloLectura)
-                <!--<td>  <center><div class="" style=""><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer;text-align:center;vertical-align: middle;"></i></div></center></td>-->
-                <td  class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><label>
-                  <input type="checkbox" class="form-check-input checkAlumnos" 
-                  name="checkAlumnos[]" id="checkAlumnos"  value="{{$alumno->ID_ALUMNO}}" > <span class="pText label-text "></span></label></td>
+              @else
+              <td nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="noCalificar" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;cursor: pointer;"><i class="fa fa-edit" style="font-size: 16px"></i></td>
+              @endif
+              @endforeach
+              @if(!$modoSoloLectura)
+              <!--<td>  <center><div class="" style=""><i idAlumno="{{$alumno->ID_ALUMNO}}" idHorario="{{$horario[0]->ID_HORARIO}}" nombreAlumno="{{$alumno->NOMBRES}} {{$alumno->APELLIDO_PATERNO}} {{$alumno->APELLIDO_MATERNO}}" class="elimAlumno fas fa-trash" id="1" style="color: #005b7f; cursor: pointer;text-align:center;vertical-align: middle;"></i></div></center></td>-->
+              <td  class="pText" style="background-color: white; padding-top: 12px; color: #72777a;text-align: center;vertical-align: center;"><label>
+                <input type="checkbox" class="form-check-input checkAlumnos" 
+                name="checkAlumnos[]" id="checkAlumnos"  value="{{$alumno->ID_ALUMNO}}" > <span class="pText label-text "></span></label></td>
 
-                  @endif
-                </tr>
+                @endif
+              </tr>
 
 
-                @endforeach
-              </tbody>
-            </table>
+              @endforeach
+            </tbody>
+          </table>
 
-          </div>
-          @if(!$modoSoloLectura)
-          <button type = "submit" class = "btn btn-success btn-lg pText customButton" style="width:130px !important;margin-top: 20px">Subir Archivos<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
-          @endif
-        </form>
+        </div>
+        @if(!$modoSoloLectura)
+        <button type = "submit" class = "btn btn-success btn-lg pText customButton" style="width:140px !important;margin-top: 20px">Subir Proyectos<i class="fa fa-upload" style="padding-left: 5px"></i> </button>
+        @endif
+      </form>
 
-      </div>
     </div>
   </div>
+</div>
 </div>
 @else
 <div class=" x_panel tile coursesBox">
