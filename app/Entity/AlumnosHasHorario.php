@@ -29,5 +29,10 @@ class AlumnosHasHorario extends \App\Entity\Base\Entity {
     static function getAlumnoXHorario($idHorario){
         return mAlumnosHasHorario::getAlumnoXHorario($idHorario);
     }
+
+    static function getAvanceByAlumno($idHorario,$idCurso){
+        $model=new mAlumnosHasHorario();
+        return $model->getAvanceByAlumno($idHorario,$idCurso)->get();
+    }
     
 }

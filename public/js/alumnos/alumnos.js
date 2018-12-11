@@ -17,6 +17,7 @@ $( document ).ready(function() {
 
 	$("#closeCalificar").on("click", function() {
 		PNotify.removeAll();
+		location.reload();
 	});	
 
 

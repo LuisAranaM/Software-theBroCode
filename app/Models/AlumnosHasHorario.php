@@ -119,4 +119,34 @@ class AlumnosHasHorario extends Eloquent
             ->get()->toArray();
         return $ans;
 	}
+
+
+
+	static public function getAvanceByAlumno($idHorario,$idCurso){
+		
+		$sql=DB::table('ALUMNOS_HAS_HORARIOS AS AHH')
+			->select('AHH.ID_ALUMNO','RES.ID_RESULTADO','RES.CUENTA_TOTAL',DB::raw('IFNULL(IND.CUENTA_ALUMNO,0) AS CUENTA_ALUMNO'))
+		->leftJoin(DB::Raw("(
+			SELECT ID_CURSO,ID_RESULTADO,COUNT(ID_INDICADOR) CUENTA_TOTAL
+			FROM indicadores_has_cursos 
+			WHERE ESTADO=1
+			GROUP BY ID_CURSO,ID_RESULTADO
+		) AS RES"), function ($join){
+			$join->on(DB::Raw('1'),'=',DB::Raw('1'));
+		})
+		->leftJoin(DB::Raw("(
+			SELECT ID_HORARIO,ID_ALUMNO,ID_RESULTADO,COUNT(ID_INDICADOR) CUENTA_ALUMNO
+			FROM desarrollo.indicadores_has_alumnos_has_horarios
+			GROUP BY ID_HORARIO,ID_ALUMNO,ID_RESULTADO
+		) AS IND"), function ($join){
+			$join->on('IND.ID_ALUMNO','=','AHH.ID_ALUMNO');
+			$join->on('AHH.ID_HORARIO', '=' ,'IND.ID_HORARIO');
+			$join->on('IND.ID_RESULTADO','=','RES.ID_RESULTADO');
+		})
+		->where('AHH.ESTADO','=',1)
+		->where('AHH.ID_HORARIO','=',$idHorario)
+		->where('RES.ID_CURSO','=',$idCurso)
+		->orderBy('AHH.ID_ALUMNO');
+		return $sql;
+	}
 }

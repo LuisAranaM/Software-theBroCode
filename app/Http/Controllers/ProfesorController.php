@@ -51,6 +51,7 @@ class ProfesorController extends Controller
         ->with('alumnos',eAlumnosHasHorario::getAlumnosByIdHorario($idHorario))
         ->with('projects',Proyecto::getRutaProyectos($idHorario))
         ->with('resultados',eResultado::getResultadosbyIdCurso($idCurso))
+        ->with('avanceCalificacion',eAlumnosHasHorario::getAvanceByAlumno($idHorario,$idCurso))
         ->with('indicadores',eIndicadoresHasCurso::getIndicadoresbyIdCurso($idCurso))
         ->with('todoIndicadores',eIndicador::getIndicadores())
         ->with('rubricaDeCurso',$this->getRubricaDeCurso($idCurso));  
