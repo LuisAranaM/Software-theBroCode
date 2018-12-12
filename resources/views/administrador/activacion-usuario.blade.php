@@ -151,7 +151,6 @@
 <script type="text/javascript">
   $(document).ready(function (){
  $('.selectAll').click(function() {
-    console.log("HOLA");
         if ($(this).prop('checked')) {
             $('.checkActivar').prop('checked', true);
         } else {

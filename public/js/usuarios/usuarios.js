@@ -4,10 +4,7 @@ $( document ).ready(function() {
 
   $("#btnNuevoUsuario").on("click", function(e){
     console.log("Nuevo Usuario");
-    $('#frmNuevoUsuario').trigger("reset");           
-
-
-
+    $('#frmNuevoUsuario').trigger("reset");      
     $('#frmNuevoUsuario input[type="text"]').val('');     
     $('#frmNuevoUsuario').formValidation('destroy', true);
     initializeFormUsuario();
@@ -63,21 +60,9 @@ $( document ).ready(function() {
     $('#modalEditarUsuario select[name="rol"]').val(rol);
     $('#modalEditarUsuario select[name="especialidad"]').val(especialidad);
     e.preventDefault();
-    console.log('HOLI');
   });
 
-
-  /*$('.formatInputNumber').keyup(function () {
-    this.value = (this.value + '').replace(/[^0-9]/g, '');
-  });*/
-/*
-    $('.formatInputLetter').keyup(function () {
-    this.value = (this.value + '').replace(/^[a-zA-ZñÑáéíóúü ]/g, '');
-  });*/
-
-
   $( ".cboRol" ).change(function() {
-      //alert( "Handler for .change() called." );
       var idRol=$(this).val();
       console.log(idRol);
       if(idRol==1){
@@ -93,12 +78,8 @@ $( document ).ready(function() {
 });
 
 function eliminarUsuario(idUsuario,nombreUsuario,filaUsuario){
-    //console.log("Necesitamos agregar cursos");
-    //filaUsuario.remove();
-      //eliminarUsuario(idUsuario);      
       $.ajax({
         url: APP_URL + 'admin/gestionar-usuario/eliminar',
-        //url: "{{route('eliminar.acreditacion')}}",     
         type: 'POST',        
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -119,7 +100,6 @@ function eliminarUsuario(idUsuario,nombreUsuario,filaUsuario){
     }
 
     function initializeFormUsuario() {
-    //console.log('Ingresamos al form validation');
     
     return $('.frmUsuario').formValidation({
       framework: 'bootstrap',

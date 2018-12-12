@@ -27,7 +27,6 @@ class SosHasEos extends \App\Entity\Base\Entity {
         return $model->getSosHasEos(self::getIdSemestre(),self::getEspecialidadUsuario())->get();
     }
     public function actualizarObjetivos($checks,$idUsuario){
-        //dd($checks,$idUsuario);
         $data=[];
 
         if($checks!=NULL){

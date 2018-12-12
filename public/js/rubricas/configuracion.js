@@ -3,13 +3,7 @@ $( document ).ready(function() {
 
   $("#btnCopiarConfiguracion").on("click", function(e){
     console.log("Copiamos la configuración");
-    //$('#frmNuevoUsuario').trigger("reset");           
-
-
-
     $('#modalConfiguracion input[type="text"]').val('');     
-    //$('#frmNuevoUsuario').formValidation('destroy', true);
-    //initializeFormUsuario();
     $("#modalConfiguracion").modal("show");
 
   });
@@ -28,30 +22,7 @@ $( document ).ready(function() {
     $("#modalConfiguracion").modal("hide");
     informacionRubrica(idSemestre);
     $("#modalConfiguracionMostrar").modal("show");
-    //$('#frmNuevoUsuario').trigger("reset");           
-
-
-
-    //$('#frmNuevoUsuario input[type="text"]').val('');     
-    //$('#frmNuevoUsuario').formValidation('destroy', true);
-    //initializeFormUsuario();
-
   });
-
-/*  $(".eliminarUsuario").on("click", function(e){
-    var filaUsuario=$(this).parent().parent();
-    var idUsuario=filaUsuario.attr('idUsuario');
-    var nombreUsuario=filaUsuario.attr('nombreUsuario');
-
-    var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreUsuario+"?");
-    if (resp == true) {
-      console.log("Vamos a eliminar a "+nombreUsuario+ ' con el id '+idUsuario);
-      //filaUsuario.remove();
-      eliminarUsuario(idUsuario,nombreUsuario,filaUsuario);            
-    } 
-    e.preventDefault();
-  });*/
-
 
 });
 
@@ -62,7 +33,6 @@ $( document ).ready(function() {
 } 
 
 function informacionRubrica(idSemestre){
-  console.log("HOLI boli");
   console.log(idSemestre);
   $.ajax({
     url: APP_URL + '/configuracionSemestre',
@@ -73,7 +43,6 @@ function informacionRubrica(idSemestre){
     success: function (result) {
       console.log(result);
       $('#interiorConfirmacion').find('div').remove();
-      //console.log(result.lenght);
       var html='';
       console.log(result.length);
       if(result.length==0){
@@ -92,10 +61,6 @@ function informacionRubrica(idSemestre){
             var indicadores=categorias[j].INDICADORES;
             for(var k=0;k<indicadores.length;k++){
               html+='<p style="text-align:justify;">'+result[i].RESULTADO+indicadores[k].VALORIZACION+' - '+indicadores[k].NOMBRE_INDICADOR+'</p>';
-            /*var descripciones=indicadores[k].DESCRIPCIONES;
-            for(var l=0;l<descripciones.length;l++){
-              html+='<p style="color:blue">'+descripciones[l].NOMBRE_VALORIZACION+' - '+descripciones[l].NOMBRE_DESCRIPCION+'</p>';
-            }*/
 
           }
         }

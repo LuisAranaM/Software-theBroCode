@@ -12,13 +12,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller {
 
-    /*public function index() {
-       return view('login');
-    }
-
-    function logout(Request $request){
-        return redirect()->route('login.index');
-    }*/
 
     public function index() {
         if(\Auth::check()){
@@ -37,9 +30,9 @@ class LoginController extends Controller {
             $user = Usuario::getCorreo($usuarioGoogle['EMAIL_GOOGLE']);
             if ($user==NULL) {
                 //Falta la opción para poder registrarse
-                flash('No existe un usuario en RubriK con ese correo, se debe de crear')->error();
-                return redirect()->route('login.index');
-                //return redirect()->route('login.google.formulario',['usuarioGoogle' => $usuarioGoogle]);
+                //flash('No existe un usuario en RubriK con ese correo, se debe de crear')->error();
+                //return redirect()->route('login.index');
+                return redirect()->route('login.google.formulario',['usuarioGoogle' => $usuarioGoogle]);
             }            
 
             Auth::loginUsingId($user->ID_USUARIO);            
@@ -55,7 +48,7 @@ class LoginController extends Controller {
                 }
             }        
         }
-        //dd(Auth::user());
+
             return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));
     }
 
@@ -158,14 +151,10 @@ class LoginController extends Controller {
 
 
     public function crearCuentaRubrikGoogle(Request $request){
-        //dd($request->all());
-
         //Registraremos el usuario y nos loguearemos
         $usuario=new Usuario();
 
         if($usuario->crearCuentaRubrik($request->all())){
-            //flash('El curso se eliminó con éxito')->success();
-            //dd("Nos debemos de loguear");
             $user = Usuario::getCorreo($request->get('email',null));
             Auth::loginUsingId($user->ID_USUARIO);
             return redirect()->route(Usuario::redirectRol(Auth::user()->ID_ROL));

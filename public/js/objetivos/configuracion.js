@@ -2,10 +2,7 @@ $( document ).ready(function() {
 
 	$("#btnCopiarConfiguracionObj").on("click", function(e){
 		console.log("Copiamos la configuración");
-    //$('#frmNuevoUsuario').trigger("reset");           
     $('#modalConfiguracionObj input[type="text"]').val('');     
-    //$('#frmNuevoUsuario').formValidation('destroy', true);
-    //initializeFormUsuario();
     $("#modalConfiguracionObj").modal("show");
 
 });
@@ -28,8 +25,6 @@ $( document ).ready(function() {
 
 
 	function informacionObj(idSemestre){
-		console.log("HOLI boli");
-		console.log(idSemestre);
 		$.ajax({
 			url: APP_URL + '/configuracionSemestreObj',
 			type: 'GET',        
@@ -37,7 +32,6 @@ $( document ).ready(function() {
 				idSemestre:idSemestre
 			},
 			success: function (result) {
-				//console.log(result);
 				 var html='';
 				console.log(result.length);
 				if(result.length==0){

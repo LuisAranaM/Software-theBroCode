@@ -158,34 +158,25 @@
 
                 </li>
                 <li id="cursos" class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a"><i class="fa fa-edit"></i> Gestionar Cursos 
-                  <!--<span class="fa fa-chevron-down"> </span>-->
                 </a>
-                    <!--<ul class="nav child_menu">
-                      <li class="pText"><a href="{{route('cursos.gestion')}}" style="color:#72777a">Gestionar Cursos</a></li>
-                      <li class="pText"><a href="{{route('cursos.progreso')}}" style="color:#72777a">Visualizar Progreso</a></li>
-                    </ul>-->
+                 
                   </li>
-                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-users"></i> Cargar Alumnos <span class="fa fa-chevron-down"></span></a>
-                  </li>-->
+               
                   <li id="reportes" class="pText"><a style="color:#72777a" href="{{route('reportes')}}"><i class="fa fa-table"></i> Reportes y Gráficos</a>
                   </li>
-                  <!--<li class="pText"><a style="color:#72777a"><i class="fa fa-bar-chart-o"></i> Gráficos <span class="fa fa-chevron-down"></span></a>
-                  </li>-->
-                  <!--<li class="pText"><a style="color:#72777a" href="{{route('subir.excels')}}"><i class="fa fa-upload"></i> Subir Excels</a>
-                  </li>-->
                   <li id="reuniones" class="pText"><a style="color:#72777a" href="{{route('reuniones')}}"><i class="fa fa-book"></i> Reuniones</a>
                   </li>
                   <li id="avisos" class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>                  
                   @endif
-                  <li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
+                  <!--<li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx" style="color:#72777a">
                       Carga de Cursos</a></li>
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx" style="color:#72777a">
                       Carga de Alumnos</a></li>
                     </ul>
-                  </li>
+                  </li>-->
 
                 </ul>
               </div>         

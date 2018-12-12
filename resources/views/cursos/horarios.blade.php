@@ -173,7 +173,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
       id="modalResultados" data-keyboard="false" data-backdrop="static"
       aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
       <div class="modalHorarios modal-dialog" style="width: 600px; height: 300px" >
-       <div class="modal-content" style="top: 40%">
+       <div class="modal-content" style="top: 25%">
         <div class="modal-header" style="padding-left: 0px; padding-right: 0px">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right: 10px">
             <span aria-hidden="true">&times;</span>
@@ -293,12 +293,12 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" >
           </div>
           <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
             <div class="col-md-4">
+              <a class="btn btn-success pText customButtonThin"  href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx"  style="padding-right: 5px; padding-left: 5px;color:white"><i class="fa fa-download"></i> Formato</a>              
+            </div>
+            <div class="col-md-4">
               <input id="codCurso" name="codigoCurso" type="hidden">
               <input id="btnCargarAlumnosModal" class = "btn btn-success pText customButtonThin upload-file" 
               style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
-            </div>
-            <div class="col-md-4">
-              <button type="reset" id="btnCancelarModalAlumnos" class="btn btn-success pText customButtonThin closeModal" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
             </div>
           </div>
         </form>

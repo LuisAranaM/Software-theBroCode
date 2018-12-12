@@ -14,11 +14,9 @@ use Illuminate\Support\Facades\Input;
 class ObjetivosEducacionalesController extends Controller
 {
     public function objetivosGestion() {    
-        //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
         $resultados = eResultado::getResultados()->toArray();
         return view('objetivos.objetivos')
         ->with('casillasChecks',SosHasEos::getSosHasEos())
-        //->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
         ->with('objetivosEstudiante',$resultados)
         ->with('objetivosEducacionales',eEos::getObjetivosEducacionales());
     }
@@ -29,9 +27,7 @@ class ObjetivosEducacionalesController extends Controller
         $objetivosEos=[];
         $objetivosEos = eEos::getObjetivosTotales()->toArray();
 
-        //dd(eSos::getObjetivosEstudiante(),eEos::getObjetivosEducacionales());
         return view('objetivos.objetivosGestion')
-        //->with('casillasChecks',SosHasEos::getSosHasEos())
         ->with('objetivosEstudiante',eSos::getObjetivosEstudiante())
         ->with('objetivosEducacionales',eEos::getObjetivosEducacionales())
         ->with('objetivosSos',$objetivosSos)
@@ -42,10 +38,7 @@ class ObjetivosEducacionalesController extends Controller
     public function informacionObj(Request $request){
 
         $objsos=eSos::getinformacionObj($request->get('idSemestre'));
-        //dd($objsos);
         return $objsos;
-        //$equis = "hola";
-        //return $equis;
     }
 
 
@@ -62,8 +55,6 @@ class ObjetivosEducacionalesController extends Controller
     }
 
     public function objetivosGuardar(Request $request) {  
-        //dd($request->all());
-
         $checks=$request->get('checkSosHasEos',null);
         
         $sosEos = new SosHasEos();           
@@ -102,8 +93,6 @@ class ObjetivosEducacionalesController extends Controller
 
      public function editarSos(Request $request){
         $sos=new eSos();
-        //dd("HOLA");
-        //dd($request->get('IDSOS'));
         if($sos->editarSos($request->get('IDSOS'),$request->get('nombreSOS'),Auth::id())){
         
         } else {
@@ -114,8 +103,6 @@ class ObjetivosEducacionalesController extends Controller
      
      public function editarEos(Request $request){
         $eos=new eEos();
-        //dd("HOLA");
-        //dd($request->get('IDSOS'));
         if($eos->editarEos($request->get('IDEOS'),$request->get('nombreEOS'),Auth::id())){
         
         } else {
@@ -130,7 +117,6 @@ class ObjetivosEducacionalesController extends Controller
         $sos=new eSos();
 
         if($sos->agregarSos($request->get('textSos'),Auth::id())){
-        //dd($request->get('textSos'));
         } else {
             flash('Hubo un error')->error();
         }
@@ -141,7 +127,6 @@ class ObjetivosEducacionalesController extends Controller
         $eos=new eEos();
 
         if($eos->agregarEos($request->get('txtEos'),Auth::id())){
-        //dd($request->get('textSos'));
         } else {
             flash('Hubo un error')->error();
         }

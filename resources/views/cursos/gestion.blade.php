@@ -29,17 +29,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
     </div>
   </div>
   @include('flash::message')
-  <!--<div class="row">
-    <div class=" x_panel tile coursesBox">
-
-      <div class="row">
-        <div class="col-xs12">
-          <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
-          
-        </div>  
-      </div>
-    </div>
-  </div>-->
   <div class="row">
     <div class=" x_panel tile coursesBox">
 
@@ -61,11 +50,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
           > Importar Cursos  <i class="fas fa-upload" style="padding-left: 6px"> </i></button>
         </div>
         @endif
-        <!--<div class="col-xs-6 text-right">
-          <button id="btnCargarCursos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Cursos</button>
-          <button id="btnCargarHorario" type="button" class="btn btn-success btn-lg pText customButton">Cargar Horario</button>
-          <button id="btnCargarAlumnos" type="button" class="btn btn-success btn-lg pText customButton">Cargar Alumnos</button>
-        </div>  -->
       </div>
       @if(!$modoSoloLectura)
       <div class="col-md-12 col-xs-12">
@@ -149,9 +133,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
                 <th class="pText column-title" style="border: none;text-align: center;"></th>
                 <th class="pText column-title" style="border: none;text-align: center;"> Código</th>
                 <th class="pText column-title" style="border: none;text-align: center;">Curso</th>
-                <!--<th class="pText bulk-actions" colspan="7">
-                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                </th>-->
               </tr>
             </thead>
 
@@ -232,10 +213,10 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first">
                 </div>
                 <div class="row" style="padding-top: 20px; text-align: center; display: flex;justify-content: center;">
                   <div class="col-md-4">
-                    <input id="btnCargarCursosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
+                    <a class="btn btn-success pText customButtonThin"  href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx"  style="padding-right: 5px; padding-left: 5px;color:white"><i class="fa fa-download"></i> Formato</a>              
                   </div>
                   <div class="col-md-4">
-                    <button type="reset" id="btnCancelarModalCursos" class="btn btn-success pText customButtonThin" style="padding-right: 5px; padding-left: 5px;">Cancelar</button>
+                    <input id="btnCargarCursosModal" class = "btn btn-success pText customButtonThin upload-file" style="padding-right: 5px; padding-left: 5px;" type="submit" value = "Cargar" name="submit">
                   </div>
                 </div>
               </form>

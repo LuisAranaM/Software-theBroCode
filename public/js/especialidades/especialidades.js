@@ -17,7 +17,6 @@
                   eliminarEspecialidad(idEspecialidad,nombEspecialidad,filaEspecialidad);            
               } 
               e.preventDefault();
-              console.log('HOLI');
           });
 
         $(".editarEspecialidad").on("click", function(e){
@@ -31,7 +30,7 @@
             $('#frmEditarEspecialidad input[name="idEspecialidad"]').val(idEspecialidad);
             $('#frmEditarEspecialidad input[name="nombEspecialidadEditar"]').val(nombEspecialidad);
             e.preventDefault();
-            console.log('HOLI');
+
         });
 
     });
@@ -39,12 +38,8 @@
 
 
 function eliminarEspecialidad(idEspecialidad,nombEspecialidad,filaEspecialidad){
-    //console.log("Necesitamos agregar cursos");
-    //filaUsuario.remove();
-      //eliminarUsuario(idUsuario);      
       $.ajax({
         url: APP_URL + 'admin/gestionar-especialidad/eliminar',
-        //url: "{{route('eliminar.acreditacion')}}",     
         type: 'POST',        
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

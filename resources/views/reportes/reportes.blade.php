@@ -2,14 +2,11 @@
 
 @section('js-libs')
 <!-- Required Javascript -->
-
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/Chart.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/chartjs-plugin-datalabels.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/chartjs-plugin-annotation.min.js') }}"></script>
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/jspdf.min.js') }}"></script>
-<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>-->
 <script type="text/javascript"  src="{{ URL::asset('js/reportes/reportes.js') }}"></script>
 @stop
 
@@ -218,15 +215,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
 
     <form id="form" action="{{route('exportar.reporte1')}}">
-      <!-- Combo box Ciclo -->
-        <!-- <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-          <div class="col-xs-offset-8 col-xs-3">
-            <select name="idSemestre" id="ciclos3" class="ciclos form-control" required>
-            </select>
-          </div>
-        </div> -->
-        <!-- Fin Combo box -->
-
         <!-- Combo box Resultado -->
         <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
           <span>
@@ -299,14 +287,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
       <!--</div>-->
     </div>
 
-    <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <div class="col-xs-offset-8 col-xs-3">
-        <p>Curso:</p>
-        <select id="cursos2" class="cursos form-control">
-        </select>
-      </div>
-    </div>-->
-    <!-- Fin Combo box -->
 
     <!-- Cuerpo del modal -->
     <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
@@ -358,22 +338,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
     
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
     
-    <!--<form class="form2" action="{{route('exportar.reporte2')}}">-->
-    <!-- Combo box -->
-     <!-- 
-    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <span class="col-xs-offset-1">
-        Ciclo:
-        <select id="ciclos2"  name="idSemestre2" style="width: 100px" class="ciclos">
-        </select>
-        </span>
-        <span class="col-xs-offset-1">
-        Cursos:
-        <select id="cursos2" style="width: 200px" class="cursos">
-        </select>
-        </span>
-    </div>
-    -->
     <!-- nombre curso y Resultado -->
     
     <div class="row" style="margin-left: -30px; padding-top: 10px; color: #9A9A9A">
@@ -381,20 +345,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
       <p id="detalleModal22Curso" style="font-weight: bold; margin-bottom: -1px;"></p>
       <p id="detalleModal22Resultado" style="font-weight: bold; margin-bottom: -1px;"></p>
     </div>
-    <!--<div class="row" style="padding-top: 10px; padding-bottom: -10px">
-      <p id="detalleModal22Semestre" style=""></p>
-      <p id="detalleModal22Curso" style=""></p>
-      <p id="detalleModal22Resultado" style=""></p>
-    </div>-->
-    <!-- Fin Combo box -->
-
-    <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <div class="col-xs-offset-8 col-xs-3">
-        <p>Curso:</p>
-        <select id="cursos2" class="cursos form-control">
-        </select>
-      </div>
-    </div>-->
     <!-- Fin Combo box -->
 
     <!-- Cuerpo del modal -->
@@ -456,14 +406,6 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
           </span>
         <!--</div>-->
       </div>
-      <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <div class="col-xs-offset-8 col-xs-3">
-          <p>Resultado:</p>
-          <select id="cboResultados2" class="resultados form-control" required>
-          </select>
-        </div>
-      </div>-->
-      <!-- Fin Combo box -->
 
       <!-- Cuerpo del modal -->
       <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px">
@@ -480,7 +422,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
 
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-        <div class="col-md-4 text-left">
+        <div class="col-md-4 text-left" style="width: 100px;">
           <a id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
         </div>
 
@@ -513,21 +455,6 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
     
     <hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
     
-    <!-- Combo box -->
-     <!-- 
-    <div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-        <span class="col-xs-offset-1">
-        Ciclo:
-        <select id="ciclos2"  name="idSemestre2" style="width: 100px" class="ciclos">
-        </select>
-        </span>
-        <span class="col-xs-offset-1">
-        Cursos:
-        <select id="cursos2" style="width: 200px" class="cursos">
-        </select>
-        </span>
-    </div>
-    -->
     <!-- nombre curso y Resultado -->
     <div class="row" style="margin-left: -30px; padding-top: 10px; color: #9A9A9A">
       <p id="detalleModal32Semestre" style="font-weight: bold; margin-bottom: -1px;"></p>
@@ -536,14 +463,6 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
     </div>
     <!-- Fin Combo box -->
 
-    <!--<div class="row" style="padding-top: 10px; padding-bottom: 0px; padding-right: 1px">
-      <div class="col-xs-offset-8 col-xs-3">
-        <p>Curso:</p>
-        <select id="cursos2" class="cursos form-control">
-        </select>
-      </div>
-    </div>-->
-    <!-- Fin Combo box -->
 
     <!-- Cuerpo del modal -->
     <div class="modal-body" style="padding-top: 0px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px">
@@ -569,8 +488,6 @@ data-keyboard="false" data-backdrop="static" aria-labelledby="gdridfrmnuavaUO" d
 </div>
 <!-- Fin Modal Curso x Resultado -->
 
-<!-- ******* 4. Modal Consolidado Historico ******* -->
-<!-- Fin Modal Consolidado Historico -->
 
 @stop
 

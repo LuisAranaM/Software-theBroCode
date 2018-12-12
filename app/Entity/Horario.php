@@ -37,7 +37,6 @@ class Horario extends \App\Entity\Base\Entity {
     }
 
     static function actualizarHorarios($idHorarios,$estadoEv,$usuario) {
-        //dd($idHorarios,$estadoEv,$usuario);
         $model = new mHorario();
         if ($model->actualizarHorarios($idHorarios,$estadoEv,$usuario)){
             return true;

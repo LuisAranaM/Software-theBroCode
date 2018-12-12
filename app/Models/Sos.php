@@ -93,20 +93,7 @@ class Sos extends Eloquent
 
 	}
 	static function getinformacionObj($idSemestre,$idEspecialidad){
-		/*$sql=DB::table(DB::Raw("(SELECT 
-			ID_ESPECIALIDAD,ID_SEMESTRE,
-			NOMBRE
-			FROM SOS
-			WHERE ESTADO=1
-			UNION
-			SELECT 
-			ID_ESPECIALIDAD,ID_SEMESTRE,
-			NOMBRE
-			FROM EOS
-			WHERE ESTADO=1
-			
-
-		)"));*/
+	
 		$first = DB::table('SOS')
 		->select('ID_SOS', 'NOMBRE',DB::Raw('1 AS TIPO'))
 		->where('ESTADO','=',1)
@@ -121,11 +108,8 @@ class Sos extends Eloquent
 		->union($first)
 		->get();
 		
-		//dd($second);
 		return   $second;
 
-		//$equis = "hola";
-		//return $equis;
 	}
 
 	function copiarObj($idSemestre,$idEspecialidad,$objetivos,$idUsuario){
@@ -133,12 +117,9 @@ class Sos extends Eloquent
 		$status=true;
 		$estado=1;
 
-        //dd($rubrica);
-		//dd($resultadoIngresar);
-		try {
+    	try {
 			foreach ($objetivos as $obj) {
-        	//dd($resultado);
-				if($obj.TIPO==1){
+    			if($obj.TIPO==1){
 					DB::table('SOS')
 				->insert(['NOMBRE'=>$obj.NOMBRE,'ID_SEMESTRE'=>$idSemestre,'ID_ESPECIALIDAD'=>$idEspecialidad,'FECHA_REGISTRO'=>Carbon::now(),'FECHA_ACTUALIZACION'=>Carbon::now(),'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>$estado]);
 				}
@@ -180,17 +161,15 @@ class Sos extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-        //dd($status);
-		return $status;
-        //dd($sql->get());
+    	return $status;
+        
 	}
 
 	
 	function editarSos($registro){
-        //dd($registro);    
-		DB::beginTransaction();
+        DB::beginTransaction();
 		$status = true;
-		//dd($registro);
+		
 		try {
 			DB::table('SOS')
 			->where('ID_SOS','=',$registro['ID_SOS'])
@@ -204,9 +183,9 @@ class Sos extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-        //dd($status);
-		return $status;
-        //dd($sql->get());
+        
+        return $status;
+        
 	}
 
 	function agregarSos($registro){
@@ -224,9 +203,7 @@ class Sos extends Eloquent
 			$status = false;
 			DB::rollback();
 		}
-        //dd($status);
-		return $status;
-        //dd($sql->get());
-	}
+    	return $status;
+    }
 
 }

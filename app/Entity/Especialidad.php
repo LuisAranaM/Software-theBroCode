@@ -56,7 +56,7 @@ class Especialidad extends \App\Entity\Base\Entity {
 
           function editarEspecialidad($dataEspecialidad,$idUsuario){
         $hoy=Carbon::now();
-        //dd($dataEspecialidad);
+        
         $model= new mEspecialidad();
 
         $especialidad=[
@@ -81,7 +81,7 @@ class Especialidad extends \App\Entity\Base\Entity {
 
         function eliminarEspecialidad($idEspecialidad,$idUsuario){
         $hoy=Carbon::now();
-        //dd($dataEspecialidad);
+
         $model= new mEspecialidad();
             
             if ($model->eliminarEspecialidad($idEspecialidad,$idUsuario)){

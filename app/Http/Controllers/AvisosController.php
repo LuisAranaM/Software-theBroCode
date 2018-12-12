@@ -87,7 +87,6 @@ class AvisosController extends Controller
         $desc = $request->get('_desc',null);
         $fechaIni = $request->get('_fechaIni',null);
         $fechaFin = $request->get('_fechaFin',null);
-        //dd($request->all());
         $id = eAvisos::insertAvisos($desc,$fechaIni,$fechaFin);
         return $id;
     }
@@ -107,7 +106,6 @@ class AvisosController extends Controller
 
     public function gestionAvisos() {    
         $avisos = eAvisos::getAvisos()->get();
-        //dd($avisos);
         return view('avisos.avisos')
         ->with('avisos',$avisos);
     }

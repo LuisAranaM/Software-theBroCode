@@ -58,7 +58,7 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
         //dd($cursos);
         foreach ($cursos as $curso){
             $cursoTemp= [];
-            //dd($curso->ID_CURSO);
+
             array_push($cursoTemp, $curso->CODIGO_CURSO, $curso->NOMBRE);
             $resultadosTemp = [];
             $resultadosTemp = mResultado::getResultadosByCursoExcel($curso->ID_CURSO,self::getIdSemestre(),self::getEspecialidadUsuario())->get();            

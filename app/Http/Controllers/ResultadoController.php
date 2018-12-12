@@ -50,15 +50,11 @@ class ResultadoController extends Controller
                     $descripciones = eDescripcion::getDescripcionesId($indicadores[0]->ID_INDICADOR)->toArray();
             }
         }
-        //$escalas = eEscala::getEscalas()->toArray();
-        //$first= array_shift($resultados);
-        //dd($categorias);
         return view('rubricas.gestion')
         ->with('resultados',$resultados)
         ->with('categorias',$categorias)
         ->with('indicadores', $indicadores)
         ->with('semestres', Semestre::getSemestres(null,1))
-        //->with('escalas', $escalas)
         ->with('descripciones', $descripciones);
     }
 
@@ -67,8 +63,6 @@ class ResultadoController extends Controller
         $nombreRes = $request->get('_descRes', null);
 
         $idResultado = eResultado::insertResultado($codigoRes,$nombreRes);
-        //dd("HOLI");
-        //console.log($idResultado);
         return $idResultado;
     }
     public function insertarCategoria(Request $request){
@@ -368,9 +362,7 @@ class ResultadoController extends Controller
     }
 
     public function mapeoDeIndicadores(Request $request){
-        //dd("holis");
         IndicadoresHasCurso::generarExcelIndicadoresByCurso();
-
     }
 
 }

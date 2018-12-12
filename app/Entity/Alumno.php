@@ -51,7 +51,7 @@ class Alumno extends \App\Entity\Base\Entity {
             'FECHA_ACTUALIZACION'=>Carbon::now(),
             'USUARIO_MODIF'=>$usuario,
             'ESTADO'=>1];
-        //dd($registro);
+        
         //Armamos lo que vamos a insertar
         $model= new mAlumno();
 
@@ -74,12 +74,33 @@ class Alumno extends \App\Entity\Base\Entity {
             'FECHA_ACTUALIZACION'=>Carbon::now(),
             'USUARIO_MODIF'=>$usuario,
             'ESTADO'=>1];
-        //dd($registro);
         //Armamos lo que vamos a insertar
-        //dd("HOLI");
+        
         $model= new mAlumno();
 
         if ($model->eliminarAlumnoHorario($registro)){
+            return true;
+        }else{
+            $this->setMessage('Hubo un error en el servidor de base de datos');
+            return false;
+        }
+    }
+
+    public function eliminarAlumnosHorario($checks,$idHorario,$usuario){
+        //dd($data['idAlumno']);
+        $registro=[
+            'ID_HORARIO'=>$idHorario,            
+            'ID_SEMESTRE'=>self::getIdSemestre(),
+            'ID_ESPECIALIDAD'=>self::getEspecialidadUsuario(),            
+            'FECHA_REGISTRO'=>Carbon::now(),
+            'FECHA_ACTUALIZACION'=>Carbon::now(),
+            'USUARIO_MODIF'=>$usuario,
+            'ESTADO'=>1];
+        //Armamos lo que vamos a insertar
+        
+        $model= new mAlumno();
+
+        if ($model->eliminarAlumnosHorario($registro,$checks)){
             return true;
         }else{
             $this->setMessage('Hubo un error en el servidor de base de datos');

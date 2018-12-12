@@ -68,8 +68,6 @@ class PlanesDeMejora extends Eloquent
         ->where('ESTADO','=',1)
         ->where('ID_ESPECIALIDAD','=',$idEspecialidad)
         ->get()->toArray();
-        //dd($acreditacion);
-        //dd($sql);
         return $sql;
     }
 

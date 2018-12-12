@@ -78,11 +78,6 @@ class Curso extends Eloquent
 		return $this->hasMany(\App\Models\Horario::class, 'ID_CURSO');
 	}
 
-	/*public function subcriterios()
-	{
-		return $this->belongsToMany(\App\Models\Subcriterio::class, 'subcriterios_has_cursos', 'ID_CURSO', 'ID_SUBCRITERIO');
-	}*/
-
     static function getIdCurso2($codCurso){
         $ans = DB::table('CURSOS')
                 ->select('*')

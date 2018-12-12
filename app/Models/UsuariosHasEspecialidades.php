@@ -81,6 +81,5 @@ class UsuariosHasEspecialidades extends Eloquent
 			DB::rollback();
 		}
 		return $status;
-        //dd($sql->get());
-	}
+    }
 }

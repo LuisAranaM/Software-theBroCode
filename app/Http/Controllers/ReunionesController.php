@@ -25,7 +25,6 @@ class ReunionesController extends Controller
     }
     function resultadosFiltroDocs(Request $request){
 
-        //flash('Se ha generado el reporte de resultados por ciclo correctamente.')->success();
         return PlanesDeMejora::resultadosFiltroDocs($request->get('anhoInicio'),$request->get('semIni'),$request->get('anhoFin'),$request->get('semFin'),$request->get('tipo'));
         
     }
@@ -39,25 +38,18 @@ class ReunionesController extends Controller
                 flash('No ha seleccionado un archivo, inténtelo nuevamente')->error();
                 return back();
             }
-            #$semestre_actual = Entity::getIdSemestre();
             $semestreActual = Entity::getIdSemestre();
             $especialidad = Entity::getEspecialidadUsuario();
-            //dd($especialidad);
             $usuario = Auth::user();
             $idUsuario = Auth::id();
             $nameOfFile = pathinfo(Input::file('archivo')->getClientOriginalName(), PATHINFO_FILENAME);
             $extensionOfFile = pathinfo(Input::file('archivo')->getClientOriginalName(), PATHINFO_EXTENSION);  //Get extension of file
-            //dd($nameOfFile,$extensionOfFile);
             $file->storePubliclyAs('upload', $nameOfFile.'.'.$extensionOfFile, 'public');
-            //dd($file);
-            //dd("HOLA");
             $path = base_path() . '\public\upload' . '\\' . $nameOfFile.'.'.$extensionOfFile ;
             $fecha = date("Y-m-d H:i:s");
 
-            //dd($semestre);
             #creationg array for data
             $data = array('RUTA'=>$path, 'FECHA_REGISTRO'=>$fecha, 'FECHA_ACTUALIZACION'=>$fecha, 'USUARIO_MODIF'=>$idUsuario,'ESTADO'=>1, 'NOMBRE'=>$nameOfFile.'.'.$extensionOfFile,'ID_SEMESTRE'=>$semestreActual,'ID_ESPECIALIDAD'=>$especialidad, 'DOCUMENTO_ANHO'=>$semestre[0], 'DOCUMENTO_SEMESTRE'=>$semestre[1],'TIPO_DOCUMENTO'=>$tipoDoc);
-            //dd($data);
             $idProyecto = DB::table('DOCUMENTOS_REUNIONES')->insertGetId(
                 $data
             );
@@ -72,22 +64,18 @@ class ReunionesController extends Controller
     }
 
     public function descargarDocumentosReuniones(Request $request){      
-        //dd($request->all(),$request->get('botonSubmit',null));  
         $tipo=$request->get('botonSubmit',null);
         $checks=$request->get('checkDocs',null);
 
         if($checks!=NULL){
             //Funciones
             if($tipo=="Elim"){
-               // dd('Elim');
                 try{
                     $files = array();
                     $cant = 0;
-                    foreach ($checks as $key => $value) {
-                        //dd($value);
-                        //
-                        //dd(public_path());
-                        $file= public_path(). "/upload//".$value;
+                    foreach ($checks as $value) {
+                        $arreglo=explode('@',$value);
+                        $file= public_path(). "/upload//".$arreglo[0];
                         /*NO BORRAR esto es para eliminar fisicamente el archivo
 
                         $dirHandle = opendir(public_path(). "/upload/");
@@ -100,10 +88,8 @@ class ReunionesController extends Controller
                         closedir($dirHandle);
                         */
                         //Esto es para cambiar el estado a cero
-                        //dd($file);
-                        //dd("HOLI",$request->all());
                         DB::table('DOCUMENTOS_REUNIONES')
-                        ->where('NOMBRE', '=',$value)
+                        ->where('ID_DOCUMENTO', '=',$arreglo[1])
                         ->update(['ESTADO' => 0]);
                         $cant = $cant + 1;
                     } 
@@ -114,7 +100,6 @@ class ReunionesController extends Controller
                     flash('No se ha podido eliminar el(los) archivo(s) seleccionado(s), favor intentar de nuevo.')->error();
                 }
             }else{
-                //dd('Desc');
                 try{
                     $dirHandle = opendir(public_path(). "/upload//");
                     $dir = public_path(). "/upload//";
@@ -130,19 +115,17 @@ class ReunionesController extends Controller
                 }
 
                 $files = array();
-                foreach ($checks as $key => $value) {
-                    $file= public_path(). "/upload/".$value;
+                foreach ($checks as $value) {
+                    $arreglo=explode('@',$value);
+                    $file= public_path(). "/upload/".$arreglo[0];
                     array_push($files, $file);
                 } 
 
-                //dd($files);
                 \Zipper::make(public_path('/upload/comprimido.zip'))->add($files)->close();
                 return response()->download(public_path('/upload/comprimido.zip'));
             }
         }
         else{
-            //alert('No se ha seleccionado ningún documento para descargar.');
-            //flash('No se ha seleccionado ningún documento para descargar.')->success();
             return back();
         }
        

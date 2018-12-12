@@ -59,7 +59,6 @@ class EscalaCalificacion extends Eloquent
         $sql = DB::table('ESCALA_CALIFICACION')
                 ->select('ID_ESCALA','NOMBRE')
                 ->where('ESTADO','=', 1);
-        //dd($sql->get());
         return $sql;
     }
 

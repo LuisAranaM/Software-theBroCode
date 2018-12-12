@@ -3,10 +3,10 @@ $( document ).ready(function() {
 
 	function myFunction(x) {
 	    if (x.matches) { // If media query matches
-	 
-	        $('.semLabel').css("display", "block");
+	    	
+	    	$('.semLabel').css("display", "block");
 	    } else {
-	    
+	    	
 	    	$('.semLabel').css("display", "inline-block");
 	    }
 	}
@@ -77,7 +77,6 @@ $( document ).ready(function() {
 	var anhoInicio;
 	var anhoFin;
 	$('#btnBuscarDocs').click(function(e) {
-		console.log("HOLA");
 		array = []
 		$("input:checkbox[name=checkDocs]:checked").each(function(){
 			array.push($(this).val());
@@ -88,7 +87,6 @@ $( document ).ready(function() {
 		cicloIni = semIni.split("-");
 		cicloFin = semFin.split("-");
 		tipo = document.getElementById('doctipo').options[document.getElementById('doctipo').selectedIndex].text;
-		console.log(tipo);
 		filtrarDocumentosReuniones(cicloIni[0],cicloIni[1],cicloFin[0],cicloFin[1],tipo);
 		e.preventDefault();
 	});
@@ -140,11 +138,9 @@ $( document ).ready(function() {
 
 			},
 			error: function (xhr, status, text) {
-           // e.preventDefault();
-           alert('Hubo un error al buscar la información');
-            //item.removeClass('hidden').prev().addClass('hidden');
-        }
-    });
+				alert('Hubo un error al buscar la información');
+			}
+		});
 	}
 
 });

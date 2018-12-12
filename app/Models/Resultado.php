@@ -56,21 +56,17 @@ class Resultado extends Eloquent
 	];
 
 	static function getResultados($idSem,$idEsp) {
-		//dd($idSem);
 		$sql = DB::table('RESULTADOS')
 		->select('ID_RESULTADO', 'NOMBRE', 'DESCRIPCION')
 		->where('ESTADO','=',1)
 		->where('ID_SEMESTRE','=',$idSem)
 		->where('ID_ESPECIALIDAD','=',$idEsp)
 		->orderBy('NOMBRE', 'ASC');
-        //dd($sql->get());
-		return $sql;
+        return $sql;
 
 	}
 	
 	static function getResultadosbyIdCurso($idCurso,$idSem,$idEsp,$idResultado=null,$orden=null) {
-		//dd($idCurso,$idSem,$idEsp);
-		//if ($orden=='desc')dd($idResultado);
 		$sql = DB::table('INDICADORES_HAS_CURSOS')
 		->where('INDICADORES_HAS_CURSOS.ID_CURSO','=',$idCurso)
 		->leftJoin('RESULTADOS', 'RESULTADOS.ID_RESULTADO', '=', 'INDICADORES_HAS_CURSOS.ID_RESULTADO')
@@ -80,12 +76,10 @@ class Resultado extends Eloquent
 		->where('INDICADORES_HAS_CURSOS.ESTADO','=',1)
 		->distinct();
 
-		//Arana		
 		if($idResultado!=NULL){
 			if($orden!=NULL){
 				if($orden=='desc'){
 					$sql=$sql->where('RESULTADOS.ID_RESULTADO','<',$idResultado);	
-					//dd($sql->get());	
 				}						
 				else
 					$sql=$sql->where('RESULTADOS.ID_RESULTADO','>',$idResultado);
@@ -103,8 +97,7 @@ class Resultado extends Eloquent
 		else{
 			$sql=$sql->get();
 		}
-        //dd($sql->get());
-		return $sql;
+        return $sql;
 	}
 	
 	static function getResultadosbyCurso($idCurso,$idSem,$idEsp){
@@ -180,8 +173,7 @@ class Resultado extends Eloquent
 	static function deleteResultado($id){
 		DB::beginTransaction();
 		try {
-        	//dd($id);
-			DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
+        	DB::table('RESULTADOS')->where('ID_RESULTADO',$id)
 			->update(
 				['ESTADO' => 0]);
 			DB::commit();
@@ -209,8 +201,7 @@ class Resultado extends Eloquent
 		->where('ID_SEMESTRE','=',$idSemestre)
 		->where('ID_ESPECIALIDAD','=',$idEspecialidad);
 
-    	//dd($sql->get());
-		return $sql;
+    	return $sql;
 	}
 
 	function copiarRubrica($idSemestre,$idEspecialidad,$rubrica,$idUsuario){
@@ -220,12 +211,9 @@ class Resultado extends Eloquent
 		$idCategoriaIngresar=-1;
 		$idIndicadorIngresar=-1;
 		$idDescripcionIngresar=-1;
-        //dd($rubrica);
-		//dd($resultadoIngresar);
-		try {
+        try {
 			foreach ($rubrica as $resultado) {
-        	//dd($resultado);
-				$resultadoIngresar=[
+        		$resultadoIngresar=[
 					'ID_SEMESTRE'=>$idSemestre,
 					'ID_ESPECIALIDAD'=>$idEspecialidad,
 					'NOMBRE'=>$resultado['RESULTADO'],
@@ -236,10 +224,8 @@ class Resultado extends Eloquent
 					'ESTADO'=>1,
 				];
 				$idResultadoIngresar= DB::table('RESULTADOS')->insertGetId($resultadoIngresar);
-        	//dd($resultadoIngresar);
-				foreach ($resultado['CATEGORIAS'] as $categorias) {
-        		//dd($categorias);
-					$categoriaIngresar=[
+        		foreach ($resultado['CATEGORIAS'] as $categorias) {
+        			$categoriaIngresar=[
 						'ID_RESULTADO'=>$idResultadoIngresar,
 						'ID_SEMESTRE'=>$idSemestre,
 						'ID_ESPECIALIDAD'=>$idEspecialidad,
@@ -250,10 +236,9 @@ class Resultado extends Eloquent
 						'ESTADO'=>1,
 					];
 					$idCategoriaIngresar= DB::table('CATEGORIAS')->insertGetId($categoriaIngresar);
-        		//dd($categoriaIngresar);
-					foreach($categorias['INDICADORES'] as $indicadores){
-        			//dd($indicadores);
-						$indicadoresIngresar=[
+        
+        			foreach($categorias['INDICADORES'] as $indicadores){
+        				$indicadoresIngresar=[
 							'ID_CATEGORIA'=>$idCategoriaIngresar,
 							'ID_SEMESTRE'=>$idSemestre,
 							'ID_ESPECIALIDAD'=>$idEspecialidad,
@@ -265,10 +250,8 @@ class Resultado extends Eloquent
 							'ESTADO'=>1,
 						];
 						$idIndicadorIngresar= DB::table('INDICADORES')->insertGetId($indicadoresIngresar);
-        			//dd($indicadoresIngresar);
-						foreach ($indicadores['DESCRIPCIONES'] as $descripciones) {
-        				//dd($descripciones);
-							$descripcionesIngresar=[
+        				foreach ($indicadores['DESCRIPCIONES'] as $descripciones) {
+        					$descripcionesIngresar=[
 								'ID_INDICADOR'=>$idIndicadorIngresar,        			
 								'NOMBRE'=>$descripciones['NOMBRE_DESCRIPCION'],
 								'VALORIZACION'=>$descripciones['VALORIZACION'],
@@ -278,8 +261,7 @@ class Resultado extends Eloquent
 								'USUARIO_MODIF'=>$idUsuario,
 								'ESTADO'=>1,
 							];
-        			//dd($descripcionesIngresar);
-							$idDescripcionIngresar= DB::table('DESCRIPCIONES')->insertGetId($descripcionesIngresar);
+        					$idDescripcionIngresar= DB::table('DESCRIPCIONES')->insertGetId($descripcionesIngresar);
 						}
 					}
 				}

@@ -27,7 +27,6 @@ class Curso extends \App\Entity\Base\Entity {
     }
 
     static function getCursosYHorarios($usuario=null){
-        //dd(Carbon::now());
         return mCurso::getCursosYHorarios(self::getEspecialidadUsuario(),self::getIdSemestre(),$usuario);
     }
 
@@ -97,13 +96,13 @@ class Curso extends \App\Entity\Base\Entity {
     }
 
     static function getCursosByResultado($idSemestre,$idResultado){
-        //Para gráfico de Ronie 
+        //Para gráfico 3 
         $model = new mCurso();
         return $model->getCursosByResultado(self::getEspecialidadUsuario(),$idSemestre,$idResultado)->get();
     }
 
     static function graficoHorariosxResultado($idSemestre, $idResultado, $idCurso){
-        //Para gráfico de Ronie 
+        //Para gráfico 3 
         $model = new mCurso();
         return $model->getDatagraficoHorariosxResultado($idSemestre, $idResultado, $idCurso)->get();
     }

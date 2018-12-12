@@ -16,16 +16,16 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 			<h1 class="mainTitle"> Gestión de Objetivos </h1>
 		</div>
 	</div>
-
+	<!--
 	@if((count($objetivosSos)==0) and (count($objetivosEos)==0))
 	<div class="row">
 		<div class="col-md-12 col-xs-12" style="text-align: right">
 			<button type="button" class="customButtonLarge customButtonRubr btn btn-success btn-lg pText" id="btnCopiarConfiguracionObj" style="border-color: transparent"> Copiar Configuración</button>
 		</div>	
 	</div>
-	<!--<a id="btnCopiarConfiguracion" style="cursor: pointer;">Copiar configuración de semestre pasado (solo mostrar cuando está vacío rubricas)</a>-->
-	@endif
 
+	@endif
+	-->
 
 	@include('flash::message')
 	<div class="row">
@@ -38,7 +38,7 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 						<table class="table table-striped jambo_table bulk_action">
 							<thead >
 								<tr class="headings" style="background-color: #005b7f; color: white; font-family: Segoe UI">
-									<th class="pText column-title" style="border: none;text-align:center;">Objetivos Educacionales</th>
+									<th class="pText column-title" style="border: none; text-align:center;">Objetivos Educacionales</th>
 									<th class="pText column-title" style="border: none; text-align: center;"></th>
 
 
@@ -56,10 +56,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 										@if(!$modoSoloLectura)
 										<i idEOS="{{$eo->ID_EOS}}" nombreEOS="{{$eo->NOMBRE}}" class="elimEo fas fa-trash fa-md" style=" cursor: pointer"</i>
 										@endif
-											<!--<label>
-												<input type="checkbox" class="form-check-input checkSo" 
-												name="checkSelectso[]" value="{{$eo->ID_EOS}}" style="text-align: center;"><span class="pText label-text "></span>
-											</label>-->
 										</td>
 
 									</tr>
@@ -88,7 +84,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<!--<label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>-->
 					<h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Objetivo del Estudiante</h4>
 				</div>
 				<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">
@@ -139,7 +134,6 @@ $modoSoloLectura=in_array(Auth::user()->ID_ROL,App\Entity\Usuario::getModoLectur
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<!--<label  class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="ModalTitle" name="codigoHorario" type="text" value=""></label>-->
 				<h4 id="gridSystemModalLabel" class="reportsTitle mainTitle modal-title" style="padding-top: 10px" id="gridSystemModalLabel">Agregar Objetivo Educacional</h4>
 			</div>
 			<hr style="padding: 0px; margin-top: 0px; margin-bottom: 0px; width: 80%">

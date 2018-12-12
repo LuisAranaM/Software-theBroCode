@@ -29,17 +29,14 @@ class Proyecto extends \App\Entity\Base\Entity {
 
         $model= new mProyecto();        
 
-        //dd(key($dataProyectos['archivos']));
         $idHorario=$dataProyectos['horario'];
         $idSemestre=self::getIdSemestre();
         $idEspecialidad=self::getEspecialidadUsuario();
         $dataSubir=[];
         $i=0;
-        //if($archivos)
         foreach ($dataProyectos['archivos'] as $key => $proyecto) {
             $idAlumno=$key;
             $nombreArchivo = pathinfo($proyecto->getClientOriginalName(), PATHINFO_FILENAME);
-            //dd($idAlumno);
             $extensionArchivo = pathinfo($proyecto->getClientOriginalName(), PATHINFO_EXTENSION);  //Get extension of file
             $proyecto->storePubliclyAs('upload', $nombreArchivo.'.'.$extensionArchivo, 'public');
             $ruta = base_path() . '\public\upload' . '\\' . $nombreArchivo.'.'.$extensionArchivo ;

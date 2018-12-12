@@ -2,7 +2,6 @@ $( document ).ready(function() {
 
   $(document).on({
         mouseenter: function () {
-            console.log("HOLI");
             $( this ).find("i.fa-trash").show();
         },
         mouseleave: function () {
@@ -17,7 +16,6 @@ $( document ).ready(function() {
 	});
 
 	$("#btnAgregar").on("click", function(){
-		console.log('HOLI');
 		if($("#textoAviso").val().length==0){
 			alert('Debe agregar una descripción');              
 		}
@@ -44,7 +42,6 @@ $( document ).ready(function() {
 
 
 	function insertarAvisos(desc, fechas, fechasBD) {
-		//console.log("HOLA");
 		$.ajax({
 			url: APP_URL + 'avisos/generar-aviso',
 			type:'POST',
@@ -94,7 +91,6 @@ $( document ).ready(function() {
     });
 
     function eliminarAviso(idAviso, botonAviso){
-    //console.log("Necesitamos agregar cursos");
     $.ajax({
         url: APP_URL + 'avisos/eliminar-aviso',
         type: 'POST',        
