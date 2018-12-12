@@ -60,7 +60,7 @@ class Indicador extends \App\Entity\Base\Entity {
     }
     static function deleteIndicador($id){
         $model =new mIndicador();
-        return $model->deleteIndicador($id);
+        $model->deleteIndicador($id);
     }
     static function graficoReporteResultadosCiclo($idSemestre){
         $model =new mIndicador();
