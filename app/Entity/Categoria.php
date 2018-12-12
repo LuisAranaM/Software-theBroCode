@@ -43,11 +43,11 @@ class Categoria extends \App\Entity\Base\Entity {
     }
     static function updateCategoria($id, $nombre){
         $model=new mCategoria();
-        return $model->updateCategoria($id, $nombre);
+        $model->updateCategoria($id, $nombre);
     }
     static function deleteCategoria($id){
         $model =new mCategoria();
-        return $model->deleteCategoria($id);
+        $model->deleteCategoria($id);
     }
 
     static function getCategoriaDeResultado($idResultado){
