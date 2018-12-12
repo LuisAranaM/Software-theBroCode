@@ -184,8 +184,10 @@ class AlumnoController extends Controller
                     		->update(['ESTADO' => 1]);
                     // Meter en alumnos_has_horarios
 					$lista = array();
+                    $cont = 0;
 					foreach($alumnosPorHorario as $h){
 						foreach($h['alumnos'] as $x){
+                            $cont++;
 							$lista[] = ['ID_ALUMNO' => $x['ID_ALUMNO'],
                                         'ID_HORARIO' => $h['idHorario'],
                                         'ID_PROYECTO' => 1,
@@ -197,6 +199,10 @@ class AlumnoController extends Controller
                                         'ESTADO' => 1];
 						}
 					}
+                    if($cont == 0){
+                        flash('Ningún alumno pertenece a algún horario válido.');
+                        return Redirect::back();
+                    }
 					DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
                 }
                 /* EN CASO SE COMUNIQUE UN MENSAJE DE CONFIRMACION*/
