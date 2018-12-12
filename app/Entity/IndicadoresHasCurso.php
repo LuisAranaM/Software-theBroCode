@@ -122,8 +122,10 @@ class IndicadoresHasCurso extends \App\Entity\Base\Entity {
                 $resultados=[];
                 $indicadores=[];
                 $longitudIndicadores=[];
+                $resultadosImprimir=[];
                 foreach ($cursos as $curso) {
                     $resultados=$curso[2];
+                    if ($resultados==NULL) return;
                     foreach ($resultados as $resultado) {
                         $nombreResultado=$resultado[0];
                         $descripcionResultado=$resultado[1];
