@@ -1,9 +1,7 @@
 $( document ).ready(function() {
-	console.log("holaaa");
 	var GBNombreEOS;
 	
 	$(document).on('click', '.elimSo', function(e){
-		console.log('HOLA');
 		e.preventDefault();    
 		e.stopPropagation();
 		var IDSOS=$(this).attr('idSOS');

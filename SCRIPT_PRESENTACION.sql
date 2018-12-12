@@ -40,6 +40,7 @@ CREATE TABLE `ALUMNOS` (
   `ESTADO` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 -- --------------------------------------------------------
 
 --
@@ -296,6 +297,24 @@ CREATE TABLE `PROYECTOS` (
   `USUARIO_MODIF` int(11) DEFAULT NULL,
   `ESTADO` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `REQUEST_LOG`
+--
+
+CREATE TABLE `REQUEST_LOG` (
+  `USUARIO` varchar(15) DEFAULT NULL,
+  `IP` varchar(20) DEFAULT NULL,
+  `SO` varchar(30) DEFAULT NULL,
+  `NAVEGADOR` varchar(30) DEFAULT NULL,
+  `FECHA` datetime DEFAULT NULL,
+  `STATUS` int(11) DEFAULT NULL,
+  `METODO` varchar(10) DEFAULT NULL,
+  `URL` varchar(200) DEFAULT NULL,
+  `PARAMETROS` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
