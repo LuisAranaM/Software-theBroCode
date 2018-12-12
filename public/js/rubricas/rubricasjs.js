@@ -170,17 +170,17 @@ $( document ).ready(function() {
 		$('.valRes').each(function() {
 			valRes.push( $(this).attr("nombre"));
 		});
-		for(i=0;i<valRes.length;i++){
-			if(valRes[i] == codRes){
-				alert("Este código ya existe! Ingrese otro Código de Resultado");
-				return;
-			};
-		}
 		$('#filasCats .cat').each(function() {
 			cat.push( $(this).val());
 			catIds.push($(this).parent().attr("id"));
 		});
 		if ($("#ModalTitle").text()=="Editar Resultado"){
+			for(i=0;i<valRes.length;i++){
+				if(valRes[i] == codRes){
+					alert("Este código ya existe! Ingrese otro Código de Resultado");
+					return;
+				};
+			}
 			var idRes= $("#modalAgregarResultado").val();
 			actualizarResultado(idRes,codRes,descRes,cat,catIds);
 			e.preventDefault();	
@@ -253,10 +253,6 @@ $( document ).ready(function() {
 		//console.log(cat[1]);
 		if ($("#ModalTitle").text()!="Agregar Nuevo Indicador"){
 			var idInd= $("#modalIndicador").attr("idInd");
-			console.log(idInd);
-			console.log(ind);
-			console.log(ordenInd);
-			console.log(res);
 			actualizarIndicador(idInd,ind,ordenInd,descs,descsNom,descsOrd,descsId,res,idCat);
 			e.preventDefault();
 		}else{
