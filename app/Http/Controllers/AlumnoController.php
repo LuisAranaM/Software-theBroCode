@@ -200,7 +200,7 @@ class AlumnoController extends Controller
 						}
 					}
                     if($cont == 0){
-                        flash('Ningún alumno pertenece a algún horario válido.');
+                        flash('Ningún alumno pertenece a algún horario del curso.');
                         return Redirect::back();
                     }
 					DB::table('ALUMNOS_HAS_HORARIOS')->insert($lista);
