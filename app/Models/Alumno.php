@@ -176,6 +176,8 @@ class Alumno extends Eloquent
 
     static function alumnoEstaEnOtroHorario(&$horarios, &$alumnos_has_horarios, &$alumnosPorHorario, &$alumno, &$idHorario, &$msg){
         // Revisar en el arreglo de alumnos_has_horarios
+        Alumno::trace('ALUMNO ACTUAL');
+        Alumno::trace($alumno['NOMBRES']);
         foreach($alumnos_has_horarios as $a){
             if($a->ID_ALUMNO == $alumno['ID_ALUMNO'] && $a->ID_HORARIO != $idHorario && $a->ESTADO == 1 ){
                 $msg = 'El alumno con codigo ';
@@ -190,6 +192,10 @@ class Alumno extends Eloquent
         // revisar en el arreglo de alumnosPorHorario
         foreach($alumnosPorHorario as $h){
             foreach($h['alumnos'] as $a){
+                Alumno::trace('ALUMNO');
+                Alumno::trace($a['NOMBRES']);
+                Alumno::trace('ESTA EN EL HORARIO');
+                Alumno::trace($h['idHorario']);
                 if($a['ID_ALUMNO'] == $alumno['ID_ALUMNO'] && $h['idHorario'] != $idHorario){
                     Alumno::trace('FAIL');
                     $msg = 'El alumno con codigo ';
