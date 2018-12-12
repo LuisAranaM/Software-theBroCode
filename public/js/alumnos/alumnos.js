@@ -102,6 +102,8 @@ $( document ).ready(function() {
 		var idAlumno = $(this).attr("idAlumno");
 		var nombAlumno = $(this).attr('nombreAlumno');
 		var codAlumno = $(this).attr('codAlumno');
+		console.log(idAlumno);
+		console.log(nombAlumno);
 		$('#alumnoACalificar').text(codAlumno + " - " + nombAlumno);
 		fetchResultados(idResultado,idCurso,idAlumno,idHorario);
 	});
