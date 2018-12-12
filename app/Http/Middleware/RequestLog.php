@@ -56,8 +56,8 @@ class RequestLog {
             'PARAMETROS'=>$params,
         ];
 
-        if(strpos($logElement['URL'],'rubrik.inf.pucp')==true)
-            DB::table('REQUEST_LOG')->insert($logElement);
+        /*if(strpos($logElement['URL'],'rubrik.inf.pucp')==true)
+            DB::table('REQUEST_LOG')->insert($logElement);*/
         Storage::append($this->_file, $logtext);
     }
 
