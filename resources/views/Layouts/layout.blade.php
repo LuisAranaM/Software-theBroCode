@@ -169,14 +169,14 @@
                   <li id="avisos" class="pText"><a style="color:#72777a" href="{{route('avisos')}}"><i class="fa fa-bell"></i> Generar Avisos</a>
                   </li>                  
                   @endif
-                  <li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
+                  <!--<li id="formatos" class="pText"><a style="color:#72777a"><i class="fa fa-download"></i>Descargar Formatos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Cursos.xlsx')}}" download="RubriK_Formato_Carga_Cursos.xlsx" style="color:#72777a">
                       Carga de Cursos</a></li>
                       <li class="pText"><a href="{{URL::asset('formatos/RubriK_Formato_Carga_Alumnos.xlsx')}}" download="RubriK_Formato_Carga_Alumnos.xlsx" style="color:#72777a">
                       Carga de Alumnos</a></li>
                     </ul>
-                  </li>
+                  </li>-->
 
                 </ul>
               </div>         

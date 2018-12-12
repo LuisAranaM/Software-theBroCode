@@ -88,8 +88,16 @@ class AlumnosHasHorario extends Eloquent
 		return $ans;
 	}
 
+	static public function getFull($idSemestre){
+		$ans = DB::table('ALUMNOS_HAS_HORARIOS')
+				->select('*')
+				->where('ID_SEMESTRE','=',$idSemestre)
+				->get();
+		return $ans;
+	}
+
 	static public function getAlumnosByIdHorario($idHorario){
-            
+          
         $ans = DB::select("SELECT *, MAX(a1.ID_PROYECTO) as ID_PROYECTO2 from ALUMNOS_HAS_HORARIOS a1
 			JOIN ALUMNOS a on (a.ID_ALUMNO = a1.ID_ALUMNO )
 
@@ -98,6 +106,17 @@ class AlumnosHasHorario extends Eloquent
 			group by a1.ID_ALUMNO
 			order by CODIGO asc;");
 		//dd($ans);
+        
+        /*$sql=DB::Table('ALUMNOS_HAS_HORARIOS AS A1')
+        	->select('A1.*','A2.*',DB::Raw('MAX(A1.ID_PROYECTO) AS ID_PROYECTO2'))
+	        ->leftJoin('ALUMNOS AS A2',function($join){
+            $join->on('A1.ID_ALUMNO','=','A2.ID_ALUMNO');
+        })
+	    ->where('A1.ID_HORARIO','=',$idHorario)
+	    ->where('A1.ESTADO','=',1)
+	    ->groupBy('A1.ID_ALUMNO')
+	    ->orderBy('CODIGO');*/
+	    
         return $ans;
 	}
 	static public function getAlumnoXHorario($idHorario){
@@ -107,5 +126,35 @@ class AlumnosHasHorario extends Eloquent
             ->orderBy('FECHA_ACTUALIZACION', 'desc')
             ->get()->toArray();
         return $ans;
+	}
+
+
+
+	static public function getAvanceByAlumno($idHorario,$idCurso){
+		
+		$sql=DB::table('ALUMNOS_HAS_HORARIOS AS AHH')
+			->select('AHH.ID_ALUMNO','RES.ID_RESULTADO','RES.CUENTA_TOTAL',DB::raw('IFNULL(IND.CUENTA_ALUMNO,0) AS CUENTA_ALUMNO'))
+		->leftJoin(DB::Raw("(
+			SELECT ID_CURSO,ID_RESULTADO,COUNT(ID_INDICADOR) CUENTA_TOTAL
+			FROM INDICADORES_HAS_CURSOS 
+			WHERE ESTADO=1
+			GROUP BY ID_CURSO,ID_RESULTADO
+		) AS RES"), function ($join){
+			$join->on(DB::Raw('1'),'=',DB::Raw('1'));
+		})
+		->leftJoin(DB::Raw("(
+			SELECT ID_HORARIO,ID_ALUMNO,ID_RESULTADO,COUNT(ID_INDICADOR) CUENTA_ALUMNO
+			FROM INDICADORES_HAS_ALUMNOS_HAS_HORARIOS
+			GROUP BY ID_HORARIO,ID_ALUMNO,ID_RESULTADO
+		) AS IND"), function ($join){
+			$join->on('IND.ID_ALUMNO','=','AHH.ID_ALUMNO');
+			$join->on('AHH.ID_HORARIO', '=' ,'IND.ID_HORARIO');
+			$join->on('IND.ID_RESULTADO','=','RES.ID_RESULTADO');
+		})
+		->where('AHH.ESTADO','=',1)
+		->where('AHH.ID_HORARIO','=',$idHorario)
+		->where('RES.ID_CURSO','=',$idCurso)
+		->orderBy('AHH.ID_ALUMNO');
+		return $sql;
 	}
 }

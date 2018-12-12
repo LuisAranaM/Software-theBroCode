@@ -422,7 +422,7 @@ aria-labelledby="gdridfrmnuavaUO" data-focus-on="input:first" style="overflow-x:
 
       <!-- Botones inferiores del modal -->
       <div class="row" style="padding-top: 5px; padding-bottom: 10px; text-align: center; display: flex;justify-content: center;">
-        <div class="col-md-4 text-left">
+        <div class="col-md-4 text-left" style="width: 100px;">
           <a id="btnDescargarGraficos3" class="btn btn-success pText customButtonLarge" style="padding-right: 5px; padding-left: 5px">Descargar Gráfico</a>
         </div>
 

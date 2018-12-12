@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 	console.log("holaaa");
-
+	var GBNombreEOS;
 	
 	$(document).on('click', '.elimSo', function(e){
 		console.log('HOLA');
@@ -45,14 +45,23 @@ $( document ).ready(function() {
 		e.stopPropagation();
 		var IDEOS=$(this).attr('idEOS');
 		var nombreEOS=$(this).attr('nombreEOS');
-		var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreEOS+"?");
-		if (resp == true) {
-			eliminarEOS(IDEOS,nombreEOS);   
-			$(this).parent().parent().remove();
-			e.preventDefault();                
-		} 
-
-		
+		console.log(GBNombreEOS);
+		console.log(nombreEOS);
+		if(GBNombreEOS!=null){
+			var resp=confirm("¿Estás seguro que deseas eliminar a "+GBNombreEOS+"?");
+			if (resp == true) {
+				eliminarEOS(IDEOS,GBNombreEOS);   
+				$(this).parent().parent().remove();
+				e.preventDefault();                
+			} 
+		}else{
+			var resp=confirm("¿Estás seguro que deseas eliminar a "+nombreEOS+"?");
+			if (resp == true) {
+				eliminarEOS(IDEOS,nombreEOS);   
+				$(this).parent().parent().remove();
+				e.preventDefault();                
+			} 
+		}
 	});
 
 	function eliminarEOS(IDEOS,nombreEOS)	{
@@ -165,27 +174,27 @@ $( document ).ready(function() {
 
 
 	$(document).on('click', '.editSo', function(){
-			var $this = $(this);
-			var nombreAtributo=$this.attr('nombreSOS');
-			var $input = $('<input>', {
-				value: nombreAtributo,
-				width: '350px',
-				blur: function() {
-					$this.attr('nombreSOS',this.value);
-					$this.text(this.value);
-				},
-				keyup: function(e) {
-					if (e.which === 13) {
-						$input.blur();
-						var IDSOS=$this.attr('idSOS');
-						var nombreSOS=$this.attr('nombreSOS');
-						editarSOS(IDSOS,nombreSOS); 
-						e.preventDefault();
-						e.stopPropagation();
-					}
+		var $this = $(this);
+		var nombreAtributo=$this.attr('nombreSOS');
+		var $input = $('<input>', {
+			value: nombreAtributo,
+			width: '350px',
+			blur: function() {
+				$this.attr('nombreSOS',this.value);
+				$this.text(this.value);
+			},
+			keyup: function(e) {
+				if (e.which === 13) {
+					$input.blur();
+					var IDSOS=$this.attr('idSOS');
+					var nombreSOS=$this.attr('nombreSOS');
+					editarSOS(IDSOS,nombreSOS); 
+					e.preventDefault();
+					e.stopPropagation();
 				}
-			}).appendTo( $this.empty() ).focus();
-		});
+			}
+		}).appendTo( $this.empty() ).focus();
+	});
 
 
 	function editarSOS(IDSOS,nombreSOS)	{
@@ -226,7 +235,8 @@ $( document ).ready(function() {
 					$input.blur();
 					var IDEOS=$this.attr('idEOS');
 					var nombreEOS=$this.attr('nombreEOS');
-		
+					GBNombreEOS = nombreEOS;
+					//location.reload();
 					editarEOS(IDEOS,nombreEOS); 
 					e.preventDefault();
 				}
@@ -249,7 +259,8 @@ $( document ).ready(function() {
 			},
 			success:function(result)
 			{
-				e.preventDefault();
+
+				//e.preventDefault();
 			},error: function (xhr, status, text) {
 				e.preventDefault();
 				alert('Hubo un error al registrar la información');           

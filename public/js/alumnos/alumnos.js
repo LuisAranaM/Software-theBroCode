@@ -3,9 +3,13 @@ $( document ).ready(function() {
 
 	$( "#calificar" ).css("border-right", "5px solid #005b7f");
 	
+	$('.noCalificar').on('click',function(){
+		var nombreAlumno=$(this).attr('nombreAlumno');
+		alert('Debes subir un proyecto para poder calificar a '+nombreAlumno);
+	});
 
 	$(".fileToUpload").on('change', function() {
-     });
+	});
 
 	$("#buscarAlumno").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
@@ -17,8 +21,55 @@ $( document ).ready(function() {
 
 	$("#closeCalificar").on("click", function() {
 		PNotify.removeAll();
+		location.reload();
 	});	
 
+
+	$('.selectAll').click(function() {
+		
+		if ($(this).prop('checked')) {
+			$('.checkAlumnos').prop('checked', true);
+		} else {
+			$('.checkAlumnos').prop('checked', false);
+		}
+	});
+
+	$('.eliminarVarios').click(function(e) {
+		var checks = $('input:checkbox.checkAlumnos').serialize();
+		var idHorario = $(this).attr('idHorario');
+		console.log(checks);
+		if (checks.length==0)
+			alert('No has seleccionado a ningún alumno');
+		else{
+			var resp=confirm("Si borras a estos alumnos, no serán considerados en la calificación. ¿Deseas continuar?");
+			if (resp == true) {
+				eliminarAlumnosMasivo(checks,idHorario);
+			} 
+		}
+	});
+
+	function eliminarAlumnosMasivo(checks,idHorario){
+		$.ajax({
+			type:'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url:APP_URL+'/eliminar-alumno-horario/masivo',
+			data:{
+				checks:checks,				
+				idHorario:idHorario,				
+			},
+			success:function(result)
+			{
+				alert('Se eliminaron los alumnos correctamente');
+				location.reload();
+
+			},error: function (xhr, status, text) {
+				e.preventDefault();
+				alert('Hubo un error al registrar la información');           
+			}
+		});
+	}
 
 	function fetchResultados(idResultado,idCurso,idAlumno,idHorario)
 	{
@@ -95,7 +146,7 @@ $( document ).ready(function() {
 		var nombreAlumno=$(this).attr('nombreAlumno');
 		var idHorario=$(this).attr('idHorario');
 		var filaAlumno=$(this).parent().parent().parent();
-		var resp=confirm("Si borras a este alumno, no sera considerado en la calificacion. Deseas borrar a "+nombreAlumno+"?");
+		var resp=confirm("Si borras a este alumno, no será considerado en la calificación. ¿Deseas borrar a "+nombreAlumno+"?");
 		var botonCurso=$(this).closest('div').closest('div');
 		if (resp == true) {
 			eliminarAlumno(idAlumno,idHorario,filaAlumno);          

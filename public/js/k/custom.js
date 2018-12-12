@@ -62,7 +62,7 @@ $(document).ready(function() {
         contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
         // normalize content
         //contentHeight -= $NAV_MENU.height();        
-        console.log(contentHeight);
+        //console.log(contentHeight);
         $RIGHT_COL.css('min-height', contentHeight);
         //$LEFT_COL.css('min-height', $RIGHT_COL.height());
     };
@@ -114,10 +114,10 @@ $(document).ready(function() {
     var $SIDEBAR_MENU = $('#sidebar-menu');
 
     $("#menu_toggle").click(function(){
-        console.log("Activamos");
-        console.log($("BODY"));
-        console.log($(".left_col"));
-        console.log($("SIDEBAR_MENU"));
+        //console.log("Activamos");
+        //console.log($("BODY"));
+        //console.log($(".left_col"));
+        //console.log($("SIDEBAR_MENU"));
         if ($("BODY").hasClass('nav-md')) {
           $('.left_col').css('width','85px');
           $('#imagenRubrik').attr("src",APP_URL+'/img/logo.png');
