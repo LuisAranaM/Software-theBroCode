@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-	console.log("holaaa");
 	var GBNombreEOS;
 	
 	$(document).on('click', '.elimSo', function(e){
@@ -247,7 +246,8 @@ $( document ).ready(function() {
 
 	function editarEOS(IDEOS,nombreEOS)	{
 
-		$.ajax({
+			if(nombreEOS){
+				$.ajax({
 			type:'POST',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -266,6 +266,12 @@ $( document ).ready(function() {
 				alert('Hubo un error al registrar la información');           
 			}
 		});
+			}else{
+				alert('La descripción no puede estar vacía'); 
+				location.reload();
+			}
+
+		
 	}
 
 });
